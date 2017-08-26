@@ -44,13 +44,16 @@ public:
 
 class uniform : public random
 {
- 
 public:
    uniform(double s):random(s){ 	   m_name = "uniform";    }                           // set value
    real next() {  		return random::next();    }
    ext_real mean() const { return 0.5; }
    ext_real variance() const { return 1.0/12.0; }
    real density(real x) const { return (x < 0.0 || x > 1.0) ? 0 : 1.0; }
+   template<typename T>
+   T next_non_standard(T min, T max) { // get a value within [min,max)
+	   return min + static_cast<T>((max - min)*next());
+   }
 };
 
 
