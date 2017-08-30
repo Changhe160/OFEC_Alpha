@@ -1,9 +1,3 @@
-// newran.cpp -----------------------------------------------------------
-
-// NEWRAN02B - 22 July 2002
-
-
-
 #include "newran.h"
 
 
@@ -27,8 +21,10 @@ real random::raw()                           // get new uniform random number
    long hi = iseed / 127773L;                 // integer division
    long lo = iseed - hi * 127773L;            // modulo
    iseed = 16807 * lo - 2836 * hi;
-   if (iseed <= 0) iseed += 2147483647L;
-   m_seed = (double)iseed; return m_seed*4.656612875e-10;
+   if (iseed <= 0) 
+	   iseed += 2147483647L;
+   m_seed = (double)iseed; 
+   return m_seed*4.656612875e-10;
 }
 
 real random::density(real) const
@@ -54,7 +50,8 @@ real random::next()                          // get new mixed random number
 #ifdef _MSC_VER
    DoNothing(i); DoNothing(i);
 #endif
-   real f = m_buffer[i]; m_buffer[i] = raw();  // Microsoft release gets this wrong
+   real f = m_buffer[i]; 
+   m_buffer[i] = raw();  // Microsoft release gets this wrong
    return f;
 
    // return Mother(&iseed);

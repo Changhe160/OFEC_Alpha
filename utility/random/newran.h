@@ -1,7 +1,28 @@
+/******************************************************************************
+* Project:Open Frameworks for Evolutionary Computation (OFEC)
+*******************************************************************************
+* Author: Changhe Li
+* Email: changhe.lw@gmail.com
+* Language: C++
+*-------------------------------------------------------------------------------
+*  This file is part of OFEC. This library is free software;
+*  you can redistribute it and/or modify it under the terms of the
+*  GNU General Public License as published by the Free Software
+*  Foundation; either version 2, or (at your option) any later version.
+*
+*  see https://github.com/Changhe160/OFEC for more information
+*
+*-------------------------------------------------------------------------------
+* Generators of different types of random numbers derived from NewRan Lib at 
+* http ://www.robertnz.net/nr02doc.htm
+*
+*********************************************************************************/
+
+
 #ifndef NEWRAN_LIB_H
 #define NEWRAN_LIB_H 0
 
-//generators of random numbers derived from NewRan Lib at http://www.robertnz.net/nr02doc.htm
+
 
 #include "../exception.h"
 #include "extreal.h"

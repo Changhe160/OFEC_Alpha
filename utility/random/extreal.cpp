@@ -1,6 +1,4 @@
 
-// extreal.cpp ----------------------------------------------------------
-
 #include "extreal.h"
 
 namespace OFEC {
