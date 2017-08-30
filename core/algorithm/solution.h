@@ -1,3 +1,24 @@
+/******************************************************************************
+* Project:Open Frameworks for Evolutionary Computation (OFEC)
+*******************************************************************************
+* Author: Changhe Li
+* Email: changhe.lw@gmail.com
+* Language: C++
+*-------------------------------------------------------------------------------
+*  This file is part of OFEC. This library is free software;
+*  you can redistribute it and/or modify it under the terms of the
+*  GNU General Public License as published by the Free Software
+*  Foundation; either version 2, or (at your option) any later version.
+*
+*  see https://github.com/Changhe160/OFEC for more information
+*
+*-------------------------------------------------------------------------------
+* class solution is designed for any kind of user-defined solution representation. 
+* It takes a variable encoding, an objective value type, an objective compaison 
+* method, and an objecitve distance method as parameters to generate a solution.
+*
+*********************************************************************************/
+
 #ifndef OFEC_SOLUTION_H
 #define OFEC_SOLUTION_H
 #include <utility>
@@ -6,14 +27,10 @@
 #include "../definition.h"
 #include "../global.h"
 
-/*
-class solution takes a variable encoding, an objective encoding, and an objective compaison methord as parameters 
-to generate a solution. 
-*/
 namespace  OFEC {
 
-	template<typename VariableEncoding = variable<double>, 
-		typename ObjetiveType = double, 
+	template<typename VariableEncoding = variable<real>, 
+		typename ObjetiveType = real, 
 		typename ObjetiveCompare = objective_compare<ObjetiveType>,
 		typename ObjetiveDistance = euclidean_distance<vector<ObjetiveType>::const_iterator, vector<ObjetiveType>::const_iterator>
 	>
