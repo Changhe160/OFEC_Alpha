@@ -31,8 +31,7 @@ namespace  OFEC {
 
 	template<typename VariableEncoding = variable<real>, 
 		typename ObjetiveType = real, 
-		typename ObjetiveCompare = objective_compare<ObjetiveType>,
-		typename ObjetiveDistance = euclidean_distance<vector<ObjetiveType>::const_iterator, vector<ObjetiveType>::const_iterator>
+		typename ObjetiveCompare = objective_compare<ObjetiveType>
 	>
 	class solution:public base{
 	public:
@@ -43,11 +42,9 @@ namespace  OFEC {
 		solution(size_t no, Args&& ... args ):m_var(std::forward<Args>(args)...),m_obj(no){ }		
 		solution(){}
 		solution(const solution& rhs) :base(rhs),m_compare(rhs.m_compare), m_var(rhs.m_var), 
-			m_obj(rhs.m_obj),m_objective_distance(rhs.m_objective_distance),m_constraint_value(rhs.m_constraint_value),
-			m_violation(rhs.m_violation){}
+			m_obj(rhs.m_obj),m_constraint_value(rhs.m_constraint_value),m_violation(rhs.m_violation){}
 		solution(solution&& rhs) :base(rhs), m_compare(std::move(rhs.m_compare)), m_var(std::move(rhs.m_var)), 
-			m_obj(std::move(rhs.m_obj)), m_objective_distance(std::move(rhs.m_objective_distance)), m_constraint_value(std::move(rhs.m_constraint_value)),
-			m_violation(std::move(rhs.m_violation)) {}
+			m_obj(std::move(rhs.m_obj)), m_constraint_value(std::move(rhs.m_constraint_value)),	m_violation(std::move(rhs.m_violation)) {}
 		solution(const VariableEncoding& var, const objective<ObjetiveType> &obj) :m_var(var), m_obj(obj) {}
 
 		solution& operator =(const solution& rhs) {
@@ -56,7 +53,6 @@ namespace  OFEC {
 			m_obj=rhs.m_obj;
 			m_compare = rhs.m_compare;
 			m_constraint_value = rhs.m_constraint_value;
-			m_objective_distance = rhs.m_objective_distance;
 			m_violation = rhs.m_violation;
 			return *this;
 		}
@@ -66,7 +62,6 @@ namespace  OFEC {
 			m_obj = std::move(rhs.m_obj);
 			m_compare = std::move(rhs.m_compare);
 			m_constraint_value = std::move(rhs.m_constraint_value);
-			m_objective_distance = std::move(rhs.m_objective_distance);
 			m_violation = std::move(rhs.m_violation);
 			return *this;
 		}
@@ -101,7 +96,6 @@ namespace  OFEC {
 			return r == dominationship::Dominating || r == dominationship::Equal;
 		}
 
-
 		bool operator<(const objective<ObjetiveType>& o)const { //this solution is donimated by o
 			return  dominationship::Dominated == m_compare(m_obj.vect(),o.vect(), global::ms_global->m_problem->opt_mode());
 		}
@@ -123,10 +117,16 @@ namespace  OFEC {
 		}
 	 
 		bool operator ==(const solution& rhs) {
-			if (dominationship::Equal != m_compare(m_obj.vect(), rhs.vect(), global::ms_global->m_problem->opt_mode()))
-				return false;
-			return global::ms_global->m_problem->equal(*this, &rhs);
+			return dominationship::Equal == m_compare(m_obj.vect(), rhs.m_obj.vect(), global::ms_global->m_problem->opt_mode());
+			//if (dominationship::Equal != m_compare(m_obj.vect(), rhs.vect(), global::ms_global->m_problem->opt_mode()))
+			//	return false;
+			//return global::ms_global->m_problem->same(*this, &rhs);
 		}
+
+		bool same(const solution& x)const {//two solutions non-donimate with each other
+			return global::ms_global->m_problem->same(*this, x);
+		}
+
 		void allocate_memory(size_t no, size_t nv) {
 			m_var.resize(nv);
 			m_obj.resize(no);
@@ -141,8 +141,10 @@ namespace  OFEC {
 			return tag;
 		}
 
-		double objective_distance(const solution& rhs) const {
-			return m_objective_distance(m_obj.begin(), m_obj.end(), rhs.m_obj.begin());
+		double objective_distance(const solution& rhs) const {			
+			if (objective_size() == 1) return fabs(m_obj[0] - rhs.m_obj[0]);
+
+			return euclidean_distance(m_obj.begin(), m_obj.end(), rhs.m_obj.begin());
 		}
 
 		double variable_distance(const solution& rhs) const {			
@@ -181,7 +183,6 @@ namespace  OFEC {
 		ObjetiveCompare m_compare;
 		VariableEncoding m_var;	
 		objective<ObjetiveType> m_obj;
-		ObjetiveDistance m_objective_distance;
 		std::pair<double, std::vector<double>> m_constraint_value;
 		violation_type m_violation = violation_type::None;
 	};
