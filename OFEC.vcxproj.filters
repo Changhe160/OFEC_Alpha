@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="test">
+      <UniqueIdentifier>{52b8722b-80bd-45fa-b16d-095571b62768}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{f68f0e85-7cdb-4fea-9579-3c219145bd35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{3ef0a687-487d-493f-8c06-86246fae20c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\algorithm">
+      <UniqueIdentifier>{fd75771a-b594-4a0e-a1e6-50c70253006e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\problem">
+      <UniqueIdentifier>{5825ddf5-b65b-4dff-99e3-fc31ee1bc1ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\random">
+      <UniqueIdentifier>{c5e3c782-e9f8-4587-81ee-d9e9b1d0b8b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\typevar">
+      <UniqueIdentifier>{88684ca9-9be1-4fff-8443-ddf322dd59e6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\algorithm\encoding.h">
+      <Filter>core\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="core\algorithm\solution.h">
+      <Filter>core\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="core\definition.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\functional.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="core\problem\problem.h">
+      <Filter>core\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="core\global.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\random\extreal.h">
+      <Filter>utility\random</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\random\newran.h">
+      <Filter>utility\random</Filter>
+    </ClInclude>
+    <ClInclude Include="core\algorithm\individual.h">
+      <Filter>core\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="core\algorithm\termination.h">
+      <Filter>core\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\myexcept.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\typevar\typevar.h">
+      <Filter>utility\typevar</Filter>
+    </ClInclude>
+    <ClInclude Include="core\algorithm\algorithm.h">
+      <Filter>core\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="core\algorithm\population.h">
+      <Filter>core\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="core\algorithm\multi_population.h">
+      <Filter>core\algorithm</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="utility\random\extreal.cpp">
+      <Filter>utility\random</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\random\newran.cpp">
+      <Filter>utility\random</Filter>
+    </ClCompile>
+    <ClCompile Include="core\problem\problem.cpp">
+      <Filter>core\problem</Filter>
+    </ClCompile>
+    <ClCompile Include="core\global.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_core.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\typevar\arithmetic.cpp">
+      <Filter>utility\typevar</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\typevar\assign.cpp">
+      <Filter>utility\typevar</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\typevar\ctor.cpp">
+      <Filter>utility\typevar</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\typevar\dynamic.cpp">
+      <Filter>utility\typevar</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\typevar\relational.cpp">
+      <Filter>utility\typevar</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\typevar\types.cpp">
+      <Filter>utility\typevar</Filter>
+    </ClCompile>
+    <ClCompile Include="core\algorithm\termination.cpp">
+      <Filter>core\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="core\algorithm\algorithm.cpp">
+      <Filter>core\algorithm</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

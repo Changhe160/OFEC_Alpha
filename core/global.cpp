@@ -15,4 +15,5 @@ namespace OFEC {
 	compute::device global::m_device = compute::system::default_device();
 #endif // USING_GPU
 
+	param_map global::ms_arg;
 }

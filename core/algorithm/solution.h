@@ -70,8 +70,11 @@ namespace  OFEC {
 			global::ms_global->m_problem->initialize(*this, idx, max_idx);
 		}
 
-		int variable_size() {		return m_var.size();	}
-		int objective_size() { return m_obj.size(); }
+		size_t variable_size() const {		return m_var.size();	}
+		size_t objective_size() const { return m_obj.size(); }
+
+		void resize_objective(int n) { m_obj.resize(n); }
+		void resize_variable(int n) { m_var.resize(n); }
 
 		bool operator>( const objective<ObjetiveType>& o) const{ //this soluton donimates objective o
 			return  dominationship::Dominating == m_compare(m_obj.vect(), o.vect(),  global::ms_global->m_problem->opt_mode());

@@ -14,26 +14,32 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* A simple exception class
+* A simple myexcept class
 *
 *********************************************************************************/
 
-#ifndef USING_EXCEPTION_H
-#define USING_EXCEPTION_H
+#ifndef USING_myexcept_H
+#define USING_myexcept_H
 
 ///
-/// exception class thrown by OFEC
+/// myexcept class thrown by OFEC
 ///
 namespace OFEC {
-	class exception {
+	class myexcept {
 	public :
-		exception(const char* message)  { m_message = message; }
-		~exception() noexcept {}
+		myexcept(const char* message)  { 
+			m_message = message; 
+		}
+		~myexcept() noexcept {}
 		const char* what() const noexcept { return m_message; }
 	private :
 		const char* m_message;
 	};
+
+#define THROW(mess) throw myexcept(mess);
+
+
 }
 
-#endif                            // end of USING_EXCEPTION_H
+#endif                            // end of USING_myexcept_H
 

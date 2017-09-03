@@ -8,7 +8,9 @@ namespace OFEC {
 inline real square(real x) { return x*x; }
 inline ext_real square(const ext_real& x) { return x*x; }
 
-static void ErrorNoSpace() { throw exception("Newran: out of space@ ErrorNoSpace()"); }
+static void ErrorNoSpace() { 
+	throw myexcept("Newran: out of space@ ErrorNoSpace()"); 
+}
 
 //************************* end of definitions ************************
 
@@ -29,9 +31,9 @@ real random::raw()                           // get new uniform random number
 
 real random::density(real) const
 {
-#ifdef USING_EXCEPTION
-	throw exception("density function not defined@random::density"); 
-#endif
+
+	throw myexcept("density function not defined@random::density"); 
+
 	return 0.0; 
 }
 
@@ -41,10 +43,8 @@ static void DoNothing(int) {}
 
 real random::next()                          // get new mixed random number
 {
-#ifdef USING_EXCEPTION
    if (!m_seed)
-      throw exception("random number generator not initialised@random::next");
-#endif
+      throw myexcept("random number generator not initialised@random::next");
 
    int i = (int)(raw()*128);               // 0 <= i < 128
 #ifdef _MSC_VER
@@ -63,10 +63,9 @@ double random::get()                  // get random number seed
 random::random(double s)            // set random number seed
                                       // s must be between 0 and 1
 {
-#ifdef USING_EXCEPTION
+
    if (s>=1.0 || s<=0.0)
-      throw exception("Newran: seed out of range@random::random");
-#endif
+      throw myexcept("Newran: seed out of range@random::random");
 
    //iseed = 2147483648L * s;         // for Mother
    m_motherseed = s;
@@ -110,9 +109,7 @@ void positive::build(bool sym)                 // set up arrays
    m_not_ready=false;
    m_sx=new real[60]; m_sfx=new real[60];
 
-#ifdef USING_EXCEPTION
    if (!m_sx || !m_sfx) ErrorNoSpace();
-#endif // USING_EXCEPTION
 
    real sxi=0.0; real inc = sym ? 0.01 : 0.02;
    for (i=0; i<60; i++)
@@ -121,13 +118,12 @@ void positive::build(bool sym)                 // set up arrays
       if (f1<=0.0) goto L20;
       sxi+=inc/f1;
    }
-#ifdef USING_EXCEPTION
-   throw exception("Newran: area too large@positive::build");
-#endif
+
+   throw myexcept("Newran: area too large@positive::build");
+
 L20:
-#ifdef USING_EXCEPTION
-   if (i<50) throw exception("Newran: area too small@positive::build");
-#endif
+   if (i<50) throw myexcept("Newran: area too small@positive::build");
+
    m_xi = sym ? 2*i : i;
    return;
 }
@@ -181,9 +177,8 @@ void asymmetric::build()                        // set up arrays
    int i;
    m_not_ready=false;
    m_sx=new real[121]; m_sfx=new real[121];
-#ifdef USING_EXCEPTION
+
    if (!m_sx || !m_sfx)  ErrorNoSpace();
-#endif
 
    real sxi=mode;
    for (i=0; i<120; i++)
@@ -192,9 +187,9 @@ void asymmetric::build()                        // set up arrays
       if (f1<=0.0) goto L20;
       sxi+=0.01/f1;
    }
-#ifdef USING_EXCEPTION
-   throw exception("Newran: area too large (a)@asymmetric::build");
-#endif
+
+   throw myexcept("Newran: area too large (a)@asymmetric::build");
+
 L20:
    ic=i-1; m_sx[120]=sxi; m_sfx[120]=0.0;
    sxi=mode;
@@ -204,13 +199,11 @@ L20:
       if (f1<=0.0) goto L30;
       sxi-=0.01/f1;
    }
-#ifdef USING_EXCEPTION
-   throw exception("Newran: area too large (b)@asymmetric::build");
-#endif
+
+   throw myexcept("Newran: area too large (b)@asymmetric::build");
 L30:
-#ifdef USING_EXCEPTION
-   if (i<100)  throw exception("Newran: area too small@asymmetric::build");
-#endif
+   if (i<100)  throw myexcept("Newran: area too small@asymmetric::build");
+
    m_xi=i;
    return;
 }
@@ -332,9 +325,9 @@ void gamma::shape(real alpha) {
 	if (alpha<1.0) m_method = new gamma1(alpha, m_motherseed);
 	else if (alpha == 1.0) m_method = new exponential(m_motherseed);
 	else m_method = new gamma2(alpha, m_motherseed);
-#ifdef USING_EXCEPTION
+
 	if (!m_method)  ErrorNoSpace();
-#endif
+
 }
 
 gamma::gamma(real alpha, double s)                         // general gamma generator
@@ -342,9 +335,8 @@ gamma::gamma(real alpha, double s)                         // general gamma gene
 	if (alpha<1.0) m_method = new gamma1(alpha,s);
 	else if (alpha == 1.0) m_method = new exponential(s);
 	else m_method = new gamma2(alpha,s);
-#ifdef USING_EXCEPTION
+
 	if (!m_method)  ErrorNoSpace();
-#endif
 
 	m_motherseed = s;	
 	m_name = "gamma";

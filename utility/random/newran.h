@@ -24,7 +24,7 @@
 
 
 
-#include "../exception.h"
+#include "../myexcept.h"
 #include "extreal.h"
 
 namespace OFEC {

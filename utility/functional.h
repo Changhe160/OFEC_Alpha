@@ -32,44 +32,38 @@ namespace OFEC {
 		/*
 		distance measures between two vector-based points
 		*/
+	template<typename Iter1, typename Iter2>
+	double euclidean_distance(Iter1 first1, Iter1 last1, Iter2 first2) {
+		double dis = 0;
+		while (first1 != last1) {
+			dis += (*first1 - *first2)*(*first1 - *first2);
+			++first1;
+			++first2;
+		}
+		dis = sqrt(dis);
+		return dis;
+	}
 
 	template<typename Iter1, typename Iter2>
-	struct euclidean_distance {
-		double operator()(Iter1 first1, Iter1 last1, Iter2 first2) const {
-			double dis = 0;
-			while (first1 != last1) {
-				dis += (*first1 - *first2)*(*first1 - *first2);
-				++first1;
-				++first2;
-			}
-			dis = sqrt(dis);
-			return dis;
+	double manhattan_distance(Iter1 first1, Iter1 last1, Iter2 first2) {
+		double dis = 0;
+		while (first1 != last1) {
+			dis += fabs(*first1++ - *first2++);
 		}
-	};
-
-
-	template<typename Iter1, typename Iter2>
-	struct manhattan_distance {
-		double operator()(Iter1 first1, Iter1 last1, Iter2 first2) const{
-			double dis = 0;
-			while (first1 != last1) {
-				dis += fabs(*first1++ - *first2++);
-			}
-			return dis;
-		}
-	};
+		return dis;
+	}
+	
 
 
 	template<typename Iter1, typename Iter2>
-	struct hamming_distance {
-		int operator()(Iter1 first1, Iter1 last1, Iter2 first2) const {
-			int dis = 0;
-			while (first1 != last1) {
-				dis += *first1++ != *first2++;
-			}
-			return dis;
+	int hamming_distance(Iter1 first1, Iter1 last1, Iter2 first2)  {
+		int dis = 0;
+		while (first1 != last1) {
+			dis += *first1++ != *first2++;
 		}
-	};
+		return dis;
+	}
+
 
 	//domination relationship between two objective vectors
 	template<typename T = double >

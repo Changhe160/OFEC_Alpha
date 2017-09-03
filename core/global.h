@@ -24,6 +24,8 @@
 
 #include "../utility/random/newran.h"
 #include "problem/problem.h"
+#include "definition.h"
+#include "../utility/typevar/typevar.h"
 
 namespace OFEC{
 
@@ -49,7 +51,7 @@ namespace OFEC{
 		static compute::device m_device;
 		compute::context context;
 #endif // USING_GPU
-
+		static param_map ms_arg;
 	};
 }
 #endif // !OFEC_GLOBAL_H

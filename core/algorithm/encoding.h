@@ -24,7 +24,7 @@
 #include <vector>
 #include <functional>
 
-#include "../../utility/exception.h"
+#include "../../utility/myexcept.h"
 #include "../../utility/functional.h"
 
 namespace OFEC {
@@ -44,15 +44,16 @@ namespace OFEC {
 	public:
 		using value_type = T;
 		using encoding = std::vector<value_type>;
+		using iterator_type = typename std::vector<value_type>::iterator;
 
 		objective(size_t n=0) :m_o(n) {}
 		objective(const objective& rhs) :m_o(rhs.m_o) {}
 		objective(const std::vector<value_type>& rhs) :m_o(rhs) {}
 		objective& operator=(const objective& rhs) {
-#ifdef USING_EXCEPTION
+
 			if (m_o.size() != rhs.m_o.size())
-				throw exception("the number of objectives is not the same~");
-#endif // USING_EXCEPTION
+				THROW("the number of objectives is not the same~");
+
 			if (this == &rhs)
 				return *this;
 
@@ -61,10 +62,9 @@ namespace OFEC {
 			return *this;
 		}
 		objective& operator=(objective&& rhs) {
-#ifdef USING_EXCEPTION
+
 			if (m_o.size() != rhs.m_o.size())
-				throw exception("the number of objectives is not the same~");
-#endif // USING_EXCEPTION
+				THROW("the number of objectives is not the same~");
 
 			m_o = std::move(rhs.m_o);
 
@@ -127,7 +127,7 @@ namespace OFEC {
 			return m_o.cend();
 		}
 
-		int size() noexcept{
+		size_t size() const noexcept{
 			return m_o.size();
 		}
 
@@ -141,32 +141,25 @@ namespace OFEC {
 	public:
 		using  value_type = typename VariableType;
 		using encoding = std::vector<value_type>;
+		using iterator_type = typename std::vector<value_type>::iterator;
 
 		variable(size_t n=0) :m_x(n) {}
 		variable(const variable& rhs) : m_x(rhs.m_x) {}
 		variable(variable&& rhs) :m_x(std::move(rhs.m_x)) {}
 		variable(const std::vector<value_type>& x) : m_x(x) {}
 		variable& operator=(const variable& rhs) {
-#ifdef USING_EXCEPTION
 			if (m_x.size() != rhs.m_x.size())
-				throw exception("the number of dimensions is not the same!");
-#endif // USING_EXCEPTION
-			
+				THROW("the number of dimensions is not the same!");
+		
 			if (this == &rhs) return *this;
-
 			m_x = rhs.m_x;
-
 			return *this;
 		}
 
 		variable& operator=(variable&& rhs) {
-#ifdef USING_EXCEPTION
 			if (m_x.size() != rhs.m_x.size())
-				throw exception("the number of dimensions is not the same!");
-#endif // USING_EXCEPTION
-
+				THROW("the number of dimensions is not the same!");
 			m_x = std::move(rhs.m_x);
-
 			return *this;
 		}
 
@@ -176,52 +169,19 @@ namespace OFEC {
 		int size() noexcept {
 			return m_x.size();
 		}
-	protected:
-		std::vector<value_type> m_x;
-	};
 
-
-	/*
-		template <typename TypeVar, typename TypeObj = double>
-	class variable :public objective<TypeObj> {
-	public:
-		using  value_type = typename TypeVar;
-		//using 
-
-		variable(size_t nd, size_t no) :objective(no) {}
-		variable(const variable& rhs) :objective(rhs), m_x(rhs.m_x) {}
-		variable(variable&& rhs) :objective(std::move(rhs)), m_x(std::move(rhs.m_x)) {}
-		variable(const std::vector<value_type>& var, const std::vector<double>& obj) :objective(obj), m_x(var) {}
-		variable& operator=(const variable& rhs) {
-#ifdef USING_EXCEPTION
-			if (m_x.size() != rhs.m_x.size())
-				throw exception("the number of dimensions is not the same!");
-#endif // USING_EXCEPTION
-			
-			if (this == &rhs) return *this;
-
-			objective::operator=(rhs);
-			m_x = rhs.m_x;
-
-			return *this;
+		iterator_type begin() noexcept {
+			return m_x.begin();
 		}
 
-		variable& operator=(variable&& rhs) {
-#ifdef USING_EXCEPTION
-			if (m_x.size() != rhs.m_x.size())
-				throw exception("the number of dimensions is not the same!");
-#endif // USING_EXCEPTION
-
-			objective::operator=(std::move(rhs));
-			m_x = std::move(rhs.m_x);
-
-			return *this;
+		iterator_type end() noexcept {
+			return m_x.end();
 		}
 
 	protected:
 		std::vector<value_type> m_x;
 	};
-	*/
+
 }
 
 #endif // !OFEC_ENCODING_H
