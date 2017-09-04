@@ -1,0 +1,26 @@
+﻿  algorithm.cpp
+  termination.cpp
+  global.cpp
+  problem.cpp
+  test_functional.cpp
+  extreal.cpp
+  newran.cpp
+  arithmetic.cpp
+  Unknown compiler version - please run the configure tests and report the results
+  Unknown compiler version - please run the configure tests and report the results
+  Unknown compiler version - please run the configure tests and report the results
+  Unknown compiler version - please run the configure tests and report the results
+  Unknown compiler version - please run the configure tests and report the results
+  assign.cpp
+  ctor.cpp
+  dynamic.cpp
+  Unknown compiler version - please run the configure tests and report the results
+  Unknown compiler version - please run the configure tests and report the results
+  Unknown compiler version - please run the configure tests and report the results
+  relational.cpp
+  types.cpp
+  Unknown compiler version - please run the configure tests and report the results
+  Unknown compiler version - please run the configure tests and report the results
+d:\github\ofec_alpha\ofec_alpha\utility\typevar\types.cpp(81): warning C4715: 'OFEC::typevar::operator unsigned __int64': not all control paths return a value
+  OFEC.vcxproj -> D:\gitHub\OFEC_Alpha\OFEC_Alpha\x64\Debug\OFEC.exe
+  OFEC.vcxproj -> D:\gitHub\OFEC_Alpha\OFEC_Alpha\x64\Debug\OFEC.pdb (Partial PDB)

@@ -83,9 +83,6 @@
     <ClCompile Include="core\global.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_core.cpp">
-      <Filter>test</Filter>
-    </ClCompile>
     <ClCompile Include="utility\typevar\arithmetic.cpp">
       <Filter>utility\typevar</Filter>
     </ClCompile>
@@ -109,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="core\algorithm\algorithm.cpp">
       <Filter>core\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_functional.cpp">
+      <Filter>test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
