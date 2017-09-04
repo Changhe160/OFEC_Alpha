@@ -153,7 +153,7 @@
     <ClCompile Include="core\algorithm\termination.cpp" />
     <ClCompile Include="core\global.cpp" />
     <ClCompile Include="core\problem\problem.cpp" />
-    <ClCompile Include="test\test_functional.cpp" />
+    <ClCompile Include="test\test_core.cpp" />
     <ClCompile Include="utility\random\extreal.cpp" />
     <ClCompile Include="utility\random\newran.cpp" />
     <ClCompile Include="utility\typevar\arithmetic.cpp" />
