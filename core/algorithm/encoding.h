@@ -170,6 +170,14 @@ namespace OFEC {
 			return m_x.size();
 		}
 
+		value_type& operator[](size_t n) {
+			return m_x[n];
+		}
+
+		const value_type& operator[](size_t n)const {
+			return m_x[n];
+		}
+
 		iterator_type begin() noexcept {
 			return m_x.begin();
 		}
