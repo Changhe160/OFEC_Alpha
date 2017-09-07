@@ -181,6 +181,12 @@ namespace  OFEC {
 			global::ms_global->m_problem->repair(*this);
 		}
 
+		inline solution & self() {
+			return *this;
+		}
+		inline const solution & self() const {
+			return *this;
+		}
 
 	protected:	
 		ObjetiveCompare m_compare;
