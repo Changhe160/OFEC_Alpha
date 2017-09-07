@@ -39,6 +39,7 @@ namespace OFEC {
 		base& operator=(base&&) = default;
 	};
 
+
 	template<typename T = double>
 	class objective {
 	public:
@@ -136,8 +137,14 @@ namespace OFEC {
 	
 	};
 
+	class variable_base {
+	public:
+		virtual void resize(size_t n) = 0;
+		virtual int size() noexcept = 0;
+	};
+
 	template <typename VariableType>
-	class variable {
+	class variable:public variable_base {
 	public:
 		using  value_type = typename VariableType;
 		using encoding = std::vector<value_type>;
