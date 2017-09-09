@@ -130,6 +130,8 @@ namespace OFEC {
 			return m_total_eval;
 		}
 	protected:
+		virtual void copy(const problem *); // copy parameter values of a problem when it changes 
+	protected:
 		std::string m_name;
 		size_t m_effective_eval = 0, m_total_eval = 0;
 		size_t m_objective_size, m_variable_size;
