@@ -28,6 +28,7 @@ namespace OFEC {
 	template<typename Individual>
 	class population: public algorithm{
 		template<typename> friend class multi_population;
+		using individual_type = Individual;
 	public:
 		using iterator_type = typename std::vector<std::shared_ptr< Individual>>::iterator;
 		//element access
@@ -75,8 +76,10 @@ namespace OFEC {
 		iterator_type operator +(const std::vector<Individual> &p);
 		iterator_type operator +(int n);// add n individuals by default constructor 
 
-		iterator_type operator-(std::vector<int> &id); //
-	
+		iterator_type operator-(std::vector<int> &id); //remove individuals by id
+		iterator_type operator-(int n); // remove n worst individuals by default
+
+
 		void sort();		
 		void rank(); //TODO: compare the ranking method in NSGAII with our own method 
 		double rank(const typename Individual::solution_type &s); // get rank of s in terms of a ranked population
@@ -86,13 +89,14 @@ namespace OFEC {
 
 		evaluation_tag evaluate(); // evaluate each individual 
 		evaluation_tag evolve();
-		void remove_overcrowd(int n); // remove the worst individuals if population size is larger than n
+		
 		
 		void reset(); // delete all individuals
 		
 		double mean(int oidx);	//mean value of the oidx-th objective
 		double variance(int oidx, double mean); //variance of the oidx-th objective
 
+		virtual void initialize(); //a uniformly distributed initialization by default
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
 	protected:
@@ -214,6 +218,13 @@ namespace OFEC {
 
 	}
 
+	template<typename Individual>
+	void population<Individual>::initialize() {
+		for (size_t i = 0; i < m_pop.size(); ++i) {
+			m_pop[i]->initialize(i);
+		}
+			
+	}
 }
 
 #endif // !OFEC_POPULATION_H

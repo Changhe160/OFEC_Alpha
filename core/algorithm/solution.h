@@ -66,8 +66,8 @@ namespace  OFEC {
 			return *this;
 		}
 
-		void initialize(int idx = 0, int max_idx = 0) {
-			global::ms_global->m_problem->initialize(*this, idx, max_idx);
+		virtual void initialize() {
+			global::ms_global->m_problem->initialize_solution(*this);
 		}
 
 		template<typename Initializer, typename... Args>
@@ -162,11 +162,19 @@ namespace  OFEC {
 			return global::ms_global->m_problem->variable_distance(m_var, x);
 		}
 
-		vector<objective_type>& objective_vect() {
+		const variable_encoding& get_variable()const {
+			return m_var;
+		}
+
+		variable_encoding& get_variable(){
+			return m_var;
+		}
+
+		vector<objective_type>& get_objective() {
 			return m_obj.vect();
 		}
 
-		const vector<objective_type>& objective_vect()const {
+		const vector<objective_type>& get_objective()const {
 			return m_obj.vect();
 		}
 
@@ -184,11 +192,6 @@ namespace  OFEC {
 				m_obj[i] = (global::ms_global->m_problem->opt_mode(i) == optimization_mode::Minimization) ? std::numeric_limits<objective_type>::max() : std::numeric_limits<objective_type>::min();
 			
 		}
-
-		void repair() {
-			global::ms_global->m_problem->repair(*this);
-		}
-
 
 	protected:	
 		ObjetiveCompare m_compare;

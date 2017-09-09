@@ -140,7 +140,7 @@ namespace OFEC {
 	class variable_base {
 	public:
 		virtual void resize(size_t n) = 0;
-		virtual int size() noexcept = 0;
+		virtual size_t size() noexcept = 0;
 	};
 
 	template <typename VariableType>
@@ -150,7 +150,7 @@ namespace OFEC {
 		using encoding = std::vector<value_type>;
 		using iterator_type = typename std::vector<value_type>::iterator;
 
-		variable(size_t n=0) :m_x(n) {}
+		variable(size_t n=0) :m_x(n){}
 		variable(const variable& rhs) : m_x(rhs.m_x) {}
 		variable(variable&& rhs) :m_x(std::move(rhs.m_x)) {}
 		variable(const std::vector<value_type>& x) : m_x(x) {}
@@ -173,7 +173,7 @@ namespace OFEC {
 		void resize(size_t n) {
 			m_x.resize(n);
 		}
-		int size() noexcept {
+		size_t size() noexcept {
 			return m_x.size();
 		}
 
@@ -184,7 +184,12 @@ namespace OFEC {
 		iterator_type end() noexcept {
 			return m_x.end();
 		}
-
+		const value_type& operator[](size_t i)const{
+			return m_x[i];
+		}
+		value_type& operator[](size_t i){
+			return m_x[i];
+		}
 	protected:
 		std::vector<value_type> m_x;
 	};
