@@ -39,9 +39,9 @@ namespace OFEC {
 		individual(const solution_type &s) :solution(s) {}
 		
 		explicit individual() :solution() {}
-		virtual void initialize(int id=0, int idx=0, int max_idx = 0) {
+		virtual void initialize(int id) {
 			m_id = id;
-			solution::initialize(idx, max_idx);
+			solution::initialize();
 		}
 
 		void set_id(int id)noexcept{

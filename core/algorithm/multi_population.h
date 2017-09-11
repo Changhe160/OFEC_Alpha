@@ -34,7 +34,7 @@ namespace OFEC {
 
 		multi_population(int n) :m_sub(n) {}
 		multi_population(int n,int subsize) :m_sub(n, new Population(subsize)) {}
-		evaluation_tag evaluate();
+		
 		void resize_objective(int n);
 		void resize_variable(int n);
 

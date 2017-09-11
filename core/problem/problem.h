@@ -32,8 +32,11 @@
 namespace OFEC {
 	class problem {
 	public:
+		problem(const string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var), m_objective_size(size_obj) {
+
+		}
 		virtual ~problem() {}
-		
+
 		optimization_mode opt_mode(size_t idx) const {
 			return m_opt_mode[idx];
 		}
@@ -41,7 +44,8 @@ namespace OFEC {
 			return m_opt_mode;
 		}
 		virtual bool same(const base &s1, const base &s2) const = 0;
-		virtual double variable_distance(const base &s1, const base &s2) const =0;
+		virtual double variable_distance(const base &s1, const base &s2) const = 0;
+		virtual double variable_distance(const variable_base &s1, const variable_base &s2) const = 0;
 
 		template<typename Solution>
 		evaluation_tag evaluate(Solution &s, caller call, bool effective_eval = true) {
@@ -52,15 +56,15 @@ namespace OFEC {
 
 			return tag;
 		}
-		virtual evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed)=0;
+		virtual evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed) = 0;
 
-		const std::string& name() const{
+		const std::string& name() const {
 			return m_name;
 		}
 
-		virtual violation_type check_violation(const base &)=0;
-		virtual void constraint_value(const base &, std::pair<double,vector<double>>&)=0;
-		
+		virtual violation_type check_violation(const base &) const = 0;
+		virtual void constraint_value(const base &, std::pair<double, vector<double>>&) = 0;
+
 		template<typename Solution>
 		static void initialize_objective_minmax(const Solution &s) {
 			for (int i = 0; i < m_objective_size; ++i) {
@@ -73,15 +77,15 @@ namespace OFEC {
 		static void update_objective_minmax(const Solution &s) {
 			for (int i = 0; i < m_objective_size; ++i) {
 				if (m_opt_mode[i] == optimization_mode::Minimization) {
-					if (ms_minmax_objective[i].first->objective_vect()[i] > s.objective_vect()[i])
+					if (ms_minmax_objective[i].first->get_objective()[i] > s.get_objective()[i])
 						*ms_minmax_objective[i].first = s;
-					if (ms_minmax_objective[i].second->objective_vect()[i] < s.objective_vect()[i])
+					if (ms_minmax_objective[i].second->get_objective()[i] < s.get_objective()[i])
 						*ms_minmax_objective[i].second = s;
 				}
 				else {
-					if (ms_minmax_objective[i].first->objective_vect()[i] < s.objective_vect()[i])
+					if (ms_minmax_objective[i].first->get_objective()[i] < s.get_objective()[i])
 						*ms_minmax_objective[i].first = s;
-					if (ms_minmax_objective[i].second->objective_vect()[i] > s.objective_vect()[i])
+					if (ms_minmax_objective[i].second->get_objective()[i] > s.get_objective()[i])
 						*ms_minmax_objective[i].second = s;
 				}
 			}
@@ -95,16 +99,15 @@ namespace OFEC {
 			}
 		}
 
-		virtual void initialize(base &s, int idx, int max_idx) = 0;
-		virtual void repair(base &) = 0;
+		virtual void initialize_solution(base &s) const = 0;
 
 		virtual double feasible_ratio() { return 1.0; }
 
-		int variable_size() const { 
-			return m_variable_size; 
+		size_t variable_size() const {
+			return m_variable_size;
 		}
-		int objective_size() const {
-			return m_objective_size; 
+		size_t objective_size() const {
+			return m_objective_size;
 		}
 		void set_tag(const set<problem_tag> &tag) {
 			m_tag = tag;
@@ -120,31 +123,30 @@ namespace OFEC {
 		bool solved() {
 			return m_solved;
 		}
-		int evaluations() {
+		size_t evaluations() {
 			return m_effective_eval;
 		}
-		int total_evaluations() {
+		size_t total_evaluations() {
 			return m_total_eval;
 		}
 	protected:
+		virtual void copy(const problem *); // copy parameter values of a problem when it changes 
+	protected:
 		std::string m_name;
-
-		int m_effective_eval = 0, m_total_eval = 0;
-		int m_objective_size, m_variable_size;
-
+		size_t m_effective_eval = 0, m_total_eval = 0;
+		size_t m_objective_size, m_variable_size;
 		std::vector<optimization_mode> m_opt_mode;
-
-		double m_objective_accuracy=1.0e-6;
+		double m_objective_accuracy = 1.0e-6;
 		std::set<problem_tag> m_tag;
 		std::stringstream m_paramters;
 		bool m_solved = false;
 #ifdef OFEC_CONSOLE
-		static thread_local std::map<int,pair<unique_ptr<base>, unique_ptr<base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
+		static thread_local std::map<int, pair<unique_ptr<base>, unique_ptr<base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
 #endif
 #ifdef OFEC_DEMON
 		static std::map<int, pair<unique_ptr<base>, unique_ptr<base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
 #endif	
-	
+
 	};
 
 }
