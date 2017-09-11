@@ -42,9 +42,9 @@ namespace  OFEC {
 		solution(size_t no, Args&& ... args ):m_var(std::forward<Args>(args)...),m_obj(no){ }		
 		solution(){}
 		solution(const solution& rhs) :base(rhs),m_compare(rhs.m_compare), m_var(rhs.m_var), 
-			m_obj(rhs.m_obj),m_constraint_value(rhs.m_constraint_value),m_violation(rhs.m_violation){}
+			m_obj(rhs.m_obj),m_constraint_value(rhs.m_constraint_value){}
 		solution(solution&& rhs) :base(rhs), m_compare(std::move(rhs.m_compare)), m_var(std::move(rhs.m_var)), 
-			m_obj(std::move(rhs.m_obj)), m_constraint_value(std::move(rhs.m_constraint_value)),	m_violation(std::move(rhs.m_violation)) {}
+			m_obj(std::move(rhs.m_obj)), m_constraint_value(std::move(rhs.m_constraint_value)) {}
 		solution(const variable_encoding& var, const objective<objective_type> &obj) :m_var(var), m_obj(obj) {}
 
 		solution& operator =(const solution& rhs) {
@@ -53,7 +53,6 @@ namespace  OFEC {
 			m_obj=rhs.m_obj;
 			m_compare = rhs.m_compare;
 			m_constraint_value = rhs.m_constraint_value;
-			m_violation = rhs.m_violation;
 			return *this;
 		}
 
@@ -62,7 +61,6 @@ namespace  OFEC {
 			m_obj = std::move(rhs.m_obj);
 			m_compare = std::move(rhs.m_compare);
 			m_constraint_value = std::move(rhs.m_constraint_value);
-			m_violation = std::move(rhs.m_violation);
 			return *this;
 		}
 
@@ -139,13 +137,8 @@ namespace  OFEC {
 			m_obj.resize(no);
 		}
 		evaluation_tag evaluate(bool effective_eval=true) {
-			evaluation_tag tag = evaluation_tag::Normal;
-
-			if(m_violation!=violation_type::Boundary)
-			tag = global::ms_global->m_problem->evaluate(*this, caller::Algorithm, effective_eval);
-			else tag = evaluation_tag::Infeasible;
-
-			return tag;
+				
+			return  global::ms_global->m_problem->evaluate(*this, caller::Algorithm, effective_eval);
 		}
 
 		double objective_distance(const solution& rhs) const {			
@@ -178,9 +171,14 @@ namespace  OFEC {
 			return m_obj.vect();
 		}
 
-		violation_type check_violation() {
-			return m_violation=global::ms_global->m_problem->check_violation(*this);
+		violation_type check_boundary_violation() {
+			return global::ms_global->m_problem->check_boundary_violation(*this);
 		}
+
+		violation_type check_constraint_violation() {
+			return global::ms_global->m_problem->check_constraint_violation(*this);
+		}
+
 
 		void constraint_value() {
 			global::ms_global->m_problem->constraint_value(m_constraint_value);
@@ -198,7 +196,6 @@ namespace  OFEC {
 		variable_encoding m_var;
 		objective<objective_type> m_obj;
 		std::pair<double, std::vector<double>> m_constraint_value;
-		violation_type m_violation = violation_type::None;
 	};
 
 	

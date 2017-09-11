@@ -97,6 +97,8 @@ namespace OFEC {
 		double variance(int oidx, double mean); //variance of the oidx-th objective
 
 		virtual void initialize(); //a uniformly distributed initialization by default
+		template<typename Fun, typename Problem, typename... Args>
+		void initialize(Fun fun, const Problem* pro, Args&& ... args);
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
 	protected:
@@ -224,6 +226,13 @@ namespace OFEC {
 			m_pop[i]->initialize(i);
 		}
 			
+	}
+	template<typename Individual>
+	template<typename Fun, typename Problem, typename... Args>
+	void  population<Individual>::initialize(Fun fun, const Problem* pro, Args&& ... args) {
+
+		fun(m_pop, pro, std::forward<Args>(args)...);
+
 	}
 }
 
