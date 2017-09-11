@@ -192,7 +192,7 @@ bool Matrix::isOrthogonal() {
 
 	for (int i = 0; i < m_row; i++)
 		for (int j = i+1; j < m_row; j++) {
-			if (abs(m_vec[i] * m_vec[j]) > 1e-4) return false;
+			if (fabs(m_vec[i] * m_vec[j]) > 1e-4) return false;
 		}
 	return true;
 }
