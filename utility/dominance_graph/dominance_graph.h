@@ -45,7 +45,7 @@ namespace dominance_graph {
 			if (all.size() <= 1)
 				return;
 			vector<int> state(all.size(), 0);
-			int i = 0;
+			size_t i = 0;
 			while (i < all.size()) {
 				if (state[i] != 0) {
 					i++;
@@ -53,7 +53,7 @@ namespace dominance_graph {
 				}
 				else {
 					int key = all[i];
-					for (int j = 0; j < all.size(); j++) {
+					for (size_t j = 0; j < all.size(); j++) {
 						int index = all[j];
 						if (key != index) {
 							dominationship compare_rusult = m_compare(m_nodes[key].get_obj(), m_nodes[index].get_obj(), optimization_mode::Minimization);
@@ -78,7 +78,7 @@ namespace dominance_graph {
 				}
 			}
 			vector<int> left, right;
-			for (int i = 0; i < all.size(); i++) {
+			for (size_t i = 0; i < all.size(); i++) {
 				if (state[i] == -1)
 					left.push_back(all[i]);
 				//else if (state[index] == 0) {
@@ -112,7 +112,7 @@ namespace dominance_graph {
 
 		void set_ranking() {
 
-			if (m_sorted)
+			if (!m_sorted)
 				quick_sort();
 
 			vector<size_t> _n(m_nodecount, 0);
