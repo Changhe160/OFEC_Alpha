@@ -33,6 +33,7 @@ namespace OFEC {
 		m_objective_accuracy = rhs.m_objective_accuracy;
 		m_tag = rhs.m_tag;
 		m_solved = rhs.m_solved;
+		m_paramters.str(rhs.m_paramters.str());
 		return *this;
 	}
 
@@ -40,14 +41,15 @@ namespace OFEC {
 		if (this == &rhs) return *this;
 
 		m_name = std::move(rhs.m_name);
-		m_effective_eval = std::move(rhs.m_effective_eval);
-		m_total_eval = std::move(rhs.m_total_eval);
-		m_objective_size = std::move(rhs.m_objective_size);
-		m_variable_size = std::move(rhs.m_variable_size);
+		m_effective_eval = rhs.m_effective_eval;
+		m_total_eval = rhs.m_total_eval;
+		m_objective_size = rhs.m_objective_size;
+		m_variable_size = rhs.m_variable_size;
 		m_opt_mode = std::move(rhs.m_opt_mode);
-		m_objective_accuracy = std::move(rhs.m_objective_accuracy);
+		m_objective_accuracy = rhs.m_objective_accuracy;
 		m_tag = std::move(rhs.m_tag);
-		m_solved = std::move(rhs.m_solved);
+		m_solved = rhs.m_solved;
+		m_paramters = std::move(rhs.m_paramters);
 		return *this;
 	}
 }

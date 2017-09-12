@@ -72,11 +72,11 @@ namespace OFEC {
 
 	continuous& continuous::operator=(continuous&& rhs) {
 		if (this == &rhs) return *this;
-		problem::operator=(rhs);
+		problem::operator=(std::move(rhs));
 		m_domain = std::move(rhs.m_domain);
 		m_optima = std::move(rhs.m_optima);
-		m_variable_monitor = std::move(rhs.m_variable_monitor);
-		m_objective_monitor = std::move(rhs.m_objective_monitor);
+		m_variable_monitor = rhs.m_variable_monitor;
+		m_objective_monitor = rhs.m_objective_monitor;
 		return *this;
 	}
 
@@ -98,26 +98,16 @@ namespace OFEC {
 	}
 
 	double continuous::variable_distance(const base &s1, const base &s2) const {
-		const variable<real>& x1 = dynamic_cast<const solution<variable<real>, real>&>(s1).get_variable();
-		const variable<real>& x2 = dynamic_cast<const solution<variable<real>, real>&>(s2).get_variable();
-		double dis = 0;
-
-		for (int i = 0; i < m_variable_size; i++) {
-			dis += (double)((x1[i] - x2[i])*(x1[i] - x2[i]));
-		}
-		return sqrt(dis);
+		const variable<real>& x1 = dynamic_cast<const variable<real>&>(s1);
+		const variable<real>& x2 = dynamic_cast<const variable<real>&>(s2);
+		return euclidean_distance(x1.begin(),x1.end(), x2.begin());   //??
 
 	}
 
 	double continuous::variable_distance(const variable_base &s1, const variable_base &s2) const {
-		const variable<real>& x1 = dynamic_cast<const solution<variable<real>, real>&>(s1).get_variable();
-		const variable<real>& x2 = dynamic_cast<const solution<variable<real>, real>&>(s2).get_variable();
-		double dis = 0;
-
-		for (int i = 0; i < m_variable_size; i++) {
-			dis += (double)((x1[i] - x2[i])*(x1[i] - x2[i]));
-		}
-		return sqrt(dis);
+		const variable<real>& x1 = dynamic_cast<const variable<real>&>(s1);
+		const variable<real>& x2 = dynamic_cast<const variable<real>&>(s2);
+		return euclidean_distance(x1.begin(), x1.end(), x2.begin());  //??
 	}
 
 }
