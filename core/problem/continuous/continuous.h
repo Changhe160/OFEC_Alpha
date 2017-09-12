@@ -28,23 +28,23 @@ namespace OFEC{
 
 	class continuous : virtual public problem {
 	public:
+
 		continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj) {}
 		violation_type check_boundary_violation(const base &s) const; // boudary check only
 		void initialize_solution(base &s) const;
 
-		continuous& operator=(const continuous& rhs);
-		continuous& operator=(continuous&& rhs);
-
 		const std::pair<real, real>& range(int i) const;
 		void set_range(real l, real u, int i=0);
 		void set_range(const std::vector<std::pair<real, real>>& r);
-		const optima<variable<real>, real>& get_optima() const;
+		optima<variable<real>, real>& get_optima();
 
 		double variable_distance(const base &s1, const base &s2) const;
 		double variable_distance(const variable_base &s1, const variable_base &s2) const;
 
 		bool is_optimal_given();
 	protected:
+		continuous& operator=(const continuous& rhs);
+		continuous& operator=(continuous&& rhs);
 		void copy(const problem * rhs);
 		void resize_variable(size_t n);
 		void resize_objective(size_t n);
@@ -52,7 +52,7 @@ namespace OFEC{
 		double m_variable_accuracy=1.0e-6;
 		domain<real> m_domain;
 		optima<variable<real>, real> m_optima;
-
+		bool m_variable_monitor=false, m_objective_monitor = false;
 	};
 
 }

@@ -31,7 +31,7 @@ namespace OFEC {
 	}
 
 	matrix & matrix::operator *=(const matrix &m) {
-
+		//TODO: GPU computing
 		if (m_col != m.m_row) throw myexcept("can not *, m_col of 1st matrix must be equal to m_row of 2nd matrix@ matrix::operator *=");
 
 		matrix r(m.m_col, m_row);

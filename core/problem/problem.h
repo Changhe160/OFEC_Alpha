@@ -36,9 +36,7 @@ namespace OFEC {
 
 		}
 		virtual ~problem() {}
-		
-		problem& operator=(const problem& rhs);
-		problem& operator=(problem&& rhs);
+		problem(const problem&) = delete;
 
 		optimization_mode opt_mode(size_t idx) const {
 			return m_opt_mode[idx];
@@ -138,6 +136,8 @@ namespace OFEC {
 			return m_total_eval;
 		}
 	protected:
+		problem& operator=(const problem& rhs);  // assignment is not allowed outside
+		problem& operator=(problem&& rhs);
 		virtual void copy(const problem *); // copy parameter values of a problem when it changes
 		virtual void resize_variable(size_t n);
 		virtual void resize_objective(size_t n);
