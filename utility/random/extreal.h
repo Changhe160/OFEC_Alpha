@@ -18,7 +18,7 @@
 *
 *********************************************************************************/
 #ifndef EXTREAL_LIB_H
-#define EXTREAL_LIB_H 0
+#define EXTREAL_LIB_H
 
 #include <iostream>
 #include "../../core/definition.h"
