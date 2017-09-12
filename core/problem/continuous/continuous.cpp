@@ -63,12 +63,20 @@ namespace OFEC {
 		if (this == &rhs) return *this;
 		problem::operator=(rhs);
 		m_variable_accuracy = rhs.m_variable_accuracy;
+		m_domain = rhs.m_domain;
+		m_optima = rhs.m_optima;
+		m_variable_monitor = rhs.m_variable_monitor;
+		m_objective_monitor = rhs.m_objective_monitor;
 		return *this;
 	}
 
 	continuous& continuous::operator=(continuous&& rhs) {
 		if (this == &rhs) return *this;
 		problem::operator=(rhs);
+		m_domain = std::move(rhs.m_domain);
+		m_optima = std::move(rhs.m_optima);
+		m_variable_monitor = std::move(rhs.m_variable_monitor);
+		m_objective_monitor = std::move(rhs.m_objective_monitor);
 		return *this;
 	}
 
@@ -81,11 +89,11 @@ namespace OFEC {
 
 	void continuous::set_range(const std::vector<std::pair<real, real>>& r) {
 		int count = 0;
-		for (auto i : r) {
+		for (auto &i : r) {
 			m_domain.set_range(i.first, i.second, count);
 		}
 	}
-	const optima<variable<real>, real>& continuous::get_optima() const {
+	optima<variable<real>, real>& continuous::get_optima() {
 		return m_optima;
 	}
 

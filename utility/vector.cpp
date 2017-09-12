@@ -51,14 +51,14 @@ namespace OFEC {
 	Vector::Vector(int size) : m_data(size) {
 
 	}
-	Vector::Vector(int size, real val) : m_data(size, val){
+	Vector::Vector(int size, real val) : m_data(size, val) {
 
 	}
 	Vector::Vector(const std::vector<real> & v) : m_data(v) {
 
 	}
 	Vector::Vector(const std::vector<real> &&v) : m_data(std::move(v)) {
-	
+
 	}
 
 	Vector::vector_ Vector::operator [](int idx) {
@@ -93,13 +93,13 @@ namespace OFEC {
 		return sum;
 	}
 
-	Vector Vector::projection( const Vector &v) const{
+	Vector Vector::projection(const Vector &v) const {
 		Vector r(v);
 		double sv = 0;
-		for (unsigned i = 0; i < m_data.size(); i++) 
+		for (unsigned i = 0; i < m_data.size(); i++)
 			sv += m_data[i] * v[i];
-		
-		sv/= v*v;
+
+		sv /= v*v;
 		r *= sv;
 		return r;
 	}
@@ -117,22 +117,22 @@ namespace OFEC {
 		return m_data.size();
 	}
 	void Vector::randomize_in_sphere(double radius, uniform * rand) {
-		
+
 		double r = rand->next_non_standard(0., radius);
-		randomize(rand,-1, 1);
+		randomize(rand, -1, 1);
 		normalize();
 		for (auto&i : m_data) i *= r;
 		m_wrote = true;
-		
+
 	}
 	void Vector::randomize_on_sphere(double radius, uniform * rand) {
-		
-		randomize(rand,-1, 1);
+
+		randomize(rand, -1, 1);
 		normalize();
 		for (auto&i : m_data) i *= radius;
 		m_length = radius;
 		m_wrote = false;
-		
+
 	}
 
 	void Vector::randomize_on_sphere(double radius, std::uniform_real_distribution<real> &unif, std::default_random_engine &gen) {
@@ -148,23 +148,23 @@ namespace OFEC {
 		for (auto&i : m_data) i = min + (unif(gen) - unif.min()) / (unif.max() - unif.min())*(max - min);
 		m_wrote = true;
 	}
-	void Vector::randomize(uniform * rand,real min, real max) {
+	void Vector::randomize(uniform * rand, real min, real max) {
 		for (auto&i : m_data) i = rand->next_non_standard(min, max);
-		m_wrote = true;		
+		m_wrote = true;
 	}
 	void Vector::randomize(normal *rand) {
-		
+
 		for (auto&i : m_data) i = rand->next();
 		m_wrote = true;
 	}
 	void Vector::randomize_in_sphere(double radius, normal *nor, uniform *uni) {
-	
+
 		double r = fabs(nor->next_non_standard(0, radius));
-		randomize(uni,-1, 1);
+		randomize(uni, -1, 1);
 		normalize();
 		for (auto&i : m_data) i *= r;
 		m_wrote = true;
-	
+
 	}
 	Vector &Vector::operator =(const std::vector<real> & v) {
 		if (m_data.size() == v.size()) {
@@ -224,7 +224,7 @@ namespace OFEC {
 		for (auto&i : v) i += val;
 		return Vector(v);
 	}
-	double Vector::angle( Vector & v){		
+	double Vector::angle(Vector & v) {
 		return acos(this->operator*(v) / (length()*v.length()));
 	}
 
@@ -278,7 +278,7 @@ namespace OFEC {
 		m_wrote = false;
 	}
 
-	Vector Vector::point_between(const Vector & v1, double r) const{
+	Vector Vector::point_between(const Vector & v1, double r) const {
 		std::vector<real> v(m_data);
 		for (auto i = 0; i < m_data.size(); ++i) {
 			v[i] = m_data[i] * r + v1[i] * (1 - r);

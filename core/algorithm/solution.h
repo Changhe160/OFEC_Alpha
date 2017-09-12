@@ -163,11 +163,11 @@ namespace  OFEC {
 			return m_var;
 		}
 
-		vector<objective_type>& get_objective() {
+		std::vector<objective_type>& get_objective() {
 			return m_obj.vect();
 		}
 
-		const vector<objective_type>& get_objective()const {
+		const std::vector<objective_type>& get_objective()const {
 			return m_obj.vect();
 		}
 

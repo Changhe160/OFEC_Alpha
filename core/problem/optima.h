@@ -128,7 +128,7 @@ namespace OFEC {
 			bool flag = false;
 			for (auto &i : m_obj) {
 				if (i.second) continue;
-				double d = euclidean_distance(s.objective().begin(), s.objective().end(), i.first.begin());
+				double d = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), i.first.begin());
 				if (d <= epsilon){
 					i->second = true;
 					flag = true;
@@ -150,6 +150,23 @@ namespace OFEC {
 			if (m_obj[0].second) return true;
 
 			return m_obj[0].second = fabs(m_obj[0].first[0] - o) <= epsilon;
+		}
+
+		bool is_variable_found() {
+			for (auto &i : m_var) {
+				if (!i.second) return false;
+				
+			}
+			return true;
+			
+		}
+		bool is_objective_found() {
+			for (auto &i : m_obj) {
+				if (!i.second) return false;
+				
+			}
+			return true;
+			
 		}
 
 	private:
