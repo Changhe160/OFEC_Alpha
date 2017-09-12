@@ -58,4 +58,58 @@ namespace OFEC {
 	bool continuous::is_optimal_given() {
 		return m_optima.objective_given() || m_optima.variable_given();
 	}
+
+	continuous& continuous::operator=(const continuous& rhs) {
+		if (this == &rhs) return *this;
+		problem::operator=(rhs);
+		m_variable_accuracy = rhs.m_variable_accuracy;
+		return *this;
+	}
+
+	continuous& continuous::operator=(continuous&& rhs) {
+		if (this == &rhs) return *this;
+		problem::operator=(rhs);
+		return *this;
+	}
+
+	const std::pair<real, real>& continuous::range(int i) const {
+		return m_domain.range(i).limit;
+	}
+	void continuous::set_range(real l, real u, int i = 0) {
+		m_domain.set_range(l, u, i);
+	}
+
+	void continuous::set_range(const std::vector<std::pair<real, real>>& r) {
+		int count = 0;
+		for (auto i : r) {
+			m_domain.set_range(i.first, i.second, count);
+		}
+	}
+	const optima<variable<real>, real>& continuous::get_optima() const {
+		return m_optima;
+	}
+
+	double continuous::variable_distance(const base &s1, const base &s2) const {
+		const variable<real>& x1 = dynamic_cast<const solution<variable<real>, real>&>(s1).get_variable();
+		const variable<real>& x2 = dynamic_cast<const solution<variable<real>, real>&>(s2).get_variable();
+		double dis = 0;
+
+		for (int i = 0; i < m_variable_size; i++) {
+			dis += (double)((x1[i] - x2[i])*(x1[i] - x2[i]));
+		}
+		return sqrt(dis);
+
+	}
+
+	double continuous::variable_distance(const variable_base &s1, const variable_base &s2) const {
+		const variable<real>& x1 = dynamic_cast<const solution<variable<real>, real>&>(s1).get_variable();
+		const variable<real>& x2 = dynamic_cast<const solution<variable<real>, real>&>(s2).get_variable();
+		double dis = 0;
+
+		for (int i = 0; i < m_variable_size; i++) {
+			dis += (double)((x1[i] - x2[i])*(x1[i] - x2[i]));
+		}
+		return sqrt(dis);
+	}
+
 }

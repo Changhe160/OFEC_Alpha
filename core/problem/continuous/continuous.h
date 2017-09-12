@@ -28,7 +28,7 @@ namespace OFEC{
 
 	class continuous : virtual public problem {
 	public:
-		continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj) {}
+		continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var) {}
 		violation_type check_boundary_violation(const base &s) const; // boudary check only
 		void initialize_solution(base &s) const;
 

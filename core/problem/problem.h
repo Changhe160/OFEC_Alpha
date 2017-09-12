@@ -38,6 +38,7 @@ namespace OFEC {
 		virtual ~problem() {}
 
 		problem& operator=(const problem& rhs);
+
 		problem& operator=(problem&& rhs);
 
 		optimization_mode opt_mode(size_t idx) const {
