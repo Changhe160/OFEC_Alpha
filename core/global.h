@@ -26,7 +26,6 @@
 #include "problem/problem.h"
 #include "definition.h"
 #include "../utility/typevar/typevar.h"
-#include "algorithm/algorithm.h"
 
 namespace OFEC{
 
@@ -38,7 +37,7 @@ namespace OFEC{
 		//global();
 
 		std::unique_ptr<problem> m_problem;
-		std::unique_ptr<algorithm> m_algorithm;
+		//std::unique_ptr<algorithm> m_algorithm;
 
 		std::mutex m_mutex, m_stream_mutex;
 		std::map<caller, std::unique_ptr<uniform>> m_uniform;
