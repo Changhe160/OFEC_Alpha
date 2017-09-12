@@ -51,6 +51,7 @@ namespace OFEC {
 		void load(std::ifstream &in);
 		void resize(int row, int col);
 		void diagonalize(double alpha);
+		bool is_orthogonal();
 	private:
 		void clear();
 	private:

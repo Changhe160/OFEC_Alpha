@@ -163,6 +163,14 @@ namespace OFEC {
 		// normalize each vector
 		for (int i = 0; i < m_row; i++) m_vec[i].normalize();
 	}
+	bool matrix::is_orthogonal() {
+		if (m_row != m_col) throw myexcept("cannot perform function is_orthogonal(), matrix must be squre@matrix::orthonormalize");
+		matrix temp1 = *this;
+		temp1.transpose();
+		const matrix& temp2 = temp1;
+		temp1 *= temp2;
+		return temp1.is_identity();
+	}
 	void matrix::transpose() {
 		double t;
 		for (int i = 0; i<m_row; i++)
