@@ -32,10 +32,13 @@
 namespace OFEC {
 	class problem {
 	public:
-		problem(const string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var), m_objective_size(size_obj) {
+		problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var), m_objective_size(size_obj), m_opt_mode(size_obj) {
 
 		}
 		virtual ~problem() {}
+
+		problem& operator=(const problem& rhs);
+		problem& operator=(problem&& rhs);
 
 		optimization_mode opt_mode(size_t idx) const {
 			return m_opt_mode[idx];
@@ -62,7 +65,12 @@ namespace OFEC {
 			return m_name;
 		}
 
-		virtual violation_type check_violation(const base &) const = 0;
+		virtual violation_type check_boundary_violation(const base &) const {
+			return violation_type::None;
+		}
+		virtual violation_type check_constraint_violation(const base &) const {
+			return violation_type::None;
+		}
 		virtual void constraint_value(const base &, std::pair<double, vector<double>>&) = 0;
 
 		template<typename Solution>
@@ -130,7 +138,9 @@ namespace OFEC {
 			return m_total_eval;
 		}
 	protected:
-		virtual void copy(const problem *); // copy parameter values of a problem when it changes 
+		virtual void copy(const problem *); // copy parameter values of a problem when it changes
+		virtual void resize_variable(size_t n);
+		virtual void resize_objective(size_t n);
 	protected:
 		std::string m_name;
 		size_t m_effective_eval = 0, m_total_eval = 0;

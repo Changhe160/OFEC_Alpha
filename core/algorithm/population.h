@@ -26,7 +26,7 @@ namespace OFEC {
 	template<typename>  class multi_population;
 
 	template<typename Individual>
-	class population: public algorithm{
+	class population : public algorithm {
 		template<typename> friend class multi_population;
 		using individual_type = Individual;
 	public:
@@ -41,7 +41,7 @@ namespace OFEC {
 		const Individual& operator[](int i) const {
 			return *m_pop[i];
 		}
-		Individual& operator[](int i)  {
+		Individual& operator[](int i) {
 			return *m_pop[i];
 		}
 		std::vector<std::unique_ptr<typename Individual::solution_type>>& archive() {
@@ -58,13 +58,13 @@ namespace OFEC {
 		void handle_evaluation_tag(evaluation_tag tag);
 
 		//constructors and members
-		population()=default;
+		population() = default;
 		population(int n);
 		population(const population &rhs);
 		population& operator=(const population &rhs);
 		population(population&&rhs);
 		population& operator=(population&&rhs);
-		
+
 		//operations
 		iterator_type operator +(const population &p);
 		iterator_type operator +(population &&p);
@@ -80,7 +80,7 @@ namespace OFEC {
 		iterator_type operator-(int n); // remove n worst individuals by default
 
 
-		void sort();		
+		void sort();
 		void rank(); //TODO: compare the ranking method in NSGAII with our own method 
 		double rank(const typename Individual::solution_type &s); // get rank of s in terms of a ranked population
 
@@ -89,21 +89,23 @@ namespace OFEC {
 
 		evaluation_tag evaluate(); // evaluate each individual 
 		evaluation_tag evolve();
-		
-		
+
+
 		void reset(); // delete all individuals
-		
+
 		double mean(int oidx);	//mean value of the oidx-th objective
 		double variance(int oidx, double mean); //variance of the oidx-th objective
 
 		virtual void initialize(); //a uniformly distributed initialization by default
+		template<typename Fun, typename Problem, typename... Args>
+		void initialize(Fun fun, const Problem* pro, Args&& ... args);
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
 	protected:
 		int m_iter = 0;			// the current number of iterations
-		int m_id;				
-		std::vector<std::shared_ptr<Individual>> m_pop; 
-		std::vector<std::shared_ptr<Individual>> m_best,m_worst;
+		int m_id;
+		std::vector<std::shared_ptr<Individual>> m_pop;
+		std::vector<std::shared_ptr<Individual>> m_best, m_worst;
 		std::vector<std::unique_ptr<typename Individual::solution_type>> m_arc;// external archive for solutions
 		std::vector<std::vector<std::shared_ptr<Individual>>> m_order; //sorted order according to each objective
 
@@ -138,7 +140,7 @@ namespace OFEC {
 	void population<Individual>::update_best() {
 		m_best.clear();
 		vector<bool> flag(m_pop.size(), true);
-	
+
 		for (int j = 0; j<m_pop.size(); j++) {
 			for (int i = 0; i<m_pop.size(); i++) {
 				if (i == j || !flag[j] || !flag[i]) continue;
@@ -201,7 +203,7 @@ namespace OFEC {
 
 	template<typename Individual>
 	population<Individual>::population(int n) {
-		
+
 	}
 
 	template<typename Individual>
@@ -223,7 +225,14 @@ namespace OFEC {
 		for (size_t i = 0; i < m_pop.size(); ++i) {
 			m_pop[i]->initialize(i);
 		}
-			
+
+	}
+	template<typename Individual>
+	template<typename Fun, typename Problem, typename... Args>
+	void  population<Individual>::initialize(Fun fun, const Problem* pro, Args&& ... args) {
+
+		fun(m_pop, pro, std::forward<Args>(args)...);
+
 	}
 }
 
