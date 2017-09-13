@@ -153,7 +153,7 @@
     <ClCompile Include="core\algorithm\termination.cpp" />
     <ClCompile Include="core\global.cpp" />
     <ClCompile Include="core\problem\problem.cpp" />
-    <ClCompile Include="test\test_dominanceGraph.cpp" />
+    <ClCompile Include="test\test_MO_sort.cpp" />
     <ClCompile Include="utility\matrix.cpp" />
     <ClCompile Include="utility\random\extreal.cpp" />
     <ClCompile Include="utility\random\newran.cpp" />
@@ -176,9 +176,10 @@
     <ClInclude Include="core\definition.h" />
     <ClInclude Include="core\global.h" />
     <ClInclude Include="core\problem\problem.h" />
-    <ClInclude Include="utility\dominance_graph\dominance_graph.h" />
     <ClInclude Include="utility\functional.h" />
     <ClInclude Include="utility\matrix.h" />
+    <ClInclude Include="utility\MO_sort\dominance_quick_sort.h" />
+    <ClInclude Include="utility\MO_sort\fast_nondominated_sort.h" />
     <ClInclude Include="utility\myexcept.h" />
     <ClInclude Include="utility\random\extreal.h" />
     <ClInclude Include="utility\random\newran.h" />

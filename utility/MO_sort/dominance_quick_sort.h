@@ -1,9 +1,6 @@
 #ifndef DOMINANCE_GRAPH_H
 #define DOMINANCE_GRAPH_H
 
-
-#include <limits> 
-#include <iostream>
 #include "../../core/algorithm/encoding.h"
 #include "../../core/definition.h"
 
@@ -27,6 +24,7 @@ namespace dominance_graph {
 		const vector<node*>& get_parents() { return m_parents; }
 		const vector<double>& get_obj() { return m_obj; }
 		const int get_label() { return m_label; }
+		const int get_ranking() { return m_ranking; }
 		//void delete_parent(node* parent) { m_parents.erase(find(m_parents.begin(), m_parents.end(), parent)); }
 		//void add_child(node* child) { m_children.push_back(child); }
 		//void delete_child(node* child) { m_children.erase(find(m_children.begin(), m_children.end(), child)); 
@@ -40,6 +38,7 @@ namespace dominance_graph {
 		size_t m_comparisons;
 		vector<int> m_index;
 		bool m_sorted;
+		map<int, int> m_label;
 		
 		void quick_sort(vector<int>& all) {
 			if (all.size() <= 1)
@@ -100,14 +99,15 @@ namespace dominance_graph {
 		}
 		~graph() {}
 		
+		size_t number() { return m_comparisons; }
+
 		void quick_sort() {
 			m_index.clear();
 			for (size_t i = 0; i < m_nodecount; i++)
 				m_index.push_back(i);
+			m_comparisons = 0;
 			quick_sort(m_index);
 			m_sorted = true;
-			cout << "comparsions: " << m_comparisons << endl;
-			m_comparisons = 0;
 		}
 
 		void set_ranking() {
@@ -148,15 +148,23 @@ namespace dominance_graph {
 				F.push_back(Q);
 			}
 
-			for (auto _rank : F) {
-				for (int _node : _rank) {
-					cout << _node << ":(";
-					for (auto element : m_nodes[_node].get_obj())
-						cout << element << " ";
-					cout << ")" << "\t";
-				}
-				cout << endl;
+			//for (auto _rank : F) {
+			//	for (int _node : _rank) {
+			//		cout << _node << ":(";
+			//		for (auto element : m_nodes[_node].get_obj())
+			//			cout << element << " ";
+			//		cout << ")" << "\t";
+			//	}
+			//	cout << endl;
+			//}
+		}
+
+		map<int, int>& ranking() {
+			m_label.clear();
+			for (int i = 0; i < m_nodecount; ++i) {
+				m_label.emplace(m_nodes[i].get_label(), m_nodes[i].get_ranking());
 			}
+			return m_label;
 		}
 
 	};

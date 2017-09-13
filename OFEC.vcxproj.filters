@@ -22,7 +22,7 @@
     <Filter Include="utility\typevar">
       <UniqueIdentifier>{88684ca9-9be1-4fff-8443-ddf322dd59e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utility\dominance_graph">
+    <Filter Include="utility\MO_sort">
       <UniqueIdentifier>{d5a2e93f-085f-49fd-aca3-99a48d500a4b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -72,14 +72,17 @@
     <ClInclude Include="core\algorithm\multi_population.h">
       <Filter>core\algorithm</Filter>
     </ClInclude>
-    <ClInclude Include="utility\dominance_graph\dominance_graph.h">
-      <Filter>utility\dominance_graph</Filter>
-    </ClInclude>
     <ClInclude Include="utility\matrix.h">
       <Filter>utility</Filter>
     </ClInclude>
     <ClInclude Include="utility\vector.h">
       <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\MO_sort\fast_nondominated_sort.h">
+      <Filter>utility\MO_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\MO_sort\dominance_quick_sort.h">
+      <Filter>utility\MO_sort</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,14 +122,14 @@
     <ClCompile Include="core\algorithm\algorithm.cpp">
       <Filter>core\algorithm</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_dominanceGraph.cpp">
-      <Filter>test</Filter>
-    </ClCompile>
     <ClCompile Include="utility\matrix.cpp">
       <Filter>utility</Filter>
     </ClCompile>
     <ClCompile Include="utility\vector.cpp">
       <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_MO_sort.cpp">
+      <Filter>test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
