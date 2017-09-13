@@ -175,11 +175,11 @@ namespace OFEC {
 		bool first = true;
 		// check dominated case
 		for (auto i = m_arc.begin(); i != m_arc.end(); i++) {
-			if (first && **i<x) {
+			if (first && x.dominate(**i)) {//**i<x
 				**i = x;
 				first = false;
 			}
-			else if (!first && **i<x) {
+			else if (!first && x.dominate(**i)) {//**i<x
 				i = m_arc.erase(i);
 				i--;
 			}
@@ -187,7 +187,7 @@ namespace OFEC {
 		if (!first) return true;
 		//check equal case	
 		for (auto i = m_arc.begin(); i != m_arc.end(); i++) {
-			if (**i == x && !((*i)->same(x))) {
+			if (x.equal(**i) && !((*i)->same(x))) { //**i == x 
 				m_arc.push_back(unique_ptr<Individual::solution_type>(new Individual::solution_type(x)));
 				return true;
 			}

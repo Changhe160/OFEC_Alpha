@@ -115,8 +115,8 @@ namespace OFEC {
 			bool flag = false;
 			for (auto &i : m_var) {
 				if (i.second) continue;
-				if (s.variable_distance(i) <= epsilon) {
-					i->second = true;
+				if (s.variable_distance(i.first) <= epsilon) {
+					i.second = true;
 					flag = true;
 				}
 			}
@@ -130,7 +130,7 @@ namespace OFEC {
 				if (i.second) continue;
 				double d = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), i.first.begin());
 				if (d <= epsilon){
-					i->second = true;
+					i.second = true;
 					flag = true;
 				}					
 			}
@@ -138,12 +138,16 @@ namespace OFEC {
 		}
 
 		bool is_optimal_objective(const std::vector<objective_type> &o, double epsilon) {
+			bool flag = false;
 			for (auto &i : m_obj) {
 				if (i.second) continue;
 				double d= euclidean_distance(o.begin(), o.end(), i.first.begin());
-				if (d <= epsilon)
-					i->second = true;
+				if (d <= epsilon) {
+					i.second = true;
+					flag = true;
+				}					
 			}
+			return flag;
 		}
 
 		bool is_optimal_objective(const objective_type &o, double epsilon) { // single objective optimization problem

@@ -25,11 +25,10 @@
 
 namespace OFEC {
 	template<typename VariableEncoding = variable<real>,
-		typename ObjetiveType = real,
-		typename ObjetiveCompare = objective_compare<ObjetiveType>>
-	class individual:public solution<VariableEncoding, ObjetiveType, ObjetiveCompare> {
+		typename ObjetiveType = real>
+	class individual:public solution<VariableEncoding, ObjetiveType> {
 	public:
-		using solution_type = solution<VariableEncoding, ObjetiveType, ObjetiveCompare>;
+		using solution_type = solution<VariableEncoding, ObjetiveType>;
 
 		template<typename ... Args>
 		individual(size_t no, Args&& ... args) :solution(no, args) { }

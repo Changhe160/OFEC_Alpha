@@ -24,7 +24,6 @@
 #include "../../../utility/matrix.h"
 namespace OFEC {
 
-	template<typename ObjetiveCompare = objective_compare<real>>
 	class function :public continuous {
 	public:
 		function(const std::string &name, size_t size_var, size_t size_obj = 1);
@@ -70,80 +69,5 @@ namespace OFEC {
 		std::vector<matrix> m_rotation;
 		optima<variable<real>, real> m_original_optima;
 	};
-
-	template<typename ObjetiveCompare>
-	function<ObjetiveCompare>::function(const std::string &name, size_t size_var, size_t size_obj) :continuous(name, size_var, size_obj) {
-
-	}
-	template<typename ObjetiveCompare>
-	void function<ObjetiveCompare>::set_bias(double val) {
-		m_bias = val;
-	}
-	template<typename ObjetiveCompare>
-	void function<ObjetiveCompare>::set_scale(double val) {
-		m_scale = val;
-	}
-	template<typename ObjetiveCompare>
-	void function<ObjetiveCompare>::set_rotation_flag(bool flag) {
-		m_rotation_flag = flag;
-	}
-	template<typename ObjetiveCompare>
-	void function<ObjetiveCompare>::set_tranlation_flag(bool flag) {
-		m_translation_flag = flag;
-	}
-	template<typename ObjetiveCompare>
-	real function<ObjetiveCompare>::translation(size_t i) const {
-		return m_translation[i];
-	}
-	template<typename ObjetiveCompare>
-	std::vector<real>&  function<ObjetiveCompare>::translation() {
-		return m_translation;
-	}
-	template<typename ObjetiveCompare>
-	matrix& function<ObjetiveCompare>::rotation(size_t i) {
-		return m_rotation[i];
-	}
-	template<typename ObjetiveCompare>
-	double function<ObjetiveCompare>::condition_number() {
-		return m_condition_number;
-	}
-	template<typename ObjetiveCompare>
-	void function<ObjetiveCompare>::set_condition_number(double c) {
-		m_condition_number = c;
-	}
-	template<typename ObjetiveCompare>
-	evaluation_tag function<ObjetiveCompare>::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
-		variable<real> &x = dynamic_cast< solution<variable<real>, real, ObjetiveCompare> &>(s).get_variable();
-		auto & obj= dynamic_cast< solution<variable<real>, real, ObjetiveCompare> &>(s).get_objective();
-
-		double *x_ = new double[m_numDim]; //for parallel running
-		copy(x.begin(), x.end(), x_);
-
-		transform(x_);
-		evaluate__(x_, obj);
-		delete[] x_;
-		x_ = 0;
-		if (constructed) {
-			if (effective_fes)		m_effective_eval++;
-
-			if (m_variable_monitor) {
-				m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real, ObjetiveCompare> &>(s), m_variable_accuracy);
-				if (m_optima.is_variable_found()) 
-					m_solved = true;
-			}
-			if (m_objective_monitor) {
-				m_optima.is_optimal_objective(obj, m_objective_accuracy);
-				if (m_optima.is_objective_found())
-					m_solved = true;
-			}
-			if (call == caller::Algorithm&& global::ms_global->m_algorithm&&global::ms_global->m_algorithm->terminating())
-				return evaluation_tag::Terminate;
-
-			//if (mode == Program_Algorithm&&Global::msp_global->mp_problem && !Global::msp_global->mp_problem->isProTag(MOP)) m_globalOpt.isFound(s, m_disAccuracy, m_accuracy);
-			//if (Global::msp_global != nullptr&&Global::msp_global->mp_algorithm != nullptr&&Global::msp_global->mp_algorithm->ifTerminating()) { return Return_Terminate; }
-		}
-		return evaluation_tag::Normal;
-	}
-
 }
 #endif // !OFEC_FUNCTION_H

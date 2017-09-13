@@ -38,6 +38,7 @@ namespace OFEC {
 		m_vec.m_data[m_idx] *= val;
 		m_vec.m_wrote = true;
 		return *this;
+		
 	}
 	Vector::vector_ & Vector::vector_::operator/=(double val) {
 		m_vec.m_data[m_idx] /= val;
