@@ -1,6 +1,6 @@
-#pragma once
+#ifndef FAST_NONDOMINATED_SORT_H
+#define FAST_NONDOMINATED_SORT_H
 
-#include<vector>
 #include<map>
 #include <list>
 #include <utility>
@@ -23,14 +23,15 @@ public:
 		for (int k = 0; k < m_popsize; k++, ++i) {
 			for (int j = 0; j<m_popsize; j++) {
 				if (k != j) {
-					if (dominationship::Dominating == m_compare(m_pop[j].second, m_pop[k].second, optimization_mode::Minimization)) {//*m_pop[j]>*m_pop[k]
+					auto compare_result = m_compare(m_pop[j].second, m_pop[k].second, optimization_mode::Minimization);
+					if (compare_result == dominationship::Dominating) {//*m_pop[j]>*m_pop[k]
 						rank_[k]++;
 					}
-					if (dominationship::Dominating == m_compare(m_pop[k].second, m_pop[j].second, optimization_mode::Minimization)) {//*m_pop[k]>*m_pop[j]
+					else if (compare_result == dominationship::Dominated ) {//*m_pop[k]>*m_pop[j]
 						(*i)[count[k]] = j;
 						count[k]++;
 					}
-					m_num += 2;
+					m_num++;
 				}
 			}
 		}
@@ -89,3 +90,6 @@ private:
 
 	map<int, int> m_label;
 };
+
+
+#endif // !FAST_NONDOMINATED_SORT_H

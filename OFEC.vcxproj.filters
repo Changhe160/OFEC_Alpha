@@ -81,7 +81,7 @@
     <ClInclude Include="utility\MO_sort\fast_nondominated_sort.h">
       <Filter>utility\MO_sort</Filter>
     </ClInclude>
-    <ClInclude Include="utility\MO_sort\dominance_quick_sort.h">
+    <ClInclude Include="utility\MO_sort\dominancegraph_insert_sort.h">
       <Filter>utility\MO_sort</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,5 +131,6 @@
     <ClCompile Include="test\test_MO_sort.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="utility\MO_sort\dominancegraph_insert_sort.cpp" />
   </ItemGroup>
 </Project>

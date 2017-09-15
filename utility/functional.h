@@ -126,8 +126,12 @@ namespace OFEC {
 					}
 				}
 			}
-			if (better != 0 && better + equal == a.size()) return dominationship::Dominating;
-			else if (worse != 0 && worse + equal == a.size()) return dominationship::Dominated;
+			if (better != 0 && better + equal == a.size()) {
+					return dominationship::Dominating;
+			}
+			else if (worse != 0 && worse + equal == a.size()) {
+					return dominationship::Dominated;
+			}
 			else if (equal == a.size()) return dominationship::Equal;
 			else return dominationship::Non_dominated;
 

@@ -155,6 +155,7 @@
     <ClCompile Include="core\problem\problem.cpp" />
     <ClCompile Include="test\test_MO_sort.cpp" />
     <ClCompile Include="utility\matrix.cpp" />
+    <ClCompile Include="utility\MO_sort\dominancegraph_insert_sort.cpp" />
     <ClCompile Include="utility\random\extreal.cpp" />
     <ClCompile Include="utility\random\newran.cpp" />
     <ClCompile Include="utility\typevar\arithmetic.cpp" />
@@ -178,7 +179,7 @@
     <ClInclude Include="core\problem\problem.h" />
     <ClInclude Include="utility\functional.h" />
     <ClInclude Include="utility\matrix.h" />
-    <ClInclude Include="utility\MO_sort\dominance_quick_sort.h" />
+    <ClInclude Include="utility\MO_sort\dominancegraph_insert_sort.h" />
     <ClInclude Include="utility\MO_sort\fast_nondominated_sort.h" />
     <ClInclude Include="utility\myexcept.h" />
     <ClInclude Include="utility\random\extreal.h" />
