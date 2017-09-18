@@ -26,6 +26,7 @@
 #include "problem/problem.h"
 #include "definition.h"
 #include "../utility/typevar/typevar.h"
+#include "algorithm/algorithm.h"
 
 namespace OFEC{
 
@@ -34,10 +35,17 @@ namespace OFEC{
 #endif // USING_GPU
 
 	struct global{
+		//global();
+
 		std::unique_ptr<problem> m_problem;
-		//std::unique_ptr<algorithm> m_algorithm;
+		std::unique_ptr<algorithm> m_algorithm;
 
 		std::mutex m_mutex, m_stream_mutex;
+		std::map<caller, std::unique_ptr<uniform>> m_uniform;
+		std::map<caller, std::unique_ptr<normal>> m_normal;
+		std::map<caller, std::unique_ptr<cauchy>> m_cauchy;
+		std::map<caller, std::unique_ptr<levy>> m_levy;
+		std::map<caller, std::unique_ptr<gamma>> m_gamma;
 
 #ifdef OFEC_CONSOLE
 		static thread_local std::unique_ptr<global> ms_global;

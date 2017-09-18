@@ -25,11 +25,10 @@
 
 namespace OFEC {
 	template<typename VariableEncoding = variable<real>,
-		typename ObjetiveType = real,
-		typename ObjetiveCompare = objective_compare<ObjetiveType>>
-	class individual:public solution<VariableEncoding, ObjetiveType, ObjetiveCompare> {
+		typename ObjetiveType = real>
+	class individual:public solution<VariableEncoding, ObjetiveType> {
 	public:
-		using solution_type = solution<VariableEncoding, ObjetiveType, ObjetiveCompare>;
+		using solution_type = solution<VariableEncoding, ObjetiveType>;
 
 		template<typename ... Args>
 		individual(size_t no, Args&& ... args) :solution(no, args) { }
@@ -39,9 +38,9 @@ namespace OFEC {
 		individual(const solution_type &s) :solution(s) {}
 		
 		explicit individual() :solution() {}
-		virtual void initialize(int id=0, int idx=0, int max_idx = 0) {
+		virtual void initialize(int id) {
 			m_id = id;
-			solution::initialize(idx, max_idx);
+			solution::initialize();
 		}
 
 		void set_id(int id)noexcept{

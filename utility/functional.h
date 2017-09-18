@@ -67,74 +67,71 @@ namespace OFEC {
 
 	//domination relationship between two objective vectors
 	template<typename T = double >
-	struct objective_compare {
-		dominationship operator()(const std::vector<T>& a, const std::vector<T>& b, const vector<optimization_mode> &mode) const {
-			if (a.size() != b.size()) 
-				return dominationship::Non_comparable;
+	dominationship objective_compare(const std::vector<T>& a, const std::vector<T>& b, const vector<optimization_mode> &mode)  {
+		if (a.size() != b.size()) 
+			return dominationship::Non_comparable;
 
-			int better = 0, worse = 0, equal = 0;
-			for (decltype(a.size()) i = 0; i<a.size(); ++i) {
-				if (mode[i] == optimization_mode::Minimization) {
-					if (a[i]<b[i]) 
-						++better;
-					else if (a[i]>b[i]) 
-						++worse;
-					else 
-						++equal;
+		int better = 0, worse = 0, equal = 0;
+		for (decltype(a.size()) i = 0; i<a.size(); ++i) {
+			if (mode[i] == optimization_mode::Minimization) {
+				if (a[i]<b[i]) 
+					++better;
+				else if (a[i]>b[i]) 
+					++worse;
+				else 
+					++equal;
+			}
+			else {
+				if (a[i]>b[i]) {
+					++better;
+				}
+				else if (a[i]<b[i]) {
+					++worse;
 				}
 				else {
-					if (a[i]>b[i]) {
-						++better;
-					}
-					else if (a[i]<b[i]) {
-						++worse;
-					}
-					else {
-						++equal;
-					}
+					++equal;
 				}
 			}
-			if (better != 0 && better + equal == a.size()) return dominationship::Dominating;
-			else if (worse != 0 && worse + equal == a.size()) return dominationship::Dominated;
-			else if (equal == a.size()) return dominationship::Equal;
-			else return dominationship::Non_dominated;
 		}
+		if (better != 0 && better + equal == a.size()) return dominationship::Dominating;
+		else if (worse != 0 && worse + equal == a.size()) return dominationship::Dominated;
+		else if (equal == a.size()) return dominationship::Equal;
+		else return dominationship::Non_dominated;
+	}
 
-		dominationship operator()(const std::vector<T>& a, const std::vector<T>& b, optimization_mode mode) const {
-			if (a.size() != b.size())
-				return dominationship::Non_comparable;
+	template<typename T = double >
+	dominationship objective_compare(const std::vector<T>& a, const std::vector<T>& b, optimization_mode mode) {
+		if (a.size() != b.size())
+			return dominationship::Non_comparable;
 
-			int better = 0, worse = 0, equal = 0;
-			for (decltype(a.size()) i = 0; i<a.size(); ++i) {
-				if (mode == optimization_mode::Minimization) {
-					if (a[i]<b[i])
-						++better;
-					else if (a[i]>b[i])
-						++worse;
-					else
-						++equal;
+		int better = 0, worse = 0, equal = 0;
+		for (decltype(a.size()) i = 0; i<a.size(); ++i) {
+			if (mode == optimization_mode::Minimization) {
+				if (a[i]<b[i])
+					++better;
+				else if (a[i]>b[i])
+					++worse;
+				else
+					++equal;
+			}
+			else {
+				if (a[i]>b[i]) {
+					++better;
+				}
+				else if (a[i]<b[i]) {
+					++worse;
 				}
 				else {
-					if (a[i]>b[i]) {
-						++better;
-					}
-					else if (a[i]<b[i]) {
-						++worse;
-					}
-					else {
-						++equal;
-					}
+					++equal;
 				}
 			}
-			if (better != 0 && better + equal == a.size()) return dominationship::Dominating;
-			else if (worse != 0 && worse + equal == a.size()) return dominationship::Dominated;
-			else if (equal == a.size()) return dominationship::Equal;
-			else return dominationship::Non_dominated;
-
 		}
-		using result_type = dominationship;
-		using value_type = T;
-	};
+		if (better != 0 && better + equal == a.size()) return dominationship::Dominating;
+		else if (worse != 0 && worse + equal == a.size()) return dominationship::Dominated;
+		else if (equal == a.size()) return dominationship::Equal;
+		else return dominationship::Non_dominated;
+	}
+	
 
 }
 #endif // !OFEC_FINCTIONAL_H

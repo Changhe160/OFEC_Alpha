@@ -271,9 +271,6 @@ namespace OFEC {
 		typedef int int_t;
 		typedef double double_t;
 		typedef char char_t;
-
-
-
 		typedef boost::variant<null_t, bool_t, char_t, int_t, double_t, string_t, wstring_t, size_type> var_t;
 
 		var_t _var;
