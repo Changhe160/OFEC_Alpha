@@ -100,26 +100,15 @@ namespace OFEC {
 		void push_back(real);
 		Vector(Vector&& rhs);
 		Vector& operator=(Vector&& rhs);
-		std::vector<real> & data();
-		const std::vector<real> & data()const;
+		std::vector<real> & data() { return m_data; }
+		const std::vector<real> & data()const { return m_data; }
 		void zero();
 		void resize(int n) noexcept;
+		double perpendicular_distance(const Vector &direction, const Vector &point);  //TODO
 	protected:
 		void length_();
 		friend std::ifstream &operator>>(std::ifstream &, Vector&);
 	};
-
-	inline void Vector::length_() {
-		m_length = 0;
-		for (auto &i : m_data) m_length += i*i;
-		m_length = sqrt(m_length);
-	}
-	inline std::vector<real> & Vector::data() {
-		return m_data;
-	}
-	inline const std::vector<real> & Vector::data()const {
-		return m_data;
-	}
 
 }
 

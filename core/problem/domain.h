@@ -35,7 +35,7 @@ namespace OFEC {
 		void set_boundary_false(int i=0) {
 			m_range[i].limited = false;
 		}
-		void set_range(ValueType low, ValueType upper, int i = 0) {
+		void set_range(ValueType low, ValueType upper, int i) {
 			m_range[i].limit.first = low;
 			m_range[i].limit.second = upper;
 		}
@@ -45,12 +45,16 @@ namespace OFEC {
 		const single_set& range(int i = 0)const {
 			return m_range[i];
 		}
+		size_t size()const noexcept {
+			return m_range.size();
+		}
 		const single_set& operator[](int i)const {
 			 return m_range[i];
 		}
 		single_set& operator[](int i) {
 			 return m_range[i];
 		}
+		
 	private:
 		std::vector<single_set> m_range;
 	};

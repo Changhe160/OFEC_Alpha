@@ -84,8 +84,9 @@ namespace OFEC {
 	const std::pair<real, real>& continuous::range(int i) const {
 		return m_domain.range(i).limit;
 	}
-	void continuous::set_range(real l, real u, int i) {
-		m_domain.set_range(l, u, i);
+	void continuous::set_range(real l, real u) {
+		for (size_t i = 0; i < m_domain.size(); ++i)
+			m_domain.set_range(l, u, i);
 	}
 
 	void continuous::set_range(const std::vector<std::pair<real, real>>& r) {
