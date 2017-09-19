@@ -3,8 +3,6 @@
 
 namespace OFEC {
 
-
-
 	Vector::vector_::vector_(Vector& v, int idx) :m_vec(v), m_idx(idx) {
 
 	}
@@ -290,5 +288,26 @@ namespace OFEC {
 	void  Vector::resize(int n) noexcept {
 		m_data.resize(n);
 		m_wrote = true;
+	}
+
+	void Vector::length_() {
+		m_length = 0;
+		for (auto &i : m_data) m_length += i*i;
+		m_length = std::sqrt(m_length);
+	}
+
+	double perpendicular_distance(const Vector &direction, const Vector &point) {
+		double numerator = 0, denominator = 0;
+		for (size_t i = 0; i<direction.size(); i += 1){
+			numerator += direction[i] * point[i];
+			denominator += direction[i] * direction[i];
+		}
+		double k = numerator / denominator;
+
+		double d = 0;
+		for (size_t i = 0; i<direction.size(); i += 1)		
+			d += (k*direction[i] - point[i])*(k*direction[i] - point[i]);
+
+		return sqrt(d);
 	}
 }

@@ -34,7 +34,7 @@ namespace OFEC{
 		void initialize_solution(base &s) const;
 
 		const std::pair<real, real>& range(int i) const;
-		void set_range(real l, real u, int i=0);
+		void set_range(real l, real u);
 		void set_range(const std::vector<std::pair<real, real>>& r);
 		optima<variable<real>, real>& get_optima();
 

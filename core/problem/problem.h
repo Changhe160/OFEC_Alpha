@@ -32,7 +32,8 @@
 namespace OFEC {
 	class problem {
 	public:
-		problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var), m_objective_size(size_obj), m_opt_mode(size_obj){
+		problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var), 
+			m_objective_size(size_obj), m_opt_mode(size_obj){
 
 		}
 		virtual ~problem() {}
