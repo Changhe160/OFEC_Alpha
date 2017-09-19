@@ -84,6 +84,9 @@
     <ClInclude Include="utility\MO_sort\dominancegraph_insert_sort.h">
       <Filter>utility\MO_sort</Filter>
     </ClInclude>
+    <ClInclude Include="utility\MO_sort\d_graph.h">
+      <Filter>utility\MO_sort</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">

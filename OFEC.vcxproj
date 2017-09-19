@@ -180,6 +180,7 @@
     <ClInclude Include="utility\functional.h" />
     <ClInclude Include="utility\matrix.h" />
     <ClInclude Include="utility\MO_sort\dominancegraph_insert_sort.h" />
+    <ClInclude Include="utility\MO_sort\d_graph.h" />
     <ClInclude Include="utility\MO_sort\fast_nondominated_sort.h" />
     <ClInclude Include="utility\myexcept.h" />
     <ClInclude Include="utility\random\extreal.h" />

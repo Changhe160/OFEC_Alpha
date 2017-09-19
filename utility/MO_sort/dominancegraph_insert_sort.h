@@ -64,7 +64,7 @@ namespace dominance_graph {
 					compared[tobecompared->get_index()] = 1;
 				else if (m_compareResult == dominationship::Non_dominated)
 					compared[tobecompared->get_index()] = 3;
-			}
+			} 
 
 			if (m_compareResult == dominationship::Dominated) {
 
