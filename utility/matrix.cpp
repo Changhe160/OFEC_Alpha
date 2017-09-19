@@ -3,59 +3,46 @@
 
 namespace OFEC {
 
-	matrix::matrix(int dim) :m_col_size(dim), m_row_size(dim) {
+	matrix::matrix(int dim) :m_col_size(dim), m_row_size(dim), m_eigen_value(dim), m_eigen_vector(dim, Vector(dim)) {
 		if (m_row_size == 0) return;
 		resize(m_row_size, m_col_size);
-		m_eigen_value = new double[m_row_size];
-		m_eigen_vector = new double*[m_row_size];
-		for (int i = 0; i< m_row_size; i++)
-		{
-			m_eigen_vector[i] = new double[m_row_size];
-		}
+		
 	}
-	matrix::matrix(int r, int c) : m_col_size(c), m_row_size(r) {
+	matrix::matrix(int r, int c) : m_col_size(c), m_row_size(r), m_eigen_value(c), m_eigen_vector(c, Vector(r)) {
 		resize(m_row_size, m_col_size);
-		m_eigen_value = new double[m_row_size];
-		m_eigen_vector = new double*[m_row_size];
-		for (int i = 0; i< m_row_size; i++)
-		{
-			m_eigen_vector[i] = new double[m_row_size];
-		}
+		
 	}
 
 	matrix::~matrix() {
-		for (int i = 0; i < m_row_size; ++i)
-		{
-			delete[] m_eigen_vector[i];
-			m_eigen_vector[i] = nullptr;
-		}
-		delete[] m_eigen_value;
-		m_eigen_value = nullptr;
+		
 	}
 	void matrix::set_row(const double *d, const int c, const int r) {
 		if (r != m_row_size) return;
 		for (int i = 0; i<m_row_size; i++)
 			for (int j = 0; j<m_col_size; j++)
 				m_row[i][j] = d[j];
+		m_is_det_flag = false;
 	}
 	void matrix::set_col(const double *d, const int r, const int c) {
 		if (c != m_col_size) return;
 		for (int i = 0; i<m_row_size; i++)
 			for (int j = 0; j<m_col_size; j++)
 				m_row[i][j] = d[i];
+		m_is_det_flag = false;
 
 	}
-	void matrix::set(const double * const * d) {
+	void matrix::set(const std::vector<Vector> & d) {
 		for (int i = 0; i<m_row_size; i++)
 			for (int j = 0; j<m_col_size; j++)
 				m_row[i][j] = d[i][j];
+		m_is_det_flag = false;
 	}
 
 	matrix & matrix::operator *=(const matrix &m) {
 		//TODO: GPU computing
 		if (m_col_size != m.m_row_size) throw myexcept("can not *, m_col_size of 1st matrix must be equal to m_row_size of 2nd matrix@ matrix::operator *=");
 
-		matrix r(m.m_col_size, m_row_size);
+		matrix r(m_row_size, m.m_col_size);
 		for (int i = 0; i<m_row_size; i++) {
 			for (int j = 0; j<m.m_col_size; j++) {
 				r.m_row[i][j] = 0;
@@ -68,13 +55,30 @@ namespace OFEC {
 			resize(r.m_row_size, r.m_col_size);
 		}
 		copy(r.m_row.begin(), r.m_row.end(), this->m_row.begin());
-
+		m_is_det_flag = false;
 		return *this;
 	}
+
+	matrix  matrix::operator *(const matrix &m) {
+		//TODO: GPU computing
+		if (m_col_size != m.m_row_size) throw myexcept("can not *, m_col_size of 1st matrix must be equal to m_row_size of 2nd matrix@ matrix::operator *");
+
+		matrix r(m_row_size, m.m_col_size);
+		for (int i = 0; i<m_row_size; i++) {
+			for (int j = 0; j<m.m_col_size; j++) {
+				r.m_row[i][j] = 0;
+				for (int k = 0; k<m_col_size; k++)
+					r.m_row[i][j] += m_row[i][k] * m.m_row[k][j];
+			}
+		}
+		return r;
+	}
+
 	matrix & matrix::operator *=(double x) {
 		for (int i = 0; i<m_row_size; i++) {
 			m_row[i] *= x;
 		}
+		m_is_det_flag = false;
 		return *this;
 	}
 
@@ -84,21 +88,41 @@ namespace OFEC {
 		}
 		if (this == &m) return *this;
 		m_row = m.m_row;
+		if (m.m_is_det_flag == true) {
+			m_det = m.m_det;
+			m_is_det_flag = true;
+		}
+		else m_is_det_flag = false;
 		return *this;
 	}
+
+	bool matrix::operator==(const matrix & m) {
+		if ((m_col_size == m.m_col_size) && (m_row_size == m.m_row_size)) {
+			for (int i = 0; i < m_row_size; i++) {
+				for (int j = 0; j < m_col_size; j++) {
+					if (fabs(m_row[i][j] - m.m_row[i][j]) > default_accuracy)
+						return false;
+				}
+			}
+			return true;
+		}
+		else return false;
+	}
+
 	bool matrix::identify() {
 		if (m_row_size != m_col_size) return false;
 		for (int i = 0; i<m_row_size; i++)
 			for (int j = 0; j<m_col_size; j++)
 				m_row[i][j] = (j == i);
-
+		m_det = 1;
+		m_is_det_flag = true;
 		return true;
 	}
-	bool matrix::is_identity() {
+	bool matrix::is_identity(double accuracy) {
 		if (m_row_size != m_col_size) return false;
 		for (int i = 0; i<m_row_size; i++) {
 			for (int j = 0; j<m_col_size; j++) {
-				if (m_row[i][j] != (i == j ? 1. : 0)) {
+				if (fabs(m_row[i][j] - (i == j ? 1. : 0)) > accuracy) {
 					return false;
 				}
 			}
@@ -123,12 +147,14 @@ namespace OFEC {
 				else m_row[i][j] = pow(CondiNum, (r[i] - min) / (max - min));
 		}
 		delete[]r;
-
+		m_is_det_flag = false;
 	}
 	void matrix::zero() {
 		for (int i = 0; i<m_row_size; i++)
 			for (int j = 0; j<m_col_size; j++)
 				m_row[i][j] = 0.;
+		m_det = 0;
+		m_is_det_flag = true;
 	}
 	void matrix::set_rotation_axes(int r, int c, double angle) {
 		identify();
@@ -136,10 +162,11 @@ namespace OFEC {
 		m_row[r][c] = -sin(angle);
 		m_row[c][r] = sin(angle);
 		m_row[c][c] = cos(angle);
+		m_is_det_flag = false;
 	}
 
 
-	void matrix::generate_rotation(normal *rand, double CondiNum) {
+	void matrix::generate_rotation(normal *rand, double CondiNum, orthonormalize_mode mode) {
 		/*P. N. Suganthan, N. Hansen, J. J. Liang, K. Deb, Y.-P. Chen, A. Auger and S. Tiwari,
 		"Problem Definitions and Evaluation Criteria for the CEC 2005 Special Session on Real-Parameter
 		Optimization", Technical Report, Nanyang Technological University, Singapore, May 2005 AND KanGAL
@@ -147,44 +174,49 @@ namespace OFEC {
 
 		matrix ortholeft(m_row_size), orthoright(m_row_size), diagonal(m_row_size);
 		ortholeft.randomize(rand);
-		ortholeft.orthonormalize();
+		if (mode == orthonormalize_mode::modified) ortholeft.orthonormalize();
+		if (mode == orthonormalize_mode::Classical) ortholeft.classical_orthonormalize();
 		orthoright.randomize(rand);
-		orthoright.orthonormalize();
+		if (mode == orthonormalize_mode::modified) orthoright.orthonormalize();
+		if (mode == orthonormalize_mode::Classical) orthoright.classical_orthonormalize();
 		diagonal.diagonalize(rand, CondiNum);
 		ortholeft *= diagonal;
 		ortholeft *= orthoright;
 		*this = ortholeft;
+		m_is_det_flag = false;
 	}
 
 	void matrix::randomize(uniform * rand, real min, real max) {
 		for (int i = 0; i<m_row_size; i++)
 			m_row[i].randomize(rand, min, max);
+		m_is_det_flag = false;
 	}
 	void matrix::randomize(normal *rand) {
 		for (int i = 0; i<m_row_size; i++)
 			m_row[i].randomize(rand);
+		m_is_det_flag = false;
 	}
 
 	void matrix::orthonormalize() {
 		if (m_row_size != m_col_size) throw myexcept("cannot perform orthonormalization, matrix must be squre@matrix::orthonormalize");
 		//if (!(is_inverse())) throw myexcept("cannot perform function orthonormalize(), matrix must be reversible@matrix::orthonormalize");
-		Vector v(m_col_size), q(m_col_size);
+		matrix v(m_col_size);
 		double r = 0;
 		//modified Gram schmidt process
-		for (int i = 0; i<m_row_size; i++) {
-			v = m_row[i];
-			q = m_row[i];
-			for (int j = 0; j<i; j++) {
-				r = v * m_row[j];
-				v -= m_row[j] * r;
-			}
-			r = v.length();
-			m_row[i] = v / r;
+		for (int i = 0; i < m_col_size; i++) {
+			v[i] = m_row[i];
 		}
-		// normalize each vector
-		for (int i = 0; i < m_row_size; i++) m_row[i].normalize();
+		for (int i = 0; i<m_row_size; i++) {
+			v[i].normalize();
+			m_row[i] = v[i];
+			for (int j = i; j<m_row_size; j++) {
+				r = v[j] * m_row[i];
+				v[j] -= m_row[i] * r;
+			}
+		}
+		m_is_det_flag = false;
 	}
-	bool matrix::is_orthogonal() {
+	bool matrix::is_orthogonal(double accuracy) {
 		/*if (m_row_size != m_col_size) throw myexcept("cannot perform function is_orthogonal(), matrix must be squre@matrix::orthonormalize");
 		matrix temp1 = *this;
 		temp1.transpose();
@@ -195,9 +227,9 @@ namespace OFEC {
 
 		for (int i = 0; i < m_row_size; i++) {
 			for (int j = i + 1; j < m_row_size; j++) {
-				if (fabs(m_row[i] * m_row[j]) > 1e-4) return false;
+				if (fabs(m_row[i] * m_row[j]) > accuracy) return false;
 			}
-			if (m_row[i].length()!=1.) return false;
+			if (fabs(m_row[i].length()-1.) > accuracy) return false;
 		}
 		return true;
 	}
@@ -208,6 +240,23 @@ namespace OFEC {
 				temp[j][i] = m_row[i][j];
 			}
 		m_row = std::move(temp);
+	}
+
+	void matrix::classical_orthonormalize() {
+		if (m_row_size != m_col_size) throw myexcept("cannot perform classical_orthonormalize, matrix must be squre@matrix::classical_orthonormalize");
+		matrix v(m_col_size);
+		double r = 0;
+		//classical Gram schmidt process
+		for (int i = 0; i < m_col_size; i++) {
+			v[i] = m_row[i];
+			for (int j = 0; j < i; j++) {
+				r = m_row[i] * m_row[j];
+				v[i] -= m_row[j] * r;
+			}
+			v[i].normalize();
+			m_row[i] = v[i];
+		}
+		m_is_det_flag = false;
 	}
 
 	void matrix::inverse() {
@@ -263,15 +312,16 @@ namespace OFEC {
 			for (int i = 0; i < m_row_size; i++) delete[] a[i];
 			delete[] a;
 		}
+		m_is_det_flag = false;
 	}
 
 	std::vector<Vector>& matrix::data() {
 		return m_row;
 	}
 
-	bool matrix::is_inverse() {
+	bool matrix::is_inverse(double accuracy) {
 		
-		return !(fabs(determinant()) <= 1e-8);
+		return !(fabs(determinant()) <= accuracy);
 	}
 
 	double matrix::determinant() {
@@ -341,14 +391,15 @@ namespace OFEC {
 				if (i == j) m_row[i][j] = pow(alpha, 0.5*(i / (m_col_size - 1)));
 				else m_row[i][j] = 0;
 		}
+		m_is_det_flag = false;
 	}
 
-	bool matrix::is_diagonal() {
+	bool matrix::is_diagonal(double accuracy) {
 		if (m_row_size != m_col_size) throw myexcept("cannot perform function is_diagonal(), matrix must be squre@matrix::is_diagonal");
 		for (int i = 0; i<m_row_size; i++) {
 			for (int j = 0; j < m_col_size; j++) {
 				if (i == j) continue;
-				if (!(fabs(m_row[i][j]) < 1e-8)) return false;
+				if (!(fabs(m_row[i][j]) < accuracy)) return false;
 			}
 		}
 		return true;
@@ -367,12 +418,8 @@ namespace OFEC {
 		Q: Columns are normalized eigenvectors.
 		*/
 	
-	
-		double* temp_vec = new double[m_row_size + 1];
-		
-		
 
-		//std::vector<Vector> temp_row(m_row_size,Vector(m_col_size));
+		std::vector<double> temp_vec(m_col_size+1);
 		for (int i = 0; i<m_row_size; i++) {
 			for (int j = 0; j < m_col_size; j++) {
 				m_eigen_vector[i][j] = m_row[i][j];
@@ -382,12 +429,11 @@ namespace OFEC {
 		Householder2(m_row_size, m_eigen_vector, m_eigen_value, temp_vec);
 		QLalgo2(m_row_size, m_eigen_value, temp_vec, m_eigen_vector);
 
-		delete[] temp_vec;
-		temp_vec = nullptr;
+		
 		
 	}
 
-	void matrix::Householder2(int n, double **V, double *d, double *e) {
+	void matrix::Householder2(int n, std::vector<Vector> & V, std::vector<double> & d, std::vector<double> & e) {
 		/*
 		Householder transformation of a symmetric matrix V into tridiagonal form.
 		-> n             : dimension
@@ -516,7 +562,7 @@ namespace OFEC {
 
 	}
 
-	void matrix::QLalgo2(int n, double *d, double *e, double **V) {
+	void matrix::QLalgo2(int n, std::vector<double> & d, std::vector<double> & e, std::vector<Vector> & V) {
 		/*
 		-> n     : Dimension.
 		-> d     : Diagonale of tridiagonal matrix.
@@ -658,10 +704,10 @@ namespace OFEC {
 #endif 
 	}
 
-	double* matrix::get_eigen_value() {
+	std::vector<double> & matrix::get_eigen_value() {
 		return m_eigen_value;
 	}
-	double** matrix::get_eigen_vector() {
+	std::vector<Vector> & matrix::get_eigen_vector() {
 		return m_eigen_vector;
 	}
 

@@ -52,6 +52,7 @@ namespace OFEC {
 		Change_dimension,Infeasible};
 	enum class problem_tag { SOP, MOP, DOP, MMP, SMP, ROOT, CONT, COMB, TSP, COP, VRP, TTP, JSP, KOP, SAT, ONEMAX, QAP, MKP };
 	enum class DEMutationStratgy { DE_rand_1, DE_best_1, DE_targetToBest_1, DE_best_2, DE_rand_2, DE_randToBest_1, DE_targetToRand_1 };
+	enum class orthonormalize_mode {Classical, modified};
 	//SOP: single objective problem
 	//MOP: multi-objective problem
 	//DOP: dynamic optimization problem
