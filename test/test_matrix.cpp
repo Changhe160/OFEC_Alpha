@@ -12,6 +12,8 @@ BOOST_AUTO_TEST_CASE(test_case1)
 {
 	std::cout << "********This is test_case1 :********" << std::endl;
 	matrix a(3);
+	std::vector<double> value(3);
+	std::vector<Vector> vec(3, Vector(3));
 	int size = a.data().size();
 	normal rand(0.2);
 	double temp[3][3] = { {3,2,4},{2,0,2},{4,2,3} };
@@ -29,19 +31,19 @@ BOOST_AUTO_TEST_CASE(test_case1)
 	//a.transpose();
 	//a.inverse();
 	//a.diagonalize(&rand, 1e6);
-	//a.eigendecomposition();
+	a.eigendecomposition(value, vec);
 	//a.orthonormalize();
 	a.classical_orthonormalize();
 	std::cout << "eigenvalues are :" << std::endl;
 	for (int i = 0; i < a.data().size(); i++) {
-		std::cout << a.get_eigen_value()[i] << ' ';
+		std::cout << value[i] << ' ';
 	}
 	std::cout << std::endl;
 	
 	std::cout << "eigenvectors are :" << std::endl;
 	for (int i = 0; i < a.data().size(); i++) {
 		for (int j = 0; j < a.data().size(); j++) {
-			std::cout << a.get_eigen_vector()[i][j] << ' ';
+			std::cout << vec[i][j] << ' ';
 		}
 		std::cout << std::endl;
 	}
@@ -65,8 +67,8 @@ BOOST_AUTO_TEST_CASE(test_case2)
 	matrix a(3);
 	normal rand(0.5);
 	
-	//a.generate_rotation(&rand, 1e6, orthonormalize_mode::modified);
-	a.generate_rotation(&rand, 1e6);
+	a.classical_generate_rotation(&rand, 1e6);
+	//a.generate_rotation(&rand, 1e6);
 	//a.classical_orthonormalize();
 	//a.diagonalize(&rand, 1e6);
 	std::cout << a.determinant() << std::endl;

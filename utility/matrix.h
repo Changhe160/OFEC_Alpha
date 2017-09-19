@@ -21,7 +21,6 @@
 #define OFEC_MATRIX_H
 
 #include "vector.h"
-#define default_accuracy (1e-6)
 
 namespace OFEC {
 
@@ -36,9 +35,10 @@ namespace OFEC {
 		matrix & operator=(const matrix & m);
 		bool operator==(const matrix & m);
 		bool identify();
-		bool is_identity(double accuracy = default_accuracy);
+		bool is_identity(double accuracy = 1e-8);
 		void set_rotation_axes(int r, int c, double angle);
-		void generate_rotation(normal *rand, double CondiNum, orthonormalize_mode mode = orthonormalize_mode::Classical);
+		void generate_rotation(normal *rand, double CondiNum);
+		void classical_generate_rotation(normal *rand, double CondiNum);
 		void randomize(uniform * rand, real min=-1, real max=1);
 		void randomize(normal *rand);
 		void orthonormalize();
@@ -47,23 +47,22 @@ namespace OFEC {
 		void set_row(const double *d, int c, int r = 1);
 		void set_col(const double *d, const int r, const int c = 1);
 		void set(const std::vector<Vector> & d);
+		void set(const double * const * d);
 		void diagonalize(normal * rand, double CondiNum);
 		void transpose();
 		void inverse();
-		bool is_inverse(double accuracy = default_accuracy);
+		bool is_inverse(double accuracy = 1e-8);
 		Vector & operator[](int idx);
 		const Vector & operator[](int idx)const;
 		void resize(int row, int col);
 		void diagonalize(double alpha);
-		bool is_diagonal(double accuracy = default_accuracy);
-		bool is_orthogonal(double accuracy = default_accuracy);
+		bool is_diagonal(double accuracy = 1e-8);
+		bool is_orthogonal(double accuracy = 1e-8);
 		double determinant_(std::vector<Vector>& temp, int num);
 		double determinant();
 		std::vector<Vector>& data();
 		/* Eigendecomposition of a matrix */
-		void eigendecomposition();
-		std::vector<double> & get_eigen_value();
-		std::vector<Vector> & get_eigen_vector();
+		void eigendecomposition(std::vector<double> & eigen_value, std::vector<Vector> & eigen_vector);
 		/* * * * * * * * * * * * * * * * * */
 		void load(std::ifstream &in);
 		void print(std::ofstream & out);
@@ -78,8 +77,6 @@ namespace OFEC {
 		std::vector<Vector> m_row;
 		bool m_is_det_flag = false;
 		double m_det;
-		std::vector<double> m_eigen_value;
-		std::vector<Vector> m_eigen_vector;
 	};
 
 }

@@ -3,14 +3,13 @@
 
 namespace OFEC {
 
-	matrix::matrix(int dim) :m_col_size(dim), m_row_size(dim), m_eigen_value(dim), m_eigen_vector(dim, Vector(dim)) {
+	matrix::matrix(int dim) :m_col_size(dim), m_row_size(dim) {
 		if (m_row_size == 0) return;
 		resize(m_row_size, m_col_size);
 		
 	}
-	matrix::matrix(int r, int c) : m_col_size(c), m_row_size(r), m_eigen_value(c), m_eigen_vector(c, Vector(r)) {
+	matrix::matrix(int r, int c) : m_col_size(c), m_row_size(r) {
 		resize(m_row_size, m_col_size);
-		
 	}
 
 	matrix::~matrix() {
@@ -32,6 +31,13 @@ namespace OFEC {
 
 	}
 	void matrix::set(const std::vector<Vector> & d) {
+		for (int i = 0; i<m_row_size; i++)
+			for (int j = 0; j<m_col_size; j++)
+				m_row[i][j] = d[i][j];
+		m_is_det_flag = false;
+	}
+
+	void matrix::set(const double * const * d) {
 		for (int i = 0; i<m_row_size; i++)
 			for (int j = 0; j<m_col_size; j++)
 				m_row[i][j] = d[i][j];
@@ -100,7 +106,7 @@ namespace OFEC {
 		if ((m_col_size == m.m_col_size) && (m_row_size == m.m_row_size)) {
 			for (int i = 0; i < m_row_size; i++) {
 				for (int j = 0; j < m_col_size; j++) {
-					if (fabs(m_row[i][j] - m.m_row[i][j]) > default_accuracy)
+					if (fabs(m_row[i][j] - m.m_row[i][j]) > 1e-8)
 						return false;
 				}
 			}
@@ -166,7 +172,7 @@ namespace OFEC {
 	}
 
 
-	void matrix::generate_rotation(normal *rand, double CondiNum, orthonormalize_mode mode) {
+	void matrix::generate_rotation(normal *rand, double CondiNum) {
 		/*P. N. Suganthan, N. Hansen, J. J. Liang, K. Deb, Y.-P. Chen, A. Auger and S. Tiwari,
 		"Problem Definitions and Evaluation Criteria for the CEC 2005 Special Session on Real-Parameter
 		Optimization", Technical Report, Nanyang Technological University, Singapore, May 2005 AND KanGAL
@@ -174,11 +180,22 @@ namespace OFEC {
 
 		matrix ortholeft(m_row_size), orthoright(m_row_size), diagonal(m_row_size);
 		ortholeft.randomize(rand);
-		if (mode == orthonormalize_mode::modified) ortholeft.orthonormalize();
-		if (mode == orthonormalize_mode::Classical) ortholeft.classical_orthonormalize();
+		ortholeft.orthonormalize();
 		orthoright.randomize(rand);
-		if (mode == orthonormalize_mode::modified) orthoright.orthonormalize();
-		if (mode == orthonormalize_mode::Classical) orthoright.classical_orthonormalize();
+		orthoright.orthonormalize();
+		diagonal.diagonalize(rand, CondiNum);
+		ortholeft *= diagonal;
+		ortholeft *= orthoright;
+		*this = ortholeft;
+		m_is_det_flag = false;
+	}
+
+	void matrix::classical_generate_rotation(normal *rand, double CondiNum) {
+		matrix ortholeft(m_row_size), orthoright(m_row_size), diagonal(m_row_size);
+		ortholeft.randomize(rand);
+		ortholeft.classical_orthonormalize();
+		orthoright.randomize(rand);
+		orthoright.classical_orthonormalize();
 		diagonal.diagonalize(rand, CondiNum);
 		ortholeft *= diagonal;
 		ortholeft *= orthoright;
@@ -405,7 +422,7 @@ namespace OFEC {
 		return true;
 	}
 
-	void matrix::eigendecomposition() {
+	void matrix::eigendecomposition(std::vector<double> & eigen_value, std::vector<Vector> & eigen_vector) {  
 		/*
 		Calculating eigenvalues and vectors.
 		Input:
@@ -422,12 +439,12 @@ namespace OFEC {
 		std::vector<double> temp_vec(m_col_size+1);
 		for (int i = 0; i<m_row_size; i++) {
 			for (int j = 0; j < m_col_size; j++) {
-				m_eigen_vector[i][j] = m_row[i][j];
+				eigen_vector[i][j] = m_row[i][j];
 			}
 		}
 
-		Householder2(m_row_size, m_eigen_vector, m_eigen_value, temp_vec);
-		QLalgo2(m_row_size, m_eigen_value, temp_vec, m_eigen_vector);
+		Householder2(m_row_size, eigen_vector, eigen_value, temp_vec);
+		QLalgo2(m_row_size, eigen_value, temp_vec, eigen_vector);
 
 		
 		
@@ -704,12 +721,6 @@ namespace OFEC {
 #endif 
 	}
 
-	std::vector<double> & matrix::get_eigen_value() {
-		return m_eigen_value;
-	}
-	std::vector<Vector> & matrix::get_eigen_vector() {
-		return m_eigen_vector;
-	}
 
 	void matrix::load(std::ifstream &in) {
 		for (int i = 0; i<m_row_size; i++) {
