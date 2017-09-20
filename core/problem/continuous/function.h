@@ -35,7 +35,7 @@ namespace OFEC {
 
 		real translation(size_t i) const;
 		std::vector<real>& translation();
-		matrix& rotation(size_t i = 0);
+		matrix& rotation();
 		double condition_number();
 		void set_condition_number(double c);
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
@@ -46,8 +46,7 @@ namespace OFEC {
 		function& operator =(function &&);
 
 		void translate_zero();		
-		virtual void transform(double * x);
-
+		
 		virtual void initialize() {};
 		bool load_translation();
 		virtual void load_translation_(const string &path);
@@ -58,15 +57,21 @@ namespace OFEC {
 		virtual void set_rotation();
 		virtual void evaluate__(real *x, vector<real>& obj) = 0;
 
+		void resize_translation(size_t n);
+		void resize_rotation(size_t n);
+
 		void irregularize(real *x);
-		void asyemmetricalize(real *x, double belta);
-		
+		void asyemmetricalize(real *x, double belta);		
+		void translate(real *x);
+		void rotate(real *x);
+		void scale(real *x);
+	
 	protected:
 		std::vector<real> m_translation;
 		bool m_scale_flag=false, m_rotation_flag=false, m_translation_flag=false, m_noise_flag = false;
 		real m_scale, m_bias;
 		real m_condition_number;
-		std::vector<matrix> m_rotation;
+		matrix m_rotation;
 		optima<variable<real>, real> m_original_optima;
 	};
 }

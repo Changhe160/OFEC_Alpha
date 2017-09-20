@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* The vector-based objective encoding schme and a vector-based variable encoding scheme
+* The vector-based objective encoding scheme and a vector-based variable encoding scheme
 * is defined.
 *
 *********************************************************************************/

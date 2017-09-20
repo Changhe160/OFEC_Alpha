@@ -33,7 +33,7 @@ namespace OFEC {
 		m_objective_accuracy = rhs.m_objective_accuracy;
 		m_tag = rhs.m_tag;
 		m_solved = rhs.m_solved;
-		m_paramters.str(rhs.m_paramters.str());
+		m_parameters.str(rhs.m_parameters.str());
 
 		return *this;
 	}
@@ -50,7 +50,7 @@ namespace OFEC {
 		m_objective_accuracy = rhs.m_objective_accuracy;
 		m_tag = std::move(rhs.m_tag);
 		m_solved = rhs.m_solved;
-		m_paramters = std::move(rhs.m_paramters);
+		m_parameters = std::move(rhs.m_parameters);
 		return *this;
 	}
 
