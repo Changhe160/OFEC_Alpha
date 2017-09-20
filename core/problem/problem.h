@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* macros used in OFEC
+* class problem defines optimization problems
 *
 *
 *********************************************************************************/
@@ -149,7 +149,7 @@ namespace OFEC {
 		std::vector<optimization_mode> m_opt_mode;
 		double m_objective_accuracy=1.0e-6;
 		std::set<problem_tag> m_tag;
-		std::stringstream m_paramters;
+		std::stringstream m_parameters;
 		bool m_solved = false;
 #ifdef OFEC_CONSOLE
 		static thread_local std::map<int,pair<unique_ptr<base>, unique_ptr<base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
