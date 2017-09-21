@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(test_case1)
 	//a.transpose();
 	//a.inverse();
 	//a.diagonalize(&rand, 1e6);
-	a.eigendecomposition(value, vec);
+	//a.eigendecomposition(value, vec);
 	//a.orthonormalize();
 	a.classical_orthonormalize();
 	std::cout << "eigenvalues are :" << std::endl;
@@ -99,8 +99,8 @@ BOOST_AUTO_TEST_CASE(test_case3)
 	//a.classical_orthonormalize();
 	//a.orthonormalize();
 	//a=b*a;
-	a*=b;
-	//std::cout << (a==b) << std::endl;
+	//a*=b;
+	std::cout << (a.eqaul(a)) << std::endl;
 	std::cout << a.determinant() << std::endl;
 	std::cout << a.is_inverse() << std::endl;
 	std::cout << a.is_orthogonal() << std::endl;
@@ -117,18 +117,27 @@ BOOST_AUTO_TEST_CASE(test_case3)
 BOOST_AUTO_TEST_CASE(test_case4)
 {
 	std::cout << "********This is test_case4 :********" << std::endl;
-	matrix a(2,3);     
-
-	double vec[2] = { 10,9 };
-	a.set_col(vec, 2, 3);
+	matrix a(4);     
+	std::vector<Vector> data(4, Vector(4));
+	double vec[4][4] = { {0,2,1,0},{1,-1,0,0},{1,2,0,-1},{1,0,0,1} };
+	for (int i = 0; i < a.data().size(); i++) {
+		for (int j = 0; j < a.data()[i].size(); j++) {
+			data[i][j] = vec[i][j];
+		}
+	}
+	a.set(data);
+	a.classical_orthonormalize();
+	//a.orthonormalize();
+	//a.set_col(vec, 2, 3);
 	//a.set_row(vec, 2, 3);
-	a.transpose();
+	//a.transpose();
 	//a.inverse();
 
 	//std::cout << a.determinant() << std::endl;
 	//std::cout << a.is_inverse() << std::endl;
 	//std::cout << a.is_orthogonal() << std::endl;
 	//std::cout << a.is_identity() << std::endl;
+	//std::cout<<"row_size is " << m_row_size <<' '<<"col_size is "<<m_col_size<< std::endl;
 	for (int i = 0; i < a.data().size(); i++) {
 		for (int j = 0; j < a.data()[i].size(); j++) {
 			std::cout << a[i][j] << ' ';

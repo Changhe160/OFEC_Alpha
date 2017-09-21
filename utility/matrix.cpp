@@ -15,14 +15,14 @@ namespace OFEC {
 	matrix::~matrix() {
 		
 	}
-	void matrix::set_row(const double *d, const int c, const int r) {
+	void matrix::set_row(const real *d, const int c, const int r) {
 		if (r != m_row_size) return;
 		for (int i = 0; i<m_row_size; i++)
 			for (int j = 0; j<m_col_size; j++)
 				m_row[i][j] = d[j];
 		m_is_det_flag = false;
 	}
-	void matrix::set_col(const double *d, const int r, const int c) {
+	void matrix::set_col(const real *d, const int r, const int c) {
 		if (c != m_col_size) return;
 		for (int i = 0; i<m_row_size; i++)
 			for (int j = 0; j<m_col_size; j++)
@@ -37,7 +37,7 @@ namespace OFEC {
 		m_is_det_flag = false;
 	}
 
-	void matrix::set(const double * const * d) {
+	void matrix::set(const real * const * d) {
 		for (int i = 0; i<m_row_size; i++)
 			for (int j = 0; j<m_col_size; j++)
 				m_row[i][j] = d[i][j];
@@ -102,11 +102,11 @@ namespace OFEC {
 		return *this;
 	}
 
-	bool matrix::operator==(const matrix & m) {
+	bool matrix::eqaul(const matrix & m, double accuracy) {
 		if ((m_col_size == m.m_col_size) && (m_row_size == m.m_row_size)) {
 			for (int i = 0; i < m_row_size; i++) {
 				for (int j = 0; j < m_col_size; j++) {
-					if (fabs(m_row[i][j] - m.m_row[i][j]) > 1e-8)
+					if (fabs(m_row[i][j] - m.m_row[i][j]) > accuracy)
 						return false;
 				}
 			}
@@ -172,17 +172,12 @@ namespace OFEC {
 	}
 
 
-	void matrix::generate_rotation(normal *rand, double CondiNum) {
-		/*P. N. Suganthan, N. Hansen, J. J. Liang, K. Deb, Y.-P. Chen, A. Auger and S. Tiwari,
-		"Problem Definitions and Evaluation Criteria for the CEC 2005 Special Session on Real-Parameter
-		Optimization", Technical Report, Nanyang Technological University, Singapore, May 2005 AND KanGAL
-		Report #2005005, IIT Kanpur, India.*/
-
+	void matrix::modified_generate_rotation(normal *rand, double CondiNum) {
 		matrix ortholeft(m_row_size), orthoright(m_row_size), diagonal(m_row_size);
 		ortholeft.randomize(rand);
-		ortholeft.orthonormalize();
+		ortholeft.modified_orthonormalize();
 		orthoright.randomize(rand);
-		orthoright.orthonormalize();
+		orthoright.modified_orthonormalize();
 		diagonal.diagonalize(rand, CondiNum);
 		ortholeft *= diagonal;
 		ortholeft *= orthoright;
@@ -191,6 +186,11 @@ namespace OFEC {
 	}
 
 	void matrix::classical_generate_rotation(normal *rand, double CondiNum) {
+		/*P. N. Suganthan, N. Hansen, J. J. Liang, K. Deb, Y.-P. Chen, A. Auger and S. Tiwari,
+		"Problem Definitions and Evaluation Criteria for the CEC 2005 Special Session on Real-Parameter
+		Optimization", Technical Report, Nanyang Technological University, Singapore, May 2005 AND KanGAL
+		Report #2005005, IIT Kanpur, India.*/ 
+
 		matrix ortholeft(m_row_size), orthoright(m_row_size), diagonal(m_row_size);
 		ortholeft.randomize(rand);
 		ortholeft.classical_orthonormalize();
@@ -214,13 +214,13 @@ namespace OFEC {
 		m_is_det_flag = false;
 	}
 
-	void matrix::orthonormalize() {
+	void matrix::modified_orthonormalize() {
 		if (m_row_size != m_col_size) throw myexcept("cannot perform orthonormalization, matrix must be squre@matrix::orthonormalize");
 		//if (!(is_inverse())) throw myexcept("cannot perform function orthonormalize(), matrix must be reversible@matrix::orthonormalize");
-		matrix v(m_col_size);
+		matrix v(m_row_size, m_col_size);
 		double r = 0;
 		//modified Gram schmidt process
-		for (int i = 0; i < m_col_size; i++) {
+		for (int i = 0; i < m_row_size; i++) {
 			v[i] = m_row[i];
 		}
 		for (int i = 0; i<m_row_size; i++) {
@@ -257,14 +257,16 @@ namespace OFEC {
 				temp[j][i] = m_row[i][j];
 			}
 		m_row = std::move(temp);
+		m_row_size = m_row.size();
+		m_col_size = m_row[0].size();
 	}
 
 	void matrix::classical_orthonormalize() {
 		if (m_row_size != m_col_size) throw myexcept("cannot perform classical_orthonormalize, matrix must be squre@matrix::classical_orthonormalize");
-		matrix v(m_col_size);
+		matrix v(m_row_size, m_col_size);
 		double r = 0;
 		//classical Gram schmidt process
-		for (int i = 0; i < m_col_size; i++) {
+		for (int i = 0; i < m_row_size; i++) {
 			v[i] = m_row[i];
 			for (int j = 0; j < i; j++) {
 				r = m_row[i] * m_row[j];
