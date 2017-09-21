@@ -35,13 +35,16 @@ namespace OFEC {
 		void set_boundary_false(int i=0) {
 			m_range[i].limited = false;
 		}
-		void set_range(ValueType low, ValueType upper, int i = 0) {
+		void set_range(ValueType low, ValueType upper, int i) {
 			m_range[i].limit.first = low;
 			m_range[i].limit.second = upper;
 		}
 		void resize(size_t n) {
 			m_range.resize(n);
 		}	
+		size_t size()const noexcept {
+			return m_range.size();
+		}
 		const single_set& range(int i = 0)const {
 			return m_range[i];
 		}

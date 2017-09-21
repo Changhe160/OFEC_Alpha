@@ -83,8 +83,9 @@ namespace OFEC {
 	const std::pair<real, real>& continuous::range(int i) const {
 		return m_domain.range(i).limit;
 	}
-	void continuous::set_range(real l, real u, int i = 0) {
-		m_domain.set_range(l, u, i);
+	void continuous::set_range(real l, real u) {
+		for (size_t i = 0; i < m_domain.size(); ++i)
+			m_domain.set_range(l, u, i);
 	}
 
 	void continuous::set_range(const std::vector<std::pair<real, real>>& r) {
@@ -98,16 +99,16 @@ namespace OFEC {
 	}
 
 	double continuous::variable_distance(const base &s1, const base &s2) const {
-		const variable<real>& x1 = dynamic_cast<const variable<real>&>(s1);
-		const variable<real>& x2 = dynamic_cast<const variable<real>&>(s2);
-		return euclidean_distance(x1.begin(),x1.end(), x2.begin());   //??
+		const variable<real>& x1 = dynamic_cast<const solution<variable<real>, real>&>(s1).get_variable();
+		const variable<real>& x2 = dynamic_cast<const solution<variable<real>, real>&>(s2).get_variable();
+		return euclidean_distance(x1.begin(),x1.end(), x2.begin());   
 
 	}
 
 	double continuous::variable_distance(const variable_base &s1, const variable_base &s2) const {
 		const variable<real>& x1 = dynamic_cast<const variable<real>&>(s1);
 		const variable<real>& x2 = dynamic_cast<const variable<real>&>(s2);
-		return euclidean_distance(x1.begin(), x1.end(), x2.begin());  //??
+		return euclidean_distance(x1.begin(), x1.end(), x2.begin());  
 	}
 
 }
