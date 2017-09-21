@@ -30,10 +30,10 @@ namespace OFEC {
 		struct s_change_type {
 			change_type type;
 			int counter;
-			s_change_type & operator=(const s_change_type & r_change_type) {
-				if (this == &r_change_type)  return *this;
-				type = r_change_type.type;
-				counter = r_change_type.counter;
+			s_change_type & operator=(const s_change_type & change_type) {
+				if (this == &change_type)  return *this;
+				type = change_type.type;
+				counter = change_type.counter;
 				return *this;
 			};
 		};
@@ -70,37 +70,37 @@ namespace OFEC {
 
 		double m_noise_severity_, m_time_linkage_severity; // severity of noise and time-linkage added in noisy and time-linkage enviroment
 
-		void set_dimension_change(const bool r_flag);
-		void set_change_dirction(const bool r_flag);
+		void set_dimension_change(const bool flag);
+		void set_change_dirction(const bool flag);
 
 		bool m_flag_trigger_time_linkage;
 	public:
-		static const int msc_NumChangeTypes = 12;
+		static const int msc_num_change_types = 12;
 
-		dynamic_problem(const int r_dim_number, const int r_num_peaks, const unsigned num_obj = 1);
+		dynamic_problem(const int dim_number, const int num_peaks, const unsigned num_obj = 1);
 		virtual ~dynamic_problem() = 0;
 
-		dynamic_problem & operator=(const dynamic_problem & r_dynamic_problem);
+		dynamic_problem & operator=(const dynamic_problem & dynamic_problem);
 
-		void set_change_fre(const int r_change_fre);
-		virtual bool set_period(const int r_period);
-		void set_change_type(const s_change_type &r_change_type);
-		void set_change_type(const change_type r_type);
-		void set_num_peaks_change(const bool r_peaks_change);
+		void set_change_interval(const int change_interval);
+		virtual bool set_period(const int period);
+		void set_change_type(const s_change_type &change_type);
+		void set_change_type(const change_type type);
+		void set_num_peaks_change(const bool peaks_change);
 		bool get_flag_num_peaks_change() {
 			return m_flag_num_peaks_change;
 		}
-		void set_synchronize(const bool r_flag);
-		void set_noisy_severity(const double r_severity);
+		void set_synchronize(const bool flag);
+		void set_noisy_severity(const double severity);
 
-		void set_alpha(const double r_alpha) {
-			m_alpha = r_alpha;
+		void set_alpha(const double alpha) {
+			m_alpha = alpha;
 		};
-		void set_max_alpha(const double r_max_alpha) {
-			m_max_alpha = r_max_alpha;
+		void set_max_alpha(const double max_alpha) {
+			m_max_alpha = max_alpha;
 		};
-		void set_choatic_constant(const double r_value) {
-			m_chaotic_constant = r_value;
+		void set_choatic_constant(const double value) {
+			m_chaotic_constant = value;
 		}
 
 		int get_change_fre()const {

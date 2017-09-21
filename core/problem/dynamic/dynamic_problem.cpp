@@ -12,9 +12,9 @@ namespace OFEC {
 #endif
 
 
-	void dynamic_problem::set_dimension_change(const bool r_flag)
+	void dynamic_problem::set_dimension_change(const bool flag)
 	{
-		m_flag_dimension_change = r_flag;
+		m_flag_dimension_change = flag;
 
 		size_t start, end;
 		start = m_parameters.str().find("dimensionalchange:");
@@ -31,13 +31,13 @@ namespace OFEC {
 		m_parameters.str(result);
 	}
 
-	void dynamic_problem::set_change_dirction(const bool r_flag)
+	void dynamic_problem::set_change_dirction(const bool flag)
 	{
-		m_dir_dimension_change = r_flag;
+		m_dir_dimension_change = flag;
 	}
 
-	dynamic_problem::dynamic_problem(const int size_var, const int r_num_peaks, const unsigned size_obj):problem(string(), size_var, size_obj), m_change_counter(0)
-		, m_dim_number_temp(size_var), m_num_peaks(r_num_peaks), m_num_peaks_temp(r_num_peaks), m_noise_flag(false), m_time_linkage_flag(false), m_flag_trigger_time_linkage(false) {
+	dynamic_problem::dynamic_problem(const int size_var, const int num_peaks, const unsigned size_obj):problem(string(), size_var, size_obj), m_change_counter(0)
+		, m_dim_number_temp(size_var), m_num_peaks(num_peaks), m_num_peaks_temp(num_peaks), m_noise_flag(false), m_time_linkage_flag(false), m_flag_trigger_time_linkage(false) {
 
 		m_change_interval = 5000;
 		m_change_type.type = change_type::CT_random;
@@ -77,44 +77,44 @@ namespace OFEC {
 		//dtor
 	}
 
-	dynamic_problem & dynamic_problem::operator=(const dynamic_problem & r_dynamic_problem)
+	dynamic_problem & dynamic_problem::operator=(const dynamic_problem & dynamic_problem)
 	{
-		if (this == &r_dynamic_problem) return *this;
+		if (this == &dynamic_problem) return *this;
 
-		if (m_variable_size != r_dynamic_problem.m_variable_size) {
+		if (m_variable_size != dynamic_problem.m_variable_size) {
 			throw myexcept("The number of dimensions must be same!@dynamic_problem::operator=");
 		}
-		if (m_change_type.type != r_dynamic_problem.m_change_type.type) {
+		if (m_change_type.type != dynamic_problem.m_change_type.type) {
 			throw myexcept("The change type must be same!@dynamic_problem::operator=");
 		}
-		if (m_num_peaks != r_dynamic_problem.m_num_peaks) {
+		if (m_num_peaks != dynamic_problem.m_num_peaks) {
 			throw myexcept("The number of peaks must be same!@dynamic_problem::operator=");
 		}
-		problem::operator=(r_dynamic_problem);
+		problem::operator=(dynamic_problem);
 
 
-		m_change_type.counter = r_dynamic_problem.m_change_type.counter;
-		m_change_interval = r_dynamic_problem.m_change_interval;
-		m_period = r_dynamic_problem.m_period;
-		m_flag_dimension_change = r_dynamic_problem.m_flag_dimension_change;
-		m_dir_dimension_change = r_dynamic_problem.m_dir_dimension_change;
-		m_synchronize = r_dynamic_problem.m_synchronize;
-		m_noisy_severity = r_dynamic_problem.m_noisy_severity;
+		m_change_type.counter = dynamic_problem.m_change_type.counter;
+		m_change_interval = dynamic_problem.m_change_interval;
+		m_period = dynamic_problem.m_period;
+		m_flag_dimension_change = dynamic_problem.m_flag_dimension_change;
+		m_dir_dimension_change = dynamic_problem.m_dir_dimension_change;
+		m_synchronize = dynamic_problem.m_synchronize;
+		m_noisy_severity = dynamic_problem.m_noisy_severity;
 
-		m_alpha = r_dynamic_problem.m_alpha;
-		m_max_alpha = r_dynamic_problem.m_max_alpha;
-		m_chaotic_constant = r_dynamic_problem.m_chaotic_constant;
+		m_alpha = dynamic_problem.m_alpha;
+		m_max_alpha = dynamic_problem.m_max_alpha;
+		m_chaotic_constant = dynamic_problem.m_chaotic_constant;
 
-		m_flag_num_peaks_change = r_dynamic_problem.m_flag_num_peaks_change;
-		m_flag_num_peaks_change = r_dynamic_problem.m_flag_num_peaks_change;
-		m_num_peaks_change_mode = r_dynamic_problem.m_num_peaks_change_mode;
+		m_flag_num_peaks_change = dynamic_problem.m_flag_num_peaks_change;
+		m_flag_num_peaks_change = dynamic_problem.m_flag_num_peaks_change;
+		m_num_peaks_change_mode = dynamic_problem.m_num_peaks_change_mode;
 
-		m_noise_flag = r_dynamic_problem.m_noise_flag;
-		m_time_linkage_flag = r_dynamic_problem.m_time_linkage_flag;
+		m_noise_flag = dynamic_problem.m_noise_flag;
+		m_time_linkage_flag = dynamic_problem.m_time_linkage_flag;
 
-		m_noise_severity_ = r_dynamic_problem.m_noise_severity_;
-		m_time_linkage_severity = r_dynamic_problem.m_time_linkage_severity;
-		m_flag_trigger_time_linkage = r_dynamic_problem.m_flag_trigger_time_linkage;
+		m_noise_severity_ = dynamic_problem.m_noise_severity_;
+		m_time_linkage_severity = dynamic_problem.m_time_linkage_severity;
+		m_flag_trigger_time_linkage = dynamic_problem.m_flag_trigger_time_linkage;
 		return *this;
 	}
 
@@ -317,9 +317,9 @@ namespace OFEC {
 
 
 
-	void dynamic_problem::set_change_fre(const int r_change_fre)
+	void dynamic_problem::set_change_interval(const int change_interval)
 	{
-		if (r_change_fre>0) m_change_interval = r_change_fre;
+		if (change_interval>0) m_change_interval = change_interval;
 		else {
 			throw myexcept("Change frequncy must be greater than 0 @dynamic_problem::set_change_fre");
 		}
@@ -339,28 +339,28 @@ namespace OFEC {
 		m_parameters.str(result);
 	}
 
-	bool dynamic_problem::set_period(const int r_period)
+	bool dynamic_problem::set_period(const int period)
 	{
-		if (r_period >= 0) m_period = r_period;
+		if (period >= 0) m_period = period;
 		else {
 			throw myexcept("period must be positive@ dynamic_problem::set_period");
 		}
 		return true;
 	}
 
-	void dynamic_problem::set_change_type(const s_change_type & r_change_type)
+	void dynamic_problem::set_change_type(const s_change_type & change_type)
 	{
-		m_change_type = r_change_type;
+		m_change_type = change_type;
 	}
 
-	void dynamic_problem::set_change_type(const change_type r_type)
+	void dynamic_problem::set_change_type(const change_type type)
 	{
-		m_change_type.type = r_type;
+		m_change_type.type = type;
 	}
 
-	void dynamic_problem::set_num_peaks_change(const bool r_peaks_change)
+	void dynamic_problem::set_num_peaks_change(const bool peaks_change)
 	{
-		m_flag_num_peaks_change = r_peaks_change;
+		m_flag_num_peaks_change = peaks_change;
 		size_t start, end;
 		start = m_parameters.str().find("NumPeaksChange:");
 		for (auto i = start; i < m_parameters.str().size(); i++) {
@@ -371,14 +371,14 @@ namespace OFEC {
 		}
 	}
 
-	void dynamic_problem::set_synchronize(const bool r_flag)
+	void dynamic_problem::set_synchronize(const bool flag)
 	{
-		m_dir_dimension_change = r_flag;
+		m_dir_dimension_change = flag;
 	}
 
-	void dynamic_problem::set_noisy_severity(const double r_severity)
+	void dynamic_problem::set_noisy_severity(const double severity)
 	{
-		m_noisy_severity = r_severity;
+		m_noisy_severity = severity;
 	}
 
 	void dynamic_problem::set_timelinkage_severity(double value)
