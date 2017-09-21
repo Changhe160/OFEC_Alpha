@@ -106,13 +106,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(BOOST_INC_1_64);$(CUDA_INC);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(BOOST_INC_1_64); $(CUDA_INC);</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(BOOST_LIB_x64);$(CUDA_LIB);</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BOOST_LIB_x64); $(CUDA_LIB);</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -155,7 +155,6 @@
     <ClCompile Include="core\problem\problem.cpp" />
     <ClCompile Include="test\test_MO_sort.cpp" />
     <ClCompile Include="utility\matrix.cpp" />
-    <ClCompile Include="utility\MO_sort\dominancegraph_insert_sort.cpp" />
     <ClCompile Include="utility\random\extreal.cpp" />
     <ClCompile Include="utility\random\newran.cpp" />
     <ClCompile Include="utility\typevar\arithmetic.cpp" />
@@ -179,10 +178,9 @@
     <ClInclude Include="core\problem\problem.h" />
     <ClInclude Include="utility\functional.h" />
     <ClInclude Include="utility\matrix.h" />
-    <ClInclude Include="utility\MO_sort\dominancegraph_insert_sort.h" />
-    <ClInclude Include="utility\MO_sort\d_graph.h" />
-    <ClInclude Include="utility\MO_sort\fast_nondominated_sort.h" />
     <ClInclude Include="utility\myexcept.h" />
+    <ClInclude Include="utility\nondominated_sorting\d_graph.h" />
+    <ClInclude Include="utility\nondominated_sorting\NSGA2.h" />
     <ClInclude Include="utility\random\extreal.h" />
     <ClInclude Include="utility\random\newran.h" />
     <ClInclude Include="utility\typevar\typevar.h" />

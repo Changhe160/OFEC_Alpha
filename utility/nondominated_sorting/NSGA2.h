@@ -36,7 +36,7 @@ public:
 			}
 		}
 
-		int m_curRank = 0;
+		int m_curRank = 1;
 		vector<int> rank2(m_popsize);
 		while (1)
 		{

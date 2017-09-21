@@ -22,7 +22,7 @@
     <Filter Include="utility\typevar">
       <UniqueIdentifier>{88684ca9-9be1-4fff-8443-ddf322dd59e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utility\MO_sort">
+    <Filter Include="utility\nondominated_sorting">
       <UniqueIdentifier>{d5a2e93f-085f-49fd-aca3-99a48d500a4b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -78,14 +78,11 @@
     <ClInclude Include="utility\vector.h">
       <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="utility\MO_sort\fast_nondominated_sort.h">
-      <Filter>utility\MO_sort</Filter>
+    <ClInclude Include="utility\nondominated_sorting\d_graph.h">
+      <Filter>utility\nondominated_sorting</Filter>
     </ClInclude>
-    <ClInclude Include="utility\MO_sort\dominancegraph_insert_sort.h">
-      <Filter>utility\MO_sort</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\MO_sort\d_graph.h">
-      <Filter>utility\MO_sort</Filter>
+    <ClInclude Include="utility\nondominated_sorting\NSGA2.h">
+      <Filter>utility\nondominated_sorting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +131,5 @@
     <ClCompile Include="test\test_MO_sort.cpp">
       <Filter>test</Filter>
     </ClCompile>
-    <ClCompile Include="utility\MO_sort\dominancegraph_insert_sort.cpp" />
   </ItemGroup>
 </Project>
