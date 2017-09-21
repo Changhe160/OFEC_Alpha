@@ -78,10 +78,10 @@
     <ClInclude Include="utility\vector.h">
       <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\d_graph.h">
+    <ClInclude Include="utility\nondominated_sorting\NSGA2.h">
       <Filter>utility\nondominated_sorting</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\NSGA2.h">
+    <ClInclude Include="utility\nondominated_sorting\d_graph2.h">
       <Filter>utility\nondominated_sorting</Filter>
     </ClInclude>
   </ItemGroup>

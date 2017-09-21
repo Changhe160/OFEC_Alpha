@@ -10,7 +10,7 @@ BOOST_AUTO_TEST_SUITE(nondominated_sorting_test)
 
 BOOST_AUTO_TEST_CASE(test_case1) {
 	random rand(0.5);
-	int data_size(100);
+	int data_size(1000);
 	vector<vector<double>> data;
 	vector<int> no;
 	vector<pair<int, vector<double>>> md;
@@ -19,7 +19,6 @@ BOOST_AUTO_TEST_CASE(test_case1) {
 		no.push_back(i);
 		md.emplace_back(no[i], data[i]);
 	}
-
 	fast_sort fs(md);
 	fs.sort();
 	auto & fs_result = fs.ranking();
@@ -30,18 +29,32 @@ BOOST_AUTO_TEST_CASE(test_case1) {
 
 BOOST_AUTO_TEST_CASE(test_case2) {
 	random rand(0.5);
-	int data_size(100);
+	int data_size(1000);
+	vector<vector<double>> data;
+	for (int i = 0; i < data_size; i++) {
+		data.push_back(vector<double>({ rand.next(), rand.next() }));
+	}
+
+	dg_graph<double> dg(data);
+	auto& dg_result = dg.ranking();
+
+	cout << "fast sort compares " << dg.number() << " times" << endl;
+	system("pause");
+}
+
+BOOST_AUTO_TEST_CASE(test_case3) {
+	random rand(0.5);
+	int data_size(1000);
 	vector<vector<double>> data;
 	vector<int> no;
 	vector<pair<int, vector<double>>> md;
 	for (int i = 0; i < data_size; i++) {
-		data.push_back(vector<double>({ rand.next(), rand.next() }));
+		data.push_back(vector<double>({ rand.next(), rand.next()}));
 		no.push_back(i);
 		md.emplace_back(no[i], data[i]);
 	}
 
-	d_graph<double> dg(md);
-	dg.update_ranking();
+	dg_graph<double> dg(data);
 	auto& dg_result = dg.ranking();
 
 	fast_sort fs(md);

@@ -24,6 +24,7 @@ public:
 			for (int j = 0; j<m_popsize; j++) {
 				if (k != j) {
 					auto compare_result = m_compare(m_pop[j].second, m_pop[k].second, optimization_mode::Minimization);
+					m_num += m_objsnum;
 					if (compare_result == dominationship::Dominating) {//*m_pop[j]>*m_pop[k]
 						rank_[k]++;
 					}
@@ -31,12 +32,11 @@ public:
 						(*i)[count[k]] = j;
 						count[k]++;
 					}
-					m_num++;
 				}
 			}
 		}
 
-		int m_curRank = 1;
+		int m_curRank = 0;
 		vector<int> rank2(m_popsize);
 		while (1)
 		{
@@ -77,10 +77,17 @@ public:
 		return m_num;
 	}
 	fast_sort(vector<pair<int, vector<double>>> && data) :m_popsize(data.size()), m_pop(std::move(data)), rank_(m_popsize), rank(m_popsize), count(m_popsize),
-		cset(m_popsize, vector<int>(m_popsize)) {}
+		cset(m_popsize, vector<int>(m_popsize)) {
+		if (!data.empty())
+			m_objsnum = data[0].second.size();
+		}
 	fast_sort(const vector<pair<int, vector<double>>> & data) :m_popsize(data.size()), m_pop(data), rank_(m_popsize), rank(m_popsize), count(m_popsize),
-		cset(m_popsize, vector<int>(m_popsize)) {}
+		cset(m_popsize, vector<int>(m_popsize)) {
+		if (!data.empty())
+			m_objsnum = data[0].second.size();
+	}
 private:
+	int m_objsnum;
 	int m_popsize;
 	vector<pair<int, vector<double>>> m_pop;
 	vector<int> rank_, count, rank;

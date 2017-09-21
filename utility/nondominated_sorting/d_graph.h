@@ -1,127 +1,121 @@
-#ifndef DOMINANCE_GRAPH_H
-#define DOMINANCE_GRAPH_H
+#ifndef D_GRAPH2
+#define D_GRAPH2
 
-#include <iostream>
-#include <list>
-#include <map>
-#include <utility>
-#include <limits>
-#include <memory>
 #include "../../core/algorithm/encoding.h"
 #include "../../core/definition.h"
 
-using namespace std;
-
 template<typename T>
-struct d_node {
+class dg_node {
+public:
 	const int m_index;
-	const vector<T> m_obj;
+	int m_rank;
+	vector<int> m_children;
+	vector<T> m_obj;
 	bool m_compared;
-	int m_ranking;
-	vector<d_node*> m_children;
-	d_node(int index, vector<T>& obj) : m_index(index), m_obj(obj), m_ranking(0), m_compared(false) {}
+	dg_node(int index, vector<T>& obj) : m_index(index), m_obj(obj), m_rank(0), m_compared(false){}
 };
 
-template<typename T = double>
-class d_graph {
+template<typename T>
+class dg_graph {
 private:
-	d_node<T>* m_root;
+	vector<dg_node<T>> m_nodes;
+	int m_nodeNum;
+	vector<vector<int>> m_rank;
 	OFEC::objective_compare<> m_compare;
 	int m_comparisons;
-	vector<d_node<T>*> m_nodes;
-	int m_nodesnum;
-	map<int, int> m_ranking;
-private:
-	template<typename visit, typename ...Args>
-	void travel(d_node<T>* p, visit f, Args&&... args) {
-		list<d_node<T>*> l(1, p);
-		while (!l.empty()) {
-			d_node<T>* q = *l.begin();
-			l.pop_front();
-			for (auto &i : q->m_children)
-				l.push_back(i);
-			f(q, std::forward<Args>(args)...);
+	int m_objNum;
+
+	void ignoreChildren(dg_node<T>& toadd, int node, vector<int>& D) {
+		if (!m_nodes[node].m_compared) {
+			toadd.m_children.push_back(node);
+			m_nodes[node].m_compared = true;
+			D.push_back(node);
+			for (int& child : m_nodes[node].m_children)
+				ignoreChildren(toadd, child, D);
 		}
 	}
 
-	template<typename visit, typename ...Args>
-	void preorder_travel(d_node<T>* p, visit f, Args&&... args) {
-		f(p, std::forward<Args>(args)...);
-		for (auto& child : p->m_children)
-			preorder_travel(child, f, std::forward<Args>(args)...);
-	}
-
-	static void compare(d_node<T> *p, d_node<T> *node, d_graph<T> *_this) {
-		//travel(m_root, [this](d_node<T> *p, d_node<T> *node) {
-		if (p->m_compared)
-			return;
-		OFEC::dominationship compare_result;
-		if (p->m_index == -1)
-			compare_result = OFEC::dominationship::Dominated;
-		else {
-			compare_result = _this->m_compare(node->m_obj, p->m_obj, OFEC::optimization_mode::Minimization);
-			_this->m_comparisons += 2;
+	void deepenChildren(int child, int parent) {
+		if (m_nodes[child].m_rank < m_nodes[parent].m_rank + 1) {
+			m_rank[m_nodes[child].m_rank].erase(find(m_rank[m_nodes[child].m_rank].begin(), m_rank[m_nodes[child].m_rank].end(), m_nodes[child].m_index));
+			m_nodes[child].m_rank = m_nodes[parent].m_rank + 1;
+			if (m_nodes[child].m_rank > m_rank.size() - 1)
+				m_rank.push_back(vector<int>(1, m_nodes[child].m_index));
+			else
+				m_rank[m_nodes[child].m_rank].push_back(m_nodes[child].m_index);
+			for (int& _child : m_nodes[child].m_children)
+				deepenChildren(_child, child);
 		}
-		if (compare_result == OFEC::dominationship::Dominating) {
-			//_this->travel(p, [node](d_node<T>* p) {
-			_this->preorder_travel(p, [node](d_node<T>* p) {
-				if (!p->m_compared) {
-					p->m_compared = true;
-					node->m_children.push_back(p);
-				}
-			});
-		}
-		else if (compare_result == OFEC::dominationship::Dominated)
-			p->m_children.push_back(node);
-		p->m_compared = true;
 	}
 
 public:
-	d_graph(vector<pair<int, vector<T>>>& data) : m_root(new d_node<T>(-1, std::move(vector<T>(2, numeric_limits<T>::min())))), m_comparisons(0) , m_nodesnum(0) {
-		for (pair<int, vector<T>> &member : data)
-			add_node(member);
+	dg_graph(vector<vector<T>>& data) : m_nodeNum(0), m_comparisons(0){
+		if (!data.empty())
+			m_objNum = data[0].size();
+		for (vector<T>& obj : data)
+			addNode(obj);
 	}
-	~d_graph() {
-		m_nodes.clear();
-		delete m_root;
-	}
-	void add_node(pair<int, vector<T>> &member) {
-		d_node<T>* new_node = new d_node<T>(member.first, member.second);
-		m_nodes.push_back(std::move(new_node));
-		preorder_travel(m_root, compare, new_node, this);
-		m_root->m_compared = false;
-		for (d_node<T>* node : m_nodes)
-			node->m_compared = false;
-	}
+	void addNode(vector<T>& obj) {
+		m_nodes.push_back(dg_node<T>(m_nodeNum, obj));
+		dg_node<T>& toadd = m_nodes[m_nodeNum];
+		m_nodeNum++;
 
-	void update_ranking() {
-		int rank(0);
-		vector<int> size(1, 1);
-		size.push_back(0);
-		list<d_node<T>*> l(1, m_root);
-		while (!l.empty()) {
-			d_node<T>* q = *l.begin();
-			l.pop_front();
-			q->m_ranking = rank;
-			size[rank]--;
-			for (auto &i : q->m_children) {
-				l.push_back(i);
-				size[rank+1]++;
-			}
-			if (size[rank] == 0) {
-				rank++;
-				size.push_back(0);
+		vector<int> P;
+		vector<int> D;
+
+		for (vector<int>& rank : m_rank) {
+			for (int& node : rank) {
+				if (!m_nodes[node].m_compared) {
+					OFEC::dominationship compare_result = m_compare(toadd.m_obj, m_nodes[node].m_obj, OFEC::optimization_mode::Minimization);
+					m_comparisons += m_objNum;
+					if (compare_result == OFEC::dominationship::Dominating) {
+						ignoreChildren(toadd, node, D);
+					}
+					else if (compare_result == OFEC::dominationship::Dominated) {
+						m_nodes[node].m_children.push_back(toadd.m_index);
+						m_nodes[node].m_compared = true;
+						P.push_back(node);
+					}
+					else
+						m_nodes[node].m_compared = true;
+				}
 			}
 		}
-		m_ranking.clear();
-		for (auto& node : m_nodes)
-			m_ranking.emplace(node->m_index, node->m_ranking);
+		for (dg_node<T>& node : m_nodes)
+			node.m_compared = false;
+
+		for (int& p : P)
+			if (toadd.m_rank < m_nodes[p].m_rank + 1) 
+				toadd.m_rank = m_nodes[p].m_rank + 1;
+
+		if (toadd.m_rank > int(m_rank.size()) - 1)
+			m_rank.push_back(vector<int>(1, toadd.m_index));
+		else
+			m_rank[toadd.m_rank].push_back(toadd.m_index);
+
+		for (int& d : D)
+			deepenChildren(d, toadd.m_index);
+			//if (m_nodes[d].m_rank < toadd.m_rank + 1) {
+			//	m_rank[m_nodes[d].m_rank].erase(find(m_rank[m_nodes[d].m_rank].begin(), m_rank[m_nodes[d].m_rank].end(), m_nodes[d].m_index));
+			//	m_nodes[d].m_rank = toadd.m_rank + 1;
+			//	if (m_nodes[d].m_rank > m_rank.size() - 1)
+			//		m_rank.push_back(vector<int>(1, m_nodes[d].m_index));
+			//	else
+			//		m_rank[m_nodes[d].m_rank].push_back(m_nodes[d].m_index);
+			//	for (int& child : m_nodes[d].m_children)
+			//		deepenChildren(child, d);
+			//}
 	}
 
-	const map<int, int>& ranking() { return m_ranking; }
+	const map<int, int> ranking() { 
+		map<int, int> ranking;
+		for (dg_node<T>& node : m_nodes)
+			ranking.emplace(node.m_index, node.m_rank);
+		return ranking; 
+	}
 
 	const int number() { return m_comparisons; }
 };
 
-#endif // 
+#endif // !D_GRAPH2
 
