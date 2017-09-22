@@ -179,8 +179,9 @@
     <ClInclude Include="utility\functional.h" />
     <ClInclude Include="utility\matrix.h" />
     <ClInclude Include="utility\myexcept.h" />
-    <ClInclude Include="utility\nondominated_sorting\d_graph2.h" />
+    <ClInclude Include="utility\nondominated_sorting\d_graph.h" />
     <ClInclude Include="utility\nondominated_sorting\NSGA2.h" />
+    <ClInclude Include="utility\nondominated_sorting\preSorting.h" />
     <ClInclude Include="utility\random\extreal.h" />
     <ClInclude Include="utility\random\newran.h" />
     <ClInclude Include="utility\typevar\typevar.h" />

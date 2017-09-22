@@ -81,7 +81,10 @@
     <ClInclude Include="utility\nondominated_sorting\NSGA2.h">
       <Filter>utility\nondominated_sorting</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\d_graph2.h">
+    <ClInclude Include="utility\nondominated_sorting\d_graph.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\preSorting.h">
       <Filter>utility\nondominated_sorting</Filter>
     </ClInclude>
   </ItemGroup>
