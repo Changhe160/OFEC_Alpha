@@ -69,6 +69,15 @@
     <ClInclude Include="core\algorithm\multi_population.h">
       <Filter>core\algorithm</Filter>
     </ClInclude>
+    <ClInclude Include="core\problem\dynamic\dynamic_continuous.h">
+      <Filter>core\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="core\problem\dynamic\moving_peak.h">
+      <Filter>core\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="core\problem\dynamic\dynamic_problem.h">
+      <Filter>core\problem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">
@@ -82,9 +91,6 @@
     </ClCompile>
     <ClCompile Include="core\global.cpp">
       <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_core.cpp">
-      <Filter>test</Filter>
     </ClCompile>
     <ClCompile Include="utility\typevar\arithmetic.cpp">
       <Filter>utility\typevar</Filter>
@@ -109,6 +115,12 @@
     </ClCompile>
     <ClCompile Include="core\algorithm\algorithm.cpp">
       <Filter>core\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="core\problem\dynamic\dynamic_problem.cpp">
+      <Filter>core\problem</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_dynamic_problem.cpp">
+      <Filter>test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
