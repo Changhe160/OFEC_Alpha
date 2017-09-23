@@ -3,7 +3,7 @@
 
 namespace OFEC {
 
-	Vector::vector_::vector_(Vector& v, int idx) :m_vec(v), m_idx(idx) {
+	Vector::vector_::vector_(Vector& v, size_t idx) :m_vec(v), m_idx(idx) {
 
 	}
 	Vector::vector_& Vector::vector_::operator=(const vector_& rhs) {
@@ -44,13 +44,13 @@ namespace OFEC {
 		return *this;
 	}
 
-	Vector::Vector(int size, real *val) :m_data(size) {
+	Vector::Vector(size_t size, real *val) :m_data(size) {
 		copy(val, val + size, m_data.begin());
 	}
-	Vector::Vector(int size) : m_data(size) {
+	Vector::Vector(size_t size) : m_data(size) {
 
 	}
-	Vector::Vector(int size, real val) : m_data(size, val){
+	Vector::Vector(size_t size, real val) : m_data(size, val){
 
 	}
 	Vector::Vector(const std::vector<real> & v) : m_data(v) {
@@ -60,10 +60,10 @@ namespace OFEC {
 	
 	}
 
-	Vector::vector_ Vector::operator [](int idx) {
+	Vector::vector_ Vector::operator [](size_t idx) {
 		return Vector::vector_(*this, idx);
 	}
-	const double & Vector::operator [](int idx)const {
+	const double & Vector::operator [](size_t idx)const {
 		return m_data[idx];
 	}
 	Vector &Vector::operator =(const Vector & v) {
@@ -232,16 +232,16 @@ namespace OFEC {
 		m_wrote = true;
 	}
 
-	double Vector::distance(const Vector&v) const {
-		if (v.size() != size()) throw myexcept("size not the same@  Vector::distance(const Vector&v)");
+	double Vector::distance(const Vector& point) const {
+		if (point.size() != size()) throw myexcept("size not the same@  Vector::distance(const Vector&v)");
 		Vector vec(m_data);
-		vec -= v;
+		vec -= point;
 		return vec.length();
 	}
-	double Vector::distance(const std::vector<real>&v) const {
-		if (v.size() != size()) throw myexcept("size not the same@  Vector::distance(const Vector&v)");
+	double Vector::distance(const std::vector<real>& point) const {
+		if (point.size() != size()) throw myexcept("size not the same@  Vector::distance(const Vector&v)");
 		Vector vec(m_data);
-		vec -= v;
+		vec -= point;
 		return vec.length();
 	}
 
@@ -271,7 +271,7 @@ namespace OFEC {
 		return *this;
 	}
 
-	void Vector::zero() {
+	void Vector::zeroize() {
 		for (auto &i : m_data) 		i = 0;
 		m_length = 0;
 		m_wrote = false;
@@ -285,7 +285,7 @@ namespace OFEC {
 		return Vector(v);
 	}
 
-	void  Vector::resize(int n) noexcept {
+	void  Vector::resize(size_t n) noexcept {
 		m_data.resize(n);
 		m_wrote = true;
 	}
@@ -296,18 +296,19 @@ namespace OFEC {
 		m_length = std::sqrt(m_length);
 	}
 
-	double perpendicular_distance(const Vector &direction, const Vector &point) {
+	double Vector::perpendicular_distance(const Vector &point) {
 		double numerator = 0, denominator = 0;
-		for (size_t i = 0; i<direction.size(); i += 1){
-			numerator += direction[i] * point[i];
-			denominator += direction[i] * direction[i];
+		for (size_t i = 0; i<m_data.size(); ++i){
+			numerator += m_data[i] * point[i];
+			denominator += m_data[i] * m_data[i];
 		}
 		double k = numerator / denominator;
 
 		double d = 0;
-		for (size_t i = 0; i<direction.size(); i += 1)		
-			d += (k*direction[i] - point[i])*(k*direction[i] - point[i]);
+		for (size_t i = 0; i<m_data.size(); i += 1)
+			d += (k*m_data[i] - point[i])*(k*m_data[i] - point[i]);
 
 		return sqrt(d);
 	}
+
 }

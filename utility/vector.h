@@ -38,9 +38,9 @@ namespace OFEC {
 		class vector_ {
 		private:
 			Vector & m_vec;
-			int m_idx;
+			size_t m_idx;
 		public:
-			vector_(Vector& v, int idx);
+			vector_(Vector& v, size_t idx);
 			vector_& operator=(const vector_& rhs);
 			operator real() const;
 			vector_&  operator=(real);
@@ -50,13 +50,19 @@ namespace OFEC {
 			vector_& operator*=(real);
 		};
 		friend class vector_;
-		Vector(int n = 0);
-		Vector(int n, real val);
-		Vector(int n, real *val);
+		Vector(size_t n = 0);
+		Vector(size_t n, real val);
+		Vector(size_t n, real *val);
 		Vector(const std::vector<real> & v);
 		Vector(const std::vector<real> &&v);
 		Vector(const Vector&) = default;
-	
+		Vector(Vector&& rhs);
+		Vector& operator=(Vector&& rhs);
+		const real &operator [](size_t)const;
+
+		std::vector<real> & data() { return m_data; }
+		const std::vector<real> & data()const { return m_data; }
+
 		Vector& operator =(const Vector & v);
 		Vector& operator =(const std::vector<real> & v);
 		Vector& operator +=(const Vector & v);
@@ -69,42 +75,36 @@ namespace OFEC {
 		Vector  operator /(real val) const;
 		Vector  operator -(real val)const;
 		Vector  operator +(real val)const;
+		real operator *(const Vector &v) const;
+
 
 		Vector point_between(const Vector & v, double ratio)const;
 		
-		vector_ operator [](int);
-
-		const real &operator [](int)const;
-		real operator *(const Vector &v) const;
+		vector_ operator [](size_t);
+		void push_back(real);
+			
 		Vector projection( const Vector &v) const;
 		void normalize();
+
 		size_t size()const;
-		
-		void randomize_in_sphere(double radius, uniform * rand);
-		void randomize_on_sphere(double radius, uniform * rand);
-
-		void randomize_on_sphere(double radius, std::uniform_real_distribution<real> &unif, std::default_random_engine &gen);
-		void randomize(uniform * rand,real min = 0, real max = 1);
-		void randomize(std::uniform_real_distribution<real> &unif, std::default_random_engine &gen, real min, real max);
-		
-		void randomize(normal *rand);
-		void randomize_in_sphere(double radius, normal *nor, uniform * uni);
-
 		std::vector<real>::iterator  begin();
 		std::vector<real>::iterator  end();
 
+		void randomize_in_sphere(double radius, uniform * rand);
+		void randomize_on_sphere(double radius, uniform * rand);
+		void randomize_on_sphere(double radius, std::uniform_real_distribution<real> &unif, std::default_random_engine &gen);
+		void randomize(uniform * rand,real min = 0, real max = 1);
+		void randomize(std::uniform_real_distribution<real> &unif, std::default_random_engine &gen, real min, real max);	
+		void randomize(normal *rand);
+		void randomize_in_sphere(double radius, normal *nor, uniform * uni);
+
 		double angle( Vector & v);
 		double length();
-		double distance(const Vector&v) const;
-		double distance(const std::vector<real>&v)const;
-		void push_back(real);
-		Vector(Vector&& rhs);
-		Vector& operator=(Vector&& rhs);
-		std::vector<real> & data() { return m_data; }
-		const std::vector<real> & data()const { return m_data; }
-		void zero();
-		void resize(int n) noexcept;
-		double perpendicular_distance(const Vector &direction, const Vector &point);  //TODO
+		double distance(const Vector &point) const;
+		double distance(const std::vector<real> &point)const;
+		void zeroize();
+		void resize(size_t n) noexcept;
+		double perpendicular_distance(const Vector &point); 
 	protected:
 		void length_();
 		friend std::ifstream &operator>>(std::ifstream &, Vector&);
