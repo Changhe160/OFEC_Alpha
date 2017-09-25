@@ -1,5 +1,5 @@
 #include "function.h"
-using namespace std;
+
 namespace OFEC {
 
 	function::function(const std::string &name, size_t size_var, size_t size_obj) :continuous(name, size_var, size_obj) {
@@ -48,11 +48,6 @@ namespace OFEC {
 
 	function& function::operator =(const function & rhs) {
 		if (this == &rhs) return *this;
-
-		if (m_variable_size != rhs.m_variable_size) {
-			throw myexcept("The number of dimensions must be same!@BenchmarkFunction::operator=");
-		}
-
 		continuous::operator=(rhs);
 
 		m_scale_flag = rhs.m_scale_flag;
@@ -64,7 +59,7 @@ namespace OFEC {
 		m_bias = rhs.m_bias;
 		m_condition_number = rhs.m_condition_number;
 
-		m_translation = rhs.translation;
+		m_translation = rhs.m_translation;
 		m_rotation = rhs.m_rotation;
 
 		m_original_optima = rhs.m_original_optima;
@@ -73,12 +68,7 @@ namespace OFEC {
 
 	function& function::operator =(function && rhs) {
 		if (this == &rhs) return *this;
-
-		if (m_variable_size != rhs.m_variable_size) {
-			throw myexcept("The number of dimensions must be same!@BenchmarkFunction::operator=");
-		}
-
-		continuous::operator=(move(rhs));
+		continuous::operator=(std::move(rhs));
 
 		m_scale_flag = rhs.m_scale_flag;
 		m_rotation_flag = rhs.m_rotation_flag;
@@ -89,10 +79,10 @@ namespace OFEC {
 		m_bias = rhs.m_bias;
 		m_condition_number = rhs.m_condition_number;
 
-		m_translation = move(rhs.translation);
-		m_rotation = move(rhs.m_rotation);
+		m_translation = std::move(rhs.m_translation);
+		m_rotation = std::move(rhs.m_rotation);
 
-		m_original_optima = move(rhs.m_original_optima);
+		m_original_optima = std::move(rhs.m_original_optima);
 		return *this;
 	}
 
@@ -145,21 +135,16 @@ namespace OFEC {
 		ss << m_variable_size << "Dim.txt";
 		s = ss.str();
 		s.insert(0, m_name + "_Opt_");
-		s.insert(0, "Problem/FunctionOpt/Data/");//probDataPath
+		s.insert(0, "core/problem/continuous/data/");    // data path
 		s.insert(0, global::ms_arg[param_workingDir]);
 
-		load_translation_(s);
-
-		return true;
+		return load_translation_(s);
 	}
 
-	void function::load_translation_(const string &path) {
+	bool function::load_translation_(const string &path) {
 		ifstream in(path);
 		if (in.fail()) {
-			set_translation();
-			ofstream out(path);
-			for (int j = 0; j<m_variable_size; j++)        out << m_translation[j] << " ";
-			out.close();
+			return false;
 		}
 		else {
 			for (int j = 0; j<m_variable_size; j++) {
@@ -168,21 +153,21 @@ namespace OFEC {
 		}
 		in.close();
 		m_translation_flag = true;
+		return true;
 	}
 
-	void function::set_translation() {
+	void function::set_translation(const std::vector<real>& opt) {
 		// Initial the location of shifted global optimum
-		if (!m_original_optima.variable_given()) {
-			throw myexcept("error, the original global optimia is not defined!@BenchmarkFunction::loadTranslation");
-		}
+		
 		for (int j = 0; j<m_variable_size; j++) {
 			real x, rl, ru, range;
-			x = m_original_optima.variable(0)[j];
+			x = opt[j];
 			ru = m_domain[j].limit.second - x;
 			rl = x - m_domain[j].limit.first;
 			range = rl<ru ? rl : ru;
 			m_translation[j] = (global::ms_global->m_uniform[caller::Problem]->next() - 0.5) * 2 * range;
 		}
+		m_translation_flag = true;
 	}
 
 	bool function::load_rotation() {
@@ -192,7 +177,7 @@ namespace OFEC {
 		s = ss.str();
 		s.insert(0, m_name + "_RotM_");
 
-		s.insert(0, "Problem/FunctionOpt/Data/");//probDataPath
+		s.insert(0, "core/problem/continuous/data/");//probDataPath
 		s.insert(0, global::ms_arg[param_workingDir]);
 
 		load_rotation_(s);
@@ -217,12 +202,11 @@ namespace OFEC {
 	}
 
 	void function::set_rotation() {
-		m_rotation.classical_generate_rotation(global::ms_global->m_normal[caller::Problem].get(), m_condition_number);
+		m_rotation.generate_rotation_classical(global::ms_global->m_normal[caller::Problem].get(), m_condition_number);
 	}
 
 	void function::translate(real *x) {
 		for (int i = 0; i<m_variable_size; i++) {
-			//x[i] -= m_optima.variable(0)[i];
 			x[i] -= m_translation[i];
 		}
 	}
@@ -246,7 +230,13 @@ namespace OFEC {
 			x[i] /= m_scale;
 	}
 
+	void function::translate2(real *x, real tran) {
+		for (int i = 0; i<m_variable_size; i++)
+			x[i] += tran;
+	}
+
 	void function::irregularize(real *x) {
+		// this method from BBOB
 		double c1, c2, x_;
 		for (int i = 0; i < m_variable_size; ++i) {
 			if (x[i]>0) {
@@ -264,6 +254,7 @@ namespace OFEC {
 	}
 
 	void function::asyemmetricalize(real *x, double belta) {
+		// this method from BBOB
 		if (m_variable_size == 1) return;
 		for (int i = 0; i < m_variable_size; ++i) {
 			if (x[i]>0) {
