@@ -124,18 +124,17 @@ namespace OFEC {
 	}
 
 	void function::translate_zero() {
-		for (int i = 0; i < m_variable_size; i++) {
-			m_translation[i] = 0;
-		}
+		for (auto &i : m_translation)
+			i = 0;
 	}
 
-	bool function::load_translation() {
+	bool function::load_translation(const string &path) {
 		string s;
 		stringstream ss;
 		ss << m_variable_size << "Dim.txt";
 		s = ss.str();
 		s.insert(0, m_name + "_Opt_");
-		s.insert(0, "core/problem/continuous/data/");    // data path
+		s.insert(0, path);    // data path
 		s.insert(0, global::ms_arg[param_workingDir]);
 
 		return load_translation_(s);
@@ -147,40 +146,41 @@ namespace OFEC {
 			return false;
 		}
 		else {
-			for (int j = 0; j<m_variable_size; j++) {
-				in >> m_translation[j];
-			}
+			for (auto &i : m_translation)
+				in >> i;
 		}
 		in.close();
 		m_translation_flag = true;
 		return true;
 	}
 
-	void function::set_translation(const std::vector<real>& opt) {
+	void function::set_translation(const std::vector<real>& opt_var) {
 		// Initial the location of shifted global optimum
 		
-		for (int j = 0; j<m_variable_size; j++) {
+		for (size_t j = 0; j<m_variable_size; ++j) {
 			real x, rl, ru, range;
-			x = opt[j];
+			x = opt_var[j];
 			ru = m_domain[j].limit.second - x;
 			rl = x - m_domain[j].limit.first;
 			range = rl<ru ? rl : ru;
 			m_translation[j] = (global::ms_global->m_uniform[caller::Problem]->next() - 0.5) * 2 * range;
 			m_optima.variable(0)[j] = m_translation[j];
 		}
-		//solution<variable<real>,real> x_()
-		evaluate_(m_optima.get_solution(0), caller::Problem, true, false);
+		objective<real> temp_obj(m_objective_size);
+		solution<variable<real>, real> temp(m_optima.variable(0), std::move(temp_obj));
+		evaluate_(temp, caller::Problem, false, false);
+		m_optima.set_objective(std::move(temp.get_objective()),0);
 		m_translation_flag = true;
 	}
 
-	bool function::load_rotation() {
+	bool function::load_rotation(const string &path) {
 		string s;
 		stringstream ss;
 		ss << m_variable_size << "Dim.txt";
 		s = ss.str();
 		s.insert(0, m_name + "_RotM_");
 
-		s.insert(0, "core/problem/continuous/data/");//probDataPath
+		s.insert(0, path);// data path
 		s.insert(0, global::ms_arg[param_workingDir]);
 
 		load_rotation_(s);
@@ -209,7 +209,7 @@ namespace OFEC {
 	}
 
 	void function::translate(real *x) {
-		for (int i = 0; i<m_variable_size; i++) {
+		for (size_t i = 0; i<m_variable_size; ++i) {
 			x[i] -= m_optima.variable(0)[i];
 		}
 	}
@@ -217,10 +217,10 @@ namespace OFEC {
 		double *x_ = new double[m_variable_size];
 		std::copy(x, x + m_variable_size, x_);
 
-		for (int i = 0; i<m_variable_size; i++) {
+		for (size_t i = 0; i<m_variable_size; ++i) {
 			x[i] = 0;
 
-			for (int j = 0; j < m_variable_size; j++) {
+			for (size_t j = 0; j < m_variable_size; ++j) {
 				x[i] += m_rotation[j][i] * x_[j];
 			}
 		}
@@ -229,7 +229,7 @@ namespace OFEC {
 		x_ = 0;
 	}
 	void function::scale(real *x) {
-		for (int i = 0; i<m_variable_size; i++)
+		for (size_t i = 0; i<m_variable_size; ++i)
 			x[i] /= m_scale;
 	}
 
@@ -237,7 +237,7 @@ namespace OFEC {
 	void function::irregularize(real *x) {
 		// this method from BBOB
 		double c1, c2, x_;
-		for (int i = 0; i < m_variable_size; ++i) {
+		for (size_t i = 0; i < m_variable_size; ++i) {
 			if (x[i]>0) {
 				c1 = 10;	c2 = 7.9;
 			}
@@ -255,7 +255,7 @@ namespace OFEC {
 	void function::asyemmetricalize(real *x, double belta) {
 		// this method from BBOB
 		if (m_variable_size == 1) return;
-		for (int i = 0; i < m_variable_size; ++i) {
+		for (size_t i = 0; i < m_variable_size; ++i) {
 			if (x[i]>0) {
 				x[i] = pow(x[i], 1 + belta*i*sqrt(x[i]) / (m_variable_size - 1));
 			}

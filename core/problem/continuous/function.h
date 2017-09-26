@@ -1,8 +1,8 @@
 /******************************************************************************
 * Project:Open Frameworks for Evolutionary Computation (OFEC)
 *******************************************************************************
-* Author: Changhe Li
-* Email: changhe.lw@gmail.com
+* Author: Changhe Li / Li Zhou
+* Email: changhe.lw@gmail.com / 441837060@qq.com
 * Language: C++
 *-------------------------------------------------------------------------------
 *  This file is part of OFEC. This library is free software;
@@ -49,11 +49,11 @@ namespace OFEC {
 		void translate_zero();
 
 		virtual void initialize() {};
-		bool load_translation();
+		bool load_translation(const string &path);
 		virtual bool load_translation_(const string &path);
-		virtual void set_translation(const std::vector<real>& opt);
+		virtual void set_translation(const std::vector<real>& opt_var);
 
-		bool load_rotation();
+		bool load_rotation(const string &path);
 		virtual void load_rotation_(const string &path);
 		virtual void set_rotation();
 		virtual void evaluate__(real *x, std::vector<real>& obj) = 0;
