@@ -166,7 +166,10 @@ namespace OFEC {
 			rl = x - m_domain[j].limit.first;
 			range = rl<ru ? rl : ru;
 			m_translation[j] = (global::ms_global->m_uniform[caller::Problem]->next() - 0.5) * 2 * range;
+			m_optima.variable(0)[j] = m_translation[j];
 		}
+		//solution<variable<real>,real> x_()
+		evaluate_(m_optima.get_solution(0), caller::Problem, true, false);
 		m_translation_flag = true;
 	}
 
@@ -207,7 +210,7 @@ namespace OFEC {
 
 	void function::translate(real *x) {
 		for (int i = 0; i<m_variable_size; i++) {
-			x[i] -= m_translation[i];
+			x[i] -= m_optima.variable(0)[i];
 		}
 	}
 	void function::rotate(real *x) {
