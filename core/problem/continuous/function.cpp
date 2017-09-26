@@ -230,10 +230,6 @@ namespace OFEC {
 			x[i] /= m_scale;
 	}
 
-	void function::translate2(real *x, real tran) {
-		for (int i = 0; i<m_variable_size; i++)
-			x[i] += tran;
-	}
 
 	void function::irregularize(real *x) {
 		// this method from BBOB

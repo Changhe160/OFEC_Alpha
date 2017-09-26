@@ -35,8 +35,8 @@ namespace OFEC {
 #endif // USING_GPU
 
 	struct global {
-		//global();
-
+		global(double seed_pro = -1, double seed_alg = -1);
+		~global();
 		std::unique_ptr<problem> m_problem;
 		std::unique_ptr<algorithm> m_algorithm;
 
