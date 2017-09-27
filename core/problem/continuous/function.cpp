@@ -213,6 +213,11 @@ namespace OFEC {
 			x[i] -= m_optima.variable(0)[i];
 		}
 	}
+	void function::translate2(real *x) {
+		for (size_t i = 0; i<m_variable_size; ++i) {
+			x[i] += m_original_optima.variable(0)[i];
+		}
+	}
 	void function::rotate(real *x) {
 		double *x_ = new double[m_variable_size];
 		std::copy(x, x + m_variable_size, x_);
