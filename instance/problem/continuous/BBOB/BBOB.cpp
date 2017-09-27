@@ -13,22 +13,21 @@ namespace OFEC {
 		else
 			return 0;
 	}
-	BBOB::BBOB(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), function(name, size_var, size_obj), \
-		m_rot(size_var), m_rot2(size_var), m_norRand(size_var*size_var), m_opt_x(size_var), m_opt_obj(size_obj), m_linearTF(size_var) {
+	BBOB::BBOB(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), continuous(name, size_var, size_obj), \
+		m_rot(size_var), m_rot2(size_var), m_norRand(size_var*size_var), m_linearTF(size_var) {
 		initialize();
 	}
-	BBOB::BBOB(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), function((v[param_proName]), (v[param_numDim]), 1), \
+	BBOB::BBOB(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), continuous((v[param_proName]), (v[param_numDim]), 1), \
 		m_rot(m_variable_size), m_rot2(m_variable_size), m_norRand(m_variable_size*m_variable_size), \
-		m_opt_x(m_variable_size), m_opt_obj(m_objective_size), m_linearTF(m_variable_size) {
+		m_linearTF(m_variable_size) {
 		initialize();
 	}
 
 	void BBOB::initialize() {
 		set_range(-5, 5);
 		m_bias = computeFopt();
-		m_opt_obj[0] = m_bias;
+		m_optima.append(m_bias);
 		computeXopt();
-		//m_optima.setFlagLocTrue();
 
 		if (m_name == "FUN_BBOB_F01_Sphere") {
 			m_fun = &BBOB::Sphere_F01;
@@ -46,7 +45,7 @@ namespace OFEC {
 			m_condition_number = 10.;
 			m_alpha = 100.;
 			for (int i = 0; i < m_variable_size; i += 2) {
-				m_opt_x[i] = fabs(m_opt_x[i]); /*Skew*/
+				m_optima.variable(0)[i] = fabs(m_optima.variable(0)[i]); /*Skew*/
 			}
 			m_fun = &BBOB::BucheRastrigin_F04;
 		}
@@ -56,13 +55,13 @@ namespace OFEC {
 			for (int i = 0; i < m_variable_size; i++)
 			{
 				double tmp = pow(sqrt(m_alpha), ((double)i) / ((double)(m_variable_size - 1)));
-				if (m_opt_x[i] > 0)
+				if (m_optima.variable(0)[i] > 0)
 				{
-					m_opt_x[i] = 5.;
+					m_optima.variable(0)[i] = 5.;
 				}
-				else if (m_opt_x[i] < 0)
+				else if (m_optima.variable(0)[i] < 0)
 				{
-					m_opt_x[i] = -5.;
+					m_optima.variable(0)[i] = -5.;
 				}
 				m_bias += 5. * tmp;
 			}
@@ -83,7 +82,7 @@ namespace OFEC {
 			m_fun = &BBOB::OriginalRosenbrock_F08;
 			m_scales = fmax(1., sqrt((double)m_variable_size) / 8.);
 			for (int i = 0; i < m_variable_size; i++)
-				m_opt_x[i] *= 0.75;
+				m_optima.variable(0)[i] *= 0.75;
 		}
 		else if (m_name == "FUN_BBOB_F09_RotatedRosenbrock") {
 			m_fun = &BBOB::RotatedRosenbrock_F09;
@@ -169,10 +168,10 @@ namespace OFEC {
 			}
 			for (int i = 0; i < m_variable_size; i++)
 			{
-				m_opt_x[i] = 0.;
+				m_optima.variable(0)[i] = 0.;
 				for (int j = 0; j < m_variable_size; j++)
 				{
-					m_opt_x[i] += m_linearTF[j][i] * 0.5 / m_scales / m_scales;
+					m_optima.variable(0)[i] += m_linearTF[j][i] * 0.5 / m_scales / m_scales;
 				}
 			}
 		}
@@ -183,9 +182,9 @@ namespace OFEC {
 			for (auto&i : tmpvect) i = global::ms_global->m_uniform[caller::Problem]->next();
 			for (int i = 0; i < m_variable_size; i++)
 			{
-				m_opt_x[i] = 0.5 * 4.2096874633;
+				m_optima.variable(0)[i] = 0.5 * 4.2096874633;
 				if (tmpvect[i] - 0.5 < 0)
-					m_opt_x[i] *= -1.;
+					m_optima.variable(0)[i] *= -1.;
 			}
 		}
 		else if (m_name == "FUN_BBOB_F21_GallagherGaussian101mePeaks") {
@@ -241,7 +240,7 @@ namespace OFEC {
 			for (auto&j : peaks) j = global::ms_global->m_uniform[caller::Problem]->next();
 			for (int i = 0; i < m_variable_size; i++)
 			{
-				m_opt_x[i] = 0.8 * (10. * peaks[i] - 5.);
+				m_optima.variable(0)[i] = 0.8 * (10. * peaks[i] - 5.);
 				for (int j = 0; j < NHIGHPEAKS21; j++)
 				{
 					m_Xlocal[i][j] = 0.;
@@ -306,7 +305,7 @@ namespace OFEC {
 			for (auto&j : peaks) j = global::ms_global->m_uniform[caller::Problem]->next();
 			for (int i = 0; i < m_variable_size; i++)
 			{
-				m_opt_x[i] = 0.8 * (10. * peaks[i] - 5.);
+				m_optima.variable(0)[i] = 0.8 * (10. * peaks[i] - 5.);
 				for (int j = 0; j < NHIGHPEAKS22; j++)
 				{
 					m_Xlocal[i][j] = 0.;
@@ -341,9 +340,9 @@ namespace OFEC {
 
 			for (int i = 0; i < m_variable_size; i++)
 			{
-				m_opt_x[i] = 0.5 * m_mu;
+				m_optima.variable(0)[i] = 0.5 * m_mu;
 				if (tmpvect[i] < 0.)
-					m_opt_x[i] *= -1.;
+					m_optima.variable(0)[i] *= -1.;
 			}
 
 		}
@@ -353,14 +352,15 @@ namespace OFEC {
 
 
 	void BBOB::computeXopt() {
-
-		for (int i = 0; i < m_variable_size; i++)
+		variable<real> temp(m_variable_size);
+		for (int i = 0; i < m_variable_size; ++i)
 		{
-			m_opt_x[i] = 8 * floor(1e4 * global::ms_global->m_uniform[caller::Problem]->next()) / 1e4 - 4;
-			if (m_opt_x[i] == 0.0) {
-				m_opt_x[i] = -1e-5;
+			temp[i] = 8 * floor(1e4 * global::ms_global->m_uniform[caller::Problem]->next()) / 1e4 - 4;
+			if (temp[i] == 0.0) {
+				temp[i] = -1e-5;
 			}
 		}
+		m_optima.append(temp);
 	}
 
 	double BBOB::computeFopt() {
@@ -446,11 +446,71 @@ namespace OFEC {
 		(this->*m_fun)(x, obj);
 	}
 
+	evaluation_tag BBOB::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
+		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
+		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
+
+		double *x_ = new double[m_variable_size]; //for parallel running
+		std::copy(x.begin(), x.end(), x_);
+
+		evaluate__(x_, obj);
+		delete[] x_;
+		x_ = 0;
+		if (constructed) {
+			if (effective_fes)		m_effective_eval++;
+
+			if (m_variable_monitor) {
+				m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_variable_accuracy);
+				if (m_optima.is_variable_found())
+					m_solved = true;
+			}
+			if (m_objective_monitor) {
+				m_optima.is_optimal_objective(obj, m_objective_accuracy);
+				if (m_optima.is_objective_found())
+					m_solved = true;
+			}
+			if (call == caller::Algorithm&& global::ms_global->m_algorithm&&global::ms_global->m_algorithm->terminating())
+				return evaluation_tag::Terminate;
+
+			//if (mode == Program_Algorithm&&Global::msp_global->mp_problem && !Global::msp_global->mp_problem->isProTag(MOP)) m_globalOpt.isFound(s, m_disAccuracy, m_accuracy);
+			//if (Global::msp_global != nullptr&&Global::msp_global->mp_algorithm != nullptr&&Global::msp_global->mp_algorithm->ifTerminating()) { return Return_Terminate; }
+		}
+		return evaluation_tag::Normal;
+	}
+
+	void BBOB::irregularize(real *x) {
+		// this method from BBOB
+		double c1, c2, x_;
+		for (size_t i = 0; i < m_variable_size; ++i) {
+			if (x[i]>0) {
+				c1 = 10;	c2 = 7.9;
+			}
+			else {
+				c1 = 5.5;	c2 = 3.1;
+			}
+			if (x[i] != 0) {
+				x_ = log(fabs(x[i]));
+			}
+			else x_ = 0;
+			x[i] = sign(x[i])*exp(x_ + 0.049*(sin(c1*x_) + sin(c2*x_)));
+		}
+	}
+
+	void BBOB::asyemmetricalize(real *x, double belta) {
+		// this method from BBOB
+		if (m_variable_size == 1) return;
+		for (size_t i = 0; i < m_variable_size; ++i) {
+			if (x[i]>0) {
+				x[i] = pow(x[i], 1 + belta*i*sqrt(x[i]) / (m_variable_size - 1));
+			}
+		}
+	}
+
 	void BBOB::Sphere_F01(real *x, std::vector<real>& obj) {
 
 		obj[0] = 0;
 		for (int i = 0; i < m_variable_size; i++) {
-			x[i] -= m_opt_x[i];
+			x[i] -= m_optima.variable(0)[i];
 		}
 		for (int i = 0; i < m_variable_size; i++) {
 			obj[0] += x[i] * x[i];
@@ -462,7 +522,7 @@ namespace OFEC {
 
 		obj[0] = 0;
 		for (int i = 0; i < m_variable_size; i++) {
-			x[i] -= m_opt_x[i];
+			x[i] -= m_optima.variable(0)[i];
 		}
 		irregularize(x);
 
@@ -475,7 +535,7 @@ namespace OFEC {
 	void BBOB::Rastrigin_F03(real *x, std::vector<real>& obj) {
 
 		for (int i = 0; i < m_variable_size; i++) {
-			x[i] -= m_opt_x[i];
+			x[i] -= m_optima.variable(0)[i];
 		}
 		irregularize(x);
 		asyemmetricalize(x, m_beta);
@@ -500,10 +560,10 @@ namespace OFEC {
 		real fPen = penalize(x);
 		fPen *= 1e2;
 
-		real fAdd = m_opt_obj[0] + fPen;
+		real fAdd = m_optima.single_objective() + fPen;
 
 		for (int i = 0; i < m_variable_size; i++) {
-			x[i] -= m_opt_x[i];
+			x[i] -= m_optima.variable(0)[i];
 		}
 
 		irregularize(x);
@@ -530,9 +590,9 @@ namespace OFEC {
 		/* BOUNDARY HANDLING*/
 		/* move "too" good coordinates back into domain*/
 		for (int i = 0; i < m_variable_size; i++) {
-			if ((m_opt_x[i] == 5.) && (x[i] > 5))
+			if ((m_optima.variable(0)[i] == 5.) && (x[i] > 5))
 				x[i] = 5.;
-			else if ((m_opt_x[i] == -5.) && (x[i] < -5))
+			else if ((m_optima.variable(0)[i] == -5.) && (x[i] < -5))
 				x[i] = -5.;
 		}
 
@@ -540,7 +600,7 @@ namespace OFEC {
 		/* COMPUTATION core*/
 		for (int i = 0; i < m_variable_size; i++)
 		{
-			if (m_opt_x[i] > 0) {
+			if (m_optima.variable(0)[i] > 0) {
 				obj[0] -= pow(sqrt(m_alpha), ((double)i) / ((double)(m_variable_size - 1))) * x[i];
 			}
 			else {
@@ -562,7 +622,7 @@ namespace OFEC {
 		for (i = 0; i < m_variable_size; i++) {
 			tmp = 0.;
 			for (j = 0; j < m_variable_size; j++) {
-				tmp += m_linearTF[i][j] * (x[j] - m_opt_x[j]);
+				tmp += m_linearTF[i][j] * (x[j] - m_optima.variable(0)[j]);
 			}
 			trasX[i] = tmp;
 		}
@@ -571,7 +631,7 @@ namespace OFEC {
 		/* COMPUTATION core*/
 		for (i = 0; i < m_variable_size; i++)
 		{
-			if (trasX[i] * m_opt_x[i] > 0)
+			if (trasX[i] * m_optima.variable(0)[i] > 0)
 				trasX[i] *= m_alpha;
 			obj[0] += trasX[i] * trasX[i];
 		}
@@ -598,7 +658,7 @@ namespace OFEC {
 		/* BOUNDARY HANDLING*/
 		real fPen = penalize(x);
 
-		real fAdd = m_opt_obj[0] + fPen;
+		real fAdd = m_optima.single_objective() + fPen;
 
 		std::vector<real> tmpVect(m_variable_size), trasX(m_variable_size);
 		/* TRANSFORMATION IN SEARCH SPACE*/
@@ -606,7 +666,7 @@ namespace OFEC {
 			tmpVect[i] = 0.;
 			tmp = sqrt(pow(m_condition_number / 10., ((double)i) / ((double)(m_variable_size - 1))));
 			for (j = 0; j < m_variable_size; j++) {
-				tmpVect[i] += tmp * m_rot2[i][j] * (x[j] - m_opt_x[j]);
+				tmpVect[i] += tmp * m_rot2[i][j] * (x[j] - m_optima.variable(0)[j]);
 			}
 
 		}
@@ -644,7 +704,7 @@ namespace OFEC {
 		/* TRANSFORMATION IN SEARCH SPACE*/
 		std::vector<real> trasX(m_variable_size);
 		for (i = 0; i < m_variable_size; i++) {
-			trasX[i] = m_scales * (x[i] - m_opt_x[i]) + 1;
+			trasX[i] = m_scales * (x[i] - m_optima.variable(0)[i]) + 1;
 		}
 
 		/* COMPUTATION core*/
@@ -660,7 +720,7 @@ namespace OFEC {
 			tmp = (trasX[i] - 1.);
 			obj[0] += tmp * tmp;
 		}
-		obj[0] += m_opt_obj[0];
+		obj[0] += m_optima.single_objective();
 	}
 
 	void BBOB::RotatedRosenbrock_F09(real *x, std::vector<real>& obj) {
@@ -702,7 +762,7 @@ namespace OFEC {
 		{
 			trasX[i] = 0.;
 			for (j = 0; j < m_variable_size; j++) {
-				trasX[i] += m_rot[i][j] * (x[j] - m_opt_x[j]);
+				trasX[i] += m_rot[i][j] * (x[j] - m_optima.variable(0)[j]);
 			}
 		}
 
@@ -725,7 +785,7 @@ namespace OFEC {
 		{
 			trasX[i] = 0.;
 			for (j = 0; j < m_variable_size; j++) {
-				trasX[i] += m_rot[i][j] * (x[j] - m_opt_x[j]);
+				trasX[i] += m_rot[i][j] * (x[j] - m_optima.variable(0)[j]);
 			}
 		}
 
@@ -750,7 +810,7 @@ namespace OFEC {
 		{
 			tmpvect[i] = 0.;
 			for (j = 0; j < m_variable_size; j++) {
-				tmpvect[i] += m_rot[i][j] * (x[j] - m_opt_x[j]);
+				tmpvect[i] += m_rot[i][j] * (x[j] - m_optima.variable(0)[j]);
 			}
 			if (tmpvect[i] > 0)
 			{
@@ -788,7 +848,7 @@ namespace OFEC {
 		{
 			trasX[i] = 0.;
 			for (j = 0; j < m_variable_size; j++) {
-				trasX[i] += m_linearTF[i][j] * (x[j] - m_opt_x[j]);
+				trasX[i] += m_linearTF[i][j] * (x[j] - m_optima.variable(0)[j]);
 			}
 		}
 
@@ -813,7 +873,7 @@ namespace OFEC {
 		{
 			trasX[i] = 0.;
 			for (j = 0; j < m_variable_size; j++) {
-				trasX[i] += m_rot[i][j] * (x[j] - m_opt_x[j]);
+				trasX[i] += m_rot[i][j] * (x[j] - m_optima.variable(0)[j]);
 			}
 		}
 
@@ -839,7 +899,7 @@ namespace OFEC {
 			tmpvect[i] = 0.;
 			for (j = 0; j < m_variable_size; j++)
 			{
-				tmpvect[i] += m_rot[i][j] * (x[j] - m_opt_x[j]);
+				tmpvect[i] += m_rot[i][j] * (x[j] - m_optima.variable(0)[j]);
 			}
 		}
 		irregularize(tmpvect.data());
@@ -877,7 +937,7 @@ namespace OFEC {
 			tmpvect[i] = 0.;
 			for (j = 0; j < m_variable_size; j++)
 			{
-				tmpvect[i] += m_rot[i][j] * (x[j] - m_opt_x[j]);
+				tmpvect[i] += m_rot[i][j] * (x[j] - m_optima.variable(0)[j]);
 			}
 		}
 
@@ -921,7 +981,7 @@ namespace OFEC {
 		{
 			tmpvect[i] = 0.;
 			for (j = 0; j < m_variable_size; j++)
-				tmpvect[i] += m_rot[i][j] * (x[j] - m_opt_x[j]);
+				tmpvect[i] += m_rot[i][j] * (x[j] - m_optima.variable(0)[j]);
 		}
 		asyemmetricalize(tmpvect.data(), m_beta);
 
@@ -962,7 +1022,7 @@ namespace OFEC {
 		{
 			tmpvect[i] = 0.;
 			for (j = 0; j < m_variable_size; j++)
-				tmpvect[i] += m_rot[i][j] * (x[j] - m_opt_x[j]);
+				tmpvect[i] += m_rot[i][j] * (x[j] - m_optima.variable(0)[j]);
 		}
 		asyemmetricalize(tmpvect.data(), m_beta);
 
@@ -1026,21 +1086,21 @@ namespace OFEC {
 		for (i = 0; i < m_variable_size; i++)
 		{
 			tmpvect[i] = 2. * x[i];
-			if (m_opt_x[i] < 0.)
+			if (m_optima.variable(0)[i] < 0.)
 				tmpvect[i] *= -1.;
 		}
 
 		trasX[0] = tmpvect[0];
 		for (i = 1; i < m_variable_size; i++)
 		{
-			trasX[i] = tmpvect[i] + 0.25 * (tmpvect[i - 1] - 2. * fabs(m_opt_x[i - 1]));
+			trasX[i] = tmpvect[i] + 0.25 * (tmpvect[i - 1] - 2. * fabs(m_optima.variable(0)[i - 1]));
 		}
 
 		for (i = 0; i < m_variable_size; i++)
 		{
-			trasX[i] -= 2 * fabs(m_opt_x[i]);
+			trasX[i] -= 2 * fabs(m_optima.variable(0)[i]);
 			trasX[i] *= pow(sqrt(m_condition_number), ((double)i) / ((double)(m_variable_size - 1)));
-			trasX[i] = 100. * (trasX[i] + 2 * fabs(m_opt_x[i]));
+			trasX[i] = 100. * (trasX[i] + 2 * fabs(m_optima.variable(0)[i]));
 		}
 
 		real fPen = 0, fOpt = m_bias;
@@ -1075,7 +1135,7 @@ namespace OFEC {
 
 		/* BOUNDARY HANDLING*/
 
-		m_bias = 1e4 * fAdd + m_opt_obj[0];
+		m_bias = 1e4 * fAdd + m_optima.single_objective();
 
 		std::vector<real> trasX(m_variable_size);
 		/* TRANSFORMATION IN SEARCH SPACE*/
@@ -1188,7 +1248,7 @@ namespace OFEC {
 		/* TRANSFORMATION IN SEARCH SPACE*/
 		/* write rotated difference std::vector into tmx*/
 		for (j = 0; j < m_variable_size; j++)  /* store difference std::vector*/
-			tmpvect[j] = x[j] - m_opt_x[j];
+			tmpvect[j] = x[j] - m_optima.variable(0)[j];
 		real *ptmx, *plinTF, *ptmp;
 		for (i = 0; i < m_variable_size; i++) {
 			trasX[i] = 0.;
@@ -1229,14 +1289,14 @@ namespace OFEC {
 
 		/* BOUNDARY HANDLING*/
 		real fPen = penalize(x);
-		real fAdd = m_opt_obj[0] + 1e4 * fPen;
+		real fAdd = m_optima.single_objective() + 1e4 * fPen;
 		std::vector<real> trasX(m_variable_size);
 
 		/* TRANSFORMATION IN SEARCH SPACE*/
 		for (i = 0; i < m_variable_size; i++)
 		{
 			trasX[i] = 2. * x[i];
-			if (m_opt_x[i] < 0.)
+			if (m_optima.variable(0)[i] < 0.)
 				trasX[i] *= -1.;
 		}
 

@@ -13,7 +13,7 @@
 
 #ifndef OFEC_BBOB_H
 #define OFEC_BBOB_H
-#include "../function.h"
+#include "../../../../core/problem/continuous/continuous.h"
 #include "../../../../utility/matrix.h"
 #include <string>
 #include <algorithm>
@@ -21,7 +21,7 @@
 #define NHIGHPEAKS22 21
 
 namespace OFEC {
-	class BBOB final : public function {
+	class BBOB final : public continuous {
 	public:
 		BBOB(const std::string &name, size_t size_var, size_t size_obj);
 		BBOB(param_map &v);
@@ -35,6 +35,9 @@ namespace OFEC {
 		bool loadRotation(double base);
 		void computeRotation(matrix& rot, int Dim);
 		void reshape(matrix &B, std::vector<real>& vector, int m, int n);
+		void irregularize(real *x);
+		void asyemmetricalize(real *x, double belta);
+		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
 	private:
 		void Sphere_F01(real *x, std::vector<real>& obj);
 		void Ellipsoidal_F02(real *x, std::vector<real>& obj);
@@ -66,9 +69,8 @@ namespace OFEC {
 		function_ptr m_fun = nullptr;
 		matrix m_rot, m_rot2, m_linearTF;
 		std::vector<real> m_norRand;
-		std::vector<real> m_opt_x;
-		std::vector<real> m_opt_obj;
-		real m_mu, m_scales;
+		real m_mu, m_scales, m_bias;
+		real m_condition_number;
 	
 		//for F21 F22
 		std::vector<double> m_peakvalues;
