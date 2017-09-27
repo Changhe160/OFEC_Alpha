@@ -21,8 +21,14 @@ BOOST_AUTO_TEST_CASE(test_case1) {
 	
 	BBOB a("FUN_BBOB_F01_Sphere", data.size(), 1);
 	BBOB c("FUN_BBOB_F08_OriginalRosenbrock", data.size(), 1);
+	a.get_optima();
+	objective<real> temp_obj(1);
+	solution<variable<real>, real> temp(a.get_optima().variable(0), std::move(temp_obj));
+	a.evaluate(temp, caller::Problem);
 	a.evaluate(sol, caller::Problem);
 	c.evaluate(sol2, caller::Problem);
+	for (auto &i : temp.get_objective())
+		std::cout << i << std::endl;
 	for(auto &i: sol.get_objective())
 	    std::cout << i << std::endl;
 	for (auto &i : sol2.get_objective())
