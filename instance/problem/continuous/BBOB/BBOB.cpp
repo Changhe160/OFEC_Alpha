@@ -441,22 +441,16 @@ namespace OFEC {
 		return true;
 	}
 
-	void BBOB::evaluate__(real *x, std::vector<real>& obj) {
-
-		(this->*m_fun)(x, obj);
-	}
 
 	evaluation_tag BBOB::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
 		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
 
-		double *x_ = new double[m_variable_size]; //for parallel running
-		std::copy(x.begin(), x.end(), x_);
+		vector<real> x_ (x.begin(), x.end()); //for parallel running
+		
+		(this->*m_fun)(x_.data(), obj);
 
-		evaluate__(x_, obj);
-		delete[] x_;
-		x_ = 0;
-		if (constructed) {
+if (constructed) {
 			if (effective_fes)		m_effective_eval++;
 
 			if (m_variable_monitor) {
