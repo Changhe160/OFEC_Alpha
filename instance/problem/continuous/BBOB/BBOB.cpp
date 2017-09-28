@@ -1,6 +1,6 @@
 #include "BBOB.h"
   
-using namespace std;
+//using namespace std;  DO NOT OPEN STD SPACE
 
 namespace OFEC {
 	int compare_doubles(const void *a, const void *b)
