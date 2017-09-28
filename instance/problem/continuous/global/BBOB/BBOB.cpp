@@ -1,9 +1,4 @@
 #include "BBOB.h"
-<<<<<<< HEAD:instance/problem/continuous/global/BBOB/BBOB.cpp
-=======
-  
-//using namespace std;  DO NOT OPEN STD SPACE
->>>>>>> f9c48d937acb8dd019c5356428239586b886bd20:instance/problem/continuous/BBOB/BBOB.cpp
 
 namespace OFEC {
 
@@ -452,19 +447,11 @@ namespace OFEC {
 		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
 
-<<<<<<< HEAD:instance/problem/continuous/global/BBOB/BBOB.cpp
 		vector<real> x_(x.begin(), x.end()); //for parallel running
 
 		(this->*m_fun)(x_.data(), obj);
 
 		if (constructed) {
-=======
-		vector<real> x_ (x.begin(), x.end()); //for parallel running
-		
-		(this->*m_fun)(x_.data(), obj);
-
-if (constructed) {
->>>>>>> f9c48d937acb8dd019c5356428239586b886bd20:instance/problem/continuous/BBOB/BBOB.cpp
 			if (effective_fes)		m_effective_eval++;
 
 			if (m_variable_monitor) {
@@ -846,13 +833,9 @@ if (constructed) {
 
 	void BBOB::SharpRidge_F13(real *x, std::vector<real>& obj) {
 
-<<<<<<< HEAD:instance/problem/continuous/global/BBOB/BBOB.cpp
 		size_t i, j/*, k*/; // keep an eye on warnings 
-=======
-		int i, j/*, k*/; // keep an eye on warnings 
->>>>>>> f9c48d937acb8dd019c5356428239586b886bd20:instance/problem/continuous/BBOB/BBOB.cpp
 
-						 /* BOUNDARY HANDLING*/
+							/* BOUNDARY HANDLING*/
 
 		std::vector<real> trasX(m_variable_size);
 		/* TRANSFORMATION IN SEARCH SPACE*/
