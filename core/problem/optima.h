@@ -76,11 +76,6 @@ namespace OFEC {
 		variable_encoding& variable(size_t i) {
 			return m_var[i].first;
 		}
-		solution<variable_encoding, objective_type> get_solution(size_t i) {
-			objective<objective_type> obj(m_obj[i].first);
-			solution<variable_encoding, objective_type> temp(m_var[i].first, obj);
-			return temp;
-		}
 		void set_variable(const variable_encoding &x, size_t i) {
 			m_var[i].first = x;
 		}
@@ -176,7 +171,7 @@ namespace OFEC {
 	private:
 		std::vector<std::pair<variable_encoding, bool>> m_var;
 		std::vector<std::pair<std::vector<objective_type>, bool>> m_obj;
-		int m_number_var = 0;
+		size_t m_number_var = 0;
 	};
 
 

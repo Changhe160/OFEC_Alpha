@@ -1,6 +1,11 @@
 #include "continuous.h"
 
 namespace OFEC {
+	continuous::continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var)\
+	{
+		//m_optima.resize_objective_set()
+	}
+
 	violation_type continuous::check_boundary_violation(const base &s) const {
 
 		const variable<real>& x= dynamic_cast<const solution<variable<real>, real>&>(s).get_variable();
@@ -89,9 +94,9 @@ namespace OFEC {
 	}
 
 	void continuous::set_range(const std::vector<std::pair<real, real>>& r) {
-		int count = 0;
+		size_t count = 0;
 		for (auto &i : r) {
-			m_domain.set_range(i.first, i.second, count);
+			m_domain.set_range(i.first, i.second, count++);
 		}
 	}
 	optima<variable<real>, real>& continuous::get_optima() {

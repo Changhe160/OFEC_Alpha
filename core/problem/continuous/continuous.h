@@ -29,7 +29,8 @@ namespace OFEC{
 	class continuous : virtual public problem {
 	public:
 		continuous() = default;
-		continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var) {}
+		continuous(const std::string &name, size_t size_var, size_t size_obj);
+	
 		violation_type check_boundary_violation(const base &s) const; // boudary check only
 		void initialize_solution(base &s) const;
 
@@ -38,9 +39,11 @@ namespace OFEC{
 		void set_range(const std::vector<std::pair<real, real>>& r);
 		optima<variable<real>, real>& get_optima();
 
+		virtual bool same(const base &s1, const base &s2) const { return false; }
 		double variable_distance(const base &s1, const base &s2) const;
 		double variable_distance(const variable_base &s1, const variable_base &s2) const;
 
+		virtual void constraint_value(const base &, std::pair<double, vector<double>>&) {}
 		bool is_optimal_given();
 	protected:
 		continuous& operator=(const continuous& rhs);

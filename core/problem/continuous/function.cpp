@@ -91,12 +91,10 @@ namespace OFEC {
 		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
 
-		double *x_ = new double[m_variable_size]; //for parallel running
-		std::copy(x.begin(), x.end(), x_);
+		vector<real> x_(x.begin(), x.end()); //for parallel running
 
-		evaluate__(x_, obj);
-		delete[] x_;
-		x_ = 0;
+		evaluate__(x_.data(), obj);
+		
 		if (constructed) {
 			if (effective_fes)		m_effective_eval++;
 
@@ -164,12 +162,7 @@ namespace OFEC {
 			rl = x - m_domain[j].limit.first;
 			range = rl<ru ? rl : ru;
 			m_translation[j] = (global::ms_global->m_uniform[caller::Problem]->next() - 0.5) * 2 * range;
-			m_optima.variable(0)[j] = m_translation[j];
 		}
-		objective<real> temp_obj(m_objective_size);
-		solution<variable<real>, real> temp(m_optima.variable(0), std::move(temp_obj));
-		evaluate_(temp, caller::Problem, false, false);
-		m_optima.set_objective(std::move(temp.get_objective()),0);
 		m_translation_flag = true;
 	}
 
@@ -272,5 +265,32 @@ namespace OFEC {
 	}
 	void function::resize_rotation(size_t n) {
 		m_rotation.resize(n, n);
+	}
+
+	void function::set_original_global_opt(real *opt) {
+		if (m_objective_size > 1) throw myexcept("CEC2013::set_original_global_opt only for problems with a single obj");
+		variable<real> temp_var(m_variable_size);
+		if (opt == 0)		for (auto&i : temp_var) i = 0.;
+		else	for (int i = 0; i < m_variable_size; i++)  temp_var[i] = opt[i];
+		m_original_optima.append(std::move(temp_var));
+
+		objective<real> temp_obj(m_objective_size);
+		solution<variable<real>, real> temp(m_original_optima.variable(0), std::move(temp_obj));
+
+		evaluate_(temp, caller::Problem, false, false);
+		m_original_optima.append(std::move(temp.get_objective()));
+	}
+	void function::set_global_opt(real *tran) {
+		if (m_objective_size > 1) throw myexcept("CEC2013::set_global_opt only for problems with a single obj");
+		variable<real> temp_var(m_variable_size);
+		for (int i = 0; i < m_variable_size; ++i)
+			temp_var[i] = tran[i];
+		m_optima.append(std::move(temp_var));
+
+		objective<real> temp_obj(m_objective_size);
+		solution<variable<real>, real> temp(m_optima.variable(0), std::move(temp_obj));
+
+		evaluate_(temp, caller::Problem, false, false);
+		m_optima.append(std::move(temp.get_objective()));
 	}
 }

@@ -60,8 +60,8 @@ namespace OFEC {
 		void eigendecomposition(std::vector<real> & eigen_value, std::vector<Vector> & eigen_vector);
 
 		void zeroize();
-		void set_row(const real *d, size_t c, size_t r = 1);
-		void set_col(const real *d, size_t r, size_t c = 1);
+		void set_row(const real *d, size_t num);
+		void set_col(const real *d, size_t num);
 		void set(const std::vector<Vector> & d);
 		void set(const real * const * d);
 

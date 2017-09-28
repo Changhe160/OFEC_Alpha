@@ -68,6 +68,9 @@ namespace OFEC {
 		void rotate(real *x);
 		void scale(real *x);
 
+		void set_global_opt(real *tran = 0);
+		void set_original_global_opt(real *opt = 0);
+
 	protected:
 		std::vector<real> m_translation;
 		bool m_scale_flag = false, m_rotation_flag = false, m_translation_flag = false, m_noise_flag = false;

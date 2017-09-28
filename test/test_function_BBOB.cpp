@@ -2,14 +2,17 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../core/problem/continuous/function.h"
-#include "../core/problem/continuous/BBOB/BBOB.h"
+#include "../instance/problem/continuous/global/BBOB/BBOB.h"
+#include "../instance/problem/continuous/global/classical/FAckley.h"
+#include "../instance/problem/continuous/global/classical/FRosenbrock.h"
+#include "../instance/problem/continuous/global/classical/FShubert.h"
 using namespace OFEC;
 
 BOOST_AUTO_TEST_SUITE(function_BBOB_test)
 
 
 BOOST_AUTO_TEST_CASE(test_case1) {
-	global::ms_global = unique_ptr<global>(new global());
+	global::ms_global = unique_ptr<global>(new global(0.5,0.5));
 	vector<real> data = { 0,0,0 };
 	//variable<real> x(data);
 	//objective<real> obj(1);
@@ -60,9 +63,64 @@ BOOST_AUTO_TEST_CASE(test_case2) {
 	//	}
 	//	std::cout << endl;
 	//}
-	global::ms_global.reset();
+	//global::ms_global.reset();
+}
+
+BOOST_AUTO_TEST_CASE(test_case3) {
+	//global::ms_global = unique_ptr<global>(new global());
+	vector<real> data = { 0,0,0 };    // Original optimal solution
+	//variable<real> x(data);
+	//objective<real> obj(1);
+	solution<variable<real>> sol(1, data);
+	FAckley a("FUN_Ackley", 3, 1);
+	objective<real> temp_obj(1);
+	solution<variable<real>, real> temp(a.get_optima().variable(0), std::move(temp_obj));
+	a.evaluate(temp,caller::Problem);
+	a.evaluate(sol, caller::Problem);
+	for (auto &i : temp.get_objective())
+		std::cout << i << std::endl;
+	for (auto &i : sol.get_objective())
+		std::cout << i << std::endl;
+
+
+	//global::ms_global.reset();
 }
 
 
+BOOST_AUTO_TEST_CASE(test_case4) {
 
+	vector<real> data = { 1,1,1 };   // Original optimal solution
+
+	solution<variable<real>> sol(1, data);
+	FRosenbrock a("FUN_Rosenbrock", 3, 1);
+	objective<real> temp_obj(1);
+	solution<variable<real>, real> temp(a.get_optima().variable(0), std::move(temp_obj));
+	a.evaluate(temp, caller::Problem);
+	a.evaluate(sol, caller::Problem);
+	for (auto &i : temp.get_objective())
+		std::cout << i << std::endl;
+	for (auto &i : sol.get_objective())
+		std::cout << i << std::endl;
+
+
+}
+
+BOOST_AUTO_TEST_CASE(test_case5) {
+
+	vector<real> data = { 1,1,1 };  
+
+	solution<variable<real>> sol(1, data);
+	FShubert a("", 3, 1);
+	//objective<real> temp_obj(1);
+	//solution<variable<real>, real> temp(a.get_optima().variable(0), std::move(temp_obj));
+	//a.evaluate(temp, caller::Problem);
+	a.evaluate(sol, caller::Problem);
+	
+	std::cout << a.get_optima().single_objective(0) << std::endl;
+	std::cout << std::endl;
+	for (auto &i : sol.get_objective())
+		std::cout << i << std::endl;
+
+
+}
 BOOST_AUTO_TEST_SUITE_END()

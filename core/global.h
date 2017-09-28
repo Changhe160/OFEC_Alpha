@@ -35,7 +35,8 @@ namespace OFEC {
 #endif // USING_GPU
 
 	struct global {
-		global(double seed_pro = -1, double seed_alg = -1);
+		global();
+		global(double seed_pro , double seed_alg );
 		~global();
 		std::unique_ptr<problem> m_problem;
 		std::unique_ptr<algorithm> m_algorithm;
@@ -47,6 +48,8 @@ namespace OFEC {
 		std::map<caller, std::unique_ptr<levy>> m_levy;
 		std::map<caller, std::unique_ptr<gamma>> m_gamma;
 
+		int get_rand_int(const int min, const int max, caller mode = caller::Algorithm);
+		double get_rand_float(const double min, const double max, caller mode = caller::Algorithm);
 #ifdef OFEC_CONSOLE
 		static thread_local std::unique_ptr<global> ms_global;
 #endif // OFEC_CONSOLE

@@ -1,8 +1,8 @@
 /*************************************************************************
 * Project:Open Frameworks for Evolutionary Computation (OFEC)
 *************************************************************************
-* Author: Changhe Li
-* Email: changhe.lw@gmail.com
+* Author: Changhe Li and Li Zhou
+* Email: changhe.lw@gmail.com, 441837060@qq.com
 * Language: C++
 *************************************************************************
 *  This file is part of OFEC. This library is free software;
@@ -13,28 +13,25 @@
 
 #ifndef OFEC_BBOB_H
 #define OFEC_BBOB_H
-#include "../../../../core/problem/continuous/continuous.h"
-#include "../../../../utility/matrix.h"
+#include "../../../../../core/problem/continuous/continuous.h"
+#include "../../../../../utility/matrix.h"
 #include <string>
 #include <algorithm>
-#define NHIGHPEAKS21 101
-#define NHIGHPEAKS22 21
 
 namespace OFEC {
 	class BBOB final : public continuous {
 	public:
 		BBOB(const std::string &name, size_t size_var, size_t size_obj);
 		BBOB(param_map &v);
-		virtual ~BBOB() {}
+
 	protected:
 		void initialize();
 		void computeXopt();
 		real computeFopt();
-		void evaluate__(real *x, std::vector<real>& obj);
 		real penalize(real *x);
 		bool loadRotation(double base);
-		void computeRotation(matrix& rot, int Dim);
-		void reshape(matrix &B, std::vector<real>& vector, int m, int n);
+		void computeRotation(matrix& rot, size_t Dim);
+		void reshape(matrix &B, std::vector<real>& vector, size_t m, size_t n);
 		void irregularize(real *x);
 		void asyemmetricalize(real *x, double belta);
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
