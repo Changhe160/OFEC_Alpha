@@ -35,12 +35,12 @@ namespace OFEC{
 #endif // USING_GPU
 
 	struct global{
-		//global();
+		global(double seed_pro, double seed_alg);
 
 		std::unique_ptr<problem> m_problem;
 		std::unique_ptr<algorithm> m_algorithm;
 
-		std::mutex m_mutex, m_stream_mutex;
+		std::mutex m_mutex;
 		std::map<caller, std::unique_ptr<uniform>> m_uniform;
 		std::map<caller, std::unique_ptr<normal>> m_normal;
 		std::map<caller, std::unique_ptr<cauchy>> m_cauchy;
