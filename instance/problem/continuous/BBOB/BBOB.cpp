@@ -838,7 +838,7 @@ namespace OFEC {
 
 	void BBOB::SharpRidge_F13(real *x, std::vector<real>& obj) {
 
-		int i, j, k;
+		int i, j/*, k*/; // keep an eye on warnings 
 
 		/* BOUNDARY HANDLING*/
 
