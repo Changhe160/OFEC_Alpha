@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* macros used in OFEC
+* the base of different types of problems
 *
 *
 *********************************************************************************/
