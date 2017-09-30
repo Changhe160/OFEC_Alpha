@@ -60,7 +60,7 @@ namespace OFEC {
 		real* rotate_vector_conflict(size_t i, size_t &c, real* x);
 
 		void set_global_opt(real *tran = 0);
-		void set_original_global_opt(vector<real>* opt = 0);
+		void set_original_global_opt(real *opt = 0);
 		virtual void evaluate__(real *x, std::vector<real>& obj) = 0;
 
 		real* mp_Ovector;

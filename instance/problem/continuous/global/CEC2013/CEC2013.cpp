@@ -16,12 +16,10 @@ namespace OFEC {
 		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
 
-		double *x_ = new double[m_variable_size]; //for parallel running
-		std::copy(x.begin(), x.end(), x_);
+		vector<real> x_(x.begin(), x.end()); //for parallel running
 
-		evaluate__(x_, obj);
-		delete[] x_;
-		x_ = 0;
+		evaluate__(x_.data(), obj);
+		
 		if (constructed) {
 			if (effective_fes)		m_effective_eval++;
 
@@ -44,11 +42,11 @@ namespace OFEC {
 		return evaluation_tag::Normal;
 	}
 
-	void CEC2013::set_original_global_opt(vector<real>* opt) {
+	void CEC2013::set_original_global_opt(real *opt) {
 		if (m_objective_size > 1) throw myexcept("CEC2013::set_original_global_opt only for problems with a single obj");
 		variable<real> temp_var(m_variable_size);
 		if (opt == 0)		for (auto&i : temp_var) i = 0.;
-		else	for (int i = 0; i < m_variable_size; i++)  temp_var[i] = (*opt)[i];
+		else	for (int i = 0; i < m_variable_size; i++)  temp_var[i] = opt[i];
 		m_original_global_opt.append(std::move(temp_var));
 
 		objective<real> temp_obj(m_objective_size);

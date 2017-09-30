@@ -206,7 +206,7 @@ namespace OFEC {
 			x[i] -= m_optima.variable(0)[i];
 		}
 	}
-	void function::translate2(real *x) {
+	void function::translate_original(real *x) {
 		for (size_t i = 0; i<m_variable_size; ++i) {
 			x[i] += m_original_optima.variable(0)[i];
 		}
@@ -268,7 +268,7 @@ namespace OFEC {
 	}
 
 	void function::set_original_global_opt(real *opt) {
-		if (m_objective_size > 1) throw myexcept("CEC2013::set_original_global_opt only for problems with a single obj");
+		if (m_objective_size > 1) throw myexcept("function::set_original_global_opt only for problems with a single obj");
 		variable<real> temp_var(m_variable_size);
 		if (opt == 0)		for (auto&i : temp_var) i = 0.;
 		else	for (int i = 0; i < m_variable_size; i++)  temp_var[i] = opt[i];
@@ -281,10 +281,10 @@ namespace OFEC {
 		m_original_optima.append(std::move(temp.get_objective()));
 	}
 	void function::set_global_opt(real *tran) {
-		if (m_objective_size > 1) throw myexcept("CEC2013::set_global_opt only for problems with a single obj");
+		if (m_objective_size > 1) throw myexcept("function::set_global_opt only for problems with a single obj");
 		variable<real> temp_var(m_variable_size);
 		for (int i = 0; i < m_variable_size; ++i)
-			temp_var[i] = tran[i];
+			temp_var[i] = tran[i]+ m_original_optima.variable(0)[i];
 		m_optima.append(std::move(temp_var));
 
 		objective<real> temp_obj(m_objective_size);
