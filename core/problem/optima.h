@@ -168,6 +168,11 @@ namespace OFEC {
 			}
 			return true;
 		}
+		void clear() {
+			m_var.clear();
+			m_obj.clear();
+			m_number_var = 0;
+		}
 	private:
 		std::vector<std::pair<variable_encoding,bool>> m_var;
 		std::vector<std::pair<std::vector<objective_type>,bool>> m_obj;
