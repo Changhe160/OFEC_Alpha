@@ -70,7 +70,7 @@ namespace OFEC {
 		virtual violation_type check_constraint_violation(const base &) const { 
 			return violation_type::None;
 		}
-		virtual void constraint_value(const base &, std::pair<double,vector<double>>&)=0;
+		virtual void constraint_value(const base &, std::pair<double, vector<double>>&) {};
 		
 		template<typename Solution>
 		static void initialize_objective_minmax(const Solution &s) {
