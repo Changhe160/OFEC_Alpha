@@ -138,6 +138,96 @@ namespace OFEC {
 		return (T(0) < val) - (val < T(0));
 	}
 
+
+	template<class T>
+	bool less(const T &d1, const T &d2, bool min = true) {
+		if (min) {
+			if (d1<d2) return true;
+			else return false;
+		}
+		else {
+			if (d1<d2) return false;
+			else return true;
+		}
+	}
+
+	template<class T>
+	bool less(T *d1, T *d2, bool min = true) {
+		if (min) {
+			if (*d1<*d2) return true;
+			else return false;
+		}
+		else {
+			if (*d1<*d2) return false;
+			else return true;
+		}
+	}
+
+	template<class T>
+	void quick_sort(const T &data, int size, vector<int>& index, bool min = true, int low = 0, int up = -1, int num = -1, bool start = true) {
+		//sort data from small to large, and put the order in index
+		//size: the size of data  
+		//low, up : the range of data to be sorted
+		//num : the max/mim number of data within low and up 
+		static thread_local unique_ptr<int> lb;
+		static thread_local unique_ptr<vector<bool>> flag;
+		if (start)
+		{
+			if (up == -1) up = size - 1;
+			if (num == -1) num = size;
+			flag.reset(new vector<bool>(num, false));
+			lb.reset(new int(low));
+			if (index.size() == 0 || index.size() != size)		index.resize(size);
+			for (auto i = index.begin(); i != index.end(); ++i) *i = i - index.begin();
+		}
+
+
+		if (low >= up) return;
+		int i = 0;
+		while (i < num) {
+			if ((*flag.get())[i++] == false)	
+				break;
+		}
+	
+		if (i == num) return;
+		int left = low + 1;
+		int right = up;
+		int pivot = low;
+
+		while (left<right) {
+			while (less(data[index[left]], data[index[pivot]], min) && left<right)         left++;
+			while (!less(data[index[right]], data[index[pivot]], min) && left<right)          right--;
+
+			if (left<right) {
+				int t = index[left];
+				index[left] = index[right];
+				index[right] = t;
+			}
+		}
+		while (!less(data[index[left]], data[index[pivot]], min) && left>pivot)  left--;
+		if (less(data[index[left]], data[index[pivot]], min)) {
+			int t = index[left];
+			index[left] = index[pivot];
+			index[pivot] = t;
+			if (left - *lb<num)
+				(*flag.get())[left - *lb] = true;
+		}
+		else
+		{
+			if (pivot - *lb<num)
+				(*flag.get())[pivot - *lb] = true;
+		}
+		i = 0;
+		for (; i<num; i++) {
+			if ((*flag.get())[i] == false)		break;
+		}
+		if (i == num) return;
+
+		pivot = left;
+		quick_sort(data, pivot - low, index, min, low, pivot - 1, num, false);
+		quick_sort(data, up - pivot, index, min, pivot + 1, up, num, false);
+	}
+
 }
 #endif // !OFEC_FINCTIONAL_H
 
