@@ -35,7 +35,7 @@ namespace OFEC {
 		int size()const {
 			return m_pop.size();
 		}
-		const std::vector<std::shared_ptr<Individual>>& order(int idx) const { // get the order of the idx-th objecitve
+		const std::vector<int>& order(int idx) const { // get individual(s) with order idx
 			return m_order[idx];
 		}
 		const Individual& operator[](int i) const {
@@ -79,18 +79,15 @@ namespace OFEC {
 		iterator_type operator-(std::vector<int> &id); //remove individuals by id
 		iterator_type operator-(int n); // remove n worst individuals by default
 
-
+		template<typename fun, typename ... Args>
 		void sort();		
-		void rank(); //TODO: compare the ranking method in NSGAII with our own method 
-		double rank(const typename Individual::solution_type &s); // get rank of s in terms of a ranked population
 
 		void resize_objective(int n);
 		void resize_variable(int n);
 
 		evaluation_tag evaluate(); // evaluate each individual 
 		evaluation_tag evolve();
-		
-		
+				
 		void reset(); // delete all individuals
 		
 		double mean(int oidx);	//mean value of the oidx-th objective
@@ -107,9 +104,9 @@ namespace OFEC {
 		std::vector<std::shared_ptr<Individual>> m_pop; 
 		std::vector<std::shared_ptr<Individual>> m_best,m_worst;
 		std::vector<std::unique_ptr<typename Individual::solution_type>> m_arc;// external archive for solutions
-		std::vector<std::vector<std::shared_ptr<Individual>>> m_order; //sorted order according to each objective
+		std::multimap<int,int> m_order; 
 
-		bool m_ordered = false, m_best_updated = false, m_worst_updated = false, m_ranked = false;
+		bool m_ordered = false, m_best_updated = false, m_worst_updated = false;
 	private:
 		int m_max_id;
 	};
@@ -234,6 +231,18 @@ namespace OFEC {
 		fun(m_pop, pro, std::forward<Args>(args)...);
 
 	}
+
+	template<typename Individual>
+	template<typename fun, typename ... Args>
+	void population<Individual>::sort() {
+		std::vector<vector<typename Individual::solution_type::objective_type> * > obj;
+		vector<int> rank(m_pop);
+
+		fun(obj,rank)
+
+	}
+
+
 }
 
 #endif // !OFEC_POPULATION_H
