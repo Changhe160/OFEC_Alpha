@@ -113,4 +113,19 @@ namespace OFEC {
 
 		return euclidean_distance(x1.begin(), x1.end(), x2.begin());  
 	}
+
+	bool continuous::same(const base &x1, const base &x2) const {
+		const variable<real> &s1 = dynamic_cast<const variable<real>&>(x1);
+		const variable<real> &s2 = dynamic_cast<const variable<real>&>(x2);		
+		double accuracy = 0;
+		if (typeid(double) == typeid(real)) accuracy = 1.E-15;
+		else accuracy = 1.E-7;
+
+		for (int j = 0; j<m_variable_size; j++) {
+			if (std::fabs(s1[j] - s2[j])>accuracy) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

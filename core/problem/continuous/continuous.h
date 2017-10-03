@@ -42,6 +42,7 @@ namespace OFEC{
 		double variable_distance(const variable_base &s1, const variable_base &s2) const;
 
 		bool is_optimal_given();
+		bool same(const base &s1, const base &s2) const;
 	protected:
 		continuous& operator=(const continuous& rhs);
 		continuous& operator=(continuous&& rhs);
