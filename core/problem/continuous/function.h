@@ -1,8 +1,8 @@
 /******************************************************************************
 * Project:Open Frameworks for Evolutionary Computation (OFEC)
 *******************************************************************************
-* Author: Changhe Li
-* Email: changhe.lw@gmail.com
+* Author: Changhe Li and Li Zhou
+* Email: changhe.lw@gmail.com, 441837060@qq.com
 * Language: C++
 *-------------------------------------------------------------------------------
 *  This file is part of OFEC. This library is free software;
@@ -40,35 +40,40 @@ namespace OFEC {
 		void set_condition_number(double c);
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
 		optima<variable<real>, real>& get_original_optima();
+
 	protected:
 		virtual void clear();
 		function& operator =(const function &);
 		function& operator =(function &&);
 
-		void translate_zero();		
-		
-		virtual void initialize() {};
-		bool load_translation();
-		virtual void load_translation_(const string &path);
-		virtual void set_translation();
+		void translate_zero();
 
-		bool load_rotation();
+		virtual void initialize() {};
+		bool load_translation(const string &path);
+		virtual bool load_translation_(const string &path);
+		virtual void set_translation(const std::vector<real>& opt_var);
+
+		bool load_rotation(const string &path);
 		virtual void load_rotation_(const string &path);
 		virtual void set_rotation();
-		virtual void evaluate__(real *x, vector<real>& obj) = 0;
+		virtual void evaluate__(real *x, std::vector<real>& obj) = 0;
 
 		void resize_translation(size_t n);
 		void resize_rotation(size_t n);
 
 		void irregularize(real *x);
-		void asyemmetricalize(real *x, double belta);		
+		void asyemmetricalize(real *x, double belta);
 		void translate(real *x);
+		void translate_origin(real *x);
 		void rotate(real *x);
 		void scale(real *x);
-	
+
+		void set_global_opt(real *tran = 0);
+		void set_original_global_opt(real *opt = 0);
+
 	protected:
 		std::vector<real> m_translation;
-		bool m_scale_flag=false, m_rotation_flag=false, m_translation_flag=false, m_noise_flag = false;
+		bool m_scale_flag = false, m_rotation_flag = false, m_translation_flag = false, m_noise_flag = false;
 		real m_scale, m_bias;
 		real m_condition_number;
 		matrix m_rotation;
