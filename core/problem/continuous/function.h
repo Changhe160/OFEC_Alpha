@@ -64,7 +64,7 @@ namespace OFEC {
 		void irregularize(real *x);
 		void asyemmetricalize(real *x, double belta);
 		void translate(real *x);
-		void translate_original(real *x);
+		void translate_origin(real *x);
 		void rotate(real *x);
 		void scale(real *x);
 

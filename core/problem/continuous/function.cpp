@@ -206,7 +206,7 @@ namespace OFEC {
 			x[i] -= m_optima.variable(0)[i];
 		}
 	}
-	void function::translate_original(real *x) {
+	void function::translate_origin(real *x) {
 		for (size_t i = 0; i<m_variable_size; ++i) {
 			x[i] += m_original_optima.variable(0)[i];
 		}

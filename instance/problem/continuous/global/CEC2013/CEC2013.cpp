@@ -53,7 +53,7 @@ namespace OFEC {
 		solution<variable<real>, real> temp(m_original_global_opt.variable(0), std::move(temp_obj));
 
 		evaluate_(temp, caller::Problem,false,false);
-		m_original_global_opt.set_objective(std::move(temp.get_objective()),0);
+		m_original_global_opt.append(std::move(temp.get_objective()));
 	}
 	void CEC2013::set_global_opt(real *tran) {
 		if (m_objective_size > 1) throw myexcept("CEC2013::set_global_opt only for problems with a single obj");
@@ -66,7 +66,7 @@ namespace OFEC {
 		solution<variable<real>, real> temp(m_optima.variable(0), std::move(temp_obj));
 		
 		evaluate_(temp, caller::Problem,false,false);
-		m_optima.set_objective(std::move(temp.get_objective()), 0);
+		m_optima.append(std::move(temp.get_objective()));
 	}
 
 	real* CEC2013::readOvector()
@@ -74,7 +74,7 @@ namespace OFEC {
 		// read O vector from file in csv format
 		real* d = new real[m_variable_size];
 		stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/CEC2013/data/" << "F" << ID << "-xopt.txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-xopt.txt";
 		ifstream file(ss.str());
 		string value;
 		string line;
@@ -103,7 +103,7 @@ namespace OFEC {
 		}
 		else
 		{
-			cout << "Cannot open datafiles" << endl;
+			cout << "readOvector: Cannot open data" << endl;
 		}
 		return d;
 	}
@@ -113,7 +113,7 @@ namespace OFEC {
 		// read O vector from file in csv format, seperated by s_size groups
 		real** d = (real**)malloc(m_nonSeparableGroupNumber*sizeof(real*));
 		stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/CEC2013/data/" << "F" << ID << "-xopt.txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-xopt.txt";
 		ifstream file(ss.str());
 		string value;
 		string line;
@@ -150,7 +150,7 @@ namespace OFEC {
 		}
 		else
 		{
-			cout << "Cannot open datafiles" << endl;
+			cout << "readOvectorVec: Cannot open data" << endl;
 		}
 		return d;
 	}
@@ -205,7 +205,7 @@ namespace OFEC {
 		d = new size_t[m_variable_size];
 
 		stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/CEC2013/data/" << "F" << ID << "-p.txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-p.txt";
 		ifstream file(ss.str());
 		size_t c = 0;
 		string value;
@@ -342,7 +342,7 @@ namespace OFEC {
 		}
 
 		stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/CEC2013/data/" << "F" << ID << "-R" << sub_dim << ".txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-R" << sub_dim << ".txt";
 		// cout<<ss.str()<<endl;
 
 		ifstream file(ss.str());
@@ -388,7 +388,7 @@ namespace OFEC {
 		mp_s = new size_t[num];
 
 		stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/CEC2013/data/" << "F" << ID << "-s.txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-s.txt";
 		ifstream file(ss.str());
 		int c = 0;
 		string value;
@@ -410,7 +410,7 @@ namespace OFEC {
 		mp_w = new double[num];
 
 		stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/CEC2013/data/" << "F" << ID << "-w.txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-w.txt";
 		ifstream file(ss.str());
 		int c = 0;
 		string value;
