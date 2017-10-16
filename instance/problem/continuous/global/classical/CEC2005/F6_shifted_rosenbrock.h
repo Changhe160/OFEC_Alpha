@@ -12,22 +12,23 @@
 *************************************************************************/
 
 
-#ifndef OFEC_FSHUBERT_H
-#define OFEC_FSHUBERT_H
+#ifndef OFEC_F6_SHIFTED_ROSENBROCK_H
+#define OFEC_F6_SHIFTED_ROSENBROCK_H
 
-#include "../../../../../core/problem/continuous/function.h"
+#include "../rosenbrock.h"
 
 namespace OFEC {
-	class FShubert : public function
+	class F6_shifted_rosenbrock : public rosenbrock
 	{
 	public:
-		FShubert(param_map &v);
-		FShubert(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~FShubert();
+		F6_shifted_rosenbrock(param_map &v);
+		F6_shifted_rosenbrock(const std::string &name, size_t size_var, size_t size_obj);
+		virtual ~F6_shifted_rosenbrock();
 	protected:
 		void initialize();
 		void evaluate__(real *x, vector<real>& obj);
 	private:
 	};
 }
-#endif // ! OFEC_FSHUBERT_H
+#endif // ! OFEC_F6_SHIFTED_ROSENBROCK_H
+

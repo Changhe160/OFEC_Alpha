@@ -2,7 +2,7 @@
 * Project:Open Frameworks for Evolutionary Computation (OFEC)
 *************************************************************************
 * Author: Changhe Li
-* Email: changhe.lw@gmail.com 
+* Email: changhe.lw@gmail.com
 * Language: C++
 *************************************************************************
 *  This file is part of OFEC. This library is free software;
@@ -11,23 +11,25 @@
 *  Foundation; either version 2, or (at your option) any later version.
 *************************************************************************/
 
-#ifndef OFEC_NONCONT_RASTRIGIN_H
-#define OFEC_NONCONT_RASTRIGIN_H
+#ifndef OFEC_F17_HYBRID_COMPOSITION_NOISY_H
+#define OFEC_F17_HYBRID_COMPOSITION_NOISY_H
 
-#include "../../../../../core/problem/continuous/function.h"
+#include "F16_rotated_hybrid_composition_F15.h"
 
 namespace OFEC {
 
-	class noncont_rastrigin : public function
+	class F17_hybrid_composition_noisy : public F16_rotated_hybrid_composition_F15
 	{
 	public:
-		noncont_rastrigin(param_map &v);
-		noncont_rastrigin(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~noncont_rastrigin();
+		F17_hybrid_composition_noisy(param_map &v);
+		F17_hybrid_composition_noisy(const std::string &name, size_t size_var, size_t size_obj);
+		virtual ~F17_hybrid_composition_noisy();
 	protected:
-		void initialize();
+		virtual void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);
+		double noise();
 	private:
+
 	};
 }
-#endif // !OFEC_NONCONT_RASTRIGIN_H
+#endif // !OFEC_F17_HYBRID_COMPOSITION_NOISY_H

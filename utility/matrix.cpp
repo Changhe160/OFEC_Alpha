@@ -25,15 +25,15 @@ namespace OFEC {
 		m_row_size(m.m_row_size), m_det_flag(m.m_det_flag), m_det(m.m_det) {
 	}
 
-	void matrix::set_row(const real *d, size_t c, size_t r) {
-		if (r != m_row_size) return;
+	void matrix::set_row(const real *d, size_t num) {
+		if (num != m_col_size) return;
 		for (int i = 0; i < m_row_size; i++)
 			for (int j = 0; j < m_col_size; j++)
 				m_row[i][j] = d[j];
 		m_det_flag = false;
 	}
-	void matrix::set_col(const real *d, size_t r, size_t c) {
-		if (c != m_col_size) return;
+	void matrix::set_col(const real *d, size_t num) {
+		if (num != m_row_size) return;
 		for (int i = 0; i < m_row_size; i++)
 			for (int j = 0; j < m_col_size; j++)
 				m_row[i][j] = d[i];
@@ -166,7 +166,7 @@ namespace OFEC {
 				if (j != i) m_row[i][j] = 0.;
 				else m_row[i][j] = pow(CondiNum, (r[i] - min) / (max - min));
 		}
-		
+
 		m_det_flag = false;
 	}
 	void matrix::zeroize() {

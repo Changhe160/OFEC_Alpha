@@ -40,7 +40,8 @@ namespace OFEC {
 		void set_condition_number(double c);
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
 		optima<variable<real>, real>& get_original_optima();
-
+		void set_global_opt(real *tran = 0);
+		void clear_global_opt();
 	protected:
 		virtual void clear();
 		function& operator =(const function &);
@@ -49,11 +50,11 @@ namespace OFEC {
 		void translate_zero();
 
 		virtual void initialize() {};
-		bool load_translation(const string &path);
+		virtual bool load_translation(const string &path);
 		virtual bool load_translation_(const string &path);
 		virtual void set_translation(const std::vector<real>& opt_var);
 
-		bool load_rotation(const string &path);
+		virtual bool load_rotation(const string &path);
 		virtual void load_rotation_(const string &path);
 		virtual void set_rotation();
 		virtual void evaluate__(real *x, std::vector<real>& obj) = 0;
@@ -68,9 +69,10 @@ namespace OFEC {
 		void rotate(real *x);
 		void scale(real *x);
 
-		void set_global_opt(real *tran = 0);
+		//void set_global_opt(real *tran = 0);
 		void set_original_global_opt(real *opt = 0);
-
+		//void clear_global_opt();
+		void clear_original_global_opt();
 	protected:
 		std::vector<real> m_translation;
 		bool m_scale_flag = false, m_rotation_flag = false, m_translation_flag = false, m_noise_flag = false;

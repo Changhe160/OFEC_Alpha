@@ -42,7 +42,15 @@ namespace OFEC {
 	}
 
 
-	void weierstrass::evaluate__(double *x, vector<double>& obj) {
+	void weierstrass::evaluate__(real *x, std::vector<real>& obj) {
+		if (m_translation_flag)
+			translate(x);
+		if (m_scale_flag)
+			scale(x);
+		if (m_rotation_flag)
+			rotate(x);
+		if (m_translation_flag)
+			translate_origin(x);
 
 		double fit = 0, s = 0;
 

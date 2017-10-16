@@ -12,22 +12,24 @@
 *************************************************************************/
 
 
-#ifndef OFEC_FROSENBROCK_H
-#define OFEC_FROSENBROCK_H
+#ifndef OFEC_F14_SHIFTED_ROTATED_EXPANDED_SCAFFER_F6_H
+#define OFEC_F14_SHIFTED_ROTATED_EXPANDED_SCAFFER_F6_H
 
-#include "../../../../../core/problem/continuous/function.h"
+#include "../scaffer_F6.h"
 
 namespace OFEC {
-	class FRosenbrock : public function
+	class F14_shifted_rotated_expanded_scaffer_F6 : public scaffer_F6
 	{
 	public:
-		FRosenbrock(param_map &v);
-		FRosenbrock(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~FRosenbrock();
+		F14_shifted_rotated_expanded_scaffer_F6(param_map &v);
+		F14_shifted_rotated_expanded_scaffer_F6(const std::string &name, size_t size_var, size_t size_obj);
+		virtual ~F14_shifted_rotated_expanded_scaffer_F6();
 	protected:
 		void initialize();
 		void evaluate__(real *x, vector<real>& obj);
 	private:
 	};
 }
-#endif // ! OFEC_FROSENBROCK_H
+#endif // ! OFEC_F14_SHIFTED_ROTATED_EXPANDED_SCAFFER_F6_H
+
+

@@ -41,6 +41,15 @@ namespace OFEC {
 
 
 	void griewank::evaluate__(real *x, std::vector<real>& obj) {
+		if (m_translation_flag)
+			translate(x);
+		if (m_scale_flag)
+			scale(x);
+		if (m_rotation_flag)
+			rotate(x);
+		if (m_translation_flag)
+			translate_origin(x);
+
 		double result = 0;
 
 		double s1 = 0, s2 = 1;

@@ -43,8 +43,8 @@ namespace OFEC {
 		m_objective_accuracy = 0.2;
 		m_variable_accuracy = 1.e-4;
 
-		m_original_optima.set_number_variable(pow(6, m_variable_size));
-		std::vector<std::vector<real>> obj_data(pow(6, m_variable_size), std::vector<real>(m_objective_size, 1));
+		m_original_optima.set_number_variable((int)pow(6, m_variable_size));
+		std::vector<std::vector<real>> obj_data((int)pow(6, m_variable_size), std::vector<real>(m_objective_size, 1));
 		for (auto &i : obj_data)
 			m_original_optima.append(i);
 		m_optima = m_original_optima;

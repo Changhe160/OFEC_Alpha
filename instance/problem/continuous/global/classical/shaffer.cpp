@@ -44,7 +44,14 @@ namespace OFEC {
 		//setObjSet();
 	}
 	void shaffer::evaluate__(real *x, std::vector<real>& obj) {
-
+		if (m_translation_flag)
+			translate(x);
+		if (m_scale_flag)
+			scale(x);
+		if (m_rotation_flag)
+			rotate(x);
+		if (m_translation_flag)
+			translate_origin(x);
 		double s, t = x[0] * x[0] + x[1] * x[1];
 		s = 0.5 + (0.5 - pow(sin(sqrt(0.0001 + t)), 2)) / pow(1 + 0.001*t*t, 2);
 		obj[0] = s + m_bias;

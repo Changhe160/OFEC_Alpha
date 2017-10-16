@@ -11,50 +11,55 @@
 *  Foundation; either version 2, or (at your option) any later version.
 *************************************************************************/
 
-#include "noncont_rastrigin.h"
+#include "schwefel_1_2.h"
 namespace OFEC {
-	noncont_rastrigin::noncont_rastrigin(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
+	schwefel_1_2::schwefel_1_2(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
-		set_range(-5.12, 5.12);
+
+		set_range(-100, 100);
+
 		initialize();
 	}
-	noncont_rastrigin::noncont_rastrigin(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
+	schwefel_1_2::schwefel_1_2(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
-		set_range(-5.12, 5.12);
+
+		set_range(-100, 100);
+
 		initialize();
 	}
 
-	noncont_rastrigin::~noncont_rastrigin() {
+	schwefel_1_2::~schwefel_1_2() {
 		//dtor
 	}
 
-	void noncont_rastrigin::initialize() {
+	void schwefel_1_2::initialize() {
+
 		set_original_global_opt();
+
 		set_global_opt();
+
 	}
 
-	void noncont_rastrigin::evaluate__(real *x, std::vector<real>& obj) {
 
-		double fit = 0;
-		double *y = new double[m_variable_size];
+	void schwefel_1_2::evaluate__(real *x, std::vector<real>& obj) {
+		if (m_translation_flag)
+			translate(x);
+		if (m_scale_flag)
+			scale(x);
+		if (m_rotation_flag)
+			rotate(x);
+		if (m_translation_flag)
+			translate_origin(x);
+		double s1 = 0, s2 = 0;
 
 		for (int i = 0; i < m_variable_size; i++) {
-			if (fabs(x[i]) < 0.5) y[i] = x[i];
-			else {
-				double a, b = 2 * x[i];
-				if (b <= 0 && b - (int)b < 0.5) a = (int)b;
-				else if (b - (int)b < 0.5) a = (int)b;
-				else a = (int)b + 1;
-				y[i] = a / 2;
-			}
+			for (int j = 0; j <= i; j++)
+				s1 += x[j];
+			s2 += s1*s1;
+			s1 = 0;
 		}
-		for (int i = 0; i < m_variable_size; i++) {
-			fit = fit + y[i] * y[i] - 10.*cos(2 * OFEC_PI*y[i]) + 10.;
-		}
-		delete[] y;
-		y = 0;
-
-		obj[0] = fit + m_bias;
+		
+		obj[0] = s2 + m_bias;
 
 	}
 }
