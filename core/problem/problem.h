@@ -32,7 +32,6 @@
 namespace OFEC {
 	class problem {
 	public:
-		problem() = default;
 		problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var), \
 			m_objective_size(size_obj), m_opt_mode(size_obj) {
 
@@ -138,6 +137,7 @@ namespace OFEC {
 			return m_total_eval;
 		}
 	protected:
+		//problem() = default;
 		problem& operator=(const problem& rhs);
 		problem& operator=(problem&& rhs);
 		virtual void copy(const problem *); // copy parameter values of a problem when it changes

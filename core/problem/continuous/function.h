@@ -41,7 +41,7 @@ namespace OFEC {
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
 		optima<variable<real>, real>& get_original_optima();
 		void set_global_opt(real *tran = 0);
-		void clear_global_opt();
+		void set_original_global_opt(real *opt = 0);
 	protected:
 		virtual void clear();
 		function& operator =(const function &);
@@ -69,10 +69,6 @@ namespace OFEC {
 		void rotate(real *x);
 		void scale(real *x);
 
-		//void set_global_opt(real *tran = 0);
-		void set_original_global_opt(real *opt = 0);
-		//void clear_global_opt();
-		void clear_original_global_opt();
 	protected:
 		std::vector<real> m_translation;
 		bool m_scale_flag = false, m_rotation_flag = false, m_translation_flag = false, m_noise_flag = false;
@@ -81,5 +77,10 @@ namespace OFEC {
 		matrix m_rotation;
 		optima<variable<real>, real> m_original_optima;
 	};
+	template<typename T> problem * create_function(const std::string &name, size_t size_var, size_t size_obj) {
+		return new T(name, size_var, size_obj);
+	}
+	typedef problem *(*pFun)(const std::string &name, size_t size_var, size_t size_obj);
+	typedef std::vector<pFun> basic_func;
 }
 #endif // !OFEC_FUNCTION_H

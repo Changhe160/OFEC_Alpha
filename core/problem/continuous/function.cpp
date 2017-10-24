@@ -2,7 +2,7 @@
 
 namespace OFEC {
 
-	function::function(const std::string &name, size_t size_var, size_t size_obj) :continuous(name, size_var, size_obj), m_rotation(size_var){
+	function::function(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj),continuous(name, size_var, size_obj), m_rotation(size_var){
 		global::ms_arg[param_workingDir] = "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/";
 	}
 
@@ -296,12 +296,5 @@ namespace OFEC {
 		evaluate_(temp, caller::Problem, false, false);
 		m_optima.append(std::move(temp.get_objective()));
 	}
-	void function::clear_global_opt() {
-		m_optima.resize_variable_set(0);
-		m_optima.resize_objective_set(0);
-	}
-	void function::clear_original_global_opt() {
-		m_original_optima.resize_variable_set(0);
-		m_original_optima.resize_objective_set(0);
-	}
+	
 }
