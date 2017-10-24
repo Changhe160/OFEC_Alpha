@@ -13,16 +13,17 @@
 
 #include "sphere_noisy.h"
 namespace OFEC {
+	
 	sphere_noisy::sphere_noisy(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		sphere((v[param_proName]), (v[param_numDim]), 1) {
-		
+
 		initialize();
 
 	}
 	sphere_noisy::sphere_noisy(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		sphere(name, size_var, size_obj) {
 
-		
+
 		initialize();
 	}
 
@@ -30,7 +31,7 @@ namespace OFEC {
 		//dtor
 	}
 	void sphere_noisy::initialize() {
-		
+
 	}
 
 
@@ -47,11 +48,12 @@ namespace OFEC {
 		real fit = 0;
 
 		double noise;
-		for (int i = 0; i<m_variable_size; i++) {
+		for (int i = 0; i < m_variable_size; i++) {
 			noise = 0.01*global::ms_global->m_uniform[caller::Problem]->next();
 			fit += (x[i] + noise)*(x[i] + noise);
 		}
 		obj[0] = fit + m_bias;
 
 	}
+	
 }

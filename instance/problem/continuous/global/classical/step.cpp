@@ -13,6 +13,7 @@
 
 #include "step.h"
 namespace OFEC {
+	
 	step::step(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -48,5 +49,5 @@ namespace OFEC {
 		obj[0] = fitness + m_bias;
 
 	}
-
+	
 }

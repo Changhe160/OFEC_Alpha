@@ -18,6 +18,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
+	
 	class shubert : public function
 	{
 	public:
@@ -29,5 +30,6 @@ namespace OFEC {
 		void evaluate__(real *x, vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // ! OFEC_FSHUBERT_H

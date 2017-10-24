@@ -13,6 +13,7 @@
 
 #include "sphere.h"
 namespace OFEC {
+	
 	sphere::sphere(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		set_range(-100, 100);
@@ -49,10 +50,11 @@ namespace OFEC {
 		double fit = 0;
 
 		for (int i = 0; i < m_variable_size; i++) {
-			fit += x[i] * x[i]; 
+			fit += x[i] * x[i];
 		}
-		
+
 		obj[0] = fit + m_bias;
 
 	}
+	
 }

@@ -14,7 +14,7 @@
 
 #include "ackley.h"
 namespace OFEC {
-
+	
 	ackley::ackley(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -34,11 +34,11 @@ namespace OFEC {
 	void ackley::initialize() {
 
 		set_original_global_opt();
-		
+
 		set_global_opt();
 	}
 
-	void ackley::evaluate__(real *x, vector<real>& obj) {
+	void ackley::evaluate__(real *x, std::vector<real>& obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -49,14 +49,14 @@ namespace OFEC {
 			translate_origin(x);
 
 		real s1 = 0, s2 = 0;
-		
+
 		for (int i = 0; i < m_variable_size; i++) {
 			s1 += x[i] * x[i];
 			s2 += cos(2 * OFEC_PI*x[i]);
 		}
-		
+
 		obj[0] = -20 * exp(-0.2*sqrt(s1 / m_variable_size)) - exp(s2 / m_variable_size) + 20 + OFEC_E + m_bias;
 
 	}
-
+	
 }

@@ -1,6 +1,7 @@
 #include "equal_maxima.h"
 
 namespace OFEC {
+	
 	equal_maxima::equal_maxima(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 

@@ -32,5 +32,6 @@ namespace OFEC {
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // OFEC_BEASLEY_H

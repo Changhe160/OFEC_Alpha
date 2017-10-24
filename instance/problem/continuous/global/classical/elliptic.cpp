@@ -14,6 +14,7 @@
 // Last modified:
 #include "elliptic.h"
 namespace OFEC {
+	
 	elliptic::elliptic(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -43,7 +44,14 @@ namespace OFEC {
 
 
 	void elliptic::evaluate__(real *x, std::vector<real>& obj) {
-
+		if (m_translation_flag)
+			translate(x);
+		if (m_scale_flag)
+			scale(x);
+		if (m_rotation_flag)
+			rotate(x);
+		if (m_translation_flag)
+			translate_origin(x);
 		double s = 0;
 		for (int i = 0; i < m_variable_size; i++) {
 			s += pow(1e6, i / (m_variable_size - 1.))*x[i] * x[i];

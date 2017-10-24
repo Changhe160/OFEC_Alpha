@@ -18,6 +18,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
+	
 	class schwefel_1_2 : public function
 	{
 	public:
@@ -29,5 +30,6 @@ namespace OFEC {
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // !OFEC_SCHWEFEL_1_2_H

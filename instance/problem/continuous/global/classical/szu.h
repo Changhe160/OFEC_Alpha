@@ -19,7 +19,7 @@
 
 #include "../../../../../core/problem/continuous/function.h"
 namespace OFEC {
-
+	
 	class szu : public function
 	{
 	public:
@@ -31,5 +31,6 @@ namespace OFEC {
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // !OFEC_SZU_H

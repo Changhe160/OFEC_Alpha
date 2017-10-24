@@ -14,9 +14,10 @@
 #include "griewank.h"
 
 namespace OFEC {
-	griewank::griewank(param_map &v): problem((v[param_proName]), (v[param_numDim]), 1), \
+	
+	griewank::griewank(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
-		
+
 		set_range(-600, 600);
 
 		initialize();
@@ -58,8 +59,8 @@ namespace OFEC {
 			s2 *= cos(x[i] / sqrt((double)(i + 1)));
 		}
 		result = s1 - s2 + 1. + m_bias;
-		
+
 		obj[0] = result;
 	}
-
+	
 }

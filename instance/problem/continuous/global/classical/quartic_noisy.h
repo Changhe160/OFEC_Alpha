@@ -28,5 +28,6 @@ namespace OFEC {
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // !OFEC_QUARTIC_NOISY_H

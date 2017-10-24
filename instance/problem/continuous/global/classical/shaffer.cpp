@@ -16,6 +16,7 @@
 
 #include "shaffer.h"
 namespace OFEC {
+
 	shaffer::shaffer(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		v[param_numDim] = 2;
@@ -35,11 +36,11 @@ namespace OFEC {
 		m_variable_accuracy = 1.e-6;
 		m_objective_accuracy = 0.1;
 		m_opt_mode[0] = optimization_mode::Maximization;
-		
+
 		m_original_optima.set_number_variable(1);
 		std::vector<real> var_data = { 0.0, 0.0 };
 		set_original_global_opt(var_data.data());
-		
+
 		m_optima = m_original_optima;
 		//setObjSet();
 	}
@@ -57,4 +58,5 @@ namespace OFEC {
 		obj[0] = s + m_bias;
 
 	}
+	
 }

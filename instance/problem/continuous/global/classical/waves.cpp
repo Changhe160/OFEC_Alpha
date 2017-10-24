@@ -16,6 +16,7 @@
 
 #include "waves.h"
 namespace OFEC {
+	
 	waves::waves(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		v[param_numDim] = 2;
@@ -43,7 +44,7 @@ namespace OFEC {
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.15;
 		m_variable_accuracy = 1.e-3;
-		
+
 		m_original_optima.set_number_variable(10);	//one global optimum+9 local optimum
 
 		ifstream in;
@@ -74,4 +75,5 @@ namespace OFEC {
 		s = pow(0.3*x[0], 3) + 3.5*x[0] * pow(x[1], 3) - 4.7*cos(3 * x[0] - (2 + x[0])*t)*sin(2.5*x[0] * OFEC_PI);
 		obj[0] = s + m_bias;
 	}
+	
 }

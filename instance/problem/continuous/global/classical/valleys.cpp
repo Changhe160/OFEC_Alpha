@@ -17,6 +17,7 @@
 #include "valleys.h"
 
 namespace OFEC {
+	
 	valleys::valleys(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		v[param_numDim] = 2;
@@ -63,4 +64,5 @@ namespace OFEC {
 		obj[0] = s;
 
 	}
+	
 }

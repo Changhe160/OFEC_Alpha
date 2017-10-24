@@ -17,6 +17,7 @@
 #include "keane_bump.h"
 
 namespace OFEC {
+	
 	keane_bump::keane_bump(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -42,7 +43,7 @@ namespace OFEC {
 		m_optima = m_original_optima;
 		//setObjSet();
 	}
-	
+
 	void keane_bump::evaluate__(real *x, std::vector<real>& obj) {
 
 		double s, a = 0, b = 1, c = 0;
@@ -56,4 +57,5 @@ namespace OFEC {
 		obj[0] = s;
 
 	}
+	
 }

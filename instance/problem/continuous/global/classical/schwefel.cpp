@@ -14,6 +14,7 @@
 #include "schwefel.h"
 
 namespace OFEC {
+	
 	schwefel::schwefel(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1)
 	{
@@ -38,9 +39,9 @@ namespace OFEC {
 
 	void schwefel::initialize()
 	{
-		vector<double> v(m_variable_size, 420.9687);
-		set_original_global_opt(v.data());
-
+		//vector<double> v(m_variable_size, 420.9687);
+		//set_original_global_opt(v.data());
+		set_original_global_opt();
 		set_global_opt();
 		m_variable_accuracy = 1.0e-2;
 
@@ -66,5 +67,5 @@ namespace OFEC {
 		obj[0] = fitness + m_bias;
 
 	}
-
+	
 }

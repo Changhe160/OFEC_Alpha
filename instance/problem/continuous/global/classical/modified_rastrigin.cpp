@@ -20,7 +20,7 @@
 
 #include "modified_rastrigin.h"
 namespace OFEC {
-
+	
 	modified_rastrigin::modified_rastrigin(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1), m_k(2) {
 		v[param_numDim] = 2;
@@ -40,7 +40,7 @@ namespace OFEC {
 		m_k[0] = 3; m_k[1] = 4;
 		m_objective_accuracy = 0.1;
 		m_variable_accuracy = 1.e-5;
-		
+
 		m_original_optima.set_number_variable(12); //production of m_ki
 		ifstream in;
 		stringstream ss;
@@ -73,4 +73,5 @@ namespace OFEC {
 		obj[0] = s + m_bias;  // note
 
 	}
+	
 }

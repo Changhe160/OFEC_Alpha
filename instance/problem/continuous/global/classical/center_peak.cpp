@@ -16,6 +16,7 @@
 
 #include "center_peak.h"
 namespace OFEC {
+	
 	center_peak::center_peak(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		v[param_numDim] = 2;
@@ -34,7 +35,7 @@ namespace OFEC {
 	}
 	void center_peak::initialize() {
 		m_opt_mode[0] = optimization_mode::Maximization;
-		
+
 		m_original_optima.set_number_variable(5); //1 gopt + 4 lopt
 		m_objective_accuracy = 0.2;
 		m_variable_accuracy = 1.e-5;
@@ -68,4 +69,5 @@ namespace OFEC {
 		obj[0] = s + m_bias;
 
 	}
+	
 }

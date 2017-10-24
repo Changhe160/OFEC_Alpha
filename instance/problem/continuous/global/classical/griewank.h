@@ -17,6 +17,7 @@
 
 #include "../../../../../core/problem/continuous/function.h"
 namespace OFEC {
+	
 	class griewank : public function
 	{
 	public:
@@ -26,8 +27,9 @@ namespace OFEC {
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);
-		
+
 	private:
 	};
+	
 }
 #endif // !OFEC_GRIEWANK_H

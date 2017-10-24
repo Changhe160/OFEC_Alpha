@@ -14,7 +14,7 @@
 #include "rosenbrock.h"
 
 namespace OFEC {
-
+	
 	rosenbrock::rosenbrock(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -37,7 +37,7 @@ namespace OFEC {
 	void rosenbrock::initialize() {
 		std::vector<double> v(m_variable_size, 1);
 		set_original_global_opt(v.data());
-		
+
 		set_global_opt();
 		//m_objective_accuracy = 1.0e-5;
 	}
@@ -60,4 +60,5 @@ namespace OFEC {
 		obj[0] = fitness + m_bias;
 
 	}
+	
 }

@@ -20,6 +20,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
+	
 	class FIBA : public function
 	{
 	public:
@@ -35,5 +36,6 @@ namespace OFEC {
 		void set_para();
 	private:
 	};
+	
 }
 #endif // !OFEC_FIBA_H

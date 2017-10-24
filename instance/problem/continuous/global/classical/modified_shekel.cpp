@@ -16,6 +16,7 @@
 
 #include "modified_shekel.h"
 namespace OFEC {
+	
 	modified_shekel::modified_shekel(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		if (m_variable_size > 5) throw myexcept("number of dim must be <=5@ modified_shekel::modified_shekel");
@@ -40,7 +41,7 @@ namespace OFEC {
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.2;
 		m_variable_accuracy = 1.e-3;
-		
+
 		m_original_optima.set_number_variable(8); //1 gopt+7 lopt
 		set_original_global_opt(m_a[6]);
 		for (size_t m = 0; m < 8; ++m) {
@@ -64,4 +65,5 @@ namespace OFEC {
 
 		obj[0] = s + m_bias;
 	}
+	
 }

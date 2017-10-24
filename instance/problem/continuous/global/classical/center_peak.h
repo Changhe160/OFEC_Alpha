@@ -21,6 +21,7 @@
 //Ursem F4 in R. K. Ursem, ¡°Multinational evolutionary algorithms,¡± in Proc. Congr.
 //Evol. Comput. (CEC), vol. 3. 1999, pp. 1633¨C1640.
 namespace OFEC {
+	
 	class center_peak : public function
 	{//Ursem F4
 	public:
@@ -32,5 +33,6 @@ namespace OFEC {
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // !OFEC_CENTER_PEAK_H

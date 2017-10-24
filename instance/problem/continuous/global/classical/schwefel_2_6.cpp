@@ -1,14 +1,15 @@
 #include "schwefel_2_6.h"
 namespace OFEC {
+	
 	schwefel_2_6::schwefel_2_6(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1), m_a(v[param_numDim],std::vector<int>(v[param_numDim])), m_b(v[param_numDim]){
-		
+		function((v[param_proName]), (v[param_numDim]), 1), m_a(v[param_numDim], std::vector<int>(v[param_numDim])), m_b(v[param_numDim]) {
+
 		set_range(-100, 100);
 		initialize();
 	}
 	schwefel_2_6::schwefel_2_6(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj), m_a(size_var, std::vector<int>(size_var)), m_b(size_var) {
-		
+
 		set_range(-100, 100);
 		initialize();
 	}
@@ -18,7 +19,7 @@ namespace OFEC {
 	}
 
 	void schwefel_2_6::initialize() {
-		
+
 	}
 
 	void schwefel_2_6::load_data()
@@ -98,4 +99,5 @@ namespace OFEC {
 	void schwefel_2_6::evaluate__(real *x, std::vector<real>& obj) {
 
 	}
+	
 }

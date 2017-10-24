@@ -15,6 +15,7 @@
 #include "max_global.h"
 
 namespace OFEC {
+	
 	max_global::max_global(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		v[param_numDim] = 1;
@@ -33,16 +34,16 @@ namespace OFEC {
 
 	void max_global::initialize() {
 		m_opt_mode[0] = optimization_mode::Maximization;
-		
+
 		m_original_optima.set_number_variable(5); //5 gopt
-	
+
 		m_objective_accuracy = 0.1;
 		m_variable_accuracy = 1.e-5;
 		std::vector<std::vector<real>> var_data = { { 0.5 },{ 0.1 },{ 0.3 },{ 0.7 },{0.9} };
 		for (auto &i : var_data) {
 			set_original_global_opt(i.data());
 		}
-		
+
 		m_optima = m_original_optima;
 		add_tag(problem_tag::MMP);
 		//setObjSet();
@@ -53,4 +54,5 @@ namespace OFEC {
 		obj[0] = pow(sin(5 * OFEC_PI*x[0]), 6.) + m_bias;
 
 	}
+	
 }

@@ -22,17 +22,19 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
+	
 	class keane_bump : public function
 	{
 	public:
 		keane_bump(param_map &v);
 		keane_bump(const std::string &name, size_t size_var, size_t size_obj);
 		virtual ~keane_bump();
-	
+
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // !OFEC_KEANE_BUMP_H

@@ -22,6 +22,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
+	
 	class five_uneven_peak_trap : public function
 	{
 	public:
@@ -33,5 +34,6 @@ namespace OFEC {
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // !OFEC_FIVE_UNEVEN_PEAK_TRAP_H

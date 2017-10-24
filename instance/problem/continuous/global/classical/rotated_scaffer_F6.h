@@ -18,8 +18,7 @@
 #include "scaffer_F6.h"
 
 namespace OFEC {
-
-
+	
 	class rotated_scaffer_F6 : public scaffer_F6
 	{
 	public:
@@ -31,6 +30,7 @@ namespace OFEC {
 		void evaluate__(real *x, vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // ! OFEC_ROTATED_SCAFFER_F6_H
 

@@ -13,6 +13,7 @@
 
 #include "rastrigin.h"
 namespace OFEC {
+	
 	rastrigin::rastrigin(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -53,8 +54,9 @@ namespace OFEC {
 		double fit = 0;
 
 		for (int i = 0; i < m_variable_size; i++)
-			fit = fit + x[i] * x[i] - 10.*cos(2 * OFEC_PI*x[i]) + 10.;
+			fit += x[i] * x[i] - 10.*cos(2 * OFEC_PI*x[i]) + 10.;
 
 		obj[0] = fit + m_bias;
 	}
+	
 }

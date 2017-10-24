@@ -16,7 +16,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
-
+	
 	class weierstrass : public function
 	{
 	public:
@@ -30,5 +30,6 @@ namespace OFEC {
 		double m_a = 0.5, m_b = 3;
 		int m_kmax = 20;
 	};
+	
 }
 #endif // !OFEC_WEIERSTRASS_H

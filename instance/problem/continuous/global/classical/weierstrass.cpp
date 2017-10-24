@@ -13,6 +13,7 @@
 
 #include "weierstrass.h"
 namespace OFEC {
+	
 	weierstrass::weierstrass(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -64,4 +65,5 @@ namespace OFEC {
 		obj[0] = fit - s + m_bias;
 
 	}
+	
 }

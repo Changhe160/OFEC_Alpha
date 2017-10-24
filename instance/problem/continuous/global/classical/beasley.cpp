@@ -23,6 +23,7 @@
 #include "beasley.h"
 
 namespace OFEC {
+	
 	beasley::beasley(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -41,7 +42,7 @@ namespace OFEC {
 	}
 	void beasley::initialize() { // note
 		m_opt_mode[0] = optimization_mode::Maximization;
-		
+
 		m_original_optima.set_number_variable(5); //1 gopt+ 4 lopt
 		m_variable_accuracy = 0.1;
 		m_objective_accuracy = 1.e-6;
@@ -60,4 +61,5 @@ namespace OFEC {
 		obj[0] = s + m_bias;  // note
 
 	}
+	
 }

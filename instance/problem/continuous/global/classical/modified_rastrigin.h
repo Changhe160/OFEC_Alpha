@@ -20,7 +20,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
-
+	
 	class modified_rastrigin : public function
 	{
 	public:
@@ -33,5 +33,6 @@ namespace OFEC {
 	private:
 		vector<double> m_k;
 	};
+	
 }
 #endif 

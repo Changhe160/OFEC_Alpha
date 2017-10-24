@@ -19,8 +19,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
-
-
+	
 	class scaffer_F6 : public function
 	{
 	public:
@@ -32,5 +31,6 @@ namespace OFEC {
 		void evaluate__(real *x, vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // OFEC_SCAFFER_F6_H

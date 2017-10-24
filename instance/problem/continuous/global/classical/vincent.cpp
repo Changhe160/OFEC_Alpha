@@ -22,6 +22,7 @@
 
 #include "vincent.h"
 namespace OFEC {
+	
 	vincent::vincent(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -60,4 +61,5 @@ namespace OFEC {
 		s /= m_variable_size;
 		obj[0] = s + m_bias;  // note
 	}
+	
 }

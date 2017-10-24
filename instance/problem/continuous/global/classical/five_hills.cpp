@@ -17,10 +17,11 @@
 #include "five_hills.h"
 
 namespace OFEC {
+	
 	five_hills::five_hills(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		v[param_numDim] = 2;
-		
+
 		std::vector<std::pair<real, real>> range;
 		range.push_back(make_pair(-2.5, 3.));
 		range.push_back(make_pair(-2, 2.));
@@ -43,9 +44,9 @@ namespace OFEC {
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.2;
 		m_variable_accuracy = 1.e-5;
-	
+
 		m_original_optima.set_number_variable(5); //1 gopt + 4 lopt
-		
+
 		ifstream in;
 		stringstream ss;
 		std::vector<std::vector<real>> var_data(5, std::vector<real>(m_variable_size));
@@ -75,4 +76,5 @@ namespace OFEC {
 		obj[0] = s + m_bias;
 
 	}
+	
 }

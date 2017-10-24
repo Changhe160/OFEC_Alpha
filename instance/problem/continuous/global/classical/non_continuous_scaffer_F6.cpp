@@ -13,6 +13,7 @@
 
 #include "non_continuous_scaffer_F6.h"
 namespace OFEC {
+	
 	non_continuous_scaffer_F6::non_continuous_scaffer_F6(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		scaffer_F6((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -42,15 +43,15 @@ namespace OFEC {
 			rotate(x);
 		if (m_translation_flag)
 			translate_origin(x);
-		
+
 		real fitness = 0;
 		std::vector<real> y(m_variable_size);
-		for (size_t i = 0; i<m_variable_size; ++i) {
-			if (fabs(x[i])<0.5) y[i] = x[i];
+		for (size_t i = 0; i < m_variable_size; ++i) {
+			if (fabs(x[i]) < 0.5) y[i] = x[i];
 			else {
 				real a, b = 2 * x[i];
-				if (b <= 0 && b - (int)b<0.5) a = (int)b;
-				else if (b - (int)b<0.5) a = (int)b;
+				if (b <= 0 && b - (int)b < 0.5) a = (int)b;
+				else if (b - (int)b < 0.5) a = (int)b;
 				else a = (int)b + 1;
 				y[i] = a / 2;
 			}
@@ -62,4 +63,5 @@ namespace OFEC {
 		}
 		obj[0] = fitness + m_bias;
 	}
+	
 }

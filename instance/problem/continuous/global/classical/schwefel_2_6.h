@@ -3,6 +3,7 @@
 
 #include "../../../../../core/problem/continuous/function.h"
 namespace OFEC {
+	
 	class schwefel_2_6 : public function
 	{
 	public:
@@ -17,5 +18,6 @@ namespace OFEC {
 		std::vector<real> m_b;
 		std::vector<std::vector<int>> m_a;
 	};
+	
 }
 #endif // !OFEC_SCHWEFEL_2_6_H

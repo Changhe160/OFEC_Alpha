@@ -13,6 +13,7 @@
 
 #include "rotated_scaffer_F6.h"
 namespace OFEC {
+	
 	rotated_scaffer_F6::rotated_scaffer_F6(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		scaffer_F6((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -31,8 +32,8 @@ namespace OFEC {
 
 	void rotated_scaffer_F6::initialize() {
 
-		load_rotation("instance/problem/continuous/global/classical/CEC2005/data/");
-		clear_global_opt();
+		load_rotation("instance/problem/continuous/global/CEC2005/data/");
+		m_optima.clear();
 		set_global_opt();
 
 		m_variable_accuracy = 1.0e-2;
@@ -41,4 +42,5 @@ namespace OFEC {
 	void rotated_scaffer_F6::evaluate__(real *x, std::vector<real>& obj) {
 		scaffer_F6::evaluate__(x, obj);
 	}
+	
 }

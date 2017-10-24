@@ -17,7 +17,7 @@
 // Last modified:
 #include "FIBA.h"
 namespace OFEC {
-
+	
 	FIBA::FIBA(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1), m_case(v[param_case] = (v.find(param_case) == v.end() ? 1 : (int)v[param_case])) {
 		v[param_numDim] = 2;
@@ -48,7 +48,7 @@ namespace OFEC {
 	}
 	void FIBA::initialize() {
 		set_para();
-		
+
 		m_original_optima.set_number_variable(4);
 		m_variable_accuracy = 1.e-6;
 
@@ -80,4 +80,5 @@ namespace OFEC {
 		obj[0] = s + m_bias;
 
 	}
+	
 }

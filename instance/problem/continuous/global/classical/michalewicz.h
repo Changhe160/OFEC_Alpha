@@ -4,6 +4,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
+	
 	class michalewicz : public function
 	{
 	public:
@@ -16,5 +17,6 @@ namespace OFEC {
 		int m_m;
 	private:
 	};
+	
 }
 #endif // !OFEC_MICHALEWICZ_H

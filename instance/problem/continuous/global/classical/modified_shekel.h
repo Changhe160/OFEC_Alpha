@@ -20,7 +20,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
-
+	
 
 	class modified_shekel : public function
 	{
@@ -35,5 +35,6 @@ namespace OFEC {
 		double m_a[8][5];
 		double m_c[8];
 	};
+	
 }
 #endif // !OFEC_MODIFIED_SHEKEL_H

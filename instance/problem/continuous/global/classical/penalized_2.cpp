@@ -13,7 +13,7 @@
 
 #include "penalized_2.h"
 namespace OFEC {
-
+	
 	penalized_2::penalized_2(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -59,4 +59,5 @@ namespace OFEC {
 		else if (x < -a) return k*pow(-x - a, m);
 		else return 0;
 	}
+	
 }

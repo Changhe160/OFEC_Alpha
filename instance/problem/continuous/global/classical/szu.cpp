@@ -19,6 +19,7 @@
 //* F(vec3{X})=\sum_{i=1}^{D}{-x_i^2}
 //*
 namespace OFEC {
+	
 	szu::szu(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		set_range(-5.0, 5.0);
@@ -84,4 +85,5 @@ namespace OFEC {
 		obj[0] = s;
 
 	}
+	
 }

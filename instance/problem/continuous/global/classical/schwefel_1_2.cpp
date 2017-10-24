@@ -13,6 +13,7 @@
 
 #include "schwefel_1_2.h"
 namespace OFEC {
+	
 	schwefel_1_2::schwefel_1_2(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -58,8 +59,9 @@ namespace OFEC {
 			s2 += s1*s1;
 			s1 = 0;
 		}
-		
+
 		obj[0] = s2 + m_bias;
 
 	}
+	
 }

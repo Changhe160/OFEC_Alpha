@@ -1,6 +1,7 @@
 #include "shubert.h"
 
 namespace OFEC {
+	
 	shubert::shubert(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -16,13 +17,13 @@ namespace OFEC {
 		//dtor
 	}
 	void shubert::initialize() {
-		set_range(10,-10);
+		set_range(10, -10);
 		m_variable_accuracy = 0.5;
 		size_t num = m_variable_size*(size_t)pow(3, m_variable_size);
 		m_original_optima.set_number_variable(num);
 		if (m_variable_size == 2) {
 			m_objective_accuracy = 1.e-4;
-			
+
 			//ifstream in;
 			//stringstream ss;
 			//ss << global::ms_arg[param_workingDir] << "Problem/FunctionOpt/Data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
@@ -53,7 +54,7 @@ namespace OFEC {
 			}
 		}
 		else {
-			
+
 		}
 		/*m_translation.resize(m_variable_size);
 		if (m_name == "FUN_shubert") {
@@ -85,4 +86,5 @@ namespace OFEC {
 		obj[0] = s + m_bias;
 
 	}
+	
 }

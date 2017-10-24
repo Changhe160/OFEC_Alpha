@@ -13,6 +13,7 @@
 
 #include "non_continuous_rastrigin.h"
 namespace OFEC {
+	
 	non_continuous_rastrigin::non_continuous_rastrigin(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		set_range(-5.12, 5.12);
@@ -44,9 +45,9 @@ namespace OFEC {
 			translate_origin(x);
 
 		real fit = 0;
-		
+
 		std::vector<real> y(m_variable_size);
- 		for (size_t i = 0; i < m_variable_size; ++i) {
+		for (size_t i = 0; i < m_variable_size; ++i) {
 			if (fabs(x[i]) < 0.5) y[i] = x[i];
 			else {
 				real a, b = 2 * x[i];
@@ -63,4 +64,5 @@ namespace OFEC {
 		obj[0] = fit + m_bias;
 
 	}
+	
 }

@@ -1,6 +1,7 @@
 #include "uneven_de_maxima.h"
 
 namespace OFEC {
+	
 	uneven_de_maxima::uneven_de_maxima(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -36,4 +37,5 @@ namespace OFEC {
 		double s = exp(tmp1) * pow(tmp2, 6);
 		obj[0] = s + m_bias;  // note
 	}
+	
 }

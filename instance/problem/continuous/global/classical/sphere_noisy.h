@@ -15,8 +15,7 @@
 #define OFEC_SPHERE_NOISY_H
 #include "sphere.h"
 namespace OFEC {
-
-
+	
 	class sphere_noisy : public sphere
 	{
 	public:
@@ -28,6 +27,7 @@ namespace OFEC {
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // !OFEC_SPHERE_NOISY_H
 

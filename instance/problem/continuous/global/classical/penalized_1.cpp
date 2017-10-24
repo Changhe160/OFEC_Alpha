@@ -13,6 +13,7 @@
 
 #include "penalized_1.h"
 namespace OFEC {
+	
 	penalized_1::penalized_1(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
@@ -40,7 +41,7 @@ namespace OFEC {
 	}
 
 	void penalized_1::evaluate__(real *x, std::vector<real>& obj) {
-		
+
 		vector<real> y(m_variable_size);
 		for (int i = 0; i < m_variable_size; i++) y[i] = (x[i] + 1) / 4. + 1;
 		double s = 0;
@@ -51,7 +52,7 @@ namespace OFEC {
 		for (int i = 0; i < m_variable_size; i++) {
 			s += u(x[i], 10, 100, 4);
 		}
-		
+
 		obj[0] = s + m_bias;
 
 	}
@@ -60,4 +61,5 @@ namespace OFEC {
 		else if (x < -a) return k*pow(-x - a, m);
 		else return 0;
 	}
+	
 }

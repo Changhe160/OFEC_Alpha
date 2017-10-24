@@ -4,7 +4,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
-
+	
 	class uneven_de_maxima : public function
 	{ //Beasley's F4 function
 	public:
@@ -16,5 +16,6 @@ namespace OFEC {
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // !OFEC_UNEVEN_DE_MAXIMA_H

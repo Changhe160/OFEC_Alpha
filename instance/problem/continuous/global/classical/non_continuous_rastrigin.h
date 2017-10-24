@@ -17,7 +17,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
-
+	
 	class non_continuous_rastrigin : public function
 	{
 	public:
@@ -29,5 +29,6 @@ namespace OFEC {
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // !OFEC_NONCONT_RASTRIGIN_H

@@ -16,6 +16,7 @@
 
 #include "../../../../../core/problem/continuous/function.h"
 namespace OFEC {
+	
 	class elliptic : public function
 	{
 	public:
@@ -25,9 +26,10 @@ namespace OFEC {
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);
-		
+
 	private:
 	};
+	
 }
 
 #endif // !OFEC_ELLIPTIC_H

@@ -17,7 +17,7 @@
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
-
+	
 
 	class penalized_1 : public function
 	{
@@ -31,5 +31,6 @@ namespace OFEC {
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // !OFEC_PENALIZED_1_H

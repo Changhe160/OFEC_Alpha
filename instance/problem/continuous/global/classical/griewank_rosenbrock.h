@@ -17,6 +17,7 @@
 
 #include "../../../../../core/problem/continuous/function.h"
 namespace OFEC {
+	
 	class griewank_rosenbrock : public function
 	{
 	public:
@@ -28,6 +29,7 @@ namespace OFEC {
 		void evaluate__(real *x, vector<real>& obj);
 	private:
 	};
+	
 }
 #endif // ! OFEC_GRIEWANK_ROSENBROCK_H
 
