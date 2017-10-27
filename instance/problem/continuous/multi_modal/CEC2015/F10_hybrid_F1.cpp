@@ -23,7 +23,7 @@ namespace OFEC {
 			}
 		}
 		void F10_hybrid_F1::initialize() {
-			
+			set_bias(1000);
 			size_t i, tmp;
 			double f_p[3] = { 0.3,0.3,0.4 };
 			basic_func f(3);

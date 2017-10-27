@@ -67,7 +67,7 @@ namespace OFEC {
 			m_f_bias[1] = 100;
 			m_f_bias[2] = 200;
 
-			set_bias(0);
+			set_bias(1400);
 		}
 		void F14_composition_F2::initialize() {
 			set_function();

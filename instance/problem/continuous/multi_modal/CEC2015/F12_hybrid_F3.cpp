@@ -25,7 +25,7 @@ namespace OFEC {
 			}
 		}
 		void F12_hybrid_F3::initialize() {
-
+			set_bias(1200);
 			size_t i, tmp;
 			double f_p[5] = {0.1, 0.2, 0.2, 0.2, 0.3 };
 			basic_func f(5);

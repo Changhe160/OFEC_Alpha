@@ -18,7 +18,7 @@ namespace OFEC {
 		}
 		void F1_rotated_bent_cigar::initialize() {
 
-			set_bias(0);
+			set_bias(100);
 			load_rotation("instance/problem/continuous/multi_modal/CEC2015/data/");
 			m_optima.clear();
 			set_global_opt();

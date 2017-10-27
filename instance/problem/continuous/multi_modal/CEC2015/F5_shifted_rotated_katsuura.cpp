@@ -18,7 +18,7 @@ namespace OFEC {
 		}
 		void F5_shifted_rotated_katsuura::initialize() {
 
-			set_bias(0);
+			set_bias(500);
 
 			m_translation.resize(m_variable_size);
 			bool is_load = load_translation("instance/problem/continuous/multi_modal/CEC2015/data/");  //data path

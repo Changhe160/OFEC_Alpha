@@ -18,7 +18,7 @@ namespace OFEC {
 		}
 		void F6_shifted_rotated_happy_cat::initialize() {
 
-			set_bias(0);
+			set_bias(600);
 
 			m_translation.resize(m_variable_size);
 			bool is_load = load_translation("instance/problem/continuous/multi_modal/CEC2015/data/");  //data path

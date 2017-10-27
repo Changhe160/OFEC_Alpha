@@ -18,7 +18,7 @@ namespace OFEC {
 		}
 		void F4_shifted_rotated_schwefel::initialize() {
 
-			set_bias(0);
+			set_bias(400);
 
 			m_translation.resize(m_variable_size);
 			bool is_load = load_translation("instance/problem/continuous/multi_modal/CEC2015/data/");  //data path

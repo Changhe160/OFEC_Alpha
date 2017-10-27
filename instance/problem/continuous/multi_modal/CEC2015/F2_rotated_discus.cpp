@@ -18,7 +18,7 @@ namespace OFEC {
 		}
 		void F2_rotated_discus::initialize() {
 
-			set_bias(0);
+			set_bias(200);
 			load_rotation("instance/problem/continuous/multi_modal/CEC2015/data/");
 			m_optima.clear();
 			set_global_opt();
