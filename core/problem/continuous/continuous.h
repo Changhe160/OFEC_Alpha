@@ -42,7 +42,7 @@ namespace OFEC{
 		double variable_distance(const base &s1, const base &s2) const;
 		double variable_distance(const variable_base &s1, const variable_base &s2) const;
 
-		virtual void constraint_value(const base &, std::pair<double, vector<double>>&) {}
+		//virtual void constraint_value(const base &, std::pair<double, vector<double>>&) {}
 		bool is_optimal_given();
 	protected:
 		continuous& operator=(const continuous& rhs);

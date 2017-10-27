@@ -218,8 +218,9 @@ namespace  OFEC {
 		}
 
 
-		void constraint_value() {
-			global::ms_global->m_problem->constraint_value(m_constraint_value);
+		double & constraint_value() {
+			//global::ms_global->m_problem->constraint_value(m_constraint_value);
+			return m_constraint_value.first;
 		}
 
 		void set_objective_infinite() {
