@@ -15,11 +15,11 @@
 #ifndef OFEC_C05_H
 #define OFEC_C05_H
 
-#include "../../../../../core/problem/continuous/constraint.h"
+#include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
 	namespace CEC2017 {
-		class C05 : public constraint
+		class C05 : public function
 		{
 		public:
 			C05(param_map &v);
@@ -27,9 +27,13 @@ namespace OFEC {
 			virtual ~C05();
 		protected:
 			void initialize();
-			void evaluate__(real *x, std::vector<real>& obj, double & cons);
+			void evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second);
+			bool load_rotation_C05(const string &path);
+			void load_rotation_C05_(const string &path);
+			void set_rotation_C05();
+			void rotate(real *x, size_t num);
 		private:
-
+			matrix m_mat1, m_mat2;
 		};
 
 

@@ -3,12 +3,12 @@
 namespace OFEC {
 	namespace CEC2017 {
 		C16::C16(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			constraint((v[param_proName]), (v[param_numDim]), 1) {
+			function((v[param_proName]), (v[param_numDim]), 1) {
 			set_range(-100., 100.);
 			initialize();
 		}
 		C16::C16(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			constraint(name, size_var, size_obj) {
+			function(name, size_var, size_obj) {
 			set_range(-100., 100.);
 			initialize();
 		}
@@ -17,6 +17,7 @@ namespace OFEC {
 			//dtor
 		}
 		void C16::initialize() {
+			add_tag(problem_tag::COP);
 			std::vector<real> data(m_variable_size, 0);
 			set_original_global_opt(data.data());
 			m_translation.resize(m_variable_size);
@@ -30,13 +31,11 @@ namespace OFEC {
 
 			set_global_opt(m_translation.data());
 		}
-		void C16::evaluate__(real *x, std::vector<real>& obj, double & cons) {
-			
+		void C16::evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second) {
 			if (m_translation_flag) {
 				translate(x);
 				translate_origin(x);
 			}
-			
 			
 			size_t i;
 			obj[0] = 0.;
@@ -58,7 +57,7 @@ namespace OFEC {
 				eq_cons.push_back(temp);
 				temp = 0.;
 				for (auto &i : eq_cons) {
-					if (fabs(i) - m_epsilon <= 0) i = 0;
+					if (fabs(i) - 1e-4 <= 0) i = 0;
 					else i = fabs(i);
 					sum1 += i;
 				}
@@ -76,8 +75,11 @@ namespace OFEC {
 					if (i <= 0) i = 0;
 					sum2 += i;
 				}
-
-				cons = (sum1 + sum2) / (double)(eq_cons.size() + ineq_cons.size());
+				for (auto &i : ineq_cons)
+					cons_second.push_back(i);
+				for (auto &i : eq_cons)
+					cons_second.push_back(i);
+				cons_first = (sum1 + sum2) / (double)(eq_cons.size() + ineq_cons.size());
 			}
 		}
 	}

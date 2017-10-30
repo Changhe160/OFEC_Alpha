@@ -15,11 +15,11 @@
 #ifndef OFEC_C25_H
 #define OFEC_C25_H
 
-#include "../../../../../core/problem/continuous/constraint.h"
+#include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
 	namespace CEC2017 {
-		class C25 : public constraint
+		class C25 : public function
 		{
 		public:
 			C25(param_map &v);
@@ -27,7 +27,7 @@ namespace OFEC {
 			virtual ~C25();
 		protected:
 			void initialize();
-			void evaluate__(real *x, std::vector<real>& obj, double & cons);
+			void evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second);
 		private:
 
 		};

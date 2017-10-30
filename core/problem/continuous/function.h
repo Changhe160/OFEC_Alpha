@@ -57,7 +57,8 @@ namespace OFEC {
 		virtual bool load_rotation(const string &path);
 		virtual void load_rotation_(const string &path);
 		virtual void set_rotation();
-		virtual void evaluate__(real *x, std::vector<real>& obj) = 0;
+		virtual void evaluate__(real *x, std::vector<real>& obj) {}
+		virtual void evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second) {}
 
 		void resize_translation(size_t n);
 		void resize_rotation(size_t n);

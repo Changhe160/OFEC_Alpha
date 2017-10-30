@@ -3,12 +3,12 @@
 namespace OFEC {
 	namespace CEC2017 {
 		C05::C05(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			constraint((v[param_proName]), (v[param_numDim]), 1) {
+			function((v[param_proName]), (v[param_numDim]), 1), m_mat1(v[param_numDim]), m_mat2(v[param_numDim]) {
 			set_range(-10., 10.);
 			initialize();
 		}
 		C05::C05(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			constraint(name, size_var, size_obj) {
+			function(name, size_var, size_obj), m_mat1(size_var), m_mat2(size_var) {
 			set_range(-10., 10.);
 			initialize();
 		}
@@ -17,6 +17,7 @@ namespace OFEC {
 			//dtor
 		}
 		void C05::initialize() {
+			add_tag(problem_tag::COP);
 			std::vector<real> data(m_variable_size, 1);
 			set_original_global_opt(data.data());
 			m_translation.resize(m_variable_size);
@@ -27,13 +28,12 @@ namespace OFEC {
 					temp_var[i] = m_original_optima.variable(0)[i];
 				set_translation(temp_var);
 			}
-			m_rotation.resize(2);
-			resize_rotation(m_variable_size);
-			load_rotation("instance/problem/continuous/constrained/CEC2017/data/");
-			//set_rotation();
+			
+			load_rotation_C05("instance/problem/continuous/constrained/CEC2017/data/");
+			
 			set_global_opt(m_translation.data());
 		}
-		void C05::evaluate__(real *x, std::vector<real>& obj, double & cons) {
+		void C05::evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second) {
 			if (m_translation_flag) {
 				translate(x);
 				translate_origin(x);
@@ -70,12 +70,64 @@ namespace OFEC {
 
 				for (auto &i : ineq_cons) {
 					if (i <= 0) i = 0;
-					
 					sum += i;
 				}
-
-				cons = sum / (double)ineq_cons.size();
+				for (auto &i : ineq_cons)
+					cons_second.push_back(i);
+				cons_first = sum / (double)ineq_cons.size();
 			}
+		}
+		bool C05::load_rotation_C05(const string &path) {
+			string s;
+			stringstream ss;
+			ss << m_variable_size << "Dim.txt";
+			s = ss.str();
+			s.insert(0, m_name + "_RotM_");
+
+			s.insert(0, path);// data path
+			s.insert(0, global::ms_arg[param_workingDir]);
+
+			load_rotation_C05_(s);
+
+			return true;
+		}
+
+		void C05::load_rotation_C05_(const string &path) {
+			ifstream in;
+			in.open(path);
+			if (in.fail()) {
+				set_rotation_C05();
+				ofstream out(path);
+				m_mat1.print(out);
+				m_mat2.print(out);
+				out.close();
+			}
+			else {
+				m_mat1.load(in);
+				m_mat2.load(in);
+			}
+			in.close();
+		}
+
+		void C05::set_rotation_C05() {
+			m_mat1.generate_rotation_classical(global::ms_global->m_normal[caller::Problem].get(), m_condition_number);
+			m_mat2.generate_rotation_classical(global::ms_global->m_normal[caller::Problem].get(), m_condition_number);
+		}
+		void C05::rotate(real *x, size_t num) {
+			double *x_ = new double[m_variable_size];
+			std::copy(x, x + m_variable_size, x_);
+
+			for (size_t i = 0; i<m_variable_size; ++i) {
+				x[i] = 0;
+				
+				for (size_t j = 0; j < m_variable_size; ++j) {
+					if(num == 1) x[i] += m_mat1[j][i] * x_[j];
+					if(num == 2) x[i] += m_mat2[j][i] * x_[j];
+				}
+			}
+
+			delete[] x_;
+			x_ = 0;
 		}
 	}
 }

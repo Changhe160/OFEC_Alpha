@@ -3,12 +3,12 @@
 namespace OFEC {
 	namespace CEC2017 {
 		C02::C02(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			constraint((v[param_proName]), (v[param_numDim]), 1) {
+			function((v[param_proName]), (v[param_numDim]), 1) {
 			set_range(-100., 100.);
 			initialize();
 		}
 		C02::C02(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			constraint(name, size_var, size_obj) {
+			function(name, size_var, size_obj) {
 			set_range(-100., 100.);
 			initialize();
 		}
@@ -17,6 +17,7 @@ namespace OFEC {
 			//dtor
 		}
 		void C02::initialize() {
+			add_tag(problem_tag::COP);
 			set_original_global_opt();
 			m_translation.resize(m_variable_size);
 			bool is_load = load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
@@ -26,12 +27,11 @@ namespace OFEC {
 					temp_var[i] = m_original_optima.variable(0)[i];
 				set_translation(temp_var);
 			}
-			m_rotation.resize(1);
-			resize_rotation(m_variable_size);
+			
 			load_rotation("instance/problem/continuous/constrained/CEC2017/data/");
 			set_global_opt(m_translation.data());
 		}
-		void C02::evaluate__(real *x, std::vector<real>& obj, double & cons) {
+		void C02::evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second) {
 			if (m_translation_flag) {
 				translate(x);
 				translate_origin(x);
@@ -66,7 +66,9 @@ namespace OFEC {
 					if (i <= 0) i = 0;
 					sum += i;
 				}
-				cons = sum / (double)constraint.size();
+				for (auto &i : constraint)
+					cons_second.push_back(i);
+				cons_first = sum / (double)constraint.size();
 			}
 		}
 	}

@@ -91,10 +91,13 @@ namespace OFEC {
 	evaluation_tag function::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
 		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
+		double & cons_first = dynamic_cast<solution<variable<real>, real> &>(s).constraint_value().first;
+		std::vector<double> & cons_second = dynamic_cast<solution<variable<real>, real> &>(s).constraint_value().second;
 
 		vector<real> x_(x.begin(), x.end()); //for parallel running
-
-		evaluate__(x_.data(), obj);
+		auto result = find(m_tag.begin(), m_tag.end(), problem_tag::COP);
+		if (result != m_tag.end()) evaluate__(x_.data(), obj, cons_first, cons_second);
+		else evaluate__(x_.data(), obj);
 		
 		if (constructed) {
 			if (effective_fes)		m_effective_eval++;
