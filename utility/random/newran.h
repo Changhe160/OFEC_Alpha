@@ -27,6 +27,8 @@
 #include "../myexcept.h"
 #include "extreal.h"
 
+#include <utility>
+
 namespace OFEC {
 
 typedef real (*PDF)(real);                // probability density function
@@ -74,6 +76,13 @@ public:
    template<typename T>
    T next_non_standard(T min, T max) { // get a value within [min,max)
 	   return min + static_cast<T>((max - min)*next());
+   }
+   template<typename T>
+   void shuffle(T first, T last) { //iterator
+	   for (auto i = last - first - 1; i >0; --i) {		 
+		  auto t =  decltype(i) (i+1)*next();		 
+		  std::swap(*first[i], *first[t]);
+	   }
    }
 };
 
