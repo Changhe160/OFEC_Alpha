@@ -2,8 +2,8 @@
 
 namespace OFEC {
 
-	function::function(const std::string &name, size_t size_var, size_t size_obj) :continuous(name, size_var, size_obj) {
-
+	function::function(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj),continuous(name, size_var, size_obj), m_rotation(size_var){
+		global::ms_arg[param_workingDir] = "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/";
 	}
 
 	void function::set_bias(double val) {
@@ -12,6 +12,7 @@ namespace OFEC {
 
 	void function::set_scale(double val) {
 		m_scale = val;
+		m_scale_flag = true;
 	}
 
 	void function::set_rotation_flag(bool flag) {
@@ -34,11 +35,15 @@ namespace OFEC {
 		return m_rotation;
 	}
 
-	double function::condition_number() {
+	real function::condition_number() {
 		return m_condition_number;
 	}
 
-	void function::set_condition_number(double c) {
+	real function::bias() {
+		return m_bias;
+	}
+
+	void function::set_condition_number(real c) {
 		m_condition_number = c;
 	}
 
@@ -283,8 +288,10 @@ namespace OFEC {
 	void function::set_global_opt(real *tran) {
 		if (m_objective_size > 1) throw myexcept("function::set_global_opt only for problems with a single obj");
 		variable<real> temp_var(m_variable_size);
-		for (int i = 0; i < m_variable_size; ++i)
-			temp_var[i] = tran[i]+ m_original_optima.variable(0)[i];
+		for (int i = 0; i < m_variable_size; ++i) {
+			if( tran != 0 ) temp_var[i] = tran[i] + m_original_optima.variable(0)[i];
+			else temp_var[i] = m_original_optima.variable(0)[i];
+		}
 		m_optima.append(std::move(temp_var));
 
 		objective<real> temp_obj(m_objective_size);
@@ -293,4 +300,5 @@ namespace OFEC {
 		evaluate_(temp, caller::Problem, false, false);
 		m_optima.append(std::move(temp.get_objective()));
 	}
+	
 }

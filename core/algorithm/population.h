@@ -59,7 +59,8 @@ namespace OFEC {
 
 		//constructors and members
 		population()=default;
-		population(int n);
+		template<typename ... Args>
+		population(int n, Args&& ...args);
 		population(const population &rhs);
 		population& operator=(const population &rhs);
 		population(population&&rhs);
@@ -199,18 +200,24 @@ namespace OFEC {
 	}
 
 	template<typename Individual>
-	population<Individual>::population(int n) {
+	template<typename ... Args>
+	population<Individual>::population(int n, Args&&... args) {
 		
+		pop[i] = new Individual(pro->obj, forward(args));
 	}
 
 	template<typename Individual>
-	population<Individual>::population(const population &rhs) {}
+	population<Individual>::population(const population &rhs) {
+	
+	}
 
 	template<typename Individual>
 	population<Individual>& population<Individual>::operator=(const population &rhs) {}
 
 	template<typename Individual>
-	population<Individual>::population(population&&rhs) {}
+	population<Individual>::population(population&&rhs) {
+	
+	}
 
 	template<typename Individual>
 	population<Individual>& population<Individual>::operator=(population&&rhs) {

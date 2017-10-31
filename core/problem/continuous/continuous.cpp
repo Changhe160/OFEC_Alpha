@@ -1,6 +1,11 @@
 #include "continuous.h"
 
 namespace OFEC {
+	continuous::continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var)\
+	{
+		//m_optima.resize_objective_set()
+	}
+
 	violation_type continuous::check_boundary_violation(const base &s) const {
 
 		const variable<real>& x= dynamic_cast<const solution<variable<real>, real>&>(s).get_variable();
@@ -36,7 +41,6 @@ namespace OFEC {
 	}
 
 	void continuous::copy(const problem * rhs) {
-		//TODO at Liu Yongfeng
 		problem::copy(rhs);
 
 		auto p= dynamic_cast<const continuous*>(rhs);
@@ -90,9 +94,9 @@ namespace OFEC {
 	}
 
 	void continuous::set_range(const std::vector<std::pair<real, real>>& r) {
-		int count = -1;
+		size_t count = 0;
 		for (auto &i : r) {
-			m_domain.set_range(i.first, i.second, ++count);
+			m_domain.set_range(i.first, i.second, count++);
 		}
 	}
 	optima<variable<real>, real>& continuous::get_optima() {
@@ -100,32 +104,16 @@ namespace OFEC {
 	}
 
 	double continuous::variable_distance(const base &s1, const base &s2) const {
-		const variable<real>& x1 =  dynamic_cast<const solution<variable<real>, real>&>(s1).get_variable();
+		const variable<real>& x1 = dynamic_cast<const solution<variable<real>, real>&>(s1).get_variable();
 		const variable<real>& x2 = dynamic_cast<const solution<variable<real>, real>&>(s2).get_variable();
-
-		return euclidean_distance(x1.begin(), x1.end(), x2.begin());   
+		return euclidean_distance(x1.begin(),x1.end(), x2.begin());   
 
 	}
 
 	double continuous::variable_distance(const variable_base &s1, const variable_base &s2) const {
 		const variable<real>& x1 = dynamic_cast<const variable<real>&>(s1);
 		const variable<real>& x2 = dynamic_cast<const variable<real>&>(s2);
-
 		return euclidean_distance(x1.begin(), x1.end(), x2.begin());  
 	}
 
-	bool continuous::same(const base &x1, const base &x2) const {
-		const variable<real> &s1 = dynamic_cast<const variable<real>&>(x1);
-		const variable<real> &s2 = dynamic_cast<const variable<real>&>(x2);		
-		double accuracy = 0;
-		if (typeid(double) == typeid(real)) accuracy = 1.E-15;
-		else accuracy = 1.E-7;
-
-		for (int j = 0; j<m_variable_size; j++) {
-			if (std::fabs(s1[j] - s2[j])>accuracy) {
-				return false;
-			}
-		}
-		return true;
-	}
 }
