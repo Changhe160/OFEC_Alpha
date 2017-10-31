@@ -18,26 +18,24 @@ namespace OFEC {
 		}
 		void C25::initialize() {
 			add_tag(problem_tag::COP);
-			std::vector<real> data(m_variable_size, 0);
-			set_original_global_opt(data.data());
+			//std::vector<real> data(m_variable_size, 0);
+			//set_original_global_opt(data.data());
 			m_translation.resize(m_variable_size);
 			bool is_load = load_translation("instance/problem/continuous/constrained/CEC2517/data/");  //data path
 			if (!is_load) {
 				std::vector<real> temp_var(m_variable_size);
 				for (size_t i = 0; i < m_variable_size; ++i)
-					temp_var[i] = m_original_optima.variable(0)[i];
+					temp_var[i] = 0;
 				set_translation(temp_var);
 			}
 			
 			load_rotation("instance/problem/continuous/constrained/CEC2517/data/");
-			set_global_opt(m_translation.data());
+			//set_global_opt(m_translation.data());
 		}
 		void C25::evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second) {
-			if (m_translation_flag) {
-				translate(x);
-				rotate(x);
-				translate_origin(x);
-			}
+			for (size_t i = 0; i < m_variable_size; ++i)
+				x[i] -= m_translation[i];
+			rotate(x);
 
 			size_t i;
 			obj[0] = 0.;

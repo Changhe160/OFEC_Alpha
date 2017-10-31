@@ -136,6 +136,9 @@ namespace OFEC {
 		size_t total_evaluations() {
 			return m_total_eval;
 		}
+		void set_opt_mode(optimization_mode m, size_t idx = 0) {
+			m_opt_mode[idx] = m;
+		}
 	protected:
 		//problem() = default;
 		problem& operator=(const problem& rhs);

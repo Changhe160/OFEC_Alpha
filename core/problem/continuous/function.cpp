@@ -35,10 +35,12 @@ namespace OFEC {
 		return m_rotation;
 	}
 
-	double function::condition_number() {
+	real function::condition_number() {
 		return m_condition_number;
 	}
-
+	real function::bias() {
+		return m_bias;
+	}
 	void function::set_condition_number(double c) {
 		m_condition_number = c;
 	}

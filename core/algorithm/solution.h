@@ -217,12 +217,20 @@ namespace  OFEC {
 			return global::ms_global->m_problem->check_constraint_violation(*this);
 		}
 
-
 		std::pair<double, std::vector<double>> & constraint_value() {
 			//global::ms_global->m_problem->constraint_value(m_constraint_value);
 			return m_constraint_value;
 		}
-
+		const std::pair<double, std::vector<double>> & constraint_value()const {
+			//global::ms_global->m_problem->constraint_value(m_constraint_value);
+			return m_constraint_value;
+		}
+		size_t num_violation() {
+			size_t count = 0;
+			for (auto &i : m_constraint_value.second)
+				if (i > 0) ++count;
+			return count;
+		}
 		void set_objective_infinite() {
 
 			for (int i = 0; i<m_obj.size(); ++i)

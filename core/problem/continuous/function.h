@@ -36,7 +36,8 @@ namespace OFEC {
 		real translation(size_t i) const;
 		std::vector<real>& translation();
 		matrix& rotation();
-		double condition_number();
+		real condition_number();
+		real bias();
 		void set_condition_number(double c);
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
 		optima<variable<real>, real>& get_original_optima();
