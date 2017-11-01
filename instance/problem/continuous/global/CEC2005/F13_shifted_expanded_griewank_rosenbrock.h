@@ -18,12 +18,11 @@
 #include "../../../../../core/problem/continuous/function.h"
 namespace OFEC {
 	namespace CEC2005 {
-		class F13_shifted_expanded_griewank_rosenbrock : public function
+		class F13_shifted_expanded_griewank_rosenbrock final : public function
 		{
 		public:
 			F13_shifted_expanded_griewank_rosenbrock(param_map &v);
 			F13_shifted_expanded_griewank_rosenbrock(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F13_shifted_expanded_griewank_rosenbrock();
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);

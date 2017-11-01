@@ -13,10 +13,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F13_shifted_expanded_griewank_rosenbrock::~F13_shifted_expanded_griewank_rosenbrock() {
-			//dtor
-		}
-
 		void F13_shifted_expanded_griewank_rosenbrock::initialize() {
 
 			set_original_global_opt();

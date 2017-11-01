@@ -13,9 +13,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F3_shifted_rotated_high_cond_elliptic::~F3_shifted_rotated_high_cond_elliptic() {
-			//dtor
-		}
 		void F3_shifted_rotated_high_cond_elliptic::initialize() {
 
 			set_bias(-450);

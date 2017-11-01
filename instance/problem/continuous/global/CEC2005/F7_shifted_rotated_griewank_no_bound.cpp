@@ -13,10 +13,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F7_shifted_rotated_griewank_no_bound::~F7_shifted_rotated_griewank_no_bound() {
-			//dtor
-		}
-
 		void F7_shifted_rotated_griewank_no_bound::initialize() {
 
 			set_bias(-180);

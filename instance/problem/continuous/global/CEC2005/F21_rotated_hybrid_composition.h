@@ -14,20 +14,19 @@
 #ifndef OFEC_F21_ROTATED_HYBRID_COMPOSITION_H
 #define OFEC_F21_ROTATED_HYBRID_COMPOSITION_H
 
-#include "FBase.h"
+#include "composition.h"
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F21_rotated_hybrid_composition : public FBase
+		class F21_rotated_hybrid_composition final : public composition
 		{
 		public:
 			F21_rotated_hybrid_composition(param_map &v);
 			F21_rotated_hybrid_composition(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F21_rotated_hybrid_composition();
 		protected:
-			virtual void initialize();
+			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
-			virtual void set_function();
+			void set_function();
 
 		private:
 

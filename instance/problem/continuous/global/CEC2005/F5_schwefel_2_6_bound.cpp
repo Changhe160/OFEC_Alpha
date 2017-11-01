@@ -13,9 +13,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F5_schwefel_2_6_bound::~F5_schwefel_2_6_bound() {
-			//dtor
-		}
 		void F5_schwefel_2_6_bound::load_data(const string &path)
 		{
 			string sa;

@@ -15,16 +15,15 @@
 #ifndef OFEC_F4_SHIFTED_SCHWEFEL_1_2_NOISY_H
 #define OFEC_F4_SHIFTED_SCHWEFEL_1_2_NOISY_H
 
-#include "F2_shifted_schwefel_1_2.h"
+#include "../classical/schwefel_1_2.h"
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F4_shifted_schwefel_1_2_noisy : public F2_shifted_schwefel_1_2
+		class F4_shifted_schwefel_1_2_noisy final : public schwefel_1_2
 		{
 		public:
 			F4_shifted_schwefel_1_2_noisy(param_map &v);
 			F4_shifted_schwefel_1_2_noisy(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F4_shifted_schwefel_1_2_noisy();
 		protected:
 			void initialize();
 			void evaluate__(real *x, vector<real>& obj);

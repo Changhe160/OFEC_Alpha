@@ -5,12 +5,11 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F12_schwefel_2_13 : public function
+		class F12_schwefel_2_13 final: public function
 		{
 		public:
 			F12_schwefel_2_13(param_map &v);
 			F12_schwefel_2_13(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F12_schwefel_2_13();
 		protected:
 			void initialize();
 			void load_data(const string & path);

@@ -14,20 +14,19 @@
 #ifndef OFEC_F23_NON_CONTINUOUS_ROTATED_HYBRID_H
 #define OFEC_F23_NON_CONTINUOUS_ROTATED_HYBRID_H
 
-#include "F21_rotated_hybrid_composition.h"
+#include "composition.h"
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F23_non_continuous_rotated_hybrid : public F21_rotated_hybrid_composition
+		class F23_non_continuous_rotated_hybrid final : public composition
 		{
 		public:
 			F23_non_continuous_rotated_hybrid(param_map &v);
 			F23_non_continuous_rotated_hybrid(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F23_non_continuous_rotated_hybrid();
 		protected:
-			virtual void initialize();
+			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
-
+			void set_function();
 		private:
 
 		};

@@ -14,20 +14,20 @@
 #ifndef OFEC_F20_ROTATED_HYBRID_BOUND_H
 #define OFEC_F20_ROTATED_HYBRID_BOUND_H
 
-#include "F18_rotated_hybrid_composition.h"
+#include "composition.h"
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F20_rotated_hybrid_bound : public F18_rotated_hybrid_composition
+		class F20_rotated_hybrid_bound final : public composition
 		{
 		public:
 			F20_rotated_hybrid_bound(param_map &v);
 			F20_rotated_hybrid_bound(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F20_rotated_hybrid_bound();
 		protected:
-			virtual void initialize();
+			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
-
+			void set_function();
+			void set_translation();
 		private:
 
 		};

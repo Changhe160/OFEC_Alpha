@@ -12,28 +12,37 @@
 *************************************************************************/
 
 #include "F19_rotated_hybrid_narrow_basin.h"
-
+#include "../classical/sphere.h"
+#include "../classical/ackley.h"
+#include "../classical/griewank.h"
+#include "../classical/rastrigin.h"
+#include "../classical/weierstrass.h"
 
 namespace OFEC {
 	namespace CEC2005 {
 		F19_rotated_hybrid_narrow_basin::F19_rotated_hybrid_narrow_basin(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			F18_rotated_hybrid_composition((v[param_proName]), (v[param_numDim]), 1) {
+			composition((v[param_proName]), (v[param_numDim]), 1) {
 
 			initialize();
 		}
 		F19_rotated_hybrid_narrow_basin::F19_rotated_hybrid_narrow_basin(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			F18_rotated_hybrid_composition(name, size_var, size_obj) {
+			composition(name, size_var, size_obj) {
 
 			initialize();
 		}
-		F19_rotated_hybrid_narrow_basin::~F19_rotated_hybrid_narrow_basin() {
-			//dtor
 
+		void F19_rotated_hybrid_narrow_basin::set_function() {
+			basic_func f(5);
+			f[0] = &create_function<ackley>;
+			f[1] = &create_function<rastrigin>;
+			f[2] = &create_function<sphere>;
+			f[3] = &create_function<weierstrass>;
+			f[4] = &create_function<griewank>;
 
-		}
-
-
-		void F19_rotated_hybrid_narrow_basin::set_parameter() {
+			for (size_t i = 0; i < m_num_function; ++i) {
+				m_function[i] = dynamic_cast<function*>(f[i / 2]("", m_variable_size, m_objective_size));
+				m_function[i]->set_bias(0);
+			}
 
 			m_function[0]->set_condition_number(2); m_function[1]->set_condition_number(3);
 			m_function[2]->set_condition_number(2); m_function[3]->set_condition_number(3);
@@ -67,7 +76,7 @@ namespace OFEC {
 				m_function[i]->set_scale(m_stretch_severity[i]);
 			}
 
-			set_bias(10.);
+			//set_bias(10.);
 		}
 
 		void F19_rotated_hybrid_narrow_basin::initialize() {
@@ -105,7 +114,22 @@ namespace OFEC {
 		}
 
 		void F19_rotated_hybrid_narrow_basin::evaluate__(real *x, std::vector<real>& obj) {
-			F18_rotated_hybrid_composition::evaluate__(x, obj);
+			composition::evaluate__(x, obj);
+			obj[0] += 10.;
+		}
+		void F19_rotated_hybrid_narrow_basin::set_translation() {
+			for (size_t i = 0; i < m_num_function - 1; ++i) {
+				m_function[i]->translation().resize(m_variable_size);
+				for (size_t j = 0; j < m_variable_size; ++j) {
+					m_function[i]->translation()[j] = m_domain[j].limit.first + (m_domain[j].limit.second - m_domain[j].limit.first)*(1 - global::ms_global->m_uniform[caller::Problem]->next());
+				}
+				m_function[i]->set_tranlation_flag(true);
+			}
+			m_function[m_num_function - 1]->translation().resize(m_variable_size);
+			for (size_t j = 0; j < m_variable_size; ++j) {
+				m_function[m_num_function - 1]->translation()[j] = 0;
+			}
+			m_function[m_num_function - 1]->set_tranlation_flag(true);
 		}
 	}
 	

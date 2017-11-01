@@ -14,19 +14,20 @@
 #ifndef OFEC_F17_HYBRID_COMPOSITION_NOISY_H
 #define OFEC_F17_HYBRID_COMPOSITION_NOISY_H
 
-#include "F16_rotated_hybrid_composition_F15.h"
+#include "composition.h"
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F17_hybrid_composition_noisy : public F16_rotated_hybrid_composition_F15
+		class F17_hybrid_composition_noisy final: public composition
 		{
 		public:
 			F17_hybrid_composition_noisy(param_map &v);
 			F17_hybrid_composition_noisy(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F17_hybrid_composition_noisy();
 		protected:
-			virtual void initialize();
+			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
+			void set_function();
+			
 			double noise();
 		private:
 

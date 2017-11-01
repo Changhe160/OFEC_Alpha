@@ -11,10 +11,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F9_shifted_rastrigin::~F9_shifted_rastrigin() {
-			//dtor
-		}
-
 		void F9_shifted_rastrigin::initialize() {
 
 			set_bias(-330);

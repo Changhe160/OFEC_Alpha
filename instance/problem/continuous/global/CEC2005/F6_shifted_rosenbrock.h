@@ -19,12 +19,11 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F6_shifted_rosenbrock : public rosenbrock
+		class F6_shifted_rosenbrock final : public rosenbrock
 		{
 		public:
 			F6_shifted_rosenbrock(param_map &v);
 			F6_shifted_rosenbrock(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F6_shifted_rosenbrock();
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);

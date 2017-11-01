@@ -14,22 +14,21 @@
 #ifndef OFEC_F19_ROTATED_HYBRID_NARROW_BASIN_H
 #define OFEC_F19_ROTATED_HYBRID_NARROW_BASIN_H
 
-#include "F18_rotated_hybrid_composition.h"
+#include "composition.h"
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F19_rotated_hybrid_narrow_basin : public F18_rotated_hybrid_composition
+		class F19_rotated_hybrid_narrow_basin final : public composition
 		{
 		public:
 			F19_rotated_hybrid_narrow_basin(param_map &v);
 			F19_rotated_hybrid_narrow_basin(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F19_rotated_hybrid_narrow_basin();
 		protected:
-			virtual void initialize();
+			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
 
-			virtual void set_parameter();
-
+			void set_function();
+			void set_translation();
 		private:
 
 		};

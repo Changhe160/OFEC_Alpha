@@ -13,10 +13,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F6_shifted_rosenbrock::~F6_shifted_rosenbrock() {
-			//dtor
-		}
-
 		void F6_shifted_rosenbrock::initialize() {
 
 			set_bias(390);

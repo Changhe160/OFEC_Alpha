@@ -13,9 +13,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F1_shifted_sphere::~F1_shifted_sphere() {
-			//dtor
-		}
 		void F1_shifted_sphere::initialize() {
 
 			set_bias(-450);

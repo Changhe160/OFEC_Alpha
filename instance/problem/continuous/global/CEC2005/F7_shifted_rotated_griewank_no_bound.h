@@ -19,12 +19,11 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F7_shifted_rotated_griewank_no_bound : public griewank
+		class F7_shifted_rotated_griewank_no_bound final : public griewank
 		{
 		public:
 			F7_shifted_rotated_griewank_no_bound(param_map &v);
 			F7_shifted_rotated_griewank_no_bound(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F7_shifted_rotated_griewank_no_bound();
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);

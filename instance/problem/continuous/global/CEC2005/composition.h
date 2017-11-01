@@ -11,23 +11,25 @@
 *  Foundation; either version 2, or (at your option) any later version.
 *************************************************************************/
 
-#ifndef OFEC_FBASE_H
-#define OFEC_FBASE_H
+#ifndef OFEC_CEC2005_COMPOSITION_H
+#define OFEC_CEC2005_COMPOSITION_H
 
+#include "../../../../../core/problem/continuous/continuous.h"
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
 	namespace CEC2005 {
-		class FBase : public function
+		class composition : public continuous
 		{
 		public:
-			FBase(const std::string &name, size_t size_var, size_t size_obj);
-			~FBase();
+			composition(const std::string &name, size_t size_var, size_t size_obj);
+			~composition();
 			size_t get_num_function();
 			function* get_function(size_t num);
+			virtual evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed); 
 		protected:
 			virtual void initialize() = 0;
-			void evaluate__(real *x, std::vector<real>& obj);
+			virtual void evaluate__(real *x, std::vector<real>& obj);
 			void compute_fmax();
 			virtual void set_function() = 0;
 			virtual void set_weight(std::vector<double>& w, const std::vector<real>&x);
@@ -49,4 +51,4 @@ namespace OFEC {
 		
 	}
 }
-#endif // ! OFEC_FBASE_H
+#endif // ! OFEC_CEC2005_COMPOSITION_H

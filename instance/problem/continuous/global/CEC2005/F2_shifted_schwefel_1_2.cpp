@@ -13,9 +13,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F2_shifted_schwefel_1_2::~F2_shifted_schwefel_1_2() {
-			//dtor
-		}
 		void F2_shifted_schwefel_1_2::initialize() {
 
 			set_bias(-450);

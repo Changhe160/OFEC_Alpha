@@ -19,12 +19,11 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F8_shifted_rotated_ackley_bound : public ackley
+		class F8_shifted_rotated_ackley_bound final: public ackley
 		{
 		public:
 			F8_shifted_rotated_ackley_bound(param_map &v);
 			F8_shifted_rotated_ackley_bound(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F8_shifted_rotated_ackley_bound();
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);

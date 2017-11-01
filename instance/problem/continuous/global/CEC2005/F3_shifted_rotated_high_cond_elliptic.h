@@ -19,12 +19,11 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F3_shifted_rotated_high_cond_elliptic : public elliptic
+		class F3_shifted_rotated_high_cond_elliptic final : public elliptic
 		{
 		public:
 			F3_shifted_rotated_high_cond_elliptic(param_map &v);
 			F3_shifted_rotated_high_cond_elliptic(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F3_shifted_rotated_high_cond_elliptic();
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);

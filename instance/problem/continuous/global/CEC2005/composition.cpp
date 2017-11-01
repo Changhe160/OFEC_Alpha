@@ -12,17 +12,17 @@
 *************************************************************************/
 
 
-#include "FBase.h"
+#include "composition.h"
 namespace OFEC {
 	namespace CEC2005 {
-		FBase::FBase(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), function(name, size_var, size_obj), m_num_function(10), \
+		composition::composition(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), continuous(name, size_var, size_obj), m_num_function(10), \
 			m_function(m_num_function), m_height(m_num_function), m_fmax(m_num_function), \
 			m_converge_severity(m_num_function), m_stretch_severity(m_num_function) {
 
 			set_range(-5, 5);
 			m_height_normalize_severity = 2000.;
 		}
-		FBase::~FBase() {
+		composition::~composition() {
 			//dtor
 			if (m_num_function > 0) {
 				for (auto &i : m_function)
@@ -30,11 +30,11 @@ namespace OFEC {
 			}
 		}
 
-		size_t FBase::get_num_function() {
+		size_t composition::get_num_function() {
 			return m_num_function;
 		}
 
-		void FBase::compute_fmax() {  // calculate the estimate max value of funciton i
+		void composition::compute_fmax() {  // calculate the estimate max value of funciton i
 			variable<real> temp_var(m_variable_size);
 			objective<real> temp_obj(m_objective_size);
 			solution<variable<real>, real> x(std::move(temp_var), std::move(temp_obj));
@@ -47,7 +47,7 @@ namespace OFEC {
 			}
 		}
 
-		void FBase::set_weight(vector<double>& weight, const vector<real>&x) { //default CEC05
+		void composition::set_weight(vector<double>& weight, const vector<real>&x) { //default CEC05
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate weight for each function
 				weight[i] = 0;
 				for (size_t j = 0; j < m_variable_size; ++j) {
@@ -58,7 +58,7 @@ namespace OFEC {
 			}
 		}
 
-		void FBase::evaluate__(real *x, std::vector<real>& obj) {
+		void composition::evaluate__(real *x, std::vector<real>& obj) {
 			vector<real> x_(m_variable_size);
 			std::copy(x, x + m_variable_size, x_.begin());
 			vector<double> weight(m_num_function, 0);
@@ -114,9 +114,9 @@ namespace OFEC {
 				temp += weight[i] * (fit[i] + m_height[i]);
 			}
 
-			obj[0] = temp + m_bias;
+			obj[0] = temp;
 		}
-		bool FBase::load_translation(const string &path) {
+		bool composition::load_translation(const string &path) {
 			string s;
 			stringstream ss;
 			ss << m_variable_size << "Dim.txt";
@@ -141,7 +141,7 @@ namespace OFEC {
 			//m_translation_flag = true;
 			return true;
 		}
-		bool FBase::load_rotation(const string &path) {
+		bool composition::load_rotation(const string &path) {
 			string s;
 			stringstream ss;
 			ss << m_variable_size << "Dim.txt";
@@ -167,7 +167,7 @@ namespace OFEC {
 			//m_rotation_flag = true;
 			return true;
 		}
-		void FBase::set_translation() {
+		void composition::set_translation() {
 			for (int i = 0; i < m_num_function; i++) {
 				m_function[i]->translation().resize(m_variable_size);
 				for (int j = 0; j < m_variable_size; j++) {
@@ -176,14 +176,44 @@ namespace OFEC {
 				m_function[i]->set_tranlation_flag(true);
 			}
 		}
-		void FBase::set_rotation() {
+		void composition::set_rotation() {
 			for (auto i : m_function) {
-				i->rotation().generate_rotation_classical(global::ms_global->m_normal[caller::Problem].get(), m_condition_number);
+				i->rotation().generate_rotation_classical(global::ms_global->m_normal[caller::Problem].get(), i->condition_number());
 				i->set_rotation_flag(true);
 			}
 		}
-		function* FBase::get_function(size_t num) {
+		function* composition::get_function(size_t num) {
 			return m_function[num];
+		}
+		evaluation_tag composition::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
+			variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
+			auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
+			
+
+			vector<real> x_(x.begin(), x.end()); //for parallel running
+
+			evaluate__(x_.data(), obj);
+
+			if (constructed) {
+				if (effective_fes)		m_effective_eval++;
+
+				if (m_variable_monitor) {
+					m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_variable_accuracy);
+					if (m_optima.is_variable_found())
+						m_solved = true;
+				}
+				if (m_objective_monitor) {
+					m_optima.is_optimal_objective(obj, m_objective_accuracy);
+					if (m_optima.is_objective_found())
+						m_solved = true;
+				}
+				if (call == caller::Algorithm&& global::ms_global->m_algorithm&&global::ms_global->m_algorithm->terminating())
+					return evaluation_tag::Terminate;
+
+				//if (mode == Program_Algorithm&&Global::msp_global->mp_problem && !Global::msp_global->mp_problem->isProTag(MOP)) m_globalOpt.isFound(s, m_disAccuracy, m_accuracy);
+				//if (Global::msp_global != nullptr&&Global::msp_global->mp_algorithm != nullptr&&Global::msp_global->mp_algorithm->ifTerminating()) { return Return_Terminate; }
+			}
+			return evaluation_tag::Normal;
 		}
 	}
 }

@@ -11,10 +11,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F11_shifted_rotated_weierstrass::~F11_shifted_rotated_weierstrass() {
-			//dtor
-		}
-
 		void F11_shifted_rotated_weierstrass::initialize() {
 
 

@@ -14,20 +14,19 @@
 #ifndef OFEC_F22_ROTATED_HYBRID_HIGH_CONDITION_NUMBER_MATRIX_H
 #define OFEC_F22_ROTATED_HYBRID_HIGH_CONDITION_NUMBER_MATRIX_H
 
-#include "F21_rotated_hybrid_composition.h"
+#include "composition.h"
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F22_rotated_hybrid_high_condition_number_matrix : public F21_rotated_hybrid_composition
+		class F22_rotated_hybrid_high_condition_number_matrix final : public composition
 		{
 		public:
 			F22_rotated_hybrid_high_condition_number_matrix(param_map &v);
 			F22_rotated_hybrid_high_condition_number_matrix(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F22_rotated_hybrid_high_condition_number_matrix();
 		protected:
-			virtual void initialize();
+			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
-
+			void set_function();
 		private:
 
 		};

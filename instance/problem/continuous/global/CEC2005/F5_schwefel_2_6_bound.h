@@ -19,12 +19,11 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F5_schwefel_2_6_bound : public function
+		class F5_schwefel_2_6_bound final : public function
 		{
 		public:
 			F5_schwefel_2_6_bound(param_map &v);
 			F5_schwefel_2_6_bound(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F5_schwefel_2_6_bound();
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);

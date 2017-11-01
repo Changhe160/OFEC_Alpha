@@ -27,20 +27,16 @@
 namespace OFEC {
 	namespace CEC2005 {
 		F24_rotated_hybrid_composition::F24_rotated_hybrid_composition(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			FBase((v[param_proName]), (v[param_numDim]), 1) {
+			composition((v[param_proName]), (v[param_numDim]), 1) {
 
 			initialize();
 		}
 		F24_rotated_hybrid_composition::F24_rotated_hybrid_composition(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			FBase(name, size_var, size_obj) {
+			composition(name, size_var, size_obj) {
 
 			initialize();
 		}
-		F24_rotated_hybrid_composition::~F24_rotated_hybrid_composition() {
-			//dtor
-
-
-		}
+		
 		void F24_rotated_hybrid_composition::set_function() {
 			basic_func f(10);
 			f[0] = &create_function<weierstrass>;
@@ -103,7 +99,7 @@ namespace OFEC {
 			}
 
 
-			set_bias(260.);
+			//set_bias(260.);
 		}
 		void F24_rotated_hybrid_composition::initialize() {
 			set_function();
@@ -142,7 +138,8 @@ namespace OFEC {
 		}
 
 		void F24_rotated_hybrid_composition::evaluate__(real *x, std::vector<real>& obj) {
-			FBase::evaluate__(x, obj);
+			composition::evaluate__(x, obj);
+			obj[0] += 260.;
 		}
 	}
 }

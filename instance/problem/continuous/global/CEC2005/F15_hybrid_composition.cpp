@@ -24,20 +24,16 @@
 namespace OFEC {
 	namespace CEC2005 {
 		F15_hybrid_composition::F15_hybrid_composition(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			FBase((v[param_proName]), (v[param_numDim]), 1) {
+			composition((v[param_proName]), (v[param_numDim]), 1) {
 
 			initialize();
 		}
 		F15_hybrid_composition::F15_hybrid_composition(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			FBase(name, size_var, size_obj) {
+			composition(name, size_var, size_obj) {
 
 			initialize();
 		}
-		F15_hybrid_composition::~F15_hybrid_composition() {
-			//dtor
-
-
-		}
+	
 		void F15_hybrid_composition::set_function() {
 			basic_func f(5);
 			f[0] = &create_function<rastrigin>;
@@ -76,7 +72,7 @@ namespace OFEC {
 				m_function[i]->set_scale(m_stretch_severity[i]);
 			}
 
-			set_bias(120.);
+			//set_bias(120.);
 		}
 		void F15_hybrid_composition::initialize() {
 			set_function();
@@ -112,7 +108,8 @@ namespace OFEC {
 		}
 
 		void F15_hybrid_composition::evaluate__(real *x, std::vector<real>& obj) {
-			FBase::evaluate__(x, obj);
+			composition::evaluate__(x, obj);
+			obj[0] += 120.;   // add m_bias
 		}
 
 		void F15_hybrid_composition::set_rotation() {

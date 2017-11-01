@@ -14,21 +14,20 @@
 #ifndef OFEC_F16_ROTATED_HYBRID_COMPOSITION_F15_H
 #define OFEC_F16_ROTATED_HYBRID_COMPOSITION_F15_H
 
-#include "F15_hybrid_composition.h"
+#include "composition.h"
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F16_rotated_hybrid_composition_F15 : public F15_hybrid_composition
+		class F16_rotated_hybrid_composition_F15 final : public composition
 		{
 		public:
 			F16_rotated_hybrid_composition_F15(param_map &v);
 			F16_rotated_hybrid_composition_F15(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F16_rotated_hybrid_composition_F15();
 		protected:
-			virtual void initialize();
+			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
+			void set_function();
 
-			virtual void set_rotation();
 		private:
 
 		};

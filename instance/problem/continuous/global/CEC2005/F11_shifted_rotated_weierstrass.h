@@ -19,12 +19,11 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F11_shifted_rotated_weierstrass : public weierstrass
+		class F11_shifted_rotated_weierstrass final: public weierstrass
 		{
 		public:
 			F11_shifted_rotated_weierstrass(param_map &v);
 			F11_shifted_rotated_weierstrass(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F11_shifted_rotated_weierstrass();
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);

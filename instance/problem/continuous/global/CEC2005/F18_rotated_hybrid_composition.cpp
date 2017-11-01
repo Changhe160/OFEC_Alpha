@@ -22,20 +22,16 @@
 namespace OFEC {
 	namespace CEC2005 {
 		F18_rotated_hybrid_composition::F18_rotated_hybrid_composition(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			F15_hybrid_composition((v[param_proName]), (v[param_numDim]), 1) {
+			composition((v[param_proName]), (v[param_numDim]), 1) {
 
 			initialize();
 		}
 		F18_rotated_hybrid_composition::F18_rotated_hybrid_composition(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			F15_hybrid_composition(name, size_var, size_obj) {
+			composition(name, size_var, size_obj) {
 
 			initialize();
 		}
-		F18_rotated_hybrid_composition::~F18_rotated_hybrid_composition() {
-			//dtor
 
-
-		}
 		void F18_rotated_hybrid_composition::set_function() {
 			basic_func f(5);
 			f[0] = &create_function<ackley>;
@@ -44,10 +40,7 @@ namespace OFEC {
 			f[3] = &create_function<weierstrass>;
 			f[4] = &create_function<griewank>;
 
-			if (m_num_function > 0) {   // delete memory created in class "F15_hybrid_composition"
-				for (auto &i : m_function)
-					if (i) delete i;
-			}
+			
 
 			for (size_t i = 0; i < m_num_function; ++i) {
 				m_function[i] = dynamic_cast<function*>(f[i / 2]("", m_variable_size, m_objective_size));
@@ -86,7 +79,7 @@ namespace OFEC {
 				m_function[i]->set_scale(m_stretch_severity[i]);
 			}
 
-			set_bias(10.);
+			//set_bias(10.);
 		}
 		void F18_rotated_hybrid_composition::initialize() {
 			set_function();
@@ -123,7 +116,8 @@ namespace OFEC {
 		}
 
 		void F18_rotated_hybrid_composition::evaluate__(real *x, std::vector<real>& obj) {
-			F15_hybrid_composition::evaluate__(x, obj);
+			composition::evaluate__(x, obj);
+			obj[0] += 10.;
 		}
 
 		void F18_rotated_hybrid_composition::set_translation() {
@@ -140,9 +134,7 @@ namespace OFEC {
 			}
 			m_function[m_num_function - 1]->set_tranlation_flag(true);
 		}
-		void F18_rotated_hybrid_composition::set_rotation() {
-			FBase::set_rotation();
-		}
+		
 	}
 }
 

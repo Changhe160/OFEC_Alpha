@@ -19,12 +19,11 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F9_shifted_rastrigin : public rastrigin
+		class F9_shifted_rastrigin final: public rastrigin
 		{
 		public:
 			F9_shifted_rastrigin(param_map &v);
 			F9_shifted_rastrigin(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F9_shifted_rastrigin();
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);

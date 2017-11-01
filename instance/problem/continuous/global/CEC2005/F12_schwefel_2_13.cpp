@@ -17,10 +17,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F12_schwefel_2_13::~F12_schwefel_2_13() {
-			//dtor
-		}
-
 		void F12_schwefel_2_13::initialize() {
 
 			load_data("instance/problem/continuous/global/CEC2005/data/");

@@ -11,10 +11,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F14_shifted_rotated_expanded_scaffer_F6::~F14_shifted_rotated_expanded_scaffer_F6() {
-			//dtor
-		}
-
 		void F14_shifted_rotated_expanded_scaffer_F6::initialize() {
 
 			set_condition_number(3);

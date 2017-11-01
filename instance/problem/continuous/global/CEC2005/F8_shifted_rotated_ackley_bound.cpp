@@ -13,10 +13,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		F8_shifted_rotated_ackley_bound::~F8_shifted_rotated_ackley_bound() {
-			//dtor
-		}
-
 		void F8_shifted_rotated_ackley_bound::initialize() {
 
 			set_bias(-140);

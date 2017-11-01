@@ -12,30 +12,47 @@
 *************************************************************************/
 
 #include "F23_non_continuous_rotated_hybrid.h"
-
+#include "../classical/griewank_rosenbrock.h"
+#include "../classical/griewank.h"
+#include "../classical/rastrigin.h"
+#include "../classical/weierstrass.h"
+#include "../classical/rotated_scaffer_F6.h"
 
 
 
 namespace OFEC {
 	namespace CEC2005 {
 		F23_non_continuous_rotated_hybrid::F23_non_continuous_rotated_hybrid(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			F21_rotated_hybrid_composition((v[param_proName]), (v[param_numDim]), 1) {
+			composition((v[param_proName]), (v[param_numDim]), 1) {
 
 			initialize();
 		}
 		F23_non_continuous_rotated_hybrid::F23_non_continuous_rotated_hybrid(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			F21_rotated_hybrid_composition(name, size_var, size_obj) {
+			composition(name, size_var, size_obj) {
 
 			initialize();
 		}
-		F23_non_continuous_rotated_hybrid::~F23_non_continuous_rotated_hybrid() {
-			//dtor
-
-
-		}
 
 		void F23_non_continuous_rotated_hybrid::initialize() {
+			set_function();
 
+			bool is_load = load_rotation("instance/problem/continuous/global/CEC2005/data/");
+			if (!is_load) {
+				set_rotation();
+			}
+			for (auto &i : m_function) {
+				i->set_tranlation_flag(false);
+			}
+			compute_fmax();
+
+			is_load = load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
+			if (!is_load) {
+				set_translation();
+			}
+			for (auto &i : m_function) {
+				i->get_optima().clear();
+				i->set_global_opt(i->translation().data());
+			}
 
 			// Set optimal solution
 			m_optima.clear();
@@ -70,60 +87,53 @@ namespace OFEC {
 				}
 				else x_[j] = x[j];
 			}
-			vector<double> weight(m_num_function, 0);
+			composition::evaluate__(x_.data(), obj);
+			obj[0] += 360.;
+		}
+		void F23_non_continuous_rotated_hybrid::set_function() {
+			basic_func f(5);
+			f[0] = &create_function<rotated_scaffer_F6>;
+			f[1] = &create_function<rastrigin>;
+			f[2] = &create_function<griewank_rosenbrock>;
+			f[3] = &create_function<weierstrass>;
+			f[4] = &create_function<griewank>;
 
-			for (size_t i = 0; i < m_num_function; ++i) { // calculate weight for each function
-				weight[i] = 0;
-				for (size_t j = 0; j < m_variable_size; ++j) {
-					weight[i] += (x[j] - m_function[i]->translation()[j])*(x[j] - m_function[i]->translation()[j]);
-				}
-				weight[i] = exp(-weight[i] / (2 * m_variable_size*m_converge_severity[i] * m_converge_severity[i]));
-
-			}
-			vector<real> fit(m_num_function);
-			variable<real> temp_var(m_variable_size);
-			objective<real> temp_obj(m_objective_size);
-			solution<variable<real>, real> s(std::move(temp_var), std::move(temp_obj));
-			s.get_variable() = x_;
-			for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
-
-				m_function[i]->function::evaluate_(s, caller::Problem, false, false);
-				fit[i] = s.get_objective()[0];
-				if (fabs(m_fmax[i]) > 1e-6)
-					fit[i] = m_height_normalize_severity*fit[i] / fabs(m_fmax[i]);
-			}
-
-			double sumw = 0, wmax;
-			wmax = *max_element(weight.begin(), weight.end());
 			for (size_t i = 0; i < m_num_function; ++i) {
-				if (weight[i] != wmax) {
-					weight[i] = weight[i] * (1 - pow(wmax, 10));
-				}
-			}
-			size_t same_wmax_num = 0;
-			for (size_t i = 0; i < m_num_function; ++i) {
-				if (weight[i] == wmax) ++same_wmax_num;
-			}
-			size_t i = m_num_function - 1;
-			while (same_wmax_num > 1 && i >= 0) {
-				if (wmax == weight[i]) {
-					weight[i] = 0;
-					--same_wmax_num;
-				}
-				--i;
+				m_function[i] = dynamic_cast<function*>(f[i / 2]("", m_variable_size, m_objective_size));
+				m_function[i]->set_bias(0);
 			}
 
-			for (size_t i = 0; i < m_num_function; ++i)
-				sumw += weight[i];
-			for (size_t i = 0; i < m_num_function; ++i)
-				weight[i] /= sumw;
+			for (auto &i : m_function)
+				i->set_condition_number(2.);
 
-			double temp = 0;
-			for (size_t i = 0; i < m_num_function; ++i) {
-				temp += weight[i] * (fit[i] + m_height[i]);
+			for (int i = 0; i < m_num_function; i++) {
+				m_height[i] = 100 * i;
 			}
 
-			obj[0] = temp + m_bias;
+			m_function[0]->set_range(-100, 100);   m_function[1]->set_range(-100, 100);
+			m_function[2]->set_range(-5, 5);     m_function[3]->set_range(-5, 5);
+			m_function[4]->set_range(-5, 5); m_function[5]->set_range(-5, 5);
+			m_function[6]->set_range(-0.5, 0.5); m_function[7]->set_range(-0.5, 0.5);
+			m_function[8]->set_range(-200, 200); m_function[9]->set_range(-200, 200);
+
+			m_stretch_severity[0] = 5.*5. / 100; m_stretch_severity[1] = 5. / 100;
+			m_stretch_severity[2] = 5.;		m_stretch_severity[3] = 1.;
+			m_stretch_severity[4] = 5;  m_stretch_severity[5] = 1;
+			m_stretch_severity[6] = 50.;	m_stretch_severity[7] = 10.;
+			m_stretch_severity[8] = 5. * 5 / 200;  m_stretch_severity[9] = 5. / 200;
+
+			m_converge_severity[0] = 1.; m_converge_severity[1] = 1.;
+			m_converge_severity[2] = 1.;	m_converge_severity[3] = 1.;
+			m_converge_severity[4] = 1.;  m_converge_severity[5] = 2.;
+			m_converge_severity[6] = 2.;	m_converge_severity[7] = 2.;
+			m_converge_severity[8] = 2.;  m_converge_severity[9] = 2.;
+
+			for (int i = 0; i < m_num_function; i++) {
+				m_function[i]->set_scale(m_stretch_severity[i]);
+			}
+
+
+			//set_bias(360.);
 		}
 	}
 }

@@ -19,12 +19,11 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		class F1_shifted_sphere : public sphere
+		class F1_shifted_sphere final : public sphere
 		{
 		public:
 			F1_shifted_sphere(param_map &v);
 			F1_shifted_sphere(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~F1_shifted_sphere();
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
