@@ -13,9 +13,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		C26::~C26() {
-			//dtor
-		}
 		void C26::initialize() {
 			add_tag(problem_tag::COP);
 			//std::vector<real> data(m_variable_size, 0);
@@ -32,7 +29,7 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/constrained/CEC2617/data/");
 			//set_global_opt(m_translation.data());
 		}
-		void C26::evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second) {
+		void C26::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
 			
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
@@ -91,11 +88,12 @@ namespace OFEC {
 				if (i <= 0) i = 0;
 				sum2 += i;
 			}
+			cons_values.clear();
 			for (auto &i : ineq_cons)
-				cons_second.push_back(i);
+				cons_values.push_back(i);
 			for (auto &i : ineq_cons)
-				cons_second.push_back(i);
-			cons_first = (sum1 + sum2) / (double)(eq_cons.size() + ineq_cons.size());
+				cons_values.push_back(i);
+			cons_value = (sum1 + sum2) / (double)(eq_cons.size() + ineq_cons.size());
 			
 		}
 	}

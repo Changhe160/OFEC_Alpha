@@ -19,15 +19,14 @@
 
 namespace OFEC {
 	namespace CEC2017 {
-		class C27 : public function
+		class C27 final : public function
 		{
 		public:
 			C27(param_map &v);
 			C27(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~C27();
 		protected:
 			void initialize();
-			void evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second);
+			void evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values);
 		private:
 
 		};

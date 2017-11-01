@@ -19,15 +19,14 @@
 
 namespace OFEC {
 	namespace CEC2017 {
-		class C18 : public function
+		class C18 final: public function
 		{
 		public:
 			C18(param_map &v);
 			C18(const std::string &name, size_t size_var, size_t size_obj);
-			virtual ~C18();
 		protected:
 			void initialize();
-			void evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second);
+			void evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values);
 		private:
 
 		};

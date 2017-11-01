@@ -13,9 +13,6 @@ namespace OFEC {
 			initialize();
 		}
 
-		C07::~C07() {
-			//dtor
-		}
 		void C07::initialize() {
 			add_tag(problem_tag::COP);
 			//set_original_global_opt();
@@ -30,7 +27,7 @@ namespace OFEC {
 
 			//set_global_opt(m_translation.data());
 		}
-		void C07::evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second) {
+		void C07::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 
@@ -67,9 +64,10 @@ namespace OFEC {
 				else i = fabs(i);
 				sum += i;
 			}
+			cons_values.clear();
 			for (auto &i : eq_cons)
-				cons_second.push_back(i);
-			cons_first = sum / (double)eq_cons.size();
+				cons_values.push_back(i);
+			cons_value = sum / (double)eq_cons.size();
 			
 
 		}
