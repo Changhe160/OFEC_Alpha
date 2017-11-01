@@ -217,6 +217,9 @@ namespace  OFEC {
 			return global::ms_global->m_problem->check_constraint_violation(*this);
 		}
 
+		std::pair<double, std::vector<double>> & constraint_value() {
+			return m_constraint_value;
+		}
 
 		const std::pair<double, std::vector<double>> & constraint_value()const {
 			return m_constraint_value;
