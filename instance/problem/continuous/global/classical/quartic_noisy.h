@@ -22,7 +22,6 @@ namespace OFEC {
 	public:
 		quartic_noisy(param_map &v);
 		quartic_noisy(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~quartic_noisy();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

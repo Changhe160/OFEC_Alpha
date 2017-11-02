@@ -24,7 +24,6 @@ namespace OFEC {
 	public:
 		penalized_1(param_map &v);
 		penalized_1(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~penalized_1();
 	protected:
 		void initialize();
 		double u(real x, double a, double k, double m)const;

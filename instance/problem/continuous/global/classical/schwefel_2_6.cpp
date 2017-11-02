@@ -14,10 +14,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	schwefel_2_6::~schwefel_2_6() {
-		//dtor
-	}
-
 	void schwefel_2_6::initialize() {
 
 	}
@@ -71,7 +67,7 @@ namespace OFEC {
 			std::vector<real> temp_var(m_variable_size);
 			for (size_t i = 0; i < m_variable_size; ++i)
 				temp_var[i] = m_original_optima.variable(0)[i];
-			set_translation(temp_var);
+			set_translation(temp_var.data());
 			for (int i = 0; i < m_variable_size; ++i) {
 				if (i < m_variable_size / 4) m_translation[i] = -100;
 				else if (i >= m_variable_size * 3 / 4 - 1) m_translation[i] = 100;

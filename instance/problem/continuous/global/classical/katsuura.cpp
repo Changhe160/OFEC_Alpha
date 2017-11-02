@@ -26,10 +26,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	katsuura::~katsuura() {
-		//dtor
-	}
-
 	void katsuura::initialize() {
 
 		set_original_global_opt();

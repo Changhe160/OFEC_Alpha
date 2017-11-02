@@ -9,7 +9,6 @@ namespace OFEC {
 	public:
 		schwefel_2_6(param_map &v);
 		schwefel_2_6(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~schwefel_2_6();
 	protected:
 		void initialize();
 		void load_data();

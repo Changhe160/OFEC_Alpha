@@ -22,7 +22,6 @@ namespace OFEC {
 	public:
 		elliptic(param_map &v);
 		elliptic(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~elliptic();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

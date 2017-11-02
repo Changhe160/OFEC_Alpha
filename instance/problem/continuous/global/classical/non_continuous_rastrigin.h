@@ -23,7 +23,6 @@ namespace OFEC {
 	public:
 		non_continuous_rastrigin(param_map &v);
 		non_continuous_rastrigin(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~non_continuous_rastrigin();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

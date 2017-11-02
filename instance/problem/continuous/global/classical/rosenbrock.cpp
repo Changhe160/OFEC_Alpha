@@ -30,10 +30,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	rosenbrock::~rosenbrock() {
-		//dtor
-	}
-
 	void rosenbrock::initialize() {
 		std::vector<double> v(m_variable_size, 1);
 		set_original_global_opt(v.data());

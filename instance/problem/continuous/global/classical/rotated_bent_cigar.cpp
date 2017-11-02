@@ -24,10 +24,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	rotated_bent_cigar::~rotated_bent_cigar() {
-		//dtor
-	}
-
 	void rotated_bent_cigar::initialize() {
 
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");

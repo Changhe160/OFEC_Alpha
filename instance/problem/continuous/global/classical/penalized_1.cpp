@@ -29,11 +29,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	penalized_1::~penalized_1() {
-		//dtor
-	}
-
-
 	void penalized_1::initialize() {
 		vector<double> v(m_variable_size, -1);
 		set_original_global_opt(v.data());
@@ -41,7 +36,14 @@ namespace OFEC {
 	}
 
 	void penalized_1::evaluate__(real *x, std::vector<real>& obj) {
-
+		if (m_translation_flag)
+			translate(x);
+		if (m_scale_flag)
+			scale(x);
+		if (m_rotation_flag)
+			rotate(x);
+		if (m_translation_flag)
+			translate_origin(x);
 		vector<real> y(m_variable_size);
 		for (int i = 0; i < m_variable_size; i++) y[i] = (x[i] + 1) / 4. + 1;
 		double s = 0;

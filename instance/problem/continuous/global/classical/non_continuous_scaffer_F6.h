@@ -25,7 +25,6 @@ namespace OFEC {
 	public:
 		non_continuous_scaffer_F6(param_map &v);
 		non_continuous_scaffer_F6(const std::string &name, size_t size_var, size_t size_obj);
-		~non_continuous_scaffer_F6();
 	protected:
 		void initialize();
 		void evaluate__(real *x, vector<real>& obj);

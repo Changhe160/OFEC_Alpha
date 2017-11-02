@@ -22,7 +22,6 @@ namespace OFEC {
 	public:
 		HGBat(param_map &v);
 		HGBat(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~HGBat();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

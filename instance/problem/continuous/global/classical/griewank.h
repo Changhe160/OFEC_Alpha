@@ -23,7 +23,6 @@ namespace OFEC {
 	public:
 		griewank(param_map &v);
 		griewank(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~griewank();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

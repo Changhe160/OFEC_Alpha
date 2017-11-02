@@ -31,12 +31,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	schwefel::~schwefel()
-	{
-		//dtor
-	}
-
-
 	void schwefel::initialize()
 	{
 		//vector<double> v(m_variable_size, 420.9687);

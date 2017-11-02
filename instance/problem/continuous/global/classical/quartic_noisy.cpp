@@ -29,9 +29,7 @@ namespace OFEC {
 		initialize();
 	}
 
-	quartic_noisy::~quartic_noisy() {
-		//dtor
-	}
+	
 	void quartic_noisy::initialize() {
 		set_original_global_opt();
 
@@ -41,6 +39,14 @@ namespace OFEC {
 	}
 
 	void quartic_noisy::evaluate__(real *x, std::vector<real>& obj) {
+		if (m_translation_flag)
+			translate(x);
+		if (m_scale_flag)
+			scale(x);
+		if (m_rotation_flag)
+			rotate(x);
+		if (m_translation_flag)
+			translate_origin(x);
 		double fitness = 0;
 
 		for (int i = 0; i < m_variable_size; i++) {

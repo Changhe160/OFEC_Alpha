@@ -24,10 +24,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	rotated_discus::~rotated_discus() {
-		//dtor
-	}
-
 	void rotated_discus::initialize() {
 
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");

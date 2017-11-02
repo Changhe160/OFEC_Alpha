@@ -23,7 +23,6 @@ namespace OFEC {
 	public:
 		penalized_2(param_map &v);
 		penalized_2(const std::string &name, size_t size_var, size_t size_obj);
-		~penalized_2();
 	protected:
 		void initialize();
 		double u(real x, double a, double k, double m)const;

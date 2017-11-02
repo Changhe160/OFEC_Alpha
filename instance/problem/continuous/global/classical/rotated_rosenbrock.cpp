@@ -24,10 +24,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	rotated_rosenbrock::~rotated_rosenbrock() {
-		//dtor
-	}
-
 	void rotated_rosenbrock::initialize() {
 
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");

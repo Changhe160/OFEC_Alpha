@@ -26,10 +26,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	modified_schwefel::~modified_schwefel() {
-		//dtor
-	}
-
 	void modified_schwefel::initialize() {
 
 		set_original_global_opt();

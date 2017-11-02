@@ -26,9 +26,6 @@ namespace OFEC {
 		set_range(-100, 100);
 		initialize();
 	}
-	non_continuous_scaffer_F6::~non_continuous_scaffer_F6() {
-		//dtor
-	}
 
 	void non_continuous_scaffer_F6::initialize() {
 

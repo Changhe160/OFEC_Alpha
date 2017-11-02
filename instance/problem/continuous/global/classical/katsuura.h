@@ -22,7 +22,6 @@ namespace OFEC {
 	public:
 		katsuura(param_map &v);
 		katsuura(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~katsuura();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

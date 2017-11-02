@@ -22,7 +22,6 @@ namespace OFEC {
 	public:
 		rotated_bent_cigar(param_map &v);
 		rotated_bent_cigar(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~rotated_bent_cigar();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);
