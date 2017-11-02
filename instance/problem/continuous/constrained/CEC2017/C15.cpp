@@ -16,18 +16,9 @@ namespace OFEC {
 
 		void C15::initialize() {
 			add_tag(problem_tag::COP);
-			//std::vector<real> data(m_variable_size, 0);
-			//set_original_global_opt(data.data());
-			m_translation.resize(m_variable_size);
-			bool is_load = load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
-			if (!is_load) {
-				std::vector<real> temp_var(m_variable_size);
-				for (size_t i = 0; i < m_variable_size; ++i)
-					temp_var[i] = 0;
-				set_translation(temp_var);
-			}
-
-			//set_global_opt(m_translation.data());
+			
+			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
+			
 		}
 		void C15::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
 			

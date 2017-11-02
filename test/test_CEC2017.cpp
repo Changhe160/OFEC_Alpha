@@ -2,7 +2,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../instance/problem/continuous/constrained/CEC2017/C06.h"  
-#include "../instance/problem/continuous/constrained/CEC2017/C05.h"
+#include "../instance/problem/continuous/constrained/CEC2017/C26.h"
 using namespace OFEC;
 
 BOOST_AUTO_TEST_SUITE(CEC2017_test)
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(test_case1) {
 BOOST_AUTO_TEST_CASE(test_case2) {
 	global::ms_global = unique_ptr<global>(new global(0.5, 0.5));
 
-	CEC2017::C05 a("C05", 10, 1);
+	CEC2017::C26 a("C26", 10, 1);
 
 	//vector<real> data = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 	vector<real> data(a.translation());
