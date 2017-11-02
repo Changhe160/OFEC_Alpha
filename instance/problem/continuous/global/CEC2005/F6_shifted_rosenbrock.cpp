@@ -16,14 +16,10 @@ namespace OFEC {
 		void F6_shifted_rosenbrock::initialize() {
 
 			set_bias(390);
-			m_translation.resize(m_variable_size);
-			bool is_load = load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
-			if (!is_load) {
-				std::vector<real> temp_var(m_variable_size);
-				for (size_t i = 0; i < m_variable_size; ++i)
-					temp_var[i] = m_original_optima.variable(0)[i];
-				set_translation(temp_var);
-			}
+			std::vector<real> temp_var(m_variable_size);
+			for (size_t i = 0; i < m_variable_size; ++i)
+				temp_var[i] = m_original_optima.variable(0)[i];
+			load_translation("instance/problem/continuous/global/CEC2005/data/", temp_var.data());  //data path
 			m_optima.clear();
 			set_global_opt(m_translation.data());
 		}

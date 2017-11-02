@@ -80,7 +80,7 @@ public:
    void shuffle(T first, T last) { //iterator
 	   for (auto i = last - first - 1; i >0; --i) {
 		   auto t = decltype(i) (i + 1)*next();
-		   std::swap(*first[i], *first[t]);
+		   std::swap(first[i], first[t]);
 	   }
    }
 };

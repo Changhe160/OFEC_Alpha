@@ -2,8 +2,8 @@
 
 namespace OFEC {
 
-	function::function(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj),continuous(name, size_var, size_obj), m_rotation(size_var){
-		global::ms_arg[param_workingDir] = "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/";
+	function::function(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj),continuous(name, size_var, size_obj){
+		
 	}
 
 	void function::set_bias(double val) {
@@ -132,7 +132,7 @@ namespace OFEC {
 			i = 0;
 	}
 
-	bool function::load_translation(const string &path) {
+	bool function::load_translation(const string &path, const real *opt_var) {
 		string s;
 		stringstream ss;
 		ss << m_variable_size << "Dim.txt";
@@ -141,13 +141,20 @@ namespace OFEC {
 		s.insert(0, path);    // data path
 		s.insert(0, global::ms_arg[param_workingDir]);
 
-		return load_translation_(s);
+		load_translation_(s, opt_var);
+
+		return true;
 	}
 
-	bool function::load_translation_(const string &path) {
+	void function::load_translation_(const string &path, const real *opt_var) {
+		m_translation.resize(m_variable_size);
 		ifstream in(path);
 		if (in.fail()) {
-			return false;
+			set_translation(opt_var);
+			ofstream out(path);
+			for (auto &i : m_translation)
+				out << i << " ";
+			out.close();
 		}
 		else {
 			for (auto &i : m_translation)
@@ -155,10 +162,9 @@ namespace OFEC {
 		}
 		in.close();
 		m_translation_flag = true;
-		return true;
 	}
 
-	void function::set_translation(const std::vector<real>& opt_var) {
+	void function::set_translation(const real *opt_var) {
 		// Initial the location of shifted global optimum
 		
 		for (size_t j = 0; j<m_variable_size; ++j) {
@@ -188,6 +194,7 @@ namespace OFEC {
 	}
 
 	void function::load_rotation_(const string &path) {
+		m_rotation.resize(m_variable_size, m_variable_size);
 		ifstream in;
 		in.open(path);
 		if (in.fail()) {

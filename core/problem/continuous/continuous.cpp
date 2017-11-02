@@ -3,7 +3,7 @@
 namespace OFEC {
 	continuous::continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var)\
 	{
-		//m_optima.resize_objective_set()
+		global::ms_arg[param_workingDir] = "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/";
 	}
 
 	violation_type continuous::check_boundary_violation(const base &s) const {

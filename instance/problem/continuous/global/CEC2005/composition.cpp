@@ -125,20 +125,26 @@ namespace OFEC {
 			s.insert(0, path);    // data path
 			s.insert(0, global::ms_arg[param_workingDir]);
 
+			for (auto &i : m_function)
+				i->translation().resize(m_variable_size);
 			ifstream in(s);
 			if (in.fail()) {
-				return false;
+				set_translation();
+				ofstream out(s);
+				for (size_t i = 0; i < m_num_function; ++i) 
+					for (size_t j = 0; j < m_variable_size; ++j) 
+						out << m_function[i]->translation()[j] << " ";
+				
+				out.close();
 			}
 			else {
-				for (size_t i = 0; i < m_num_function; ++i) {
-					for (size_t j = 0; j < m_variable_size; ++j) {
+				for (size_t i = 0; i < m_num_function; ++i) 
+					for (size_t j = 0; j < m_variable_size; ++j) 
 						in >> m_function[i]->translation()[j];
-						m_function[i]->set_tranlation_flag(true);
-					}
-				}
 			}
 			in.close();
-			//m_translation_flag = true;
+			for(auto &i: m_function)
+				i->set_tranlation_flag(true);
 			return true;
 		}
 		bool composition::load_rotation(const string &path) {
@@ -151,36 +157,34 @@ namespace OFEC {
 			s.insert(0, path);// data path
 			s.insert(0, global::ms_arg[param_workingDir]);
 
+			for (auto &i : m_function)
+				i->rotation().resize(m_variable_size, m_variable_size);
 			ifstream in(s);
 			if (in.fail()) {
-				return false;
+				set_rotation();
+				ofstream out(s);
+				for (size_t i = 0; i < m_num_function; ++i)
+					m_function[i]->rotation().print(out);
+				out.close();
 			}
 			else {
-				for (size_t i = 0; i < m_num_function; ++i) {
-					for (size_t j = 0; j < m_variable_size; ++j) {
-						m_function[i]->rotation().load(in);
-						m_function[i]->set_rotation_flag(true);
-					}
-				}
+				for (size_t i = 0; i < m_num_function; ++i) 
+					m_function[i]->rotation().load(in);	
 			}
 			in.close();
-			//m_rotation_flag = true;
+			for (auto &i : m_function)
+				i->set_rotation_flag(true);
 			return true;
 		}
 		void composition::set_translation() {
-			for (int i = 0; i < m_num_function; i++) {
-				m_function[i]->translation().resize(m_variable_size);
-				for (int j = 0; j < m_variable_size; j++) {
+			for (int i = 0; i < m_num_function; i++) 
+				for (int j = 0; j < m_variable_size; j++) 
 					m_function[i]->translation()[j] = m_domain[j].limit.first + (m_domain[j].limit.second - m_domain[j].limit.first)*(1 - global::ms_global->m_uniform[caller::Problem]->next());
-				}
-				m_function[i]->set_tranlation_flag(true);
-			}
 		}
 		void composition::set_rotation() {
-			for (auto i : m_function) {
+			for (auto i : m_function) 
 				i->rotation().generate_rotation_classical(global::ms_global->m_normal[caller::Problem].get(), i->condition_number());
-				i->set_rotation_flag(true);
-			}
+				
 		}
 		function* composition::get_function(size_t num) {
 			return m_function[num];
