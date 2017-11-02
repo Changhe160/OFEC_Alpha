@@ -12,6 +12,8 @@ namespace OFEC {
 			set_range(-100., 100.);
 			initialize();
 		}
+
+		
 		void C03::initialize() {
 			add_tag(problem_tag::COP);
 			//set_original_global_opt();
@@ -26,7 +28,7 @@ namespace OFEC {
 			
 			//set_global_opt(m_translation.data());
 		}
-		void C03::evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second) {
+		void C03::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 
@@ -70,11 +72,12 @@ namespace OFEC {
 				else i = fabs(i);
 				sum2 += i;
 			}
+			cons_values.clear();
 			for (auto &i : ineq_cons)
-				cons_second.push_back(i);
+				cons_values.push_back(i);
 			for (auto &i : eq_cons)
-				cons_second.push_back(i);
-			cons_first = (sum1 + sum2) / (double)(ineq_cons.size() + eq_cons.size());
+				cons_values.push_back(i);
+			cons_value = (sum1 + sum2) / (double)(ineq_cons.size() + eq_cons.size());
 			
 			
 		}

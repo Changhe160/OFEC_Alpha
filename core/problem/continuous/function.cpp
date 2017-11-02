@@ -38,12 +38,10 @@ namespace OFEC {
 	real function::condition_number() {
 		return m_condition_number;
 	}
-
 	real function::bias() {
 		return m_bias;
 	}
-
-	void function::set_condition_number(real c) {
+	void function::set_condition_number(double c) {
 		m_condition_number = c;
 	}
 
@@ -95,10 +93,13 @@ namespace OFEC {
 	evaluation_tag function::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
 		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
+		double & cons_value = dynamic_cast<solution<variable<real>, real> &>(s).constraint_value().first;
+		std::vector<double> & cons_values = dynamic_cast<solution<variable<real>, real> &>(s).constraint_value().second;
 
-		vector<real> x_(x.begin(), x.end()); //for parallel running
-
-		evaluate__(x_.data(), obj);
+		std::vector<real> x_(x.begin(), x.end()); //for parallel running
+		
+		if (is_tag(problem_tag::COP)) evaluate__(x_.data(), obj, cons_value, cons_values);
+		else evaluate__(x_.data(), obj);
 		
 		if (constructed) {
 			if (effective_fes)		m_effective_eval++;
@@ -131,9 +132,9 @@ namespace OFEC {
 			i = 0;
 	}
 
-	bool function::load_translation(const string &path) {
-		string s;
-		stringstream ss;
+	bool function::load_translation(const std::string &path) {
+		std::string s;
+		std::stringstream ss;
 		ss << m_variable_size << "Dim.txt";
 		s = ss.str();
 		s.insert(0, m_name + "_Opt_");
@@ -143,8 +144,8 @@ namespace OFEC {
 		return load_translation_(s);
 	}
 
-	bool function::load_translation_(const string &path) {
-		ifstream in(path);
+	bool function::load_translation_(const std::string &path) {
+		std::ifstream in(path);
 		if (in.fail()) {
 			return false;
 		}
@@ -171,9 +172,9 @@ namespace OFEC {
 		m_translation_flag = true;
 	}
 
-	bool function::load_rotation(const string &path) {
-		string s;
-		stringstream ss;
+	bool function::load_rotation(const std::string &path) {
+		std::string s;
+		std::stringstream ss;
 		ss << m_variable_size << "Dim.txt";
 		s = ss.str();
 		s.insert(0, m_name + "_RotM_");
@@ -186,12 +187,12 @@ namespace OFEC {
 		return true;
 	}
 
-	void function::load_rotation_(const string &path) {
-		ifstream in;
+	void function::load_rotation_(const std::string &path) {
+		std::ifstream in;
 		in.open(path);
 		if (in.fail()) {
 			set_rotation();
-			ofstream out(path);
+			std::ofstream out(path);
 			m_rotation.print(out);
 			out.close();
 		}

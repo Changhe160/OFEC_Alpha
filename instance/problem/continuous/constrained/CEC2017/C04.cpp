@@ -27,7 +27,7 @@ namespace OFEC {
 
 			//set_global_opt(m_translation.data());
 		}
-		void C04::evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second) {
+		void C04::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 
@@ -62,9 +62,10 @@ namespace OFEC {
 				if (i <= 0) i = 0;
 				sum += i;
 			}
+			cons_values.clear();
 			for (auto &i : ineq_cons)
-				cons_second.push_back(i);
-			cons_first = sum / (double)ineq_cons.size();
+				cons_values.push_back(i);
+			cons_value = sum / (double)ineq_cons.size();
 			
 
 		}

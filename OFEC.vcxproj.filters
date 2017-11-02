@@ -22,6 +22,48 @@
     <Filter Include="utility\typevar">
       <UniqueIdentifier>{88684ca9-9be1-4fff-8443-ddf322dd59e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="core\problem\continuous">
+      <UniqueIdentifier>{cb2c1a08-f79d-4c93-a67d-b1c1c0f54490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance">
+      <UniqueIdentifier>{04d78108-e3f8-4311-8842-19826cb8afb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem">
+      <UniqueIdentifier>{dfa7f89f-0899-4e63-9d72-d5d25010551f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous">
+      <UniqueIdentifier>{214458a5-a621-48e3-8bdd-e283885131ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\global">
+      <UniqueIdentifier>{ae95238a-2bd7-429c-8f02-f5a4371ef9f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\global\BBOB">
+      <UniqueIdentifier>{4b1a1514-a769-4883-82fd-7fd48ed961f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\global\classical">
+      <UniqueIdentifier>{25c356dd-10d7-48a8-a0c8-aaae614125f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\global\CEC2005">
+      <UniqueIdentifier>{a5a5b4f1-090f-419c-9253-d7110b97c2ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\multi_modal">
+      <UniqueIdentifier>{6d1d4361-0c7a-41d2-9511-536101740588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\large_scale">
+      <UniqueIdentifier>{d002993d-32e7-457c-ba5b-48f9befaa785}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\constrained">
+      <UniqueIdentifier>{65053be1-4186-436c-a29f-0d2b2f416538}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\multi_modal\CEC2015">
+      <UniqueIdentifier>{a0f964c1-f7ea-45a5-9c6a-98ca35f737fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\large_scale\CEC2013">
+      <UniqueIdentifier>{ff8c7946-52cc-4615-be62-14a9288950e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\constrained\CEC2017">
+      <UniqueIdentifier>{81a11631-9930-46ac-9d14-fac5752c9e3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\algorithm\encoding.h">
@@ -69,6 +111,390 @@
     <ClInclude Include="core\algorithm\multi_population.h">
       <Filter>core\algorithm</Filter>
     </ClInclude>
+    <ClInclude Include="core\problem\optima.h">
+      <Filter>core\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="core\problem\domain.h">
+      <Filter>core\problem</Filter>
+    </ClInclude>
+    <ClInclude Include="core\problem\continuous\continuous.h">
+      <Filter>core\problem\continuous</Filter>
+    </ClInclude>
+    <ClInclude Include="core\problem\continuous\function.h">
+      <Filter>core\problem\continuous</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\matrix.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\vector.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\BBOB\BBOB.h">
+      <Filter>instance\problem\continuous\global\BBOB</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\ackley.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\beasley.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\bent_cigar.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\branin_rcos.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\center_peak.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\discus.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\elliptic.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\equal_maxima.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\FIBA.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\five_hills.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\five_uneven_peak_trap.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\griewank.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\griewank_rosenbrock.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\happy_cat.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\HGBat.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\himmenblau.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\katsuura.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\keane_bump.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\max_global.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\michalewicz.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\modified_rastrigin.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\modified_schwefel.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\modified_shekel.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\non_continuous_rastrigin.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\non_continuous_scaffer_F6.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\penalized_1.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\penalized_2.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\quartic_noisy.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\rastrigin.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\rosenbrock.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\rotated_bent_cigar.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\rotated_discus.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\rotated_rosenbrock.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\rotated_scaffer_F6.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\scaffer_F6.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\schwefel.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\schwefel_1_2.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\schwefel_2_6.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\shaffer.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\shubert.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\six_hump_camel_back.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\sphere.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\sphere_noisy.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\step.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\szu.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\uneven_de_maxima.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\valleys.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\vincent.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\waves.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\classical\weierstrass.h">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F1_shifted_sphere.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F2_shifted_schwefel_1_2.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F3_shifted_rotated_high_cond_elliptic.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F4_shifted_schwefel_1_2_noisy.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F5_schwefel_2_6_bound.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F6_shifted_rosenbrock.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F7_shifted_rotated_griewank_no_bound.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F8_shifted_rotated_ackley_bound.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F9_shifted_rastrigin.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F10_shifted_rotated_rastrigin.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F11_shifted_rotated_weierstrass.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F12_schwefel_2_13.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F13_shifted_expanded_griewank_rosenbrock.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F14_shifted_rotated_expanded_scaffer_F6.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F15_hybrid_composition.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F16_rotated_hybrid_composition_F15.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F17_hybrid_composition_noisy.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F18_rotated_hybrid_composition.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F19_rotated_hybrid_narrow_basin.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F20_rotated_hybrid_bound.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F21_rotated_hybrid_composition.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F22_rotated_hybrid_high_condition_number_matrix.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F23_non_continuous_rotated_hybrid.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F24_rotated_hybrid_composition.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\F25_rotated_hybrid_no_bound.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\composite.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F1_rotated_bent_cigar.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F2_rotated_discus.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F3_shifted_rotated_weierstrass.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F4_shifted_rotated_schwefel.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F5_shifted_rotated_katsuura.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F6_shifted_rotated_happy_cat.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F7_shifted_rotated_HGBat.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F8_shifted_rotated_griewank_rosenbrock.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F9_shifted_rotated_scaffer_F6.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F10_hybrid_F1.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F11_hybrid_F2.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F12_hybrid_F3.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F13_composition_F1.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F14_composition_F2.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F15_composition_F3.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C01.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C02.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C03.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C04.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C05.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C06.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C07.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C08.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C09.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C10.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C11.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C12.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C13.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C14.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C15.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C16.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C17.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C18.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C19.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C20.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C21.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C22.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C23.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C24.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C25.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C26.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C27.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C28.h">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2005\composition.h">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\factory.h">
+      <Filter>utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">
@@ -82,9 +508,6 @@
     </ClCompile>
     <ClCompile Include="core\global.cpp">
       <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="test\test_core.cpp">
-      <Filter>test</Filter>
     </ClCompile>
     <ClCompile Include="utility\typevar\arithmetic.cpp">
       <Filter>utility\typevar</Filter>
@@ -109,6 +532,384 @@
     </ClCompile>
     <ClCompile Include="core\algorithm\algorithm.cpp">
       <Filter>core\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="core\problem\continuous\continuous.cpp">
+      <Filter>core\problem\continuous</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\matrix.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\vector.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="core\problem\continuous\function.cpp">
+      <Filter>core\problem\continuous</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\BBOB\BBOB.cpp">
+      <Filter>instance\problem\continuous\global\BBOB</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_core.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\ackley.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\beasley.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\bent_cigar.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\branin_rcos.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\center_peak.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\discus.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\elliptic.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\equal_maxima.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\FIBA.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\five_hills.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\five_uneven_peak_trap.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\griewank.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\griewank_rosenbrock.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\happy_cat.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\HGBat.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\himmenblau.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\katsuura.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\keane_bump.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\max_global.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\michalewicz.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\modified_rastrigin.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\modified_schwefel.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\modified_shekel.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\non_continuous_rastrigin.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\non_continuous_scaffer_F6.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\penalized_1.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\penalized_2.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\quartic_noisy.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\rastrigin.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\rosenbrock.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\rotated_bent_cigar.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\rotated_discus.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\rotated_rosenbrock.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\rotated_scaffer_F6.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\scaffer_F6.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\schwefel.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\schwefel_1_2.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\schwefel_2_6.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\shaffer.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\shubert.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\six_hump_camel_back.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\sphere.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\sphere_noisy.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\step.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\szu.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\uneven_de_maxima.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\valleys.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\vincent.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\waves.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\classical\weierstrass.cpp">
+      <Filter>instance\problem\continuous\global\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F1_shifted_sphere.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F2_shifted_schwefel_1_2.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F3_shifted_rotated_high_cond_elliptic.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F4_shifted_schwefel_1_2_noisy.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F5_schwefel_2_6_bound.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F6_shifted_rosenbrock.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F7_shifted_rotated_griewank_no_bound.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F8_shifted_rotated_ackley_bound.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F9_shifted_rastrigin.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F10_shifted_rotated_rastrigin.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F11_shifted_rotated_weierstrass.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F12_schwefel_2_13.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F13_shifted_expanded_griewank_rosenbrock.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F14_shifted_rotated_expanded_scaffer_F6.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F15_hybrid_composition.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F16_rotated_hybrid_composition_F15.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F17_hybrid_composition_noisy.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F18_rotated_hybrid_composition.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F19_rotated_hybrid_narrow_basin.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F20_rotated_hybrid_bound.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F21_rotated_hybrid_composition.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F22_rotated_hybrid_high_condition_number_matrix.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F23_non_continuous_rotated_hybrid.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F24_rotated_hybrid_composition.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\F25_rotated_hybrid_no_bound.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\composite.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F1_rotated_bent_cigar.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F2_rotated_discus.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F3_shifted_rotated_weierstrass.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F4_shifted_rotated_schwefel.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F5_shifted_rotated_katsuura.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F6_shifted_rotated_happy_cat.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F7_shifted_rotated_HGBat.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F8_shifted_rotated_griewank_rosenbrock.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F9_shifted_rotated_scaffer_F6.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F10_hybrid_F1.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F11_hybrid_F2.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F12_hybrid_F3.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F13_composition_F1.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F14_composition_F2.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F15_composition_F3.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C01.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C02.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C03.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C04.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C05.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C06.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C07.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C08.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C09.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C10.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C11.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C12.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C13.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C14.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C15.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C16.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C17.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C18.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C19.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C20.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C21.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C22.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C23.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C24.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C25.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C26.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C27.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C28.cpp">
+      <Filter>instance\problem\continuous\constrained\CEC2017</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2005\composition.cpp">
+      <Filter>instance\problem\continuous\global\CEC2005</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

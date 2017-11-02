@@ -27,6 +27,7 @@
 #include "definition.h"
 #include "../utility/typevar/typevar.h"
 #include "algorithm/algorithm.h"
+#include "../utility/factory.h"
 
 namespace OFEC{
 

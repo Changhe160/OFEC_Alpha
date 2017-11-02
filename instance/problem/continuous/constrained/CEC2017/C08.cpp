@@ -12,6 +12,7 @@ namespace OFEC {
 			set_range(-100., 100.);
 			initialize();
 		}
+
 		void C08::initialize() {
 			add_tag(problem_tag::COP);
 			//std::vector<real> data(m_variable_size, 0);
@@ -27,12 +28,12 @@ namespace OFEC {
 
 			//set_global_opt(m_translation.data());
 		}
-		void C08::evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second) {
+		void C08::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 
 			size_t i,j;
-			obj[0] = *max_element(x,x+m_variable_size);
+			obj[0] = *std::max_element(x,x+m_variable_size);
 			
 			obj[0] += m_bias;
 
@@ -78,9 +79,10 @@ namespace OFEC {
 				else i = fabs(i);
 				sum += i;
 			}
+			cons_values.clear();
 			for (auto &i : eq_cons)
-				cons_second.push_back(i);
-			cons_first = sum / (double)eq_cons.size();
+				cons_values.push_back(i);
+			cons_value = sum / (double)eq_cons.size();
 			
 		}
 	}

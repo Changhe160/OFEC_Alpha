@@ -12,6 +12,7 @@ namespace OFEC {
 			set_range(-100., 100.);
 			initialize();
 		}
+
 		void C02::initialize() {
 			add_tag(problem_tag::COP);
 			//set_original_global_opt();
@@ -27,7 +28,7 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/constrained/CEC2017/data/");
 			//set_global_opt(m_translation.data());
 		}
-		void C02::evaluate__(real *x, std::vector<real>& obj, double & cons_first, std::vector<double> &cons_second) {
+		void C02::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 
@@ -59,9 +60,10 @@ namespace OFEC {
 				if (i <= 0) i = 0;
 				sum += i;
 			}
+			cons_values.clear();
 			for (auto &i : constraint)
-				cons_second.push_back(i);
-			cons_first = sum / (double)constraint.size();
+				cons_values.push_back(i);
+			cons_value = sum / (double)constraint.size();
 			
 		}
 	}

@@ -17,7 +17,7 @@
 *
 *********************************************************************************/
 #ifndef OFEC_VECTOR_H
-#define OFEC_MYVECTOR_H
+#define OFEC_VECTOR_H
 
 #include <vector>
 #include <fstream>

@@ -24,9 +24,8 @@
 
 #include <cmath>
 #include <vector>
-
 #include "../core/definition.h"
-using namespace std;
+
 namespace OFEC {
 		
 		/*
@@ -67,7 +66,7 @@ namespace OFEC {
 
 	//domination relationship between two objective vectors
 	template<typename T = double >
-	dominationship objective_compare(const std::vector<T>& a, const std::vector<T>& b, const vector<optimization_mode> &mode)  {
+	dominationship objective_compare(const std::vector<T>& a, const std::vector<T>& b, const std::vector<optimization_mode> &mode)  {
 		if (a.size() != b.size()) 
 			return dominationship::Non_comparable;
 
@@ -164,7 +163,7 @@ namespace OFEC {
 	}
 
 	template<class T>
-	void quick_sort(const T &data, int size, vector<int>& index, bool min = true, int low = 0, int up = -1, int num = -1, bool start = true) {
+	void quick_sort(const T &data, int size, std::vector<int>& index, bool min = true, int low = 0, int up = -1, int num = -1, bool start = true) {
 		//sort data from small to large, and put the order in index
 		//size: the size of data  
 		//low, up : the range of data to be sorted

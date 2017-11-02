@@ -15,7 +15,7 @@ namespace OFEC {
 			m_term.reset(new termination());
 		}
 #endif
-		m_parameter << "Algorithm: " << m_name << endl;
+		m_parameter << "Algorithm: " << m_name << std::endl;
 	}
 	evaluation_tag algorithm::run(){
 		evaluation_tag tag = run_();
