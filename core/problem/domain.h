@@ -31,7 +31,7 @@ namespace OFEC {
 			bool limited = true;
 			std::pair<ValueType,ValueType> limit;
 		};
-		domain(int n=1):m_range(n){}
+		domain(size_t n=1):m_range(n){}
 		void set_boundary_false(int i=0) {
 			m_range[i].limited = false;
 		}
