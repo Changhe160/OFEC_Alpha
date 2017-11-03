@@ -61,6 +61,8 @@ namespace OFEC{
 		compute::context context;
 #endif // USING_GPU
 		static param_map ms_arg;
+		static 	factory<problem> ms_reg_problem;
+		static  factory<algorithm> ms_reg_algorithm;
 	};
 }
 #endif // !OFEC_GLOBAL_H

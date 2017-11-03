@@ -50,12 +50,12 @@ namespace OFEC {
 		{		
 			return map_;
 		}
-
+		factory() =default;
 	private:
-		factory() {};
+		factory& operator=(const factory&) = delete;
+		factory& operator=(factory&&) = delete;
 		factory(const factory&) = delete;
 		factory(factory&&) = delete;
-
 		static std::map<std::string, std::pair<std::function<Base*(param_map&)>,std::vector<problem_tag>> > map_;
 	};
 
