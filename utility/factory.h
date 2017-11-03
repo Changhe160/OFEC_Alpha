@@ -23,7 +23,7 @@
 #include <map>
 #include <functional>
 #include "../core/definition.h"
-
+#include "typevar/typevar.h"
 namespace OFEC {
 
 	template<typename Base>
@@ -38,7 +38,7 @@ namespace OFEC {
 			}
 		};
 
-		static Base* produce(const std::string& key, typename param_map& par)
+		static Base* produce(const std::string& key, param_map& par)
 		{
 			auto it = map_.find(key);
 			if (it == map_.end())
