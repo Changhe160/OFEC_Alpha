@@ -16,6 +16,8 @@ namespace OFEC {
 #endif // USING_GPU
 
 	param_map global::ms_arg;
+	factory<problem> global::ms_reg_problem;
+	factory<algorithm> global::ms_reg_algorithm;
 
 	global::global(double seed_pro, double seed_alg) {
 		
