@@ -40,10 +40,11 @@ namespace OFEC {
 
 		static Base* produce(const std::string& key, typename param_map& par)
 		{
-			if (map_.find(key) == map_.end())
+			auto it = map_.find(key);
+			if (it == map_.end())
 				THROW("the key is not exist!");
 
-			return map_[key].first(par);
+			return it->second.first(par);
 		}
 
 		static const std::map<std::string, std::pair<std::function<Base*(param_map&)>, std::set<problem_tag>> >& get()
