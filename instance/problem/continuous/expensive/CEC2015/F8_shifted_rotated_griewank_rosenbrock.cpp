@@ -23,7 +23,7 @@ namespace OFEC {
 			m_optima.clear();
 			set_global_opt(m_translation.data());
 		}
-		void F8_shifted_rotated_griewank_rosenbrock::evaluate__(real *x, vector<real>& obj) {
+		void F8_shifted_rotated_griewank_rosenbrock::evaluate__(real *x, std::vector<real>& obj) {
 			griewank_rosenbrock::evaluate__(x, obj);
 		}
 	}

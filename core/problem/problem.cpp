@@ -1,9 +1,10 @@
 #include "problem.h"
+#include "../../utility/factory.h"
 
 namespace OFEC {
 
 #ifdef OFEC_CONSOLE
-	thread_local std::map<int, pair<unique_ptr<base>, unique_ptr<base>>> problem::ms_minmax_objective; // the best and worst so far solutions of each objective 
+	thread_local std::map<int, std::pair<std::unique_ptr<base>, std::unique_ptr<base>>> problem::ms_minmax_objective; // the best and worst so far solutions of each objective 
 #endif
 #ifdef OFEC_DEMON
 	std::map<int, pair<unique_ptr<base>, unique_ptr<base>>> problem::ms_minmax_objective; // the best and worst so far solutions of each objective 
@@ -14,8 +15,8 @@ namespace OFEC {
 		m_opt_mode.resize(n);
 	}
 
-	void problem::copy(const problem * rhs) {  // to do
-		
+	void problem::copy(const problem * rhs) {
+
 	}
 	void problem::resize_variable(size_t n) {
 		m_variable_size = n;
@@ -34,6 +35,7 @@ namespace OFEC {
 		m_tag = rhs.m_tag;
 		m_solved = rhs.m_solved;
 		m_paramters.str(rhs.m_paramters.str());
+
 		return *this;
 	}
 
@@ -52,4 +54,5 @@ namespace OFEC {
 		m_paramters = std::move(rhs.m_paramters);
 		return *this;
 	}
+
 }

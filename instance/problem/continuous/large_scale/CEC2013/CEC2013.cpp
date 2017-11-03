@@ -1,7 +1,7 @@
 #include "CEC2013.h"
 
 namespace OFEC {
-	CEC2013::CEC2013(const std::string &name, size_t size_var, size_t size_obj) : continuous(name, size_var, size_obj) \
+	CEC2013::CEC2013(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), continuous(name, size_var, size_obj) \
 	{
 		m_variable_accuracy=1.0e-6;
 	}
@@ -16,7 +16,7 @@ namespace OFEC {
 		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
 
-		vector<real> x_(x.begin(), x.end()); //for parallel running
+		std::vector<real> x_(x.begin(), x.end()); //for parallel running
 
 		evaluate__(x_.data(), obj);
 		
@@ -73,16 +73,16 @@ namespace OFEC {
 	{
 		// read O vector from file in csv format
 		real* d = new real[m_variable_size];
-		stringstream ss;
+		std::stringstream ss;
 		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-xopt.txt";
-		ifstream file(ss.str());
-		string value;
-		string line;
+		std::ifstream file(ss.str());
+		std::string value;
+		std::string line;
 		int c = 0;
 
 		if (file.is_open())
 		{
-			stringstream iss;
+			std::stringstream iss;
 			while (getline(file, line))
 			{
 				iss << line;
@@ -103,7 +103,7 @@ namespace OFEC {
 		}
 		else
 		{
-			cout << "readOvector: Cannot open data" << endl;
+			std::cout << "readOvector: Cannot open data" << std::endl;
 		}
 		return d;
 	}
@@ -112,18 +112,18 @@ namespace OFEC {
 	{
 		// read O vector from file in csv format, seperated by s_size groups
 		real** d = (real**)malloc(m_nonSeparableGroupNumber*sizeof(real*));
-		stringstream ss;
+		std::stringstream ss;
 		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-xopt.txt";
-		ifstream file(ss.str());
-		string value;
-		string line;
+		std::ifstream file(ss.str());
+		std::string value;
+		std::string line;
 		size_t c = 0;                      // index over 1 to dim
 		int i = -1;                      // index over 1 to s_size
 		size_t up = 0;                   // current upper bound for one group
 
 		if (file.is_open())
 		{
-			stringstream iss;
+			std::stringstream iss;
 			while (getline(file, line))
 			{
 				if (c == up)             // out (start) of one group
@@ -150,12 +150,12 @@ namespace OFEC {
 		}
 		else
 		{
-			cout << "readOvectorVec: Cannot open data" << endl;
+			std::cout << "readOvectorVec: Cannot open data" << std::endl;
 		}
 		return d;
 	}
 
-	void CEC2013::create_shifted_vector(vector<real> &vec) {
+	void CEC2013::create_shifted_vector(std::vector<real> &vec) {
 
 		double hw, middle;
 		real s, max, min;
@@ -204,11 +204,11 @@ namespace OFEC {
 
 		d = new size_t[m_variable_size];
 
-		stringstream ss;
+		std::stringstream ss;
 		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-p.txt";
-		ifstream file(ss.str());
+		std::ifstream file(ss.str());
 		size_t c = 0;
-		string value;
+		std::string value;
 
 		if (file.is_open())
 		{
@@ -237,9 +237,9 @@ namespace OFEC {
 		}
 		
 		for (i = (m_variable_size << 3); i >= 0; --i) {
-			j = global::ms_global->get_rand_int(0, (int)(m_variable_size-1));
+			j = global::ms_global->m_uniform[caller::Problem]->next_non_standard(0, (int)(m_variable_size-1));
 			do {
-				k = global::ms_global->get_rand_int(0, (int)(m_variable_size - 1));
+				k = global::ms_global->m_uniform[caller::Problem]->next_non_standard(0, (int)(m_variable_size - 1));
 			} while (k == j);
 			t = vec[j];
 			vec[j] = vec[k];
@@ -317,9 +317,9 @@ namespace OFEC {
 	*/
 	void CEC2013::create_multi_rotated_matrix_1D(size_t dim, size_t num, std::vector<std::vector<real>> &vvec) {
 		size_t i;
-		vvec.resize(num, vector<real>(dim));
+		vvec.resize(num, std::vector<real>(dim));
 		matrix mat(dim);
-		vector<real> vec(dim*dim);
+		std::vector<real> vec(dim*dim);
 		/*  allocate storage for an array of pointers */
 		//a =(double **) malloc(num * sizeof(double *));
 
@@ -341,19 +341,19 @@ namespace OFEC {
 			m[i] = new real[sub_dim];
 		}
 
-		stringstream ss;
+		std::stringstream ss;
 		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-R" << sub_dim << ".txt";
 		// cout<<ss.str()<<endl;
 
-		ifstream file(ss.str());
-		string value;
-		string line;
+		std::ifstream file(ss.str());
+		std::string value;
+		std::string line;
 		int i = 0;
 		int j;
 
 		if (file.is_open())
 		{
-			stringstream iss;
+			std::stringstream iss;
 			while (getline(file, line))
 			{
 				j = 0;
@@ -374,7 +374,7 @@ namespace OFEC {
 		}
 		else
 		{
-			cout << "Cannot open datafiles" << endl;
+			std::cout << "Cannot open datafiles" << std::endl;
 		}
 		return m;
 	}
@@ -387,11 +387,11 @@ namespace OFEC {
 	{
 		mp_s = new size_t[num];
 
-		stringstream ss;
+		std::stringstream ss;
 		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-s.txt";
-		ifstream file(ss.str());
+		std::ifstream file(ss.str());
 		int c = 0;
-		string value;
+		std::string value;
 		if (file.is_open())
 		{
 			while (getline(file, value))
@@ -409,11 +409,11 @@ namespace OFEC {
 	{
 		mp_w = new double[num];
 
-		stringstream ss;
+		std::stringstream ss;
 		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-w.txt";
-		ifstream file(ss.str());
+		std::ifstream file(ss.str());
 		int c = 0;
-		string value;
+		std::string value;
 		if (file.is_open())
 		{
 			while (getline(file, value))
@@ -455,7 +455,7 @@ namespace OFEC {
 		}
 		else
 		{
-			cout << "size of rotation matrix out of range" << endl;
+			std::cout << "size of rotation matrix out of range" << std::endl;
 		}
 		delete[]z;
 		z = nullptr;
@@ -489,7 +489,7 @@ namespace OFEC {
 		}
 		else
 		{
-			cout << "size of rotation matrix out of range" << endl;
+			std::cout << "size of rotation matrix out of range" << std::endl;
 		}
 		delete[]z;
 		z = nullptr;
@@ -524,7 +524,7 @@ namespace OFEC {
 		}
 		else
 		{
-			cout << "size of rotation matrix out of range" << endl;
+			std::cout << "size of rotation matrix out of range" << std::endl;
 		}
 		delete[]z;
 		z = nullptr;
@@ -910,7 +910,7 @@ namespace OFEC {
 	*  				dimensional array
 	* =====================================================================================
 	*/
-	vector<bool>
+	std::vector<bool>
 		CEC2013::getInterArray()
 	{
 		return mbv_interArray;

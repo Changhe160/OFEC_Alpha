@@ -24,7 +24,7 @@ namespace OFEC {
 			m_optima.clear();
 			set_global_opt(m_translation.data());
 		}
-		void F7_shifted_rotated_HGBat::evaluate__(real *x, vector<real>& obj) {
+		void F7_shifted_rotated_HGBat::evaluate__(real *x, std::vector<real>& obj) {
 			HGBat::evaluate__(x, obj);
 		}
 	}

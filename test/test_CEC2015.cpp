@@ -1,7 +1,7 @@
-#define BOOST_TEST_MODULE CEC2015
+/*#define BOOST_TEST_MODULE CEC2015
 #include <boost/test/unit_test.hpp>
 
-#include "../instance/problem/continuous/expensive/CEC2015/F1_rotated_bent_cigar.h"
+#include "../instance/problem/continuous/expensive/CEC2015/F3_shifted_rotated_weierstrass.h"
 #include "../instance/problem/continuous/expensive/CEC2015/F12_hybrid_F3.h"
 #include "../instance/problem/continuous/expensive/CEC2015/F15_composition_F3.h"
 using namespace OFEC;
@@ -12,7 +12,7 @@ BOOST_AUTO_TEST_SUITE(CEC2015_test)
 BOOST_AUTO_TEST_CASE(test_case1) {
 	global::ms_global = unique_ptr<global>(new global(0.5, 0.5));
 
-	CEC2015::F1_rotated_bent_cigar a("F1_rotated_bent_cigar", 10, 1);
+	CEC2015::F3_shifted_rotated_weierstrass a("F3_shifted_rotated_weierstrass", 10, 1);
 
 	//vector<real> data = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 	vector<real> data(10, 0);
@@ -71,4 +71,4 @@ BOOST_AUTO_TEST_CASE(test_case3) {
 
 }
 
-BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()*/

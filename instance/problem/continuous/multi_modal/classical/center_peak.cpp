@@ -37,8 +37,8 @@ namespace OFEC {
 		m_objective_accuracy = 0.2;
 		m_variable_accuracy = 1.e-5;
 
-		ifstream in;
-		stringstream ss;
+		std::ifstream in;
+		std::stringstream ss;
 		std::vector<std::vector<real>> var_data(5, std::vector<real>(m_variable_size));
 		ss << global::ms_arg[param_workingDir] << "instance/problem/continuous/global/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
 		in.open(ss.str().c_str());

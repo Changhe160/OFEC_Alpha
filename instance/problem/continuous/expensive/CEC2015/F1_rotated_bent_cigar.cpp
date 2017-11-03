@@ -20,7 +20,7 @@ namespace OFEC {
 			m_optima.clear();
 			set_global_opt();
 		}
-		void F1_rotated_bent_cigar::evaluate__(real *x, vector<real>& obj) {
+		void F1_rotated_bent_cigar::evaluate__(real *x, std::vector<real>& obj) {
 			bent_cigar::evaluate__(x, obj);
 		}
 	}

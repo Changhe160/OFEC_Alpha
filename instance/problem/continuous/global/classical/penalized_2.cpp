@@ -30,7 +30,7 @@ namespace OFEC {
 	}
 
 	void penalized_2::initialize() {
-		vector<real> v(m_variable_size, 1.0);
+		std::vector<real> v(m_variable_size, 1.0);
 		set_original_global_opt(v.data());
 		m_optima = m_original_optima;
 	}

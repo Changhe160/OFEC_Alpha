@@ -26,7 +26,7 @@ namespace OFEC {
 			set_range(-100., 100.);
 		}
 
-		void composition_2015::set_weight(vector<double>& weight, const vector<real>&x) { 
+		void composition_2015::set_weight(std::vector<double>& weight, const std::vector<real>&x) {
 
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate weight for each function
 				weight[i] = 0;

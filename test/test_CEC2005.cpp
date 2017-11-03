@@ -10,12 +10,12 @@ BOOST_AUTO_TEST_SUITE(CEC2005_test)
 
 
 BOOST_AUTO_TEST_CASE(test_case1) {
-	global::ms_global = unique_ptr<global>(new global(0.5, 0.5));
+	global::ms_global = std::unique_ptr<global>(new global(0.5, 0.5));
 
 	CEC2005::F5_schwefel_2_6_bound a("F5_schwefel_2_6_bound", 2, 1);
 
-	vector<real> data = { 0, 0 };
-	vector<real> data2 = { -1, 1 };
+	std::vector<real> data = { 0, 0 };
+	std::vector<real> data2 = { -1, 1 };
 
 	for (size_t i = 0; i < data.size(); ++i) {
 		data[i] += a.translation()[i];
@@ -37,12 +37,12 @@ BOOST_AUTO_TEST_CASE(test_case1) {
 
 }
 BOOST_AUTO_TEST_CASE(test_case2) {
-	global::ms_global = unique_ptr<global>(new global(0.5, 0.5));
+	global::ms_global = std::unique_ptr<global>(new global(0.5, 0.5));
 
 	CEC2005::F25_rotated_hybrid_no_bound a("F25_rotated_hybrid_no_bound", 2, 1);
 
-	vector<real> data = { 0, 0 };
-	vector<real> data2 = { -1, 1 };
+	std::vector<real> data = { 0, 0 };
+	std::vector<real> data2 = { -1, 1 };
 
 	
 	for (size_t i = 0; i < data.size(); ++i) {

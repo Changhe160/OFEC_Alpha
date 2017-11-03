@@ -20,7 +20,7 @@ namespace OFEC {
 			m_optima.clear();
 			set_global_opt();
 		}
-		void F2_rotated_discus::evaluate__(real *x, vector<real>& obj) {
+		void F2_rotated_discus::evaluate__(real *x, std::vector<real>& obj) {
 			discus::evaluate__(x, obj);
 		}
 	}

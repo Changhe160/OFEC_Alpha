@@ -23,13 +23,13 @@
 #include "../optima.h"
 #include "../domain.h"
 
-namespace OFEC{
-	#define CONTINOUS_CAST dynamic_cast<continuous*>( global::ms_global->m_problem.get())
+namespace OFEC {
+#define CONTINOUS_CAST dynamic_cast<continuous*>( global::ms_global->m_problem.get())
 
 	class continuous : virtual public problem {
 	public:
 		continuous(const std::string &name, size_t size_var, size_t size_obj);
-	
+
 		violation_type check_boundary_violation(const base &s) const; // boudary check only
 		void initialize_solution(base &s) const;
 
@@ -52,7 +52,7 @@ namespace OFEC{
 		void resize_variable(size_t n);
 		void resize_objective(size_t n);
 	protected:
-		double m_variable_accuracy=1.0e-6;
+		double m_variable_accuracy = 1.0e-6;
 		domain<real> m_domain;
 		optima<variable<real>, real> m_optima;
 		bool m_variable_monitor = false, m_objective_monitor = false;

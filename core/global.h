@@ -27,6 +27,7 @@
 #include "definition.h"
 #include "../utility/typevar/typevar.h"
 #include "algorithm/algorithm.h"
+#include "../utility/factory.h"
 
 namespace OFEC {
 
@@ -35,21 +36,18 @@ namespace OFEC {
 #endif // USING_GPU
 
 	struct global {
-		global();
-		global(double seed_pro , double seed_alg );
-		~global();
+		global(double seed_pro, double seed_alg);
+
 		std::unique_ptr<problem> m_problem;
 		std::unique_ptr<algorithm> m_algorithm;
 
-		std::mutex m_mutex, m_stream_mutex;
+		std::mutex m_mutex;
 		std::map<caller, std::unique_ptr<uniform>> m_uniform;
 		std::map<caller, std::unique_ptr<normal>> m_normal;
 		std::map<caller, std::unique_ptr<cauchy>> m_cauchy;
 		std::map<caller, std::unique_ptr<levy>> m_levy;
 		std::map<caller, std::unique_ptr<gamma>> m_gamma;
 
-		int get_rand_int(const int min, const int max, caller mode = caller::Algorithm);
-		double get_rand_float(const double min, const double max, caller mode = caller::Algorithm);
 #ifdef OFEC_CONSOLE
 		static thread_local std::unique_ptr<global> ms_global;
 #endif // OFEC_CONSOLE
@@ -63,6 +61,8 @@ namespace OFEC {
 		compute::context context;
 #endif // USING_GPU
 		static param_map ms_arg;
+		static 	factory<problem> ms_reg_problem;
+		static  factory<algorithm> ms_reg_algorithm;
 	};
 }
 #endif // !OFEC_GLOBAL_H

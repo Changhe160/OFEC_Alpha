@@ -23,7 +23,7 @@ namespace OFEC {
 			m_optima.clear();
 			set_global_opt(m_translation.data());
 		}
-		void F3_shifted_rotated_weierstrass::evaluate__(real *x, vector<real>& obj) {
+		void F3_shifted_rotated_weierstrass::evaluate__(real *x, std::vector<real>& obj) {
 			weierstrass::evaluate__(x, obj);
 		}
 	}

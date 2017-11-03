@@ -24,7 +24,7 @@ namespace OFEC {
 				x[i] -= m_translation[i];
 
 			size_t i;
-			obj[0] = *max_element(x, x + m_variable_size);
+			obj[0] = *std::max_element(x, x + m_variable_size);
 
 			obj[0] += m_bias;
 

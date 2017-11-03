@@ -23,7 +23,7 @@ namespace OFEC {
 			m_optima.clear();
 			set_global_opt(m_translation.data());
 		}
-		void F6_shifted_rotated_happy_cat::evaluate__(real *x, vector<real>& obj) {
+		void F6_shifted_rotated_happy_cat::evaluate__(real *x, std::vector<real>& obj) {
 			happy_cat::evaluate__(x, obj);
 		}
 	}

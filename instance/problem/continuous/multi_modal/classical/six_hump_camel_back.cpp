@@ -31,8 +31,8 @@ namespace OFEC {
 	void six_hump_camel_back::initialize() {
 		m_opt_mode[0] = optimization_mode::Minimization;
 		std::vector<std::pair<real, real>> range;
-		range.push_back(make_pair(-1.9, 1.9));
-		range.push_back(make_pair(-1.1, 1.1));
+		range.push_back(std::make_pair(-1.9, 1.9));
+		range.push_back(std::make_pair(-1.1, 1.1));
 		set_range(std::move(range));
 
 		m_variable_accuracy = 1.e-4;

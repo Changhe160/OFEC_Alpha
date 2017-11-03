@@ -47,7 +47,7 @@ namespace OFEC {
 			}
 		}
 
-		void composition::set_weight(vector<double>& weight, const vector<real>&x) { //default CEC05
+		void composition::set_weight(std::vector<double>& weight, const std::vector<real>&x) { //default CEC05
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate weight for each function
 				weight[i] = 0;
 				for (size_t j = 0; j < m_variable_size; ++j) {
@@ -59,9 +59,9 @@ namespace OFEC {
 		}
 
 		void composition::evaluate__(real *x, std::vector<real>& obj) {
-			vector<real> x_(m_variable_size);
+			std::vector<real> x_(m_variable_size);
 			std::copy(x, x + m_variable_size, x_.begin());
-			vector<double> weight(m_num_function, 0);
+			std::vector<double> weight(m_num_function, 0);
 
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate weight for each function
 				weight[i] = 0;
@@ -71,7 +71,7 @@ namespace OFEC {
 				weight[i] = exp(-weight[i] / (2 * m_variable_size*m_converge_severity[i] * m_converge_severity[i]));
 
 			}
-			vector<real> fit(m_num_function);
+			std::vector<real> fit(m_num_function);
 			variable<real> temp_var(m_variable_size);
 			objective<real> temp_obj(m_objective_size);
 			solution<variable<real>, real> s(std::move(temp_var), std::move(temp_obj));
@@ -116,9 +116,9 @@ namespace OFEC {
 
 			obj[0] = temp;
 		}
-		bool composition::load_translation(const string &path) {
-			string s;
-			stringstream ss;
+		bool composition::load_translation(const std::string &path) {
+			std::string s;
+			std::stringstream ss;
 			ss << m_variable_size << "Dim.txt";
 			s = ss.str();
 			s.insert(0, m_name + "_Opt_");
@@ -127,10 +127,10 @@ namespace OFEC {
 
 			for (auto &i : m_function)
 				i->translation().resize(m_variable_size);
-			ifstream in(s);
+			std::ifstream in(s);
 			if (in.fail()) {
 				set_translation();
-				ofstream out(s);
+				std::ofstream out(s);
 				for (size_t i = 0; i < m_num_function; ++i) 
 					for (size_t j = 0; j < m_variable_size; ++j) 
 						out << m_function[i]->translation()[j] << " ";
@@ -147,9 +147,9 @@ namespace OFEC {
 				i->set_tranlation_flag(true);
 			return true;
 		}
-		bool composition::load_rotation(const string &path) {
-			string s;
-			stringstream ss;
+		bool composition::load_rotation(const std::string &path) {
+			std::string s;
+			std::stringstream ss;
 			ss << m_variable_size << "Dim.txt";
 			s = ss.str();
 			s.insert(0, m_name + "_RotM_");
@@ -159,10 +159,10 @@ namespace OFEC {
 
 			for (auto &i : m_function)
 				i->rotation().resize(m_variable_size, m_variable_size);
-			ifstream in(s);
+			std::ifstream in(s);
 			if (in.fail()) {
 				set_rotation();
-				ofstream out(s);
+				std::ofstream out(s);
 				for (size_t i = 0; i < m_num_function; ++i)
 					m_function[i]->rotation().print(out);
 				out.close();
@@ -194,7 +194,7 @@ namespace OFEC {
 			auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
 			
 
-			vector<real> x_(x.begin(), x.end()); //for parallel running
+			std::vector<real> x_(x.begin(), x.end()); //for parallel running
 
 			evaluate__(x_.data(), obj);
 

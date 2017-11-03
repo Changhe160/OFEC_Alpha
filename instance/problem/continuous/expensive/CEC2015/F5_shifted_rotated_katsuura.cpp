@@ -23,7 +23,7 @@ namespace OFEC {
 			m_optima.clear();
 			set_global_opt(m_translation.data());
 		}
-		void F5_shifted_rotated_katsuura::evaluate__(real *x, vector<real>& obj) {
+		void F5_shifted_rotated_katsuura::evaluate__(real *x, std::vector<real>& obj) {
 			katsuura::evaluate__(x, obj);
 		}
 	}

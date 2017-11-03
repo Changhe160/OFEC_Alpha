@@ -69,7 +69,7 @@ namespace OFEC {
 			m_optima.append(x.get_objective());
 			// end set
 		}
-		void F10_hybrid_F1::evaluate__(real *x, vector<real>& obj) {
+		void F10_hybrid_F1::evaluate__(real *x, std::vector<real>& obj) {
 			
 			hybrid::evaluate__(x, obj);
 			obj[0] += 1000;   // add m_bias

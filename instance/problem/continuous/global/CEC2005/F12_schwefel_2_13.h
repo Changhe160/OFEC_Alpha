@@ -12,7 +12,7 @@ namespace OFEC {
 			F12_schwefel_2_13(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
 			void initialize();
-			void load_data(const string & path);
+			void load_data(const std::string & path);
 			void evaluate__(real *x, std::vector<real>& obj);
 		private:
 			std::vector<std::vector<int>> m_a;

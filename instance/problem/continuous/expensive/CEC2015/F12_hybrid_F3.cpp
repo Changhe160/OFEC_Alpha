@@ -72,7 +72,7 @@ namespace OFEC {
 			m_optima.append(x.get_objective());
 			// end set
 		}
-		void F12_hybrid_F3::evaluate__(real *x, vector<real>& obj) {
+		void F12_hybrid_F3::evaluate__(real *x, std::vector<real>& obj) {
 
 			hybrid::evaluate__(x, obj);
 			obj[0] += 1200;

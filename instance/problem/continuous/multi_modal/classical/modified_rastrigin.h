@@ -30,7 +30,7 @@ namespace OFEC {
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
-		vector<double> m_k;
+		std::vector<double> m_k;
 	};
 	
 }

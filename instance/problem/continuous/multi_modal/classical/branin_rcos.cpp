@@ -24,16 +24,16 @@ namespace OFEC {
 		v[param_numDim] = 2;
 
 		std::vector<std::pair<real, real>> range;
-		range.push_back(make_pair(-5., 10.));
-		range.push_back(make_pair(0., 15.));
+		range.push_back(std::make_pair(-5., 10.));
+		range.push_back(std::make_pair(0., 15.));
 		set_range(std::move(range));
 		initialize();
 	}
 	branin_rcos::branin_rcos(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 		std::vector<std::pair<real, real>> range;
-		range.push_back(make_pair(-5., 10.));
-		range.push_back(make_pair(0., 15.));
+		range.push_back(std::make_pair(-5., 10.));
+		range.push_back(std::make_pair(0., 15.));
 		set_range(std::move(range));
 		initialize();
 	}

@@ -31,7 +31,7 @@ namespace OFEC {
 		set_global_opt();
 	}
 
-	void rotated_bent_cigar::evaluate__(real *x, vector<real>& obj) {
+	void rotated_bent_cigar::evaluate__(real *x, std::vector<real>& obj) {
 		bent_cigar::evaluate__(x, obj);
 
 	}

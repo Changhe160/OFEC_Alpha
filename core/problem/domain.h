@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* this file defines domain for std::vector-based variable with the same value type
+* this file defines domain for vector-based variable with the same value type
 *
 *********************************************************************************/
 
@@ -29,10 +29,10 @@ namespace OFEC {
 	public:
 		struct single_set {
 			bool limited = true;
-			std::pair<ValueType,ValueType> limit;
+			std::pair<ValueType, ValueType> limit;
 		};
-		domain(size_t n=1):m_range(n){}
-		void set_boundary_false(size_t i=0) {
+		domain(size_t n = 1) :m_range(n) {}
+		void set_boundary_false(int i = 0) {
 			m_range[i].limited = false;
 		}
 		void set_range(ValueType low, ValueType upper, size_t i) {
@@ -41,19 +41,20 @@ namespace OFEC {
 		}
 		void resize(size_t n) {
 			m_range.resize(n);
-		}	
+		}
+		const single_set& range(int i = 0)const {
+			return m_range[i];
+		}
 		size_t size()const noexcept {
 			return m_range.size();
 		}
-		const single_set& range(size_t i = 0)const {
+		const single_set& operator[](size_t i)const {
 			return m_range[i];
 		}
-		const single_set& operator[](size_t i)const {
-			 return m_range[i];
-		}
 		single_set& operator[](size_t i) {
-			 return m_range[i];
+			return m_range[i];
 		}
+
 	private:
 		std::vector<single_set> m_range;
 	};

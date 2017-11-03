@@ -31,7 +31,7 @@ namespace OFEC {
 		set_global_opt();
 	}
 
-	void rotated_discus::evaluate__(real *x, vector<real>& obj) {
+	void rotated_discus::evaluate__(real *x, std::vector<real>& obj) {
 		discus::evaluate__(x, obj);
 
 	}

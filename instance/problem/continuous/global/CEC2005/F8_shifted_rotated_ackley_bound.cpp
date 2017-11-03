@@ -17,15 +17,13 @@ namespace OFEC {
 
 			set_bias(-140);
 			set_condition_number(100);
-			std::vector<real> temp_var(m_variable_size);
-			for (size_t i = 0; i < m_variable_size; ++i)
-				temp_var[i] = m_original_optima.variable(0)[i];
-			load_translation("instance/problem/continuous/global/CEC2005/data/", temp_var.data());  //data path
+			
+			load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
 			load_rotation("instance/problem/continuous/global/CEC2005/data/");
 			m_optima.clear();
 			set_global_opt(m_translation.data());
 		}
-		void F8_shifted_rotated_ackley_bound::evaluate__(real *x, vector<real>& obj) {
+		void F8_shifted_rotated_ackley_bound::evaluate__(real *x, std::vector<real>& obj) {
 
 			ackley::evaluate__(x, obj);
 		}

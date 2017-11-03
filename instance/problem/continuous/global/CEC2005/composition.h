@@ -34,9 +34,9 @@ namespace OFEC {
 			virtual void set_function() = 0;
 			virtual void set_weight(std::vector<double>& w, const std::vector<real>&x);
 
-			bool load_translation(const string &path);
+			bool load_translation(const std::string &path);
 			virtual void set_translation();
-			bool load_rotation(const string &path);
+			bool load_rotation(const std::string &path);
 			virtual void set_rotation();
 		protected:
 			size_t m_num_function;                // number of basic functions, for hybrid functions

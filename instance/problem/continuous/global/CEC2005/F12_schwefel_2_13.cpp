@@ -30,9 +30,9 @@ namespace OFEC {
 			m_variable_accuracy = 1.0e-2;
 		}
 
-		void F12_schwefel_2_13::load_data(const string & path)
+		void F12_schwefel_2_13::load_data(const std::string & path)
 		{
-			string sa;
+			std::string sa;
 			char astr[100];
 			sprintf_s(astr, "%d", (int)m_variable_size);
 			strcat_s(astr, "Dim.txt");
@@ -42,7 +42,7 @@ namespace OFEC {
 			sa.insert(0, path);
 			sa.insert(0, global::ms_arg[param_workingDir]);//probDataPath
 
-			string sb;
+			std::string sb;
 			sprintf_s(astr, "%d", (int)m_variable_size);
 			strcat_s(astr, "Dim.txt");
 			sb = astr;
@@ -50,7 +50,7 @@ namespace OFEC {
 			sb.insert(0, path);
 			sb.insert(0, global::ms_arg[param_workingDir]);//probDataPath
 
-			string salpha;
+			std::string salpha;
 			sprintf_s(astr, "%d", (int)m_variable_size);
 			strcat_s(astr, "Dim.txt");
 			salpha = astr;
@@ -59,11 +59,11 @@ namespace OFEC {
 			salpha.insert(0, path);
 			salpha.insert(0, global::ms_arg[param_workingDir]);//probDataPath
 
-			ifstream in_a;
+			std::ifstream in_a;
 			in_a.open(sa.data());
-			ifstream in_b;
+			std::ifstream in_b;
 			in_b.open(sb.data());
-			ifstream in_alpha;
+			std::ifstream in_alpha;
 			in_alpha.open(salpha.data());
 			if (in_a.fail()) {
 				for (int i = 0; i < m_variable_size; ++i) {
@@ -71,7 +71,7 @@ namespace OFEC {
 						m_a[i][j] = int(-100.0 + global::ms_global->m_uniform[caller::Problem]->next() * 200);
 					}
 				}
-				ofstream out(sa.c_str());
+				std::ofstream out(sa.c_str());
 				for (int i = 0; i < m_variable_size; ++i) {
 					for (int j = 0; j < m_variable_size; j++) {
 						out << m_a[i][j] << " ";
@@ -94,7 +94,7 @@ namespace OFEC {
 						m_b[i][j] = int(-100.0 + global::ms_global->m_uniform[caller::Problem]->next() * 200);
 					}
 				}
-				ofstream out(sb.c_str());
+				std::ofstream out(sb.c_str());
 				for (int i = 0; i < m_variable_size; ++i) {
 					for (int j = 0; j < m_variable_size; j++) {
 						out << m_b[i][j] << " ";
@@ -115,7 +115,7 @@ namespace OFEC {
 				for (int i = 0; i < m_variable_size; ++i) {
 					m_alpha[i] = -OFEC_PI + global::ms_global->m_uniform[caller::Problem]->next() * 2 * OFEC_PI;
 				}
-				ofstream out(salpha.c_str());
+				std::ofstream out(salpha.c_str());
 				for (int i = 0; i < m_variable_size; ++i) {
 					out << m_alpha[i] << " ";
 				}

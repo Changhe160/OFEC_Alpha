@@ -31,7 +31,7 @@ namespace OFEC {
 		set_global_opt();
 	}
 
-	void rotated_rosenbrock::evaluate__(real *x, vector<real>& obj) {
+	void rotated_rosenbrock::evaluate__(real *x, std::vector<real>& obj) {
 		rosenbrock::evaluate__(x, obj);
 
 	}

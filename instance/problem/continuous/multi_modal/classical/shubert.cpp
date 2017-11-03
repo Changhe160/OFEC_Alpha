@@ -70,7 +70,7 @@ namespace OFEC {
 		add_tag(problem_tag::MMP);
 		//setObjSet();
 	}
-	void shubert::evaluate__(real *x, vector<real>& obj) {
+	void shubert::evaluate__(real *x, std::vector<real>& obj) {
 		double s = 1;
 
 		for (int j = 0; j < m_variable_size; ++j) {

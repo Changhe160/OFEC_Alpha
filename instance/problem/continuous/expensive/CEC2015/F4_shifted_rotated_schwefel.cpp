@@ -23,7 +23,7 @@ namespace OFEC {
 			m_optima.clear();
 			set_global_opt(m_translation.data());
 		}
-		void F4_shifted_rotated_schwefel::evaluate__(real *x, vector<real>& obj) {
+		void F4_shifted_rotated_schwefel::evaluate__(real *x, std::vector<real>& obj) {
 			schwefel::evaluate__(x, obj);
 		}
 	}

@@ -35,7 +35,7 @@ namespace OFEC {
 		return m_rotation;
 	}
 
-	real function::condition_number() {
+	double function::condition_number() {
 		return m_condition_number;
 	}
 	real function::bias() {
@@ -96,7 +96,7 @@ namespace OFEC {
 		double & cons_value = dynamic_cast<solution<variable<real>, real> &>(s).constraint_value().first;
 		std::vector<double> & cons_values = dynamic_cast<solution<variable<real>, real> &>(s).constraint_value().second;
 
-		vector<real> x_(x.begin(), x.end()); //for parallel running
+		std::vector<real> x_(x.begin(), x.end()); //for parallel running
 		
 		if (is_tag(problem_tag::COP)) evaluate__(x_.data(), obj, cons_value, cons_values);
 		else evaluate__(x_.data(), obj);
@@ -132,26 +132,26 @@ namespace OFEC {
 			i = 0;
 	}
 
-	bool function::load_translation(const string &path, const real *opt_var) {
-		string s;
-		stringstream ss;
+	bool function::load_translation(const std::string &path) {
+		std::string s;
+		std::stringstream ss;
 		ss << m_variable_size << "Dim.txt";
 		s = ss.str();
 		s.insert(0, m_name + "_Opt_");
 		s.insert(0, path);    // data path
 		s.insert(0, global::ms_arg[param_workingDir]);
 
-		load_translation_(s, opt_var);
+		load_translation_(s);
 
 		return true;
 	}
 
-	void function::load_translation_(const string &path, const real *opt_var) {
+	void function::load_translation_(const std::string &path) {
 		m_translation.resize(m_variable_size);
-		ifstream in(path);
+		std::ifstream in(path);
 		if (in.fail()) {
-			set_translation(opt_var);
-			ofstream out(path);
+			set_translation();
+			std::ofstream out(path);
 			for (auto &i : m_translation)
 				out << i << " ";
 			out.close();
@@ -164,24 +164,30 @@ namespace OFEC {
 		m_translation_flag = true;
 	}
 
-	void function::set_translation(const real *opt_var) {
+	void function::set_translation() {
 		// Initial the location of shifted global optimum
+		std::vector<real> x(m_variable_size);
 		
+		if (m_original_optima.variable_given())
+			for (size_t i = 0; i < m_variable_size; ++i)
+				x[i] = m_original_optima.variable(0)[i];
+		else
+			for (auto &i : x)
+				i = 0;
+			
 		for (size_t j = 0; j<m_variable_size; ++j) {
-			real x, rl, ru, range;
-			if (opt_var == 0) x = 0;
-			else x = opt_var[j];
-			ru = m_domain[j].limit.second - x;
-			rl = x - m_domain[j].limit.first;
+			real rl, ru, range;
+			ru = m_domain[j].limit.second - x[j];
+			rl = x[j] - m_domain[j].limit.first;
 			range = rl<ru ? rl : ru;
 			m_translation[j] = (global::ms_global->m_uniform[caller::Problem]->next() - 0.5) * 2 * range;
 		}
 		m_translation_flag = true;
 	}
 
-	bool function::load_rotation(const string &path) {
-		string s;
-		stringstream ss;
+	bool function::load_rotation(const std::string &path) {
+		std::string s;
+		std::stringstream ss;
 		ss << m_variable_size << "Dim.txt";
 		s = ss.str();
 		s.insert(0, m_name + "_RotM_");
@@ -194,13 +200,13 @@ namespace OFEC {
 		return true;
 	}
 
-	void function::load_rotation_(const string &path) {
+	void function::load_rotation_(const std::string &path) {
 		m_rotation.resize(m_variable_size, m_variable_size);
-		ifstream in;
+		std::ifstream in;
 		in.open(path);
 		if (in.fail()) {
 			set_rotation();
-			ofstream out(path);
+			std::ofstream out(path);
 			m_rotation.print(out);
 			out.close();
 		}

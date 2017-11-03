@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* macros used in OFEC
+* the base of different types of problems
 *
 *
 *********************************************************************************/
@@ -32,17 +32,17 @@
 namespace OFEC {
 	class problem {
 	public:
-		problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var), \
+		problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var),
 			m_objective_size(size_obj), m_opt_mode(size_obj) {
 
 		}
 		virtual ~problem() {}
-
 		problem(const problem&) = delete;
+
 		optimization_mode opt_mode(size_t idx) const {
 			return m_opt_mode[idx];
 		}
-		const vector<optimization_mode>& opt_mode() const {
+		const std::vector<optimization_mode>& opt_mode() const {
 			return m_opt_mode;
 		}
 		virtual bool same(const base &s1, const base &s2) const = 0;
@@ -70,7 +70,7 @@ namespace OFEC {
 		virtual violation_type check_constraint_violation(const base &) const {
 			return violation_type::None;
 		}
-		//virtual void constraint_value(const base &, std::pair<double, vector<double>>&) = 0;
+		virtual void constraint_value(const base &, std::pair<double, std::vector<double>>&) {};
 
 		template<typename Solution>
 		static void initialize_objective_minmax(const Solution &s) {
@@ -116,7 +116,7 @@ namespace OFEC {
 		size_t objective_size() const {
 			return m_objective_size;
 		}
-		void set_tag(const set<problem_tag> &tag) {
+		void set_tag(const std::set<problem_tag> &tag) {
 			m_tag = tag;
 		}
 
@@ -136,12 +136,13 @@ namespace OFEC {
 		size_t total_evaluations() {
 			return m_total_eval;
 		}
+
 		void set_opt_mode(optimization_mode m, size_t idx = 0) {
 			m_opt_mode[idx] = m;
 		}
+
 	protected:
-		//problem() = default;
-		problem& operator=(const problem& rhs);
+		problem& operator=(const problem& rhs);  // assignment is not allowed outside
 		problem& operator=(problem&& rhs);
 		virtual void copy(const problem *); // copy parameter values of a problem when it changes
 		virtual void resize_variable(size_t n);
@@ -156,13 +157,14 @@ namespace OFEC {
 		std::stringstream m_paramters;
 		bool m_solved = false;
 #ifdef OFEC_CONSOLE
-		static thread_local std::map<int, pair<unique_ptr<base>, unique_ptr<base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
+		static thread_local std::map<int, std::pair<std::unique_ptr<base>, std::unique_ptr<base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
 #endif
 #ifdef OFEC_DEMON
-		static std::map<int, pair<unique_ptr<base>, unique_ptr<base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
+		static std::map<int, std::pair<unique_ptr<base>, std::unique_ptr<base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
 #endif	
 
 	};
+
 }
 
 

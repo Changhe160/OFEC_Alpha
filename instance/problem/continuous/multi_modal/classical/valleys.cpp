@@ -22,8 +22,8 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		v[param_numDim] = 2;
 		std::vector<std::pair<real, real>> data;
-		data.push_back(make_pair(-2.5, 3));
-		data.push_back(make_pair(-2, 2));
+		data.push_back(std::make_pair(-2.5, 3));
+		data.push_back(std::make_pair(-2, 2));
 
 		set_range(data);
 		initialize();
@@ -31,8 +31,8 @@ namespace OFEC {
 	valleys::valleys(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 		std::vector<std::pair<real, real>> data;
-		data.push_back(make_pair(-2.5, 3));
-		data.push_back(make_pair(-2, 2));
+		data.push_back(std::make_pair(-2.5, 3));
+		data.push_back(std::make_pair(-2, 2));
 
 		set_range(data);
 		initialize();

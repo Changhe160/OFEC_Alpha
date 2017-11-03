@@ -46,7 +46,7 @@ namespace OFEC {
 		using value_type = T;
 		using encoding = std::vector<value_type>;
 		using iterator_type = typename std::vector<value_type>::iterator;
-		using const_iterator = typename vector<value_type>::const_iterator;
+		using const_iterator = typename std::vector<value_type>::const_iterator;
 		objective(size_t n = 0) :m_o(n) {}
 		objective(const objective& rhs) :m_o(rhs.m_o) {}
 		objective(const std::vector<value_type>& rhs) :m_o(rhs) {}
@@ -75,12 +75,12 @@ namespace OFEC {
 		objective(objective&& rhs) :m_o(std::move(rhs.m_o)) {}
 
 		template<typename Compare = objective_compare<value_type>>
-		dominationship compare(const std::vector<value_type>& rhs, const vector<optimization_mode> &mode, Compare comp = Compare()) const {
+		dominationship compare(const std::vector<value_type>& rhs, const std::vector<optimization_mode> &mode, Compare comp = Compare()) const {
 			return comp(m_o, rhs, mode);
 		}
 
 		template<typename Compare = objective_compare<value_type> >
-		dominationship compare(const objective& rhs, const vector<optimization_mode> &mode, Compare comp = Compare()) const {
+		dominationship compare(const objective& rhs, const std::vector<optimization_mode> &mode, Compare comp = Compare()) const {
 			return comp(m_o, rhs.m_o, mode);
 		}
 

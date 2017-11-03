@@ -8,7 +8,7 @@ namespace OFEC {
 
 	violation_type continuous::check_boundary_violation(const base &s) const {
 
-		const variable<real>& x= dynamic_cast<const solution<variable<real>, real>&>(s).get_variable();
+		const variable<real>& x = dynamic_cast<const solution<variable<real>, real>&>(s).get_variable();
 
 		for (int i = 0; i < m_variable_size; ++i) {
 			if (m_domain[i].limited) {
@@ -20,7 +20,7 @@ namespace OFEC {
 	}
 
 	void continuous::initialize_solution(base &s) const {
-		 variable<real>& x = dynamic_cast<solution<variable<real>, real>&>(s).get_variable();
+		variable<real>& x = dynamic_cast<solution<variable<real>, real>&>(s).get_variable();
 
 		for (int i = 0; i < m_variable_size; ++i) {
 			if (m_domain[i].limited) {
@@ -43,13 +43,13 @@ namespace OFEC {
 	void continuous::copy(const problem * rhs) {
 		problem::copy(rhs);
 
-		auto p= dynamic_cast<const continuous*>(rhs);
+		auto p = dynamic_cast<const continuous*>(rhs);
 		m_variable_accuracy = p->m_variable_accuracy;
 
-		size_t d = rhs->variable_size() < m_variable_size ? rhs->variable_size(): m_variable_size;
-		for (auto i = 0; i < d; ++i) 
+		size_t d = rhs->variable_size() < m_variable_size ? rhs->variable_size() : m_variable_size;
+		for (auto i = 0; i < d; ++i)
 			m_domain[i] = p->m_domain[i];
-		
+
 		if (m_optima.variable_given()) {
 
 		}
@@ -106,14 +106,14 @@ namespace OFEC {
 	double continuous::variable_distance(const base &s1, const base &s2) const {
 		const variable<real>& x1 = dynamic_cast<const solution<variable<real>, real>&>(s1).get_variable();
 		const variable<real>& x2 = dynamic_cast<const solution<variable<real>, real>&>(s2).get_variable();
-		return euclidean_distance(x1.begin(),x1.end(), x2.begin());   
+		return euclidean_distance(x1.begin(), x1.end(), x2.begin());
 
 	}
 
 	double continuous::variable_distance(const variable_base &s1, const variable_base &s2) const {
 		const variable<real>& x1 = dynamic_cast<const variable<real>&>(s1);
 		const variable<real>& x2 = dynamic_cast<const variable<real>&>(s2);
-		return euclidean_distance(x1.begin(), x1.end(), x2.begin());  
+		return euclidean_distance(x1.begin(), x1.end(), x2.begin());
 	}
 
 }

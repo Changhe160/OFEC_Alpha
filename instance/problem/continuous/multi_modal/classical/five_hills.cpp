@@ -23,16 +23,16 @@ namespace OFEC {
 		v[param_numDim] = 2;
 
 		std::vector<std::pair<real, real>> range;
-		range.push_back(make_pair(-2.5, 3.));
-		range.push_back(make_pair(-2, 2.));
+		range.push_back(std::make_pair(-2.5, 3.));
+		range.push_back(std::make_pair(-2, 2.));
 		set_range(std::move(range));
 		initialize();
 	}
 	five_hills::five_hills(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 		std::vector<std::pair<real, real>> range;
-		range.push_back(make_pair(-2.5, 3.));
-		range.push_back(make_pair(-2, 2.));
+		range.push_back(std::make_pair(-2.5, 3.));
+		range.push_back(std::make_pair(-2, 2.));
 		set_range(std::move(range));
 		initialize();
 	}
@@ -44,8 +44,8 @@ namespace OFEC {
 
 		m_original_optima.set_number_variable(5); //1 gopt + 4 lopt
 
-		ifstream in;
-		stringstream ss;
+		std::ifstream in;
+		std::stringstream ss;
 		std::vector<std::vector<real>> var_data(5, std::vector<real>(m_variable_size));
 		ss << global::ms_arg[param_workingDir] << "instance/problem/continuous/global/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
 		in.open(ss.str().c_str());

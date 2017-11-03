@@ -55,7 +55,7 @@ namespace OFEC {
 			auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
 
 
-			vector<real> x_(x.begin(), x.end()); //for parallel running
+			std::vector<real> x_(x.begin(), x.end()); //for parallel running
 
 			evaluate__(x_.data(), obj);
 

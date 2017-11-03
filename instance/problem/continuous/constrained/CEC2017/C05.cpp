@@ -64,9 +64,9 @@ namespace OFEC {
 			cons_value = sum / (double)ineq_cons.size();
 			
 		}
-		bool C05::load_rotation_C05(const string &path) {
-			string s;
-			stringstream ss;
+		bool C05::load_rotation_C05(const std::string &path) {
+			std::string s;
+			std::stringstream ss;
 			ss << m_variable_size << "Dim.txt";
 			s = ss.str();
 			s.insert(0, m_name + "_RotM_");
@@ -79,12 +79,12 @@ namespace OFEC {
 			return true;
 		}
 
-		void C05::load_rotation_C05_(const string &path) {
-			ifstream in;
+		void C05::load_rotation_C05_(const std::string &path) {
+			std::ifstream in;
 			in.open(path);
 			if (in.fail()) {
 				set_rotation_C05();
-				ofstream out(path);
+				std::ofstream out(path);
 				m_mat1.print(out);
 				m_mat2.print(out);
 				out.close();

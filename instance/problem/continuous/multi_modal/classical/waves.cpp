@@ -21,8 +21,8 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		v[param_numDim] = 2;
 		std::vector<std::pair<real, real>> data;
-		data.push_back(make_pair(-0.9, 1.2));
-		data.push_back(make_pair(-1.2, 1.2));
+		data.push_back(std::make_pair(-0.9, 1.2));
+		data.push_back(std::make_pair(-1.2, 1.2));
 
 		set_range(data);
 		initialize();
@@ -30,8 +30,8 @@ namespace OFEC {
 	waves::waves(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 		std::vector<std::pair<real, real>> data;
-		data.push_back(make_pair(-0.9, 1.2));
-		data.push_back(make_pair(-1.2, 1.2));
+		data.push_back(std::make_pair(-0.9, 1.2));
+		data.push_back(std::make_pair(-1.2, 1.2));
 
 		set_range(data);
 		initialize();
@@ -45,8 +45,8 @@ namespace OFEC {
 
 		m_original_optima.set_number_variable(10);	//one global optimum+9 local optimum
 
-		ifstream in;
-		stringstream ss;
+		std::ifstream in;
+		std::stringstream ss;
 		std::vector<std::vector<real>> var_data(10, std::vector<real>(m_variable_size));
 		ss << global::ms_arg[param_workingDir] << "instance/problem/continuous/global/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
 		in.open(ss.str().c_str());

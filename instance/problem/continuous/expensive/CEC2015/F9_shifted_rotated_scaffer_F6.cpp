@@ -24,7 +24,7 @@ namespace OFEC {
 			m_optima.clear();
 			set_global_opt(m_translation.data());
 		}
-		void F9_shifted_rotated_scaffer_F6::evaluate__(real *x, vector<real>& obj) {
+		void F9_shifted_rotated_scaffer_F6::evaluate__(real *x, std::vector<real>& obj) {
 			scaffer_F6::evaluate__(x, obj);
 		}
 	}

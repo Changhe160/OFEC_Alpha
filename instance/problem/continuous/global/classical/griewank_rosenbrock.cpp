@@ -19,7 +19,7 @@ namespace OFEC {
 
 		set_global_opt();
 	}
-	void griewank_rosenbrock::evaluate__(real *x, vector<real>& obj) {
+	void griewank_rosenbrock::evaluate__(real *x, std::vector<real>& obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)

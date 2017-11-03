@@ -27,8 +27,8 @@ namespace OFEC {
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values);
-			bool load_rotation_C05(const string &path);
-			void load_rotation_C05_(const string &path);
+			bool load_rotation_C05(const std::string &path);
+			void load_rotation_C05_(const std::string &path);
 			void set_rotation_C05();
 			void rotate(real *x, size_t num);
 		private:

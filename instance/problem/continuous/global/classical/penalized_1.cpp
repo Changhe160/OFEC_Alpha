@@ -30,7 +30,7 @@ namespace OFEC {
 	}
 
 	void penalized_1::initialize() {
-		vector<double> v(m_variable_size, -1);
+		std::vector<double> v(m_variable_size, -1);
 		set_original_global_opt(v.data());
 		m_optima = m_original_optima;
 	}
@@ -44,7 +44,7 @@ namespace OFEC {
 			rotate(x);
 		if (m_translation_flag)
 			translate_origin(x);
-		vector<real> y(m_variable_size);
+		std::vector<real> y(m_variable_size);
 		for (int i = 0; i < m_variable_size; i++) y[i] = (x[i] + 1) / 4. + 1;
 		double s = 0;
 		for (int i = 0; i < m_variable_size - 1; i++)

@@ -35,31 +35,31 @@ namespace OFEC {
 		m_opt_mode[0] = optimization_mode::Minimization;
 
 		m_original_optima.set_number_variable(1);
-		vector<vector<double>> gobj;
+		std::vector<std::vector<double>> gobj;
 
 		if (m_variable_size == 2) {
-			gobj.push_back(vector<double>(1, -156.66));
+			gobj.push_back(std::vector<double>(1, -156.66));
 		}
 		else if (m_variable_size == 3) {
-			gobj.push_back(vector<double>(1, -235.0));
+			gobj.push_back(std::vector<double>(1, -235.0));
 		}
 		else if (m_variable_size == 4) {
-			gobj.push_back(vector<double>(1, -313.33));
+			gobj.push_back(std::vector<double>(1, -313.33));
 		}
 		else if (m_variable_size == 5) {
-			gobj.push_back(vector<double>(1, -391.66));
+			gobj.push_back(std::vector<double>(1, -391.66));
 		}
 		else if (m_variable_size == 6) {
-			gobj.push_back(vector<double>(1, -469.99));
+			gobj.push_back(std::vector<double>(1, -469.99));
 		}
 		else if (m_variable_size == 7) {
-			gobj.push_back(vector<double>(1, -548.33));
+			gobj.push_back(std::vector<double>(1, -548.33));
 		}
 		else if (m_variable_size == 8) {
-			gobj.push_back(vector<double>(1, -626.66));
+			gobj.push_back(std::vector<double>(1, -626.66));
 		}
 		else if (m_variable_size == 9) {
-			gobj.push_back(vector<double>(1, -704.99));
+			gobj.push_back(std::vector<double>(1, -704.99));
 		}
 
 		if (m_variable_size >= 2 && m_variable_size <= 9) {

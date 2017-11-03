@@ -27,7 +27,7 @@ namespace OFEC {
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
-			void load_data(const string & path);
+			void load_data(const std::string & path);
 
 			std::vector<real> m_b;
 			std::vector<std::vector<int>> m_a;
