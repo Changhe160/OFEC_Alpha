@@ -22,7 +22,6 @@ namespace OFEC {
 	public:
 		rotated_discus(param_map &v);
 		rotated_discus(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~rotated_discus();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

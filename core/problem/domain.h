@@ -29,32 +29,32 @@ namespace OFEC {
 	public:
 		struct single_set {
 			bool limited = true;
-			std::pair<ValueType,ValueType> limit;
+			std::pair<ValueType, ValueType> limit;
 		};
-		domain(size_t n=1):m_range(n){}
-		void set_boundary_false(int i=0) {
+		domain(size_t n = 1) :m_range(n) {}
+		void set_boundary_false(int i = 0) {
 			m_range[i].limited = false;
 		}
-		void set_range(ValueType low, ValueType upper, int i) {
+		void set_range(ValueType low, ValueType upper, size_t i) {
 			m_range[i].limit.first = low;
 			m_range[i].limit.second = upper;
 		}
 		void resize(size_t n) {
 			m_range.resize(n);
-		}	
+		}
 		const single_set& range(int i = 0)const {
 			return m_range[i];
 		}
 		size_t size()const noexcept {
 			return m_range.size();
 		}
-		const single_set& operator[](int i)const {
-			 return m_range[i];
+		const single_set& operator[](size_t i)const {
+			return m_range[i];
 		}
-		single_set& operator[](int i) {
-			 return m_range[i];
+		single_set& operator[](size_t i) {
+			return m_range[i];
 		}
-		
+
 	private:
 		std::vector<single_set> m_range;
 	};

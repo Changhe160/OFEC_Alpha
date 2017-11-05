@@ -14,25 +14,21 @@ namespace OFEC {
 		initialize();
 	}
 
-	schwefel_2_6::~schwefel_2_6() {
-		//dtor
-	}
-
 	void schwefel_2_6::initialize() {
 
 	}
 
 	void schwefel_2_6::load_data()
 	{
-		string sa;
-		stringstream ss;
+		std::string sa;
+		std::stringstream ss;
 		ss << m_variable_size << "Dim.txt";
 		sa = ss.str();
 		sa.insert(0, m_name + "_a_");
 		sa.insert(0, "instance/problem/continuous/global/classical/data/");
 		//sa.insert(0, global::ms_arg[param_workingDir]);// data path
 
-		ifstream in_a;
+		std::ifstream in_a;
 		in_a.open(sa.data());
 		if (in_a.fail()) {
 			for (int i = 0; i < m_variable_size; ++i) {
@@ -40,7 +36,7 @@ namespace OFEC {
 					m_a[i][j] = int(-500.0 + global::ms_global->m_uniform[caller::Problem]->next() * 1000);
 				}
 			}
-			ofstream out(sa.c_str());
+			std::ofstream out(sa.c_str());
 			for (int i = 0; i < m_variable_size; ++i) {
 				for (int j = 0; j < m_variable_size; j++) {
 					out << m_a[i][j] << " ";
@@ -58,26 +54,23 @@ namespace OFEC {
 		in_a.close();
 
 		m_translation.resize(m_variable_size);
-		string so;
+		std::string so;
 		so = ss.str();
 		so.insert(0, m_name + "_Opt_");
 
 		so.insert(0, "instance/problem/continuous/global/classical/data/");
 		//so.insert(0, global::ms_arg[param_workingDir]);// data path
 
-		ifstream in;
+		std::ifstream in;
 		in.open(so.data());
 		if (in.fail()) {
-			std::vector<real> temp_var(m_variable_size);
-			for (size_t i = 0; i < m_variable_size; ++i)
-				temp_var[i] = m_original_optima.variable(0)[i];
-			set_translation(temp_var);
+			set_translation(m_original_optima.variable(0).data());
 			for (int i = 0; i < m_variable_size; ++i) {
 				if (i < m_variable_size / 4) m_translation[i] = -100;
 				else if (i >= m_variable_size * 3 / 4 - 1) m_translation[i] = 100;
 			}
 
-			ofstream out(so.c_str());
+			std::ofstream out(so.c_str());
 			for (int j = 0; j < m_variable_size; j++)        out << m_translation[j] << " ";
 			out.close();
 		}

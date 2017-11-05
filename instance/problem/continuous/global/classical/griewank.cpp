@@ -29,10 +29,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	griewank::~griewank() {
-		//dtor
-	}
-
 	void griewank::initialize() {
 		set_original_global_opt();
 

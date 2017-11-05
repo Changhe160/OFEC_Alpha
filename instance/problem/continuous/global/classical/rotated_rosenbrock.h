@@ -22,7 +22,6 @@ namespace OFEC {
 	public:
 		rotated_rosenbrock(param_map &v);
 		rotated_rosenbrock(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~rotated_rosenbrock();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

@@ -24,10 +24,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	rotated_discus::~rotated_discus() {
-		//dtor
-	}
-
 	void rotated_discus::initialize() {
 
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");
@@ -35,7 +31,7 @@ namespace OFEC {
 		set_global_opt();
 	}
 
-	void rotated_discus::evaluate__(real *x, vector<real>& obj) {
+	void rotated_discus::evaluate__(real *x, std::vector<real>& obj) {
 		discus::evaluate__(x, obj);
 
 	}

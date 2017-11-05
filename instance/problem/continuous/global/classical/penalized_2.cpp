@@ -29,19 +29,22 @@ namespace OFEC {
 		initialize();
 	}
 
-	penalized_2::~penalized_2() {
-		//dtor
-	}
-
-
 	void penalized_2::initialize() {
-		vector<real> v(m_variable_size, 1.0);
+		std::vector<real> v(m_variable_size, 1.0);
 		set_original_global_opt(v.data());
 		m_optima = m_original_optima;
 	}
 
 
 	void penalized_2::evaluate__(real *x, std::vector<real>& obj) {
+		if (m_translation_flag)
+			translate(x);
+		if (m_scale_flag)
+			scale(x);
+		if (m_rotation_flag)
+			rotate(x);
+		if (m_translation_flag)
+			translate_origin(x);
 		double s = 0;
 
 		for (int i = 0; i < m_variable_size - 1; i++)

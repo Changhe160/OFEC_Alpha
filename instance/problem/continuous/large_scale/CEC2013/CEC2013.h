@@ -18,12 +18,11 @@
 #include "../../../../../utility/matrix.h"
 
 namespace OFEC {
-
-	class CEC2013 final : public  continuous {
-		struct index_map {
-			unsigned arr_index1;
-			unsigned arr_index2;
-		};
+	struct index_map {
+		unsigned arr_index1;
+		unsigned arr_index2;
+	};
+	class CEC2013 : public continuous {
 	protected:
 		unsigned ID;
 		void create_shifted_vector(std::vector<real> &vec);
@@ -85,7 +84,7 @@ namespace OFEC {
 		size_t m_nonSeparableGroupSize;
 		size_t m_overlap;
 
-		vector<bool> mbv_interArray;
+		std::vector<bool> mbv_interArray;
 		struct index_map* mp_index_map;
 		unsigned m_arrSize;
 
@@ -95,7 +94,7 @@ namespace OFEC {
 		virtual ~CEC2013();
 
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
-		vector<bool> getInterArray();
+		std::vector<bool> getInterArray();
 		void ArrToMat(unsigned I1, unsigned I2, unsigned &matIndex);
 		void MatToArr(unsigned &I1, unsigned &I2, unsigned matIndex);
 

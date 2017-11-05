@@ -24,10 +24,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	rotated_bent_cigar::~rotated_bent_cigar() {
-		//dtor
-	}
-
 	void rotated_bent_cigar::initialize() {
 
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");
@@ -35,7 +31,7 @@ namespace OFEC {
 		set_global_opt();
 	}
 
-	void rotated_bent_cigar::evaluate__(real *x, vector<real>& obj) {
+	void rotated_bent_cigar::evaluate__(real *x, std::vector<real>& obj) {
 		bent_cigar::evaluate__(x, obj);
 
 	}

@@ -24,10 +24,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	rotated_rosenbrock::~rotated_rosenbrock() {
-		//dtor
-	}
-
 	void rotated_rosenbrock::initialize() {
 
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");
@@ -35,7 +31,7 @@ namespace OFEC {
 		set_global_opt();
 	}
 
-	void rotated_rosenbrock::evaluate__(real *x, vector<real>& obj) {
+	void rotated_rosenbrock::evaluate__(real *x, std::vector<real>& obj) {
 		rosenbrock::evaluate__(x, obj);
 
 	}

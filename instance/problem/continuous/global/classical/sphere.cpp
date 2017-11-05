@@ -27,9 +27,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	sphere::~sphere() {
-		//dtor
-	}
 	void sphere::initialize() {
 		set_original_global_opt();
 

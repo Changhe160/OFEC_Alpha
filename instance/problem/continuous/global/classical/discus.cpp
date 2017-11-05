@@ -26,10 +26,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	discus::~discus() {
-		//dtor
-	}
-
 	void discus::initialize() {
 
 		set_original_global_opt();

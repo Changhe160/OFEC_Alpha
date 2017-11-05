@@ -29,9 +29,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	step::~step() {
-		//dtor
-	}
 	void step::initialize() {
 		set_original_global_opt();
 

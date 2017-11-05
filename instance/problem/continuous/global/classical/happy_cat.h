@@ -22,7 +22,6 @@ namespace OFEC {
 	public:
 		happy_cat(param_map &v);
 		happy_cat(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~happy_cat();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

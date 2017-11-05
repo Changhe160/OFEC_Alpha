@@ -15,15 +15,8 @@ namespace OFEC {
 
 			set_condition_number(3);
 			set_bias(-300);
-			m_translation.resize(m_variable_size);
-			bool is_load = load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
-			if (!is_load) {
-				std::vector<real> temp_var(m_variable_size);
-				for (size_t i = 0; i < m_variable_size; ++i)
-					temp_var[i] = m_original_optima.variable(0)[i];
-				set_translation(temp_var);
-				m_translation_flag = true;
-			}
+			
+			load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
 			load_rotation("instance/problem/continuous/global/CEC2005/data/");
 			m_optima.clear();
 			set_global_opt(m_translation.data());

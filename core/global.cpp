@@ -19,6 +19,7 @@ namespace OFEC {
 	factory<problem> global::ms_reg_problem;
 	factory<algorithm> global::ms_reg_algorithm;
 
+
 	global::global(double seed_pro, double seed_alg) {
 		
 		m_uniform.emplace(make_pair(caller::Problem, std::unique_ptr<uniform>(new uniform(seed_pro))));

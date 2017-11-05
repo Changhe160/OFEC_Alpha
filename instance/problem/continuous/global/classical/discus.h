@@ -22,7 +22,6 @@ namespace OFEC {
 	public:
 		discus(param_map &v);
 		discus(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~discus();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

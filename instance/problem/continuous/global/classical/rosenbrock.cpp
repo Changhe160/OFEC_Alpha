@@ -30,10 +30,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	rosenbrock::~rosenbrock() {
-		//dtor
-	}
-
 	void rosenbrock::initialize() {
 		std::vector<double> v(m_variable_size, 1);
 		set_original_global_opt(v.data());
@@ -42,7 +38,7 @@ namespace OFEC {
 		//m_objective_accuracy = 1.0e-5;
 	}
 
-	void rosenbrock::evaluate__(real *x, vector<real>& obj) {
+	void rosenbrock::evaluate__(real *x, std::vector<real>& obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)

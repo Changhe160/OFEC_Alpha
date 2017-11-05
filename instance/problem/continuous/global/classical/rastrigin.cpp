@@ -29,9 +29,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	rastrigin::~rastrigin() {
-		//dtor
-	}
 	void rastrigin::initialize() {
 		set_original_global_opt();
 

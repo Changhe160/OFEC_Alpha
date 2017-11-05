@@ -26,10 +26,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	happy_cat::~happy_cat() {
-		//dtor
-	}
-
 	void happy_cat::initialize() {
 
 		set_original_global_opt();

@@ -1,9 +1,11 @@
 #include "BBOB.h"
-
+#include <algorithm>
+#include "../../../../../utility/factory.h"
 namespace OFEC {
 
 	constexpr size_t NHIGHPEAKS21 = 101;
 	constexpr size_t NHIGHPEAKS22 = 21;
+
 	int compare_doubles(const void *a, const void *b)
 	{
 		double temp = (*(double*)a) - (*(double*)b);
@@ -200,7 +202,7 @@ namespace OFEC {
 
 			std::vector<double> fitvalues = { 1.1, 9.1 };
 			m_condition_number = 1000.;
-			std::vector<size_t> rperm(max(m_variable_size, NHIGHPEAKS21 - 1));
+			std::vector<size_t> rperm(std::max(m_variable_size, NHIGHPEAKS21 - 1));
 			std::vector<double> arrCondition(NHIGHPEAKS21);
 			std::vector<double> peaks(NHIGHPEAKS21 - 1);
 			computeRotation(m_rot, m_variable_size);
@@ -266,7 +268,7 @@ namespace OFEC {
 
 			std::vector<double> fitvalues = { 1.1, 9.1 };
 			m_condition_number = 1000.;
-			std::vector<size_t> rperm(max(m_variable_size, NHIGHPEAKS22 - 1));
+			std::vector<size_t> rperm(std::max(m_variable_size, NHIGHPEAKS22 - 1));
 			std::vector<double> arrCondition(NHIGHPEAKS22);
 			std::vector<double> peaks(NHIGHPEAKS22 - 1);
 
@@ -447,7 +449,7 @@ namespace OFEC {
 		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
 
-		vector<real> x_(x.begin(), x.end()); //for parallel running
+		std::vector<real> x_(x.begin(), x.end()); //for parallel running
 
 		(this->*m_fun)(x_.data(), obj);
 

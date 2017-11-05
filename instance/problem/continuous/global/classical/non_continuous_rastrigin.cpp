@@ -25,10 +25,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	non_continuous_rastrigin::~non_continuous_rastrigin() {
-		//dtor
-	}
-
 	void non_continuous_rastrigin::initialize() {
 		set_original_global_opt();
 		set_global_opt();

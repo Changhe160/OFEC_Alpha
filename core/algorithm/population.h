@@ -186,7 +186,7 @@ namespace OFEC {
 		//check equal case	
 		for (auto i = m_arc.begin(); i != m_arc.end(); i++) {
 			if (x.equal(**i) && !((*i)->same(x))) { //**i == x 
-				m_arc.push_back(unique_ptr<Individual::solution_type>(new Individual::solution_type(x)));
+				m_arc.push_back(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x)));
 				return true;
 			}
 		}
@@ -194,7 +194,7 @@ namespace OFEC {
 		for (auto i = m_arc.begin(); i != m_arc.end(); i++) {
 			if (!(*i)->nondominate(x)) return false;
 		}
-		m_arc.push_back(move(unique_ptr<Individual::solution_type>(new Individual::solution_type(x))));
+		m_arc.push_back(std::move(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x))));
 
 		return true;
 	}

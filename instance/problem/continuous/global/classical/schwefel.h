@@ -22,7 +22,6 @@ namespace OFEC {
 	public:
 		schwefel(param_map &v);
 		schwefel(const std::string &name, size_t size_var, size_t size_obj);
-		~schwefel();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

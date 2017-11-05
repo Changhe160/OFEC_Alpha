@@ -199,6 +199,12 @@ namespace OFEC {
 		value_type& operator[](size_t i){
 			return m_x[i];
 		}
+		value_type* data() noexcept {
+			return m_x.data();
+		}
+		const value_type* data() const noexcept {
+			return m_x.data();
+		}
 	protected:
 		std::vector<value_type> m_x;
 	};

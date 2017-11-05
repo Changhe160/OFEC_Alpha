@@ -22,7 +22,6 @@ namespace OFEC {
 	public:
 		ackley(param_map &v);
 		ackley(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~ackley();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

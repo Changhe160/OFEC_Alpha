@@ -146,7 +146,12 @@ namespace OFEC {
 
 	bool function::load_translation_(const std::string &path) {
 		std::ifstream in(path);
-		if (in.fail()) {
+		if (in.fail()) {			
+			set_translation(m_original_optima.variable(0).data());
+			std::ofstream out(path);
+			for (auto &i : m_translation)
+				out << i << " ";
+			out.close();
 			return false;
 		}
 		else {
@@ -158,7 +163,7 @@ namespace OFEC {
 		return true;
 	}
 
-	void function::set_translation(const std::vector<real>& opt_var) {
+	void function::set_translation(const real *opt_var) {
 		// Initial the location of shifted global optimum
 		
 		for (size_t j = 0; j<m_variable_size; ++j) {

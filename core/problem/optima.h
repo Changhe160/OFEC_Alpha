@@ -32,14 +32,14 @@ namespace OFEC {
 		optima() = default;
 
 		void append(const variable_encoding &x) {
-			m_var.push_back(std::make_pair(x,false));
+			m_var.push_back(std::make_pair(x, false));
 			++m_number_var;
 		}
 		void append(const std::vector<objective_type> &obj) {
 			m_obj.push_back(std::make_pair(obj, false));
 		}
 		void append(const objective_type obj) {
-			m_obj.push_back(std::make_pair(std::vector<objective_type>(1, obj),false));
+			m_obj.push_back(std::make_pair(std::vector<objective_type>(1, obj), false));
 		}
 		int number_variable() const {
 			return m_number_var;
@@ -70,10 +70,10 @@ namespace OFEC {
 		void resize_objective_set(size_t n) {
 			m_obj.resize(n);
 		}
-		const variable_encoding& variable(size_t i)const{
+		const variable_encoding& variable(size_t i)const {
 			return m_var[i].first;
 		}
-		variable_encoding& variable(size_t i){
+		variable_encoding& variable(size_t i) {
 			return m_var[i].first;
 		}
 		void set_variable(const variable_encoding &x, size_t i) {
@@ -83,13 +83,13 @@ namespace OFEC {
 			m_obj[i].first = obj;
 		}
 
-		objective_type single_objective(size_t i=0) const {
+		objective_type single_objective(size_t i = 0) const {
 			return m_obj[i].first[0];
 		}
-		const std::vector<objective_type>& multi_objective(size_t i = 0) const{
+		const std::vector<objective_type>& multi_objective(size_t i = 0) const {
 			return m_obj[i].first;
 		}
-		
+
 		double distance_to_optimal_obj(objective_type o)const {
 			return fabs(m_obj[0].first - o);
 		}
@@ -98,10 +98,10 @@ namespace OFEC {
 		double distance_to_optimal_obj(const std::vector<Solution> &pop)const {
 
 			double distance = 0;
-			for (auto &i:m_obj)	{
+			for (auto &i : m_obj) {
 				double min_d = std::numeric_limits<double>::max();
-				for (auto &j:pop){					
-					double d = euclidean_distance(j->m_obj.begin(),j->m_obj.end(),i.first.begin());
+				for (auto &j : pop) {
+					double d = euclidean_distance(j->m_obj.begin(), j->m_obj.end(), i.first.begin());
 					if (d<min_d)  min_d = d;
 				}
 				distance += min_d;
@@ -129,10 +129,10 @@ namespace OFEC {
 			for (auto &i : m_obj) {
 				if (i.second) continue;
 				double d = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), i.first.begin());
-				if (d <= epsilon){
+				if (d <= epsilon) {
 					i.second = true;
 					flag = true;
-				}					
+				}
 			}
 			return flag;
 		}
@@ -141,11 +141,11 @@ namespace OFEC {
 			bool flag = false;
 			for (auto &i : m_obj) {
 				if (i.second) continue;
-				double d= euclidean_distance(o.begin(), o.end(), i.first.begin());
+				double d = euclidean_distance(o.begin(), o.end(), i.first.begin());
 				if (d <= epsilon) {
 					i.second = true;
 					flag = true;
-				}					
+				}
 			}
 			return flag;
 		}
@@ -174,9 +174,9 @@ namespace OFEC {
 			m_number_var = 0;
 		}
 	private:
-		std::vector<std::pair<variable_encoding,bool>> m_var;
-		std::vector<std::pair<std::vector<objective_type>,bool>> m_obj;
-		int m_number_var=0;
+		std::vector<std::pair<variable_encoding, bool>> m_var;
+		std::vector<std::pair<std::vector<objective_type>, bool>> m_obj;
+		size_t m_number_var = 0;
 	};
 
 

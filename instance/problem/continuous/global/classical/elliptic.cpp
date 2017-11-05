@@ -30,10 +30,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	elliptic::~elliptic() {
-		//dtor
-	}
-
 	void elliptic::initialize() {
 
 		set_original_global_opt();

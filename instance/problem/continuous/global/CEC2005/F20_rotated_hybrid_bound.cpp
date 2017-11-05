@@ -33,16 +33,12 @@ namespace OFEC {
 
 		void F20_rotated_hybrid_bound::initialize() {
 			set_function();
-			bool is_load = load_rotation("instance/problem/continuous/global/CEC2005/data/");
-			if (!is_load) {
-				set_rotation();
-			}
+			load_rotation("instance/problem/continuous/global/CEC2005/data/");
+			
 			compute_fmax();
 
-			is_load = load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
-			if (!is_load) {
-				set_translation();
-			}
+			load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
+			
 			for (auto &i : m_function) {
 				i->get_optima().clear();
 				i->set_global_opt(i->translation().data());
@@ -118,18 +114,13 @@ namespace OFEC {
 			//set_bias(10.);
 		}
 		void F20_rotated_hybrid_bound::set_translation() {
-			for (size_t i = 0; i < m_num_function - 1; ++i) {
-				m_function[i]->translation().resize(m_variable_size);
-				for (size_t j = 0; j < m_variable_size; ++j) {
+			for (size_t i = 0; i < m_num_function - 1; ++i) 
+				for (size_t j = 0; j < m_variable_size; ++j) 
 					m_function[i]->translation()[j] = m_domain[j].limit.first + (m_domain[j].limit.second - m_domain[j].limit.first)*(1 - global::ms_global->m_uniform[caller::Problem]->next());
-				}
-				m_function[i]->set_tranlation_flag(true);
-			}
-			m_function[m_num_function - 1]->translation().resize(m_variable_size);
-			for (size_t j = 0; j < m_variable_size; ++j) {
+			
+			for (size_t j = 0; j < m_variable_size; ++j) 
 				m_function[m_num_function - 1]->translation()[j] = 0;
-			}
-			m_function[m_num_function - 1]->set_tranlation_flag(true);
+	
 		}
 	}
 	

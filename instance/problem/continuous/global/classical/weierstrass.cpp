@@ -29,11 +29,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	weierstrass::~weierstrass() {
-		//dtor
-	}
-
-
 	void weierstrass::initialize() {
 
 		set_original_global_opt();

@@ -26,10 +26,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	HGBat::~HGBat() {
-		//dtor
-	}
-
 	void HGBat::initialize() {
 
 		set_original_global_opt();

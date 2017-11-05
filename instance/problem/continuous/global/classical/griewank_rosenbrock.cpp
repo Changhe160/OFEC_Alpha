@@ -13,17 +13,13 @@ namespace OFEC {
 		initialize();
 	}
 
-	griewank_rosenbrock::~griewank_rosenbrock() {
-		//dtor
-	}
-
 	void griewank_rosenbrock::initialize() {
 
 		set_original_global_opt();
 
-		set_global_opt(m_translation.data());
+		set_global_opt();
 	}
-	void griewank_rosenbrock::evaluate__(real *x, vector<real>& obj) {
+	void griewank_rosenbrock::evaluate__(real *x, std::vector<real>& obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)

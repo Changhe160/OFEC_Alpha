@@ -34,10 +34,14 @@ BOOST_AUTO_TEST_CASE(test_case2)
 	i.initialize(0);
 	population<individual<>> p;
 
-	
 
 }
 
+BOOST_AUTO_TEST_CASE(test_case3)
+{
+
+
+}
 
 BOOST_AUTO_TEST_SUITE_END()
 

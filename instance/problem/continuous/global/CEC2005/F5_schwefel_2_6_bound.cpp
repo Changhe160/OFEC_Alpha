@@ -59,10 +59,7 @@ namespace OFEC {
 			std::ifstream in;
 			in.open(so.data());
 			if (in.fail()) {
-				std::vector<real> temp_var(m_variable_size);
-				for (size_t i = 0; i < m_variable_size; ++i)
-					temp_var[i] = m_original_optima.variable(0)[i];
-				set_translation(temp_var);
+				set_translation(m_original_optima.variable(0).data());
 				for (int i = 0; i < m_variable_size; ++i) {
 					if (i < m_variable_size / 4) m_translation[i] = -100;
 					else if (i >= m_variable_size * 3 / 4 - 1) m_translation[i] = 100;
@@ -93,7 +90,7 @@ namespace OFEC {
 			set_bias(-310);
 			set_global_opt(m_translation.data());
 		}
-		void F5_schwefel_2_6_bound::evaluate__(real *x, vector<real>& obj) {
+		void F5_schwefel_2_6_bound::evaluate__(real *x, std::vector<real>& obj) {
 
 			double fit = 0;
 			std::vector<real> temp_vector(m_variable_size);

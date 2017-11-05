@@ -2,7 +2,7 @@
 #include "../../utility/factory.h"
 
 namespace OFEC {
-	
+
 #ifdef OFEC_CONSOLE
 	thread_local std::map<int, std::pair<std::unique_ptr<base>, std::unique_ptr<base>>> problem::ms_minmax_objective; // the best and worst so far solutions of each objective 
 #endif
@@ -16,7 +16,7 @@ namespace OFEC {
 	}
 
 	void problem::copy(const problem * rhs) {
-	
+
 	}
 	void problem::resize_variable(size_t n) {
 		m_variable_size = n;

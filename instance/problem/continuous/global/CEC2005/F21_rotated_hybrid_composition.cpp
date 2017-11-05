@@ -81,19 +81,12 @@ namespace OFEC {
 		void F21_rotated_hybrid_composition::initialize() {
 			set_function();
 
-			bool is_load = load_rotation("instance/problem/continuous/global/CEC2005/data/");
-			if (!is_load) {
-				set_rotation();
-			}
-			for (auto &i : m_function) {
-				i->set_tranlation_flag(false);
-			}
+			load_rotation("instance/problem/continuous/global/CEC2005/data/");
+			
 			compute_fmax();
 
-			is_load = load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
-			if (!is_load) {
-				set_translation();
-			}
+			load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
+			
 			for (auto &i : m_function) {
 				i->get_optima().clear();
 				i->set_global_opt(i->translation().data());

@@ -21,7 +21,6 @@ namespace OFEC {
 	public:
 		sphere(param_map &v);
 		sphere(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~sphere();
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

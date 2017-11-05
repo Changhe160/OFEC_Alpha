@@ -27,9 +27,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	sphere_noisy::~sphere_noisy() {
-		//dtor
-	}
 	void sphere_noisy::initialize() {
 
 	}

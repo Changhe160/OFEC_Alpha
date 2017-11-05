@@ -29,10 +29,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	schwefel_1_2::~schwefel_1_2() {
-		//dtor
-	}
-
 	void schwefel_1_2::initialize() {
 
 		set_original_global_opt();

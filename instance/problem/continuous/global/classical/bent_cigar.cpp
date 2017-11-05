@@ -27,10 +27,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	bent_cigar::~bent_cigar() {
-		//dtor
-	}
-
 	void bent_cigar::initialize() {
 
 		set_original_global_opt();

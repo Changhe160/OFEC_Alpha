@@ -27,10 +27,6 @@ namespace OFEC {
 		initialize();
 	}
 
-	ackley::~ackley() {
-		//dtor
-	}
-
 	void ackley::initialize() {
 
 		set_original_global_opt();
