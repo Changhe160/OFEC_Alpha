@@ -34,7 +34,13 @@ namespace OFEC {
 		{
 			register_(const std::string& key, std::set<problem_tag>&& tag)
 			{
-				map_.emplace(key, make_pair([](param_map& par) { return new T(par); }, std::forward<std::set<problem_tag>>(tag)));
+				map_.emplace(
+					key, 
+					make_pair([](param_map& par) { 
+						return new T(par); 
+					}, 
+					std::forward<std::set<problem_tag>>(tag))
+				);
 			}
 		};
 
