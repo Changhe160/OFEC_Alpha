@@ -1,6 +1,6 @@
 #include "BBOB.h"
 #include <algorithm>
-#include "../../../../../utility/factory.h"
+
 namespace OFEC {
 
 	constexpr size_t NHIGHPEAKS21 = 101;
