@@ -150,7 +150,10 @@ namespace OFEC {
 		m_translation.resize(m_variable_size);
 		std::ifstream in(path);
 		if (in.fail()) {
-			set_translation();
+			if (m_original_optima.variable_given())
+				set_translation(m_original_optima.variable(0).data());
+			else
+				set_translation();
 			std::ofstream out(path);
 			for (auto &i : m_translation)
 				out << i << " ";
@@ -164,21 +167,13 @@ namespace OFEC {
 		m_translation_flag = true;
 	}
 
-	void function::set_translation() {
+	void function::set_translation(const real *opt_var) {
 		// Initial the location of shifted global optimum
-		std::vector<real> x(m_variable_size);
-		
-		if (m_original_optima.variable_given())
-			for (size_t i = 0; i < m_variable_size; ++i)
-				x[i] = m_original_optima.variable(0)[i];
-		else
-			for (auto &i : x)
-				i = 0;
-			
 		for (size_t j = 0; j<m_variable_size; ++j) {
-			real rl, ru, range;
-			ru = m_domain[j].limit.second - x[j];
-			rl = x[j] - m_domain[j].limit.first;
+			real x, rl, ru, range;
+			x = opt_var[j];
+			ru = m_domain[j].limit.second - x;
+			rl = x - m_domain[j].limit.first;
 			range = rl<ru ? rl : ru;
 			m_translation[j] = (global::ms_global->m_uniform[caller::Problem]->next() - 0.5) * 2 * range;
 		}

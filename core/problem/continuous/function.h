@@ -53,7 +53,7 @@ namespace OFEC {
 		virtual void initialize() {};
 		virtual bool load_translation(const std::string &path);
 		virtual void load_translation_(const std::string &path);
-		virtual void set_translation();
+		virtual void set_translation(const real *opt_var = 0);
 
 		virtual bool load_rotation(const std::string &path);
 		virtual void load_rotation_(const std::string &path);
