@@ -152,8 +152,10 @@ namespace OFEC {
 		if (in.fail()) {
 			if (m_original_optima.variable_given())
 				set_translation(m_original_optima.variable(0).data());
-			else
-				set_translation();
+			else {
+				std::vector<real> zero(m_variable_size, 0);
+				set_translation(zero.data());
+			}
 			std::ofstream out(path);
 			for (auto &i : m_translation)
 				out << i << " ";
@@ -171,8 +173,7 @@ namespace OFEC {
 		// Initial the location of shifted global optimum
 		for (size_t j = 0; j<m_variable_size; ++j) {
 			real x, rl, ru, range;
-			if (opt_var == 0) x = 0;
-			else x = opt_var[j];
+			x = opt_var[j];
 			ru = m_domain[j].limit.second - x;
 			rl = x - m_domain[j].limit.first;
 			range = rl<ru ? rl : ru;
