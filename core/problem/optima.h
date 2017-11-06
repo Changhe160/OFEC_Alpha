@@ -41,7 +41,7 @@ namespace OFEC {
 		void append(const objective_type obj) {
 			m_obj.push_back(std::make_pair(std::vector<objective_type>(1, obj), false));
 		}
-		int number_variable() const {
+		size_t number_variable() const {
 			return m_number_var;
 		}
 

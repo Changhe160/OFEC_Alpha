@@ -59,7 +59,7 @@ namespace OFEC {
 			std::ifstream in;
 			in.open(so.data());
 			if (in.fail()) {
-				set_translation();
+				set_translation(m_original_optima.variable(0).data());
 				for (int i = 0; i < m_variable_size; ++i) {
 					if (i < m_variable_size / 4) m_translation[i] = -100;
 					else if (i >= m_variable_size * 3 / 4 - 1) m_translation[i] = 100;

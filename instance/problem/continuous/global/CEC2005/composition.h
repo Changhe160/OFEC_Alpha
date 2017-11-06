@@ -26,7 +26,7 @@ namespace OFEC {
 			~composition();
 			size_t get_num_function();
 			function* get_function(size_t num);
-			virtual evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed); 
+			
 		protected:
 			virtual void initialize() = 0;
 			virtual void evaluate__(real *x, std::vector<real>& obj);

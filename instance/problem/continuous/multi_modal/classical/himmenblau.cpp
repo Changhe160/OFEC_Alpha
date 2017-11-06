@@ -36,7 +36,7 @@ namespace OFEC {
 		m_objective_accuracy = 0.5;
 		m_variable_accuracy = 1.e-4;
 
-		m_original_optima.set_number_variable(4); // 1 gopt+3 lopt
+		// 1 gopt+3 lopt
 		std::vector<std::vector<real>> var_data = { { 3.0, 2.0 },{ 3.58149, -1.8208 },{ 2.78706, 3.1282 },{ -3.76343, -3.26605 } };
 
 		for (auto &i : var_data) {

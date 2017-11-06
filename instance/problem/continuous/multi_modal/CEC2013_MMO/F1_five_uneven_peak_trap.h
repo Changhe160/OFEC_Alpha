@@ -1,8 +1,8 @@
 /*************************************************************************
 * Project:Open Frameworks for Evolutionary Computation (OFEC)
 *************************************************************************
-* Author: Changhe Li
-* Email: changhe.lw@gmail.com
+* Author: Changhe Li and Li Zhou
+* Email: changhe.lw@gmail.com, 441837060@qq.com
 * Language: C++
 *************************************************************************
 *  This file is part of OFEC. This library is free software;
@@ -15,24 +15,23 @@
 *******************************************************************************************/
 
 
-
-#ifndef OFEC_FIVE_UNEVEN_PEAK_TRAP_H
-#define OFEC_FIVE_UNEVEN_PEAK_TRAP_H
+#ifndef OFEC_F1_FIVE_UNEVEN_PEAK_TRAP_H
+#define OFEC_F1_FIVE_UNEVEN_PEAK_TRAP_H
 
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
-	
-	class five_uneven_peak_trap : public function
-	{
-	public:
-		five_uneven_peak_trap(param_map &v);
-		five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj);
-	protected:
-		void initialize();
-		void evaluate__(real *x, std::vector<real>& obj);
-	private:
-	};
-	
+	namespace CEC2013_MMO {
+		class F1_five_uneven_peak_trap final : public function
+		{
+		public:
+			F1_five_uneven_peak_trap(param_map &v);
+			F1_five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj);
+		protected:
+			void initialize();
+			void evaluate__(real *x, std::vector<real>& obj);
+		private:
+		};
+	}
 }
-#endif // !OFEC_FIVE_UNEVEN_PEAK_TRAP_H
+#endif // !OFEC_F1_FIVE_UNEVEN_PEAK_TRAP_H

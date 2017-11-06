@@ -25,11 +25,13 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1), m_k(2) {
 		v[param_numDim] = 2;
 		set_range(0.0, 1.); // note
+		v[param_proName] = "modified_rastrigin";
 		initialize();
 	}
 	modified_rastrigin::modified_rastrigin(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj), m_k(2) {
 		set_range(0.0, 1.0); // note
+		m_name = "modified_rastrigin";
 		initialize();
 	}
 
@@ -38,11 +40,10 @@ namespace OFEC {
 		m_objective_accuracy = 0.1;
 		m_variable_accuracy = 1.e-5;
 
-		m_original_optima.set_number_variable(12); //production of m_ki
 		std::ifstream in;
 		std::stringstream ss;
 		std::vector<std::vector<real>> var_data(12, std::vector<real>(m_variable_size));
-		ss << global::ms_arg[param_workingDir] << "instance/problem/continuous/global/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
+		ss << global::ms_arg[param_workingDir] << "instance/problem/continuous/multi_modal/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
 		in.open(ss.str());
 		if (in.fail()) {
 			throw myexcept("cannot open data file@modified_rastrigin::initialize()");
@@ -59,7 +60,7 @@ namespace OFEC {
 		}
 		m_optima = m_original_optima;
 		add_tag(problem_tag::MMP);
-		//setObjSet();
+		
 	}
 	void modified_rastrigin::evaluate__(real *x, std::vector<real>& obj) {
 		double s = 0;
