@@ -245,6 +245,7 @@ namespace  OFEC {
 	};
 
 	
+
 }
 
 #endif // !OFEC_SOLUTION_H

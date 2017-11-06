@@ -70,6 +70,18 @@
     <Filter Include="instance\problem\continuous\expensive\CEC2015">
       <UniqueIdentifier>{a9541f94-7a4c-4ed8-9362-9bf6952e9f00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="instance\problem\continuous\multi_objective">
+      <UniqueIdentifier>{7b48c95f-df53-46d1-b3a1-69a8d7c2c352}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\multi_objective\DTLZ">
+      <UniqueIdentifier>{596d1a73-b4b6-43bb-b40d-b0b0c5835222}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\multi_objective\ZDT">
+      <UniqueIdentifier>{3a3eb07e-9421-4d5c-84f3-e4798bd1dbe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\multi_objective\MOEA_F">
+      <UniqueIdentifier>{6b7c99f1-5d83-4ac2-954d-4e4de357c811}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\algorithm\encoding.h">
@@ -440,6 +452,69 @@
     </ClInclude>
     <ClInclude Include="instance\problem\continuous\expensive\CEC2015\hybrid.h">
       <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ.h">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ1.h">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ2.h">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ3.h">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ4.h">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F.h">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F1.h">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F2.h">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F3.h">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F4.h">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F5.h">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F6.h">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F7.h">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F8.h">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F9.h">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT.h">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT1.h">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT2.h">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT3.h">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT4.h">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT6.h">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

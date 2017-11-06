@@ -54,6 +54,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -386,6 +387,27 @@
     <ClInclude Include="instance\problem\continuous\global\classical\sphere_noisy.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\step.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\weierstrass.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ1.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ2.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ3.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ4.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F1.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F2.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F3.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F4.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F5.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F6.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F7.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F8.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F9.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT1.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT2.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT3.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT4.h" />
+    <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT6.h" />
     <ClInclude Include="utility\factory.h" />
     <ClInclude Include="utility\functional.h" />
     <ClInclude Include="utility\matrix.h" />
@@ -397,5 +419,6 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />
   </ImportGroup>
 </Project>
