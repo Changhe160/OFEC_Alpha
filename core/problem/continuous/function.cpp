@@ -171,7 +171,8 @@ namespace OFEC {
 		// Initial the location of shifted global optimum
 		for (size_t j = 0; j<m_variable_size; ++j) {
 			real x, rl, ru, range;
-			x = opt_var[j];
+			if (opt_var == 0) x = 0;
+			else x = opt_var[j];
 			ru = m_domain[j].limit.second - x;
 			rl = x - m_domain[j].limit.first;
 			range = rl<ru ? rl : ru;
