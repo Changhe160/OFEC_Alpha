@@ -39,7 +39,7 @@ namespace OFEC {
 		real condition_number();
 		real bias();
 		void set_condition_number(double c);
-		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
+		
 		optima<variable<real>, real>& get_original_optima();
 		void set_global_opt(real *tran = 0);
 		void set_original_global_opt(real *opt = 0);
@@ -58,8 +58,6 @@ namespace OFEC {
 		virtual bool load_rotation(const std::string &path);
 		virtual void load_rotation_(const std::string &path);
 		virtual void set_rotation();
-		virtual void evaluate__(real *x, std::vector<real>& obj) {}
-		virtual void evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {}
 
 		void resize_translation(size_t n);
 		void resize_rotation(size_t n);

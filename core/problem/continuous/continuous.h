@@ -44,6 +44,7 @@ namespace OFEC {
 
 		//virtual void constraint_value(const base &, std::pair<double, vector<double>>&) {}
 		bool is_optimal_given();
+		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
 	protected:
 		continuous& operator=(const continuous& rhs);
 		continuous& operator=(continuous&& rhs);
@@ -51,6 +52,9 @@ namespace OFEC {
 		void copy(const problem * rhs);
 		void resize_variable(size_t n);
 		void resize_objective(size_t n);
+
+		virtual void evaluate__(real *x, std::vector<real>& obj) {}
+		virtual void evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {}
 	protected:
 		double m_variable_accuracy = 1.0e-6;
 		domain<real> m_domain;
