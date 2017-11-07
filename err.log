@@ -2,18 +2,18 @@ Generating dependencies for instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp...
 Generating dependencies for instance/algorithm/MOEA/NSGAII/DG_NSGAII.cpp...
 Generating dependencies for instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.cpp...
 Generating dependencies for instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp...
-Generating dependencies for instance/problem/continuous/constrained/CEC2017/C10.cpp...
-Generating dependencies for instance/problem/continuous/constrained/CEC2017/C11.cpp...
-Generating dependencies for instance/problem/continuous/constrained/CEC2017/C12.cpp...
-Generating dependencies for instance/problem/continuous/constrained/CEC2017/C13.cpp...
+Generating dependencies for instance/problem/continuous/constrained/CEC2017/C14.cpp...
+Generating dependencies for instance/problem/continuous/constrained/CEC2017/C16.cpp...
+Generating dependencies for instance/problem/continuous/constrained/CEC2017/C15.cpp...
+Generating dependencies for instance/problem/continuous/constrained/CEC2017/C17.cpp...
 Compiling instance/algorithm/MOEA/NSGAII/DG_NSGAII.cpp...
-Compiling instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.cpp...
-Compiling instance/problem/continuous/constrained/CEC2017/C10.cpp...
-Compiling instance/problem/continuous/constrained/CEC2017/C13.cpp...
-Compiling instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp...
-Compiling instance/problem/continuous/constrained/CEC2017/C11.cpp...
-Compiling instance/problem/continuous/constrained/CEC2017/C12.cpp...
 Compiling instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp...
+Compiling instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.cpp...
+Compiling instance/problem/continuous/constrained/CEC2017/C14.cpp...
+Compiling instance/problem/continuous/constrained/CEC2017/C16.cpp...
+Compiling instance/problem/continuous/constrained/CEC2017/C15.cpp...
+Compiling instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp...
+Compiling instance/problem/continuous/constrained/CEC2017/C17.cpp...
 In file included from instance/algorithm/MOEA/NSGAII/DG_NSGAII.h:4:0,
                  from instance/algorithm/MOEA/NSGAII/DG_NSGAII.cpp:1:
 instance/algorithm/MOEA/NSGAII/NSGAII.h:247:8: warning: extra tokens at end of #endif directive [-Wendif-labels]
@@ -23,6 +23,11 @@ In file included from instance/algorithm/MOEA/NSGAII/DG_NSGAII.h:6:0,
                  from instance/algorithm/MOEA/NSGAII/DG_NSGAII.cpp:1:
 instance/algorithm/MOEA/NSGAII/../../../../utility/nondominated_sorting/DominanceGraphSort.h:8:35: fatal error: ../../core/definition.h: No such file or directory
 compilation terminated.
+In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAII.h:247:8: warning: extra tokens at end of #endif directive [-Wendif-labels]
+ #endif NSGAII_H
+        ^
 makefile:54: recipe for target 'obj/instance/algorithm/MOEA/NSGAII/DG_NSGAII.o' failed
 make: *** [obj/instance/algorithm/MOEA/NSGAII/DG_NSGAII.o] Error 1
 make: *** Waiting for unfinished jobs....
@@ -31,15 +36,10 @@ In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
 instance/algorithm/MOEA/NSGAII/NSGAII.h:247:8: warning: extra tokens at end of #endif directive [-Wendif-labels]
  #endif NSGAII_H
         ^
-In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAII.h:247:8: warning: extra tokens at end of #endif directive [-Wendif-labels]
- #endif NSGAII_H
-        ^
 In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:22:0,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C10.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C10.cpp:1:
+                 from instance/problem/continuous/constrained/CEC2017/C14.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C14.cpp:1:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h: In constructor ‘OFEC::problem::problem(const string&, size_t, size_t)’:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h:166:28: warning: ‘OFEC::problem::m_variable_size’ will be initialized after [-Wreorder]
    size_t m_objective_size, m_variable_size;
@@ -49,8 +49,8 @@ instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/cont
           ^
 In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:22:0,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C10.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C10.cpp:1:
+                 from instance/problem/continuous/constrained/CEC2017/C14.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C14.cpp:1:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h:35:3: warning:   when initialized here [-Wreorder]
    problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var),
    ^
@@ -74,8 +74,8 @@ instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:3
    ^
 In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:22:0,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C12.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C12.cpp:1:
+                 from instance/problem/continuous/constrained/CEC2017/C16.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C16.cpp:1:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h: In constructor ‘OFEC::problem::problem(const string&, size_t, size_t)’:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h:166:28: warning: ‘OFEC::problem::m_variable_size’ will be initialized after [-Wreorder]
    size_t m_objective_size, m_variable_size;
@@ -85,15 +85,15 @@ instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/cont
           ^
 In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:22:0,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C12.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C12.cpp:1:
+                 from instance/problem/continuous/constrained/CEC2017/C16.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C16.cpp:1:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h:35:3: warning:   when initialized here [-Wreorder]
    problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var),
    ^
 In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:22:0,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C13.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C13.cpp:1:
+                 from instance/problem/continuous/constrained/CEC2017/C17.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C17.cpp:1:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h: In constructor ‘OFEC::problem::problem(const string&, size_t, size_t)’:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h:166:28: warning: ‘OFEC::problem::m_variable_size’ will be initialized after [-Wreorder]
    size_t m_objective_size, m_variable_size;
@@ -103,15 +103,15 @@ instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/cont
           ^
 In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:22:0,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C13.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C13.cpp:1:
+                 from instance/problem/continuous/constrained/CEC2017/C17.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C17.cpp:1:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h:35:3: warning:   when initialized here [-Wreorder]
    problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var),
    ^
 In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:22:0,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C11.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C11.cpp:1:
+                 from instance/problem/continuous/constrained/CEC2017/C15.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C15.cpp:1:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h: In constructor ‘OFEC::problem::problem(const string&, size_t, size_t)’:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h:166:28: warning: ‘OFEC::problem::m_variable_size’ will be initialized after [-Wreorder]
    size_t m_objective_size, m_variable_size;
@@ -121,11 +121,169 @@ instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/cont
           ^
 In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:22:0,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C11.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C11.cpp:1:
+                 from instance/problem/continuous/constrained/CEC2017/C15.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C15.cpp:1:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../problem.h:35:3: warning:   when initialized here [-Wreorder]
    problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var),
    ^
+In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/algorithm.h:23:0,
+                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:4,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h: In constructor ‘OFEC::term_max_evals::term_max_evals(int)’:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h:84:3: warning: ‘OFEC::term_max_evals::m_max_evals’ is initialized with itself [-Winit-self]
+   term_max_evals(int evlas) :m_max_evals(m_max_evals) { }
+   ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h: In constructor ‘OFEC::term_mean_remain::term_mean_remain(int, double, double)’:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h:110:49: warning: ‘OFEC::term_mean_remain::m_epsilon’ will be initialized after [-Wreorder]
+   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
+                                                 ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h:110:21: warning:   ‘double OFEC::term_mean_remain::m_previous’ [-Wreorder]
+   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
+                     ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h:119:3: warning:   when initialized here [-Wreorder]
+   term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
+   ^
+In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../global.h:26:0,
+                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:28,
+                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:24,
+                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:5,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h: In constructor ‘OFEC::problem::problem(const string&, size_t, size_t)’:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:166:28: warning: ‘OFEC::problem::m_variable_size’ will be initialized after [-Wreorder]
+   size_t m_objective_size, m_variable_size;
+                            ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:166:10: warning:   ‘size_t OFEC::problem::m_objective_size’ [-Wreorder]
+   size_t m_objective_size, m_variable_size;
+          ^
+In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../global.h:26:0,
+                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:28,
+                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:24,
+                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:5,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:35:3: warning:   when initialized here [-Wreorder]
+   problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var),
+   ^
+In file included from instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:4:0,
+                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:7,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h: In member function ‘const std::vector<int>& OFEC::population<Individual>::order(int) const’:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:39:18: error: no match for ‘operator[]’ (operand types are ‘const std::multimap<int, int>’ and ‘int’)
+    return m_order[idx];
+                  ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h: In member function ‘virtual bool OFEC::population<Individual>::update_archive(const typename Individual::solution_type&)’:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:189:62: error: to refer to a type member of a template parameter, use ‘typename Individual:: solution_type’ [-fpermissive]
+     m_arc.push_back(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x)));
+                                                              ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:189:63: error: expected primary-expression before ‘(’ token
+     m_arc.push_back(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x)));
+                                                               ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:189:68: error: expected type-specifier
+     m_arc.push_back(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x)));
+                                                                    ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:197:70: error: to refer to a type member of a template parameter, use ‘typename Individual:: solution_type’ [-fpermissive]
+   m_arc.push_back(std::move(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x))));
+                                                                      ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:197:71: error: expected primary-expression before ‘(’ token
+   m_arc.push_back(std::move(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x))));
+                                                                       ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:197:76: error: expected type-specifier
+   m_arc.push_back(std::move(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x))));
+                                                                            ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h: In member function ‘void OFEC::population<Individual>::sort()’:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:15: error: ‘vector’ was not declared in this scope
+   std::vector<vector<typename Individual::solution_type::objective_type> * > obj;
+               ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:15: note: suggested alternative:
+In file included from /usr/include/c++/5/vector:64:0,
+                 from /usr/include/c++/5/bits/random.h:34,
+                 from /usr/include/c++/5/random:49,
+                 from /usr/include/c++/5/bits/stl_algo.h:66,
+                 from /usr/include/c++/5/algorithm:62,
+                 from /usr/local/include/boost/move/algorithm.hpp:31,
+                 from /usr/local/include/boost/move/move.hpp:32,
+                 from /usr/local/include/boost/variant/detail/move.hpp:28,
+                 from /usr/local/include/boost/variant/detail/initializer.hpp:23,
+                 from /usr/local/include/boost/variant/variant.hpp:30,
+                 from /usr/local/include/boost/variant.hpp:17,
+                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/typevar/typevar.h:25,
+                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h:24,
+                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/algorithm.h:23,
+                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:4,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+/usr/include/c++/5/bits/stl_vector.h:214:11: note:   ‘std::vector’
+     class vector : protected _Vector_base<_Tp, _Alloc>
+           ^
+In file included from instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:4:0,
+                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:7,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:72: error: template argument 1 is invalid
+   std::vector<vector<typename Individual::solution_type::objective_type> * > obj;
+                                                                        ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:72: error: template argument 2 is invalid
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:76: error: expected unqualified-id before ‘>’ token
+   std::vector<vector<typename Individual::solution_type::objective_type> * > obj;
+                                                                            ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:76: error: expected initializer before ‘>’ token
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:250:7: error: ‘obj’ was not declared in this scope
+   fun(obj,rank)
+       ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:252:2: error: expected ‘;’ before ‘}’ token
+  }
+  ^
+In file included from instance/algorithm/MOEA/NSGAII/NSGAII.h:7:0,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h: In constructor ‘OFEC::NSGAIIpopulation<Individual>::NSGAIIpopulation(int)’:
+instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:109:35: error: class ‘OFEC::NSGAIIpopulation<Individual>’ does not have any field named ‘population’
+   NSGAIIpopulation(int popsize) : population(popsize, global::ms_global->m_problem->variable_size()), m_cr(1.0), m_ceta(30), m_meta(20){
+                                   ^
+instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h: In constructor ‘OFEC::NSGAIIpopulation<Individual>::NSGAIIpopulation()’:
+instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:113:24: error: class ‘OFEC::NSGAIIpopulation<Individual>’ does not have any field named ‘population’
+   NSGAIIpopulation() : population(), m_cr(1.0), m_ceta(30), m_meta(20) {
+                        ^
+instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h: In member function ‘void OFEC::NSGAIIpopulation<Individual>::cross_mutate(const std::vector<int>&, Individual*, Individual*)’:
+instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:119:46: error: ‘m_pop’ was not declared in this scope
+    SimulatedBinaryCrossover(child1, child2, *m_pop[index[0]], *m_pop[index[1]], m_cr, m_ceta);
+                                              ^
+In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/algorithm.h:23:0,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../global.h:27,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/solution.h:28,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../optima.h:21,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:23,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
+                 from instance/problem/continuous/constrained/CEC2017/C14.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C14.cpp:1:
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_max_evals::term_max_evals(int)’:
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:84:3: warning: ‘OFEC::term_max_evals::m_max_evals’ is initialized with itself [-Winit-self]
+   term_max_evals(int evlas) :m_max_evals(m_max_evals) { }
+   ^
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_mean_remain::term_mean_remain(int, double, double)’:
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:49: warning: ‘OFEC::term_mean_remain::m_epsilon’ will be initialized after [-Wreorder]
+   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
+                                                 ^
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:21: warning:   ‘double OFEC::term_mean_remain::m_previous’ [-Wreorder]
+   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
+                     ^
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:119:3: warning:   when initialized here [-Wreorder]
+   term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
+   ^
+In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAII.h: At global scope:
+instance/algorithm/MOEA/NSGAII/NSGAII.h:27:81: error: operands to ?: have different types ‘double’ and ‘std::map<OFEC::parameter, OFEC::typevar>::mapped_type {aka OFEC::typevar}’
+   double m_GAratio = global::ms_arg.find(param_GAratio) == global::ms_arg.end() ? 1.0 : global::ms_arg[param_GAratio];
+                                                                                 ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:27:81: note:   and each type can be converted to the other
+instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp: In member function ‘virtual void OFEC::CS_NSGAII::sort()’:
+instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:10:25: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (size_t j = 0; j < obj_num; ++j)
+                         ^
 In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../algorithm/algorithm.h:23:0,
                  from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../global.h:27,
                  from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:23,
@@ -145,28 +303,28 @@ instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../algorithm/terminati
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../algorithm/termination.h:119:3: warning:   when initialized here [-Wreorder]
    term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
    ^
-In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/algorithm.h:23:0,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../global.h:27,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/solution.h:28,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../optima.h:21,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C10.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C10.cpp:1:
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_max_evals::term_max_evals(int)’:
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:84:3: warning: ‘OFEC::term_max_evals::m_max_evals’ is initialized with itself [-Winit-self]
-   term_max_evals(int evlas) :m_max_evals(m_max_evals) { }
-   ^
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_mean_remain::term_mean_remain(int, double, double)’:
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:49: warning: ‘OFEC::term_mean_remain::m_epsilon’ will be initialized after [-Wreorder]
-   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
-                                                 ^
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:21: warning:   ‘double OFEC::term_mean_remain::m_previous’ [-Wreorder]
-   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
-                     ^
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:119:3: warning:   when initialized here [-Wreorder]
-   term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
-   ^
+In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAII.h: In instantiation of ‘OFEC::NSGAII<Individual>::NSGAII(OFEC::param_map&) [with Individual = OFEC::individual<>; OFEC::param_map = std::map<OFEC::parameter, OFEC::typevar>]’:
+instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:10:37:   required from here
+instance/algorithm/MOEA/NSGAII/NSGAII.h:28:42: warning: ‘OFEC::NSGAII<>::m_offspring’ will be initialized after [-Wreorder]
+   NSGAIIpopulation<Individual> m_parent, m_offspring;
+                                          ^
+In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAII.h:35:186: warning:   base ‘OFEC::algorithm’ [-Wreorder]
+  NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_objcomp(0), m_numrank(0) {
+                                                                                                                                                                                          ^
+In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAII.h:35:2: warning:   when initialized here [-Wreorder]
+  NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_objcomp(0), m_numrank(0) {
+  ^
+In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAII.h:36:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   for (size_t i = 0; i < m_parent.size(); i++) {
+                        ^
 In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/algorithm.h:23:0,
                  from instance/algorithm/MOEA/NSGAII/NSGAII.h:4,
                  from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3,
@@ -210,14 +368,6 @@ instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:197:71: e
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:197:76: error: expected type-specifier
    m_arc.push_back(std::move(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x))));
                                                                             ^
-In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/algorithm.h:23:0,
-                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:4,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h: In constructor ‘OFEC::term_max_evals::term_max_evals(int)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h:84:3: warning: ‘OFEC::term_max_evals::m_max_evals’ is initialized with itself [-Winit-self]
-   term_max_evals(int evlas) :m_max_evals(m_max_evals) { }
-   ^
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h: In member function ‘void OFEC::population<Individual>::sort()’:
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:15: error: ‘vector’ was not declared in this scope
    std::vector<vector<typename Individual::solution_type::objective_type> * > obj;
@@ -249,14 +399,26 @@ instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:250:7: er
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:252:2: error: expected ‘;’ before ‘}’ token
   }
   ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h: In constructor ‘OFEC::term_mean_remain::term_mean_remain(int, double, double)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h:110:49: warning: ‘OFEC::term_mean_remain::m_epsilon’ will be initialized after [-Wreorder]
+In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/algorithm.h:23:0,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../global.h:27,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/solution.h:28,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../optima.h:21,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:23,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
+                 from instance/problem/continuous/constrained/CEC2017/C16.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C16.cpp:1:
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_max_evals::term_max_evals(int)’:
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:84:3: warning: ‘OFEC::term_max_evals::m_max_evals’ is initialized with itself [-Winit-self]
+   term_max_evals(int evlas) :m_max_evals(m_max_evals) { }
+   ^
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_mean_remain::term_mean_remain(int, double, double)’:
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:49: warning: ‘OFEC::term_mean_remain::m_epsilon’ will be initialized after [-Wreorder]
    double m_previous=0, m_current=0, m_epsilon = 1.E-2;
                                                  ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h:110:21: warning:   ‘double OFEC::term_mean_remain::m_previous’ [-Wreorder]
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:21: warning:   ‘double OFEC::term_mean_remain::m_previous’ [-Wreorder]
    double m_previous=0, m_current=0, m_epsilon = 1.E-2;
                      ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h:119:3: warning:   when initialized here [-Wreorder]
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:119:3: warning:   when initialized here [-Wreorder]
    term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
    ^
 In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../global.h:26:0,
@@ -300,42 +462,22 @@ In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/
                  from instance/algorithm/MOEA/NSGAII/NSGAII.h:5,
                  from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
                  from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h: In constructor ‘OFEC::problem::problem(const string&, size_t, size_t)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:166:28: warning: ‘OFEC::problem::m_variable_size’ will be initialized after [-Wreorder]
-   size_t m_objective_size, m_variable_size;
-                            ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:166:10: warning:   ‘size_t OFEC::problem::m_objective_size’ [-Wreorder]
-   size_t m_objective_size, m_variable_size;
-          ^
-In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../global.h:26:0,
-                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:28,
-                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:24,
-                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:5,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:35:3: warning:   when initialized here [-Wreorder]
-   problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var),
-   ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h: In instantiation of ‘static void OFEC::problem::update_objective_minmax(const Solution&, std::vector<OFEC::optimization_mode>&) [with Solution = OFEC::solution<OFEC::variable<double>, double>]’:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:58:28:   required from ‘OFEC::evaluation_tag OFEC::problem::evaluate(Solution&, OFEC::caller, bool) [with Solution = OFEC::solution<OFEC::variable<double>, double>]’
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:126:91:   required from ‘OFEC::evaluation_tag OFEC::solution<VariableEncoding, ObjetiveType>::evaluate(bool) [with VariableEncoding = OFEC::variable<double>; ObjetiveType = double]’
+instance/algorithm/MOEA/NSGAII/NSGAII.h:37:4:   required from ‘OFEC::NSGAII<Individual>::NSGAII(OFEC::param_map&) [with Individual = OFEC::individual<>; OFEC::param_map = std::map<OFEC::parameter, OFEC::typevar>]’
+instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:10:37:   required from here
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:94:23: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+     for (int i = 0; i < s.objective_size(); ++i) {
+                       ^
 In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/algorithm.h:23:0,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../global.h:27,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/solution.h:28,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../optima.h:21,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:23,
                  from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C12.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C12.cpp:1:
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_max_evals::term_max_evals(int)’:
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:84:3: warning: ‘OFEC::term_max_evals::m_max_evals’ is initialized with itself [-Winit-self]
-   term_max_evals(int evlas) :m_max_evals(m_max_evals) { }
-   ^
-In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/algorithm.h:23:0,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../global.h:27,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/solution.h:28,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../optima.h:21,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C13.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C13.cpp:1:
+                 from instance/problem/continuous/constrained/CEC2017/C17.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C17.cpp:1:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_max_evals::term_max_evals(int)’:
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:84:3: warning: ‘OFEC::term_max_evals::m_max_evals’ is initialized with itself [-Winit-self]
    term_max_evals(int evlas) :m_max_evals(m_max_evals) { }
@@ -350,42 +492,6 @@ instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/cont
 instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:119:3: warning:   when initialized here [-Wreorder]
    term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
    ^
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_mean_remain::term_mean_remain(int, double, double)’:
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:49: warning: ‘OFEC::term_mean_remain::m_epsilon’ will be initialized after [-Wreorder]
-   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
-                                                 ^
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:21: warning:   ‘double OFEC::term_mean_remain::m_previous’ [-Wreorder]
-   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
-                     ^
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:119:3: warning:   when initialized here [-Wreorder]
-   term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
-   ^
-In file included from instance/algorithm/MOEA/NSGAII/NSGAII.h:5:0,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h: In member function ‘virtual void OFEC::individual<VariableEncoding, ObjetiveType>::initialize(int)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:43:5: error: ‘template<class VariableEncoding, class ObjetiveType> class OFEC::solution’ used without template parameters
-     solution::initialize();
-     ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h: In copy constructor ‘OFEC::individual<VariableEncoding, ObjetiveType>::individual(const OFEC::individual<VariableEncoding, ObjetiveType>&)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:84:39: error: class ‘OFEC::individual<VariableEncoding, ObjetiveType>’ does not have any field named ‘solution’
-    individual(const individual& rhs) :solution(rhs), m_fitness(rhs.m_fitness), m_id(rhs.m_id), m_ranking(rhs.m_ranking),
-                                       ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h: In constructor ‘OFEC::individual<VariableEncoding, ObjetiveType>::individual(OFEC::individual<VariableEncoding, ObjetiveType>&&)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:88:34: error: class ‘OFEC::individual<VariableEncoding, ObjetiveType>’ does not have any field named ‘solution’
-    individual(individual&& rhs) :solution(std::move(rhs)), m_fitness(std::move(rhs.m_fitness)), m_id(std::move(rhs.m_id)),
-                                  ^
-In file included from instance/algorithm/MOEA/NSGAII/NSGAII.h:5:0,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h: In member function ‘OFEC::individual<VariableEncoding, ObjetiveType>& OFEC::individual<VariableEncoding, ObjetiveType>::operator=(const OFEC::individual<VariableEncoding, ObjetiveType>&)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:94:5: error: ‘template<class VariableEncoding, class ObjetiveType> class OFEC::solution’ used without template parameters
-     solution::operator=(rhs);
-     ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h: In member function ‘OFEC::individual<VariableEncoding, ObjetiveType>& OFEC::individual<VariableEncoding, ObjetiveType>::operator=(OFEC::individual<VariableEncoding, ObjetiveType>&&)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:105:5: error: ‘template<class VariableEncoding, class ObjetiveType> class OFEC::solution’ used without template parameters
-     solution::operator=(std::move(rhs));
-     ^
 In file included from instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:4:0,
                  from instance/algorithm/MOEA/NSGAII/NSGAII.h:7,
                  from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3,
@@ -456,6 +562,28 @@ instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:250:7: er
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:252:2: error: expected ‘;’ before ‘}’ token
   }
   ^
+In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/algorithm.h:23:0,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../global.h:27,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/solution.h:28,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../optima.h:21,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:23,
+                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
+                 from instance/problem/continuous/constrained/CEC2017/C15.h:18,
+                 from instance/problem/continuous/constrained/CEC2017/C15.cpp:1:
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_max_evals::term_max_evals(int)’:
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:84:3: warning: ‘OFEC::term_max_evals::m_max_evals’ is initialized with itself [-Winit-self]
+   term_max_evals(int evlas) :m_max_evals(m_max_evals) { }
+   ^
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_mean_remain::term_mean_remain(int, double, double)’:
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:49: warning: ‘OFEC::term_mean_remain::m_epsilon’ will be initialized after [-Wreorder]
+   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
+                                                 ^
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:21: warning:   ‘double OFEC::term_mean_remain::m_previous’ [-Wreorder]
+   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
+                     ^
+instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:119:3: warning:   when initialized here [-Wreorder]
+   term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
+   ^
 In file included from instance/algorithm/MOEA/NSGAII/NSGAII.h:7:0,
                  from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3,
                  from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
@@ -471,6 +599,19 @@ instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h: In member function ‘void OF
 instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:119:46: error: ‘m_pop’ was not declared in this scope
     SimulatedBinaryCrossover(child1, child2, *m_pop[index[0]], *m_pop[index[1]], m_cr, m_ceta);
                                               ^
+In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
+                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAII.h: In instantiation of ‘void OFEC::NSGAII<Individual>::sort() [with Individual = OFEC::individual<>]’:
+instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:19:1:   required from here
+instance/algorithm/MOEA/NSGAII/NSGAII.h:75:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   for (size_t i = 0; i < pop_size; i++)
+                        ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:81:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   for (size_t k = 0; k < pop_size; k++, ++i) {
+                        ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:82:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (size_t j = 0; j<pop_size; j++) {
+                        ^
 In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
                  from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
 instance/algorithm/MOEA/NSGAII/NSGAII.h: At global scope:
@@ -478,306 +619,119 @@ instance/algorithm/MOEA/NSGAII/NSGAII.h:27:81: error: operands to ?: have differ
    double m_GAratio = global::ms_arg.find(param_GAratio) == global::ms_arg.end() ? 1.0 : global::ms_arg[param_GAratio];
                                                                                  ^
 instance/algorithm/MOEA/NSGAII/NSGAII.h:27:81: note:   and each type can be converted to the other
-In file included from instance/algorithm/MOEA/NSGAII/NSGAII.h:5:0,
+instance/algorithm/MOEA/NSGAII/NSGAII.h:101:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (size_t k = 0; k<pop_size; k++)
+                        ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:104:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (size_t k = 0; k<pop_size; k++, ++i)
+                        ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:109:26: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+      for (size_t j = 0; j<count[k]; j++)
+                          ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:119:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (size_t k = 0; k<pop_size; k++)
+                        ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h: In instantiation of ‘void OFEC::NSGAII<Individual>::eval_dens() [with Individual = OFEC::individual<>]’:
+instance/algorithm/MOEA/NSGAII/NSGAII.h:56:13:   required from ‘OFEC::evaluation_tag OFEC::NSGAII<Individual>::run_() [with Individual = OFEC::individual<>]’
+instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:19:1:   required from here
+instance/algorithm/MOEA/NSGAII/NSGAII.h:136:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (size_t i = 0; i<size; i++)
+                        ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:145:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (size_t i = 0; i<size; i++)
+                        ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:159:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (size_t i = 0; i<size; i++)
+                        ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:168:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (size_t i = 0; i<s2; i++) {
+                        ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:173:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (size_t j = 0; j<numobj; j++) {
+                        ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:174:25: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+     for (size_t i = 0; i<s2; i++) {
+                         ^
+instance/algorithm/MOEA/NSGAII/NSGAII.h:192:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (size_t i = 0; i<s3; i++)
+                        ^
+In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/encoding.h:28:0,
+                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:26,
+                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:24,
+                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:5,
                  from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
                  from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h: In member function ‘virtual void OFEC::individual<VariableEncoding, ObjetiveType>::initialize(int)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:43:5: error: ‘template<class VariableEncoding, class ObjetiveType> class OFEC::solution’ used without template parameters
-     solution::initialize();
-     ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h: In copy constructor ‘OFEC::individual<VariableEncoding, ObjetiveType>::individual(const OFEC::individual<VariableEncoding, ObjetiveType>&)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:84:39: error: class ‘OFEC::individual<VariableEncoding, ObjetiveType>’ does not have any field named ‘solution’
-    individual(const individual& rhs) :solution(rhs), m_fitness(rhs.m_fitness), m_id(rhs.m_id), m_ranking(rhs.m_ranking),
-                                       ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h: In constructor ‘OFEC::individual<VariableEncoding, ObjetiveType>::individual(OFEC::individual<VariableEncoding, ObjetiveType>&&)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:88:34: error: class ‘OFEC::individual<VariableEncoding, ObjetiveType>’ does not have any field named ‘solution’
-    individual(individual&& rhs) :solution(std::move(rhs)), m_fitness(std::move(rhs.m_fitness)), m_id(std::move(rhs.m_id)),
-                                  ^
-In file included from instance/algorithm/MOEA/NSGAII/NSGAII.h:5:0,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h: In member function ‘OFEC::individual<VariableEncoding, ObjetiveType>& OFEC::individual<VariableEncoding, ObjetiveType>::operator=(const OFEC::individual<VariableEncoding, ObjetiveType>&)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:94:5: error: ‘template<class VariableEncoding, class ObjetiveType> class OFEC::solution’ used without template parameters
-     solution::operator=(rhs);
-     ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h: In member function ‘OFEC::individual<VariableEncoding, ObjetiveType>& OFEC::individual<VariableEncoding, ObjetiveType>::operator=(OFEC::individual<VariableEncoding, ObjetiveType>&&)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:105:5: error: ‘template<class VariableEncoding, class ObjetiveType> class OFEC::solution’ used without template parameters
-     solution::operator=(std::move(rhs));
-     ^
-In file included from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/algorithm.h:23:0,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../global.h:27,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/solution.h:28,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../optima.h:21,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/continuous.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/function.h:23,
-                 from instance/problem/continuous/constrained/CEC2017/C11.h:18,
-                 from instance/problem/continuous/constrained/CEC2017/C11.cpp:1:
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_max_evals::term_max_evals(int)’:
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:84:3: warning: ‘OFEC::term_max_evals::m_max_evals’ is initialized with itself [-Winit-self]
-   term_max_evals(int evlas) :m_max_evals(m_max_evals) { }
-   ^
-In file included from instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:4:0,
-                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:7,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h: In member function ‘const std::vector<int>& OFEC::population<Individual>::order(int) const’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:39:18: error: no match for ‘operator[]’ (operand types are ‘const std::multimap<int, int>’ and ‘int’)
-    return m_order[idx];
-                  ^
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h: In constructor ‘OFEC::term_mean_remain::term_mean_remain(int, double, double)’:
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:49: warning: ‘OFEC::term_mean_remain::m_epsilon’ will be initialized after [-Wreorder]
-   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
-                                                 ^
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:110:21: warning:   ‘double OFEC::term_mean_remain::m_previous’ [-Wreorder]
-   double m_previous=0, m_current=0, m_epsilon = 1.E-2;
-                     ^
-instance/problem/continuous/constrained/CEC2017/../../../../../core/problem/continuous/../../algorithm/../algorithm/termination.h:119:3: warning:   when initialized here [-Wreorder]
-   term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
-   ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h: In member function ‘virtual bool OFEC::population<Individual>::update_archive(const typename Individual::solution_type&)’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:189:62: error: to refer to a type member of a template parameter, use ‘typename Individual:: solution_type’ [-fpermissive]
-     m_arc.push_back(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x)));
-                                                              ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:189:63: error: expected primary-expression before ‘(’ token
-     m_arc.push_back(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x)));
-                                                               ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:189:68: error: expected type-specifier
-     m_arc.push_back(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x)));
-                                                                    ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:197:70: error: to refer to a type member of a template parameter, use ‘typename Individual:: solution_type’ [-fpermissive]
-   m_arc.push_back(std::move(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x))));
-                                                                      ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:197:71: error: expected primary-expression before ‘(’ token
-   m_arc.push_back(std::move(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x))));
-                                                                       ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:197:76: error: expected type-specifier
-   m_arc.push_back(std::move(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x))));
-                                                                            ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h: In member function ‘void OFEC::population<Individual>::sort()’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:15: error: ‘vector’ was not declared in this scope
-   std::vector<vector<typename Individual::solution_type::objective_type> * > obj;
-               ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:15: note: suggested alternative:
-In file included from /usr/include/c++/5/vector:64:0,
-                 from /usr/include/c++/5/bits/random.h:34,
-                 from /usr/include/c++/5/random:49,
-                 from /usr/include/c++/5/bits/stl_algo.h:66,
-                 from /usr/include/c++/5/algorithm:62,
-                 from /usr/local/include/boost/move/algorithm.hpp:31,
-                 from /usr/local/include/boost/move/move.hpp:32,
-                 from /usr/local/include/boost/variant/detail/move.hpp:28,
-                 from /usr/local/include/boost/variant/detail/initializer.hpp:23,
-                 from /usr/local/include/boost/variant/variant.hpp:30,
-                 from /usr/local/include/boost/variant.hpp:17,
-                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/typevar/typevar.h:25,
-                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/termination.h:24,
-                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/algorithm.h:23,
-                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:4,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-/usr/include/c++/5/bits/stl_vector.h:214:11: note:   ‘std::vector’
-     class vector : protected _Vector_base<_Tp, _Alloc>
-           ^
-In file included from instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:4:0,
-                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:7,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:72: error: template argument 1 is invalid
-   std::vector<vector<typename Individual::solution_type::objective_type> * > obj;
-                                                                        ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:72: error: template argument 2 is invalid
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:76: error: expected unqualified-id before ‘>’ token
-   std::vector<vector<typename Individual::solution_type::objective_type> * > obj;
-                                                                            ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:247:76: error: expected initializer before ‘>’ token
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:250:7: error: ‘obj’ was not declared in this scope
-   fun(obj,rank)
-       ^
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h: In instantiation of ‘std::pair<OFEC::dominationship, int> OFEC::objective_compare(const std::vector<_RealType>&, const std::vector<_RealType>&, const std::vector<OFEC::optimization_mode>&) [with T = double]’:
+instance/algorithm/MOEA/NSGAII/NSGAII.h:84:63:   required from ‘void OFEC::NSGAII<Individual>::sort() [with Individual = OFEC::individual<>]’
+instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:19:1:   required from here
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h:112:13: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   if (equal == a.size()) return std::make_pair(dominationship::Equal, comparisons);
+             ^
 instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp: In member function ‘virtual void OFEC::T_ENS_NSGAII::sort()’:
 instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:8:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
    for (size_t i = 0; i < N; ++i)
                         ^
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/population.h:252:2: error: expected ‘;’ before ‘}’ token
-  }
-  ^
 instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:9:25: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
     for (size_t j = 0; j < M; ++j)
                          ^
 instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:13:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
    for (size_t i = 0; i < N; ++i)
                         ^
-In file included from instance/algorithm/MOEA/NSGAII/NSGAII.h:7:0,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h: In constructor ‘OFEC::NSGAIIpopulation<Individual>::NSGAIIpopulation(int)’:
-instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:109:35: error: class ‘OFEC::NSGAIIpopulation<Individual>’ does not have any field named ‘population’
-   NSGAIIpopulation(int popsize) : population(popsize, global::ms_global->m_problem->variable_size()), m_cr(1.0), m_ceta(30), m_meta(20){
-                                   ^
-instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h: In constructor ‘OFEC::NSGAIIpopulation<Individual>::NSGAIIpopulation()’:
-instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:113:24: error: class ‘OFEC::NSGAIIpopulation<Individual>’ does not have any field named ‘population’
-   NSGAIIpopulation() : population(), m_cr(1.0), m_ceta(30), m_meta(20) {
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h: In member function ‘void OFEC::NSGAIIpopulation<Individual>::cross_mutate(const std::vector<int>&, Individual*, Individual*)’:
-instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.h:119:46: error: ‘m_pop’ was not declared in this scope
-    SimulatedBinaryCrossover(child1, child2, *m_pop[index[0]], *m_pop[index[1]], m_cr, m_ceta);
-                                              ^
-In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAII.h: At global scope:
-instance/algorithm/MOEA/NSGAII/NSGAII.h:27:81: error: operands to ?: have different types ‘double’ and ‘std::map<OFEC::parameter, OFEC::typevar>::mapped_type {aka OFEC::typevar}’
-   double m_GAratio = global::ms_arg.find(param_GAratio) == global::ms_arg.end() ? 1.0 : global::ms_arg[param_GAratio];
-                                                                                 ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:27:81: note:   and each type can be converted to the other
-In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAII.h: In instantiation of ‘OFEC::NSGAII<Individual>::NSGAII(OFEC::param_map&) [with Individual = OFEC::individual<>; OFEC::param_map = std::map<OFEC::parameter, OFEC::typevar>]’:
-instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:9:40:   required from here
-instance/algorithm/MOEA/NSGAII/NSGAII.h:28:42: warning: ‘OFEC::NSGAII<>::m_offspring’ will be initialized after [-Wreorder]
-   NSGAIIpopulation<Individual> m_parent, m_offspring;
-                                          ^
-In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAII.h:35:186: warning:   base ‘OFEC::algorithm’ [-Wreorder]
-  NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_objcomp(0), m_numrank(0) {
-                                                                                                                                                                                          ^
-In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAII.h:35:2: warning:   when initialized here [-Wreorder]
-  NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_objcomp(0), m_numrank(0) {
-  ^
-In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAII.h:36:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-   for (size_t i = 0; i < m_parent.size(); i++) {
-                        ^
-instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp: In member function ‘virtual void OFEC::CS_NSGAII::sort()’:
-instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:10:25: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-    for (size_t j = 0; j < obj_num; ++j)
-                         ^
-makefile:54: recipe for target 'obj/instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.o' failed
-make: *** [obj/instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.o] Error 1
-In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAII.h: In instantiation of ‘OFEC::NSGAII<Individual>::NSGAII(OFEC::param_map&) [with Individual = OFEC::individual<>; OFEC::param_map = std::map<OFEC::parameter, OFEC::typevar>]’:
-instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:10:37:   required from here
-instance/algorithm/MOEA/NSGAII/NSGAII.h:28:42: warning: ‘OFEC::NSGAII<>::m_offspring’ will be initialized after [-Wreorder]
-   NSGAIIpopulation<Individual> m_parent, m_offspring;
-                                          ^
-In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAII.h:35:186: warning:   base ‘OFEC::algorithm’ [-Wreorder]
-  NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_objcomp(0), m_numrank(0) {
-                                                                                                                                                                                          ^
-In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAII.h:35:2: warning:   when initialized here [-Wreorder]
-  NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_objcomp(0), m_numrank(0) {
-  ^
-In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAII.h:36:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-   for (size_t i = 0; i < m_parent.size(); i++) {
-                        ^
-In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../global.h:26:0,
-                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:28,
-                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:24,
-                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:5,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h: In instantiation of ‘static void OFEC::problem::update_objective_minmax(const Solution&, std::vector<OFEC::optimization_mode>&) [with Solution = OFEC::solution<OFEC::variable<double>, double>]’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:58:28:   required from ‘OFEC::evaluation_tag OFEC::problem::evaluate(Solution&, OFEC::caller, bool) [with Solution = OFEC::solution<OFEC::variable<double>, double>]’
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:126:91:   required from ‘OFEC::evaluation_tag OFEC::solution<VariableEncoding, ObjetiveType>::evaluate(bool) [with VariableEncoding = OFEC::variable<double>; ObjetiveType = double]’
-instance/algorithm/MOEA/NSGAII/NSGAII.h:37:4:   required from ‘OFEC::NSGAII<Individual>::NSGAII(OFEC::param_map&) [with Individual = OFEC::individual<>; OFEC::param_map = std::map<OFEC::parameter, OFEC::typevar>]’
-instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:9:40:   required from here
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:94:23: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-     for (int i = 0; i < s.objective_size(); ++i) {
-                       ^
-In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../global.h:26:0,
-                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:28,
-                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:24,
-                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:5,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h: In instantiation of ‘static void OFEC::problem::update_objective_minmax(const Solution&, std::vector<OFEC::optimization_mode>&) [with Solution = OFEC::solution<OFEC::variable<double>, double>]’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:58:28:   required from ‘OFEC::evaluation_tag OFEC::problem::evaluate(Solution&, OFEC::caller, bool) [with Solution = OFEC::solution<OFEC::variable<double>, double>]’
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:126:91:   required from ‘OFEC::evaluation_tag OFEC::solution<VariableEncoding, ObjetiveType>::evaluate(bool) [with VariableEncoding = OFEC::variable<double>; ObjetiveType = double]’
-instance/algorithm/MOEA/NSGAII/NSGAII.h:37:4:   required from ‘OFEC::NSGAII<Individual>::NSGAII(OFEC::param_map&) [with Individual = OFEC::individual<>; OFEC::param_map = std::map<OFEC::parameter, OFEC::typevar>]’
-instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:10:37:   required from here
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:94:23: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-     for (int i = 0; i < s.objective_size(); ++i) {
-                       ^
-In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/NSGAII.h: In instantiation of ‘void OFEC::NSGAII<Individual>::sort() [with Individual = OFEC::individual<>]’:
-instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:16:1:   required from here
-instance/algorithm/MOEA/NSGAII/NSGAII.h:75:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-   for (size_t i = 0; i < pop_size; i++)
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:81:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-   for (size_t k = 0; k < pop_size; k++, ++i) {
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:82:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-    for (size_t j = 0; j<pop_size; j++) {
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:101:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-    for (size_t k = 0; k<pop_size; k++)
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:104:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-    for (size_t k = 0; k<pop_size; k++, ++i)
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:109:26: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-      for (size_t j = 0; j<count[k]; j++)
-                          ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:119:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-    for (size_t k = 0; k<pop_size; k++)
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h: In instantiation of ‘void OFEC::NSGAII<Individual>::eval_dens() [with Individual = OFEC::individual<>]’:
-instance/algorithm/MOEA/NSGAII/NSGAII.h:56:13:   required from ‘OFEC::evaluation_tag OFEC::NSGAII<Individual>::run_() [with Individual = OFEC::individual<>]’
-instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:16:1:   required from here
-instance/algorithm/MOEA/NSGAII/NSGAII.h:136:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-    for (size_t i = 0; i<size; i++)
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:145:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-    for (size_t i = 0; i<size; i++)
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:159:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-    for (size_t i = 0; i<size; i++)
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:168:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-    for (size_t i = 0; i<s2; i++) {
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:173:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-    for (size_t j = 0; j<numobj; j++) {
-                        ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:174:25: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-     for (size_t i = 0; i<s2; i++) {
-                         ^
-instance/algorithm/MOEA/NSGAII/NSGAII.h:192:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-    for (size_t i = 0; i<s3; i++)
-                        ^
-In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/encoding.h:28:0,
-                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:26,
-                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:24,
-                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:5,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3,
-                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h: In instantiation of ‘std::pair<OFEC::dominationship, int> OFEC::objective_compare(const std::vector<_RealType>&, const std::vector<_RealType>&, const std::vector<OFEC::optimization_mode>&) [with T = double]’:
-instance/algorithm/MOEA/NSGAII/NSGAII.h:84:63:   required from ‘void OFEC::NSGAII<Individual>::sort() [with Individual = OFEC::individual<>]’
-instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:16:1:   required from here
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h:112:13: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-   if (equal == a.size()) return std::make_pair(dominationship::Equal, comparisons);
-             ^
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h: In instantiation of ‘int OFEC::quick_sort(const T&, int, std::vector<int>&, bool, int, int, int, bool) [with T = std::vector<double>]’:
 instance/algorithm/MOEA/NSGAII/NSGAII.h:179:15:   required from ‘void OFEC::NSGAII<Individual>::eval_dens() [with Individual = OFEC::individual<>]’
 instance/algorithm/MOEA/NSGAII/NSGAII.h:56:13:   required from ‘OFEC::evaluation_tag OFEC::NSGAII<Individual>::run_() [with Individual = OFEC::individual<>]’
-instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:16:1:   required from here
+instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:19:1:   required from here
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h:211:42: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
     if (index.size() == 0 || index.size() != size)  index.resize(size);
                                           ^
-In file included from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4:0,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
+                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAII.h: In instantiation of ‘OFEC::NSGAII<Individual>::NSGAII(OFEC::param_map&) [with Individual = OFEC::individual<>; OFEC::param_map = std::map<OFEC::parameter, OFEC::typevar>]’:
+instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:9:40:   required from here
+instance/algorithm/MOEA/NSGAII/NSGAII.h:28:42: warning: ‘OFEC::NSGAII<>::m_offspring’ will be initialized after [-Wreorder]
+   NSGAIIpopulation<Individual> m_parent, m_offspring;
+                                          ^
+In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
+                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAII.h:35:186: warning:   base ‘OFEC::algorithm’ [-Wreorder]
+  NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_objcomp(0), m_numrank(0) {
+                                                                                                                                                                                          ^
+In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
+                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAII.h:35:2: warning:   when initialized here [-Wreorder]
+  NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_objcomp(0), m_numrank(0) {
+  ^
+In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
+                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/NSGAII.h:36:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   for (size_t i = 0; i < m_parent.size(); i++) {
+                        ^
+makefile:54: recipe for target 'obj/instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.o' failed
+make: *** [obj/instance/algorithm/MOEA/NSGAII/NSGAIIpopulation.o] Error 1
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h: In function ‘std::pair<OFEC::dominationship, int> OFEC::objective_compare(const std::vector<_RealType>&, const std::vector<_RealType>&, const std::vector<OFEC::optimization_mode>&) [with T = double]’:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h:115:2: warning: control reaches end of non-void function [-Wreturn-type]
+  }
+  ^
+In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../global.h:26:0,
+                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:28,
+                 from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:24,
+                 from instance/algorithm/MOEA/NSGAII/NSGAII.h:5,
+                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3,
+                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h: In instantiation of ‘static void OFEC::problem::update_objective_minmax(const Solution&, std::vector<OFEC::optimization_mode>&) [with Solution = OFEC::solution<OFEC::variable<double>, double>]’:
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:58:28:   required from ‘OFEC::evaluation_tag OFEC::problem::evaluate(Solution&, OFEC::caller, bool) [with Solution = OFEC::solution<OFEC::variable<double>, double>]’
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:126:91:   required from ‘OFEC::evaluation_tag OFEC::solution<VariableEncoding, ObjetiveType>::evaluate(bool) [with VariableEncoding = OFEC::variable<double>; ObjetiveType = double]’
+instance/algorithm/MOEA/NSGAII/NSGAII.h:37:4:   required from ‘OFEC::NSGAII<Individual>::NSGAII(OFEC::param_map&) [with Individual = OFEC::individual<>; OFEC::param_map = std::map<OFEC::parameter, OFEC::typevar>]’
+instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:9:40:   required from here
+instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../problem/problem.h:94:23: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+     for (int i = 0; i < s.objective_size(); ++i) {
+                       ^
+makefile:54: recipe for target 'obj/instance/algorithm/MOEA/NSGAII/CS_NSGAII.o' failed
+make: *** [obj/instance/algorithm/MOEA/NSGAII/CS_NSGAII.o] Error 1
+In file included from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3:0,
+                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
 instance/algorithm/MOEA/NSGAII/NSGAII.h: In instantiation of ‘void OFEC::NSGAII<Individual>::sort() [with Individual = OFEC::individual<>]’:
-instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:19:1:   required from here
+instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:16:1:   required from here
 instance/algorithm/MOEA/NSGAII/NSGAII.h:75:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
    for (size_t i = 0; i < pop_size; i++)
                         ^
@@ -801,7 +755,7 @@ instance/algorithm/MOEA/NSGAII/NSGAII.h:119:24: warning: comparison between sign
                         ^
 instance/algorithm/MOEA/NSGAII/NSGAII.h: In instantiation of ‘void OFEC::NSGAII<Individual>::eval_dens() [with Individual = OFEC::individual<>]’:
 instance/algorithm/MOEA/NSGAII/NSGAII.h:56:13:   required from ‘OFEC::evaluation_tag OFEC::NSGAII<Individual>::run_() [with Individual = OFEC::individual<>]’
-instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:19:1:   required from here
+instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:16:1:   required from here
 instance/algorithm/MOEA/NSGAII/NSGAII.h:136:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
     for (size_t i = 0; i<size; i++)
                         ^
@@ -827,18 +781,18 @@ In file included from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/
                  from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/solution.h:26,
                  from instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/individual.h:24,
                  from instance/algorithm/MOEA/NSGAII/NSGAII.h:5,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.h:4,
-                 from instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:1:
+                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.h:3,
+                 from instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:1:
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h: In instantiation of ‘std::pair<OFEC::dominationship, int> OFEC::objective_compare(const std::vector<_RealType>&, const std::vector<_RealType>&, const std::vector<OFEC::optimization_mode>&) [with T = double]’:
 instance/algorithm/MOEA/NSGAII/NSGAII.h:84:63:   required from ‘void OFEC::NSGAII<Individual>::sort() [with Individual = OFEC::individual<>]’
-instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:19:1:   required from here
+instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:16:1:   required from here
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h:112:13: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
    if (equal == a.size()) return std::make_pair(dominationship::Equal, comparisons);
              ^
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h: In instantiation of ‘int OFEC::quick_sort(const T&, int, std::vector<int>&, bool, int, int, int, bool) [with T = std::vector<double>]’:
 instance/algorithm/MOEA/NSGAII/NSGAII.h:179:15:   required from ‘void OFEC::NSGAII<Individual>::eval_dens() [with Individual = OFEC::individual<>]’
 instance/algorithm/MOEA/NSGAII/NSGAII.h:56:13:   required from ‘OFEC::evaluation_tag OFEC::NSGAII<Individual>::run_() [with Individual = OFEC::individual<>]’
-instance/algorithm/MOEA/NSGAII/CS_NSGAII.cpp:19:1:   required from here
+instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.cpp:16:1:   required from here
 instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h:211:42: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
     if (index.size() == 0 || index.size() != size)  index.resize(size);
                                           ^
@@ -848,9 +802,3 @@ instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/function
   ^
 makefile:54: recipe for target 'obj/instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.o' failed
 make: *** [obj/instance/algorithm/MOEA/NSGAII/T_ENS_NSGAII.o] Error 1
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h: In function ‘std::pair<OFEC::dominationship, int> OFEC::objective_compare(const std::vector<_RealType>&, const std::vector<_RealType>&, const std::vector<OFEC::optimization_mode>&) [with T = double]’:
-instance/algorithm/MOEA/NSGAII/../../../../core/algorithm/../../utility/functional.h:115:2: warning: control reaches end of non-void function [-Wreturn-type]
-  }
-  ^
-makefile:54: recipe for target 'obj/instance/algorithm/MOEA/NSGAII/CS_NSGAII.o' failed
-make: *** [obj/instance/algorithm/MOEA/NSGAII/CS_NSGAII.o] Error 1
