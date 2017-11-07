@@ -82,6 +82,24 @@
     <Filter Include="instance\problem\continuous\multi_objective\MOEA_F">
       <UniqueIdentifier>{6b7c99f1-5d83-4ac2-954d-4e4de357c811}</UniqueIdentifier>
     </Filter>
+    <Filter Include="run">
+      <UniqueIdentifier>{7d4cabef-e93e-42a6-a4d5-da9c765a0bba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting">
+      <UniqueIdentifier>{92ef3610-3949-402f-80f4-043245290104}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm">
+      <UniqueIdentifier>{df7c8915-c0fa-4b17-95a2-8892f526ea21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\MOEA">
+      <UniqueIdentifier>{e719675c-86f0-49db-9956-615acb176ec9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\MOEA\NSGAII">
+      <UniqueIdentifier>{f04c5fda-1cc3-4461-85c1-94c65954afe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\measure">
+      <UniqueIdentifier>{57cb1b36-3b06-449d-8e42-b44b3231513c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\algorithm\encoding.h">
@@ -452,6 +470,51 @@
     </ClInclude>
     <ClInclude Include="instance\problem\continuous\expensive\CEC2015\hybrid.h">
       <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\CornerSort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\d_quicktree.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\DominanceGraphSort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\FastNondominatedSort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\nodes_initialize.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\preSorting.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\T_ENS.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="run\initialize.h">
+      <Filter>run</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAII\CS_NSGAII.h">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAII\DG_NSGAII.h">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAII\DG_NSGAIIindividual.h">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII.h">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAIIpopulation.h">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAII\T_ENS_NSGAII.h">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClInclude>
+    <ClInclude Include="core\measure\measure.h">
+      <Filter>core\measure</Filter>
     </ClInclude>
     <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ.h">
       <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
@@ -869,8 +932,95 @@
     <ClCompile Include="instance\problem\continuous\expensive\CEC2015\hybrid.cpp">
       <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_problem.cpp">
-      <Filter>test</Filter>
+    <ClCompile Include="utility\nondominated_sorting\CornerSort.cpp">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\T_ENS.cpp">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="run\initialize.cpp">
+      <Filter>run</Filter>
+    </ClCompile>
+    <ClCompile Include="run\main.cpp">
+      <Filter>run</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\NSGAII\CS_NSGAII.cpp">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\NSGAII\DG_NSGAII.cpp">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAIIpopulation.cpp">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\NSGAII\T_ENS_NSGAII.cpp">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClCompile>
+    <ClCompile Include="core\measure\measure.cpp">
+      <Filter>core\measure</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ.cpp">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ1.cpp">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ2.cpp">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ3.cpp">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ4.cpp">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F.cpp">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F1.cpp">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F2.cpp">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F3.cpp">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F4.cpp">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F5.cpp">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F6.cpp">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F7.cpp">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F8.cpp">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\MOEA_F\MOEA_F9.cpp">
+      <Filter>instance\problem\continuous\multi_objective\MOEA_F</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\ZDT\ZDT.cpp">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\ZDT\ZDT1.cpp">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\ZDT\ZDT2.cpp">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\ZDT\ZDT3.cpp">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\ZDT\ZDT4.cpp">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\ZDT\ZDT6.cpp">
+      <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

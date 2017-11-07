@@ -31,7 +31,7 @@ namespace OFEC {
 			using solution_type = solution<VariableEncoding, ObjetiveType>;
 
 			template<typename ... Args>
-			individual(size_t no, Args&& ... args) :solution(no, args) { }
+			individual(size_t no, Args&& ... args) :solution(no, std::forward<Args>(args)...) { }
 
 			individual(solution_type &&s) :solution(std::move(s)) {}
 

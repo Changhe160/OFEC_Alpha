@@ -21,8 +21,8 @@ BOOST_AUTO_TEST_CASE(test_case1)
 	//obj.distance2Obj(b);
 	//obj.distance2Obj(b, euclidean_distance<vector<double>::const_iterator, vector<double>::const_iterator>);
 //	obj.distance2Obj(b);
-	obj.compare(b,optimization_mode::Minimization);
-	obj.compare(ob2, optimization_mode::Maximization);
+	//obj.compare(b,optimization_mode::Minimization);
+	//obj.compare(ob2, optimization_mode::Maximization);
 }
 
 

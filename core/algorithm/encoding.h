@@ -74,26 +74,6 @@ namespace OFEC {
 
 		objective(objective&& rhs) :m_o(std::move(rhs.m_o)) {}
 
-		template<typename Compare = objective_compare<value_type>>
-		dominationship compare(const std::vector<value_type>& rhs, const std::vector<optimization_mode> &mode, Compare comp = Compare()) const{
-			return comp(m_o, rhs, mode);
-		}
-
-		template<typename Compare = objective_compare<value_type> >
-		dominationship compare(const objective& rhs, const std::vector<optimization_mode> &mode, Compare comp = Compare()) const {
-			return comp(m_o, rhs.m_o, mode);
-		}
-
-		template<typename Compare = objective_compare<value_type>>
-		dominationship compare(const std::vector<value_type>& rhs, optimization_mode mode, Compare comp = Compare()) const {
-			return comp(m_o, rhs, mode);
-		}
-
-		template<typename Compare = objective_compare<value_type> >
-		dominationship compare(const objective& rhs, optimization_mode mode, Compare comp = Compare()) const {
-			return comp(m_o, rhs.m_o, mode);
-		}
-
 		void resize(size_t n) {
 			m_o.resize(n);
 		}

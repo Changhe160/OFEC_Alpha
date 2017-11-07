@@ -20,7 +20,7 @@
 #ifndef OFEC_POPULATION_H
 #define OFEC_POPULATION_H
 
-#include "algorithm.h"
+#include "../global.h"
 
 namespace OFEC {
 	template<typename>  class multi_population;
@@ -137,34 +137,34 @@ namespace OFEC {
 	template<typename Individual>
 	void population<Individual>::update_best() {
 		m_best.clear();
-		vector<bool> flag(m_pop.size(), true);
+	 std::vector<bool> flag(m_pop.size(), true);
 	
-		for (int j = 0; j<m_pop.size(); j++) {
-			for (int i = 0; i<m_pop.size(); i++) {
+		for (size_t j = 0; j<m_pop.size(); j++) {
+			for (size_t i = 0; i<m_pop.size(); i++) {
 				if (i == j || !flag[j] || !flag[i]) continue;
 				if (*m_pop[j]>*m_pop[i]) {
 					flag[i] = false;
 				}
 			}
 		}
-		for (int i = 0; i<m_pop.size(); i++) { if (flag[i]) m_best.push_back(m_pop[i]); }
+		for (size_t i = 0; i<m_pop.size(); i++) { if (flag[i]) m_best.push_back(m_pop[i]); }
 		m_best_updated = true;
 	}
 
 	template<typename Individual>
 	void population<Individual>::update_worst() {
 		m_worst.clear();
-		vector<bool> flag(m_pop.size(), true);
+	 std::vector<bool> flag(m_pop.size(), true);
 
-		for (int j = 0; j<m_pop.size(); j++) {
-			for (int i = 0; i<m_pop.size(); i++) {
+		for (size_t j = 0; j<m_pop.size(); j++) {
+			for (size_t i = 0; i<m_pop.size(); i++) {
 				if (i == j || !flag[j] || !flag[i]) continue;
 				if (*m_pop[j]<*m_pop[i]) {
 					flag[i] = false;
 				}
 			}
 		}
-		for (int i = 0; i<m_pop.size(); i++) { if (flag[i]) m_worst.push_back(m_pop[i]); }
+		for (size_t i = 0; i<m_pop.size(); i++) { if (flag[i]) m_worst.push_back(m_pop[i]); }
 		m_worst_updated = true;
 	}
 
@@ -201,9 +201,11 @@ namespace OFEC {
 
 	template<typename Individual>
 	template<typename ... Args>
-	population<Individual>::population(int n, Args&&... args) {
-		
-		pop[i] = new Individual(pro->obj, forward(args));
+	population<Individual>::population(int n, Args&& ... args) : m_pop(n) {
+		size_t size_obj = global::ms_global->m_problem->objective_size();
+		for (auto& i : m_pop)
+			i = std::move(std::unique_ptr<Individual>(new Individual(size_obj, std::forward<Args>(args)...)));
+		initialize();
 	}
 
 	template<typename Individual>
@@ -243,7 +245,7 @@ namespace OFEC {
 	template<typename fun, typename ... Args>
 	void population<Individual>::sort() {
 		std::vector<vector<typename Individual::solution_type::objective_type> * > obj;
-		vector<int> rank(m_pop);
+	 std::vector<int> rank(m_pop);
 
 		fun(obj,rank)
 

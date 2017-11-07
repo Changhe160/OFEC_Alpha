@@ -25,11 +25,11 @@
 #include <cmath>
 #include <vector>
 #include "../core/definition.h"
+#include <memory>
 
-namespace OFEC {
-		
+namespace OFEC {	
 		/*
-		distance measures between two vector-based points
+		distance measures between two std::vector-based points
 		*/
 	template<typename Iter1, typename Iter2>
 	double euclidean_distance(Iter1 first1, Iter1 last1, Iter2 first2) {
@@ -66,69 +66,103 @@ namespace OFEC {
 
 	//domination relationship between two objective vectors
 	template<typename T = double >
-	dominationship objective_compare(const std::vector<T>& a, const std::vector<T>& b, const std::vector<optimization_mode> &mode)  {
+	std::pair<dominationship, int> objective_compare(const std::vector<T>& a, const std::vector<T>& b, const std::vector<optimization_mode> &mode)  {
 		if (a.size() != b.size()) 
-			return dominationship::Non_comparable;
+			return std::make_pair(dominationship::Non_comparable, 0);
 
+		int comparisons = 0;
 		int better = 0, worse = 0, equal = 0;
 		for (decltype(a.size()) i = 0; i<a.size(); ++i) {
+			comparisons++;
 			if (mode[i] == optimization_mode::Minimization) {
-				if (a[i]<b[i]) 
-					++better;
-				else if (a[i]>b[i]) 
-					++worse;
-				else 
+				if (a[i] < b[i]) {
+					if (worse > 0)
+						return std::make_pair(dominationship::Non_dominated, comparisons);
+					else
+						++better;
+				}
+				else if (a[i] > b[i]) {
+					if (better > 0)
+						return std::make_pair(dominationship::Non_dominated, comparisons);
+					else
+						++worse;
+				}
+				else {
 					++equal;
+				}
 			}
 			else {
-				if (a[i]>b[i]) {
-					++better;
+				if (a[i] > b[i]) {
+					if (worse > 0)
+						return std::make_pair(dominationship::Non_dominated, comparisons);
+					else
+						++better;
 				}
-				else if (a[i]<b[i]) {
-					++worse;
+				else if (a[i] < b[i]) {
+					if (better > 0)
+						return std::make_pair(dominationship::Non_dominated, comparisons);
+					else
+						++worse;
 				}
 				else {
 					++equal;
 				}
 			}
 		}
-		if (better != 0 && better + equal == a.size()) return dominationship::Dominating;
-		else if (worse != 0 && worse + equal == a.size()) return dominationship::Dominated;
-		else if (equal == a.size()) return dominationship::Equal;
-		else return dominationship::Non_dominated;
+		if (equal == a.size()) return std::make_pair(dominationship::Equal, comparisons);
+		else if (worse == 0) return std::make_pair(dominationship::Dominating, comparisons);
+		else if (better == 0) return std::make_pair(dominationship::Dominated, comparisons);
+		else throw myexcept("error in objectivce_compare");
 	}
 
 	template<typename T = double >
-	dominationship objective_compare(const std::vector<T>& a, const std::vector<T>& b, optimization_mode mode) {
+	std::pair<dominationship, int> objective_compare(const std::vector<T>& a, const std::vector<T>& b, optimization_mode mode) {
+		int comparisons(0);
 		if (a.size() != b.size())
-			return dominationship::Non_comparable;
+			return std::make_pair(dominationship::Non_comparable, comparisons);
 
 		int better = 0, worse = 0, equal = 0;
 		for (decltype(a.size()) i = 0; i<a.size(); ++i) {
+			comparisons++;
 			if (mode == optimization_mode::Minimization) {
-				if (a[i]<b[i])
-					++better;
-				else if (a[i]>b[i])
-					++worse;
-				else
+				if (a[i] < b[i]) {
+					if (worse > 0)
+						return std::make_pair(dominationship::Non_dominated, comparisons);
+					else
+						++better;
+				}
+				else if (a[i] > b[i]) {
+					if (better > 0)
+						return std::make_pair(dominationship::Non_dominated, comparisons);
+					else
+						++worse;
+				}
+				else {
 					++equal;
+				}
 			}
 			else {
-				if (a[i]>b[i]) {
-					++better;
+				if (a[i] > b[i]) {
+					if (worse > 0)
+						return std::make_pair(dominationship::Non_dominated, comparisons);
+					else
+						++better;
 				}
-				else if (a[i]<b[i]) {
-					++worse;
+				else if (a[i] < b[i]) {
+					if (better > 0)
+						return std::make_pair(dominationship::Non_dominated, comparisons);
+					else
+						++worse;
 				}
 				else {
 					++equal;
 				}
 			}
 		}
-		if (better != 0 && better + equal == a.size()) return dominationship::Dominating;
-		else if (worse != 0 && worse + equal == a.size()) return dominationship::Dominated;
-		else if (equal == a.size()) return dominationship::Equal;
-		else return dominationship::Non_dominated;
+		if (equal == a.size()) return std::make_pair(dominationship::Equal, comparisons);
+		else if (worse == 0) return std::make_pair(dominationship::Dominating, comparisons);
+		else if (better == 0) return std::make_pair(dominationship::Dominated, comparisons);
+		else throw("dominance compare error");
 	}
 	
 
@@ -136,7 +170,6 @@ namespace OFEC {
 	int sign(T val) {
 		return (T(0) < val) - (val < T(0));
 	}
-
 
 	template<class T>
 	bool less(const T &d1, const T &d2, bool min = true) {
@@ -163,47 +196,63 @@ namespace OFEC {
 	}
 
 	template<class T>
-	void quick_sort(const T &data, int size, std::vector<int>& index, bool min = true, int low = 0, int up = -1, int num = -1, bool start = true) {
+	int quick_sort(const T &data, int size, std::vector<int>& index, bool min = true, int low = 0, int up = -1, int num = -1, bool start = true) {
+		int num_comp(0);
 		//sort data from small to large, and put the order in index
 		//size: the size of data  
 		//low, up : the range of data to be sorted
 		//num : the max/mim number of data within low and up 
-		static thread_local unique_ptr<int> lb;
-		static thread_local unique_ptr<vector<bool>> flag;
+		static thread_local std::unique_ptr<int> lb;
+		static thread_local std::unique_ptr<std::vector<bool>> flag;
 		if (start)
 		{
 			if (up == -1) up = size - 1;
 			if (num == -1) num = size;
-			flag.reset(new vector<bool>(num, false));
+			flag.reset(new std::vector<bool>(num, false));
 			lb.reset(new int(low));
 			if (index.size() == 0 || index.size() != size)		index.resize(size);
 			for (auto i = index.begin(); i != index.end(); ++i) *i = i - index.begin();
 		}
 
 
-		if (low >= up) return;
+		if (low >= up) return num_comp;
 		int i = 0;
+		for (; i<num; i++) {
+			if ((*flag.get())[i] == false)	break;
+		}
 		while (i < num) {
 			if ((*flag.get())[i++] == false)	
 				break;
 		}
 	
-		if (i == num) return;
+		if (i == num) return num_comp;
 		int left = low + 1;
 		int right = up;
 		int pivot = low;
 
 		while (left<right) {
-			while (less(data[index[left]], data[index[pivot]], min) && left<right)         left++;
-			while (!less(data[index[right]], data[index[pivot]], min) && left<right)          right--;
-
+			while (less(data[index[left]], data[index[pivot]], min) && left < right) {
+				left++; 
+				num_comp++;
+			}
+			num_comp++;
+			while (!less(data[index[right]], data[index[pivot]], min) && left < right) { 
+				right--;
+				num_comp++; 
+			}
+			num_comp++;
 			if (left<right) {
 				int t = index[left];
 				index[left] = index[right];
 				index[right] = t;
 			}
 		}
-		while (!less(data[index[left]], data[index[pivot]], min) && left>pivot)  left--;
+		while (!less(data[index[left]], data[index[pivot]], min) && left > pivot) {
+			left--;
+			num_comp++;
+		}
+		num_comp++;
+		num_comp++;
 		if (less(data[index[left]], data[index[pivot]], min)) {
 			int t = index[left];
 			index[left] = index[pivot];
@@ -220,11 +269,12 @@ namespace OFEC {
 		for (; i<num; i++) {
 			if ((*flag.get())[i] == false)		break;
 		}
-		if (i == num) return;
+		if (i == num) return num_comp;
 
 		pivot = left;
-		quick_sort(data, pivot - low, index, min, low, pivot - 1, num, false);
-		quick_sort(data, up - pivot, index, min, pivot + 1, up, num, false);
+		num_comp += quick_sort(data, pivot - low, index, min, low, pivot - 1, num, false);
+		num_comp += quick_sort(data, up - pivot, index, min, pivot + 1, up, num, false);
+		return num_comp;
 	}
 
 }
