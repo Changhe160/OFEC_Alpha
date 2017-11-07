@@ -38,10 +38,8 @@ namespace OFEC {
 
 	class DTLZ : public continuous
 	{
-	public:
-		DTLZ(const std::string &name, size_t size_var, size_t size_obj);
-		~DTLZ() {};
 	protected:
+		DTLZ(const std::string &name, size_t size_var, size_t size_obj);
 		void generateAdLoadPF();
 	};
 

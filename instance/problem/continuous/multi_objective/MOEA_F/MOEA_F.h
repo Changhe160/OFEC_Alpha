@@ -7,13 +7,9 @@ namespace OFEC {
 	class MOEA_FBase : public continuous {
 	protected:
 		MOEA_FBase(const std::string &name, size_t size_var, size_t size_obj);
-	public:
-		~MOEA_FBase() {}
 		int getDtype() const { return m_dtype; }
 		int getPtype() const { return m_ptype; }
 		int getLtype() const { return m_ltype; }
-		void evaluate__(double *x, std::vector<double>& obj) { calObjective(x, obj); }
-	protected:
 		// control the PF shape
 		void alphafunction(double alpha[], double const *x, int dim, int type);
 		// control the distance
@@ -24,7 +20,7 @@ namespace OFEC {
 		double psfunc3(const double &x, const double &t1, const double &t2, int dim, int type);
 		void calObjective(double *x, std::vector <double> &y_obj);
 		void LoadPF();
-	protected:
+		void evaluate__(double *x, std::vector<double>& obj) { calObjective(x, obj); }
 		int m_dtype, m_ptype, m_ltype;
 	};
 }

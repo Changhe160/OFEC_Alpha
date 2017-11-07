@@ -5,6 +5,10 @@ namespace OFEC {
 		DTLZ(v[param_proName], (v[param_numObj] + v[param_interTest1] - 1), v[param_numObj]) {
 	}
 
+	DTLZ3::DTLZ3(const std::string & name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
+		DTLZ(name, size_var, size_obj) {
+	}
+
 	void DTLZ3::evaluate__(double * x, std::vector<double>& obj) {
 		double g = 0;
 		for (size_t i = m_objective_size - 1; i < m_variable_size; i += 1)

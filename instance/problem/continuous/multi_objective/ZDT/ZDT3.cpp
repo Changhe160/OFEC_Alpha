@@ -1,7 +1,10 @@
 #include "ZDT3.h"
 
 namespace OFEC {
-	ZDT3::ZDT3(param_map & v) : problem(v[param_proName], v[param_numDim], 2), ZDT(v) {
+	ZDT3::ZDT3(param_map & v) : problem(v[param_proName], v[param_numDim], 2), ZDT(v[param_proName], v[param_numDim]) {
+		generateAdLoadPF();
+	}
+	ZDT3::ZDT3(const std::string & name, size_t size_var) : problem(name, size_var, 2), ZDT(name, size_var) {
 		generateAdLoadPF();
 	}
 	void ZDT3::evaluate__(double * x, std::vector<double>& obj) {
