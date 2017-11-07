@@ -3,8 +3,8 @@ app = r
 CORE := core 
 TOOLS := utility
 INSTANCE := instance 
-EAXMPLE := example
-MODULES   :=  $(CORE) $(TOOLS) $(INSTANCE) $(EAXMPLE)
+RUN := run
+MODULES   :=  $(CORE) $(TOOLS) $(INSTANCE) $(RUN)
 
 srcExt = cpp
 srcDir = $(MODULES)

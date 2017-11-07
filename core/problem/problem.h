@@ -51,9 +51,12 @@ namespace OFEC {
 
 		template<typename Solution>
 		evaluation_tag evaluate(Solution &s, caller call, bool effective_eval = true) {
-
+			
 			evaluation_tag tag = evaluate_(s, call, effective_eval, true);
 
+			if (effective_eval) {
+				update_objective_minmax(s,m_opt_mode);
+			}
 			++m_total_eval;
 
 			return tag;
@@ -74,26 +77,36 @@ namespace OFEC {
 
 		template<typename Solution>
 		static void initialize_objective_minmax(const Solution &s) {
-			for (int i = 0; i < m_objective_size; ++i) {
+			for (int i = 0; i < s.m_objective_size; ++i) {
 				*ms_minmax_objective[i].first = s;
 				*ms_minmax_objective[i].second = s;
 			}
 		}
 
 		template<typename Solution>
-		static void update_objective_minmax(const Solution &s) {
-			for (int i = 0; i < m_objective_size; ++i) {
-				if (m_opt_mode[i] == optimization_mode::Minimization) {
-					if (ms_minmax_objective[i].first->get_objective()[i] > s.get_objective()[i])
-						*ms_minmax_objective[i].first = s;
-					if (ms_minmax_objective[i].second->get_objective()[i] < s.get_objective()[i])
-						*ms_minmax_objective[i].second = s;
+		static void update_objective_minmax(const Solution &s, std::vector<optimization_mode> & mode) {
+			if (ms_minmax_objective.empty()) {
+				for (size_t i = 0; i < s.objective_size(); ++i) {
+					ms_minmax_objective.emplace(i, std::make_pair(std::unique_ptr<Solution>(new Solution(s)), std::unique_ptr<Solution>(new Solution(s))));
 				}
-				else {
-					if (ms_minmax_objective[i].first->get_objective()[i] < s.get_objective()[i])
-						*ms_minmax_objective[i].first = s;
-					if (ms_minmax_objective[i].second->get_objective()[i] > s.get_objective()[i])
-						*ms_minmax_objective[i].second = s;
+			}
+			else {
+				for (int i = 0; i < s.objective_size(); ++i) {
+					Solution *first = dynamic_cast<Solution *>(ms_minmax_objective[i].first.get());
+					Solution *second = dynamic_cast<Solution *>(ms_minmax_objective[i].second.get());
+
+					if (mode[i] == optimization_mode::Minimization) {
+						if (first->get_objective()[i] > s.get_objective()[i])
+							*first = s;
+						if (second->get_objective()[i] < s.get_objective()[i])
+							*second = s;
+					}
+					else {
+						if (first->get_objective()[i] < s.get_objective()[i])
+							*first = s;
+						if (second->get_objective()[i] > s.get_objective()[i])
+							*second = s;
+					}
 				}
 			}
 		}

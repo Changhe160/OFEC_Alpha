@@ -126,7 +126,7 @@ namespace OFEC {
 	template <typename VariableType>
 	class variable:public variable_base {
 	public:
-		using  value_type = typename VariableType;
+		using value_type = VariableType;
 		using encoding = std::vector<value_type>;
 		using iterator_type = typename std::vector<value_type>::iterator;
 		using const_iterator = typename std::vector<value_type>::const_iterator;

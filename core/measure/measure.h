@@ -5,6 +5,8 @@
 #include <string>
 #include <memory>
 
+#include "../global.h"
+
 namespace OFEC {
 	struct global;
 	class measure {

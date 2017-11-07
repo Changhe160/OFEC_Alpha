@@ -1,5 +1,6 @@
 #include "vector.h"
 #include "myexcept.h"
+#include <algorithm>
 
 namespace OFEC {
 
@@ -75,13 +76,13 @@ namespace OFEC {
 	}
 	Vector &  Vector::operator +=(const Vector & v) {
 		if (m_data.size() != v.m_data.size()) throw myexcept("the size of two vectors must be same by + operation@Vector::operator +=");
-		transform(m_data.begin(), m_data.end(), v.m_data.begin(), m_data.begin(), std::plus<double>());
+		std::transform(m_data.begin(), m_data.end(), v.m_data.begin(), m_data.begin(), std::plus<double>());
 		m_wrote = true;
 		return *this;
 	}
 	Vector &  Vector::operator -=(const Vector & v) {
 		if (m_data.size() != v.m_data.size()) throw myexcept("the size of two vectors must be same by - operation@Vector::operator -=");
-		transform(m_data.begin(), m_data.end(), v.m_data.begin(), m_data.begin(), std::minus<double>());
+		std::transform(m_data.begin(), m_data.end(), v.m_data.begin(), m_data.begin(), std::minus<double>());
 		m_wrote = true;
 		return *this;
 	}

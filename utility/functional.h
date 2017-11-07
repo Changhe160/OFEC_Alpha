@@ -112,7 +112,6 @@ namespace OFEC {
 		if (equal == a.size()) return std::make_pair(dominationship::Equal, comparisons);
 		else if (worse == 0) return std::make_pair(dominationship::Dominating, comparisons);
 		else if (better == 0) return std::make_pair(dominationship::Dominated, comparisons);
-		else throw myexcept("error in objectivce_compare");
 	}
 
 	template<typename T = double >
@@ -162,7 +161,6 @@ namespace OFEC {
 		if (equal == a.size()) return std::make_pair(dominationship::Equal, comparisons);
 		else if (worse == 0) return std::make_pair(dominationship::Dominating, comparisons);
 		else if (better == 0) return std::make_pair(dominationship::Dominated, comparisons);
-		else throw("dominance compare error");
 	}
 	
 

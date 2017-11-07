@@ -1,4 +1,4 @@
-#include "../global.h"
+
 #include <fstream>
 #include "measure.h"
 

@@ -1,8 +1,7 @@
+#include <cmath>
 #include "newran.h"
 
-
 namespace OFEC {
-
 
 //**************************** utilities ******************************
 inline real square(real x) { return x*x; }
@@ -253,23 +252,23 @@ normal::~normal()
 }
 
 real normal::density(real x) const               // normal density
-{ return (fabs(x)>8.0) ? 0 : 0.398942280 * exp(-x*x / 2); }
+{ return (std::fabs(x)>8.0) ? 0 : 0.398942280 * exp(-x*x / 2); }
 
 real  normal::next_non_standard(real rmean,real rvariance){
 
 	real X = next();
-	real stddev = sqrt( rvariance );
+	real stddev = std::sqrt( rvariance );
 
 	return rmean + stddev * X;
 }
 
 real cauchy::density(real x) const               // cauchy density function
-{ return (fabs(x)>1.0e15) ? 0 : 0.31830988618 / (1.0+x*x); }
+{ return (std::fabs(x)>1.0e15) ? 0 : 0.31830988618 / (1.0+x*x); }
 
 real  cauchy::next_non_standard(real rmean,real rvariance){
 
 	real X = next();
-	real stddev = sqrt( rvariance );
+	real stddev = std::sqrt( rvariance );
 
 	return rmean + stddev * X;
 }
@@ -285,8 +284,8 @@ levy::levy(real c,double s):asymmetric(c/3,s){
 real levy::density(real x) const{
 	if(x<=0.0) return 0.0;
 	real y;
-	y=sqrt(0.5*m_sc/3.14159265358979323846)*exp(-0.5*m_sc/x)/pow(x,1.5);
-	return (fabs(x)>1.0e15) ? 0 :y;
+	y= std::sqrt(0.5*m_sc/3.14159265358979323846)*exp(-0.5*m_sc/x)/pow(x,1.5);
+	return (std::fabs(x)>1.0e15) ? 0 :y;
 }
 
 

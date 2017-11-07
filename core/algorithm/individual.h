@@ -31,13 +31,13 @@ namespace OFEC {
 			using solution_type = solution<VariableEncoding, ObjetiveType>;
 
 			template<typename ... Args>
-			individual(size_t no, Args&& ... args) :solution(no, std::forward<Args>(args)...) { }
+			individual(size_t no, Args&& ... args) :solution_type(no, std::forward<Args>(args)...) { }
 
-			individual(solution_type &&s) :solution(std::move(s)) {}
+			individual(solution_type &&s) :solution_type(std::move(s)) {}
 
-			individual(const solution_type &s) :solution(s) {}
+			individual(const solution_type &s) :solution_type(s) {}
 
-			explicit individual() :solution() {}
+			explicit individual() :solution_type() {}
 			virtual void initialize(int id) {
 				m_id = id;
 				solution::initialize();

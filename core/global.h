@@ -25,7 +25,6 @@
 #include "../utility/random/newran.h"
 #include "problem/problem.h"
 #include "algorithm/algorithm.h"
-#include "measure/measure.h"
 #include "../utility/factory.h"
 
 namespace OFEC{

@@ -7,6 +7,7 @@
 #include "NSGAIIpopulation.h"
 #include <list>
 #include "../../../../core/problem/continuous/continuous.h"
+#include "../../../../core/measure/measure.h"
 
 namespace OFEC {
 	template<typename Individual = individual<>>

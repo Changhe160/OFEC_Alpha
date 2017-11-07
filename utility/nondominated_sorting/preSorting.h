@@ -6,26 +6,7 @@
 #include <numeric>
 
 namespace NDS {
-	template<typename T>
-	std::vector<int> preSorting(std::vector<std::vector<T>>& data, int& Noc, bool ascending = true) {
 
-		std::vector<int> index(data.size());
-		iota(index.begin(), index.end(), 0);
-		QuickSort(data, index, 0, index.size()-1, Noc);
-
-		if (!ascending) {
-			std::vector<int> new_index(index.size());
-			for (size_t i = 0; i < data.size(); i++)
-				new_index[i] = index[index.size() - 1 - i];
-			index = new_index;
-		}
-		std::vector<std::vector<T>> new_data(data.size());
-		for (size_t i = 0; i < data.size(); i++)
-			new_data[i] = data[index[i]];
-		data = new_data;
-
-		return index;
-	}
 
 	template<typename T>
 	bool greater(std::vector<T>& a, std::vector<T>& b, int& Noc) {
@@ -71,6 +52,27 @@ namespace NDS {
 
 			QuickSort(data, A, pivot + 1, high, Noc); //”“∞Î≤ø∑÷µ›πÈ
 		}
+	}
+
+	template<typename T>
+	std::vector<int> preSorting(std::vector<std::vector<T>>& data, int& Noc, bool ascending = true) {
+
+		std::vector<int> index(data.size());
+		iota(index.begin(), index.end(), 0);
+		QuickSort(data, index, 0, index.size() - 1, Noc);
+
+		if (!ascending) {
+			std::vector<int> new_index(index.size());
+			for (size_t i = 0; i < data.size(); i++)
+				new_index[i] = index[index.size() - 1 - i];
+			index = new_index;
+		}
+		std::vector<std::vector<T>> new_data(data.size());
+		for (size_t i = 0; i < data.size(); i++)
+			new_data[i] = data[index[i]];
+		data = new_data;
+
+		return index;
 	}
 }
 
