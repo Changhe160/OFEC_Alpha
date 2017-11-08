@@ -35,8 +35,12 @@ namespace OFEC {
 		int size()const {
 			return m_pop.size();
 		}
-		const std::vector<int>& order(int idx) const { // get individual(s) with order idx
-			return m_order[idx];
+		const std::vector<int> order(int idx) const { // get individual(s) with order idx
+			auto range_ = m_order.equal_range(idx);
+			std::vector<int> inds;
+			for (auto i = range_.first; i != range_.second; ++i)
+				inds.push_back(i->second);
+			return inds;
 		}
 		const Individual& operator[](int i) const {
 			return *m_pop[i];
@@ -80,8 +84,8 @@ namespace OFEC {
 		iterator_type operator-(std::vector<int> &id); //remove individuals by id
 		iterator_type operator-(int n); // remove n worst individuals by default
 
-		template<typename fun, typename ... Args>
-		void sort();		
+		template<typename Fun, typename ... Args>
+		void sort(Fun fun, Args&& ... args);
 
 		void resize_objective(int n);
 		void resize_variable(int n);
@@ -186,7 +190,7 @@ namespace OFEC {
 		//check equal case	
 		for (auto i = m_arc.begin(); i != m_arc.end(); i++) {
 			if (x.equal(**i) && !((*i)->same(x))) { //**i == x 
-				m_arc.push_back(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x)));
+				m_arc.push_back(std::unique_ptr<typename Individual::solution_type>(new typename Individual::solution_type(x)));
 				return true;
 			}
 		}
@@ -194,7 +198,7 @@ namespace OFEC {
 		for (auto i = m_arc.begin(); i != m_arc.end(); i++) {
 			if (!(*i)->nondominate(x)) return false;
 		}
-		m_arc.push_back(std::move(std::unique_ptr<Individual::solution_type>(new Individual::solution_type(x))));
+		m_arc.push_back(std::move(std::unique_ptr<typename Individual::solution_type>(new typename Individual::solution_type(x))));
 
 		return true;
 	}
@@ -242,13 +246,14 @@ namespace OFEC {
 	}
 
 	template<typename Individual>
-	template<typename fun, typename ... Args>
-	void population<Individual>::sort() {
-		std::vector<vector<typename Individual::solution_type::objective_type> * > obj;
-	 std::vector<int> rank(m_pop);
-
-		fun(obj,rank)
-
+	template<typename Fun, typename ... Args>
+	void population<Individual>::sort(Fun fun, Args&& ... args) {
+		const size_t N = m_pop.size();
+		std::vector<std::vector<typename Individual::solution_type::objective_type> * > obj(N);
+		for (size_t i = 0; i < N; ++i)
+			obj[i] = &(m_pop[i]->get_objective());
+		std::vector<int> rank(N);
+		fun(obj, rank, std::forward<Args>(args)...);
 	}
 
 

@@ -13,7 +13,7 @@ namespace OFEC {
 	void DTLZ::generateAdLoadPF() {
 		const std::string problem_name[] = { "DTLZ1", "DTLZ2", "DTLZ3", "DTLZ4" };
 		std::stringstream os;
-		os << global::ms_arg[param_workingDir] << "FunctionOpt/Data/PF_" << global::ms_arg[param_proName] << "(" << global::ms_arg[param_numObj] << ")" << "_Opt.txt";
+		os << global::ms_arg[param_workingDir] << "FunctionOpt/PF_" << global::ms_arg[param_proName] << "(" << global::ms_arg[param_numObj] << ")" << "_Opt.txt";
 
 		for (size_t i = 0; i<4; i += 1) // problem
 		{

@@ -18,7 +18,7 @@ namespace OFEC {
 		std::ofstream out;
 		std::ifstream infile;
 		std::stringstream os;
-		os << global::ms_arg[param_workingDir] << "FunctionOpt/Data/PF_" << global::ms_arg[param_proName] << "_Opt_" << num << ".txt";
+		os << global::ms_arg[param_workingDir] << "FunctionOpt/PF_" << global::ms_arg[param_proName] << "_Opt_" << num << ".txt";
 		infile.open(os.str());
 
 		if (!infile)

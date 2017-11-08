@@ -24,7 +24,7 @@ namespace OFEC {
 		int tour_selection();
 
     protected:
-		double m_GAratio = global::ms_arg.find(param_GAratio) == global::ms_arg.end() ? 1.0 : global::ms_arg[param_GAratio];
+		double m_GAratio = global::ms_arg.find(param_GAratio) == global::ms_arg.end() ? 1.0 : (int)(global::ms_arg[param_GAratio]);
 		NSGAIIpopulation<Individual> m_parent, m_offspring;
 		int m_objcomp; // Cumulative number of objective comparisons
 		int m_numrank;

@@ -106,17 +106,17 @@ namespace OFEC {
 	template<typename Individual>
 	class NSGAIIpopulation : public population<Individual> {
 	public:
-		NSGAIIpopulation(int popsize) : population(popsize, global::ms_global->m_problem->variable_size()), m_cr(1.0), m_ceta(30), m_meta(20){
+		NSGAIIpopulation(int popsize) : population<Individual>(popsize, global::ms_global->m_problem->variable_size()), m_cr(1.0), m_ceta(30), m_meta(20){
 			int numDim = global::ms_global->m_problem->variable_size();
 			m_mr = 1.0 / numDim;
 		}
-		NSGAIIpopulation() : population(), m_cr(1.0), m_ceta(30), m_meta(20) {
+		NSGAIIpopulation() : population<Individual>(), m_cr(1.0), m_ceta(30), m_meta(20) {
 			int numDim = global::ms_global->m_problem->variable_size();
 			m_mr = 1.0 / numDim;
 		}
 		~NSGAIIpopulation(){}
 		void cross_mutate(const std::vector<int> &index, Individual *child1, Individual *child2) {
-			SimulatedBinaryCrossover(child1, child2, *m_pop[index[0]], *m_pop[index[1]], m_cr, m_ceta);
+			SimulatedBinaryCrossover(child1, child2, *population<Individual>::m_pop[index[0]], *population<Individual>::m_pop[index[1]], m_cr, m_ceta);
 
 			PolynomialMutation(child1, m_mr, m_meta);
 			PolynomialMutation(child2, m_mr, m_meta);

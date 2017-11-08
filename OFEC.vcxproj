@@ -75,7 +75,7 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -148,11 +148,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(BOOST_INC_1_64);$(CUDA_INC);</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(BOOST_LIB_x64);$(CUDA_LIB);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -195,6 +198,23 @@
     <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C26.cpp" />
     <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C27.cpp" />
     <ClCompile Include="instance\problem\continuous\constrained\CEC2017\C28.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\composition_2015.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F10_hybrid_F1.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F11_hybrid_F2.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F12_hybrid_F3.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F13_composition_F1.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F14_composition_F2.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F15_composition_F3.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F1_rotated_bent_cigar.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F2_rotated_discus.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F3_shifted_rotated_weierstrass.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F4_shifted_rotated_schwefel.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F5_shifted_rotated_katsuura.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F6_shifted_rotated_happy_cat.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F7_shifted_rotated_HGBat.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F8_shifted_rotated_griewank_rosenbrock.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F9_shifted_rotated_scaffer_F6.cpp" />
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\hybrid.cpp" />
     <ClCompile Include="instance\problem\continuous\global\BBOB\BBOB.cpp" />
     <ClCompile Include="instance\problem\continuous\global\CEC2005\composition.cpp" />
     <ClCompile Include="instance\problem\continuous\global\CEC2005\F10_shifted_rotated_rastrigin.cpp" />
@@ -223,28 +243,15 @@
     <ClCompile Include="instance\problem\continuous\global\CEC2005\F8_shifted_rotated_ackley_bound.cpp" />
     <ClCompile Include="instance\problem\continuous\global\CEC2005\F9_shifted_rastrigin.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\ackley.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\beasley.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\bent_cigar.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\branin_rcos.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\center_peak.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\discus.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\elliptic.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\equal_maxima.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\FIBA.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\five_hills.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\five_uneven_peak_trap.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\griewank.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\griewank_rosenbrock.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\happy_cat.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\HGBat.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\himmenblau.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\katsuura.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\keane_bump.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\max_global.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\michalewicz.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\modified_rastrigin.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\modified_schwefel.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\modified_shekel.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\non_continuous_rastrigin.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\non_continuous_scaffer_F6.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\penalized_1.cpp" />
@@ -260,34 +267,32 @@
     <ClCompile Include="instance\problem\continuous\global\classical\schwefel.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\schwefel_1_2.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\schwefel_2_6.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\shaffer.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\shubert.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\six_hump_camel_back.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\sphere.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\sphere_noisy.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\step.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\szu.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\uneven_de_maxima.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\valleys.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\vincent.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\waves.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\weierstrass.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\composite.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F10_hybrid_F1.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F11_hybrid_F2.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F12_hybrid_F3.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F13_composition_F1.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F14_composition_F2.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F15_composition_F3.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F1_rotated_bent_cigar.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F2_rotated_discus.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F3_shifted_rotated_weierstrass.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F4_shifted_rotated_schwefel.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F5_shifted_rotated_katsuura.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F6_shifted_rotated_happy_cat.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F7_shifted_rotated_HGBat.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F8_shifted_rotated_griewank_rosenbrock.cpp" />
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F9_shifted_rotated_scaffer_F6.cpp" />
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\CEC2013.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\beasley.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\branin_rcos.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\center_peak.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\equal_maxima.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\FIBA.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\five_hills.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\five_uneven_peak_trap.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\himmenblau.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\keane_bump.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\max_global.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\michalewicz.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\modified_rastrigin.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\modified_shekel.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\shaffer.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\shubert.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\six_hump_camel_back.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\szu.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\uneven_de_maxima.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\valleys.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\vincent.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\waves.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ1.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ2.cpp" />
@@ -374,6 +379,23 @@
     <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C26.h" />
     <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C27.h" />
     <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C28.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\composition_2015.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F10_hybrid_F1.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F11_hybrid_F2.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F12_hybrid_F3.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F13_composition_F1.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F14_composition_F2.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F15_composition_F3.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F1_rotated_bent_cigar.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F2_rotated_discus.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F3_shifted_rotated_weierstrass.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F4_shifted_rotated_schwefel.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F5_shifted_rotated_katsuura.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F6_shifted_rotated_happy_cat.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F7_shifted_rotated_HGBat.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F8_shifted_rotated_griewank_rosenbrock.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F9_shifted_rotated_scaffer_F6.h" />
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\hybrid.h" />
     <ClInclude Include="instance\problem\continuous\global\BBOB\BBOB.h" />
     <ClInclude Include="instance\problem\continuous\global\CEC2005\composition.h" />
     <ClInclude Include="instance\problem\continuous\global\CEC2005\F10_shifted_rotated_rastrigin.h" />
@@ -402,28 +424,15 @@
     <ClInclude Include="instance\problem\continuous\global\CEC2005\F8_shifted_rotated_ackley_bound.h" />
     <ClInclude Include="instance\problem\continuous\global\CEC2005\F9_shifted_rastrigin.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\ackley.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\beasley.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\bent_cigar.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\branin_rcos.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\center_peak.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\discus.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\elliptic.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\equal_maxima.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\FIBA.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\five_hills.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\five_uneven_peak_trap.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\griewank.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\griewank_rosenbrock.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\happy_cat.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\HGBat.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\himmenblau.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\katsuura.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\keane_bump.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\max_global.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\michalewicz.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\modified_rastrigin.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\modified_schwefel.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\modified_shekel.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\non_continuous_rastrigin.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\non_continuous_scaffer_F6.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\penalized_1.h" />
@@ -439,34 +448,32 @@
     <ClInclude Include="instance\problem\continuous\global\classical\schwefel.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\schwefel_1_2.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\schwefel_2_6.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\shaffer.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\shubert.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\six_hump_camel_back.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\sphere.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\sphere_noisy.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\step.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\szu.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\uneven_de_maxima.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\valleys.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\vincent.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\waves.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\weierstrass.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\composite.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F10_hybrid_F1.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F11_hybrid_F2.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F12_hybrid_F3.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F13_composition_F1.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F14_composition_F2.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F15_composition_F3.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F1_rotated_bent_cigar.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F2_rotated_discus.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F3_shifted_rotated_weierstrass.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F4_shifted_rotated_schwefel.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F5_shifted_rotated_katsuura.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F6_shifted_rotated_happy_cat.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F7_shifted_rotated_HGBat.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F8_shifted_rotated_griewank_rosenbrock.h" />
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F9_shifted_rotated_scaffer_F6.h" />
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\CEC2013.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\beasley.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\branin_rcos.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\center_peak.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\equal_maxima.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\FIBA.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\five_hills.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\five_uneven_peak_trap.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\himmenblau.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\keane_bump.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\max_global.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\michalewicz.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\modified_rastrigin.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\modified_shekel.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\shaffer.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\shubert.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\six_hump_camel_back.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\szu.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\uneven_de_maxima.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\valleys.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\vincent.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\waves.h" />
     <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ.h" />
     <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ1.h" />
     <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ2.h" />

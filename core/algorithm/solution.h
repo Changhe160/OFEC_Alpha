@@ -23,8 +23,8 @@
 #define OFEC_SOLUTION_H
 #include <utility>
 
-#include "encoding.h"
-#include "../definition.h"
+
+
 #include "../global.h"
 
 namespace  OFEC {
