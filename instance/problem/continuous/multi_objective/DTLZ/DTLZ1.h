@@ -8,8 +8,9 @@ namespace OFEC {
 	{
 	public:
 		DTLZ1(param_map &v);
+		DTLZ1(const std::string &name, size_t size_var, size_t size_obj);
 		~DTLZ1() {};
-	protected:
+	private:
 		void evaluate__(double *x, std::vector<double>& obj);
 	};
 }

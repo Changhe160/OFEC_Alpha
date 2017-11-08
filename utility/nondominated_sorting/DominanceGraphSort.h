@@ -5,7 +5,7 @@
 #include <memory>
 #include <map>
 #include <utility>
-#include <../../core/definition.h>
+#include "../../utility/functional.h"
 
 namespace NDS {
 	template<typename T>
@@ -88,7 +88,7 @@ namespace NDS {
 			for (std::list<int>& rank : m_ranks) {
 				for (int node : rank) {
 					if (!m_nodes[node]->m_compared) {
-						auto compare_result = objective_compare(toAdd->m_obj, m_nodes[node]->m_obj, OFEC::optimization_mode::Minimization);
+						std::pair<OFEC::dominationship, int> compare_result = OFEC::objective_compare(toAdd->m_obj, m_nodes[node]->m_obj, OFEC::optimization_mode::Minimization);
 						m_comparisons += compare_result.second;
 						if (compare_result.first == OFEC::dominationship::Dominating) {
 							dominateChildren(toAdd, node, D);

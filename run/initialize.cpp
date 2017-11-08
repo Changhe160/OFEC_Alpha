@@ -1,5 +1,6 @@
 #include "initialize.h"
 #include "../core/global.h"
+#include <thread>
 
 namespace OFEC {
 
@@ -185,7 +186,8 @@ namespace OFEC {
 	}
 
 	void run() {
-		measure::ms_measure.reset(new measure((int)(global::ms_arg[param_numRun]), std::vector<std::string>({ "Evals","IGD", "numComp" })));
+		std::vector<std::string> headers({ "Evals","IGD", "numComp" });
+		measure::ms_measure.reset(new measure((int)(global::ms_arg[param_numRun]), headers));
 
 		size_t numTask = std::thread::hardware_concurrency();
 		std::vector<std::thread> atrd;

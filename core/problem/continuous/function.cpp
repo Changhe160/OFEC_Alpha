@@ -3,7 +3,7 @@
 namespace OFEC {
 
 	function::function(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj),continuous(name, size_var, size_obj), m_rotation(size_var){
-		global::ms_arg[param_workingDir] = "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/";
+
 	}
 
 	void function::set_bias(double val) {

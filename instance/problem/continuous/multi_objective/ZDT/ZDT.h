@@ -4,13 +4,9 @@
 #include "../../../../../core/problem/continuous/continuous.h"
 
 namespace OFEC {
-	class ZDT :public continuous
-	{
-	public:
-		ZDT(param_map& v);
-		~ZDT() {};
+	class ZDT :public continuous {
 	protected:
-		virtual void evaluate__(double *x, std::vector<double>& obj) {}
+		ZDT(const std::string &name, size_t size_var);
 		void generateAdLoadPF();
 	};
 }

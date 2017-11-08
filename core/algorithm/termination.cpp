@@ -1,4 +1,4 @@
-#include "termination.h"
+
 #include "../global.h"
 
 namespace OFEC {

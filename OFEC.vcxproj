@@ -23,7 +23,7 @@
     <ProjectGuid>{09423B44-E3CE-4068-8471-8B0075DC7968}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OFEC</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -75,7 +75,7 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -98,7 +98,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(BOOST_LIB_x64);$(CUDA_LIB);</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;OpenCL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -116,7 +116,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(BOOST_LIB_x64);$(CUDA_LIB);</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;OpenCL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -128,11 +128,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(BOOST_INC_1_64);$(CUDA_INC);</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(BOOST_LIB_x64);$(CUDA_LIB);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,11 +148,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(BOOST_INC_1_64);$(CUDA_INC);</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(BOOST_LIB_x64);$(CUDA_LIB);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -264,6 +271,28 @@
     <ClCompile Include="instance\problem\continuous\global\classical\sphere_noisy.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\step.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\weierstrass.cpp" />
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\CEC2013.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\beasley.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\branin_rcos.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\center_peak.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\equal_maxima.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\FIBA.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\five_hills.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\five_uneven_peak_trap.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\himmenblau.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\keane_bump.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\max_global.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\michalewicz.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\modified_rastrigin.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\modified_shekel.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\shaffer.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\shubert.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\six_hump_camel_back.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\szu.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\uneven_de_maxima.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\valleys.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\vincent.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\waves.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ1.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ2.cpp" />
@@ -423,6 +452,28 @@
     <ClInclude Include="instance\problem\continuous\global\classical\sphere_noisy.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\step.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\weierstrass.h" />
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\CEC2013.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\beasley.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\branin_rcos.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\center_peak.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\equal_maxima.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\FIBA.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\five_hills.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\five_uneven_peak_trap.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\himmenblau.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\keane_bump.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\max_global.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\michalewicz.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\modified_rastrigin.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\modified_shekel.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\shaffer.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\shubert.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\six_hump_camel_back.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\szu.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\uneven_de_maxima.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\valleys.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\vincent.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\waves.h" />
     <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ.h" />
     <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ1.h" />
     <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ2.h" />
@@ -451,9 +502,6 @@
     <ClInclude Include="utility\myexcept.h" />
     <ClInclude Include="utility\nondominated_sorting\CornerSort.h" />
     <ClInclude Include="utility\nondominated_sorting\DominanceGraphSort.h" />
-    <ClInclude Include="utility\nondominated_sorting\d_quicktree.h" />
-    <ClInclude Include="utility\nondominated_sorting\FastNondominatedSort.h" />
-    <ClInclude Include="utility\nondominated_sorting\nodes_initialize.h" />
     <ClInclude Include="utility\nondominated_sorting\preSorting.h" />
     <ClInclude Include="utility\nondominated_sorting\T_ENS.h" />
     <ClInclude Include="utility\random\extreal.h" />

@@ -163,7 +163,8 @@ namespace OFEC {
 	protected:
 		std::string m_name;
 		size_t m_effective_eval = 0, m_total_eval = 0;
-		size_t m_objective_size, m_variable_size;
+		size_t m_objective_size;
+		size_t m_variable_size;
 		std::vector<optimization_mode> m_opt_mode;
 		double m_objective_accuracy = 1.0e-6;
 		std::set<problem_tag> m_tag;

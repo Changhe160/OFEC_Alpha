@@ -5,12 +5,12 @@
 #include "ZDT.h"
 
 namespace OFEC {
-	class ZDT6 final : public ZDT
-	{
+	class ZDT6 final : public ZDT {
 	public:
 		ZDT6(param_map &v);
+		ZDT6(const std::string &name, size_t size_var);
 		~ZDT6() {};
-	protected:
+	private:
 		void evaluate__(double *x, std::vector<double>& obj);
 	};
 }

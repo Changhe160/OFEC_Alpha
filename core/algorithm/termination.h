@@ -81,7 +81,7 @@ namespace OFEC {
 			if (v.find(param_maxEvals) != v.end()) m_max_evals = v[param_maxEvals];
 			else	THROW("m_max_evals is not given");
 		}
-		term_max_evals(int evlas) :m_max_evals(m_max_evals) { }
+		term_max_evals(int evals) :m_max_evals(evals) { }
 		bool terminating();
 	};
 
@@ -107,7 +107,9 @@ namespace OFEC {
 	protected:
 		int m_max_iter;
 		int m_suc_iter = 0;
-		double m_previous=0, m_current=0, m_epsilon = 1.E-2;
+		double m_previous = 0;
+		double m_current = 0;
+		double m_epsilon = 1.E-2;
 	public:
 		using termination::terminating;
 		term_mean_remain(param_map &v) :termination(v) {

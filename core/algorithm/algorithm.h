@@ -21,7 +21,7 @@
 
 #include <sstream>
 #include "termination.h"
-#include "../definition.h"
+
 
 namespace OFEC {
 	class algorithm
