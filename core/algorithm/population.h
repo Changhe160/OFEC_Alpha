@@ -85,7 +85,7 @@ namespace OFEC {
 		iterator_type operator-(int n); // remove n worst individuals by default
 
 		template<typename Fun, typename ... Args>
-		void sort(Fun fun, Args&& ... args);
+		void sort(Fun fun, Args&& ... args);		
 
 		void resize_objective(int n);
 		void resize_variable(int n);

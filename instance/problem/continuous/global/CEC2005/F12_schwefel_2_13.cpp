@@ -54,6 +54,7 @@ namespace OFEC {
 			sprintf(astr, "%d", (int)m_variable_size);
 			strcat(astr, "Dim.txt");
 			salpha = astr;
+
 			salpha.insert(0, m_name + "_alpha_");
 
 			salpha.insert(0, path);
