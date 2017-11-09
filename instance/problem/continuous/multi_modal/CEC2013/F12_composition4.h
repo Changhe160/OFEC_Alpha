@@ -15,18 +15,18 @@
 *******************************************************************************************/
 
 
-#ifndef OFEC_F12_COMPOSITION_F4_H
-#define OFEC_F12_COMPOSITION_F4_H
+#ifndef OFEC_F12_COMPOSITION4_H
+#define OFEC_F12_COMPOSITION4_H
 
 #include "../../global/CEC2005/composition.h"
 
 namespace OFEC {
 	namespace CEC2013 {
-		class F12_composition_F4 final : public CEC2005::composition
+		class F12_composition4 final : public CEC2005::composition
 		{
 		public:
-			F12_composition_F4(param_map &v);
-			F12_composition_F4(const std::string &name, size_t size_var, size_t size_obj);
+			F12_composition4(param_map &v);
+			F12_composition4(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
@@ -36,7 +36,7 @@ namespace OFEC {
 		};
 	}
 }
-#endif // !OFEC_F12_COMPOSITION_F4_H
+#endif // !OFEC_F12_COMPOSITION4_H
 
 
 

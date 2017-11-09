@@ -2,7 +2,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../instance/problem/continuous/multi_modal/CEC2013/F1_F8.h"
-#include "../instance/problem/continuous/multi_modal/CEC2013/F12_composition_F4.h"
+#include "../instance/problem/continuous/multi_modal/CEC2013/F12_composition4.h"
 
 using namespace OFEC;
 
@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(test_case1) {
 BOOST_AUTO_TEST_CASE(test_case2) {
 	global::ms_global = std::unique_ptr<global>(new global(0.5, 0.5));
 
-	CEC2013::F12_composition_F4 a("F12_composition_F4", 2, 1);
+	CEC2013::F12_composition4 a("F12_composition_F4", 2, 1);
 
 	std::vector<real> data = { 0, 0 };
 	//std::vector<real> data2 = { -1, 1 };

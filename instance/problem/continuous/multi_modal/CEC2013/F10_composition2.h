@@ -14,18 +14,18 @@
 *  Methods for Multimodal Function Optimization.
 *******************************************************************************************/
 
-#ifndef OFEC_F9_COMPOSITION_F1_H
-#define OFEC_F9_COMPOSITION_F1_H
+#ifndef OFEC_F10_COMPOSITION2_H
+#define OFEC_F10_COMPOSITION2_H
 
 #include "../../global/CEC2005/composition.h"
 
 namespace OFEC {
 	namespace CEC2013 {
-		class F9_composition_F1 final : public CEC2005::composition
+		class F10_composition2 final : public CEC2005::composition
 		{
 		public:
-			F9_composition_F1(param_map &v);
-			F9_composition_F1(const std::string &name, size_t size_var, size_t size_obj);
+			F10_composition2(param_map &v);
+			F10_composition2(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
@@ -37,5 +37,6 @@ namespace OFEC {
 		};
 	}
 }
-#endif // !OFEC_F9_COMPOSITION_F1_H
+#endif // !OFEC_F10_COMPOSITION2_H
+
 
