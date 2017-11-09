@@ -1,7 +1,7 @@
 #include "continuous.h"
 
 namespace OFEC {
-	continuous::continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var)\
+	continuous::continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var), m_init_domain(size_var)\
 	{
 
 	}
@@ -24,7 +24,10 @@ namespace OFEC {
 
 		for (int i = 0; i < m_variable_size; ++i) {
 			if (m_domain[i].limited) {
-				x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(m_domain[i].limit.first, m_domain[i].limit.second);
+				x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(m_init_domain[i].limit.first, m_init_domain[i].limit.second);
+			}
+			else {
+				x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(std::numeric_limits<real>::min(),std::numeric_limits<real>::max());
 			}
 		}
 

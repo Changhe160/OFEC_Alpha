@@ -57,7 +57,7 @@ namespace OFEC {
 		virtual void evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {}
 	protected:
 		double m_variable_accuracy = 1.0e-6;
-		domain<real> m_domain;
+		domain<real> m_domain,m_init_domain;
 		optima<variable<real>, real> m_optima;
 		bool m_variable_monitor = false, m_objective_monitor = false;
 	};
