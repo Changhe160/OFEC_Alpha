@@ -9,34 +9,26 @@
 *  you can redistribute it and/or modify it under the terms of the
 *  GNU General Public License as published by the Free Software
 *  Foundation; either version 2, or (at your option) any later version.
-*************************************************************************
+******************************************************************************************
 *  Paper: Benchmark Functions for CEC¡¯2013 Special Session and Competition on Niching
 *  Methods for Multimodal Function Optimization.
 *******************************************************************************************/
-
-#ifndef OFEC_F10_COMPOSITION_F2_H
-#define OFEC_F10_COMPOSITION_F2_H
-
-#include "../../global/CEC2005/composition.h"
-
+#ifndef OFEC_EQUAL_MAXIMA_H
+#define OFEC_EQUAL_MAXIMA_H
+#include "../../../../../core/problem/continuous/function.h"
 namespace OFEC {
-	namespace CEC2013_MMO {
-		class F10_composition_F2 final : public CEC2005::composition
+	
+		class equal_maxima : public function
 		{
 		public:
-			F10_composition_F2(param_map &v);
-			F10_composition_F2(const std::string &name, size_t size_var, size_t size_obj);
+			equal_maxima(param_map &v);
+			equal_maxima(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
-			void set_function();
-
-			void set_rotation();
 		private:
-
 		};
-	}
+	
 }
-#endif // !OFEC_F10_COMPOSITION_F2_H
 
-
+#endif // !OFEC_EQUAL_MAXIMA_H

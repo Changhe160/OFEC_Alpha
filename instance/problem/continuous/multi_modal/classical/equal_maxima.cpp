@@ -1,20 +1,20 @@
-#include "F2_equal_maxima.h"
+#include "equal_maxima.h"
 
 namespace OFEC {
-	namespace CEC2013_MMO {
-		F2_equal_maxima::F2_equal_maxima(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
+	
+		equal_maxima::equal_maxima(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 			function((v[param_proName]), (v[param_numDim]), 1) {
 
 			v[param_numDim] = 1;
 			set_range(0, 1.); // note
 			initialize();
 		}
-		F2_equal_maxima::F2_equal_maxima(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
+		equal_maxima::equal_maxima(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj) {
 			set_range(0, 1.); // note
 			initialize();
 		}
-		void F2_equal_maxima::initialize() { // note
+		void equal_maxima::initialize() { // note
 			m_opt_mode[0] = optimization_mode::Maximization;
 			m_objective_accuracy = 0.01;
 			m_variable_accuracy = 1.e-4;
@@ -27,10 +27,10 @@ namespace OFEC {
 			add_tag(problem_tag::MMP);
 
 		}
-		void F2_equal_maxima::evaluate__(real *x, std::vector<real>& obj) {
+		void equal_maxima::evaluate__(real *x, std::vector<real>& obj) {
 			double s;
 			s = pow(sin(5 * OFEC_PI*x[0]), 6);
 			obj[0] = s + m_bias;  // note
 		}
-	}
+	
 }

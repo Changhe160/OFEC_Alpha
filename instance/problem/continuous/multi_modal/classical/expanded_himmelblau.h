@@ -10,27 +10,31 @@
 *  GNU General Public License as published by the Free Software
 *  Foundation; either version 2, or (at your option) any later version.
 ******************************************************************************************
-*  Paper: Benchmark Functions for CEC¡¯2013 Special Session and Competition on Niching
-*  Methods for Multimodal Function Optimization.
+*  Paper: Problem Definitions and Evaluation Criteria for the CEC 2015
+*  Competition on Single Objective Multi-Niche Optimization.
 *******************************************************************************************/
-#ifndef OFEC_F5_SIX_HUMP_H
-#define OFEC_F5_SIX_HUMP_H
 
-#include "../classical/six_hump_camel_back.h"
+
+#ifndef OFEC_EXPANDED_HIMMELBLAU_H
+#define OFEC_EXPANDED_HIMMELBLAU_H
+
+#include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
-	namespace CEC2013_MMO {
-		class F5_six_hump_camel_back final : public six_hump_camel_back
-		{
-		public:
-			F5_six_hump_camel_back(param_map &v);
-			F5_six_hump_camel_back(const std::string &name, size_t size_var, size_t size_obj);
-		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
-		private:
-		};
-	}
+
+	class expanded_himmelblau : public function
+	{
+	public:
+		expanded_himmelblau(param_map &v);
+		expanded_himmelblau(const std::string &name, size_t size_var, size_t size_obj);
+	protected:
+		void initialize();
+		void evaluate__(real *x, std::vector<real>& obj);
+	private:
+	};
+
 }
-#endif // !OFEC_F5_SIX_HUMP_H
+#endif // !OFEC_EXPANDED_HIMMELBLAU_H
+
 
 

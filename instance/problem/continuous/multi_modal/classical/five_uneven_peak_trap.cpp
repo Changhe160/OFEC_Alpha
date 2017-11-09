@@ -1,8 +1,8 @@
-#include "F1_five_uneven_peak_trap.h"
+#include "five_uneven_peak_trap.h"
 
 namespace OFEC {
-	namespace CEC2013_MMO {
-		F1_five_uneven_peak_trap::F1_five_uneven_peak_trap(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
+	
+		five_uneven_peak_trap::five_uneven_peak_trap(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 			function((v[param_proName]), (v[param_numDim]), 1) {
 
 			v[param_numDim] = 1;
@@ -10,13 +10,13 @@ namespace OFEC {
 			set_range(0, 30);
 			initialize();
 		}
-		F1_five_uneven_peak_trap::F1_five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
+		five_uneven_peak_trap::five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj) {
 			set_range(0, 30);
 			initialize();
 		}
 
-		void F1_five_uneven_peak_trap::initialize() {
+		void five_uneven_peak_trap::initialize() {
 			m_opt_mode[0] = optimization_mode::Maximization;
 			m_variable_accuracy = 0.01;
 			m_objective_accuracy = 1.e-4;
@@ -28,7 +28,7 @@ namespace OFEC {
 			m_optima = m_original_optima;
 			add_tag(problem_tag::MMP);
 		}
-		void F1_five_uneven_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
+		void five_uneven_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
 			double s = -1.0;
 			if (x[0] >= 0 && x[0] < 2.5) {
 				s = 80 * (2.5 - x[0]);
@@ -58,5 +58,5 @@ namespace OFEC {
 			obj[0] = s + m_bias;
 
 		}
-	}
+	
 }

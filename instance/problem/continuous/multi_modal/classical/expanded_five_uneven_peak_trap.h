@@ -9,33 +9,30 @@
 *  you can redistribute it and/or modify it under the terms of the
 *  GNU General Public License as published by the Free Software
 *  Foundation; either version 2, or (at your option) any later version.
-*************************************************************************
-*  Paper: Benchmark Functions for CEC¡¯2013 Special Session and Competition on Niching
-*  Methods for Multimodal Function Optimization.
+******************************************************************************************
+*  Paper: Problem Definitions and Evaluation Criteria for the CEC 2015
+*  Competition on Single Objective Multi-Niche Optimization.
 *******************************************************************************************/
 
-#ifndef OFEC_F11_COMPOSITION_F3_H
-#define OFEC_F11_COMPOSITION_F3_H
 
-#include "../../global/CEC2005/composition.h"
+#ifndef OFEC_EXPANDED_FIVE_UNEVEN_PEAK_TRAP_H
+#define OFEC_EXPANDED_FIVE_UNEVEN_PEAK_TRAP_H
+
+#include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
-	namespace CEC2013_MMO {
-		class F11_composition_F3 final : public CEC2005::composition
-		{
-		public:
-			F11_composition_F3(param_map &v);
-			F11_composition_F3(const std::string &name, size_t size_var, size_t size_obj);
-		protected:
-			void initialize();
-			void evaluate__(real *x, std::vector<real>& obj);
-			void set_function();
-		private:
 
-		};
-	}
+	class expanded_five_uneven_peak_trap : public function
+	{
+	public:
+		expanded_five_uneven_peak_trap(param_map &v);
+		expanded_five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj);
+	protected:
+		void initialize();
+		void evaluate__(real *x, std::vector<real>& obj);
+	private:
+	};
+
 }
-#endif // !OFEC_F11_COMPOSITION_F3_H
-
-
+#endif // !OFEC_EXPANDED_FIVE_UNEVEN_PEAK_TRAP_H
 

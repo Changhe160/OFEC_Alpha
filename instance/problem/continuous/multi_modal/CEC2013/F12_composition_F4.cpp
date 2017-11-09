@@ -19,7 +19,7 @@
 
 
 namespace OFEC {
-	namespace CEC2013_MMO {
+	namespace CEC2013 {
 		F12_composition_F4::F12_composition_F4(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 			composition((v[param_proName]), (v[param_numDim]), 1) {
 			m_num_function = 8;

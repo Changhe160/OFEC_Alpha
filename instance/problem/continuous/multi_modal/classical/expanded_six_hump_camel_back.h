@@ -10,28 +10,32 @@
 *  GNU General Public License as published by the Free Software
 *  Foundation; either version 2, or (at your option) any later version.
 ******************************************************************************************
-*  Paper: Benchmark Functions for CEC¡¯2013 Special Session and Competition on Niching 
-*  Methods for Multimodal Function Optimization.
+*  Paper: Problem Definitions and Evaluation Criteria for the CEC 2015
+*  Competition on Single Objective Multi-Niche Optimization.
 *******************************************************************************************/
 
 
-#ifndef OFEC_F1_FIVE_UNEVEN_PEAK_TRAP_H
-#define OFEC_F1_FIVE_UNEVEN_PEAK_TRAP_H
+#ifndef OFEC_EXPANDED_SIX_HUMP_CAMEL_BACK_H
+#define OFEC_EXPANDED_SIX_HUMP_CAMEL_BACK_H
 
 #include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
-	namespace CEC2013_MMO {
-		class F1_five_uneven_peak_trap final : public function
-		{
-		public:
-			F1_five_uneven_peak_trap(param_map &v);
-			F1_five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj);
-		protected:
-			void initialize();
-			void evaluate__(real *x, std::vector<real>& obj);
-		private:
-		};
-	}
+
+	class expanded_six_hump_camel_back : public function
+	{
+	public:
+		expanded_six_hump_camel_back(param_map &v);
+		expanded_six_hump_camel_back(const std::string &name, size_t size_var, size_t size_obj);
+	protected:
+		void initialize();
+		void evaluate__(real *x, std::vector<real>& obj);
+	private:
+	};
+
 }
-#endif // !OFEC_F1_FIVE_UNEVEN_PEAK_TRAP_H
+#endif // !OFEC_EXPANDED_SIX_HUMP_CAMEL_BACK_H
+
+
+
+
