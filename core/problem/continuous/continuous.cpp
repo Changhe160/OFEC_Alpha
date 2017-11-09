@@ -102,6 +102,18 @@ namespace OFEC {
 			m_domain.set_range(i.first, i.second, count++);
 		}
 	}
+
+	void set_init_range(real l, real u) {
+		for (size_t i = 0; i < m_domain.size(); ++i)
+			m_init_domain.set_range(l, u, i);
+	}
+	void set_init_range(const std::vector<std::pair<real, real>>& r) {
+		size_t count = 0;
+		for (auto &i : r) {
+			m_init_domain.set_range(i.first, i.second, count++);
+		}
+	}
+
 	optima<variable<real>, real>& continuous::get_optima() {
 		return m_optima;
 	}
