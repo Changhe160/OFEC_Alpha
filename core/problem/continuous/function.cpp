@@ -103,7 +103,7 @@ namespace OFEC {
 		std::stringstream ss;
 		ss << m_variable_size << "Dim.txt";
 		s = ss.str();
-		s.insert(0, m_name + "_Opt_");
+		s.insert(0, m_name + "_Shift_");
 		s.insert(0, path);    // data path
 		s.insert(0, global::ms_arg[param_workingDir]);
 

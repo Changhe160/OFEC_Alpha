@@ -26,7 +26,7 @@ namespace OFEC {
 			m_original_optima.append(i);
 		m_optima = m_original_optima;
 		add_tag(problem_tag::MMP);
-		//setObjSet();
+		
 	}
 	void uneven_de_maxima::evaluate__(real *x, std::vector<real>& obj) {
 		double tmp1 = -2 * log(2)*((x[0] - 0.08) / 0.854)*((x[0] - 0.08) / 0.854);

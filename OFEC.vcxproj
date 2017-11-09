@@ -23,7 +23,7 @@
     <ProjectGuid>{09423B44-E3CE-4068-8471-8B0075DC7968}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OFEC</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -244,6 +244,7 @@
     <ClCompile Include="instance\problem\continuous\global\CEC2005\F9_shifted_rastrigin.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\ackley.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\bent_cigar.cpp" />
+    <ClCompile Include="instance\problem\continuous\global\classical\different_powers.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\discus.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\elliptic.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\griewank.cpp" />
@@ -272,10 +273,21 @@
     <ClCompile Include="instance\problem\continuous\global\classical\step.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\weierstrass.cpp" />
     <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\CEC2013.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F10_composition2.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F11_composition3.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F12_composition4.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F9_composition1.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\beasley.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\branin_rcos.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\center_peak.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\equal_maxima.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_decreasing_minima.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_equal_maxima.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_five_uneven_peak_trap.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_himmelblau.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_six_hump_camel_back.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_two_peak_trap.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_uneven_minima.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\FIBA.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\five_hills.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\five_uneven_peak_trap.cpp" />
@@ -285,6 +297,7 @@
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\michalewicz.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\modified_rastrigin.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\modified_shekel.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\classical\modified_vincent.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\shaffer.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\shubert.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\six_hump_camel_back.cpp" />
@@ -425,6 +438,7 @@
     <ClInclude Include="instance\problem\continuous\global\CEC2005\F9_shifted_rastrigin.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\ackley.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\bent_cigar.h" />
+    <ClInclude Include="instance\problem\continuous\global\classical\different_powers.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\discus.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\elliptic.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\griewank.h" />
@@ -453,10 +467,22 @@
     <ClInclude Include="instance\problem\continuous\global\classical\step.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\weierstrass.h" />
     <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\CEC2013.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F10_composition2.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F11_composition3.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F12_composition4.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F1_F8.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F9_composition1.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\beasley.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\branin_rcos.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\center_peak.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\equal_maxima.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_decreasing_minima.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_equal_maxima.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_five_uneven_peak_trap.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_himmelblau.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_six_hump_camel_back.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_two_peak_trap.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_uneven_minima.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\FIBA.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\five_hills.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\five_uneven_peak_trap.h" />
@@ -466,6 +492,7 @@
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\michalewicz.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\modified_rastrigin.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\modified_shekel.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\classical\modified_vincent.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\shaffer.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\shubert.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\six_hump_camel_back.h" />

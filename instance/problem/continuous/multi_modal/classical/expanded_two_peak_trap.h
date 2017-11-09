@@ -10,19 +10,23 @@
 *  GNU General Public License as published by the Free Software
 *  Foundation; either version 2, or (at your option) any later version.
 ******************************************************************************************
-*  Paper: Benchmark Functions for CEC¡¯2013 Special Session and Competition on Niching
-*  Methods for Multimodal Function Optimization.
+*  Paper: Problem Definitions and Evaluation Criteria for the CEC 2015
+*  Competition on Single Objective Multi-Niche Optimization.
 *******************************************************************************************/
-#ifndef OFEC_EQUAL_MAXIMA_H
-#define OFEC_EQUAL_MAXIMA_H
+
+
+#ifndef OFEC_EXPANDED_TWO_PEAK_TRAP_H
+#define OFEC_EXPANDED_TWO_PEAK_TRAP_H
+
 #include "../../../../../core/problem/continuous/function.h"
+
 namespace OFEC {
 	
-		class equal_maxima : public function
+		class expanded_two_peak_trap : public function
 		{
 		public:
-			equal_maxima(param_map &v);
-			equal_maxima(const std::string &name, size_t size_var, size_t size_obj);
+			expanded_two_peak_trap(param_map &v);
+			expanded_two_peak_trap(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
 			void initialize();
 			void evaluate__(real *x, std::vector<real>& obj);
@@ -30,5 +34,4 @@ namespace OFEC {
 		};
 	
 }
-
-#endif // !OFEC_EQUAL_MAXIMA_H
+#endif // !OFEC_EXPANDED_TWO_PEAK_TRAP_H

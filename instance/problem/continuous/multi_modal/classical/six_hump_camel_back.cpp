@@ -38,7 +38,7 @@ namespace OFEC {
 		m_variable_accuracy = 1.e-4;
 		m_objective_accuracy = 0.1;
 
-		m_original_optima.set_number_variable(6);// 2gopt+ 4 lopt
+		// 2gopt+ 4 lopt
 		std::vector<std::vector<real>> var_data = { {-0.089842, 0.712656 }, {0.712656, -0.712656}, {-1.70361, 0.796084}, {1.70361, -0.796084}, {-1.6071,-0.56865}, {1.6071, 0.56865} };
 
 		for (auto &i : var_data) {
@@ -46,7 +46,7 @@ namespace OFEC {
 		}
 		m_optima = m_original_optima;
 		add_tag(problem_tag::MMP);
-		//setObjSet();
+		
 
 	}
 	void six_hump_camel_back::evaluate__(real *x, std::vector<real>& obj) {

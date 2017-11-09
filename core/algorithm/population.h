@@ -141,7 +141,7 @@ namespace OFEC {
 	template<typename Individual>
 	void population<Individual>::update_best() {
 		m_best.clear();
-	 std::vector<bool> flag(m_pop.size(), true);
+		std::vector<bool> flag(m_pop.size(), true);
 	
 		for (size_t j = 0; j<m_pop.size(); j++) {
 			for (size_t i = 0; i<m_pop.size(); i++) {
@@ -158,7 +158,7 @@ namespace OFEC {
 	template<typename Individual>
 	void population<Individual>::update_worst() {
 		m_worst.clear();
-	 std::vector<bool> flag(m_pop.size(), true);
+		std::vector<bool> flag(m_pop.size(), true);
 
 		for (size_t j = 0; j<m_pop.size(); j++) {
 			for (size_t i = 0; i<m_pop.size(); i++) {

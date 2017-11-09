@@ -245,10 +245,7 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 *.filters
-*.filters
-*.vcxproj
 *.vcxproj
 OFEC.vcxproj
-utility/random/extreal.h
-OFEC.vcxproj
-*.vcxproj
+*.d
+obj/
