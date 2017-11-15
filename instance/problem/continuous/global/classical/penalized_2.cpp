@@ -18,14 +18,14 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
 		set_range(-50, 50);
-
+		set_init_range(-50., 50.);
 		initialize();
 	}
 	penalized_2::penalized_2(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 
 		set_range(-50, 50);
-
+		set_init_range(-50., 50.);
 		initialize();
 	}
 

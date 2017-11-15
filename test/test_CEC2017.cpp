@@ -1,20 +1,20 @@
-#define BOOST_TEST_MODULE CEC2017
+/*#define BOOST_TEST_MODULE CEC2017
 #include <boost/test/unit_test.hpp>
 
-#include "../instance/problem/continuous/constrained/CEC2017/C06.h"  
-#include "../instance/problem/continuous/constrained/CEC2017/C26.h"
+#include "../instance/problem/continuous/constrained/CEC2017/C19.h"    
+#include "../instance/problem/continuous/constrained/CEC2017/C23.h"
 using namespace OFEC;
 
 BOOST_AUTO_TEST_SUITE(CEC2017_test)
 
 
 BOOST_AUTO_TEST_CASE(test_case1) {
-	global::ms_global = unique_ptr<global>(new global(0.5, 0.5));
+	global::ms_global = std::unique_ptr<global>(new global(0.5, 0.5));
 
-	CEC2017::C06 a("C06", 10, 1);
+	CEC2017::C19 a("C19", 10, 1);
 
 	//vector<real> data = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
-	vector<real> data(10, 0);
+	std::vector<real> data(10, 0);
 
 	
 	solution<variable<real>> sol(1, data);
@@ -27,16 +27,16 @@ BOOST_AUTO_TEST_CASE(test_case1) {
 	std::cout << sol.constraint_value().first << std::endl;
 	for (auto &i : sol.constraint_value().second)
 		std::cout << i << std::endl;
-	cout << "number of violations is: " << sol.num_violation() << endl;
+	std::cout << "number of violations is: " << sol.num_violation() << std::endl;
 	//std::cout << sol.constraint_value() << std::endl;
 }
 BOOST_AUTO_TEST_CASE(test_case2) {
-	global::ms_global = unique_ptr<global>(new global(0.5, 0.5));
+	global::ms_global = std::unique_ptr<global>(new global(0.5, 0.5));
 
-	CEC2017::C26 a("C26", 10, 1);
+	CEC2017::C23 a("C23", 10, 1);
 
 	//vector<real> data = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
-	vector<real> data(a.translation());
+	std::vector<real> data(a.translation());
 	
 	
 	solution<variable<real>> sol(1, data);
@@ -49,8 +49,8 @@ BOOST_AUTO_TEST_CASE(test_case2) {
 	std::cout << sol.constraint_value().first << std::endl;
 	for(auto &i: sol.constraint_value().second)
 		std::cout << i << std::endl;
-	cout << "number of violations is: " << sol.num_violation() << endl;
+	std::cout << "number of violations is: " << sol.num_violation() << std::endl;
 }
 
 
-BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()*/

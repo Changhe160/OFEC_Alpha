@@ -23,6 +23,10 @@ namespace OFEC {
 		m_translation_flag = flag;
 	}
 
+	void function::set_scale_flag(bool flag) {
+		m_scale_flag = flag;
+	}
+
 	real function::translation(size_t i) const {
 		return m_translation[i];
 	}
@@ -103,7 +107,7 @@ namespace OFEC {
 		std::stringstream ss;
 		ss << m_variable_size << "Dim.txt";
 		s = ss.str();
-		s.insert(0, m_name + "_Opt_");
+		s.insert(0, m_name + "_Shift_");
 		s.insert(0, path);    // data path
 		s.insert(0, global::ms_arg[param_workingDir]);
 
@@ -278,5 +282,7 @@ namespace OFEC {
 		evaluate_(temp, caller::Problem, false, false);
 		m_optima.append(std::move(temp.get_objective()));
 	}
-	
+	real function::scale() {
+		return m_scale;
+	}
 }

@@ -32,12 +32,14 @@ namespace OFEC {
 		void set_scale(double val);
 		void set_rotation_flag(bool flag);
 		void set_tranlation_flag(bool flag);
+		void set_scale_flag(bool flag);
 
 		real translation(size_t i) const;
 		std::vector<real>& translation();
 		matrix& rotation();
 		double condition_number();
 		real bias();
+		real scale();
 		void set_condition_number(double c);
 		optima<variable<real>, real>& get_original_optima();
 		void set_global_opt(real *tran = 0);

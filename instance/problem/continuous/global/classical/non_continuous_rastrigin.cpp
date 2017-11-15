@@ -17,11 +17,13 @@ namespace OFEC {
 	non_continuous_rastrigin::non_continuous_rastrigin(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		set_range(-5.12, 5.12);
+		set_init_range(-5.12, 5.12);
 		initialize();
 	}
 	non_continuous_rastrigin::non_continuous_rastrigin(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 		set_range(-5.12, 5.12);
+		set_init_range(-5.12, 5.12);
 		initialize();
 	}
 

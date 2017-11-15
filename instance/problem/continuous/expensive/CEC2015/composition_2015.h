@@ -15,7 +15,7 @@
 #define OFEC_CEC2015_COMPOSITION_H
 
 #include "../../global/CEC2005/composition.h"
-#include "../../../../../core/problem/continuous/function.h"
+//#include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
 	namespace CEC2015 {

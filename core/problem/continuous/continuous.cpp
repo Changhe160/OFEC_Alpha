@@ -1,7 +1,7 @@
 #include "continuous.h"
 
 namespace OFEC {
-	continuous::continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var)\
+	continuous::continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var), m_init_domain(size_var)\
 	{
 		global::ms_arg[param_workingDir] = "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/";
 	}
@@ -24,7 +24,10 @@ namespace OFEC {
 
 		for (int i = 0; i < m_variable_size; ++i) {
 			if (m_domain[i].limited) {
-				x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(m_domain[i].limit.first, m_domain[i].limit.second);
+				x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(m_init_domain[i].limit.first, m_init_domain[i].limit.second);
+			}
+			else {
+				x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(std::numeric_limits<real>::min(), std::numeric_limits<real>::max());
 			}
 		}
 
@@ -99,6 +102,18 @@ namespace OFEC {
 			m_domain.set_range(i.first, i.second, count++);
 		}
 	}
+
+	void continuous::set_init_range(real l, real u) {
+		for (size_t i = 0; i < m_domain.size(); ++i)
+			m_init_domain.set_range(l, u, i);
+	}
+	void continuous::set_init_range(const std::vector<std::pair<real, real>>& r) {
+		size_t count = 0;
+		for (auto &i : r) {
+			m_init_domain.set_range(i.first, i.second, count++);
+		}
+	}
+
 	optima<variable<real>, real>& continuous::get_optima() {
 		return m_optima;
 	}
@@ -115,6 +130,7 @@ namespace OFEC {
 		const variable<real>& x2 = dynamic_cast<const variable<real>&>(s2);
 		return euclidean_distance(x1.begin(), x1.end(), x2.begin());
 	}
+
 	evaluation_tag continuous::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
 		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();

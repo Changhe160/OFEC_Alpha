@@ -5,11 +5,13 @@ namespace OFEC {
 		C19::C19(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 			function((v[param_proName]), (v[param_numDim]), 1) {
 			set_range(-50., 50.);
+			set_init_range(-50., 50.);
 			initialize();
 		}
 		C19::C19(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj) {
 			set_range(-50., 50.);
+			set_init_range(-50., 50.);
 			initialize();
 		}
 

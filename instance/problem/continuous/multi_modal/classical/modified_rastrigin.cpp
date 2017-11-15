@@ -25,12 +25,14 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1), m_k(2) {
 		v[param_numDim] = 2;
 		set_range(0.0, 1.); // note
+		set_init_range(0.0, 1.); // note
 		v[param_proName] = "modified_rastrigin";
 		initialize();
 	}
 	modified_rastrigin::modified_rastrigin(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj), m_k(2) {
 		set_range(0.0, 1.0); // note
+		set_init_range(0.0, 1.); // note
 		m_name = "modified_rastrigin";
 		initialize();
 	}

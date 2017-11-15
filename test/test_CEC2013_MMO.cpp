@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE CEC2013_MMO
+/*#define BOOST_TEST_MODULE CEC2013_MMO
 #include <boost/test/unit_test.hpp>
 
 #include "../instance/problem/continuous/multi_modal/CEC2013/F1_F8.h"
@@ -61,4 +61,4 @@ BOOST_AUTO_TEST_CASE(test_case2) {
 }
 
 
-BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()*/

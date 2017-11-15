@@ -19,7 +19,8 @@ namespace OFEC {
 			m_function(m_num_function), m_height(m_num_function), m_fmax(m_num_function), \
 			m_converge_severity(m_num_function), m_stretch_severity(m_num_function) {
 
-			set_range(-5, 5);
+			set_range(-5., 5.);
+			set_init_range(-5., 5.);
 			m_height_normalize_severity = 2000.;
 		}
 		composition::~composition() {
@@ -121,7 +122,7 @@ namespace OFEC {
 			std::stringstream ss;
 			ss << m_variable_size << "Dim.txt";
 			s = ss.str();
-			s.insert(0, m_name + "_Opt_");
+			s.insert(0, m_name + "_Shift_");
 			s.insert(0, path);    // data path
 			s.insert(0, global::ms_arg[param_workingDir]);
 

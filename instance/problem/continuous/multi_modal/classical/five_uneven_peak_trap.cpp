@@ -8,11 +8,13 @@ namespace OFEC {
 			v[param_numDim] = 1;
 
 			set_range(0, 30);
+			set_init_range(0, 30);
 			initialize();
 		}
 		five_uneven_peak_trap::five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj) {
 			set_range(0, 30);
+			set_init_range(0, 30);
 			initialize();
 		}
 

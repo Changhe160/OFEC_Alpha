@@ -7,13 +7,14 @@ namespace OFEC {
 			m_b(v[param_numDim], std::vector<int>(v[param_numDim])), m_alpha(v[param_numDim]) {
 
 			set_range(-OFEC_PI, OFEC_PI);
+			set_init_range(-OFEC_PI, OFEC_PI);
 			initialize();
 		}
 		F12_schwefel_2_13::F12_schwefel_2_13(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj), m_a(size_var, std::vector<int>(size_var)), m_b(size_var, std::vector<int>(size_var)), \
 			m_alpha(size_var) {
-
 			set_range(-OFEC_PI, OFEC_PI);
+			set_init_range(-OFEC_PI, OFEC_PI);
 			initialize();
 		}
 

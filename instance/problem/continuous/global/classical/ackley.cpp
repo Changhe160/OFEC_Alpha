@@ -19,11 +19,13 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
 		set_range(-32.768, 32.768);
+		set_init_range(-32.768, 32.768);
 		initialize();
 	}
 	ackley::ackley(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, 1) {
 		set_range(-32.768, 32.768);
+		set_init_range(-32.768, 32.768);
 		initialize();
 	}
 

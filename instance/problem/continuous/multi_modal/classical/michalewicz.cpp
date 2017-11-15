@@ -16,7 +16,7 @@ namespace OFEC {
 	void michalewicz::initialize() {
 
 		set_range(0, OFEC_PI);
-
+		set_init_range(0, OFEC_PI);
 		m_variable_accuracy = 1.e-3;
 		m_objective_accuracy = 0.2;
 		m_opt_mode[0] = optimization_mode::Maximization;

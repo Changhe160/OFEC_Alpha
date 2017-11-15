@@ -6,11 +6,13 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
 		set_range(-10, 10);
+		set_init_range(-10, 10);
 		initialize();
 	}
 	modified_vincent::modified_vincent(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 		set_range(-10, 10);
+		set_init_range(-10, 10);
 		initialize();
 	}
 

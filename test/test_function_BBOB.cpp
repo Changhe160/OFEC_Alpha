@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE function_BBOB
+/*#define BOOST_TEST_MODULE function_BBOB
 #include <boost/test/unit_test.hpp>
 
 #include "../core/problem/continuous/function.h"
@@ -67,12 +67,13 @@ BOOST_AUTO_TEST_CASE(test_case2) {
 }
 
 BOOST_AUTO_TEST_CASE(test_case3) {
+	std::cout << "This is test_case 3 :" << std::endl;
 	//global::ms_global = unique_ptr<global>(new global());
 	vector<real> data = { 0,0,0 };    // Original optimal solution
 	//variable<real> x(data);
 	//objective<real> obj(1);
 	solution<variable<real>> sol(1, data);
-	FAckley a("FUN_Ackley", 3, 1);
+	FAckley a("FUN_CEC05_F08_RS_Ackley_Bound", 3, 1);
 	objective<real> temp_obj(1);
 	solution<variable<real>, real> temp(a.get_optima().variable(0), std::move(temp_obj));
 	a.evaluate(temp,caller::Problem);
@@ -88,11 +89,11 @@ BOOST_AUTO_TEST_CASE(test_case3) {
 
 
 BOOST_AUTO_TEST_CASE(test_case4) {
-
+	std::cout << "This is test_case 4 :" << std::endl;
 	vector<real> data = { 1,1,1 };   // Original optimal solution
 
 	solution<variable<real>> sol(1, data);
-	FRosenbrock a("FUN_Rosenbrock", 3, 1);
+	FRosenbrock a("FUN_S_Rosenbrock", 3, 1);
 	objective<real> temp_obj(1);
 	solution<variable<real>, real> temp(a.get_optima().variable(0), std::move(temp_obj));
 	a.evaluate(temp, caller::Problem);
@@ -106,7 +107,7 @@ BOOST_AUTO_TEST_CASE(test_case4) {
 }
 
 BOOST_AUTO_TEST_CASE(test_case5) {
-
+	std::cout << "This is test_case 5 :" << std::endl;
 	vector<real> data = { 1,1,1 };  
 
 	solution<variable<real>> sol(1, data);
@@ -123,4 +124,4 @@ BOOST_AUTO_TEST_CASE(test_case5) {
 
 
 }
-BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()*/

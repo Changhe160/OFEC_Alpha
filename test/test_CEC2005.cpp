@@ -1,8 +1,10 @@
-#define BOOST_TEST_MODULE CEC2005
+/*#define BOOST_TEST_MODULE CEC2005
 #include <boost/test/unit_test.hpp>
 
-#include "../instance/problem/continuous/global/CEC2005/F5_schwefel_2_6_bound.h"
-#include "../instance/problem/continuous/global/CEC2005/F25_rotated_hybrid_no_bound.h"
+#include "../instance/problem/continuous/global/CEC2005/F13_shifted_expanded_griewank_rosenbrock.h"
+#include "../instance/problem/continuous/global/CEC2005/F20_rotated_hybrid_bound.h"
+
+
 
 using namespace OFEC;
 
@@ -12,7 +14,7 @@ BOOST_AUTO_TEST_SUITE(CEC2005_test)
 BOOST_AUTO_TEST_CASE(test_case1) {
 	global::ms_global = std::unique_ptr<global>(new global(0.5, 0.5));
 
-	CEC2005::F5_schwefel_2_6_bound a("F5_schwefel_2_6_bound", 2, 1);
+	CEC2005::F13_shifted_expanded_griewank_rosenbrock a("F13_shifted_expanded_griewank_rosenbrock", 2, 1);
 
 	std::vector<real> data = { 0, 0 };
 	std::vector<real> data2 = { -1, 1 };
@@ -39,7 +41,7 @@ BOOST_AUTO_TEST_CASE(test_case1) {
 BOOST_AUTO_TEST_CASE(test_case2) {
 	global::ms_global = std::unique_ptr<global>(new global(0.5, 0.5));
 
-	CEC2005::F25_rotated_hybrid_no_bound a("F25_rotated_hybrid_no_bound", 2, 1);
+	CEC2005::F20_rotated_hybrid_bound a("F20_rotated_hybrid_bound", 2, 1);
 
 	std::vector<real> data = { 0, 0 };
 	std::vector<real> data2 = { -1, 1 };
@@ -64,4 +66,5 @@ BOOST_AUTO_TEST_CASE(test_case2) {
 }
 
 
-BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE_END()*/

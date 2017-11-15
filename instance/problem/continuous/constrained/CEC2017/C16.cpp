@@ -5,11 +5,13 @@ namespace OFEC {
 		C16::C16(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 			function((v[param_proName]), (v[param_numDim]), 1) {
 			set_range(-100., 100.);
+			set_init_range(-100., 100.);
 			initialize();
 		}
 		C16::C16(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj) {
 			set_range(-100., 100.);
+			set_init_range(-100., 100.);
 			initialize();
 		}
 

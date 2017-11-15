@@ -5,11 +5,13 @@ namespace OFEC {
 		C05::C05(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 			function((v[param_proName]), (v[param_numDim]), 1), m_mat1(v[param_numDim]), m_mat2(v[param_numDim]) {
 			set_range(-10., 10.);
+			set_init_range(-10., 10.);
 			initialize();
 		}
 		C05::C05(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj), m_mat1(size_var), m_mat2(size_var) {
 			set_range(-10., 10.);
+			set_init_range(-10., 10.);
 			initialize();
 		}
 

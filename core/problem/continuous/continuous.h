@@ -36,6 +36,9 @@ namespace OFEC {
 		const std::pair<real, real>& range(int i) const;
 		void set_range(real l, real u);
 		void set_range(const std::vector<std::pair<real, real>>& r);
+		void set_init_range(real l, real u);
+		void set_init_range(const std::vector<std::pair<real, real>>& r);
+
 		optima<variable<real>, real>& get_optima();
 
 		virtual bool same(const base &s1, const base &s2) const { return false; }
@@ -57,7 +60,8 @@ namespace OFEC {
 		virtual void evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {}
 	protected:
 		double m_variable_accuracy = 1.0e-6;
-		domain<real> m_domain;
+		domain<real> m_domain;		// search domain
+		domain<real> m_init_domain; // range for intial population
 		optima<variable<real>, real> m_optima;
 		bool m_variable_monitor = false, m_objective_monitor = false;
 	};

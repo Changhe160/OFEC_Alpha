@@ -15,6 +15,7 @@ namespace OFEC {
 
 	void shubert::initialize() {
 		set_range(10, -10);
+		set_init_range(10, -10);
 		m_variable_accuracy = 0.5;
 		size_t num = m_variable_size*(size_t)pow(3, m_variable_size);
 		m_original_optima.set_number_variable(num);

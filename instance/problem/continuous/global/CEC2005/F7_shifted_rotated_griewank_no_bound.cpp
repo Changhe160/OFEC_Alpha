@@ -4,12 +4,14 @@ namespace OFEC {
 	namespace CEC2005 {
 		F7_shifted_rotated_griewank_no_bound::F7_shifted_rotated_griewank_no_bound(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 			griewank((v[param_proName]), (v[param_numDim]), 1) {
-			set_range(0, 600);
+			set_range(0, 600.);
+			set_init_range(0, 600.);
 			initialize();
 		}
 		F7_shifted_rotated_griewank_no_bound::F7_shifted_rotated_griewank_no_bound(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			griewank(name, size_var, size_obj) {
 			set_range(0, 600);
+			set_init_range(0, 600.);
 			initialize();
 		}
 

@@ -50,36 +50,7 @@ namespace OFEC {
 		function* hybrid::get_function(size_t num) {
 			return m_function[num];
 		}
-		evaluation_tag hybrid::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
-			variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
-			auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
-
-
-			std::vector<real> x_(x.begin(), x.end()); //for parallel running
-
-			evaluate__(x_.data(), obj);
-
-			if (constructed) {
-				if (effective_fes)		m_effective_eval++;
-
-				if (m_variable_monitor) {
-					m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_variable_accuracy);
-					if (m_optima.is_variable_found())
-						m_solved = true;
-				}
-				if (m_objective_monitor) {
-					m_optima.is_optimal_objective(obj, m_objective_accuracy);
-					if (m_optima.is_objective_found())
-						m_solved = true;
-				}
-				if (call == caller::Algorithm&& global::ms_global->m_algorithm&&global::ms_global->m_algorithm->terminating())
-					return evaluation_tag::Terminate;
-
-				//if (mode == Program_Algorithm&&Global::msp_global->mp_problem && !Global::msp_global->mp_problem->isProTag(MOP)) m_globalOpt.isFound(s, m_disAccuracy, m_accuracy);
-				//if (Global::msp_global != nullptr&&Global::msp_global->mp_algorithm != nullptr&&Global::msp_global->mp_algorithm->ifTerminating()) { return Return_Terminate; }
-			}
-			return evaluation_tag::Normal;
-		}
+		
 	}
 }
 

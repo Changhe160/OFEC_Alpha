@@ -5,12 +5,12 @@ namespace OFEC {
 		F4_shifted_schwefel_1_2_noisy::F4_shifted_schwefel_1_2_noisy(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 			schwefel_1_2((v[param_proName]), (v[param_numDim]), 1) {
 
-			//initialize();
+			initialize();
 		}
 		F4_shifted_schwefel_1_2_noisy::F4_shifted_schwefel_1_2_noisy(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			schwefel_1_2(name, size_var, size_obj) {
 
-			//initialize();
+			initialize();
 		}
 
 		void F4_shifted_schwefel_1_2_noisy::initialize() {

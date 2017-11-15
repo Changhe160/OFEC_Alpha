@@ -5,20 +5,22 @@ namespace OFEC {
 		C27::C27(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 			function((v[param_proName]), (v[param_numDim]), 1) {
 			set_range(-100., 100.);
+			set_init_range(-100., 100.);
 			initialize();
 		}
 		C27::C27(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj) {
 			set_range(-100., 100.);
+			set_init_range(-100., 100.);
 			initialize();
 		}
 
 		void C27::initialize() {
 			add_tag(problem_tag::COP);
 			
-			load_translation("instance/problem/continuous/constrained/CEC2717/data/");  //data path
+			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
 			
-			load_rotation("instance/problem/continuous/constrained/CEC2717/data/");
+			load_rotation("instance/problem/continuous/constrained/CEC2017/data/");
 			
 		}
 		void C27::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
