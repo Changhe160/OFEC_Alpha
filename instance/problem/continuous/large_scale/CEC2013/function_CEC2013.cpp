@@ -1,49 +1,19 @@
-#include "CEC2013.h"
+#include "function_CEC2013.h"
 
 namespace OFEC {
-	CEC2013::CEC2013(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), continuous(name, size_var, size_obj) \
+	function_CEC2013::function_CEC2013(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), continuous(name, size_var, size_obj) \
 	{
 		m_variable_accuracy=1.0e-6;
 	}
 	
-	CEC2013::~CEC2013() {
+	function_CEC2013::~function_CEC2013() {
 		// delete[] anotherz;
 		// delete[] anotherz1;
 		// delete[] anotherz2;
 	}
 
-	evaluation_tag CEC2013::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
-		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
-		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
-
-		std::vector<real> x_(x.begin(), x.end()); //for parallel running
-
-		evaluate__(x_.data(), obj);
-		
-		if (constructed) {
-			if (effective_fes)		m_effective_eval++;
-
-			if (m_variable_monitor) {
-				m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_variable_accuracy);
-				if (m_optima.is_variable_found())
-					m_solved = true;
-			}
-			if (m_objective_monitor) {
-				m_optima.is_optimal_objective(obj, m_objective_accuracy);
-				if (m_optima.is_objective_found())
-					m_solved = true;
-			}
-			if (call == caller::Algorithm&& global::ms_global->m_algorithm&&global::ms_global->m_algorithm->terminating())
-				return evaluation_tag::Terminate;
-
-			//if (mode == Program_Algorithm&&Global::msp_global->mp_problem && !Global::msp_global->mp_problem->isProTag(MOP)) m_globalOpt.isFound(s, m_disAccuracy, m_accuracy);
-			//if (Global::msp_global != nullptr&&Global::msp_global->mp_algorithm != nullptr&&Global::msp_global->mp_algorithm->ifTerminating()) { return Return_Terminate; }
-		}
-		return evaluation_tag::Normal;
-	}
-
-	void CEC2013::set_original_global_opt(real *opt) {
-		if (m_objective_size > 1) throw myexcept("CEC2013::set_original_global_opt only for problems with a single obj");
+	void function_CEC2013::set_original_global_opt(real *opt) {
+		if (m_objective_size > 1) throw myexcept("function_CEC2013::set_original_global_opt only for problems with a single obj");
 		variable<real> temp_var(m_variable_size);
 		if (opt == 0)		for (auto&i : temp_var) i = 0.;
 		else	for (int i = 0; i < m_variable_size; i++)  temp_var[i] = opt[i];
@@ -55,8 +25,8 @@ namespace OFEC {
 		evaluate_(temp, caller::Problem,false,false);
 		m_original_global_opt.append(std::move(temp.get_objective()));
 	}
-	void CEC2013::set_global_opt(real *tran) {
-		if (m_objective_size > 1) throw myexcept("CEC2013::set_global_opt only for problems with a single obj");
+	void function_CEC2013::set_global_opt(real *tran) {
+		if (m_objective_size > 1) throw myexcept("function_CEC2013::set_global_opt only for problems with a single obj");
 		variable<real> temp_var(m_variable_size);
 		for (int i = 0; i < m_variable_size; ++i) 
 			temp_var[i] = tran[i];
@@ -69,12 +39,12 @@ namespace OFEC {
 		m_optima.append(std::move(temp.get_objective()));
 	}
 
-	real* CEC2013::readOvector()
+	real* function_CEC2013::readOvector()
 	{
 		// read O vector from file in csv format
 		real* d = new real[m_variable_size];
 		std::stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-xopt.txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/large_scale/CEC2013/data/" << "F" << ID << "-xopt.txt";
 		std::ifstream file(ss.str());
 		std::string value;
 		std::string line;
@@ -108,12 +78,12 @@ namespace OFEC {
 		return d;
 	}
 
-	real** CEC2013::readOvectorVec()
+	real** function_CEC2013::readOvectorVec()
 	{
 		// read O vector from file in csv format, seperated by s_size groups
 		real** d = (real**)malloc(m_nonSeparableGroupNumber*sizeof(real*));
 		std::stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-xopt.txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/large_scale/CEC2013/data/" << "F" << ID << "-xopt.txt";
 		std::ifstream file(ss.str());
 		std::string value;
 		std::string line;
@@ -155,7 +125,7 @@ namespace OFEC {
 		return d;
 	}
 
-	void CEC2013::create_shifted_vector(std::vector<real> &vec) {
+	void function_CEC2013::create_shifted_vector(std::vector<real> &vec) {
 
 		double hw, middle;
 		real s, max, min;
@@ -171,7 +141,7 @@ namespace OFEC {
 		}
 	}
 
-	void CEC2013::transform_osz(real* z, size_t dim)
+	void function_CEC2013::transform_osz(real* z, size_t dim)
 	{
 		// apply osz transformation to z
 		for (int i = 0; i < dim; ++i)
@@ -180,7 +150,7 @@ namespace OFEC {
 		}
 	}
 
-	void CEC2013::transform_asy(real* z, double beta, size_t dim)
+	void function_CEC2013::transform_asy(real* z, double beta, size_t dim)
 	{
 		for (int i = 0; i < dim; ++i)
 		{
@@ -191,7 +161,7 @@ namespace OFEC {
 		}
 	}
 
-	void CEC2013::lambda(real* z, double alpha, size_t dim)
+	void function_CEC2013::lambda(real* z, double alpha, size_t dim)
 	{
 		for (int i = 0; i < dim; ++i)
 		{
@@ -199,13 +169,13 @@ namespace OFEC {
 		}
 	}
 
-	size_t* CEC2013::readPermVector() {
+	size_t* function_CEC2013::readPermVector() {
 		size_t* d;
 
 		d = new size_t[m_variable_size];
 
 		std::stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-p.txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/large_scale/CEC2013/data/" << "F" << ID << "-p.txt";
 		std::ifstream file(ss.str());
 		size_t c = 0;
 		std::string value;
@@ -228,7 +198,7 @@ namespace OFEC {
 		return(d);
 	}
 
-	void CEC2013::create_random_permutation(std::vector<size_t> &vec) {
+	void function_CEC2013::create_random_permutation(std::vector<size_t> &vec) {
 		size_t i, t;
 		int k, j;
 		size_t val = 0;
@@ -248,7 +218,7 @@ namespace OFEC {
 	}
 
 	//Create a random rotation matrix
-	void CEC2013::create_rotated_matrix(size_t dim, matrix & mat) {
+	void function_CEC2013::create_rotated_matrix(size_t dim, matrix & mat) {
 		double sum = 0;
 		double temp = 0;
 		matrix M(dim);
@@ -301,7 +271,7 @@ namespace OFEC {
 	/**
 	* Create a random rotation matrix
 	*/
-	void CEC2013::create_rotated_matrix_1D(matrix & mat, std::vector<real> & vec) {
+	void function_CEC2013::create_rotated_matrix_1D(matrix & mat, std::vector<real> & vec) {
 		int k = 0;
 		size_t row = mat.data().size();
 		size_t col = mat.data()[0].size();
@@ -315,7 +285,7 @@ namespace OFEC {
 	/*
 	* create several 1-D rotation matrix randomly
 	*/
-	void CEC2013::create_multi_rotated_matrix_1D(size_t dim, size_t num, std::vector<std::vector<real>> &vvec) {
+	void function_CEC2013::create_multi_rotated_matrix_1D(size_t dim, size_t num, std::vector<std::vector<real>> &vvec) {
 		size_t i;
 		vvec.resize(num, std::vector<real>(dim));
 		matrix mat(dim);
@@ -331,7 +301,7 @@ namespace OFEC {
 		}
 	}
 
-	real** CEC2013::readR(size_t sub_dim)
+	real** function_CEC2013::readR(size_t sub_dim)
 	{
 		real** m;
 
@@ -342,7 +312,7 @@ namespace OFEC {
 		}
 
 		std::stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-R" << sub_dim << ".txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/large_scale/CEC2013/data/" << "F" << ID << "-R" << sub_dim << ".txt";
 		// cout<<ss.str()<<endl;
 
 		std::ifstream file(ss.str());
@@ -379,16 +349,16 @@ namespace OFEC {
 		return m;
 	}
 
-	size_t* CEC2013::getS() {
+	size_t* function_CEC2013::getS() {
 		return mp_s;
 	}
 
-	size_t* CEC2013::readS(size_t num)
+	size_t* function_CEC2013::readS(size_t num)
 	{
 		mp_s = new size_t[num];
 
 		std::stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-s.txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/large_scale/CEC2013/data/" << "F" << ID << "-s.txt";
 		std::ifstream file(ss.str());
 		int c = 0;
 		std::string value;
@@ -405,12 +375,12 @@ namespace OFEC {
 		return mp_s;
 	}
 
-	double* CEC2013::readW(size_t num)
+	double* function_CEC2013::readW(size_t num)
 	{
 		mp_w = new double[num];
 
 		std::stringstream ss;
-		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/global/CEC2013/data/" << "F" << ID << "-w.txt";
+		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/large_scale/CEC2013/data/" << "F" << ID << "-w.txt";
 		std::ifstream file(ss.str());
 		int c = 0;
 		std::string value;
@@ -428,7 +398,7 @@ namespace OFEC {
 		return mp_w;
 	}
 
-	real* CEC2013::rotate_vector(size_t i, size_t &c)
+	real* function_CEC2013::rotate_vector(size_t i, size_t &c)
 	{
 		real* z = new real[mp_s[i]];
 		// cout<<"s "<<s[i]<<endl;
@@ -463,7 +433,7 @@ namespace OFEC {
 		return mp_anotherz1;
 	}
 
-	real* CEC2013::rotate_vector_conform(size_t i, size_t &c)
+	real* function_CEC2013::rotate_vector_conform(size_t i, size_t &c)
 	{
 		real* z = new real[mp_s[i]];
 		// printf("i=%d\tc=%d\tl=%d\tu=%d\n", i, c, c - (i)*overlap, c +s[i] - (i)*overlap);
@@ -497,7 +467,7 @@ namespace OFEC {
 		return mp_anotherz1;
 	}
 
-	real* CEC2013::rotate_vector_conflict(size_t i, size_t &c, real* x)
+	real* function_CEC2013::rotate_vector_conflict(size_t i, size_t &c, real* x)
 	{
 		real* z = new real[mp_s[i]];
 		// printf("i=%d\tc=%d\tl=%d\tu=%d\n", i, c, c - (i)*overlap, c +s[i] - (i)*overlap);
@@ -533,7 +503,7 @@ namespace OFEC {
 	}
 
 
-	// double* CEC2013::lookupprepare(int dim) {
+	// double* function_CEC2013::lookupprepare(int dim) {
 	//   double pownum;
 	//   int    i;
 	//   double* lookup;
@@ -556,7 +526,7 @@ namespace OFEC {
 	* Basic Mathematical Functions' Implementation
 	*/
 	// // elliptic function for F1 ~ F8
-	// double CEC2013::elliptic(double*x,int dim) {
+	// double function_CEC2013::elliptic(double*x,int dim) {
 	//   double result = 0.0;
 	//   int    i;
 
@@ -570,7 +540,7 @@ namespace OFEC {
 	//   return(result);
 	// }
 
-	real CEC2013::elliptic(real *x, size_t dim) {
+	real function_CEC2013::elliptic(real *x, size_t dim) {
 		real result = 0.0;
 		size_t i;
 
@@ -589,7 +559,7 @@ namespace OFEC {
 
 
 	// // elliptic function for F9 ~ 
-	// double CEC2013::elliptic(double*x, int dim, int k) {
+	// double function_CEC2013::elliptic(double*x, int dim, int k) {
 	//   double result = 0.0;
 	//   int    i;
 
@@ -602,7 +572,7 @@ namespace OFEC {
 	// }
 
 	// rastrigin function for F1~F8
-	real CEC2013::rastrigin(real *x, size_t dim) {
+	real function_CEC2013::rastrigin(real *x, size_t dim) {
 		real sum = 0;
 		size_t i;
 
@@ -615,7 +585,7 @@ namespace OFEC {
 		// lambda
 		lambda(x, 10, dim);
 
-		for (i = dim - 1; i >= 0; --i) {
+		for (i = 0; i < dim; ++i) {
 			sum += x[i] * x[i] - 10.0 * cos(2 * OFEC_PI * x[i]) + 10.0;
 		}
 
@@ -623,7 +593,7 @@ namespace OFEC {
 	}
 
 	// rastrigin function for F9 ~
-	real CEC2013::rastrigin(real *x, size_t dim, size_t k)
+	real function_CEC2013::rastrigin(real *x, size_t dim, size_t k)
 	{
 		real result = 0.0;
 		size_t i;
@@ -635,7 +605,7 @@ namespace OFEC {
 	}
 
 	// ackley function for single group non-separable 
-	real CEC2013::ackley(real *x, size_t dim) {
+	real function_CEC2013::ackley(real *x, size_t dim) {
 		real sum1 = 0.0;
 		real sum2 = 0.0;
 		real sum;
@@ -650,17 +620,18 @@ namespace OFEC {
 		// lambda
 		lambda(x, 10, dim);
 
-		for (i = dim - 1; i >= 0; --i) {
+		for (i = 0; i < dim; ++i) {
 			sum1 += (x[i] * x[i]);
 			sum2 += cos(2.0 * OFEC_PI * x[i]);
 		}
 
-		sum = -20.0 * exp(-0.2 * sqrt(sum1 / dim)) - exp(sum2 / dim) + 20.0 + OFEC_E;
+		sum = -20.0 * exp(-0.2 * sqrt(sum1 / dim));
+		sum += - exp(sum2 / dim) + 20.0 + OFEC_E;
 		return sum;
 	}
 
 	// ackley function for m-group non-separable 
-	real CEC2013::ackley(real *x, size_t dim, size_t k)
+	real function_CEC2013::ackley(real *x, size_t dim, size_t k)
 	{
 		real sum1 = 0.0;
 		real sum2 = 0.0;
@@ -678,7 +649,7 @@ namespace OFEC {
 		return result;
 	}
 
-	real* CEC2013::multiply(real *vector, real *matrix, size_t dim) {
+	real* function_CEC2013::multiply(real *vector, real *matrix, size_t dim) {
 		size_t i, j;
 		//double*result = (double*)malloc(sizeof(double) * dim);
 		real *result = new real[dim];
@@ -694,15 +665,15 @@ namespace OFEC {
 		return result;
 	}
 
-	real* CEC2013::multiply(real *vector, real **matrix, size_t dim) {
+	real* function_CEC2013::multiply(real *vector, real **matrix, size_t dim) {
 		size_t i, j;
 		//double*result = (double*)malloc(sizeof(double) * dim);
 		real *result = new real[dim];
 
-		for (i = dim - 1; i >= 0; --i) {
+		for (i = 0; i < dim;++i) {
 			result[i] = 0;
 
-			for (j = dim - 1; j >= 0; --j) {
+			for (j = 0; j < dim;++j) {
 				result[i] += vector[j] * matrix[i][j];
 			}
 		}
@@ -712,7 +683,7 @@ namespace OFEC {
 
 
 	// // Rotated Elliptic Function for F1 & F4
-	// double CEC2013::rot_elliptic(double*x,int dim){
+	// double function_CEC2013::rot_elliptic(double*x,int dim){
 	//   double result = 0.0;
 	//   double *z = multiply(x,RotMatrix,dim);
 
@@ -723,7 +694,7 @@ namespace OFEC {
 	// }
 
 	// // Rotated Elliptic Function for F9 & F14
-	// double CEC2013::rot_elliptic(double*x,int dim, int k){
+	// double function_CEC2013::rot_elliptic(double*x,int dim, int k){
 	//   double result=0.0;
 
 	//   int i,j;
@@ -743,7 +714,7 @@ namespace OFEC {
 	// }
 
 	// Rotated Rastrigin Function for F1~F8
-	real CEC2013::rot_rastrigin(real *x, size_t dim) {
+	real function_CEC2013::rot_rastrigin(real *x, size_t dim) {
 		real result = 0.0;
 		real*z = multiply(x, mp_rot_matrix, dim);
 		result = rastrigin(z, dim);
@@ -753,7 +724,7 @@ namespace OFEC {
 	}
 
 	// Rotated Rastrigin Function for F9 ~
-	real CEC2013::rot_rastrigin(real *x, size_t dim, size_t k)
+	real function_CEC2013::rot_rastrigin(real *x, size_t dim, size_t k)
 	{
 		real result = 0.0;
 
@@ -775,7 +746,7 @@ namespace OFEC {
 	}
 
 	// rotated ackley function for single group non-separable
-	real CEC2013::rot_ackley(real *x, size_t dim) {
+	real function_CEC2013::rot_ackley(real *x, size_t dim) {
 		real result = 0.0;
 		real *z = multiply(x, mp_rot_matrix, dim);
 		result = ackley(z, dim);
@@ -784,7 +755,7 @@ namespace OFEC {
 	}
 
 	// rotated ackley function for m group non-separable
-	real CEC2013::rot_ackley(real *x, size_t dim, size_t k)
+	real function_CEC2013::rot_ackley(real *x, size_t dim, size_t k)
 	{
 		real result = 0.0;
 		real sum1 = 0.0;
@@ -809,11 +780,11 @@ namespace OFEC {
 	}
 
 	// for single group non-separable function
-	real CEC2013::sphere(real *x, size_t dim) {
+	real function_CEC2013::sphere(real *x, size_t dim) {
 		real sum = 0;
 		size_t    i;
 
-		for (i = dim - 1; i >= 0; i--) {
+		for (i = 0; i < dim;++i) {
 			sum += pow(x[i], 2);
 		}
 
@@ -821,7 +792,7 @@ namespace OFEC {
 	}
 
 	// for m groups non-separable function
-	real CEC2013::sphere(real *x, size_t dim, size_t k) {
+	real function_CEC2013::sphere(real *x, size_t dim, size_t k) {
 		real result = 0.0;
 		size_t i;
 
@@ -837,7 +808,7 @@ namespace OFEC {
 	}
 
 	// for single group non-separable function
-	real CEC2013::schwefel(real *x, size_t dim) {
+	real function_CEC2013::schwefel(real *x, size_t dim) {
 		size_t    j;
 		real s1 = 0;
 		real s2 = 0;
@@ -857,7 +828,7 @@ namespace OFEC {
 	}
 
 	// for m groups non-separable function
-	real CEC2013::schwefel(real *x, size_t dim, size_t k) {
+	real function_CEC2013::schwefel(real *x, size_t dim, size_t k) {
 		real sum1 = 0.0;
 		real sum2 = 0.0;
 		size_t i;
@@ -870,13 +841,12 @@ namespace OFEC {
 	}
 
 	// single group non-separable function
-	real CEC2013::rosenbrock(real *x, size_t dim) {
+	real function_CEC2013::rosenbrock(real *x, size_t dim) {
 		size_t    j;
 		real oz, t;
 		real s = 0.0;
-		j = dim - 1;
-
-		for (--j; j >= 0; j--) {
+		
+		for (j = 0; j < dim - 1;++j) {
 			oz = x[j + 1];
 			t = ((x[j] * x[j]) - oz);
 			s += (100.0 * t * t);
@@ -887,7 +857,7 @@ namespace OFEC {
 	}
 
 	// m groups non-separable function
-	real CEC2013::rosenbrock(real *x, size_t dim, size_t k) {
+	real function_CEC2013::rosenbrock(real *x, size_t dim, size_t k) {
 		size_t j;
 		real oz, t;
 		real result = 0.0;
@@ -911,7 +881,7 @@ namespace OFEC {
 	* =====================================================================================
 	*/
 	std::vector<bool>
-		CEC2013::getInterArray()
+		function_CEC2013::getInterArray()
 	{
 		return mbv_interArray;
 	}		/* -----  end of function getInterArray  ----- */
@@ -924,7 +894,7 @@ namespace OFEC {
 			* =====================================================================================
 			*/
 	unsigned
-		CEC2013::convertMatrixToArrayIndex(unsigned i, unsigned j)
+		function_CEC2013::convertMatrixToArrayIndex(unsigned i, unsigned j)
 	{
 		return (unsigned)(i* (2 * m_variable_size - i - 3) / 2 + j - 1);
 	}		/* -----  end of function convertMatrixToArrayIndex  ----- */
@@ -937,7 +907,7 @@ namespace OFEC {
 			* =====================================================================================
 			*/
 	void
-		CEC2013::create_index_mapping()
+		function_CEC2013::create_index_mapping()
 	{
 		unsigned N = (unsigned)m_variable_size, indexCounter = 0;
 
@@ -959,7 +929,7 @@ namespace OFEC {
 			*  Description:
 			* =====================================================================================
 			*/
-	void CEC2013::ArrToMat(unsigned I1, unsigned I2, unsigned &matIndex)
+	void function_CEC2013::ArrToMat(unsigned I1, unsigned I2, unsigned &matIndex)
 	{
 		for (unsigned i = 0; i < m_arrSize; i++) {
 			if (mp_index_map[i].arr_index1 == I1 && mp_index_map[i].arr_index2 == I2) {
@@ -970,29 +940,29 @@ namespace OFEC {
 
 		printf("Cannot locate the matrix index from given array indices\n");
 		exit(EXIT_FAILURE);
-	}		/* -----  end of function CEC2013::ArrToMat  ----- */
+	}		/* -----  end of function function_CEC2013::ArrToMat  ----- */
 
 
 			/*
 			* ===  FUNCTION  ======================================================================
-			*         Name:  CEC2013::MatToArr
+			*         Name:  function_CEC2013::MatToArr
 			*  Description:
 			* =====================================================================================
 			*/
-	void CEC2013::MatToArr(unsigned &I1, unsigned &I2, unsigned matIndex)
+	void function_CEC2013::MatToArr(unsigned &I1, unsigned &I2, unsigned matIndex)
 	{
 		I1 = mp_index_map[matIndex].arr_index1;
 		I2 = mp_index_map[matIndex].arr_index2;
-	}		/* -----  end of function CEC2013::MatToArr  ----- */
+	}		/* -----  end of function function_CEC2013::MatToArr  ----- */
 
-	int CEC2013::sign(double x)
+	int function_CEC2013::sign(double x)
 	{
 		if (x > 0) return 1;
 		if (x < 0) return -1;
 		return 0;
 	}
 
-	double CEC2013::hat(double x)
+	double function_CEC2013::hat(double x)
 	{
 		if (x == 0)
 		{
@@ -1004,7 +974,7 @@ namespace OFEC {
 		}
 	}
 
-	double CEC2013::c1(double x)
+	double function_CEC2013::c1(double x)
 	{
 		if (x > 0)
 		{
@@ -1016,7 +986,7 @@ namespace OFEC {
 		}
 	}
 
-	double CEC2013::c2(double x)
+	double function_CEC2013::c2(double x)
 	{
 		if (x > 0)
 		{

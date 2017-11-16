@@ -11,8 +11,8 @@
 *  Foundation; either version 2, or (at your option) any later version.
 *************************************************************************/
 
-#ifndef OFEC_CEC2013_H
-#define OFEC_CEC2013_H
+#ifndef OFEC_CEC2013_FUNCTION_H
+#define OFEC_CEC2013_FUNCTION_H
 
 #include "../../../../../core/problem/continuous/continuous.h"
 #include "../../../../../utility/matrix.h"
@@ -22,7 +22,7 @@ namespace OFEC {
 		unsigned arr_index1;
 		unsigned arr_index2;
 	};
-	class CEC2013 : public continuous {
+	class function_CEC2013 : public continuous {
 	protected:
 		unsigned ID;
 		void create_shifted_vector(std::vector<real> &vec);
@@ -61,7 +61,6 @@ namespace OFEC {
 
 		void set_global_opt(real *tran = 0);
 		void set_original_global_opt(real *opt = 0);
-		virtual void evaluate__(real *x, std::vector<real>& obj) = 0;
 
 		real* mp_Ovector;
 		size_t* mp_Pvector;
@@ -90,10 +89,9 @@ namespace OFEC {
 
 	public:
 		//CEC2013(param_map &v);
-		CEC2013(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~CEC2013();
+		function_CEC2013(const std::string &name, size_t size_var, size_t size_obj);
+		virtual ~function_CEC2013();
 
-		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
 		std::vector<bool> getInterArray();
 		void ArrToMat(unsigned I1, unsigned I2, unsigned &matIndex);
 		void MatToArr(unsigned &I1, unsigned &I2, unsigned matIndex);
@@ -119,4 +117,4 @@ namespace OFEC {
 		optima<variable<real>, real> m_original_global_opt;
 	};
 }
-#endif  // !OFEC_CEC2013_H
+#endif  // !OFEC_CEC2013_FUNCTION_H
