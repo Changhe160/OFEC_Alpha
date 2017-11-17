@@ -1,5 +1,6 @@
 #ifndef NSGAII_POPULATION_H
 #define NSGAII_POPULATION_H
+#include <algorithm>
 
 #include "../../../../core/algorithm/population.h"
 #include "../../../../core/problem/continuous/continuous.h"
