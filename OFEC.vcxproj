@@ -525,6 +525,12 @@
     <ClInclude Include="run\initialize.h" />
     <ClInclude Include="utility\factory.h" />
     <ClInclude Include="utility\functional.h" />
+    <ClInclude Include="utility\mapbox\optional.hpp" />
+    <ClInclude Include="utility\mapbox\recursive_wrapper.hpp" />
+    <ClInclude Include="utility\mapbox\variant.hpp" />
+    <ClInclude Include="utility\mapbox\variant_cast.hpp" />
+    <ClInclude Include="utility\mapbox\variant_io.hpp" />
+    <ClInclude Include="utility\mapbox\variant_visitor.hpp" />
     <ClInclude Include="utility\matrix.h" />
     <ClInclude Include="utility\myexcept.h" />
     <ClInclude Include="utility\nondominated_sorting\CornerSort.h" />

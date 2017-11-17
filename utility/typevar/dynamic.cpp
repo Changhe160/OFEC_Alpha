@@ -17,12 +17,12 @@ namespace OFEC {
 		// they are of the same type, order by value
 		switch (lht) {
 		case type_null: return false;
-		case type_char: return boost::get<char_t>(lhs._var) < boost::get<char_t>(rhs._var);
-		case type_bool: return boost::get<bool_t>(lhs._var) < boost::get<bool_t>(rhs._var);
-		case type_int: return boost::get<int_t>(lhs._var) < boost::get<int_t>(rhs._var);
-		case type_double: return boost::get<double_t>(lhs._var) < boost::get<double_t>(rhs._var);
-		case type_string: return *(boost::get<string_t>(lhs._var).ps) < *(boost::get<string_t>(rhs._var).ps);
-		case type_wstring: return *(boost::get<wstring_t>(lhs._var).ps) < *(boost::get<wstring_t>(rhs._var).ps);
+		case type_char: return mapbox::util::get<char_t>(lhs._var) < mapbox::util::get<char_t>(rhs._var);
+		case type_bool: return mapbox::util::get<bool_t>(lhs._var) < mapbox::util::get<bool_t>(rhs._var);
+		case type_int: return mapbox::util::get<int_t>(lhs._var) < mapbox::util::get<int_t>(rhs._var);
+		case type_double: return mapbox::util::get<double_t>(lhs._var) < mapbox::util::get<double_t>(rhs._var);
+		case type_string: return *(mapbox::util::get<string_t>(lhs._var).ps) < *(mapbox::util::get<string_t>(rhs._var).ps);
+		case type_wstring: return *(mapbox::util::get<wstring_t>(lhs._var).ps) < *(mapbox::util::get<wstring_t>(rhs._var).ps);
 		default: THROW("unhandled type");
 		}
 	}
@@ -68,8 +68,10 @@ namespace OFEC {
 	///
 	/// count of objects in a collection or characters in a string
 	///
-	struct typevar::count_visitor : public boost::static_visitor<size_type>
+	template<>
+	struct typevar::count_visitor<typevar::size_type> //: public boost::static_visitor<size_type>
 	{
+		using result_type = typevar::size_type;
 		result_type operator () (const null_t&) const { return 0; }
 		result_type operator () (const char_t&) const { return 1; }
 		result_type operator () (const bool_t&) const { return 1; }
@@ -80,7 +82,7 @@ namespace OFEC {
 		result_type operator () (const wstring_t& value) const { return value.ps->length(); }
 	};
 	typevar::size_type typevar::count() const {
-		return boost::apply_visitor(count_visitor(), _var);
+		return mapbox::util::apply_visitor(count_visitor<typevar::size_type>(), _var);
 	}
 	/*
 	///
@@ -116,10 +118,10 @@ namespace OFEC {
 	std::ostream& typevar::_write_var(std::ostream& os) const {
 		switch (type()) {
 		case type_null:    os << "null"; return os;
-		case type_bool:     os << (boost::get<bool_t>(_var) ? "true" : "false"); return os;
-		case type_char:     os << boost::get<char_t>(_var); return os;
-		case type_int:     os << boost::get<int_t>(_var); return os;
-		case type_double:  os << boost::get<double_t>(_var); return os;
+		case type_bool:     os << (mapbox::util::get<bool_t>(_var) ? "true" : "false"); return os;
+		case type_char:     os << mapbox::util::get<char_t>(_var); return os;
+		case type_int:     os << mapbox::util::get<int_t>(_var); return os;
+		case type_double:  os << mapbox::util::get<double_t>(_var); return os;
 		case type_string:  return _write_string(os);
 		case type_wstring: return _write_wstring(os);
 		default:           THROW("typevar::_write_var(ostream) unhandled type");
@@ -132,7 +134,7 @@ namespace OFEC {
 	std::ostream& typevar::_write_string(std::ostream& os) const {
 		assert(is_string());
 		//os << '"';
-		for (const char* s = (*boost::get<string_t>(_var).ps).c_str(); *s; ++s)
+		for (const char* s = (*mapbox::util::get<string_t>(_var).ps).c_str(); *s; ++s)
 			switch (*s) {
 			case '\b': os << "\\b"; break;
 			case '\r': os << "\\r"; break;
@@ -156,7 +158,7 @@ namespace OFEC {
 	std::ostream& typevar::_write_wstring(std::ostream& os) const {
 		assert(is_wstring());
 		//os << '"';
-		for (const wchar_t* s = (*boost::get<wstring_t>(_var).ps).c_str(); *s; ++s)
+		for (const wchar_t* s = (*mapbox::util::get<wstring_t>(_var).ps).c_str(); *s; ++s)
 			switch (*s) {
 			case L'\b': os << L"\\b"; break;
 			case L'\r': os << L"\\r"; break;
@@ -181,10 +183,10 @@ namespace OFEC {
 	std::wostream& typevar::_write_var(std::wostream& os) const {
 		switch (type()) {
 		case type_null:    os << "null"; return os;
-		case type_bool:     os << (boost::get<bool_t>(_var) ? "true" : "false"); return os;
-		case type_char:     os << boost::get<char_t>(_var); return os;
-		case type_int:     os << boost::get<int_t>(_var); return os;
-		case type_double:  os << boost::get<double_t>(_var); return os;
+		case type_bool:     os << (mapbox::util::get<bool_t>(_var) ? "true" : "false"); return os;
+		case type_char:     os << mapbox::util::get<char_t>(_var); return os;
+		case type_int:     os << mapbox::util::get<int_t>(_var); return os;
+		case type_double:  os << mapbox::util::get<double_t>(_var); return os;
 		case type_string:  return _write_string(os);
 		case type_wstring: return _write_wstring(os);
 		default:           THROW("typevar::_write_var(wostream) unhandled type");
@@ -197,7 +199,7 @@ namespace OFEC {
 	std::wostream& typevar::_write_string(std::wostream& os) const {
 		assert(is_string());
 		os << '\'';
-		for (const char* s = (*boost::get<string_t>(_var).ps).c_str(); *s; ++s)
+		for (const char* s = (*mapbox::util::get<string_t>(_var).ps).c_str(); *s; ++s)
 			switch (*s) {
 			case '\b': os << "\\b"; break;
 			case '\r': os << "\\r"; break;
@@ -220,7 +222,7 @@ namespace OFEC {
 	std::wostream& typevar::_write_wstring(std::wostream& os) const {
 		assert(is_wstring());
 		os << '\'';
-		for (const wchar_t* s = (*boost::get<wstring_t>(_var).ps).c_str(); *s; ++s)
+		for (const wchar_t* s = (*mapbox::util::get<wstring_t>(_var).ps).c_str(); *s; ++s)
 			switch (*s) {
 			case '\b': os << L"\\b"; break;
 			case '\r': os << L"\\r"; break;

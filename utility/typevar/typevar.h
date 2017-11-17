@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* class typevar wraps boost::variant type for handling different types of parameter values 
+* class typevar wraps mapbox::variant type for handling different types of parameter values 
 *
 *********************************************************************************/
 
@@ -21,17 +21,11 @@
 #define OFEC_DYNAMIC_VAR_H
 #include <string>
 #include <map>
-
-#include <boost/variant.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
-
+#include <memory>
 
 #include "../myexcept.h"
 #include "../../core/definition.h"
-
+#include "../mapbox/variant.hpp"
 
 namespace OFEC {
 	class typevar {
@@ -249,35 +243,36 @@ namespace OFEC {
 		friend	void operator*=(int & n, const typevar& v);
 		friend	void operator*=(double & n, const typevar& v);
 
-		typedef boost::blank null_t;
+		struct blank{};
+		using null_t = blank;
 
 		struct string_t {
-			string_t() : ps(boost::make_shared<std::string>()) {}
-			string_t(const std::string& s) : ps(boost::make_shared<std::string>(s)) {}
-			string_t(const char* s) : ps(boost::make_shared<std::string>(s)) {}
+			string_t() : ps(std::make_shared<std::string>()) {}
+			string_t(const std::string& s) : ps(std::make_shared<std::string>(s)) {}
+			string_t(const char* s) : ps(std::make_shared<std::string>(s)) {}
 
-			boost::shared_ptr<std::string>  ps;
+			std::shared_ptr<std::string>  ps;
 		};
 
 		struct wstring_t {
-			wstring_t() : ps(boost::make_shared<std::wstring>()) {}
-			wstring_t(const std::wstring& s) : ps(boost::make_shared<std::wstring>(s)) {}
-			wstring_t(const wchar_t* s) : ps(boost::make_shared<std::wstring>(s)) {}
+			wstring_t() : ps(std::make_shared<std::wstring>()) {}
+			wstring_t(const std::wstring& s) : ps(std::make_shared<std::wstring>(s)) {}
+			wstring_t(const wchar_t* s) : ps(std::make_shared<std::wstring>(s)) {}
 
-			boost::shared_ptr<std::wstring>  ps;
+			std::shared_ptr<std::wstring>  ps;
 		};
 
 		typedef bool bool_t;
 		typedef int int_t;
 		typedef double double_t;
 		typedef char char_t;
-		typedef boost::variant<null_t, bool_t, char_t, int_t, double_t, string_t, wstring_t, size_type> var_t;
+		typedef mapbox::util::variant<null_t, bool_t, char_t, int_t, double_t, string_t, wstring_t, size_type> var_t;
 
 		var_t _var;
 
-		struct name_visitor;
-		struct count_visitor;
-		struct equal_visitor;
+		template<typename>	struct name_visitor;
+		template<typename>	struct count_visitor;
+		template<typename>	struct equal_visitor;
 
 	};
 
@@ -288,79 +283,79 @@ namespace OFEC {
 
 
 	inline	int operator-(int n, const typevar& v) {
-		if (v.is_int()) return n - boost::get<int>(v._var);
+		if (v.is_int()) return n - mapbox::util::get<int>(v._var);
 		THROW("invalid - from int to var @ int operator-");
 	}
 	inline	double operator-(double n, const typevar& v) {
-		if (v.is_double()) return n - boost::get<double>(v._var);
+		if (v.is_double()) return n - mapbox::util::get<double>(v._var);
 		THROW("invalid - from double to var @ double operator-");
 	}
 
 	inline	int operator/(int n, const typevar& v) {
-		if (v.is_int()) return n / boost::get<int>(v._var);
+		if (v.is_int()) return n / mapbox::util::get<int>(v._var);
 		THROW("invalid / from int to var @ int operator /");
 	}
 	inline	double operator/(double n, const typevar& v) {
-		if (v.is_double()) return n / boost::get<double>(v._var);
+		if (v.is_double()) return n / mapbox::util::get<double>(v._var);
 		THROW("invalid / from double to var @ double operator /");
 	}
 
 	inline	int operator%(int n, const typevar& v) {
-		if (v.is_int()) return n%boost::get<int>(v._var);
+		if (v.is_int()) return n%mapbox::util::get<int>(v._var);
 		THROW("invalid % from int to var @ int operator %");
 	}
 
 	inline int operator+(int n, const typevar& v) {
-		if (v.is_int()) return n + boost::get<int>(v._var);
+		if (v.is_int()) return n + mapbox::util::get<int>(v._var);
 		THROW("invalid + from int to var @ int operator +");
 	}
 	inline double operator+(double n, const typevar& v) {
-		if (v.is_double()) return n + boost::get<double>(v._var);
+		if (v.is_double()) return n + mapbox::util::get<double>(v._var);
 		THROW("invalid + from double to var @ double operator +");
 	}
 	inline int operator*(int n, const typevar& v) {
-		if (v.is_int()) return n*boost::get<int>(v._var);
+		if (v.is_int()) return n*mapbox::util::get<int>(v._var);
 		THROW("invalid * from int to var @ int operator *");
 	}
 	inline double operator*(double n, const typevar& v) {
-		if (v.is_double()) return n*boost::get<double>(v._var);
+		if (v.is_double()) return n*mapbox::util::get<double>(v._var);
 		THROW("invalid * from double to var @ double operator *");
 	}
 
 	inline void operator-=(int& n, const typevar& v) {
-		if (v.is_int())  n -= boost::get<int>(v._var);
+		if (v.is_int())  n -= mapbox::util::get<int>(v._var);
 		else THROW("invalid -= from int to var @ int operator -=");
 	}
 	inline void operator-=(double &n, const typevar& v) {
-		if (v.is_double()) n -= boost::get<double>(v._var);
+		if (v.is_double()) n -= mapbox::util::get<double>(v._var);
 		else THROW("invalid -= from double to var @ double operator -=");
 	}
 	inline void operator/=(int &n, const typevar& v) {
-		if (v.is_int())  n /= boost::get<int>(v._var);
+		if (v.is_int())  n /= mapbox::util::get<int>(v._var);
 		else THROW("invalid /= from int to var @ int operator /=");
 	}
 	inline void operator/=(double &n, const typevar& v) {
-		if (v.is_double()) n /= boost::get<double>(v._var);
+		if (v.is_double()) n /= mapbox::util::get<double>(v._var);
 		else THROW("invalid /= from double to var @ double operator /=");
 	}
 	inline void operator%=(int& n, const typevar& v) {
-		if (v.is_int())  n %= boost::get<int>(v._var);
+		if (v.is_int())  n %= mapbox::util::get<int>(v._var);
 		else THROW("invalid %= from int to var @ int operator %=");
 	}
 	inline void operator+=(int& n, const typevar& v) {
-		if (v.is_int())  n += boost::get<int>(v._var);
+		if (v.is_int())  n += mapbox::util::get<int>(v._var);
 		else THROW("invalid += from int to var @ int operator +=");
 	}
 	inline void operator+=(double &n, const typevar& v) {
-		if (v.is_double()) n += boost::get<double>(v._var);
+		if (v.is_double()) n += mapbox::util::get<double>(v._var);
 		else THROW("invalid += from double to var @ double operator +=");
 	}
 	inline void operator*=(int & n, const typevar& v) {
-		if (v.is_int())  n *= boost::get<int>(v._var);
+		if (v.is_int())  n *= mapbox::util::get<int>(v._var);
 		else THROW("invalid *= from int to var @ int operator *=");
 	}
 	inline void operator*=(double & n, const typevar& v) {
-		if (v.is_double()) n *= boost::get<double>(v._var);
+		if (v.is_double()) n *= mapbox::util::get<double>(v._var);
 		else THROW("invalid *= from double to var @ double operator *=");
 	}
 

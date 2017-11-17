@@ -100,6 +100,9 @@
     <Filter Include="instance\problem\continuous\multi_modal\CEC2013">
       <UniqueIdentifier>{14cf970e-81b4-4c45-ba24-6dbee0a3ea3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utility\mapbox">
+      <UniqueIdentifier>{d61d59a0-b18e-4e07-b565-e6b59e95eb6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\algorithm\encoding.h">
@@ -677,6 +680,24 @@
     </ClInclude>
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\modified_vincent.h">
       <Filter>instance\problem\continuous\multi_modal\classical</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\mapbox\optional.hpp">
+      <Filter>utility\mapbox</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\mapbox\recursive_wrapper.hpp">
+      <Filter>utility\mapbox</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\mapbox\variant.hpp">
+      <Filter>utility\mapbox</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\mapbox\variant_cast.hpp">
+      <Filter>utility\mapbox</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\mapbox\variant_io.hpp">
+      <Filter>utility\mapbox</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\mapbox\variant_visitor.hpp">
+      <Filter>utility\mapbox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
