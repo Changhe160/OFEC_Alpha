@@ -76,7 +76,7 @@ public:
 }; // class bad_variant_access
 
 template <typename R = void>
-struct MAPBOX_VARIANT_DEPRECATED static_visitor
+struct  static_visitor //MAPBOX_VARIANT_DEPRECATED
 {
     using result_type = R;
 
