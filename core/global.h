@@ -29,10 +29,6 @@
 
 namespace OFEC{
 
-#ifdef USING_GPU
-	using compute = boost::compute;
-#endif // USING_GPU
-
 	struct global{
 		global(const int runID, double seed_pro, double seed_alg);
 
@@ -55,11 +51,6 @@ namespace OFEC{
 #ifdef OFEC_DEMON
 		static unique_ptr<global> ms_global;
 #endif
-		
-#ifdef USING_GPU
-		static compute::device m_device;
-		compute::context context;
-#endif // USING_GPU
 		static param_map ms_arg;
 		static std::map<std::string, parameter> ms_param;
 		static factory<problem> ms_reg_problem;
