@@ -681,9 +681,6 @@
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\modified_vincent.h">
       <Filter>instance\problem\continuous\multi_modal\classical</Filter>
     </ClInclude>
-    <ClInclude Include="utility\mapbox\optional.hpp">
-      <Filter>utility\mapbox</Filter>
-    </ClInclude>
     <ClInclude Include="utility\mapbox\recursive_wrapper.hpp">
       <Filter>utility\mapbox</Filter>
     </ClInclude>

@@ -244,8 +244,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-*.filters
-*.vcxproj
-OFEC.vcxproj
 *.d
 obj/
+x64/
