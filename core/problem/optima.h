@@ -41,7 +41,7 @@ namespace OFEC {
 		void append(const objective_type obj) {
 			m_obj.push_back(std::make_pair(std::vector<objective_type>(1, obj), false));
 		}
-		size_t number_variable() const {
+		int number_variable() const {
 			return m_number_var;
 		}
 
@@ -94,14 +94,19 @@ namespace OFEC {
 			return fabs(m_obj[0].first - o);
 		}
 
-		template<typename Solution>
-		double distance_to_optimal_obj(const std::vector<Solution> &pop)const {
-
+		/*IGD(Inverted Generational Distance)
+		R. Venkata Rao and Vivek Patel,
+		"A multi-objective improved teaching-learning based optimization algorithm for unconstrained and constrained optimization problems,"
+		International Journal of Industrial Engineering Computations 5 (2014) 1¨C22
+		*/
+		//return IGD(Inverted Generational Distance) of pop to optima 
+		template<typename Population>
+		double distance_to_optimal_obj(const Population &pop)const {
 			double distance = 0;
 			for (auto &i : m_obj) {
 				double min_d = std::numeric_limits<double>::max();
-				for (auto &j : pop) {
-					double d = euclidean_distance(j->m_obj.begin(), j->m_obj.end(), i.first.begin());
+				for (int j = 0; j < pop.size(); ++j) {
+					double d = euclidean_distance(pop[j].get_objective().begin(), pop[j].get_objective().end(), i.first.begin());
 					if (d<min_d)  min_d = d;
 				}
 				distance += min_d;

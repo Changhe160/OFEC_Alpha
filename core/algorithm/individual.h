@@ -25,26 +25,25 @@
 
 namespace OFEC {
 	template<typename VariableEncoding = variable<real>,
-		typename ObjetiveType = real,
-		typename ObjetiveCompare = objective_compare<ObjetiveType>>
-	class individual:public solution<VariableEncoding, ObjetiveType, ObjetiveCompare> {
+		typename ObjetiveType = real>
+	class individual :public solution<VariableEncoding, ObjetiveType> {
 	public:
-		using solution_type = solution<VariableEncoding, ObjetiveType, ObjetiveCompare>;
+		using solution_type = solution<VariableEncoding, ObjetiveType>;
 
 		template<typename ... Args>
-		individual(size_t no, Args&& ... args) :solution(no, args) { }
+		individual(size_t no, Args&& ... args) :solution_type(no, std::forward<Args>(args)...) { }
 
-		individual(solution_type &&s):solution(std::move(s)){}
+		individual(solution_type &&s) :solution_type(std::move(s)) {}
 
-		individual(const solution_type &s) :solution(s) {}
-		
-		explicit individual() :solution() {}
+		individual(const solution_type &s) :solution_type(s) {}
+
+		explicit individual() :solution_type() {}
 		virtual void initialize(int id) {
 			m_id = id;
-			solution::initialize();
+			solution_type::initialize();
 		}
 
-		void set_id(int id)noexcept{
+		void set_id(int id)noexcept {
 			m_id = id;
 		}
 		void set_fitness(double value) noexcept {
@@ -82,20 +81,17 @@ namespace OFEC {
 			return m_active;
 		}
 
-		individual(const individual& rhs) :solution(rhs), m_fitness(rhs.m_fitness), m_id(rhs.m_id), m_ranking(rhs.m_ranking),
+		individual(const individual& rhs) :solution_type(rhs), m_fitness(rhs.m_fitness), m_id(rhs.m_id), m_ranking(rhs.m_ranking),
 			m_type(rhs.m_type), m_impr(rhs.m_impr), m_active(rhs.m_active) {
-
 		}
 
-		individual(individual&& rhs) :solution(std::move(rhs)), m_fitness(std::move(rhs.m_fitness)), m_id(std::move(rhs.m_id)), 
-			m_ranking(std::move(rhs.m_ranking)),m_type(std::move(rhs.m_type)), m_impr(std::move(rhs.m_impr)), m_active(std::move(rhs.m_active)) {
-
+		individual(individual&& rhs) :solution_type(std::move(rhs)), m_fitness(std::move(rhs.m_fitness)), m_id(std::move(rhs.m_id)),
+			m_ranking(std::move(rhs.m_ranking)), m_type(std::move(rhs.m_type)), m_impr(std::move(rhs.m_impr)), m_active(std::move(rhs.m_active)) {
 		}
-
 
 		individual& operator=(const individual& rhs) {
 			if (this == &rhs) return *this;
-			solution::operator=(rhs);
+			solution_type::operator=(rhs);
 			m_fitness = rhs.m_fitness;
 			m_id = rhs.m_id;
 			m_ranking = rhs.m_ranking;
@@ -106,8 +102,7 @@ namespace OFEC {
 		}
 
 		individual& operator=(individual&& rhs) {
-		
-			solution::operator=(std::move(rhs));
+			solution_type::operator=(std::move(rhs));
 			m_fitness = std::move(rhs.m_fitness);
 			m_id = std::move(rhs.m_id);
 			m_ranking = std::move(rhs.m_ranking);
@@ -121,9 +116,7 @@ namespace OFEC {
 	protected:
 		double m_fitness;
 		int m_id, m_ranking = -1, m_type;
-		bool m_impr=false, m_active = true;
+		bool m_impr = false, m_active = true;
 	};
-
 }
 #endif // !OFEC_INDIVIDUAL_H
-

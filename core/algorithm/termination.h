@@ -40,8 +40,8 @@ namespace OFEC {
 			m_terminated = true;
 			m_end_time = std::chrono::system_clock::now();
 		}
-		void set_terminating_true() { 
-			m_isTerminating = true; 
+		void set_terminating_true() {
+			m_isTerminating = true;
 		}
 		double duration() {
 			return std::chrono::duration<double>(m_end_time - m_start_time).count();
@@ -53,7 +53,7 @@ namespace OFEC {
 			m_enable = true;
 		}
 	protected:
-		bool m_terminated = false, m_isTerminating = false, m_enable=true;
+		bool m_terminated = false, m_isTerminating = false, m_enable = true;
 		std::chrono::time_point<std::chrono::system_clock> m_start_time = std::chrono::system_clock::now(), m_end_time;
 		unsigned long m_maxTime = 12 * 3600; // 12 hours time by default
 	};
@@ -81,7 +81,7 @@ namespace OFEC {
 			if (v.find(param_maxEvals) != v.end()) m_max_evals = v[param_maxEvals];
 			else	THROW("m_max_evals is not given");
 		}
-		term_max_evals(int evlas) :m_max_evals(m_max_evals) { }
+		term_max_evals(int evals) :m_max_evals(evals) { }
 		bool terminating();
 	};
 
@@ -90,7 +90,7 @@ namespace OFEC {
 	protected:
 		int m_max_iter;
 		int m_suc_iter = 0;
-		double m_previous=0, m_current=0;
+		double m_previous = 0, m_current = 0;
 	public:
 		using termination::terminating;
 		term_best_remain(param_map &v) :termination(v) {
@@ -107,7 +107,9 @@ namespace OFEC {
 	protected:
 		int m_max_iter;
 		int m_suc_iter = 0;
-		double m_previous=0, m_current=0, m_epsilon = 1.E-2;
+		double m_previous = 0;
+		double m_current = 0;
+		double m_epsilon = 1.E-2;
 	public:
 		using termination::terminating;
 		term_mean_remain(param_map &v) :termination(v) {
@@ -117,7 +119,7 @@ namespace OFEC {
 			else	THROW("param_maxSucIter is not given");
 		}
 		term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
-	
+
 		bool terminating(double value);
 
 		void reset(int maxIter, double value) {
@@ -170,4 +172,3 @@ namespace OFEC {
 }
 
 #endif // !OFEC_TERMINATION_H
-

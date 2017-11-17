@@ -34,7 +34,13 @@ namespace OFEC {
 		{
 			register_(const std::string& key, std::set<problem_tag>&& tag)
 			{
-				map_.emplace(key, make_pair([](param_map& par) { return new T(par); }, std::forward<std::set<problem_tag>>(tag)));
+				map_.emplace(
+					key,
+					make_pair([](param_map& par) {
+					return new T(par);
+				},
+						std::forward<std::set<problem_tag>>(tag))
+					);
 			}
 		};
 
@@ -57,11 +63,11 @@ namespace OFEC {
 		factory& operator=(factory&&) = delete;
 		factory(const factory&) = delete;
 		factory(factory&&) = delete;
-		static std::map<std::string, std::pair<std::function<Base*(param_map&)>, std::vector<problem_tag>> > map_;
+		static std::map<std::string, std::pair<std::function<Base*(param_map&)>, std::set<problem_tag>> > map_;
 	};
 
 	template<typename Base>
-	std::map<std::string, std::pair<std::function<Base*(param_map&)>, std::vector<problem_tag>> > factory<Base>::map_;
+	std::map<std::string, std::pair<std::function<Base*(param_map&)>, std::set<problem_tag>> > factory<Base>::map_;
 
 #define RIGIESTER(Base, Derived, key, tag) factory<Base>::register_<Derived> reg_##Derived(key, tag);
 

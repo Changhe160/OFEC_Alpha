@@ -73,47 +73,47 @@ namespace OFEC {
 	}
 
 	typevar& typevar::operator += (int n) {
-		if (is_int()) _var = boost::get<int>(_var) + n;
+		if (is_int()) _var = mapbox::util::get<int>(_var) + n;
 		else THROW("invalid += to int @typevar::operator+=");
 		return *this;
 	}
 	typevar& typevar::operator += (double n) {
-		if (is_double()) _var = boost::get<double>(_var) + n;
+		if (is_double()) _var = mapbox::util::get<double>(_var) + n;
 		else THROW("invalid += to double @typevar::operator+=");
 		return *this;
 	}
 	typevar& typevar::operator -= (int n) {
-		if (is_int()) _var = boost::get<int>(_var) - n;
+		if (is_int()) _var = mapbox::util::get<int>(_var) - n;
 		THROW("invalid -= to int @typevar::operator-=");
 		return *this;
 	}
 	typevar& typevar::operator -= (double n) {
-		if (is_double()) _var = boost::get<double>(_var) - n;
+		if (is_double()) _var = mapbox::util::get<double>(_var) - n;
 		else THROW("invalid -= to double @typevar::operator-=");
 		return *this;
 	}
 	typevar& typevar::operator *= (int n) {
-		if (is_int()) _var = boost::get<int>(_var)*n;
+		if (is_int()) _var = mapbox::util::get<int>(_var)*n;
 		else THROW("invalid *= to int @typevar::operator*=");
 		return *this;
 	}
 	typevar& typevar::operator *= (double n) {
-		if (is_double()) _var = boost::get<double>(_var)*n;
+		if (is_double()) _var = mapbox::util::get<double>(_var)*n;
 		else THROW("invalid *= to double @typevar::operator*=");
 		return *this;
 	}
 	typevar& typevar::operator /= (int n) {
-		if (is_int()) _var = boost::get<int>(_var) / n;
+		if (is_int()) _var = mapbox::util::get<int>(_var) / n;
 		else THROW("invalid /= to int @typevar::operator/=");
 		return *this;
 	}
 	typevar& typevar::operator /= (double n) {
-		if (is_double()) _var = boost::get<double>(_var) / n;
+		if (is_double()) _var = mapbox::util::get<double>(_var) / n;
 		else THROW("invalid /= to double @typevar::operator/=");
 		return *this;
 	}
 	typevar& typevar::operator %= (int n) {
-		if (is_int()) _var = boost::get<int>(_var) % n;
+		if (is_int()) _var = mapbox::util::get<int>(_var) % n;
 		else THROW("invalid %= to int @typevar::operator%=");
 		return *this;
 	}
@@ -124,27 +124,27 @@ namespace OFEC {
 	}
 
 	typevar& typevar::operator += (size_type n) {
-		if (is_size_t()) _var = boost::get<size_type>(_var) + n;
+		if (is_size_t()) _var = mapbox::util::get<size_type>(_var) + n;
 		else THROW("invalid += to size_type @typevar::operator+=");
 		return *this;
 	}
 	typevar& typevar::operator -= (size_type n) {
-		if (is_size_t()) _var = boost::get<size_type>(_var) - n;
+		if (is_size_t()) _var = mapbox::util::get<size_type>(_var) - n;
 		else THROW("invalid %= to size_type @typevar::operator-=");
 		return *this;
 	}
 	typevar& typevar::operator *= (size_type n) {
-		if (is_size_t()) _var = boost::get<size_type>(_var)*n;
+		if (is_size_t()) _var = mapbox::util::get<size_type>(_var)*n;
 		else THROW("invalid %= to size_type @typevar::operator*=");
 		return *this;
 	}
 	typevar& typevar::operator /= (size_type n) {
-		if (is_size_t()) _var = boost::get<size_type>(_var) / n;
+		if (is_size_t()) _var = mapbox::util::get<size_type>(_var) / n;
 		else THROW("invalid %= to size_type @typevar::operator/=");
 		return *this;
 	}
 	typevar& typevar::operator %= (size_type n) {
-		if (is_size_t()) _var = boost::get<size_type>(_var) % n;
+		if (is_size_t()) _var = mapbox::util::get<size_type>(_var) % n;
 		else THROW("invalid %= to size_type @typevar::operator%=");
 		return *this;
 	}

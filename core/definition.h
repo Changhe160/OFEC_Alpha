@@ -22,18 +22,18 @@
 #define OFEC_DEFINITION_H
 
 namespace OFEC {
-	#define OFEC_PI acos(-1.0) 
-	#define OFEC_E exp(1.0)  
+#define OFEC_PI acos(-1.0) 
+#define OFEC_E exp(1.0)  
 
-	#define USING_DOUBLE                    // elements of type double
+#define USING_DOUBLE                    // elements of type double
 	//#define USING_FLOAT                   // elements of type float
 	//#define USING_GPU
 	//#define OFEC_DEMON
-	#define OFEC_CONSOLE
+#define OFEC_CONSOLE
 
 #ifdef USING_GPU
-	#undef USING_DOUBLE
-	#define USING_FLOAT
+#undef USING_DOUBLE
+#define USING_FLOAT
 #endif // USING_GPU
 
 #ifdef USING_FLOAT                      // set precision type to float
@@ -45,18 +45,20 @@ namespace OFEC {
 #endif
 
 	enum class dominationship { Equal, Dominating, Dominated, Non_dominated, Non_comparable };
-	enum class optimization_mode {Minimization, Maximization};
-	enum class caller {Problem, Algorithm,Demontration};
-	enum class violation_type {Constraint, Boundary, None};
-	enum class evaluation_tag {Normal, Problem_change, Terminate, Problem_change_next_eval, Change_timelinkage, 
-		Change_dimension,Infeasible};
-	enum class problem_tag { SOP, MOP, DOP, MMP, SMP, ROOT, CONT, COMB, TSP, COP, VRP, TTP, JSP, KOP, SAT, ONEMAX, QAP, MKP };
-	enum class DEMutationStratgy { DE_rand_1, DE_best_1, DE_targetToBest_1, DE_best_2, DE_rand_2, DE_randToBest_1, DE_targetToRand_1 };
+	enum class optimization_mode { Minimization, Maximization };
+	enum class caller { Problem, Algorithm, Demontration };
+	enum class violation_type { Constraint, Boundary, None };
+	enum class evaluation_tag {
+		Normal, Problem_change, Terminate, Problem_change_next_eval, Change_timelinkage,
+		Change_dimension, Infeasible
+	};
+	enum class problem_tag { SOP, MOP, DOP, MMP, GOP, ROOT, CONT, COMB, TSP, COP, VRP, TTP, JSP, KOP, SAT, ONEMAX, QAP, MKP };
+
 	//SOP: single objective problem
 	//MOP: multi-objective problem
 	//DOP: dynamic optimization problem
 	//MMP: multi-modal problem
-	//SMP: single(uni) modal problem
+	//GOP: global optimization problem
 	//ROOT: robust optimzation problem
 	//CONT: continuous optimization problem
 	//COMB: combinatorial optimization problem
@@ -81,7 +83,7 @@ namespace OFEC {
 		param_numParetoRegion, param_validRadius, param_radius, param_jumpHeight, param_variableRelation, param_peakShape, param_divisionMode, \
 		param_peakOffset, param_flagIrregular, param_flagAsymmetry, param_flagRotation, param_dataFile2, param_dataFile3, param_dataDirectory1, \
 		param_maxIter, param_maxSucIter, param_epsilon, param_mutationSchemeDE, param_updateSchemeProbabilityLearning, param_beta, param_alpha, param_gamma,
-		param_glstrture,param_maxRunTime
+		param_glstrture, param_maxRunTime, param_GAratio
 	};
 }
 #endif // !OFEC_DEFINITION_H

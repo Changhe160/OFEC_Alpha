@@ -61,8 +61,10 @@ namespace OFEC {
 	///
 	/// typevar == typevar
 	///
-	struct typevar::equal_visitor : public boost::static_visitor<bool>
+	template<>
+	struct typevar::equal_visitor<bool> //: public boost::static_visitor<bool>
 	{
+		using result_type = bool;
 		// Different types
 		template <typename T, typename U>
 		result_type operator () (const T& lhs, const U& rhs) const
@@ -112,7 +114,7 @@ namespace OFEC {
 		}
 	};
 	bool typevar::operator == (const typevar& v) const {
-		return boost::apply_visitor(equal_visitor(), _var, v._var);
+		return mapbox::util::apply_visitor(equal_visitor<bool>(), _var, v._var);
 	}
 
 	///
@@ -178,7 +180,7 @@ namespace OFEC {
 	/// typevar != typevar
 	///
 	bool typevar::operator != (const typevar& v) const {
-		return !boost::apply_visitor(equal_visitor(), _var, v._var);
+		return !mapbox::util::apply_visitor(equal_visitor<bool>(), _var, v._var);
 	}
 
 	///
@@ -260,12 +262,12 @@ namespace OFEC {
 	/// typevar <= bool
 	///
 	bool typevar::operator <= (bool n) const {
-		if (is_bool()) return boost::get<bool_t>(_var) <= n;
+		if (is_bool()) return mapbox::util::get<bool_t>(_var) <= n;
 		THROW("invalid <= comparison to bool");
 	}
 
 	bool typevar::operator <= (char n) const {
-		if (is_char()) return boost::get<char_t>(_var) <= n;
+		if (is_char()) return mapbox::util::get<char_t>(_var) <= n;
 		THROW("invalid <= comparison to char");
 	}
 
@@ -273,7 +275,7 @@ namespace OFEC {
 	/// typevar <= int
 	///
 	bool typevar::operator <= (int n) const {
-		if (is_int()) return boost::get<int_t>(_var) <= n;
+		if (is_int()) return mapbox::util::get<int_t>(_var) <= n;
 		THROW("invalid <= comparison to int");
 	}
 
@@ -281,7 +283,7 @@ namespace OFEC {
 	/// typevar <= double
 	///
 	bool typevar::operator <= (double n) const {
-		if (is_double()) return boost::get<double_t>(_var) <= n;
+		if (is_double()) return mapbox::util::get<double_t>(_var) <= n;
 		THROW("invalid <= comparison to double");
 	}
 
@@ -289,7 +291,7 @@ namespace OFEC {
 	/// typevar <= string
 	///
 	bool typevar::operator <= (const std::string& s) const {
-		if (is_string()) return *boost::get<string_t>(_var).ps <= s;
+		if (is_string()) return *mapbox::util::get<string_t>(_var).ps <= s;
 		THROW("invalid <= comparison to string");
 	}
 
@@ -297,7 +299,7 @@ namespace OFEC {
 	/// typevar <= string constant
 	///
 	bool typevar::operator <= (const char* s) const {
-		if (is_string()) return *boost::get<string_t>(_var).ps <= s;
+		if (is_string()) return *mapbox::util::get<string_t>(_var).ps <= s;
 		THROW("invalid <= comparison to char*");
 	}
 
@@ -305,7 +307,7 @@ namespace OFEC {
 	/// typevar <= wide string
 	///
 	bool typevar::operator <= (const std::wstring& s) const {
-		if (is_wstring()) return *boost::get<wstring_t>(_var).ps <= s;
+		if (is_wstring()) return *mapbox::util::get<wstring_t>(_var).ps <= s;
 		THROW("invalid <= comparison to wstring");
 	}
 
@@ -313,7 +315,7 @@ namespace OFEC {
 	/// typevar <= wide string constant
 	///
 	bool typevar::operator <= (const wchar_t* s) const {
-		if (is_wstring()) return *boost::get<wstring_t>(_var).ps <= s;
+		if (is_wstring()) return *mapbox::util::get<wstring_t>(_var).ps <= s;
 		THROW("invalid <= comparison to wchar_t*");
 	}
 
@@ -323,13 +325,13 @@ namespace OFEC {
 	bool typevar::operator <= (const typevar& v) const {
 		switch (type()) {
 		case type_null:    THROW("invalid <= comparison to none");
-		case type_char:		return v.is_char() && boost::get<char_t>(_var) <= boost::get<char_t>(v._var);
-		case type_bool:    return v.is_bool() && boost::get<bool_t>(_var) <= boost::get<bool_t>(v._var);
-		case type_int:     return v.is_int() && boost::get<int_t>(_var) <= boost::get<int_t>(v._var);
-		case type_double:  return v.is_double() && boost::get<double_t>(_var) <= boost::get<double_t>(v._var);
-		case type_string:  return v.is_string() && *boost::get<string_t>(_var).ps <= *boost::get<string_t>(v._var).ps;
-		case type_wstring: return v.is_wstring() && *boost::get<wstring_t>(_var).ps <= *boost::get<wstring_t>(v._var).ps;
-		case type_size_t:   return v.is_size_t() && boost::get<size_type>(_var) <= boost::get<size_type>(v._var);
+		case type_char:		return v.is_char() && mapbox::util::get<char_t>(_var) <= mapbox::util::get<char_t>(v._var);
+		case type_bool:    return v.is_bool() && mapbox::util::get<bool_t>(_var) <= mapbox::util::get<bool_t>(v._var);
+		case type_int:     return v.is_int() && mapbox::util::get<int_t>(_var) <= mapbox::util::get<int_t>(v._var);
+		case type_double:  return v.is_double() && mapbox::util::get<double_t>(_var) <= mapbox::util::get<double_t>(v._var);
+		case type_string:  return v.is_string() && *mapbox::util::get<string_t>(_var).ps <= *mapbox::util::get<string_t>(v._var).ps;
+		case type_wstring: return v.is_wstring() && *mapbox::util::get<wstring_t>(_var).ps <= *mapbox::util::get<wstring_t>(v._var).ps;
+		case type_size_t:   return v.is_size_t() && mapbox::util::get<size_type>(_var) <= mapbox::util::get<size_type>(v._var);
 		default:           THROW("(unhandled type) <= not implemented");
 		}
 	}
@@ -338,19 +340,19 @@ namespace OFEC {
 	/// typevar > bool
 	///
 	bool typevar::operator > (bool n) const {
-		if (is_bool()) return boost::get<bool_t>(_var) > n;
+		if (is_bool()) return mapbox::util::get<bool_t>(_var) > n;
 		THROW("invalid > comparison to bool");
 	}
 
 	bool typevar::operator > (char n) const {
-		if (is_char()) return boost::get<char_t>(_var) > n;
+		if (is_char()) return mapbox::util::get<char_t>(_var) > n;
 		THROW("invalid > comparison to bool");
 	}
 	///
 	/// typevar > int
 	///
 	bool typevar::operator > (int n) const {
-		if (is_int()) return boost::get<int_t>(_var) > n;
+		if (is_int()) return mapbox::util::get<int_t>(_var) > n;
 		THROW("invalid > comparison to int");
 	}
 
@@ -358,7 +360,7 @@ namespace OFEC {
 	/// typevar > double
 	///
 	bool typevar::operator > (double n) const {
-		if (is_double()) return boost::get<double_t>(_var) > n;
+		if (is_double()) return mapbox::util::get<double_t>(_var) > n;
 		THROW("invalid > comparison to double");
 	}
 
@@ -366,14 +368,14 @@ namespace OFEC {
 	/// typevar > string
 	///
 	bool typevar::operator > (const std::string& s) const {
-		if (is_string()) return *boost::get<string_t>(_var).ps > s;
+		if (is_string()) return *mapbox::util::get<string_t>(_var).ps > s;
 		THROW("invalid > comparison to string");
 	}
 
 	///
 	/// typevar > string constant
 	bool typevar::operator > (const char* s) const {
-		if (is_string()) return *boost::get<string_t>(_var).ps > s;
+		if (is_string()) return *mapbox::util::get<string_t>(_var).ps > s;
 		THROW("invalid > comparison to char*");
 	}
 
@@ -381,7 +383,7 @@ namespace OFEC {
 	/// typevar > wide string
 	///
 	bool typevar::operator > (const std::wstring& s) const {
-		if (is_wstring()) return *boost::get<wstring_t>(_var).ps > s;
+		if (is_wstring()) return *mapbox::util::get<wstring_t>(_var).ps > s;
 		THROW("invalid > comparison to wstring");
 	}
 
@@ -389,7 +391,7 @@ namespace OFEC {
 	/// typevar > wide string constant
 	///
 	bool typevar::operator > (const wchar_t* s) const {
-		if (is_wstring()) return *boost::get<wstring_t>(_var).ps > s;
+		if (is_wstring()) return *mapbox::util::get<wstring_t>(_var).ps > s;
 		THROW("invalid > comparison to wchar_t*");
 	}
 
@@ -399,13 +401,13 @@ namespace OFEC {
 	bool typevar::operator > (const typevar& v) const {
 		switch (type()) {
 		case type_null:    THROW("invalid > comparison to none");
-		case type_char:    return v.is_char() && boost::get<char_t>(_var) > boost::get<char_t>(v._var);
-		case type_bool:    return v.is_bool() && boost::get<bool_t>(_var) > boost::get<bool_t>(v._var);
-		case type_int:     return v.is_int() && boost::get<int_t>(_var) > boost::get<int_t>(v._var);
-		case type_double:  return v.is_double() && boost::get<double_t>(_var) > boost::get<double_t>(v._var);
-		case type_string:  return v.is_string() && *boost::get<string_t>(_var).ps > *boost::get<string_t>(v._var).ps;
-		case type_wstring: return v.is_wstring() && *boost::get<wstring_t>(_var).ps > *boost::get<wstring_t>(v._var).ps;
-		case type_size_t:   return v.is_size_t() && boost::get<size_type>(_var) > boost::get<size_type>(v._var);
+		case type_char:    return v.is_char() && mapbox::util::get<char_t>(_var) > mapbox::util::get<char_t>(v._var);
+		case type_bool:    return v.is_bool() && mapbox::util::get<bool_t>(_var) > mapbox::util::get<bool_t>(v._var);
+		case type_int:     return v.is_int() && mapbox::util::get<int_t>(_var) > mapbox::util::get<int_t>(v._var);
+		case type_double:  return v.is_double() && mapbox::util::get<double_t>(_var) > mapbox::util::get<double_t>(v._var);
+		case type_string:  return v.is_string() && *mapbox::util::get<string_t>(_var).ps > *mapbox::util::get<string_t>(v._var).ps;
+		case type_wstring: return v.is_wstring() && *mapbox::util::get<wstring_t>(_var).ps > *mapbox::util::get<wstring_t>(v._var).ps;
+		case type_size_t:   return v.is_size_t() && mapbox::util::get<size_type>(_var) > mapbox::util::get<size_type>(v._var);
 		default:           THROW("(unhandled type) > not implemented");
 		}
 	}
@@ -414,12 +416,12 @@ namespace OFEC {
 	/// typevar >= bool
 	///
 	bool typevar::operator >= (bool n) const {
-		if (is_bool()) return boost::get<bool_t>(_var) >= n;
+		if (is_bool()) return mapbox::util::get<bool_t>(_var) >= n;
 		THROW("invalid >= comparison to bool");
 	}
 
 	bool typevar::operator >= (char n) const {
-		if (is_char()) return boost::get<char_t>(_var) >= n;
+		if (is_char()) return mapbox::util::get<char_t>(_var) >= n;
 		THROW("invalid >= comparison to char");
 	}
 
@@ -428,7 +430,7 @@ namespace OFEC {
 	/// typevar >= int
 	///
 	bool typevar::operator >= (int n) const {
-		if (is_int()) return boost::get<int_t>(_var) >= n;
+		if (is_int()) return mapbox::util::get<int_t>(_var) >= n;
 		THROW("invalid >= comparison to int");
 	}
 
@@ -436,7 +438,7 @@ namespace OFEC {
 	/// typevar >= double
 	///
 	bool typevar::operator >= (double n) const {
-		if (is_double()) return boost::get<double_t>(_var) >= n;
+		if (is_double()) return mapbox::util::get<double_t>(_var) >= n;
 		THROW("invalid >= comparison to double");
 	}
 
@@ -444,7 +446,7 @@ namespace OFEC {
 	/// typevar >= string
 	///
 	bool typevar::operator >= (const std::string& s) const {
-		if (is_string()) return *boost::get<string_t>(_var).ps >= s;
+		if (is_string()) return *mapbox::util::get<string_t>(_var).ps >= s;
 		THROW("invalid >= comparison to string");
 	}
 
@@ -452,7 +454,7 @@ namespace OFEC {
 	/// typevar >= string constant
 	///
 	bool typevar::operator >= (const char* s) const {
-		if (is_string()) return *boost::get<string_t>(_var).ps >= s;
+		if (is_string()) return *mapbox::util::get<string_t>(_var).ps >= s;
 		THROW("invalid >= comparison to char*");
 	}
 
@@ -460,7 +462,7 @@ namespace OFEC {
 	/// typevar >= wide string
 	///
 	bool typevar::operator >= (const std::wstring& s) const {
-		if (is_wstring()) return *boost::get<wstring_t>(_var).ps >= s;
+		if (is_wstring()) return *mapbox::util::get<wstring_t>(_var).ps >= s;
 		THROW("invalid >= comparison to wstring");
 	}
 
@@ -468,7 +470,7 @@ namespace OFEC {
 	/// typevar >= wide string constant
 	///
 	bool typevar::operator >= (const wchar_t* s) const {
-		if (is_wstring()) return *boost::get<wstring_t>(_var).ps >= s;
+		if (is_wstring()) return *mapbox::util::get<wstring_t>(_var).ps >= s;
 		THROW("invalid >= comparison to wchar_t*");
 	}
 
@@ -478,28 +480,28 @@ namespace OFEC {
 	bool typevar::operator >= (const typevar& v) const {
 		switch (type()) {
 		case type_null:    THROW("invalid >= comparison to none");
-		case type_bool:    return v.is_bool() && boost::get<bool_t>(_var) >= boost::get<bool_t>(v._var);
-		case type_char:     return v.is_int() && boost::get<char_t>(_var) >= boost::get<char_t>(v._var);
-		case type_int:     return v.is_int() && boost::get<int_t>(_var) >= boost::get<int_t>(v._var);
-		case type_double:  return v.is_double() && boost::get<double_t>(_var) >= boost::get<double_t>(v._var);
-		case type_string:  return v.is_string() && *boost::get<string_t>(_var).ps >= *boost::get<string_t>(v._var).ps;
-		case type_wstring: return v.is_wstring() && *boost::get<wstring_t>(_var).ps >= *boost::get<wstring_t>(v._var).ps;
-		case type_size_t:   return v.is_size_t() && boost::get<size_type>(_var) >= boost::get<size_type>(v._var);
+		case type_bool:    return v.is_bool() && mapbox::util::get<bool_t>(_var) >= mapbox::util::get<bool_t>(v._var);
+		case type_char:     return v.is_int() && mapbox::util::get<char_t>(_var) >= mapbox::util::get<char_t>(v._var);
+		case type_int:     return v.is_int() && mapbox::util::get<int_t>(_var) >= mapbox::util::get<int_t>(v._var);
+		case type_double:  return v.is_double() && mapbox::util::get<double_t>(_var) >= mapbox::util::get<double_t>(v._var);
+		case type_string:  return v.is_string() && *mapbox::util::get<string_t>(_var).ps >= *mapbox::util::get<string_t>(v._var).ps;
+		case type_wstring: return v.is_wstring() && *mapbox::util::get<wstring_t>(_var).ps >= *mapbox::util::get<wstring_t>(v._var).ps;
+		case type_size_t:   return v.is_size_t() && mapbox::util::get<size_type>(_var) >= mapbox::util::get<size_type>(v._var);
 		default:           THROW("(unhandled type) >= not implemented");
 		}
 	}
 
 	bool typevar::operator >= (size_type n) const {
-		if (is_size_t()) return boost::get<size_type>(_var) >= n;
+		if (is_size_t()) return mapbox::util::get<size_type>(_var) >= n;
 		THROW("invalid >= comparison to size_t");
 	}
 
 	bool typevar::operator <= (size_type n) const {
-		if (is_size_t()) return boost::get<size_type>(_var) <= n;
+		if (is_size_t()) return mapbox::util::get<size_type>(_var) <= n;
 		THROW("invalid <= comparison to size_t");
 	}
 	bool typevar::operator > (size_type n) const {
-		if (is_size_t()) return boost::get<size_type>(_var) > n;
+		if (is_size_t()) return mapbox::util::get<size_type>(_var) > n;
 		THROW("invalid > comparison to size_t");
 	}
 

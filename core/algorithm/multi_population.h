@@ -22,10 +22,10 @@
 #include "population.h"
 
 namespace OFEC {
-	
+
 	template<typename Population>
 	class multi_population
-	{		
+	{
 	public:
 		using iterator_type = typename std::vector<std::unique_ptr<Population>>::iterator;
 
@@ -33,8 +33,8 @@ namespace OFEC {
 		virtual ~multi_population() {}
 
 		multi_population(int n) :m_sub(n) {}
-		multi_population(int n,int subsize) :m_sub(n, new Population(subsize)) {}
-		
+		multi_population(int n, int subsize) :m_sub(n, new Population(subsize)) {}
+
 		void resize_objective(int n);
 		void resize_variable(int n);
 
@@ -51,8 +51,7 @@ namespace OFEC {
 		std::vector<std::unique_ptr<Population>> m_sub;
 		int m_maxsize;		// the maximum size of each sub-population
 	};
-	
+
 
 }
 #endif // !OFEC_MULTI_POPULATION_H
-

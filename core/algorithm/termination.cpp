@@ -1,4 +1,3 @@
-#include "termination.h"
 #include "../global.h"
 
 namespace OFEC {
@@ -6,7 +5,7 @@ namespace OFEC {
 #ifdef OFEC_DEMON
 	extern bool g_algTermination;
 #endif
-	
+
 	termination::termination(param_map &v) :m_maxTime(24 * 3600) {
 		if (v.find(param_maxRunTime) != v.end())
 			m_maxTime = (int)v[param_maxRunTime];
@@ -18,13 +17,13 @@ namespace OFEC {
 
 #ifdef OFEC_CONSOLE
 		if (m_isTerminating) return true;
-		if (global::ms_global->m_problem != nullptr && global::ms_global->m_problem->solved()) 
+		if (global::ms_global->m_problem != nullptr && global::ms_global->m_problem->solved())
 			return true;
-		
+
 		auto durat = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - m_start_time).count();
-		if (durat >= m_maxTime) 
+		if (durat >= m_maxTime)
 			return true;
-		
+
 #endif
 
 #ifdef OFEC_DEMON

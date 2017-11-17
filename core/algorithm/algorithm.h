@@ -21,7 +21,7 @@
 
 #include <sstream>
 #include "termination.h"
-#include "../definition.h"
+
 
 namespace OFEC {
 	class algorithm
@@ -36,7 +36,7 @@ namespace OFEC {
 
 		virtual ~algorithm() {}
 		evaluation_tag run();
-		
+
 		bool terminated();
 		virtual bool terminating();
 		double duration();

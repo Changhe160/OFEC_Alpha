@@ -33,7 +33,7 @@ namespace OFEC {
 		violation_type check_boundary_violation(const base &s) const; // boudary check only
 		void initialize_solution(base &s) const;
 
-		const std::pair<real, real>& range(int i) const;
+		const std::pair<real, real>& range(size_t i) const;
 		void set_range(real l, real u);
 		void set_range(const std::vector<std::pair<real, real>>& r);
 		void set_init_range(real l, real u);

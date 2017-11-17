@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE CEC2013
+/*#define BOOST_TEST_MODULE CEC2013
 #include <boost/test/unit_test.hpp>
 
 #include "../instance/problem/continuous/large_scale/CEC2013/N7S1_ShiftedSchwefel_F7.h"
@@ -56,4 +56,4 @@ BOOST_AUTO_TEST_CASE(test_case2) {  // for F14
 
 
 
-BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()*/

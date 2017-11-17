@@ -23,8 +23,8 @@
 #define OFEC_SOLUTION_H
 #include <utility>
 
-#include "encoding.h"
-#include "../definition.h"
+
+
 #include "../global.h"
 
 namespace  OFEC {
@@ -76,94 +76,41 @@ namespace  OFEC {
 		void resize_variable(int n) { m_var.resize(n); }
 
 		bool dominate(const objective<objective_type>& o) const { //this soluton donimates objective o
-			return  dominationship::Dominating == objective_compare(m_obj.vect(), o.vect(), global::ms_global->m_problem->opt_mode());
+			return  dominationship::Dominating == objective_compare(m_obj.vect(), o.vect(), global::ms_global->m_problem->opt_mode()).first;
 		}
 
 		bool dominate(const solution& s) const {//this solution donimates solution s
-			return dominationship::Dominating == objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode());
+			return dominationship::Dominating == objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode()).first;
 		}
 		bool dominate(const std::vector<objective_type>& o)const {//this solution donimates solution s
-			return dominationship::Dominating == objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode());
+			return dominationship::Dominating == objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode()).first;
 		}
 
 		bool dominate_equal(const objective<objective_type>& o)const { //this soluton weakly donimates objective o
-			dominationship r = objective_compare(m_obj.vect(), o.vect(), global::ms_global->m_problem->opt_mode());
+			dominationship r = objective_compare(m_obj.vect(), o.vect(), global::ms_global->m_problem->opt_mode()).first;
 			return r == dominationship::Dominating || r == dominationship::Equal;
 		}
 		bool dominate_equal(const solution& s)const {//this solution weakly donimates solution s
-			dominationship r = objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode());
+			dominationship r = objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode()).first;
 			return r == dominationship::Dominating || r == dominationship::Equal;
 		}
 		bool dominate_equal(const std::vector<objective_type>& o)const { //this soluton weakly donimates objective o
-			dominationship r = objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode());
+			dominationship r = objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode()).first;
 			return r == dominationship::Dominating || r == dominationship::Equal;
 		}
 
 		bool nondominate(const objective<objective_type>& o)const { //two solutions non-donimate with each other
-			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), o.vect(), global::ms_global->m_problem->opt_mode());
+			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), o.vect(), global::ms_global->m_problem->opt_mode()).first;
 		}
 		bool nondominate(const solution& s)const {//two solutions non-donimate with each other
-			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode());
+			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode()).first;
 		}
 		bool nondominate(const std::vector<objective_type>& o)const { //two solutions non-donimate with each other
-			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode());
+			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode()).first;
 		}
 
 		bool equal(const solution& rhs) const {
-			return dominationship::Equal == objective_compare(m_obj.vect(), rhs.m_obj.vect(), global::ms_global->m_problem->opt_mode());
-		}
-
-		template<typename Compare>
-		bool dominate(const objective<objective_type>& o, Compare comp) const { //this soluton donimates objective o
-			return  dominationship::Dominating == comp(m_obj.vect(), o.vect(), global::ms_global->m_problem->opt_mode());
-		}
-
-		template<typename Compare>
-		bool dominate(const solution& s, Compare comp) const {//this solution donimates solution s
-			return dominationship::Dominating == comp(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode());
-		}
-
-		template<typename Compare>
-		bool dominate(const std::vector<objective_type>& o, Compare comp)const {//this solution donimates solution s
-			return dominationship::Dominating == comp(m_obj.vect(), o, global::ms_global->m_problem->opt_mode());
-		}
-
-		template<typename Compare>
-		bool dominate_equal(const objective<objective_type>& o, Compare comp)const { //this soluton weakly donimates objective o
-			dominationship r = comp(m_obj.vect(), o.vect(), global::ms_global->m_problem->opt_mode());
-			return r == dominationship::Dominating || r == dominationship::Equal;
-		}
-
-		template<typename Compare>
-		bool dominate_equal(const solution& s, Compare comp)const {//this solution weakly donimates solution s
-			dominationship r = objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode());
-			return r == dominationship::Dominating || r == dominationship::Equal;
-		}
-
-		template<typename Compare>
-		bool dominate_equal(const std::vector<objective_type>& o, Compare comp)const { //this soluton weakly donimates objective o
-			dominationship r = objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode());
-			return r == dominationship::Dominating || r == dominationship::Equal;
-		}
-
-		template<typename Compare>
-		bool nondominate(const objective<objective_type>& o, Compare comp)const { //two solutions non-donimate with each other
-			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), o.vect(), global::ms_global->m_problem->opt_mode());
-		}
-
-		template<typename Compare>
-		bool nondominate(const solution& s, Compare comp)const {//two solutions non-donimate with each other
-			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode());
-		}
-
-		template<typename Compare>
-		bool nondominate(const std::vector<objective_type>& o, Compare comp)const { //two solutions non-donimate with each other
-			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode());
-		}
-
-		template<typename Compare>
-		bool equal(const solution& rhs, Compare comp) const {
-			return dominationship::Equal == objective_compare(m_obj.vect(), rhs.m_obj.vect(), global::ms_global->m_problem->opt_mode());
+			return dominationship::Equal == objective_compare(m_obj.vect(), rhs.m_obj.vect(), global::ms_global->m_problem->opt_mode()).first;
 		}
 
 		bool same(const solution& x)const {//two solutions non-donimate with each other
@@ -218,19 +165,19 @@ namespace  OFEC {
 		}
 
 		std::pair<double, std::vector<double>> & constraint_value() {
-			//global::ms_global->m_problem->constraint_value(m_constraint_value);
 			return m_constraint_value;
 		}
+
 		const std::pair<double, std::vector<double>> & constraint_value()const {
-			//global::ms_global->m_problem->constraint_value(m_constraint_value);
 			return m_constraint_value;
 		}
-		size_t num_violation() {
+		size_t number_violation() {
 			size_t count = 0;
 			for (auto &i : m_constraint_value.second)
 				if (i > 0) ++count;
 			return count;
 		}
+
 		void set_objective_infinite() {
 
 			for (int i = 0; i<m_obj.size(); ++i)
@@ -243,6 +190,7 @@ namespace  OFEC {
 		objective<objective_type> m_obj;
 		std::pair<double, std::vector<double>> m_constraint_value;
 	};
+
 
 
 }
