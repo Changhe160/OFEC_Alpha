@@ -792,6 +792,9 @@
     <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F15_composition2015_C7.h">
       <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
     </ClInclude>
+    <ClInclude Include="utility\catch.hpp">
+      <Filter>utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">

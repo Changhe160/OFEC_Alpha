@@ -589,6 +589,7 @@
     <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT4.h" />
     <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT6.h" />
     <ClInclude Include="run\initialize.h" />
+    <ClInclude Include="utility\catch.hpp" />
     <ClInclude Include="utility\factory.h" />
     <ClInclude Include="utility\functional.h" />
     <ClInclude Include="utility\mapbox\recursive_wrapper.hpp" />
