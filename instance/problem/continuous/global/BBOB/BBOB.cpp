@@ -1,11 +1,9 @@
 #include "BBOB.h"
-#include <algorithm>
 
 namespace OFEC {
 
 	constexpr size_t NHIGHPEAKS21 = 101;
 	constexpr size_t NHIGHPEAKS22 = 21;
-
 	int compare_doubles(const void *a, const void *b)
 	{
 		double temp = (*(double*)a) - (*(double*)b);

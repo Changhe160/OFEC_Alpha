@@ -16,6 +16,8 @@
 #include "../../../../../core/problem/continuous/continuous.h"
 #include "../../../../../utility/matrix.h"
 #include <string>
+#include <algorithm>
+
 namespace OFEC {
 	class BBOB final : public continuous {
 	public:

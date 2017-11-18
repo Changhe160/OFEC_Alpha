@@ -26,6 +26,7 @@ namespace OFEC {
 		data.push_back(std::make_pair(-2, 2));
 
 		set_range(data);
+		set_range(std::move(data)); 
 		initialize();
 	}
 	valleys::valleys(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
@@ -35,6 +36,7 @@ namespace OFEC {
 		data.push_back(std::make_pair(-2, 2));
 
 		set_range(data);
+		set_range(std::move(data));
 		initialize();
 	}
 

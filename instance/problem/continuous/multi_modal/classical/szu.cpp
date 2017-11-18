@@ -23,11 +23,13 @@ namespace OFEC {
 	szu::szu(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		set_range(-5.0, 5.0);
+		set_init_range(-5.0, 5.0);
 		initialize();
 	}
 	szu::szu(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 		set_range(-5., 5.);
+		set_init_range(-5.0, 5.0);
 		initialize();
 	}
 

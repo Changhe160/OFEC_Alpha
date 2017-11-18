@@ -24,6 +24,7 @@ namespace OFEC {
 			m_converge_severity.resize(m_num_function);
 			m_f_bias.resize(m_num_function);
 			set_range(-100., 100.);
+			set_init_range(-100., 100.);
 		}
 
 		void composition_2015::set_weight(std::vector<double>& weight, const std::vector<real>&x) {
@@ -31,7 +32,8 @@ namespace OFEC {
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate weight for each function
 				weight[i] = 0;
 				for (size_t j = 0; j < m_variable_size; ++j) {
-					weight[i] += pow(x[j] - m_function[0]->get_optima().variable(0)[j], 2);
+					//weight[i] += pow(x[j] - m_function[i]->translation()[j], 2);
+					weight[i] += pow(x[j] - m_function[i]->get_optima().variable(0)[j], 2);
 				}
 
 				if (fabs(weight[i])>1e-6) weight[i] = exp(-weight[i] / (2 * m_variable_size*m_converge_severity[i] * m_converge_severity[i])) / (double)(pow(weight[i], 0.5));
@@ -55,9 +57,9 @@ namespace OFEC {
 			variable<real> temp_var(m_variable_size);
 			objective<real> temp_obj(m_objective_size);
 			solution<variable<real>, real> s(std::move(temp_var), std::move(temp_obj));
-			s.get_variable() = x_;
+		
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
-
+				s.get_variable() = x_;
 				m_function[i]->evaluate_(s, caller::Problem, false, false);
 				fit[i] = s.get_objective()[0];
 

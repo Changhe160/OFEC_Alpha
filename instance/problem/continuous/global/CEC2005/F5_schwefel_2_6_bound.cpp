@@ -5,11 +5,13 @@ namespace OFEC {
 		F5_schwefel_2_6_bound::F5_schwefel_2_6_bound(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 			function((v[param_proName]), (v[param_numDim]), 1), m_a(v[param_numDim], std::vector<int>(v[param_numDim])), m_b(v[param_numDim]) {
 			set_range(-100, 100);
+			set_init_range(-100., 100.);
 			initialize();
 		}
 		F5_schwefel_2_6_bound::F5_schwefel_2_6_bound(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj), m_a(size_var, std::vector<int>(size_var)), m_b(size_var) {
 			set_range(-100, 100);
+			set_init_range(-100., 100.);
 			initialize();
 		}
 

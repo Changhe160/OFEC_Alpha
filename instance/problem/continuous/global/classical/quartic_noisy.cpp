@@ -18,14 +18,14 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
 		set_range(-1.28, 1.28);
-
+		set_init_range(-1.28, 1.28);
 		initialize();
 	}
 	quartic_noisy::quartic_noisy(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 
 		set_range(-1.28, 1.28);
-
+		set_init_range(-1.28, 1.28);
 		initialize();
 	}
 

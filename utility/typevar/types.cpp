@@ -72,7 +72,7 @@ namespace OFEC {
 
 	typevar::operator size_type() const {
 		try {
-			if (is_size_t())      return mapbox::util::get<size_type>(_var);
+			if (is_size_t())     return mapbox::util::get<size_type>(_var);
 			else if (is_int()) return static_cast<size_type>(mapbox::util::get<int>(_var));
 		}
 		catch (const mapbox::util::bad_variant_access&) {

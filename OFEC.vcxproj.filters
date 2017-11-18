@@ -103,6 +103,9 @@
     <Filter Include="utility\mapbox">
       <UniqueIdentifier>{d61d59a0-b18e-4e07-b565-e6b59e95eb6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="instance\problem\continuous\multi_modal\CEC2015">
+      <UniqueIdentifier>{03ea81f4-c8cc-40a3-b483-52b0219a6128}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\algorithm\encoding.h">
@@ -522,60 +525,6 @@
     <ClInclude Include="instance\problem\continuous\global\classical\weierstrass.h">
       <Filter>instance\problem\continuous\global\classical</Filter>
     </ClInclude>
-    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\CEC2013.h">
-      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\composition_2015.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F1_rotated_bent_cigar.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F2_rotated_discus.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F3_shifted_rotated_weierstrass.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F4_shifted_rotated_schwefel.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F5_shifted_rotated_katsuura.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F6_shifted_rotated_happy_cat.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F7_shifted_rotated_HGBat.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F8_shifted_rotated_griewank_rosenbrock.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F9_shifted_rotated_scaffer_F6.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F10_hybrid_F1.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F11_hybrid_F2.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F12_hybrid_F3.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F13_composition_F1.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F14_composition_F2.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F15_composition_F3.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\hybrid.h">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClInclude>
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\beasley.h">
       <Filter>instance\problem\continuous\multi_modal\classical</Filter>
     </ClInclude>
@@ -695,6 +644,153 @@
     </ClInclude>
     <ClInclude Include="utility\mapbox\variant_visitor.hpp">
       <Filter>utility\mapbox</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\ConflictingOS_ShiftedSchwefel_F14.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\ConformingOS_ShiftedSchwefel_F13.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\function_CEC2013.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\N7S1_ShiftedSchwefel_F7.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\N7S1_SR_Ackley_F6.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\N7S1_SR_Elliptic_F4.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\N7S1_SR_Rastrigin_F5.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\N20_ShiftedSchwefel_F11.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\N20_SR_Ackley_F10.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\N20_SR_Elliptic_F8.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\N20_SR_Rastrigin_F9.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\ShiftedAckley_F3.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\ShiftedElliptic_F1.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\ShiftedRastrigin_F2.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\ShiftedRosenbrock_F12.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\large_scale\CEC2013\ShiftedSchwefel_F15.h">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\composition_2015.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F1_rotated_bent_cigar.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F2_rotated_discus.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F3_shifted_rotated_weierstrass.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F4_shifted_rotated_schwefel.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F5_shifted_rotated_katsuura.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F6_shifted_rotated_happy_cat.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F7_shifted_rotated_HGBat.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F8_shifted_rotated_griewank_rosenbrock.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F9_shifted_rotated_scaffer_F6.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F10_hybrid1.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F11_hybrid2.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F12_hybrid3.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F13_expensive_composition1.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F14_expensive_composition2.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F15_expensive_composition3.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\expensive\CEC2015\hybrid.h">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\CEC2015_function.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F1_SR_expanded_two_peak_trap.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F2_SR_expanded_five_uneven_peak_trap.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F3_SR_expanded_equal_minima.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F4_SR_expanded_decreasing_minima.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F5_SR_expanded_uneven_minima.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F6_SR_expanded_himmelblau.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F7_SR_expanded_six_hump_camel_back.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F8_SR_modified_vincent.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F9_composition2015_C1.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F10_composition2015_C2.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F11_composition2015_C3.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F12_composition2015_C4.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F13_composition2015_C5.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F14_composition2015_C6.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F15_composition2015_C7.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1088,60 +1184,6 @@
     <ClCompile Include="instance\problem\continuous\global\classical\weierstrass.cpp">
       <Filter>instance\problem\continuous\global\classical</Filter>
     </ClCompile>
-    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\CEC2013.cpp">
-      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\composition_2015.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F1_rotated_bent_cigar.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F2_rotated_discus.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F3_shifted_rotated_weierstrass.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F4_shifted_rotated_schwefel.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F5_shifted_rotated_katsuura.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F6_shifted_rotated_happy_cat.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F7_shifted_rotated_HGBat.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F8_shifted_rotated_griewank_rosenbrock.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F9_shifted_rotated_scaffer_F6.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F10_hybrid_F1.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F11_hybrid_F2.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F12_hybrid_F3.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F13_composition_F1.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F14_composition_F2.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F15_composition_F3.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\hybrid.cpp">
-      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
-    </ClCompile>
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\beasley.cpp">
       <Filter>instance\problem\continuous\multi_modal\classical</Filter>
     </ClCompile>
@@ -1243,6 +1285,153 @@
     </ClCompile>
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\modified_vincent.cpp">
       <Filter>instance\problem\continuous\multi_modal\classical</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\ConflictingOS_ShiftedSchwefel_F14.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\ConformingOS_ShiftedSchwefel_F13.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\function_CEC2013.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\N7S1_ShiftedSchwefel_F7.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\N7S1_SR_Ackley_F6.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\N7S1_SR_Elliptic_F4.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\N7S1_SR_Rastrigin_F5.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\N20_ShiftedSchwefel_F11.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\N20_SR_Ackley_F10.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\N20_SR_Elliptic_F8.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\N20_SR_Rastrigin_F9.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\ShiftedAckley_F3.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\ShiftedElliptic_F1.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\ShiftedRastrigin_F2.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\ShiftedRosenbrock_F12.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\large_scale\CEC2013\ShiftedSchwefel_F15.cpp">
+      <Filter>instance\problem\continuous\large_scale\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\composition_2015.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F1_rotated_bent_cigar.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F2_rotated_discus.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F3_shifted_rotated_weierstrass.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F4_shifted_rotated_schwefel.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F5_shifted_rotated_katsuura.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F6_shifted_rotated_happy_cat.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F7_shifted_rotated_HGBat.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F8_shifted_rotated_griewank_rosenbrock.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F9_shifted_rotated_scaffer_F6.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F10_hybrid1.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F11_hybrid2.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F12_hybrid3.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F13_expensive_composition1.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F14_expensive_composition2.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F15_expensive_composition3.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\expensive\CEC2015\hybrid.cpp">
+      <Filter>instance\problem\continuous\expensive\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\CEC2015_function.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F1_SR_expanded_two_peak_trap.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F2_SR_expanded_five_uneven_peak_trap.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F3_SR_expanded_equal_minima.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F4_SR_expanded_decreasing_minima.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F5_SR_expanded_uneven_minima.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F6_SR_expanded_himmelblau.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F7_SR_expanded_six_hump_camel_back.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F8_SR_modified_vincent.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F9_composition2015_C1.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F10_composition2015_C2.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F11_composition2015_C3.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F12_composition2015_C4.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F13_composition2015_C5.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F14_composition2015_C6.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F15_composition2015_C7.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

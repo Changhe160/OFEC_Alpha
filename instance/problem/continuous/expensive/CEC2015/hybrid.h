@@ -22,21 +22,27 @@ namespace OFEC {
 		class hybrid : public continuous
 		{
 		public:
-			hybrid(const std::string &name, size_t size_var, size_t size_obj);
+			hybrid(const std::string &name, size_t size_var, size_t size_obj = 1);
 			~hybrid();
 			size_t get_num_function();
 			function* get_function(size_t num);
-			virtual evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
+			std::vector<size_t>& dim() { return m_dim; }
+			std::vector<size_t>& random_perm() {
+				return m_random_perm;
+			}
+			std::vector<real>& hybrid_translation() {
+				return m_hybrid_translation;
+			}
 		protected:
 			virtual void initialize() = 0;
 			virtual void evaluate__(real *x, std::vector<real>& obj);
 			virtual void set_function() = 0;
-
 		protected:
 			size_t m_num_function;
 			std::vector<function*> m_function;    // the functions
 			std::vector<size_t> m_start, m_dim;
 			std::vector<size_t> m_random_perm;
+			std::vector<real> m_hybrid_translation;
 		};
 
 	}

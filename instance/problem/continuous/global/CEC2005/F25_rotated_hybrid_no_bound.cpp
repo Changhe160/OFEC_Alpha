@@ -39,6 +39,7 @@ namespace OFEC {
 		void F25_rotated_hybrid_no_bound::initialize() {
 			set_function();
 			set_range(2, 5);
+			set_init_range(2, 5);
 			for (size_t i = 0; i < m_variable_size; ++i)
 				m_domain[i].limited = false;
 			load_rotation("instance/problem/continuous/global/CEC2005/data/");

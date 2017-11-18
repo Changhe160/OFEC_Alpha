@@ -21,11 +21,13 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		v[param_numDim] = 2;
 		set_range(-15, 15);
+		set_init_range(-15, 15);
 		initialize();
 	}
 	shaffer::shaffer(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 		set_range(-15, 15);
+		set_init_range(-15, 15);
 		initialize();
 	}
 

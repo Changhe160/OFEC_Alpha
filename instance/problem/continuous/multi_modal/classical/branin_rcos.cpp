@@ -26,6 +26,7 @@ namespace OFEC {
 		std::vector<std::pair<real, real>> range;
 		range.push_back(std::make_pair(-5., 10.));
 		range.push_back(std::make_pair(0., 15.));
+		set_init_range(range);
 		set_range(std::move(range));
 		initialize();
 	}
@@ -34,6 +35,7 @@ namespace OFEC {
 		std::vector<std::pair<real, real>> range;
 		range.push_back(std::make_pair(-5., 10.));
 		range.push_back(std::make_pair(0., 15.));
+		set_init_range(range);
 		set_range(std::move(range));
 		initialize();
 	}

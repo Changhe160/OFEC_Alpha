@@ -21,12 +21,14 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		if (m_variable_size > 5) throw myexcept("number of dim must be <=5@ modified_shekel::modified_shekel");
 		set_range(0.0, 11.0);
+		set_init_range(0.0, 11.0);
 		initialize();
 	}
 	modified_shekel::modified_shekel(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 		if (m_variable_size > 5) throw myexcept("number of dim must be <=5@ modified_shekel::modified_shekel");
 		set_range(0.0, 11.0);
+		set_init_range(0.0, 11.0);
 		initialize();
 	}
 

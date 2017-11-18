@@ -27,11 +27,13 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1) {
 
 		set_range(0.25, 10.); // note
+		set_init_range(0.25, 10.);
 		initialize();
 	}
 	vincent::vincent(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 		set_range(0.25, 10.); // note
+		set_init_range(0.25, 10.);
 		initialize();
 	}
 

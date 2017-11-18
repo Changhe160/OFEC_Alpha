@@ -19,7 +19,8 @@ namespace OFEC {
 			m_function(m_num_function), m_height(m_num_function), m_fmax(m_num_function), \
 			m_converge_severity(m_num_function), m_stretch_severity(m_num_function) {
 
-			set_range(-5, 5);
+			set_range(-5., 5.);
+			set_init_range(-5., 5.);
 			m_height_normalize_severity = 2000.;
 		}
 		composition::~composition() {
@@ -121,7 +122,7 @@ namespace OFEC {
 			std::stringstream ss;
 			ss << m_variable_size << "Dim.txt";
 			s = ss.str();
-			s.insert(0, m_name + "_Opt_");
+			s.insert(0, m_name + "_Shift_");
 			s.insert(0, path);    // data path
 			s.insert(0, global::ms_arg[param_workingDir]);
 
@@ -189,36 +190,7 @@ namespace OFEC {
 		function* composition::get_function(size_t num) {
 			return m_function[num];
 		}
-		evaluation_tag composition::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
-			variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
-			auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
-			
-
-			std::vector<real> x_(x.begin(), x.end()); //for parallel running
-
-			evaluate__(x_.data(), obj);
-
-			if (constructed) {
-				if (effective_fes)		m_effective_eval++;
-
-				if (m_variable_monitor) {
-					m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_variable_accuracy);
-					if (m_optima.is_variable_found())
-						m_solved = true;
-				}
-				if (m_objective_monitor) {
-					m_optima.is_optimal_objective(obj, m_objective_accuracy);
-					if (m_optima.is_objective_found())
-						m_solved = true;
-				}
-				if (call == caller::Algorithm&& global::ms_global->m_algorithm&&global::ms_global->m_algorithm->terminating())
-					return evaluation_tag::Terminate;
-
-				//if (mode == Program_Algorithm&&Global::msp_global->mp_problem && !Global::msp_global->mp_problem->isProTag(MOP)) m_globalOpt.isFound(s, m_disAccuracy, m_accuracy);
-				//if (Global::msp_global != nullptr&&Global::msp_global->mp_algorithm != nullptr&&Global::msp_global->mp_algorithm->ifTerminating()) { return Return_Terminate; }
-			}
-			return evaluation_tag::Normal;
-		}
+		
 	}
 }
 

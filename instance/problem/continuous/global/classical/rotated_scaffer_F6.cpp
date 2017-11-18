@@ -18,12 +18,14 @@ namespace OFEC {
 		scaffer_F6((v[param_proName]), (v[param_numDim]), 1) {
 
 		set_range(-100, 100);
+		set_init_range(-100, 100);
 		initialize();
 	}
 	rotated_scaffer_F6::rotated_scaffer_F6(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		scaffer_F6(name, size_var, size_obj) {
 
 		set_range(-100, 100);
+		set_init_range(-100, 100);
 		initialize();
 	}
 

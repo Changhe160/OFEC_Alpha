@@ -33,6 +33,7 @@ namespace OFEC {
 		std::vector<std::pair<real, real>> range;
 		range.push_back(std::make_pair(-1.9, 1.9));
 		range.push_back(std::make_pair(-1.1, 1.1));
+		set_range(range);
 		set_range(std::move(range));
 
 		m_variable_accuracy = 1.e-4;

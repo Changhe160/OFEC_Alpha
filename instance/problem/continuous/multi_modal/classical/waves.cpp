@@ -23,8 +23,8 @@ namespace OFEC {
 		std::vector<std::pair<real, real>> data;
 		data.push_back(std::make_pair(-0.9, 1.2));
 		data.push_back(std::make_pair(-1.2, 1.2));
-
 		set_range(data);
+		set_init_range(std::move(data));
 		initialize();
 	}
 	waves::waves(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
@@ -34,6 +34,7 @@ namespace OFEC {
 		data.push_back(std::make_pair(-1.2, 1.2));
 
 		set_range(data);
+		set_init_range(std::move(data));
 		initialize();
 	}
 

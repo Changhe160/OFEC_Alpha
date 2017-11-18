@@ -2,8 +2,8 @@
 
 namespace OFEC {
 
-	function::function(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj),continuous(name, size_var, size_obj), m_rotation(size_var){
-
+	function::function(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj),continuous(name, size_var, size_obj){
+		
 	}
 
 	void function::set_bias(double val) {
@@ -23,6 +23,10 @@ namespace OFEC {
 		m_translation_flag = flag;
 	}
 
+	void function::set_scale_flag(bool flag) {
+		m_scale_flag = flag;
+	}
+
 	real function::translation(size_t i) const {
 		return m_translation[i];
 	}
@@ -35,7 +39,7 @@ namespace OFEC {
 		return m_rotation;
 	}
 
-	real function::condition_number() {
+	double function::condition_number() {
 		return m_condition_number;
 	}
 	real function::bias() {
@@ -107,18 +111,25 @@ namespace OFEC {
 		s.insert(0, path);    // data path
 		s.insert(0, global::ms_arg[param_workingDir]);
 
-		return load_translation_(s);
+		load_translation_(s);
+
+		return true;
 	}
 
-	bool function::load_translation_(const std::string &path) {
+	void function::load_translation_(const std::string &path) {
+		m_translation.resize(m_variable_size);
 		std::ifstream in(path);
-		if (in.fail()) {			
-			set_translation(m_original_optima.variable(0).data());
+		if (in.fail()) {
+			if (m_original_optima.variable_given())
+				set_translation(m_original_optima.variable(0).data());
+			else {
+				std::vector<real> zero(m_variable_size, 0);
+				set_translation(zero.data());
+			}
 			std::ofstream out(path);
 			for (auto &i : m_translation)
 				out << i << " ";
 			out.close();
-			return false;
 		}
 		else {
 			for (auto &i : m_translation)
@@ -126,12 +137,10 @@ namespace OFEC {
 		}
 		in.close();
 		m_translation_flag = true;
-		return true;
 	}
 
 	void function::set_translation(const real *opt_var) {
 		// Initial the location of shifted global optimum
-		
 		for (size_t j = 0; j<m_variable_size; ++j) {
 			real x, rl, ru, range;
 			x = opt_var[j];
@@ -159,6 +168,7 @@ namespace OFEC {
 	}
 
 	void function::load_rotation_(const std::string &path) {
+		m_rotation.resize(m_variable_size, m_variable_size);
 		std::ifstream in;
 		in.open(path);
 		if (in.fail()) {
@@ -272,5 +282,7 @@ namespace OFEC {
 		evaluate_(temp, caller::Problem, false, false);
 		m_optima.append(std::move(temp.get_objective()));
 	}
-	
+	real function::scale() {
+		return m_scale;
+	}
 }

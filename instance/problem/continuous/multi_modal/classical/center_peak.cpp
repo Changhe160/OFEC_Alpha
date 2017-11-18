@@ -21,12 +21,14 @@ namespace OFEC {
 		function((v[param_proName]), (v[param_numDim]), 1) {
 		v[param_numDim] = 2;
 		set_range(-2, 2);
+		set_init_range(-2, 2);
 		initialize();
 	}
 	center_peak::center_peak(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 
 		set_range(-2, 2);
+		set_init_range(-2, 2);
 		initialize();
 	}
 
