@@ -59,7 +59,7 @@ namespace NDS {
 
 		std::vector<int> index(data.size());
 		iota(index.begin(), index.end(), 0);
-		QuickSort(data, index, 0, index.size() - 1, Noc);
+		QuickSort(data, index, 0, (int)index.size() - 1, Noc);
 
 		if (!ascending) {
 			std::vector<int> new_index(index.size());

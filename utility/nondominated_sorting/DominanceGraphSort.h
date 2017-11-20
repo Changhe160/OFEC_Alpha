@@ -10,7 +10,7 @@
 namespace NDS {
 	template<typename T>
 	struct dg_node {
-		int m_index;
+		size_t m_index;
 		int m_rank;
 		std::list<int> m_children;
 		std::list<int> m_parents;
@@ -32,7 +32,7 @@ namespace NDS {
 		void dominateChildren(std::unique_ptr<dg_node<T>>& toAdd, int node, std::vector<int>& D) {
 			if (!m_nodes[node]->m_compared) {
 				toAdd->m_children.push_back(node);
-				m_nodes[node]->m_parents.push_back(toAdd->m_index);
+				m_nodes[node]->m_parents.push_back((int)(toAdd->m_index));
 				m_nodes[node]->m_compared = true;
 				D.push_back(node);
 				for (int child : m_nodes[node]->m_children)
@@ -94,7 +94,7 @@ namespace NDS {
 							dominateChildren(toAdd, node, D);
 						}
 						else if (compare_result.first == OFEC::dominationship::Dominated) {
-							m_nodes[node]->m_children.push_back(toAdd->m_index);
+							m_nodes[node]->m_children.push_back((int)(toAdd->m_index));
 							toAdd->m_parents.push_back(node);
 							m_nodes[node]->m_compared = true;
 							P.push_back(node);
@@ -114,13 +114,13 @@ namespace NDS {
 					toAdd->m_rank = m_nodes[p]->m_rank + 1;
 
 			if (toAdd->m_rank > int(m_ranks.size()) - 1)
-				m_ranks.push_back(std::list<int>(1, toAdd->m_index));
+				m_ranks.push_back(std::list<int>(1, (int)(toAdd->m_index)));
 			else
-				m_ranks[toAdd->m_rank].push_back(toAdd->m_index);
+				m_ranks[toAdd->m_rank].push_back((int)(toAdd->m_index));
 
 			//update all nodes' rank in D  
 			for (int d : D)
-				update_child1(d, toAdd->m_index);
+				update_child1(d, (int)(toAdd->m_index));
 
 			return m_nodeNum - 1;
 		}
@@ -142,7 +142,7 @@ namespace NDS {
 			//delete 'toDelete' node
 			toDelete.reset();
 			//update indexs of nodes after 'toDelete' node in m_nodes
-			for (int i = index; i < m_nodeNum - 1; ++i) {
+			for (size_t i = index; i < m_nodeNum - 1; ++i) {
 				m_nodes[i] = std::move(m_nodes[i + 1]);
 				m_nodes[i]->m_index = i;
 			}

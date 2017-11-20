@@ -3,10 +3,10 @@
 namespace NDS {
 	void T_ENS(std::vector<std::vector<double>>& Population, int & Noc, std::vector<int>& te_rank, int nSort) {
 
-		const int N = Population.size(); //N = population size
+		const int N = (int)Population.size(); //N = population size
 		if (nSort == -1)
 			nSort = N;
-		const int M = Population[0].size(); //M = number of objectives
+		const int M = (int)Population[0].size(); //M = number of objectives
 		int NoF = -1; //Number of last fronts
 		std::vector<int> FrontNo(N, 100000); //front number of each solution
 											 /*sort the population in ascending order according to the first
@@ -60,7 +60,7 @@ namespace NDS {
 			NoF++;
 			//let the first solution in the remanining population be the root of the NoF-th tree
 			std::vector<int> Remain;
-			for (size_t i = 0; i < FrontNo.size(); ++i)
+			for (int i = 0; i < FrontNo.size(); ++i)
 				if (FrontNo[i] == 100000)
 					Remain.push_back(i);
 			Forest[NoF] = Remain[0];
@@ -153,7 +153,7 @@ namespace NDS {
 			}
 		}
 		std::vector<int> FrontNo_index;
-		OFEC::quick_sort(rank, rank.size(), FrontNo_index);
+		OFEC::quick_sort(rank, (int)rank.size(), FrontNo_index);
 		for (size_t i = 0; i < FrontNo_index.size(); ++i)
 			te_rank[i] = FrontNo[FrontNo_index[i]];
 	}

@@ -2,6 +2,7 @@
 #define OFEC_F12_SCHWEFEL_2_13_H
 
 #include "../../../../../core/problem/continuous/function.h"
+#include <cstring>
 
 namespace OFEC {
 	namespace CEC2005 {

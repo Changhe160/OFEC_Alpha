@@ -1,5 +1,5 @@
 #include "newran.h"
-
+#include <cmath>
 
 namespace OFEC {
 
