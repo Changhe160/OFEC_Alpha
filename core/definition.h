@@ -27,14 +27,8 @@ namespace OFEC {
 
 #define USING_DOUBLE                    // elements of type double
 	//#define USING_FLOAT                   // elements of type float
-	//#define USING_GPU
 	//#define OFEC_DEMON
 #define OFEC_CONSOLE
-
-#ifdef USING_GPU
-#undef USING_DOUBLE
-#define USING_FLOAT
-#endif // USING_GPU
 
 #ifdef USING_FLOAT                      // set precision type to float
 	using real = float;

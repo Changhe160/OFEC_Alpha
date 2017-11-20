@@ -69,7 +69,7 @@ namespace OFEC {
 	/// count of objects in a collection or characters in a string
 	///
 	template<>
-	struct typevar::count_visitor<typevar::size_type> //: public boost::static_visitor<size_type>
+	struct typevar::count_visitor<typevar::size_type> 
 	{
 		using result_type = typevar::size_type;
 		result_type operator () (const null_t&) const { return 0; }

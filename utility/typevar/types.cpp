@@ -83,7 +83,7 @@ namespace OFEC {
 	/// @return type name
 	///
 	template<>
-	struct typevar::name_visitor<std::string> //: public boost::static_visitor<std::string>
+	struct typevar::name_visitor<std::string> 
 	{
 		using result_type = std::string;
 		result_type operator () (const null_t&) const { return "null"; }

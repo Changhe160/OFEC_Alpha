@@ -62,7 +62,7 @@ namespace OFEC {
 	/// typevar == typevar
 	///
 	template<>
-	struct typevar::equal_visitor<bool> //: public boost::static_visitor<bool>
+	struct typevar::equal_visitor<bool> 
 	{
 		using result_type = bool;
 		// Different types
