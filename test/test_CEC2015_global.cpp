@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE CEC2015_global
+/*#define BOOST_TEST_MODULE CEC2015_global
 #include <boost/test/unit_test.hpp>
 
 #include "../instance/problem/continuous/global/CEC2015/F5_SR_schwefel.h"
@@ -71,4 +71,4 @@ BOOST_AUTO_TEST_CASE(test_case3) {
 
 }
 
-BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()*/
