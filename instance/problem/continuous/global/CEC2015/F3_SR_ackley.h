@@ -32,6 +32,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_GOP_F3 = CEC2015::F3_SR_ackley;
 }
 
 #endif // !OFEC_F3_SR_ACKLEY_H

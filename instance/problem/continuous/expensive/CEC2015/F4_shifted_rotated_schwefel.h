@@ -31,6 +31,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_EOP_F4 = CEC2015::F4_shifted_rotated_schwefel;
 }
 #endif // ! OFEC_F4_SHIFTED_ROTATED_SCHWEFEL_H
 

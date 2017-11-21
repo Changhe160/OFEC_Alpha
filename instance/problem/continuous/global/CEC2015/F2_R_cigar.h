@@ -32,6 +32,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_GOP_F2 = CEC2015::F2_R_cigar;
 }
 
 #endif // !OFEC_F2_R_CIGAR_H

@@ -31,5 +31,6 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_EOP_F1 = CEC2015::F1_rotated_bent_cigar;
 }
 #endif // ! OFEC_F1_ROTATED_BENT_CIGAR_H

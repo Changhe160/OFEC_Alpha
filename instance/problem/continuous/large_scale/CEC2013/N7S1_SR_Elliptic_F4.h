@@ -27,5 +27,6 @@ namespace OFEC {
 			void initialize();
 		};
 	}
+	using CEC2013_LSOP_F4 = CEC2013::N7S1_SR_Elliptic_F4;
 }
 #endif

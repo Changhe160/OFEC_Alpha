@@ -30,6 +30,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2005_GOP_F8 = CEC2005::F8_shifted_rotated_ackley_bound;
 }
 #endif // ! OFEC_F8_SHIFTED_ROTATED_ACKLEY_BOUND_H
 

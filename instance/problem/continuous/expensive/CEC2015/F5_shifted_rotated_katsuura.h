@@ -31,5 +31,6 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_EOP_F5 = CEC2015::F5_shifted_rotated_katsuura;
 }
 #endif // ! OFEC_F5_SHIFTED_ROTATED_KATSUURA_H

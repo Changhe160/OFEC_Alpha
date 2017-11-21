@@ -28,5 +28,6 @@ namespace OFEC {
 			void initialize();
 		};
 	}
+	using CEC2013_LSOP_F5 = CEC2013::N7S1_SR_Rastrigin_F5;
 }
 #endif

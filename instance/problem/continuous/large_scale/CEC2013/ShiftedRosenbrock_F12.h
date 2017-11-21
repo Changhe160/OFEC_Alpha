@@ -27,6 +27,7 @@ namespace OFEC {
 			void initialize();
 		};
 	}
+	using CEC2013_LSOP_F12 = CEC2013::ShiftedRosenbrock_F12;
 }
 #endif
 

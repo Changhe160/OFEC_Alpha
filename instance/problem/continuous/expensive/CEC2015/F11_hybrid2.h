@@ -33,6 +33,7 @@ namespace OFEC {
 			
 		};
 	}
+	using CEC2015_EOP_F11 = CEC2015::F11_hybrid2;
 }
 #endif // ! OFEC_F11_HYBRID2_H
 

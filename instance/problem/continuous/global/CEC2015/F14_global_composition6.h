@@ -37,6 +37,7 @@ namespace OFEC {
 
 		};
 	}
+	using CEC2015_GOP_F14 = CEC2015::F14_global_composition6;
 }
 #endif // !OFEC_F14_GLOBAL_COMPOSITION6_H
 

@@ -31,5 +31,6 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_EOP_F2 = CEC2015::F2_rotated_discus;
 }
 #endif // ! OFEC_F2_ROTATED_DISCUS_H

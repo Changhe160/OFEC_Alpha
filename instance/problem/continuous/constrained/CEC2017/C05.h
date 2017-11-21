@@ -34,9 +34,8 @@ namespace OFEC {
 		private:
 			matrix m_mat1, m_mat2;
 		};
-
-
 	}
+	using CEC2017_COP_F05 = CEC2017::C05;
 }
 #endif // ! OFEC_C05_H
 

@@ -30,19 +30,19 @@ namespace OFEC {
 		m_optima.append(m_bias);
 		computeXopt();
 
-		if (m_name == "FUN_BBOB_F01_Sphere") {
+		if (m_name == "BBOB_F01_Sphere") {
 			m_fun = &BBOB::Sphere_F01;
 		}
-		else if (m_name == "FUN_BBOB_F02_Ellipsoidal") {
+		else if (m_name == "BBOB_F02_Ellipsoidal") {
 			m_condition_number = 1e6;
 			m_fun = &BBOB::Ellipsoidal_F02;
 		}
-		else if (m_name == "FUN_BBOB_F03_Rastrigin") {
+		else if (m_name == "BBOB_F03_Rastrigin") {
 			m_condition_number = 10;
 			m_beta = 0.2;
 			m_fun = &BBOB::Rastrigin_F03;
 		}
-		else if (m_name == "FUN_BBOB_F04_BucheRastrigin") {
+		else if (m_name == "BBOB_F04_BucheRastrigin") {
 			m_condition_number = 10.;
 			m_alpha = 100.;
 			for (size_t i = 0; i < m_variable_size; i += 2) {
@@ -50,7 +50,7 @@ namespace OFEC {
 			}
 			m_fun = &BBOB::BucheRastrigin_F04;
 		}
-		else if (m_name == "FUN_BBOB_F05_Slope") {
+		else if (m_name == "BBOB_F05_Slope") {
 			m_alpha = 100.;
 			m_fun = &BBOB::Slope_F05;
 			for (size_t i = 0; i < m_variable_size; ++i)
@@ -67,25 +67,25 @@ namespace OFEC {
 				m_bias += 5. * tmp;
 			}
 		}
-		else if (m_name == "FUN_BBOB_F06_Sector") {
+		else if (m_name == "BBOB_F06_Sector") {
 			m_fun = &BBOB::Sector_F06;
 			m_alpha = 100.;
 			m_condition_number = 10.;
 			loadRotation(sqrt(m_condition_number));
 		}
-		else if (m_name == "FUN_BBOB_F07_StepEllipsoid") {
+		else if (m_name == "BBOB_F07_StepEllipsoid") {
 			m_fun = &BBOB::StepEllipsoid_F07;
 			m_condition_number = 100.;
 			m_alpha = 10.;
 			loadRotation(sqrt(m_condition_number));
 		}
-		else if (m_name == "FUN_BBOB_F08_OriginalRosenbrock") {
+		else if (m_name == "BBOB_F08_OriginalRosenbrock") {
 			m_fun = &BBOB::OriginalRosenbrock_F08;
 			m_scales = fmax(1., sqrt((double)m_variable_size) / 8.);
 			for (size_t i = 0; i < m_variable_size; ++i)
 				m_optima.variable(0)[i] *= 0.75;
 		}
-		else if (m_name == "FUN_BBOB_F09_RotatedRosenbrock") {
+		else if (m_name == "BBOB_F09_RotatedRosenbrock") {
 			m_fun = &BBOB::RotatedRosenbrock_F09;
 			m_scales = fmax(1., sqrt((double)m_variable_size) / 8.);
 			computeRotation(m_rot, m_variable_size);
@@ -95,40 +95,40 @@ namespace OFEC {
 					m_linearTF[i][j] = m_scales * m_rot[i][j];
 			}
 		}
-		else if (m_name == "FUN_BBOB_F10_NonseparableEllipsoid") {
+		else if (m_name == "BBOB_F10_NonseparableEllipsoid") {
 			m_fun = &BBOB::NonseparableEllipsoid_F10;
 			computeRotation(m_rot, m_variable_size);
 			m_condition_number = 1e6;
 		}
-		else if (m_name == "FUN_BBOB_F11_Discus") {
+		else if (m_name == "BBOB_F11_Discus") {
 			m_fun = &BBOB::Discus_F11;
 			computeRotation(m_rot, m_variable_size);
 			m_condition_number = 1e6;
 		}
-		else if (m_name == "FUN_BBOB_F12_BentCigar") {
+		else if (m_name == "BBOB_F12_BentCigar") {
 			m_fun = &BBOB::BentCigar_F12;
 			computeRotation(m_rot, m_variable_size);
 			m_condition_number = 1e6;
 			m_beta = 0.5;
 		}
-		else if (m_name == "FUN_BBOB_F13_SharpRidge") {
+		else if (m_name == "BBOB_F13_SharpRidge") {
 			m_fun = &BBOB::SharpRidge_F13;
 			m_condition_number = 10.;
 			m_alpha = 100.;
 			loadRotation(sqrt(m_condition_number));
 		}
-		else if (m_name == "FUN_BBOB_F14_DifferentPowers") {
+		else if (m_name == "BBOB_F14_DifferentPowers") {
 			m_fun = &BBOB::DifferentPowers_F14;
 			m_alpha = 4.;
 			computeRotation(m_rot, m_variable_size);
 		}
-		else if (m_name == "FUN_BBOB_F15_NonseparableRastrigin") {
+		else if (m_name == "BBOB_F15_NonseparableRastrigin") {
 			m_fun = &BBOB::NonseparableRastrigin_F15;
 			m_condition_number = 10.;
 			m_beta = 0.2;
 			loadRotation(sqrt(m_condition_number));
 		}
-		else if (m_name == "FUN_BBOB_F16_Weierstrass") {
+		else if (m_name == "BBOB_F16_Weierstrass") {
 			m_fun = &BBOB::Weierstrass_F16;
 			m_condition_number = 100.;
 			m_F0 = 0.;
@@ -142,21 +142,21 @@ namespace OFEC {
 				m_F0 += m_aK[i] * cos(2 * OFEC_PI * m_bK[i] * 0.5);
 			}
 		}
-		else if (m_name == "FUN_BBOB_F17_SchaffersF7") {
+		else if (m_name == "BBOB_F17_SchaffersF7") {
 			m_fun = &BBOB::SchaffersF7_F17;
 			computeRotation(m_rot, m_variable_size);
 			computeRotation(m_rot2, m_variable_size);
 			m_condition_number = 10.;
 			m_beta = 0.5;
 		}
-		else if (m_name == "FUN_BBOB_F18_IllconditionedSchaffersF7") {
+		else if (m_name == "BBOB_F18_IllconditionedSchaffersF7") {
 			m_fun = &BBOB::IllconditionedSchaffersF7_F18;
 			computeRotation(m_rot, m_variable_size);
 			computeRotation(m_rot2, m_variable_size);
 			m_condition_number = 1e3;
 			m_beta = 0.5;
 		}
-		else if (m_name == "FUN_BBOB_F19_CompositeGriewankRosenbrock") {
+		else if (m_name == "BBOB_F19_CompositeGriewankRosenbrock") {
 			m_fun = &BBOB::CompositeGriewankRosenbrock_F19;
 			m_scales = fmax(1., sqrt((double)m_variable_size) / 8.);
 			computeRotation(m_rot, m_variable_size);
@@ -176,7 +176,7 @@ namespace OFEC {
 				}
 			}
 		}
-		else if (m_name == "FUN_BBOB_F20_Schwefel") {
+		else if (m_name == "BBOB_F20_Schwefel") {
 			m_fun = &BBOB::Schwefel_F20;
 			m_condition_number = 10.;
 			std::vector<real> tmpvect(m_variable_size);
@@ -188,7 +188,7 @@ namespace OFEC {
 					m_optima.variable(0)[i] *= -1.;
 			}
 		}
-		else if (m_name == "FUN_BBOB_F21_GallagherGaussian101mePeaks") {
+		else if (m_name == "BBOB_F21_GallagherGaussian101mePeaks") {
 			m_peakvalues.resize(NHIGHPEAKS21);
 			m_Xlocal.resize(m_variable_size, std::vector<real>(NHIGHPEAKS21));
 
@@ -255,7 +255,7 @@ namespace OFEC {
 			}
 
 		}
-		else if (m_name == "FUN_BBOB_F22_GallagherGaussian21hiPeaks") {
+		else if (m_name == "BBOB_F22_GallagherGaussian21hiPeaks") {
 			m_fun = &BBOB::GallagherGaussian21hiPeaks_F22;
 
 			m_peakvalues.resize(NHIGHPEAKS22);
@@ -320,13 +320,13 @@ namespace OFEC {
 			}
 
 		}
-		else if (m_name == "FUN_BBOB_F23_Katsuura") {
+		else if (m_name == "BBOB_F23_Katsuura") {
 			m_fun = &BBOB::Katsuura_F23;
 			m_condition_number = 100.;
 			loadRotation(sqrt(m_condition_number));
 
 		}
-		else if (m_name == "FUN_BBOB_F24_LunacekBiRastrigin") {
+		else if (m_name == "BBOB_F24_LunacekBiRastrigin") {
 
 			m_fun = &BBOB::LunacekBiRastrigin_F24;
 			m_condition_number = 100.;

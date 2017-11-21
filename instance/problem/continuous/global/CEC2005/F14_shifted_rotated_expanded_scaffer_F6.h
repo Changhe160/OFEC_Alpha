@@ -30,6 +30,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2005_GOP_F14 = CEC2005::F14_shifted_rotated_expanded_scaffer_F6;
 }
 #endif // ! OFEC_F14_SHIFTED_ROTATED_EXPANDED_SCAFFER_F6_H
 

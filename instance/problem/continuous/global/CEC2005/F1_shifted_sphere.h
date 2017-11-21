@@ -30,5 +30,6 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2005_GOP_F1 = CEC2005::F1_shifted_sphere;
 }
 #endif // ! OFEC_F1_SHIFTED_SPHERE_H

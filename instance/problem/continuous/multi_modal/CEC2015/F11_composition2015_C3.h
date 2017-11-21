@@ -48,6 +48,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_MMP_F11 = CEC2015::F11_composition2015_C3;
 }
 #endif // !OFEC_CEC2015_F11_COMPOSITION3_H
 

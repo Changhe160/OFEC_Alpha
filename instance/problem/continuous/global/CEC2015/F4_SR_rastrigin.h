@@ -32,6 +32,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_GOP_F4 = CEC2015::F4_SR_rastrigin;
 }
 
 #endif // !OFEC_F4_SR_RASTRIGIN_H

@@ -36,6 +36,7 @@ namespace OFEC {
 
 		};
 	}
+	using CEC2013_MMP_F10 = CEC2013::F10_composition2;
 }
 #endif // !OFEC_F10_COMPOSITION2_H
 

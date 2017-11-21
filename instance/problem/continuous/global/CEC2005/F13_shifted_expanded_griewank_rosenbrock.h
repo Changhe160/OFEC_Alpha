@@ -29,6 +29,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2005_GOP_F13 = CEC2005::F13_shifted_expanded_griewank_rosenbrock;
 }
 #endif // ! OFEC_F13_SHIFTED_EXPANDED_GRIEWANK_ROSENBROCK_H
 

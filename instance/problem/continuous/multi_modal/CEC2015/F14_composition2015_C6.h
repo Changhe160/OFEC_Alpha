@@ -44,6 +44,7 @@ namespace OFEC {
 			real m_pre_opt_distance;
 		};
 	}
+	using CEC2015_MMP_F14 = CEC2015::F14_composition2015_C6;
 }
 #endif // !OFEC_CEC2015_F14_COMPOSITION6_H
 

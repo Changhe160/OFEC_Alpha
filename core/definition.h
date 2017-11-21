@@ -46,7 +46,7 @@ namespace OFEC {
 		Normal, Problem_change, Terminate, Problem_change_next_eval, Change_timelinkage,
 		Change_dimension, Infeasible
 	};
-	enum class problem_tag { SOP, MOP, DOP, MMP, GOP, ROOT, CONT, COMB, TSP, COP, VRP, TTP, JSP, KOP, SAT, ONEMAX, QAP, MKP };
+	enum class problem_tag { SOP, MOP, DOP, MMP, GOP, ROOT, CONT, COMB, TSP, COP, VRP, TTP, JSP, KOP, SAT, ONEMAX, QAP, MKP, EOP, LSOP };
 
 	//SOP: single objective problem
 	//MOP: multi-objective problem

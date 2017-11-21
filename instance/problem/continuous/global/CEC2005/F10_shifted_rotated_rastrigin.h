@@ -30,6 +30,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2005_GOP_F10 = CEC2005::F10_shifted_rotated_rastrigin;
 }
 #endif // ! OFEC_F10_SHIFTED_ROTATED_RASTRIGIN_H
 

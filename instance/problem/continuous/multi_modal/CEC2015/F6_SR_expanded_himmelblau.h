@@ -33,6 +33,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_MMP_F6 = CEC2015::F6_SR_expanded_himmelblau;
 }
 #endif // !OFEC_F6_SR_EXPANDED_HIMMELBLAU_H
 

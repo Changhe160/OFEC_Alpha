@@ -28,6 +28,7 @@ namespace OFEC {
 			void initialize();
 		};
 	}
+	using CEC2013_LSOP_F9 = CEC2013::N20_SR_Rastrigin_F9;
 }
 #endif
 

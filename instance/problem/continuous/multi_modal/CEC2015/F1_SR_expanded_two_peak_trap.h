@@ -33,5 +33,6 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_MMP_F1 = CEC2015::F1_SR_expanded_two_peak_trap;
 }
 #endif // !OFEC_F1_SR_EXPANDED_TWO_PEAK_TRAP_H

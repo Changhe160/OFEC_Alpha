@@ -30,6 +30,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2005_GOP_F6 = CEC2005::F6_shifted_rosenbrock;
 }
 #endif // ! OFEC_F6_SHIFTED_ROSENBROCK_H
 

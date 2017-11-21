@@ -32,6 +32,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_GOP_F5 = CEC2015::F5_SR_schwefel;
 }
 
 #endif // !OFEC_F5_SR_SCHWEFEL_H

@@ -30,9 +30,8 @@ namespace OFEC {
 		private:
 
 		};
-
-
 	}
+	using CEC2017_COP_F12 = CEC2017::C12;
 }
 #endif // ! OFEC_C12_H
 

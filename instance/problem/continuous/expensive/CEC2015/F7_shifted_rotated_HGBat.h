@@ -31,6 +31,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_EOP_F7 = CEC2015::F7_shifted_rotated_HGBat;
 }
 #endif // ! OFEC_F7_SHIFTED_ROTATED_HGBAT_H
 

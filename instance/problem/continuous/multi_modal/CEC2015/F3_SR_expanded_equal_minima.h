@@ -33,5 +33,6 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_MMP_F3 = CEC2015::F3_SR_expanded_equal_minima;
 }
 #endif // !OFEC_F3_SR_EXPANDED_EQUAL_MINIMA_H

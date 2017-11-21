@@ -32,6 +32,7 @@ namespace OFEC {
 
 		};
 	}
+	using CEC2005_GOP_F20 = CEC2005::F20_rotated_hybrid_bound;
 }
 #endif // ! OFEC_F20_ROTATED_HYBRID_BOUND_H
 
