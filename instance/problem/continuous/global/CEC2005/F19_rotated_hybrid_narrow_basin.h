@@ -33,6 +33,7 @@ namespace OFEC {
 
 		};
 	}
+	using CEC2005_GOP_F19 = CEC2005::F19_rotated_hybrid_narrow_basin;
 }
 #endif // ! OFEC_F19_ROTATED_HYBRID_NARROW_BASIN_H
 

@@ -30,5 +30,6 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2005_GOP_F3 = CEC2005::F3_shifted_rotated_high_cond_elliptic;
 }
 #endif // ! OFEC_F3_SHIFTED_ROTATED_HIGH_COND_ELLIPTIC_H

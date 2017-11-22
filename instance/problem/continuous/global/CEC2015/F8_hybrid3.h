@@ -32,6 +32,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_GOP_F8 = CEC2015::F8_hybrid3;
 }
 
 #endif // !OFEC_F8_HYBRID3_H

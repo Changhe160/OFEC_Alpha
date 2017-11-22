@@ -33,6 +33,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_MMP_F7 = CEC2015::F7_SR_expanded_six_hump_camel_back;
 }
 #endif // !OFEC_F7_SR_EXPANDED_SIX_HUMP_CAMEL_BACK_H
 

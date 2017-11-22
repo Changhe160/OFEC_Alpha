@@ -34,5 +34,6 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2005_GOP_F5 = CEC2005::F5_schwefel_2_6_bound;
 }
 #endif // ! OFEC_F5_SCHWEFEL_2_6_BOUND_H

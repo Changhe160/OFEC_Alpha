@@ -15,7 +15,7 @@ namespace OFEC {
 		// control the distance
 		double betafunction(const std::vector<double> & x, int type);
 		// control the PS shape of 2-d instances
-		double psfunc2(const double &x, const double &t1, int dim, int type, int css);
+		double psfunc2(const double &x, const double &t1, size_t dim, int type, int css);
 		// control the PS shapes of 3-D instances
 		double psfunc3(const double &x, const double &t1, const double &t2, int dim, int type);
 		void calObjective(double *x, std::vector <double> &y_obj);

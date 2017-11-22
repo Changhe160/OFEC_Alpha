@@ -31,5 +31,6 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_EOP_F3 = CEC2015::F3_shifted_rotated_weierstrass;
 }
 #endif // ! OFEC_F3_SHIFTED_ROTATED_WEIERSTRASS_H

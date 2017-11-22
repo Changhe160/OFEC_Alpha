@@ -32,6 +32,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_GOP_F1 = CEC2015::F1_R_elliptic;
 }
 
 #endif // !OFEC_F1_R_ELLIPTIC_H

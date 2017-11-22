@@ -30,5 +30,6 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2005_GOP_F2 = CEC2005::F2_shifted_schwefel_1_2;
 }
 #endif // ! OFEC_F2_SHIFTED_SCHWEFEL_1_2_H

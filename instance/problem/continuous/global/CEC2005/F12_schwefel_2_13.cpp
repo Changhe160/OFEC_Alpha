@@ -1,6 +1,7 @@
 #include "F12_schwefel_2_13.h"
 
 namespace OFEC {
+#pragma warning(disable:4996)
 	namespace CEC2005 {
 		F12_schwefel_2_13::F12_schwefel_2_13(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
 			function((v[param_proName]), (v[param_numDim]), 1), m_a(v[param_numDim], std::vector<int>(v[param_numDim])), \
@@ -35,8 +36,8 @@ namespace OFEC {
 		{
 			std::string sa;
 			char astr[100];
-			sprintf_s(astr, "%d", (int)m_variable_size);
-			strcat_s(astr, "Dim.txt");
+			sprintf(astr, "%d", (int)m_variable_size);
+			strcat(astr, "Dim.txt");
 			sa = astr;
 			sa.insert(0, m_name + "_a_");
 
@@ -44,16 +45,16 @@ namespace OFEC {
 			sa.insert(0, global::ms_arg[param_workingDir]);//probDataPath
 
 			std::string sb;
-			sprintf_s(astr, "%d", (int)m_variable_size);
-			strcat_s(astr, "Dim.txt");
+			sprintf(astr, "%d", (int)m_variable_size);
+			strcat(astr, "Dim.txt");
 			sb = astr;
 			sb.insert(0, m_name + "_b_");
 			sb.insert(0, path);
 			sb.insert(0, global::ms_arg[param_workingDir]);//probDataPath
 
 			std::string salpha;
-			sprintf_s(astr, "%d", (int)m_variable_size);
-			strcat_s(astr, "Dim.txt");
+			sprintf(astr, "%d", (int)m_variable_size);
+			strcat(astr, "Dim.txt");
 			salpha = astr;
 			salpha.insert(0, m_name + "_alpha_");
 

@@ -107,11 +107,11 @@ namespace OFEC {
 
 		return beta;
 	}
-	double MOEA_FBase::psfunc2(const double & x, const double & t1, int dim, int type, int css) {
+	double MOEA_FBase::psfunc2(const double & x, const double & t1, size_t dim, int type, int css) {
 		// type:  the type of curve 
 		// css:   the class of index
 		double beta;
-		int numDim = global::ms_global->m_problem->variable_size();
+		size_t numDim = global::ms_global->m_problem->variable_size();
 
 		dim++;
 
@@ -181,7 +181,7 @@ namespace OFEC {
 		// type:  the type of curve 
 		// css:   the class of index
 		double beta;
-		int numDim = global::ms_global->m_problem->variable_size();
+		size_t numDim = global::ms_global->m_problem->variable_size();
 		dim++;
 
 		if (type == 31) {
@@ -201,8 +201,8 @@ namespace OFEC {
 	void MOEA_FBase::calObjective(double * x, std::vector<double>& y_obj) {
 		// 2-objective case
 		double *x_var = x;
-		int nobj = global::ms_global->m_problem->objective_size();
-		int nDim = global::ms_global->m_problem->variable_size();
+		size_t nobj = global::ms_global->m_problem->objective_size();
+		size_t nDim = global::ms_global->m_problem->variable_size();
 		if (nobj == 2)
 		{
 			if (m_ltype == 21 || m_ltype == 22 || m_ltype == 23 || m_ltype == 24 || m_ltype == 26)

@@ -29,5 +29,6 @@ namespace OFEC {
 			void initialize();
 		};
 	}
+	using CEC2013_LSOP_F3 = CEC2013::ShiftedAckley_F3;
 }
 #endif

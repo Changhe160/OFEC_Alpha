@@ -27,6 +27,7 @@ namespace OFEC {
 			void initialize();
 		};
 	}
+	using CEC2013_LSOP_F14 = CEC2013::ConflictingOS_ShiftedSchwefel_F14;
 }
 #endif
 

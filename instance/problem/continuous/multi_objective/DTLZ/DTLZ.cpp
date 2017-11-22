@@ -69,14 +69,14 @@ namespace OFEC {
 	void generate_recursive(TFront * pf, TObjVec * pt, size_t num_objs, size_t left, size_t total, size_t element) {
 		if (element == num_objs - 1)
 		{
-			(*pt)[element] = left;
+			(*pt)[element] = (double)left;
 			pf->push_back(*pt);
 		}
 		else
 		{
 			for (size_t i = 0; i <= left; i += 1)
 			{
-				(*pt)[element] = i;
+				(*pt)[element] = (double)i;
 				generate_recursive(pf, pt, num_objs, left - i, total, element + 1);
 			}
 		}

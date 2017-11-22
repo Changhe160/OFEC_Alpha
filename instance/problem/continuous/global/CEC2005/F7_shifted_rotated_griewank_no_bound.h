@@ -30,6 +30,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2005_GOP_F7 = CEC2005::F7_shifted_rotated_griewank_no_bound;
 }
 #endif // ! OFEC_F7_SHIFTED_ROTATED_GRIEWANK_NO_BOUND_H
 

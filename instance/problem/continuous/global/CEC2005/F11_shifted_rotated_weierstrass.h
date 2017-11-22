@@ -30,6 +30,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2005_GOP_F11 = CEC2005::F11_shifted_rotated_weierstrass;
 }
 #endif // ! OFEC_F11_SHIFTED_ROTATED_WEIERSTRASS_H
 

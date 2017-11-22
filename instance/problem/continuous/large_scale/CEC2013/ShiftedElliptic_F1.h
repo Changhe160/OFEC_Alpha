@@ -30,5 +30,6 @@ namespace OFEC {
 			void initialize();
 		};
 	}
+	using CEC2013_LSOP_F1 = CEC2013::ShiftedElliptic_F1;
 }
 #endif // ! OFEC_SHIFTEDELLIPTIC_F1_H

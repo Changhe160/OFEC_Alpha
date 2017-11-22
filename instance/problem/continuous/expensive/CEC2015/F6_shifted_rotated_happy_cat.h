@@ -30,6 +30,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_EOP_F6 = CEC2015::F6_shifted_rotated_happy_cat;
 }
 #endif // ! OFEC_F6_SHIFTED_ROTATED_HAPPY_CAT_H
 

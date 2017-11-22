@@ -32,6 +32,7 @@ namespace OFEC {
 
 		};
 	}
+	using CEC2005_GOP_F24 = CEC2005::F24_rotated_hybrid_composition;
 }
 #endif // !OFEC_F21_ROTATED_HYBRID_COMPOSITION_H
 

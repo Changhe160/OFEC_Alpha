@@ -26,6 +26,8 @@ namespace OFEC {
 			~ShiftedRastrigin_F2();
 		protected:
 			void initialize();
-		}; }
+		};
+	}
+	using CEC2013_LSOP_F2 = CEC2013::ShiftedRastrigin_F2;
 }
 #endif // OFEC_SHIFTEDRASTRIGIN_F2_H

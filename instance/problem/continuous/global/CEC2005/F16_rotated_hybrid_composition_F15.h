@@ -32,5 +32,6 @@ namespace OFEC {
 
 		};
 	}
+	using CEC2005_GOP_F16 = CEC2005::F16_rotated_hybrid_composition_F15;
 }
 #endif // !OFEC_F16_ROTATED_HYBRID_COMPOSITION_F15_H

@@ -33,5 +33,6 @@ namespace OFEC {
 
 		};
 	}
+	using CEC2005_GOP_F17 = CEC2005::F17_hybrid_composition_noisy;
 }
 #endif // !OFEC_F17_HYBRID_COMPOSITION_NOISY_H

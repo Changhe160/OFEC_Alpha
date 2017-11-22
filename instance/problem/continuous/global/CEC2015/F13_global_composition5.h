@@ -42,6 +42,7 @@ namespace OFEC {
 			std::vector<hybrid*> m_hybrid;
 		};
 	}
+	using CEC2015_GOP_F13 = CEC2015::F13_global_composition5;
 }
 #endif // !OFEC_F13_GLOBAL_COMPOSITION5_H
 

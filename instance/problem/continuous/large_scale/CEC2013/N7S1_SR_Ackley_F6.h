@@ -27,6 +27,7 @@ namespace OFEC {
 			void initialize();
 		};
 	}
+	using CEC2013_LSOP_F6 = CEC2013::N7S1_SR_Ackley_F6;
 }
 #endif
 

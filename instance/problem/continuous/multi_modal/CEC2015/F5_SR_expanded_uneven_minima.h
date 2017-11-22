@@ -33,6 +33,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_MMP_F5 = CEC2015::F5_SR_expanded_uneven_minima;
 }
 #endif // !OFEC_F5_SR_EXPANDED_UNEVEN_MINIMA_H
 

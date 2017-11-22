@@ -31,6 +31,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_EOP_F9 = CEC2015::F9_shifted_rotated_scaffer_F6;
 }
 #endif // ! OFEC_F9_SHIFTED_ROTATED_SCAFFER_F6_H
 

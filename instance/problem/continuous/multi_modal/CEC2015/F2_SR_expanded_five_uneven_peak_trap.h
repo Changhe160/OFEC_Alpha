@@ -33,5 +33,6 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_MMP_F2 = CEC2015::F2_SR_expanded_five_uneven_peak_trap;
 }
 #endif // !OFEC_F2_SR_EXPANDED_FIVE_UNEVEN_PEAK_TRAP_H

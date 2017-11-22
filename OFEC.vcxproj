@@ -362,6 +362,8 @@
     <ClCompile Include="instance\problem\continuous\multi_objective\ZDT\ZDT3.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_objective\ZDT\ZDT4.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_objective\ZDT\ZDT6.cpp" />
+    <ClCompile Include="instance\problem\realworld\FGear_Train.cpp" />
+    <ClCompile Include="instance\problem\realworld\FParEst_FMSoundWaves.cpp" />
     <ClCompile Include="run\initialize.cpp" />
     <ClCompile Include="run\main.cpp" />
     <ClCompile Include="utility\matrix.cpp" />
@@ -588,6 +590,10 @@
     <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT3.h" />
     <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT4.h" />
     <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT6.h" />
+    <ClInclude Include="instance\problem\realworld\FGear_Train.h" />
+    <ClInclude Include="instance\problem\realworld\FParEst_FMSoundWaves.h" />
+    <ClInclude Include="run\include_algorithm.h" />
+    <ClInclude Include="run\include_problem.h" />
     <ClInclude Include="run\initialize.h" />
     <ClInclude Include="utility\catch.hpp" />
     <ClInclude Include="utility\factory.h" />

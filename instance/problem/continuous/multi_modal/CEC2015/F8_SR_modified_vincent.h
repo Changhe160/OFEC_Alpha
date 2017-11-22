@@ -33,6 +33,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_MMP_F8 = CEC2015::F8_SR_modified_vincent;
 }
 #endif // !OFEC_F8_SR_MODIFIED_VINCENT_H
 

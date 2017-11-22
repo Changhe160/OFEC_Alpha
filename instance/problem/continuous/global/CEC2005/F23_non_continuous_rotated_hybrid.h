@@ -31,5 +31,6 @@ namespace OFEC {
 
 		};
 	}
+	using CEC2005_GOP_F23 = CEC2005::F23_non_continuous_rotated_hybrid;
 }
 #endif // !OFEC_F23_NON_CONTINUOUS_ROTATED_HYBRID_H

@@ -32,6 +32,7 @@ namespace OFEC {
 
 		};
 	}
+	using CEC2015_EOP_F14 = CEC2015::F14_expensive_composition2;
 }
 #endif // !OFEC_F14_EXPENSIVE_COMPOSITION2_H
 

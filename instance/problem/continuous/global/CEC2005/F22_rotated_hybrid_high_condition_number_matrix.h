@@ -31,5 +31,6 @@ namespace OFEC {
 
 		};
 	}
+	using CEC2005_GOP_F22 = CEC2005::F22_rotated_hybrid_high_condition_number_matrix;
 }
 #endif // !OFEC_F22_ROTATED_HYBRID_HIGH_CONDITION_NUMBER_MATRIX_H

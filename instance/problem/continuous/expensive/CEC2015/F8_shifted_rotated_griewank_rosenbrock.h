@@ -31,6 +31,7 @@ namespace OFEC {
 		private:
 		};
 	}
+	using CEC2015_EOP_F8 = CEC2015::F8_shifted_rotated_griewank_rosenbrock;
 }
 #endif // ! OFEC_F8_SHIFTED_ROTATED_GRIEWANK_ROSENBROCK_H
 
