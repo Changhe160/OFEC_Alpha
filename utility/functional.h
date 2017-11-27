@@ -274,7 +274,6 @@ namespace OFEC {
 		num_comp += quick_sort(data, up - pivot, index, min, pivot + 1, up, num, false);
 		return num_comp;
 	}
-
 }
 #endif // !OFEC_FINCTIONAL_H
 

@@ -118,8 +118,11 @@
     <Filter Include="instance\algorithm\DE">
       <UniqueIdentifier>{c843e154-c983-448a-804c-6bdc7f367987}</UniqueIdentifier>
     </Filter>
-    <Filter Include="instance\problem\continuous\realworld">
-      <UniqueIdentifier>{13f88e53-bc51-4c9f-b3c8-1165e98e2860}</UniqueIdentifier>
+    <Filter Include="instance\problem\realworld">
+      <UniqueIdentifier>{ea745651-a923-4d60-b038-e43636718109}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\realworld\EPANET">
+      <UniqueIdentifier>{5471af74-1fdf-49b0-8bc8-79aff484dee7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -867,14 +870,50 @@
     <ClInclude Include="instance\algorithm\DE\DE_population.h">
       <Filter>instance\algorithm\DE</Filter>
     </ClInclude>
-    <ClInclude Include="instance\problem\continuous\realworld\FGear_Train.h">
-      <Filter>instance\problem\continuous\realworld</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\realworld\FParEst_FMSoundWaves.h">
-      <Filter>instance\problem\continuous\realworld</Filter>
-    </ClInclude>
     <ClInclude Include="utility\catch.hpp">
       <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="run\include_problem.h">
+      <Filter>run</Filter>
+    </ClInclude>
+    <ClInclude Include="run\include_algorithm.h">
+      <Filter>run</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\FGear_Train.h">
+      <Filter>instance\problem\realworld</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\FParEst_FMSoundWaves.h">
+      <Filter>instance\problem\realworld</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\enumstxt.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\epanet.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\funcs.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\hash.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\mempool.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\text.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\toolkit.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\types.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\vars.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\epa_encoding.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1589,11 +1628,53 @@
     <ClCompile Include="utility\typevar\types.cpp">
       <Filter>utility\typevar</Filter>
     </ClCompile>
-    <ClCompile Include="instance\problem\continuous\realworld\FGear_Train.cpp">
-      <Filter>instance\problem\continuous\realworld</Filter>
+    <ClCompile Include="instance\problem\realworld\FGear_Train.cpp">
+      <Filter>instance\problem\realworld</Filter>
     </ClCompile>
-    <ClCompile Include="instance\problem\continuous\realworld\FParEst_FMSoundWaves.cpp">
-      <Filter>instance\problem\continuous\realworld</Filter>
+    <ClCompile Include="instance\problem\realworld\FParEst_FMSoundWaves.cpp">
+      <Filter>instance\problem\realworld</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\epanet.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\hash.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\hydraul.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\inpfile.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\input1.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\input2.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\input3.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\mempool.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\output.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\quality.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\report.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\rules.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\smatrix.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_epanet.cpp">
+      <Filter>test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

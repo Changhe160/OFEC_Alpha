@@ -5,7 +5,8 @@ int main(int argc, char* argv[]) {
 	time_t timer_start, timer_end;
 
 	OFEC::set_global_parameters(argc, argv);
-	OFEC::register_class();
+	OFEC::register_problem_class();
+	OFEC::register_algorithm_class();
 	time(&timer_start);
 	OFEC::run();
 	time(&timer_end);

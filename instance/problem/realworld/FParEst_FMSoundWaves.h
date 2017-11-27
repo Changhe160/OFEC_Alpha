@@ -26,7 +26,7 @@ S.~Das and P.~N. Suganthan, ``Problem definitions and evaluation criteria for
 #ifndef OFEC_FPAREST_FMSOUNDWAVES_H
 #define OFEC_FPAREST_FMSOUNDWAVES_H
 
-#include "../../../../core/problem/continuous/function.h"
+#include "../../../core/problem/continuous/function.h"
 namespace OFEC {
 	class FParEst_FMSoundWaves : public function
 	{

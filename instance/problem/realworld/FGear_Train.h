@@ -26,7 +26,7 @@ gears. It is to be designed that the gear ratio is as close as possible to
 #ifndef OFEC_FGEAR_TRAIN_H
 #define OFEC_FGEAR_TRAIN_H
 
-#include "../../../../core/problem/continuous/function.h"
+#include "../../../core/problem/continuous/function.h"
 namespace OFEC {
 	class FGear_Train : public function
 	{

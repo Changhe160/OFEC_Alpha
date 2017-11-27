@@ -93,8 +93,7 @@ namespace OFEC {
 		global::ms_param["param_GS"] = param_glstrture;
 	}
 
-	void register_class() {
-		/**********problem**********/
+	void register_problem_class() {
 		RIGIESTER(problem, ZDT1, "ZDT1", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(problem, ZDT2, "ZDT2", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(problem, ZDT3, "ZDT3", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
@@ -114,30 +113,30 @@ namespace OFEC {
 		RIGIESTER(problem, MOEA_F8, "MOEA_F8", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(problem, MOEA_F9, "MOEA_F9", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		/*BBOB*/
-		/*RIGIESTER(problem, BBOB, "BBOB_F01_Sphere", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F02_Ellipsoidal", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F03_Rastrigin", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F04_BucheRastrigin", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F05_Slope", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F06_Sector", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F07_StepEllipsoid", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F08_OriginalRosenbrock", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F09_RotatedRosenbrock", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F10_NonseparableEllipsoid", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F11_Discus", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F12_BentCigar", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F13_SharpRidge", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F14_DifferentPowers", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F15_NonseparableRastrigin", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F16_Weierstrass", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F17_SchaffersF7", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F18_IllconditionedSchaffersF7", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F19_CompositeGriewankRosenbrock", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F20_Schwefel", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F21_GallagherGaussian101mePeaks", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F22_GallagherGaussian21hiPeaks", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F23_Katsuura", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, BBOB, "BBOB_F24_LunacekBiRastrigin", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));*/
+		RIGIESTER(problem, BBOB_F1, "BBOB_F01_Sphere", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F2, "BBOB_F02_Ellipsoidal", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F3, "BBOB_F03_Rastrigin", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F4, "BBOB_F04_BucheRastrigin", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F5, "BBOB_F05_Slope", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F6, "BBOB_F06_Sector", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F7, "BBOB_F07_StepEllipsoid", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F8, "BBOB_F08_OriginalRosenbrock", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F9, "BBOB_F09_RotatedRosenbrock", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F10, "BBOB_F10_NonseparableEllipsoid", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F11, "BBOB_F11_Discus", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F12, "BBOB_F12_BentCigar", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F13, "BBOB_F13_SharpRidge", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F14, "BBOB_F14_DifferentPowers", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F15, "BBOB_F15_NonseparableRastrigin", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F16, "BBOB_F16_Weierstrass", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F17, "BBOB_F17_SchaffersF7", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F18, "BBOB_F18_IllconditionedSchaffersF7", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F19, "BBOB_F19_CompositeGriewankRosenbrock", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F20, "BBOB_F20_Schwefel", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F21, "BBOB_F21_GallagherGaussian101mePeaks", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F22, "BBOB_F22_GallagherGaussian21hiPeaks", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F23, "BBOB_F23_Katsuura", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, BBOB_F24, "BBOB_F24_LunacekBiRastrigin", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
 		/*classical_GOP*/
 		RIGIESTER(problem, ackley, "ackley", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
 		RIGIESTER(problem, bent_cigar, "bent_cigar", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
@@ -334,8 +333,10 @@ namespace OFEC {
 		/*realworld*/
 		RIGIESTER(problem, FGear_Train, "FGear_Train", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
 		RIGIESTER(problem, FParEst_FMSoundWaves, "FParEst_FMSoundWaves", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, epanet, "epanet", std::set<problem_tag>({ problem_tag::GOP}));
+	}
 
-		/**********algorithm**********/
+	void register_algorithm_class() {
 		RIGIESTER(algorithm, FNS_NSGAII, "NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(algorithm, CS_NSGAII, "CS_NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(algorithm, DG_NSGAII, "DG_NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));

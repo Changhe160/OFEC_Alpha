@@ -46,7 +46,10 @@ namespace OFEC {
 		Normal, Problem_change, Terminate, Problem_change_next_eval, Change_timelinkage,
 		Change_dimension, Infeasible
 	};
-	enum class problem_tag { SOP, MOP, DOP, MMP, GOP, ROOT, CONT, COMB, TSP, COP, VRP, TTP, JSP, KOP, SAT, ONEMAX, QAP, MKP, EOP, LSOP };
+	enum class problem_tag {
+		SOP, MOP, DOP, MMP, GOP, ROOT, CONT, COMB, TSP, COP, VRP, TTP, JSP,
+		KOP, SAT, ONEMAX, QAP, MKP, EOP, LSOP
+	};
 
 	//SOP: single objective problem
 	//MOP: multi-objective problem
@@ -63,8 +66,11 @@ namespace OFEC {
 	//JSP: job shop problem
 	//KOP: knapsack optimization problem
 	//SAT: boolean satisfiability problem
-	//ONEMAX: One Max problem
-
+	//ONEMAX: one max problem
+	//QAP: quadratic assignment problem
+	//MKP: multi-dimensional knapsack problem
+	//EOP: expensive optimization problem
+	//LSOP: large scale optimization problem
 	enum parameter {
 		param_numDim, param_numPeak, param_proName, param_algName, param_maxEvals, param_shiftLength, param_changeType, param_proId, \
 		param_runId, param_algId, param_changeRatio, param_flagNumPeakChange, param_flagNumDimChange, param_peakNumChangeMode, param_flagNoise, \
@@ -81,4 +87,3 @@ namespace OFEC {
 	};
 }
 #endif // !OFEC_DEFINITION_H
-
