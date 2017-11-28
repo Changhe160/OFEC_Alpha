@@ -810,6 +810,9 @@
     <ClInclude Include="instance\problem\realworld\FParEst_FMSoundWaves.h">
       <Filter>instance\problem\realworld</Filter>
     </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\link_sort2.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">
@@ -1456,6 +1459,9 @@
     </ClCompile>
     <ClCompile Include="instance\problem\realworld\FParEst_FMSoundWaves.cpp">
       <Filter>instance\problem\realworld</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\link_sort2.cpp">
+      <Filter>utility\nondominated_sorting</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

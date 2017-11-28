@@ -368,6 +368,7 @@
     <ClCompile Include="run\main.cpp" />
     <ClCompile Include="utility\matrix.cpp" />
     <ClCompile Include="utility\nondominated_sorting\CornerSort.cpp" />
+    <ClCompile Include="utility\nondominated_sorting\link_sort2.cpp" />
     <ClCompile Include="utility\nondominated_sorting\T_ENS.cpp" />
     <ClCompile Include="utility\random\extreal.cpp" />
     <ClCompile Include="utility\random\newran.cpp" />
@@ -607,6 +608,7 @@
     <ClInclude Include="utility\myexcept.h" />
     <ClInclude Include="utility\nondominated_sorting\CornerSort.h" />
     <ClInclude Include="utility\nondominated_sorting\DominanceGraphSort.h" />
+    <ClInclude Include="utility\nondominated_sorting\link_sort2.h" />
     <ClInclude Include="utility\nondominated_sorting\preSorting.h" />
     <ClInclude Include="utility\nondominated_sorting\T_ENS.h" />
     <ClInclude Include="utility\random\extreal.h" />
