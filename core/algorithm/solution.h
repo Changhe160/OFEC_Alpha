@@ -55,14 +55,15 @@ namespace  OFEC {
 		}
 
 		solution& operator =(solution&& rhs) {
-			m_var = std::move(rhs.m_var);
-			m_obj = std::move(rhs.m_obj);
-			m_constraint_value = std::move(rhs.m_constraint_value);
+			m_var = rhs.m_var;
+			m_obj = rhs.m_obj;
+			m_constraint_value = rhs.m_constraint_value;
 			return *this;
 		}
 
 		virtual void initialize() {
 			global::ms_global->m_problem->initialize_solution(*this);
+			evaluate();
 		}
 
 		template<typename Initializer, typename... Args>
@@ -184,7 +185,12 @@ namespace  OFEC {
 				m_obj[i] = (global::ms_global->m_problem->opt_mode(i) == optimization_mode::Minimization) ? std::numeric_limits<objective_type>::max() : std::numeric_limits<objective_type>::min();
 
 		}
-
+		solution<VariableEncoding, ObjetiveType> & self() {
+			return *this;
+		}
+		const solution<VariableEncoding, ObjetiveType> & self() const {
+			return *this;
+		}
 	protected:
 		variable_encoding m_var;
 		objective<objective_type> m_obj;

@@ -57,6 +57,9 @@ namespace OFEC {
 		static factory<problem> ms_reg_problem;
 		static factory<algorithm> ms_reg_algorithm;
 	};
+#define GET_NUM_DIM (global::ms_global->m_problem->variable_size())
+#define GET_NUM_OBJ (global::ms_global->m_problem->objective_size())
+#define GET_EVALS (global::ms_global->m_problem->evaluations())
 }
 #endif // !OFEC_GLOBAL_H
 

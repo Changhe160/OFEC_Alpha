@@ -48,6 +48,9 @@ namespace OFEC {
 		//virtual void constraint_value(const base &, std::pair<double, vector<double>>&) {}
 		bool is_optimal_given();
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
+
+		void set_objective_monitor_true();
+		void set_variable_monitor_true();
 	protected:
 		continuous& operator=(const continuous& rhs);
 		continuous& operator=(continuous&& rhs);

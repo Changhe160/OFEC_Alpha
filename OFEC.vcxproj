@@ -23,7 +23,7 @@
     <ProjectGuid>{09423B44-E3CE-4068-8471-8B0075DC7968}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OFEC</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -96,7 +96,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(BOOST_LIB_x64);$(CUDA_LIB);</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;OpenCL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -111,6 +111,8 @@
       <MinimalRebuild>false</MinimalRebuild>
       <SDLCheck>false</SDLCheck>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,6 +160,7 @@
     <ClCompile Include="core\problem\continuous\continuous.cpp" />
     <ClCompile Include="core\problem\continuous\function.cpp" />
     <ClCompile Include="core\problem\problem.cpp" />
+    <ClCompile Include="instance\algorithm\DE\JADE\JADE.cpp" />
     <ClCompile Include="instance\algorithm\MOEA\NSGAII\CS_NSGAII.cpp" />
     <ClCompile Include="instance\algorithm\MOEA\NSGAII\DG_NSGAII.cpp" />
     <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAIIpopulation.cpp" />
@@ -389,7 +392,6 @@
     <ClCompile Include="test\test_CEC2015_global.cpp" />
     <ClCompile Include="test\test_CEC2015_MMO.cpp" />
     <ClCompile Include="test\test_CEC2017.cpp" />
-    <ClCompile Include="test\test_epanet.cpp" />
     <ClCompile Include="test\test_function_BBOB.cpp" />
     <ClCompile Include="test\test_matrix.cpp" />
     <ClCompile Include="utility\matrix.cpp" />
@@ -421,8 +423,9 @@
     <ClInclude Include="core\problem\domain.h" />
     <ClInclude Include="core\problem\optima.h" />
     <ClInclude Include="core\problem\problem.h" />
-    <ClInclude Include="instance\algorithm\DE\DE_individual.h" />
-    <ClInclude Include="instance\algorithm\DE\DE_population.h" />
+    <ClInclude Include="instance\algorithm\DE\DEindividual.h" />
+    <ClInclude Include="instance\algorithm\DE\DEpopulation.h" />
+    <ClInclude Include="instance\algorithm\DE\JADE\JADE.h" />
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\CS_NSGAII.h" />
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\DG_NSGAII.h" />
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\DG_NSGAIIindividual.h" />

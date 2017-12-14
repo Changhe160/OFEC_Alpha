@@ -341,6 +341,7 @@ namespace OFEC {
 		RIGIESTER(algorithm, CS_NSGAII, "CS_NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(algorithm, DG_NSGAII, "DG_NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(algorithm, T_ENS_NSGAII, "T_ENS_NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
+		RIGIESTER(algorithm, JADE, "JADE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
 	}
 
 	void set_global_parameters(int argn, char * argv[]) {
@@ -410,10 +411,13 @@ namespace OFEC {
 	}
 
 	void run() {
-		std::vector<std::string> headers({ "Evals","IGD", "numComp" });
+		//std::vector<std::string> headers({ "Evals","IGD", "numComp" });
+		std::vector<std::string> headers({ "Iter","Error"});
+		
 		measure::ms_measure.reset(new measure((int)(global::ms_arg[param_numRun]), headers));
 
-		int numTask = std::thread::hardware_concurrency();
+		//int numTask = std::thread::hardware_concurrency();
+		int numTask = (int)global::ms_arg[param_numTask];
 		std::vector<std::thread> atrd;
 		int rest = (int)(global::ms_arg[param_numRun]) % numTask;
 		int id1 = 0, id2 = id1 + (int)(global::ms_arg[param_numRun]) / numTask - 1 + (rest-->0 ? 1 : 0);

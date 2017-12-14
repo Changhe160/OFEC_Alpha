@@ -864,12 +864,6 @@
     <ClInclude Include="utility\typevar\typevar.h">
       <Filter>utility\typevar</Filter>
     </ClInclude>
-    <ClInclude Include="instance\algorithm\DE\DE_individual.h">
-      <Filter>instance\algorithm\DE</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\DE\DE_population.h">
-      <Filter>instance\algorithm\DE</Filter>
-    </ClInclude>
     <ClInclude Include="utility\catch.hpp">
       <Filter>utility</Filter>
     </ClInclude>
@@ -915,6 +909,13 @@
     <ClInclude Include="instance\problem\realworld\EPANET\epa_encoding.h">
       <Filter>instance\problem\realworld\EPANET</Filter>
     </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\DEindividual.h">
+      <Filter>instance\algorithm\DE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\DEpopulation.h">
+      <Filter>instance\algorithm\DE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\JADE\JADE.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">
@@ -1673,8 +1674,6 @@
     <ClCompile Include="instance\problem\realworld\EPANET\smatrix.cpp">
       <Filter>instance\problem\realworld\EPANET</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_epanet.cpp">
-      <Filter>test</Filter>
-    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\JADE\JADE.cpp" />
   </ItemGroup>
 </Project>
