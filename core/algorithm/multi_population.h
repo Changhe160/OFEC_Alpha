@@ -30,10 +30,15 @@ namespace OFEC {
 		using iterator_type = typename std::vector<std::unique_ptr<Population>>::iterator;
 
 		multi_population() = default;
-		virtual ~multi_population() {}
+		virtual ~multi_population() {
+			
+		}
 
 		multi_population(int n) :m_sub(n) {}
-		multi_population(int n, int subsize) :m_sub(n, new Population(subsize)) {}
+		multi_population(size_t n, size_t subsize) :m_sub(n) {
+			for (auto& i : m_sub)
+				i = std::move(std::unique_ptr<Population>(new Population(subsize, GET_NUM_DIM)));
+		}
 
 		void resize_objective(int n);
 		void resize_variable(int n);
@@ -45,7 +50,7 @@ namespace OFEC {
 		Population& operator[](int i);
 		const Population& operator[](int i) const;
 
-		void handle_evaluation_tag();
+		void handle_evaluation_tag_all(evaluation_tag tag){}
 
 	protected:
 		std::vector<std::unique_ptr<Population>> m_sub;

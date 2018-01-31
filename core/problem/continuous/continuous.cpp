@@ -117,6 +117,9 @@ namespace OFEC {
 	optima<variable<real>, real>& continuous::get_optima() {
 		return m_optima;
 	}
+	domain<real>& continuous::get_domain() {
+		return m_domain;
+	}
 
 	double continuous::variable_distance(const base &s1, const base &s2) const {
 		const variable<real>& x1 = dynamic_cast<const solution<variable<real>, real>&>(s1).get_variable();
@@ -151,7 +154,7 @@ namespace OFEC {
 					m_solved = true;
 			}
 			if (m_objective_monitor) {
-				m_optima.is_optimal_objective(obj, m_objective_accuracy);
+				m_optima.is_optimal_objective(dynamic_cast<solution<variable<real>, real> &>(s), m_objective_accuracy, m_variable_accuracy);
 				if (m_optima.is_objective_found())
 					m_solved = true;
 			}
@@ -168,5 +171,11 @@ namespace OFEC {
 	}
 	void continuous::set_variable_monitor_true() {
 		m_variable_monitor = true;
+	}
+	bool continuous::objective_monitor() const {
+		return m_objective_monitor;
+	}
+	bool continuous::variable_monitor() const {
+		return m_variable_monitor;
 	}
 }

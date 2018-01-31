@@ -134,7 +134,7 @@ namespace  OFEC {
 		}
 
 		double variable_distance(const solution& rhs) const {
-			return global::ms_global->m_problem->variable_distance(*this, &rhs);
+			return global::ms_global->m_problem->variable_distance(*this, rhs);
 		}
 
 		double variable_distance(const variable_encoding& x) const {

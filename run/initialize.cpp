@@ -342,6 +342,12 @@ namespace OFEC {
 		RIGIESTER(algorithm, DG_NSGAII, "DG_NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(algorithm, T_ENS_NSGAII, "T_ENS_NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(algorithm, JADE, "JADE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(algorithm, CRDE, "CRDE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(algorithm, DynDE, "DynDE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(algorithm, jDE, "jDE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(algorithm, NCDE, "NCDE", std::set<problem_tag>({ problem_tag::MMP,problem_tag::CONT }));
+		RIGIESTER(algorithm, NSDE, "NSDE", std::set<problem_tag>({ problem_tag::MMP,problem_tag::CONT }));
+		RIGIESTER(algorithm, SaDE, "SaDE", std::set<problem_tag>({ problem_tag::MMP,problem_tag::CONT }));
 	}
 
 	void set_global_parameters(int argn, char * argv[]) {
@@ -412,7 +418,7 @@ namespace OFEC {
 
 	void run() {
 		//std::vector<std::string> headers({ "Evals","IGD", "numComp" });
-		std::vector<std::string> headers({ "Iter","Error"});
+		std::vector<std::string> headers({ "Iter","Num_Opt_Found"});
 		
 		measure::ms_measure.reset(new measure((int)(global::ms_arg[param_numRun]), headers));
 

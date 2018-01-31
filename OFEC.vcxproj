@@ -89,13 +89,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(BOOST_INC_1_64);$(CUDA_INC);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(BoostInclude);$(CUDA_INC)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(BOOST_LIB_x64);$(CUDA_LIB);</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BoostLib);$(CUDA_LIB)</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -160,7 +160,15 @@
     <ClCompile Include="core\problem\continuous\continuous.cpp" />
     <ClCompile Include="core\problem\continuous\function.cpp" />
     <ClCompile Include="core\problem\problem.cpp" />
+    <ClCompile Include="instance\algorithm\DE\CRDE\CRDE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\DynDE\DynDEIndividual.cpp" />
+    <ClCompile Include="instance\algorithm\DE\DynDE\DynDE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\DynDE\DynDESubPop.cpp" />
     <ClCompile Include="instance\algorithm\DE\JADE\JADE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\jDE\jDE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\NCDE\NCDE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\NSDE\NSDE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\SaDE\SaDE.cpp" />
     <ClCompile Include="instance\algorithm\MOEA\NSGAII\CS_NSGAII.cpp" />
     <ClCompile Include="instance\algorithm\MOEA\NSGAII\DG_NSGAII.cpp" />
     <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAIIpopulation.cpp" />
@@ -423,9 +431,17 @@
     <ClInclude Include="core\problem\domain.h" />
     <ClInclude Include="core\problem\optima.h" />
     <ClInclude Include="core\problem\problem.h" />
+    <ClInclude Include="instance\algorithm\DE\CRDE\CRDE.h" />
     <ClInclude Include="instance\algorithm\DE\DEindividual.h" />
     <ClInclude Include="instance\algorithm\DE\DEpopulation.h" />
+    <ClInclude Include="instance\algorithm\DE\DynDE\DynDEIndividual.h" />
+    <ClInclude Include="instance\algorithm\DE\DynDE\DynDE.h" />
+    <ClInclude Include="instance\algorithm\DE\DynDE\DynDESubPop.h" />
     <ClInclude Include="instance\algorithm\DE\JADE\JADE.h" />
+    <ClInclude Include="instance\algorithm\DE\jDE\jDE.h" />
+    <ClInclude Include="instance\algorithm\DE\NCDE\NCDE.h" />
+    <ClInclude Include="instance\algorithm\DE\NSDE\NSDE.h" />
+    <ClInclude Include="instance\algorithm\DE\SaDE\SaDE.h" />
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\CS_NSGAII.h" />
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\DG_NSGAII.h" />
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\DG_NSGAIIindividual.h" />

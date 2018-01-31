@@ -42,11 +42,11 @@ namespace OFEC {
 
 	void branin_rcos::initialize() {
 		m_opt_mode[0] = optimization_mode::Minimization;
-		m_variable_accuracy = 1.0;
+		m_variable_accuracy = 0.1;
 		m_objective_accuracy = 1.e-5;
 
-		m_original_optima.set_number_variable(3);
-
+		//m_original_optima.set_number_variable(3);
+		set_variable_monitor_true();
 		std::vector<std::vector<real>> var_data = { { -OFEC_PI, 12.275 },{ -OFEC_PI, 2.275 },{9.42478, 2.475} };
 		for (auto &i : var_data) {
 			set_original_global_opt(i.data());

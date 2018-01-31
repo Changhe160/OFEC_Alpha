@@ -40,6 +40,7 @@ namespace OFEC {
 		void set_init_range(const std::vector<std::pair<real, real>>& r);
 
 		optima<variable<real>, real>& get_optima();
+		domain<real>& get_domain();
 
 		virtual bool same(const base &s1, const base &s2) const { return false; }
 		double variable_distance(const base &s1, const base &s2) const;
@@ -51,6 +52,8 @@ namespace OFEC {
 
 		void set_objective_monitor_true();
 		void set_variable_monitor_true();
+		bool objective_monitor() const;
+		bool variable_monitor() const;
 	protected:
 		continuous& operator=(const continuous& rhs);
 		continuous& operator=(continuous&& rhs);

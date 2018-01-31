@@ -153,7 +153,15 @@ namespace OFEC {
 		void set_opt_mode(optimization_mode m, size_t idx = 0) {
 			m_opt_mode[idx] = m;
 		}
-		
+		template<typename Solution>
+		static Solution * get_sofar_best(size_t i) {
+			return dynamic_cast<Solution *>(ms_minmax_objective[i].first.get());
+		}
+
+		template<typename Solution>
+		static Solution * get_sofar_worst(size_t i) {
+			return dynamic_cast<Solution *>(ms_minmax_objective[i].second.get());
+		}
 	protected:
 		problem& operator=(const problem& rhs);  // assignment is not allowed outside
 		problem& operator=(problem&& rhs);

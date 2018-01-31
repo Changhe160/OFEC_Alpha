@@ -1,4 +1,3 @@
-#pragma once
 /******************************************************************************
 * Project:Open Frameworks for Evolutionary Computation (OFEC)
 *******************************************************************************
@@ -51,7 +50,7 @@ namespace OFEC {
 		virtual void reInitialize();
 		void mutate(int idx, const std::vector<int>&var);
 	protected:
-		virtual void selectInNeighb(int number, std::vector<int>&, std::vector<solution<variable<real>,real>*>&);
+		virtual void selectInNeighb(int number, std::vector<int>&, std::vector<int>&);
 		virtual void select(int base, int number, std::vector<int>& result);
 		evaluation_tag evolve();
 
@@ -104,15 +103,15 @@ namespace OFEC {
 			break;
 		case DE_best_1:
 			select(idx, 2, ridx);
-			this->m_pop[idx]->mutate(m_F, &this->m_best[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self());
+			this->m_pop[idx]->mutate(m_F, &this->m_arc[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self());
 			break;
 		case DE_targetToBest_1:
 			select(idx, 2, ridx);
-			this->m_pop[idx]->mutate(m_F, &this->m_pop[idx]->self(), &this->m_best[0]->self(), &this->m_pop[idx]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self());
+			this->m_pop[idx]->mutate(m_F, &this->m_pop[idx]->self(), &this->m_arc[0]->self(), &this->m_pop[idx]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self());
 			break;
 		case DE_best_2:
 			select(idx, 4, ridx);
-			this->m_pop[idx]->mutate(m_F, &this->m_best[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self(), &this->m_pop[ridx[2]]->self(), &this->m_pop[ridx[3]]->self());
+			this->m_pop[idx]->mutate(m_F, &this->m_arc[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self(), &this->m_pop[ridx[2]]->self(), &this->m_pop[ridx[3]]->self());
 			break;
 		case DE_rand_2:
 			select(idx, 5, ridx);
@@ -120,7 +119,7 @@ namespace OFEC {
 			break;
 		case DE_randToBest_1:
 			select(idx, 3, ridx);
-			this->m_pop[idx]->mutate(m_F, &this->m_pop[ridx[0]]->self(), &this->m_best[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self(), &this->m_pop[ridx[2]]->self());
+			this->m_pop[idx]->mutate(m_F, &this->m_pop[ridx[0]]->self(), &this->m_arc[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self(), &this->m_pop[ridx[2]]->self());
 			break;
 		case DE_targetToRand_1:
 			select(idx, 3, ridx);
@@ -138,15 +137,15 @@ namespace OFEC {
 			break;
 		case DE_best_1:
 			select(idx, 2, ridx);
-			this->m_pop[idx]->mutate(m_F, var, &this->m_best[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self());
+			this->m_pop[idx]->mutate(m_F, var, &this->m_arc[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self());
 			break;
 		case DE_targetToBest_1:
 			select(idx, 2, ridx);
-			this->m_pop[idx]->mutate(m_F, var, &this->m_pop[idx]->self(), &this->m_best[0]->self(), &this->m_pop[idx]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self());
+			this->m_pop[idx]->mutate(m_F, var, &this->m_pop[idx]->self(), &this->m_arc[0]->self(), &this->m_pop[idx]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self());
 			break;
 		case DE_best_2:
 			select(idx, 4, ridx);
-			this->m_pop[idx]->mutate(m_F, var, &this->m_best[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self(), &this->m_pop[ridx[2]]->self(), &this->m_pop[ridx[3]]->self());
+			this->m_pop[idx]->mutate(m_F, var, &this->m_arc[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self(), &this->m_pop[ridx[2]]->self(), &this->m_pop[ridx[3]]->self());
 			break;
 		case DE_rand_2:
 			select(idx, 5, ridx);
@@ -154,7 +153,7 @@ namespace OFEC {
 			break;
 		case DE_randToBest_1:
 			select(idx, 3, ridx);
-			this->m_pop[idx]->mutate(m_F, var, &this->m_pop[ridx[0]]->self(), &this->m_best[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self(), &this->m_pop[ridx[2]]->self());
+			this->m_pop[idx]->mutate(m_F, var, &this->m_pop[ridx[0]]->self(), &this->m_arc[0]->self(), &this->m_pop[ridx[0]]->self(), &this->m_pop[ridx[1]]->self(), &this->m_pop[ridx[2]]->self());
 			break;
 		case DE_targetToRand_1:
 			select(idx, 3, ridx);
@@ -227,10 +226,10 @@ namespace OFEC {
 		}
 	}
 	template< typename TypeDEIndi >
-	void DEpopulation<TypeDEIndi>::selectInNeighb(int number, std::vector<int>& candidate, std::vector<solution<variable<real>, real>*>& result) {
+	void DEpopulation<TypeDEIndi>::selectInNeighb(int number, std::vector<int>& candidate, std::vector<int>& result) {
 		for (int i = 0; i < number; ++i) {
 			int idx = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)candidate.size() - i);
-			result[i] = &(m_pop[candidate[idx]]->self());
+			result[i] = candidate[idx];
 			if (idx != candidate.size() - (i + 1)) candidate[idx] = candidate[candidate.size() - (i + 1)];
 		}
 	}

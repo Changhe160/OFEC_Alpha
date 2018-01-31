@@ -35,24 +35,13 @@ namespace OFEC {
 	void center_peak::initialize() {
 		m_opt_mode[0] = optimization_mode::Maximization;
 
-		m_original_optima.set_number_variable(5); //1 gopt + 4 lopt
-		m_objective_accuracy = 0.2;
-		m_variable_accuracy = 1.e-5;
+		//m_original_optima.set_number_variable(5); //1 gopt + 4 lopt
+		set_variable_monitor_true();
+		m_objective_accuracy = 1.e-5;
+		m_variable_accuracy = 0.2;
 
-		std::ifstream in;
-		std::stringstream ss;
-		std::vector<std::vector<real>> var_data(5, std::vector<real>(m_variable_size));
-		ss << global::ms_arg[param_workingDir] << "instance/problem/continuous/global/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
-		in.open(ss.str().c_str());
-		if (!in)		throw myexcept("cannot open data file@center_peak::initialize()");
+		std::vector<std::vector<real>> var_data = { {-6.02513e-012, -2.41155e-012}, {2, -2}, {-2, 2}, {-2, -2}, {2, 2} };
 
-		for (int i = 0; i < 5; ++i) {
-			double x0, x1, obj;
-			in >> x0 >> x1 >> obj;
-			var_data[i][0] = x0;
-			var_data[i][1] = x1;
-		}
-		in.close();
 		for (auto &i : var_data) {
 			set_original_global_opt(i.data());
 		}

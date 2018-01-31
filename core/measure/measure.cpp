@@ -39,7 +39,7 @@ namespace OFEC {
 				out << header << " ";
 			else
 				out << header << std::endl;
-		for (size_t i = 0; i < max - row_size; i += row_size) {
+		for (size_t i = 0; i < max - row_size + 1; i += row_size) {
 			for (size_t j = i; j < i + row_size - 1; ++j)
 				out << sum[j] << " ";
 			out << sum[i + row_size - 1] << std::endl;

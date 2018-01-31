@@ -916,6 +916,14 @@
       <Filter>instance\algorithm\DE</Filter>
     </ClInclude>
     <ClInclude Include="instance\algorithm\DE\JADE\JADE.h" />
+    <ClInclude Include="instance\algorithm\DE\CRDE\CRDE.h" />
+    <ClInclude Include="instance\algorithm\DE\DynDE\DynDEIndividual.h" />
+    <ClInclude Include="instance\algorithm\DE\DynDE\DynDESubPop.h" />
+    <ClInclude Include="instance\algorithm\DE\DynDE\DynDE.h" />
+    <ClInclude Include="instance\algorithm\DE\jDE\jDE.h" />
+    <ClInclude Include="instance\algorithm\DE\NCDE\NCDE.h" />
+    <ClInclude Include="instance\algorithm\DE\NSDE\NSDE.h" />
+    <ClInclude Include="instance\algorithm\DE\SaDE\SaDE.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">
@@ -1675,5 +1683,13 @@
       <Filter>instance\problem\realworld\EPANET</Filter>
     </ClCompile>
     <ClCompile Include="instance\algorithm\DE\JADE\JADE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\CRDE\CRDE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\DynDE\DynDEIndividual.cpp" />
+    <ClCompile Include="instance\algorithm\DE\DynDE\DynDESubPop.cpp" />
+    <ClCompile Include="instance\algorithm\DE\DynDE\DynDE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\jDE\jDE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\NCDE\NCDE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\NSDE\NSDE.cpp" />
+    <ClCompile Include="instance\algorithm\DE\SaDE\SaDE.cpp" />
   </ItemGroup>
 </Project>

@@ -42,12 +42,13 @@ namespace OFEC {
 		DEindividual(size_t no, Args&& ... args) : individual_type(no, std::forward<Args>(args)...), m_pv(no, std::forward<Args>(args)...), m_pu(no, std::forward<Args>(args)...) {}
 		DEindividual(const DEindividual &p) : individual_type(p),m_pv(p.m_pv),m_pu(p.m_pu) {}
 		DEindividual(DEindividual &&p) : individual_type(std::move(p)), m_pv(std::move(p.m_pv)), m_pu(std::move(p.m_pu)) {}
-		DEindividual(const solution_type &p) : individual_type(p), m_pv(p.m_pv), m_pu(p.m_pu) {}
-		DEindividual(solution_type &&p) : individual_type(std::move(p)), m_pv(std::move(p.m_pv)), m_pu(std::move(p.m_pu)) {}
+		DEindividual(const solution_type &p) : individual_type(p), m_pv(p.objective_size(), p.variable_size()), m_pu(p.objective_size(), p.variable_size()) {}
+		DEindividual(solution_type &&p) : individual_type(std::move(p)), m_pv(variable_size()), m_pu(variable_size()) {}
 
 		DEindividual & operator=(const DEindividual &other);
 		DEindividual & operator=(DEindividual &&other);
 		void initialize(int id);
+
 		virtual void mutate(double F, solution_type *r1,
 			solution_type *r2, 
 			solution_type *r3, 
