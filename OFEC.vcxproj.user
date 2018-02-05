@@ -1,22 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerCommandArguments>PS=100 SF=100 ME=1000 NR=8 ND=8 IT1=6 NO=5 PN=DTLZ1 AN=T_ENS_NSGAII</LocalDebuggerCommandArguments>
-    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  <PropertyGroup>
+    <ShowAllFiles>true</ShowAllFiles>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>PS=100 SF=100 ME=1000 NR=8 ND=8 IT1=6 NO=5 PN=DTLZ1 AN=DG_NSGAII</LocalDebuggerCommandArguments>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommandArguments>NT=1 NR=1 NO=1 ND=2 PN=sphere AN=JADE PS=50 ME=3000000 </LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommandArguments>PS=100 SF=100 ME=1000 NR=8 ND=8 IT1=6 NO=5 PN=DTLZ1 AN=DG_NSGAII</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>PS=100 SF=100 ME=1000 NR=8 ND=8 IT1=6 NO=5 PN=DTLZ1 AN=DG_NSGAII</LocalDebuggerCommandArguments>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommandArguments>NT=1 NR=1 NO=1 ND=2 PN=branin_rcos AN=NSDE PS=50 ME=300000 SF=1</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
 </Project>
