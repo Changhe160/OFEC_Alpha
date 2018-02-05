@@ -6,7 +6,7 @@ namespace OFEC {
 	void measure::output() {
 		std::stringstream os;
 		os << global::ms_arg[param_workingDir] << "Test_result/";
-		os << global::ms_arg[param_proName] << "(" << global::ms_arg[param_numObj] << ")_";
+		os << global::ms_arg[param_proName] << "(" << global::ms_arg[param_numDim] << "_" << global::ms_arg[param_numObj] << ")_";
 		os << global::ms_arg[param_algName] << "(" << global::ms_arg[param_popSize] << ").txt";
 		std::ofstream out(os.str());
 		std::vector<double> sum;
@@ -39,7 +39,7 @@ namespace OFEC {
 				out << header << " ";
 			else
 				out << header << std::endl;
-		for (size_t i = 0; i < max - row_size; i += row_size) {
+		for (size_t i = 0; i < max - row_size + 1; i += row_size) {
 			for (size_t j = i; j < i + row_size - 1; ++j)
 				out << sum[j] << " ";
 			out << sum[i + row_size - 1] << std::endl;

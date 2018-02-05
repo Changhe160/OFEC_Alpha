@@ -156,6 +156,9 @@ namespace OFEC {
 		size_t size() noexcept {
 			return m_x.size();
 		}
+		const size_t size() const noexcept {
+			return m_x.size();
+		}
 
 		iterator_type begin() noexcept {
 			return m_x.begin();

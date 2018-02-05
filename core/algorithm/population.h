@@ -59,7 +59,7 @@ namespace OFEC {
 		void update_best();
 		void update_worst();
 		virtual bool update_archive(const typename Individual::solution_type &x);
-		void handle_evaluation_tag(evaluation_tag tag);
+		void handle_evaluation_tag(evaluation_tag tag) {}
 
 		//constructors and members
 		population() = default;
@@ -101,6 +101,8 @@ namespace OFEC {
 		virtual void initialize(); //a uniformly distributed initialization by default
 		template<typename Fun, typename Problem, typename... Args>
 		void initialize(Fun fun, const Problem* pro, Args&& ... args);
+
+		size_t find_nearest(size_t idx, double * min_dis=0);
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
 	protected:
@@ -146,7 +148,7 @@ namespace OFEC {
 		for (size_t j = 0; j<m_pop.size(); j++) {
 			for (size_t i = 0; i<m_pop.size(); i++) {
 				if (i == j || !flag[j] || !flag[i]) continue;
-				if (*m_pop[j]>*m_pop[i]) {
+				if (m_pop[j]->self().dominate(m_pop[i]->self())) {
 					flag[i] = false;
 				}
 			}
@@ -163,7 +165,7 @@ namespace OFEC {
 		for (size_t j = 0; j<m_pop.size(); j++) {
 			for (size_t i = 0; i<m_pop.size(); i++) {
 				if (i == j || !flag[j] || !flag[i]) continue;
-				if (*m_pop[j]<*m_pop[i]) {
+				if (m_pop[i]->self().dominate(m_pop[j]->self())) {
 					flag[i] = false;
 				}
 			}
@@ -205,7 +207,7 @@ namespace OFEC {
 
 	template<typename Individual>
 	template<typename ... Args>
-	population<Individual>::population(size_t n, Args&& ... args) : m_pop(n) {
+	population<Individual>::population(size_t n, Args&& ... args) :algorithm(std::string()), m_pop(n) {
 		size_t size_obj = global::ms_global->m_problem->objective_size();
 		for (auto& i : m_pop)
 			i = std::move(std::unique_ptr<Individual>(new Individual(size_obj, std::forward<Args>(args)...)));
@@ -213,7 +215,7 @@ namespace OFEC {
 	}
 
 	template<typename Individual>
-	population<Individual>::population(const population &rhs) {
+	population<Individual>::population(const population &rhs) :algorithm(std::string()) {
 
 	}
 
@@ -221,7 +223,7 @@ namespace OFEC {
 	population<Individual>& population<Individual>::operator=(const population &rhs) {}
 
 	template<typename Individual>
-	population<Individual>::population(population&&rhs) {
+	population<Individual>::population(population&&rhs) :algorithm(std::string()) {
 
 	}
 
@@ -255,7 +257,36 @@ namespace OFEC {
 		std::vector<int> rank(N);
 		fun(obj, rank, std::forward<Args>(args)...);
 	}
+	template<typename Individual>
+	size_t population<Individual>::find_nearest(size_t idx, double * min_dis) {
+		double Min_dis;
+		size_t index;
+		size_t count = 0;
+		std::vector<double> dis(size());
+		for (size_t i = 0; i < size(); ++i) {
+			if (idx == i) {
+				dis[i] = 0;
+				continue;
+			}
+			dis[i] = m_pop[idx]->self().variable_distance(m_pop[i]->self());
+		}
 
+		for (size_t i = 0; i < size(); ++i) {
+			if (i == idx) continue;
+			++count;
+			if (count == 1) {
+				Min_dis = dis[i];
+				index = i;
+			}
+			else if (dis[i]<Min_dis) {
+				Min_dis = dis[i];
+				index = i;
+			}
+		}
+		if (min_dis) *min_dis = Min_dis;
+		
+		return index;
+	}
 
 }
 

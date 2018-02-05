@@ -470,7 +470,7 @@ namespace OFEC {
 			for (int i = 0; i<m_numSensor; ++i)
 			{
 				//itoa(m_sensorLoc[i], label, 10);  
-				sprintf(label, "%d", m_sensorLoc);
+				sprintf(label, "%d", m_sensorLoc[i]);
 				ENgetnodeindex(label, &index);
 				ENgetnodevalue(index, EN_QUALITY, &c);
 				data[i][t / m_qualityTimeStep] = c;

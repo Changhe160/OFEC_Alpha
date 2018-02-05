@@ -42,7 +42,7 @@ namespace OFEC {
 			m_id = id;
 			solution_type::initialize();
 		}
-
+		
 		void set_id(int id)noexcept {
 			m_id = id;
 		}

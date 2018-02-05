@@ -18,9 +18,10 @@ namespace OFEC {
 		}
 		void equal_maxima::initialize() { // note
 			m_opt_mode[0] = optimization_mode::Maximization;
-			m_objective_accuracy = 0.01;
-			m_variable_accuracy = 1.e-4;
-			m_original_optima.set_number_variable(5);
+			set_objective_monitor_true();
+			m_objective_accuracy = 1.e-4;
+			m_variable_accuracy = 1.e-2;
+			//m_original_optima.set_number_variable(5);
 			std::vector<std::vector<real>> obj_data(5, std::vector<real>(1, 1.));
 			for (auto &i : obj_data) {
 				m_original_optima.append(i[0]);

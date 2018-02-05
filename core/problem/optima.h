@@ -129,20 +129,25 @@ namespace OFEC {
 		}
 
 		template<typename Solution>
-		bool is_optimal_objective(const Solution &s, double epsilon) {
-			bool flag = false;
-			for (auto &i : m_obj) {
-				if (i.second) continue;
-				double d = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), i.first.begin());
-				if (d <= epsilon) {
-					i.second = true;
-					flag = true;
+		bool is_optimal_objective(const Solution &s, double epsilon_obj, double epsilon_var) {
+			for (size_t i = 0; i < m_obj.size(); ++i) {
+				if (m_obj[i].second) continue;
+				double dis_obj = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), m_obj[i].first.begin());
+				if (dis_obj <= epsilon_obj) {
+					for (size_t j = 0; j < m_obj.size(); ++j) {
+						if (m_obj[j].second && euclidean_distance(m_obj[j].first.begin(), m_obj[j].first.end(), m_obj[i].first.begin()) <= epsilon_obj &&
+							s.variable_distance(m_var[j].first) <= epsilon_var)
+							return false;				
+					}
+					m_obj[i].second = true;
+					append(s.get_variable());
+					return true;
 				}
 			}
-			return flag;
+			return false;
 		}
 
-		bool is_optimal_objective(const std::vector<objective_type> &o, double epsilon) {
+		bool is_optimal_objective(const std::vector<objective_type> &o, double epsilon) {  // note error by zhouli
 			bool flag = false;
 			for (auto &i : m_obj) {
 				if (i.second) continue;
@@ -177,6 +182,26 @@ namespace OFEC {
 			m_var.clear();
 			m_obj.clear();
 			m_number_var = 0;
+		}
+		int num_optima_found() const {
+			if (dynamic_cast<continuous*>(global::ms_global->m_problem.get())->variable_monitor())
+				return num_variable_found();
+			else if(dynamic_cast<continuous*>(global::ms_global->m_problem.get())->objective_monitor())
+				return num_objective_found();
+			else throw myexcept("No monitor!");
+		}
+	protected:
+		int num_variable_found() const {
+			int count = 0;
+			for (auto &i : m_var)
+				if (i.second) ++count;
+			return count;
+		}
+		int num_objective_found() const {
+			int count = 0;
+			for (auto &i : m_obj)
+				if (i.second) ++count;
+			return count;
 		}
 	private:
 		std::vector<std::pair<variable_encoding, bool>> m_var;
