@@ -18,7 +18,7 @@ namespace OFEC {
 			for (int j = 0; j < size(); ++j) {
 				if (a == j) continue;
 				if (m_pop[j]->is_improved()) {
-					std::pair<double, int> dis = std::make_pair(m_pop[a]->variable_distance(m_pop[j]->self()),j);
+					std::pair<double, int> dis = std::make_pair(m_pop[a]->variable_distance(*m_pop[j]),j);
 					auto it = m_dis[a].begin();
 					while (it != m_dis[a].end() && it->first < dis.first) {
 						it++;
@@ -33,7 +33,7 @@ namespace OFEC {
 		else {
 			for (int j = 0; j < size(); ++j) {
 				if (a == j) continue;
-				std::pair<double, int> dis = std::make_pair(m_pop[a]->variable_distance(m_pop[j]->self()), j);
+				std::pair<double, int> dis = std::make_pair(m_pop[a]->variable_distance(*m_pop[j]), j);
 				auto it = m_dis[a].begin();
 				while (it != m_dis[a].end() && it->first < dis.first) {
 					it++;
@@ -67,14 +67,14 @@ namespace OFEC {
 			std::vector<int> result(3);
 			selectInNeighb(3, candidate, result);
 
-			m_pop[i]->mutate(m_F, &m_pop[result[0]]->self(), &m_pop[result[1]]->self(), &m_pop[result[2]]->self());
+			m_pop[i]->mutate(m_F, m_pop[result[0]].get(), m_pop[result[1]].get(), m_pop[result[2]].get());
 			m_pop[i]->recombine(m_CR);
 			tag = m_pop[i]->select();
 			if (m_pop[i]->is_improved()) {
 				neardis = std::numeric_limits<double>::max();
 				for (int j = 0; j < size(); ++j) {
 					if (i == j) continue;
-					double dis = m_pop[i]->variable_distance(m_pop[j]->self());
+					double dis = m_pop[i]->variable_distance(*m_pop[j]);
 					if (neardis > dis) {
 						neardis = dis;
 						NearestIdx = j;
@@ -85,8 +85,8 @@ namespace OFEC {
 			else {
 				NearestIdx = m_dis[i].begin()->second;
 			}
-			if (m_pop[i]->self().dominate(m_pop[NearestIdx]->self())) {
-				m_pop[NearestIdx]->self() = m_pop[i]->self();
+			if (m_pop[i]->dominate(*m_pop[NearestIdx])) {
+				m_pop[NearestIdx] = m_pop[i];
 
 				m_pop[NearestIdx]->set_improve_flag(true);
 			}

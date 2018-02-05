@@ -96,8 +96,15 @@ namespace OFEC {
 	void DEindividual<VariableEncoding, ObjetiveType>::initialize(int id) {
 		individual_type::initialize(id);
 		//m_flag = true;
-		m_pv = self();
-		m_pu = self();
+		
+		m_pu.get_variable() = get_variable();
+		m_pu.get_objective() = get_objective();
+		m_pu.constraint_value() = constraint_value();
+
+		m_pv.get_variable() = get_variable();
+		m_pv.get_objective() = get_objective();
+		m_pv.constraint_value() = constraint_value();
+		
 		//m_pv = std::move(std::unique_ptr<solution_type>(new solution_type()));
 	}
 
@@ -182,8 +189,10 @@ namespace OFEC {
 		typename ObjetiveType = real>
 	evaluation_tag DEindividual<VariableEncoding, ObjetiveType>::select() {
 		evaluation_tag tag = m_pu.evaluate();
-		if (m_pu.dominate(self())) {
-			self() = m_pu;
+		if (m_pu.dominate(*this)) {
+			m_var = m_pu.get_variable();
+			m_obj = m_pu.get_objective();
+			m_constraint_value = m_pu.constraint_value();
 			m_impr = true;
 		}
 		else {

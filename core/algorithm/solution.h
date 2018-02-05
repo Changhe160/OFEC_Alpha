@@ -185,12 +185,6 @@ namespace  OFEC {
 				m_obj[i] = (global::ms_global->m_problem->opt_mode(i) == optimization_mode::Minimization) ? std::numeric_limits<objective_type>::max() : std::numeric_limits<objective_type>::min();
 
 		}
-		solution<VariableEncoding, ObjetiveType> & self() {
-			return *this;
-		}
-		const solution<VariableEncoding, ObjetiveType> & self() const {
-			return *this;
-		}
 	protected:
 		variable_encoding m_var;
 		objective<objective_type> m_obj;

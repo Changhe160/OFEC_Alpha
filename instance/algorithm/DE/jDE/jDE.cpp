@@ -17,7 +17,7 @@ namespace OFEC {
 
 		for (int i = 0; i < size(); ++i) {
 			select(i,3, candidate);
-			m_pop[i]->mutate(mv_F[i], &m_pop[candidate[0]]->self(), &m_pop[candidate[1]]->self(), &m_pop[candidate[2]]->self());
+			m_pop[i]->mutate(mv_F[i], m_pop[candidate[0]].get(), m_pop[candidate[1]].get(), m_pop[candidate[2]].get());
 			m_pop[i]->recombine(mv_CR[i]);
 			tag = m_pop[i]->select();
 			if (tag != evaluation_tag::Normal) break;

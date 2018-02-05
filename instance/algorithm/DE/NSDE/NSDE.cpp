@@ -15,7 +15,7 @@ namespace OFEC {
 		while (m_order_list.size() > 0) {
 			m_seed[i] = m_order_list[0];
 			for (int j = 0; j < m_order_list.size(); ++j) {
-				std::pair<double, int> dis = std::make_pair(m_pop[m_seed[i]]->variable_distance(m_pop[m_order_list[j]]->self()), m_order_list[j]);
+				std::pair<double, int> dis = std::make_pair(m_pop[m_seed[i]]->variable_distance(*m_pop[m_order_list[j]]), m_order_list[j]);
 				auto it = m_dis[i].begin();
 				while (it != m_dis[i].end() && it->first < dis.first) {
 					it++;
@@ -50,7 +50,7 @@ namespace OFEC {
 			index = j;
 
 			for (j = index; j<size(); ++j) 
-				if (flag[j] == 0 && m_pop[j]->self().dominate(m_pop[index]->self()))	 index = j;
+				if (flag[j] == 0 && m_pop[j]->dominate(*m_pop[index]))	 index = j;
 
 				m_order_list[i] = index;
 				flag[index] = 1;
@@ -67,17 +67,17 @@ namespace OFEC {
 				m_pop[it->second]->recombine(m_CR);
 				tag = m_pop[it->second]->select();
 				if (m_seed[i] != it->second) {
-					if (m_pop[m_seed[i]]->self().equal(m_pop[it->second]->self())) {
+					if (m_pop[m_seed[i]]->equal(*m_pop[it->second])) {
 						for (int k = 0; k < GET_NUM_DIM; k++) {
 							l = CONTINOUS_CAST->get_domain().range(k).limit.first;
 							u = CONTINOUS_CAST->get_domain().range(k).limit.second;
 
-							m_pop[it->second]->self().get_variable()[k] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<double>(l, u);
+							m_pop[it->second]->get_variable()[k] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<double>(l, u);
 						}
 						m_pop[it->second]->evaluate();
 					}
-					else if (m_pop[it->second]->self().dominate(m_pop[m_seed[i]]->self())) {
-						m_pop[m_seed[i]]->self() = m_pop[it->second]->self();
+					else if (m_pop[it->second]->dominate(*m_pop[m_seed[i]])) {
+						m_pop[m_seed[i]] = m_pop[it->second];
 					}
 				}
 				if (tag != evaluation_tag::Normal) break;
@@ -106,18 +106,18 @@ namespace OFEC {
 			double error = fabs(best - gopt[0]);
 			int num_opt_found = CONTINOUS_CAST->get_optima().num_optima_found();
 			
-			//std::cout << m_iter << " " << error <<" "<< m_best[0]->get_variable()[0] << " " << m_best[0]->get_variable()[1] << std::endl;
 			std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error <<' '<<num_opt_found<< std::endl;
-			//std::cout << m_best[0]->get_variable()[0] << " " << m_best[0]->get_variable()[1] << " "<<m_best[0]->get_objective()[0]<< std::endl;
+			//std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error << ' ' << std::endl;
+			
 			//g_mutexStream.unlock();
-			measure::ms_measure->record(global::ms_global.get(), m_iter, num_opt_found);
+			//measure::ms_measure->record(global::ms_global.get(), m_iter, num_opt_found);
 			tag = evolve();
 			
 		}
 	
-		measure::ms_measure->record(global::ms_global.get(), m_iter, CONTINOUS_CAST->get_optima().num_optima_found());
-		std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << CONTINOUS_CAST->get_optima().num_optima_found() << std::endl;
-		std::cout << CONTINOUS_CAST->get_optima().number_variable() << std::endl;
+		//measure::ms_measure->record(global::ms_global.get(), m_iter, CONTINOUS_CAST->get_optima().num_optima_found());
+		//std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << CONTINOUS_CAST->get_optima().num_optima_found() << std::endl;
+		//std::cout << CONTINOUS_CAST->get_optima().number_variable() << std::endl;
 		return tag;
 	}
 }

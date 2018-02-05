@@ -27,8 +27,8 @@ namespace OFEC {
 
 			int idx = this->find_nearest(i);
 
-			if (m_pop[i]->trial().dominate(m_pop[idx]->self())) {
-				m_pop[idx]->self() = m_pop[i]->trial();
+			if (m_pop[i]->trial().dominate(*m_pop[idx])) {
+				*m_pop[idx] = m_pop[i]->trial();
 			}
 			//update_archive(DEindividual<>(m_pop[i]->trial()));
 		}

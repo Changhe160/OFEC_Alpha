@@ -46,8 +46,8 @@ namespace OFEC {
 	void DynDE::exclude() {
 		for (size_t i = 0; i < m_M; ++i) {
 			for (size_t j = i + 1; j < m_M; ++j) {
-				if (m_sub[i]->m_flag == false && m_sub[j]->m_flag == false && m_sub[i]->best()[0]->self().variable_distance(m_sub[j]->best()[0]->self()) < m_r_excl) {
-					if (m_sub[i]->best()[0]->self().dominate(m_sub[j]->best()[0]->self())) {
+				if (m_sub[i]->m_flag == false && m_sub[j]->m_flag == false && m_sub[i]->best()[0]->variable_distance(*m_sub[j]->best()[0]) < m_r_excl) {
+					if (m_sub[i]->best()[0]->dominate(*m_sub[j]->best()[0])) {
 						m_sub[j]->m_flag = true;
 					}
 					else {

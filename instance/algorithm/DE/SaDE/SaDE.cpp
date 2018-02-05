@@ -16,7 +16,7 @@ namespace OFEC {
 		//int bidx = m_best[0];
 		if (m_iter == 0) {
 			update_best();
-			update_archive(m_best[0]->self()); 
+			update_archive(*m_best[0]); 
 		}
 		for (int i = 0; i < size(); ++i) {
 			double p = global::ms_global->m_uniform[caller::Algorithm]->next()*mv_prob[mc_numStr - 1];
@@ -33,7 +33,7 @@ namespace OFEC {
 
 		for (int i = 0; i < size(); ++i) {
 			tag = m_pop[i]->select();
-			this->update_archive(this->m_pop[i]->self());
+			this->update_archive(*m_pop[i]);
 			if (tag != evaluation_tag::Normal) break;
 		}
 

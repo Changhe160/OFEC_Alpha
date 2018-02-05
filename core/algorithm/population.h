@@ -148,7 +148,7 @@ namespace OFEC {
 		for (size_t j = 0; j<m_pop.size(); j++) {
 			for (size_t i = 0; i<m_pop.size(); i++) {
 				if (i == j || !flag[j] || !flag[i]) continue;
-				if (m_pop[j]->self().dominate(m_pop[i]->self())) {
+				if (m_pop[j]->dominate(*m_pop[i])) {
 					flag[i] = false;
 				}
 			}
@@ -165,7 +165,7 @@ namespace OFEC {
 		for (size_t j = 0; j<m_pop.size(); j++) {
 			for (size_t i = 0; i<m_pop.size(); i++) {
 				if (i == j || !flag[j] || !flag[i]) continue;
-				if (m_pop[i]->self().dominate(m_pop[j]->self())) {
+				if (m_pop[i]->dominate(m_pop[j])) {
 					flag[i] = false;
 				}
 			}
@@ -268,7 +268,7 @@ namespace OFEC {
 				dis[i] = 0;
 				continue;
 			}
-			dis[i] = m_pop[idx]->self().variable_distance(m_pop[i]->self());
+			dis[i] = m_pop[idx]->variable_distance(*m_pop[i]);
 		}
 
 		for (size_t i = 0; i < size(); ++i) {

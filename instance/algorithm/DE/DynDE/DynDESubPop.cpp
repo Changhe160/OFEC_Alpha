@@ -28,11 +28,11 @@ namespace OFEC {
 				this->m_pop[i]->recombine(m_CR);
 			}
 			else if (m_pop[i]->m_type == DynDEindividual::IndividualType::TYPE_BROWNIAN) {
-				tag = m_pop[i]->brownian(m_best[0]->self(), m_sigma);
+				tag = m_pop[i]->brownian(*m_best[0], m_sigma);
 
 			}
 			else if (m_pop[i]->m_type == DynDEindividual::IndividualType::TYPE_QUANTUM) {
-				tag = m_pop[i]->quantum(m_best[0]->self(), m_r_cloud);
+				tag = m_pop[i]->quantum(*m_best[0], m_r_cloud);
 			}
 			if (tag != evaluation_tag::Normal)  return tag;
 		}
@@ -51,7 +51,7 @@ namespace OFEC {
 				tag = m_pop[i]->entropy(m_sigma);
 				if (tag != evaluation_tag::Normal) return tag;
 			}
-			update_archive(this->m_pop[i]->self());
+			update_archive(*m_pop[i]);
 		}
 		if (tag == evaluation_tag::Normal) {
 			this->m_iter++;

@@ -32,12 +32,14 @@ namespace OFEC {
 		evaluation_tag select(std::vector<solution_type>& archive) {
 			m_impr = false;
 			evaluation_tag tag = m_pu.evaluate();
-			if (m_pu.dominate(self())) {
-				self() = m_pu;
+			if (m_pu.dominate(*this)) {
+				m_var = m_pu.get_variable();
+				m_obj = m_pu.get_objective();
+				m_constraint_value = m_pu.constraint_value();
 				m_impr = true;
 			}
 			else {
-				archive.push_back(self());
+				archive.push_back(*this);
 			}
 			return tag;
 		}

@@ -19,13 +19,13 @@ namespace OFEC {
 			idx = m_pcentBestIdx[global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)(size()*m_p))];
 		} while (idx == base);
 
-		m_candi[0] = &m_pop[idx]->self();
+		m_candi[0] = m_pop[idx].get();
 
 		auto it = find(candidate.begin(), candidate.end(), idx);
 		candidate.erase(it);
 
 		idx = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)candidate.size());
-		m_candi[1] = &m_pop[candidate[idx]]->self();
+		m_candi[1] = m_pop[candidate[idx]].get();
 		candidate.erase(candidate.begin() + idx);
 
 		idx = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)(candidate.size() + m_archive.size()));
@@ -34,7 +34,7 @@ namespace OFEC {
 			m_candi[2] = &m_archive[idx - candidate.size()];
 		}
 		else {
-			m_candi[2] = &m_pop[candidate[idx]]->self();
+			m_candi[2] = m_pop[candidate[idx]].get();
 		}
 
 	}
@@ -50,7 +50,7 @@ namespace OFEC {
 
 		for (int i = 0; i < size(); ++i) {
 			selectTrial(i);
-			m_pop[i]->mutate(mv_F[i], &m_pop[i]->self(), m_candi[0], &m_pop[i]->self(), m_candi[1], m_candi[2]);
+			m_pop[i]->mutate(mv_F[i], m_pop[i].get(), m_candi[0], m_pop[i].get(), m_candi[1], m_candi[2]);
 			m_pop[i]->recombine(mv_CR[i]);
 		}
 
@@ -62,7 +62,7 @@ namespace OFEC {
 			}
 
 
-			//update_archive(m_pop[i]->self());
+			//update_archive(m_pop[i]);
 			if (tag != evaluation_tag::Normal) break;
 
 		}
