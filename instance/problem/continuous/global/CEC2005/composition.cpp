@@ -13,6 +13,7 @@
 
 
 #include "composition.h"
+#include <algorithm>
 namespace OFEC {
 	namespace CEC2005 {
 		composition::composition(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), continuous(name, size_var, size_obj), m_num_function(10), \

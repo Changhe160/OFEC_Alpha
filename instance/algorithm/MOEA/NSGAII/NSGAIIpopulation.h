@@ -38,14 +38,14 @@ namespace OFEC {
 				if (rnd <= 0.5)
 				{
 					double xy = 1.0 - delta1;
-					double val = 2.0*rnd + (1.0 - 2.0*rnd)*(std::pow(xy, (meta + 1.0)));
-					deltaq = std::pow(val, mut_pow) - 1.0;
+					double val = 2.0*rnd + (1.0 - 2.0*rnd)*(pow(xy, (meta + 1.0)));
+					deltaq = pow(val, mut_pow) - 1.0;
 				}
 				else
 				{
 					double xy = 1.0 - delta2;
-					double val = 2.0*(1.0 - rnd) + 2.0*(rnd - 0.5)*(std::pow(xy, (meta + 1.0)));
-					deltaq = 1.0 - (std::pow(val, mut_pow));
+					double val = 2.0*(1.0 - rnd) + 2.0*(rnd - 0.5)*(pow(xy, (meta + 1.0)));
+					deltaq = 1.0 - (pow(val, mut_pow));
 				}
 
 				y = y + deltaq*(ub - lb);
@@ -81,14 +81,14 @@ namespace OFEC {
 
 			// child 1
 			double beta = 1.0 + (2.0*(y1 - lb) / (y2 - y1)),
-				alpha = 2.0 - std::pow(beta, -(ceta + 1.0));
+				alpha = 2.0 - pow(beta, -(ceta + 1.0));
 			double betaq = get_betaq(rand, alpha, ceta);
 
 			c1[i] = 0.5*((y1 + y2) - betaq*(y2 - y1));
 
 			// child 2
 			beta = 1.0 + (2.0*(ub - y2) / (y2 - y1));
-			alpha = 2.0 - std::pow(beta, -(ceta + 1.0));
+			alpha = 2.0 - pow(beta, -(ceta + 1.0));
 			betaq = get_betaq(rand, alpha, ceta);
 
 			c2[i] = 0.5*((y1 + y2) + betaq*(y2 - y1));

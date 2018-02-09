@@ -26,27 +26,29 @@ namespace OFEC {
     protected:
 		double m_GAratio = global::ms_arg.find(param_GAratio) == global::ms_arg.end() ? 1.0 : (int)(global::ms_arg[param_GAratio]);
 		NSGAIIpopulation<Individual> m_parent, m_offspring;
-		int m_objcomp; // Cumulative number of objective comparisons
 		int m_numrank;
 	};
 	using FNS_NSGAII = NSGAII<>;
 
 	template<typename Individual>
-	NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_objcomp(0), m_numrank(0) {
+	NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_numrank(0) {
 		for (size_t i = 0; i < m_parent.size(); i++) {
 			m_parent[i].evaluate();
 		}
 		set_termination(new term_max_evals(v));
+
+		//initialize measurement //
+		std::vector<std::string> headers{ "number of evaluation","IGD" };
+		int num_run = static_cast<int>(OFEC::global::ms_arg[OFEC::param_numRun]);
+		if (measure::ms_measure == nullptr)
+			measure::ms_measure.reset(new OFEC::measure(num_run, headers));
 	}
 	template<typename Individual>
 	evaluation_tag NSGAII<Individual>::run_() {
 
 		int evals = global::ms_global->m_problem->total_evaluations();
 		double IGD = CONTINOUS_CAST->get_optima().distance_to_optimal_obj(m_parent);
-
-		std::cout << evals << ", " << IGD << std::endl;
-
-		measure::ms_measure->record(global::ms_global.get(), evals, IGD, m_objcomp);
+		measure::ms_measure->record(global::ms_global.get(), evals, IGD);
 
 		// evolution
 		while (!terminating())
@@ -58,8 +60,7 @@ namespace OFEC {
 			evals = global::ms_global->m_problem->total_evaluations();
 			if (evals % (int)global::ms_arg[param_sampleFre] == 0) {
 				IGD = CONTINOUS_CAST->get_optima().distance_to_optimal_obj(m_parent);
-				std::cout << evals << ", " << IGD << std::endl;
-				measure::ms_measure->record(global::ms_global.get(), evals, IGD, m_objcomp);
+				measure::ms_measure->record(global::ms_global.get(), evals, IGD);
 			}
 		}
 		return evaluation_tag::Normal;
@@ -82,7 +83,6 @@ namespace OFEC {
 			for (size_t j = 0; j<pop_size; j++) {
 				if (k != j) {
 					std::pair<dominationship, int> result = objective_compare(m_offspring[j].get_objective(), m_offspring[k].get_objective(), global::ms_global->m_problem->opt_mode());
-					m_objcomp += result.second;
 					if (result.first == dominationship::Dominating)
 						rank_[k]++;
 					else if (result.first == dominationship::Dominated) {
@@ -244,4 +244,4 @@ namespace OFEC {
 	}
 }
 
-#endif NSGAII_H
+#endif //!NSGAII_H

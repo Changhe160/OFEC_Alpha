@@ -1,18 +1,34 @@
 #include "T_ENS.h"
+#include <iostream>
+#include <time.h>
+#include "quick_sort.h"
+#include <limits.h>
 
 namespace NDS {
-	void T_ENS(std::vector<std::vector<double>>& Population, int & Noc, std::vector<int>& te_rank, int nSort) {
+	void T_ENS(const std::vector<std::vector<double>>& Pop, std::vector<int>& te_rank, std::pair<int, int>& measurement, int nSort) {
 
-		const int N = Population.size(); //N = population size
+		std::chrono::time_point<std::chrono::system_clock> Total_start_time;
+		std::chrono::microseconds Total_time_cost;
+		Total_time_cost = Total_time_cost.zero();
+		int NumComp(0);
+		Total_start_time = std::chrono::system_clock::now();
+
+		const int N = Pop.size(); //N = population size
 		if (nSort == -1)
 			nSort = N;
-		const int M = Population[0].size(); //M = number of objectives
+		if (Pop.empty())
+			return;
+		const int M = Pop[0].size(); //M = number of objectives
 		int NoF = -1; //Number of last fronts
-		std::vector<int> FrontNo(N, 100000); //front number of each solution
+		std::vector<int> FrontNo(N, INT_MAX); //front number of each solution
 											 /*sort the population in ascending order according to the first
 											 objective value, if two solutions have the same value on the first
 											 objective value, sort them according to the next objective value*/
-		std::vector<int> rank = preSorting(Population, Noc);
+		std::vector<int> rank;
+		NumComp += quick_sort(Pop, rank, 0);
+		std::vector<std::vector<double>> Population(N);
+		for (int i = 0; i < N; ++i)
+			Population[i] = Pop[rank[i]];
 		/*the set of fronts(trees)
 		Forest[i] means the NO.of the root of the i-th tree
 		e.g., Population[Forest[i]] is the root of the i-th tree*/
@@ -38,7 +54,7 @@ namespace NDS {
 			for (size_t i = 0; i < N; ++i)
 				temp_col[i] = Population[i][j + 1];
 			std::vector<int> temp_index;
-			Noc += OFEC::quick_sort(temp_col, N, temp_index);
+			NumComp += OFEC::quick_sort(temp_col, N, temp_index);
 			std::vector<int> temp_index2(temp_index);
 			temp_index.clear();
 			OFEC::quick_sort(temp_index2, N, temp_index);
@@ -55,13 +71,14 @@ namespace NDS {
 				ORank[i][j] = temp_index[j] + 1;
 		}
 		//start the non-dominated sorting
-		while (([FrontNo]() {int temp_sum(0); for (auto x : FrontNo) if (x < 100000) temp_sum++; return temp_sum; }()) < ([](int a, int b) {return a > b ? b : a; }(nSort, N))) {
+		while (([FrontNo]() {int temp_sum(0); for (auto x : FrontNo) if (x < INT_MAX) temp_sum++; return temp_sum; }()) < ([](int a, int b) {return a > b ? b : a; }(nSort, N))) {
 			//start sorting on a new front (tree)
 			NoF++;
 			//let the first solution in the remanining population be the root of the NoF-th tree
 			std::vector<int> Remain;
+			Remain.reserve(N);
 			for (size_t i = 0; i < FrontNo.size(); ++i)
-				if (FrontNo[i] == 100000)
+				if (FrontNo[i] == INT_MAX)
 					Remain.push_back(i);
 			Forest[NoF] = Remain[0];
 			FrontNo[Remain[0]] = NoF;
@@ -81,7 +98,7 @@ namespace NDS {
 					Dominated = true;
 					int m;
 					for (m = 0; m < M - 1; ++m) {
-						Noc = Noc + 1;
+						NumComp++;
 						if (Population[p][ORank[q][m]] < Population[q][ORank[q][m]]) {
 							Dominated = false;
 							break;
@@ -142,9 +159,7 @@ namespace NDS {
 						int bro = Children[q][LeftChild[q]];
 						while (Brother[bro] < Pruning[q]) {
 							bro = Children[q][Brother[bro]];
-							//Noc++;
 						}
-						Noc++;
 						//update the "Brother" of p and the previous existent brother
 						Brother[p] = Brother[bro];
 						Brother[bro] = Pruning[q];
@@ -152,9 +167,13 @@ namespace NDS {
 				}
 			}
 		}
-		std::vector<int> FrontNo_index;
-		OFEC::quick_sort(rank, rank.size(), FrontNo_index);
+		std::vector<int> FrontNo_index(N);
+		OFEC::quick_sort(rank, N, FrontNo_index);
 		for (size_t i = 0; i < FrontNo_index.size(); ++i)
 			te_rank[i] = FrontNo[FrontNo_index[i]];
+
+		measurement.first += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
+		measurement.second += NumComp;
+
 	}
 }

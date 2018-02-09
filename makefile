@@ -4,7 +4,8 @@ CORE := core
 TOOLS := utility
 INSTANCE := instance 
 RUN := run
-MODULES   :=  $(CORE) $(TOOLS) $(INSTANCE) $(RUN)
+TEST := test
+MODULES   :=  $(CORE) $(TOOLS) $(INSTANCE) $(RUN) $(TEST)
 
 srcExt = cpp
 srcDir = $(MODULES)

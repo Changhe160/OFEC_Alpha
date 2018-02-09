@@ -7,22 +7,20 @@ It has several initial objective-space distributions of solutions.
 */
 
 #include "../random/newran.h"
-#include "../../core/definition.h"
-#include "../../core/algorithm/encoding.h"
 #include <math.h>
 #include <fstream>
-using namespace OFEC;
+#include <vector>
 
 namespace NDS {
 	class circle_distribution {
 	private:
 		const int m_obj_num;
 		const int m_data_size;
-		vector<vector<double>> m_data;
+		std::vector<std::vector<double>> m_data;
 	public:
-		circle_distribution(const int obj_num, const int data_size, random& rand) :m_obj_num(obj_num), m_data_size(data_size) {
+		circle_distribution(const int obj_num, const int data_size, OFEC::random& rand) :m_obj_num(obj_num), m_data_size(data_size) {
 			for (int i = 0; i < m_data_size;) {
-				vector<double> temp;
+				std::vector<double> temp;
 				double dis(0);
 				for (int j = 0; j < m_obj_num; j++) {
 					temp.push_back(rand.next());
@@ -35,9 +33,9 @@ namespace NDS {
 				}
 			}
 		}
-		vector<double> new_one(random& rand) {
+		std::vector<double> new_one(OFEC::random& rand) {
 			while (true) {
-				vector<double> temp;
+				std::vector<double> temp;
 				double dis(0);
 				for (int j = 0; j < m_obj_num; j++) {
 					temp.push_back(rand.next());
@@ -49,7 +47,7 @@ namespace NDS {
 			}
 		}
 		void output_file() {
-			ofstream file("e:\\Circle_distribution.csv");
+			std::ofstream file("e:\\Circle_distribution.csv");
 			for (auto& datum : m_data) {
 				for (double obj : datum) {
 					if (obj != datum.back())
@@ -57,25 +55,24 @@ namespace NDS {
 					else
 						file << obj;
 				}
-				file << endl;
+				file << std::endl;
 			}
 			file.close();
 		}
-		vector<vector<double>> get_data() { return m_data; }
+		std::vector<std::vector<double>>& get_data() { return m_data; }
 	};
 	class ellipse_distribution {
 	private:
 		const int m_obj_num;
 		const int m_data_size;
-		random rand;
-		vector<vector<double>> m_data;
+		std::vector<std::vector<double>> m_data;
 	public:
-		ellipse_distribution(const int obj_num, const int data_size) :m_obj_num(obj_num), m_data_size(data_size), rand(0.5) {
+		ellipse_distribution(const int obj_num, const int data_size, OFEC::random& rand) :m_obj_num(obj_num), m_data_size(data_size){
 			for (int i = 0; i < m_data_size;) {
-				vector<double> temp;
-				vector<double> p(2, 0);
-				vector<double> ellipse_F1(m_obj_num, 0.5);
-				vector<double> ellipse_F2(m_obj_num, 1.0);
+				std::vector<double> temp;
+				std::vector<double> p(2, 0);
+				std::vector<double> ellipse_F1(m_obj_num, 0.5);
+				std::vector<double> ellipse_F2(m_obj_num, 1.0);
 
 				for (int j = 0; j < m_obj_num; ++j) {
 					p[0] += ellipse_F1[j] * ellipse_F1[j];
@@ -97,12 +94,12 @@ namespace NDS {
 				}
 			}
 		}
-		vector<double> new_one() {
+		std::vector<double> new_one(OFEC::random& rand) {
 			while (true) {
-				vector<double> temp;
-				vector<double> p(2, 0);
-				vector<double> ellipse_F1(m_obj_num, 0.5);
-				vector<double> ellipse_F2(m_obj_num, 1.0);
+				std::vector<double> temp;
+				std::vector<double> p(2, 0);
+				std::vector<double> ellipse_F1(m_obj_num, 0.5);
+				std::vector<double> ellipse_F2(m_obj_num, 1.0);
 
 				for (int j = 0; j < m_obj_num; ++j) {
 					p[0] += ellipse_F1[j] * ellipse_F1[j];
@@ -123,7 +120,7 @@ namespace NDS {
 			}
 		}
 		void output_file() {
-			ofstream file("e:\\Ellipse_distribution.csv");
+			std::ofstream file("e:\\Ellipse_distribution.csv");
 			for (auto& datum : m_data) {
 				for (double obj : datum) {
 					if (obj != datum.back())
@@ -131,25 +128,24 @@ namespace NDS {
 					else
 						file << obj;
 				}
-				file << endl;
+				file << std::endl;
 			}
 			file.close();
 		}
-		vector<vector<double>> get_data() { return m_data; }
+		std::vector<std::vector<double>> get_data() { return m_data; }
 	};
 	class hyperbola_distribution {
 	private:
 		const int m_obj_num;
 		const int m_data_size;
-		random rand;
-		vector<vector<double>> m_data;
+		std::vector<std::vector<double>> m_data;
 	public:
-		hyperbola_distribution(const int obj_num, const int data_size) :m_obj_num(obj_num), m_data_size(data_size), rand(0.5) {
+		hyperbola_distribution(const int obj_num, const int data_size, OFEC::random& rand) :m_obj_num(obj_num), m_data_size(data_size){
 			for (int i = 0; i < m_data_size;) {
-				vector<double> temp;
-				vector<double> p(2, 0);
-				vector<double> ellipse_F1(m_obj_num, 0.3);
-				vector<double> ellipse_F2(m_obj_num, 1.0);
+				std::vector<double> temp;
+				std::vector<double> p(2, 0);
+				std::vector<double> ellipse_F1(m_obj_num, 0.3);
+				std::vector<double> ellipse_F2(m_obj_num, 1.0);
 
 				for (int j = 0; j < m_obj_num; ++j) {
 					p[0] += ellipse_F1[j] * ellipse_F1[j];
@@ -171,12 +167,12 @@ namespace NDS {
 				}
 			}
 		}
-		void update() {
+		void update(OFEC::random& rand) {
 			for (int i = 0; i < m_data_size;) {
-				vector<double> temp;
-				vector<double> p(2, 0);
-				vector<double> ellipse_F1(m_obj_num, 0.5);
-				vector<double> ellipse_F2(m_obj_num, 1.0);
+				std::vector<double> temp;
+				std::vector<double> p(2, 0);
+				std::vector<double> ellipse_F1(m_obj_num, 0.5);
+				std::vector<double> ellipse_F2(m_obj_num, 1.0);
 
 				for (int j = 0; j < m_obj_num; ++j) {
 					p[0] += ellipse_F1[j] * ellipse_F1[j];
@@ -199,7 +195,7 @@ namespace NDS {
 			}
 		}
 		void output_file() {
-			ofstream file("e:\\Hyperbola_distribution.csv");
+			std::ofstream file("e:\\Hyperbola_distribution.csv");
 			for (auto& datum : m_data) {
 				for (double obj : datum) {
 					if (obj != datum.back())
@@ -207,26 +203,25 @@ namespace NDS {
 					else
 						file << obj;
 				}
-				file << endl;
+				file << std::endl;
 			}
 			file.close();
 		}
-		vector<vector<double>> get_data() { return m_data; }
+		std::vector<std::vector<double>> get_data() { return m_data; }
 	};
 	class points_distribution {
 	private:
 		const int m_obj_num;
 		const int m_data_size;
-		random rand;
-		vector<vector<double>> m_data;
+		std::vector<std::vector<double>> m_data;
 	public:
-		points_distribution(const int obj_num, const int data_size) :m_obj_num(obj_num), m_data_size(data_size), rand(0.5) {
+		points_distribution(const int obj_num, const int data_size, OFEC::random& rand) :m_obj_num(obj_num), m_data_size(data_size){
 			for (int i = 0; i < m_data_size;) {
-				vector<double> temp;
-				vector<vector<double>> points(m_obj_num, vector<double>(m_obj_num, 0.3));
+				std::vector<double> temp;
+				std::vector<std::vector<double>> points(m_obj_num, std::vector<double>(m_obj_num, 0.3));
 				for (int j = 0; j < m_obj_num; ++j)
 					points[j][j] = 0.7;
-				vector<double> pdis(m_obj_num, 0);
+				std::vector<double> pdis(m_obj_num, 0);
 				double dis(0);
 				double maxdis(0);
 				for (int j = 0; j < m_obj_num; ++j) {
@@ -248,13 +243,13 @@ namespace NDS {
 				}
 			}
 		}
-		void update() {
+		void update(OFEC::random& rand) {
 			for (int i = 0; i < m_data_size;) {
-				vector<double> temp;
-				vector<vector<double>> points(m_obj_num, vector<double>(m_obj_num, 0.2));
+				std::vector<double> temp;
+				std::vector<std::vector<double>> points(m_obj_num, std::vector<double>(m_obj_num, 0.2));
 				for (int j = 0; j < m_obj_num; ++j)
 					points[i][i] = 0.8;
-				vector<double> pdis(m_obj_num, 0);
+				std::vector<double> pdis(m_obj_num, 0);
 				double dis(0);
 				double maxdis(0);
 				for (int j = 0; j < m_obj_num; ++j) {
@@ -277,7 +272,7 @@ namespace NDS {
 			}
 		}
 		void output_file() {
-			ofstream file("e:\\Points_distribution.csv");
+			std::ofstream file("e:\\Points_distribution.csv");
 			for (auto& datum : m_data) {
 				for (double obj : datum) {
 					if (obj != datum.back())
@@ -285,22 +280,21 @@ namespace NDS {
 					else
 						file << obj;
 				}
-				file << endl;
+				file << std::endl;
 			}
 			file.close();
 		}
-		vector<vector<double>> get_data() { return m_data; }
+		std::vector<std::vector<double>> get_data() { return m_data; }
 	};
 	class line_distribution {
 	private:
 		const int m_obj_num;
 		const int m_data_size;
-		random rand;
-		vector<vector<double>> m_data;
+		std::vector<std::vector<double>> m_data;
 	public:
-		line_distribution(const int obj_num, const int data_size) :m_obj_num(obj_num), m_data_size(data_size), rand(0.5) {
+		line_distribution(const int obj_num, const int data_size, OFEC::random& rand) :m_obj_num(obj_num), m_data_size(data_size){
 			for (int i = 0; i < m_data_size;) {
-				vector<double> temp;
+				std::vector<double> temp;
 				double dis(0);
 				for (int j = 0; j < m_obj_num; j++)
 					temp.push_back(rand.next());
@@ -312,9 +306,9 @@ namespace NDS {
 				}
 			}
 		}
-		vector<double> new_one() {
+		std::vector<double> new_one(OFEC::random& rand) {
 			while (true) {
-				vector<double> temp;
+				std::vector<double> temp;
 				double dis(0);
 				for (int j = 0; j < m_obj_num; j++)
 					temp.push_back(rand.next());
@@ -326,7 +320,7 @@ namespace NDS {
 			}
 		}
 		void output_file() {
-			ofstream file("e:\\Line_distribution.csv");
+			std::ofstream file("e:\\Line_distribution.csv");
 			for (auto& datum : m_data) {
 				for (double obj : datum) {
 					if (obj != datum.back())
@@ -334,11 +328,11 @@ namespace NDS {
 					else
 						file << obj;
 				}
-				file << endl;
+				file << std::endl;
 			}
 			file.close();
 		}
-		vector<vector<double>> get_data() { return m_data; }
+		std::vector<std::vector<double>> get_data() { return m_data; }
 	};
 }
 

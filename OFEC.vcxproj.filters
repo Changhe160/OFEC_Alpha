@@ -109,6 +109,12 @@
     <Filter Include="instance\problem\realworld">
       <UniqueIdentifier>{0f26be4e-f981-41ce-a599-dc6180e00cd6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utility\nondominated_sorting\ENS_NDT">
+      <UniqueIdentifier>{157a3115-13e8-47e4-88a8-244e9606b5e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{8eb9e77c-cd4e-4521-96f6-7e36862e455e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\algorithm\encoding.h">
@@ -267,18 +273,6 @@
     <ClInclude Include="core\measure\measure.h">
       <Filter>core\measure</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\CornerSort.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\DominanceGraphSort.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\preSorting.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\T_ENS.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
     <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ.h">
       <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
     </ClInclude>
@@ -342,22 +336,10 @@
     <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT6.h">
       <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
     </ClInclude>
-    <ClInclude Include="instance\algorithm\MOEA\NSGAII\CS_NSGAII.h">
-      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\MOEA\NSGAII\DG_NSGAII.h">
-      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\MOEA\NSGAII\DG_NSGAIIindividual.h">
-      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
-    </ClInclude>
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII.h">
       <Filter>instance\algorithm\MOEA\NSGAII</Filter>
     </ClInclude>
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAIIpopulation.h">
-      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\MOEA\NSGAII\T_ENS_NSGAII.h">
       <Filter>instance\algorithm\MOEA\NSGAII</Filter>
     </ClInclude>
     <ClInclude Include="run\initialize.h">
@@ -810,7 +792,37 @@
     <ClInclude Include="instance\problem\realworld\FParEst_FMSoundWaves.h">
       <Filter>instance\problem\realworld</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\link_sort2.h">
+    <ClInclude Include="utility\nondominated_sorting\CornerSort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\DeductiveSort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\DominanceGraphLinkSort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\FastSort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\LinkSort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\new_static_population.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\nodes_initialize.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\quick_sort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\static_population.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\T_ENS.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\YiyaSort.h">
       <Filter>utility\nondominated_sorting</Filter>
     </ClInclude>
   </ItemGroup>
@@ -953,15 +965,6 @@
     <ClCompile Include="core\measure\measure.cpp">
       <Filter>core\measure</Filter>
     </ClCompile>
-    <ClCompile Include="instance\algorithm\MOEA\NSGAII\CS_NSGAII.cpp">
-      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\algorithm\MOEA\NSGAII\DG_NSGAII.cpp">
-      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\algorithm\MOEA\NSGAII\T_ENS_NSGAII.cpp">
-      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
-    </ClCompile>
     <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ.cpp">
       <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
     </ClCompile>
@@ -1028,16 +1031,7 @@
     <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAIIpopulation.cpp">
       <Filter>instance\algorithm\MOEA\NSGAII</Filter>
     </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\CornerSort.cpp">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\T_ENS.cpp">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClCompile>
     <ClCompile Include="run\initialize.cpp">
-      <Filter>run</Filter>
-    </ClCompile>
-    <ClCompile Include="run\main.cpp">
       <Filter>run</Filter>
     </ClCompile>
     <ClCompile Include="instance\problem\continuous\global\CEC2005\composition.cpp">
@@ -1460,8 +1454,35 @@
     <ClCompile Include="instance\problem\realworld\FParEst_FMSoundWaves.cpp">
       <Filter>instance\problem\realworld</Filter>
     </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\link_sort2.cpp">
+    <ClCompile Include="utility\nondominated_sorting\CornerSort.cpp">
       <Filter>utility\nondominated_sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\DeductiveSort.cpp">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\FastSort.cpp">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\LinkSort.cpp">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\new_static_population.cpp">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\static_population.cpp">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\T_ENS.cpp">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\YiyaSort.cpp">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_core.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="run\main.cpp">
+      <Filter>run</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,3 +1,6 @@
+#define CATCH_CONFIG_RUNNER
+#include "../utility/catch.hpp"
+
 #include "initialize.h"
 
 int main(int argc, char* argv[]) {
@@ -7,7 +10,9 @@ int main(int argc, char* argv[]) {
 	OFEC::set_global_parameters(argc, argv);
 	OFEC::register_class();
 	time(&timer_start);
-	OFEC::run();
+	//OFEC::run();
+	int result = Catch::Session().run(argc, argv);
+
 	time(&timer_end);
 	std::cout << "Time used: " << difftime(timer_end, timer_start) << " seconds" << std::endl;
 

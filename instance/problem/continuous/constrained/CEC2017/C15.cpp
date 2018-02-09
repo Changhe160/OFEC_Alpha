@@ -1,5 +1,5 @@
 #include "C15.h"
-
+#include <algorithm>
 namespace OFEC {
 	namespace CEC2017 {
 		C15::C15(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \

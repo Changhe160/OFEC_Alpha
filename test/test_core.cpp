@@ -1,47 +1,22 @@
-#define BOOST_TEST_MODULE core
-#include <boost/test/unit_test.hpp>
+#include "../utility/catch.hpp"
 
 #include "../core/algorithm/individual.h"
 #include "../core/algorithm/population.h"
+#include "../instance/problem/continuous/multi_objective/DTLZ/DTLZ1.h"
 
 using namespace OFEC;
 
-BOOST_AUTO_TEST_SUITE(core_test)
-
-
-BOOST_AUTO_TEST_CASE(test_case1)
+TEST_CASE("domination relationship","[domination]")
 {
-	try {
-		THROW("helel");
-	}
-	catch (myexcept e) {
-		std::cout<<e.what();
-	}
+	global::ms_global = std::unique_ptr<global>(new global(1,0.5, 0.5));
+	DTLZ1 f1("DTLZ1", 2, 2);
 
 	std::vector<double> a = { 1,1 }, b = { 0,0 };
-	solution<> s1(b.size(), a.size());
+	solution<> s1(b, a);
 	solution<> s2(s1);
 
-	if (s1.dominate( s2)) {}
-	if (s1.dominate_equal( s2)) {}
-
-	double d = s1.objective_distance(s2);
+	REQUIRE(s1.dominate(s2) == true);
 }
 
-BOOST_AUTO_TEST_CASE(test_case2)
-{
-	individual<> i;
-	i.initialize(0);
-	population<individual<>> p;
 
-
-}
-
-BOOST_AUTO_TEST_CASE(test_case3)
-{
-
-
-}
-
-BOOST_AUTO_TEST_SUITE_END()
 
