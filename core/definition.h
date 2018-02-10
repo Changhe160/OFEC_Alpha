@@ -29,6 +29,7 @@ namespace OFEC {
 	//#define USING_FLOAT                   // elements of type float
 	//#define OFEC_DEMON
 	#define OFEC_CONSOLE
+	#define OFEC_UNIT_TEST
 
 #ifdef USING_FLOAT                      // set precision type to float
 	using real = float;

@@ -160,7 +160,7 @@ namespace OFEC {
 		}
 #ifdef OFEC_CONSOLE
 		if (global::ms_arg.find(param_sampleFre) == global::ms_arg.end()) global::ms_arg[param_sampleFre] = 2;
-		if (global::ms_arg.find(param_workingDir) == global::ms_arg.end())  global::ms_arg[param_workingDir] = std::string("./iofile/");
+		if (global::ms_arg.find(param_workingDir) == global::ms_arg.end())  global::ms_arg[param_workingDir] = std::string("./");
 #endif
 		if (global::ms_arg.find(param_dataFile1) != global::ms_arg.end())
 		{

@@ -247,3 +247,4 @@ ModelManifest.xml
 *.d
 obj/
 x64/
+results/

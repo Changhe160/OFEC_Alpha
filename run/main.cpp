@@ -7,7 +7,10 @@ int main(int argc, char* argv[]) {
 
 	time_t timer_start, timer_end;
 
-	OFEC::set_global_parameters(argc, argv);
+	#ifndef OFEC_UNIT_TEST
+		OFEC::set_global_parameters(argc, argv);
+	#endif // !OFEC_UNIT_TEST
+
 	OFEC::register_class();
 	time(&timer_start);
 	//OFEC::run();

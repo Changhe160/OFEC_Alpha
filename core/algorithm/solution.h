@@ -14,8 +14,8 @@
 *
 *-------------------------------------------------------------------------------
 * class solution is designed for any kind of user-defined solution representation. 
-* It takes a variable encoding, an objective value type, an objective compaison 
-* method, and an objecitve distance method as parameters to generate a solution.
+* It takes a variable encoding and an objective value type as parameters to generate
+* a solution.
 *
 *********************************************************************************/
 
