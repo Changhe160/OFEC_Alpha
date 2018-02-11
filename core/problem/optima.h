@@ -116,7 +116,7 @@ namespace OFEC {
 		}
 
 		template<typename Solution>
-		bool is_optimal_variable(const Solution &s, double epsilon) {
+		bool is_optimal_variable(const Solution &s, double epsilon) { // call this method if locations of targets in decision space are known
 			bool flag = false;
 			for (auto &i : m_var) {
 				if (i.second) continue;
@@ -129,7 +129,24 @@ namespace OFEC {
 		}
 
 		template<typename Solution>
-		bool is_optimal_objective(const Solution &s, double epsilon) {
+		bool is_optimal_objective(const Solution &s, double epsilon_obj, double epsilon_var) { // call this method for multi-modal opt. problems with unknown locations
+			for (size_t i = 0; i < m_obj.size(); ++i) {
+				if (m_obj[i].second) continue;
+				double dis_obj = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), m_obj[i].first.begin());
+				if (dis_obj <= epsilon_obj) { // check objective first, then check location
+					for (size_t j = 0; j < m_var.size(); ++j) {
+						if (s.variable_distance(m_var[j].first) <= epsilon_var) return false;
+					}
+					m_obj[i].second = true;
+					m_var.push_back(std::make_pair(s.get_variable(), true));
+					return true;
+				}
+			}
+			return false;
+		}
+
+		template<typename Solution>
+		bool is_optimal_objective(const Solution &s, double epsilon) {// call this method for multi-objective opt. problems
 			bool flag = false;
 			for (auto &i : m_obj) {
 				if (i.second) continue;
@@ -142,7 +159,7 @@ namespace OFEC {
 			return flag;
 		}
 
-		bool is_optimal_objective(const std::vector<objective_type> &o, double epsilon) {
+		bool is_optimal_objective(const std::vector<objective_type> &o, double epsilon) {  
 			bool flag = false;
 			for (auto &i : m_obj) {
 				if (i.second) continue;
@@ -155,19 +172,13 @@ namespace OFEC {
 			return flag;
 		}
 
-		bool is_optimal_objective(const objective_type &o, double epsilon) { // single objective optimization problem
-			if (m_obj[0].second) return true;
-
-			return m_obj[0].second = fabs(m_obj[0].first[0] - o) <= epsilon;
-		}
-
-		bool is_variable_found() {
+		bool is_variable_found() const {
 			for (auto &i : m_var) {
 				if (!i.second) return false;
 			}
 			return true;
 		}
-		bool is_objective_found() {
+		bool is_objective_found() const {
 			for (auto &i : m_obj) {
 				if (!i.second) return false;
 			}
@@ -177,6 +188,18 @@ namespace OFEC {
 			m_var.clear();
 			m_obj.clear();
 			m_number_var = 0;
+		}
+		int num_variable_found() const {
+			int count = 0;
+			for (auto &i : m_var)
+				if (i.second) ++count;
+			return count;
+		}
+		int num_objective_found() const {
+			int count = 0;
+			for (auto &i : m_obj)
+				if (i.second) ++count;
+			return count;
 		}
 	private:
 		std::vector<std::pair<variable_encoding, bool>> m_var;
