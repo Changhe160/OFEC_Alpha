@@ -11,16 +11,16 @@
 *  Foundation; either version 2, or (at your option) any later version.
 *************************************************************************/
 
-#include "FParEst_FMSoundWaves.h"
+#include "par_est_FM_sound_waves.h"
 namespace OFEC {
-	FParEst_FMSoundWaves::FParEst_FMSoundWaves(param_map &v) :problem((v[param_proName]), 6, 1), \
+	par_est_FM_sound_waves::par_est_FM_sound_waves(param_map &v) :problem((v[param_proName]), 6, 1), \
 		function((v[param_proName]), 6, 1) {
 		set_range(-6.4, 6.35);
 		set_init_range(-6.4, 6.35);
 		initialize();
 
 	}
-	FParEst_FMSoundWaves::FParEst_FMSoundWaves(const std::string &name, size_t size_var, size_t size_obj) :problem(name, 6, 1), \
+	par_est_FM_sound_waves::par_est_FM_sound_waves(const std::string &name, size_t size_var, size_t size_obj) :problem(name, 6, 1), \
 		function(name, 6, 1) {
 		set_range(-6.4, 6.35);
 		set_init_range(-6.4, 6.35);
@@ -28,7 +28,7 @@ namespace OFEC {
 	}
 
 
-	void FParEst_FMSoundWaves::initialize() {
+	void par_est_FM_sound_waves::initialize() {
 		std::vector<real> v(m_variable_size);
 		v[0] = 1.0; v[1] = 5.0; v[2] = 1.5; v[3] = 4.8; v[4] = 2.0; v[5] = 4.9;
 
@@ -36,7 +36,7 @@ namespace OFEC {
 		m_optima = m_original_optima;
 	}
 
-	void FParEst_FMSoundWaves::evaluate__(real *x, std::vector<real>& obj) {
+	void par_est_FM_sound_waves::evaluate__(real *x, std::vector<real>& obj) {
 
 		double theta = 2 * OFEC_PI / 100.;
 		real s = 0, t;

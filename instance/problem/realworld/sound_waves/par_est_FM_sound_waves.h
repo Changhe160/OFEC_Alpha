@@ -26,13 +26,13 @@ S.~Das and P.~N. Suganthan, ``Problem definitions and evaluation criteria for
 #ifndef OFEC_FPAREST_FMSOUNDWAVES_H
 #define OFEC_FPAREST_FMSOUNDWAVES_H
 
-#include "../../../core/problem/continuous/function.h"
+#include "../../../../core/problem/continuous/function.h"
 namespace OFEC {
-	class FParEst_FMSoundWaves : public function
+	class par_est_FM_sound_waves : public function
 	{
 	public:
-		FParEst_FMSoundWaves(param_map &v);
-		FParEst_FMSoundWaves(const std::string &name, size_t size_var, size_t size_obj);
+		par_est_FM_sound_waves(param_map &v);
+		par_est_FM_sound_waves(const std::string &name, size_t size_var, size_t size_obj);
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

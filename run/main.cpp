@@ -11,7 +11,8 @@ int main(int argc, char* argv[]) {
 		OFEC::set_global_parameters(argc, argv);
 	#endif // !OFEC_UNIT_TEST
 
-	OFEC::register_class();
+	OFEC::register_problem();
+	OFEC::register_algoritm();
 	time(&timer_start);
 	//OFEC::run();
 	int result = Catch::Session().run(argc, argv);

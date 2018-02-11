@@ -26,13 +26,13 @@ gears. It is to be designed that the gear ratio is as close as possible to
 #ifndef OFEC_FGEAR_TRAIN_H
 #define OFEC_FGEAR_TRAIN_H
 
-#include "../../../core/problem/continuous/function.h"
+#include "../../../../core/problem/continuous/function.h"
 namespace OFEC {
-	class FGear_Train : public function
+	class gear_train : public function
 	{
 	public:
-		FGear_Train(param_map &v);
-		FGear_Train(const std::string &name, size_t size_var, size_t size_obj);
+		gear_train(param_map &v);
+		gear_train(const std::string &name, size_t size_var, size_t size_obj);
 	protected:
 		void initialize();
 		void evaluate__(real *x, std::vector<real>& obj);

@@ -11,9 +11,9 @@
 *  Foundation; either version 2, or (at your option) any later version.
 *************************************************************************/
 
-#include "FGear_Train.h"
+#include "gear_train.h"
 namespace OFEC {
-	FGear_Train::FGear_Train(param_map &v) :problem((v[param_proName]), 4, 1), \
+	gear_train::gear_train(param_map &v) :problem((v[param_proName]), 4, 1), \
 		function((v[param_proName]), 4, 1) {
 		set_range(12, 60); 
 		set_init_range(12, 60);
@@ -21,14 +21,14 @@ namespace OFEC {
 
 	}
 
-	FGear_Train::FGear_Train(const std::string &name, size_t size_var, size_t size_obj) :problem(name, 4, 1), \
+	gear_train::gear_train(const std::string &name, size_t size_var, size_t size_obj) :problem(name, 4, 1), \
 		function(name, 4, 1) {
 		set_range(12, 60);
 		set_init_range(12, 60);
 		initialize();
 	}
 
-	void FGear_Train::initialize() {
+	void gear_train::initialize() {
 		std::vector<real> v(m_variable_size, 0);
 		v[0] = 15; v[1] = 20; v[2] = 57; v[3] = 59;
 
@@ -37,7 +37,7 @@ namespace OFEC {
 	}
 
 
-	void FGear_Train::evaluate__(real *x, std::vector<real>& obj) {
+	void gear_train::evaluate__(real *x, std::vector<real>& obj) {
 
 		int x1, x2, x3, x4;
 		real s;

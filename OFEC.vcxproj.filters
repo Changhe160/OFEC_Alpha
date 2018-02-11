@@ -115,6 +115,15 @@
     <Filter Include="test">
       <UniqueIdentifier>{8eb9e77c-cd4e-4521-96f6-7e36862e455e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="instance\problem\realworld\gear_train">
+      <UniqueIdentifier>{90e57348-abc6-45d2-8d74-3cbfa785aab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\realworld\sound_waves">
+      <UniqueIdentifier>{fa3cc4a4-d6ad-4cc4-9005-1c33f446faf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\global\CEC2015">
+      <UniqueIdentifier>{5da47b23-e76e-4d69-9df0-28c102cea28f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\algorithm\encoding.h">
@@ -786,12 +795,6 @@
     <ClInclude Include="run\include_problem.h">
       <Filter>run</Filter>
     </ClInclude>
-    <ClInclude Include="instance\problem\realworld\FGear_Train.h">
-      <Filter>instance\problem\realworld</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\realworld\FParEst_FMSoundWaves.h">
-      <Filter>instance\problem\realworld</Filter>
-    </ClInclude>
     <ClInclude Include="utility\nondominated_sorting\CornerSort.h">
       <Filter>utility\nondominated_sorting</Filter>
     </ClInclude>
@@ -824,6 +827,57 @@
     </ClInclude>
     <ClInclude Include="utility\nondominated_sorting\YiyaSort.h">
       <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\gear_train\gear_train.h">
+      <Filter>instance\problem\realworld\gear_train</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\sound_waves\par_est_FM_sound_waves.h">
+      <Filter>instance\problem\realworld\sound_waves</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F1_R_elliptic.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F2_R_cigar.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F3_SR_ackley.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F4_SR_rastrigin.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F5_SR_schwefel.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F6_hybrid1.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F7_hybrid2.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F8_hybrid3.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F9_global_composition1.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F10_global_composition2.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F11_global_composition3.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F12_global_composition4.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F13_global_composition5.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F14_global_composition6.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\global\CEC2015\F15_global_composition7.h">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1448,12 +1502,6 @@
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F15_composition2015_C7.cpp">
       <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
     </ClCompile>
-    <ClCompile Include="instance\problem\realworld\FGear_Train.cpp">
-      <Filter>instance\problem\realworld</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\FParEst_FMSoundWaves.cpp">
-      <Filter>instance\problem\realworld</Filter>
-    </ClCompile>
     <ClCompile Include="utility\nondominated_sorting\CornerSort.cpp">
       <Filter>utility\nondominated_sorting</Filter>
     </ClCompile>
@@ -1483,6 +1531,57 @@
     </ClCompile>
     <ClCompile Include="run\main.cpp">
       <Filter>run</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\gear_train\gear_train.cpp">
+      <Filter>instance\problem\realworld\gear_train</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\sound_waves\par_est_FM_sound_waves.cpp">
+      <Filter>instance\problem\realworld\sound_waves</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F1_R_elliptic.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F2_R_cigar.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F3_SR_ackley.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F4_SR_rastrigin.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F5_SR_schwefel.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F6_hybrid1.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F7_hybrid2.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F8_hybrid3.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F9_global_composition1.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F10_global_composition2.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F11_global_composition3.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F12_global_composition4.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F13_global_composition5.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F14_global_composition6.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\global\CEC2015\F15_global_composition7.cpp">
+      <Filter>instance\problem\continuous\global\CEC2015</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
