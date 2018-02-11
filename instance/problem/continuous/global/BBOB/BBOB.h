@@ -79,5 +79,29 @@ namespace OFEC {
 
 	};
 	int compare_doubles(const void *a, const void *b);
+	using BBOB_F1 = BBOB;
+	using BBOB_F2 = BBOB;
+	using BBOB_F3 = BBOB;
+	using BBOB_F4 = BBOB;
+	using BBOB_F5 = BBOB;
+	using BBOB_F6 = BBOB;
+	using BBOB_F7 = BBOB;
+	using BBOB_F8 = BBOB;
+	using BBOB_F9 = BBOB;
+	using BBOB_F10 = BBOB;
+	using BBOB_F11 = BBOB;
+	using BBOB_F12 = BBOB;
+	using BBOB_F13 = BBOB;
+	using BBOB_F14 = BBOB;
+	using BBOB_F15 = BBOB;
+	using BBOB_F16 = BBOB;
+	using BBOB_F17 = BBOB;
+	using BBOB_F18 = BBOB;
+	using BBOB_F19 = BBOB;
+	using BBOB_F20 = BBOB;
+	using BBOB_F21 = BBOB;
+	using BBOB_F22 = BBOB;
+	using BBOB_F23 = BBOB;
+	using BBOB_F24 = BBOB;
 }
 #endif // !OFEC_BBOB_H

@@ -25,7 +25,7 @@ namespace OFEC {
 	}
 
 	void rotated_rosenbrock::initialize() {
-
+		set_condition_number(1);
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");
 		m_optima.clear();
 		set_global_opt();

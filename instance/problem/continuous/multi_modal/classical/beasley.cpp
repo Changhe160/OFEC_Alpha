@@ -29,21 +29,22 @@ namespace OFEC {
 
 		v[param_numDim] = 1;
 		set_range(0, 1.); // note
-		set_init_range(0, 1);
+		set_init_range(0, 1.);
 		initialize();
 	}
 	beasley::beasley(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 		set_range(0, 1.); // note
-		set_init_range(0, 1);
+		set_init_range(0, 1.);
 		initialize();
 	}
 
 	void beasley::initialize() { // note
 		m_opt_mode[0] = optimization_mode::Maximization;
 
-		m_original_optima.set_number_variable(5); //1 gopt+ 4 lopt
-		m_variable_accuracy = 0.1;
+		//m_original_optima.set_number_variable(5); //1 gopt+ 4 lopt
+		m_variable_monitor = true;
+		m_variable_accuracy = 0.01;
 		m_objective_accuracy = 1.e-6;
 		std::vector<std::vector<real>> var_data = { {0.08}, {0.25}, {0.45}, {0.68}, {0.93} };
 		for (auto &i : var_data) {
@@ -51,7 +52,7 @@ namespace OFEC {
 		}
 		m_optima = m_original_optima;
 		add_tag(problem_tag::MMP);
-		//setObjSet();
+	
 	}
 	void beasley::evaluate__(real *x, std::vector<real>& obj) {
 
