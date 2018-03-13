@@ -455,12 +455,12 @@ namespace OFEC {
 			if (effective_fes)		m_effective_eval++;
 
 			if (m_variable_monitor) {
-				m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_variable_accuracy);
+				m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_optima_found, m_variable_accuracy);
 				if (m_optima.is_variable_found())
 					m_solved = true;
 			}
 			if (m_objective_monitor) {
-				m_optima.is_optimal_objective(obj, m_objective_accuracy);
+				m_optima.is_optimal_objective(dynamic_cast<solution<variable<real>, real> &>(s), m_optima_found, m_objective_accuracy, m_variable_accuracy);
 				if (m_optima.is_objective_found())
 					m_solved = true;
 			}

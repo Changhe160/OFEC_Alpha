@@ -68,7 +68,7 @@ namespace OFEC {
 				tag = m_pop[it->second]->select();
 				if (m_seed[i] != it->second) {
 					if (m_pop[m_seed[i]]->equal(*m_pop[it->second])) {
-						for (int k = 0; k < GET_NUM_DIM; k++) {
+						for (int k = 0; k < GET_NUM_DIM; ++k) {
 							l = CONTINOUS_CAST->get_domain().range(k).limit.first;
 							u = CONTINOUS_CAST->get_domain().range(k).limit.second;
 
@@ -110,14 +110,19 @@ namespace OFEC {
 			//std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error << ' ' << std::endl;
 			
 			//g_mutexStream.unlock();
-			//measure::ms_measure->record(global::ms_global.get(), m_iter, num_opt_found);
+			measure::ms_measure->record(global::ms_global.get(), m_iter, num_opt_found);
 			tag = evolve();
 			
 		}
 	
 		//measure::ms_measure->record(global::ms_global.get(), m_iter, CONTINOUS_CAST->get_optima().num_optima_found());
-		//std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << CONTINOUS_CAST->get_optima().num_optima_found() << std::endl;
-		//std::cout << CONTINOUS_CAST->get_optima().number_variable() << std::endl;
+
+		// output objective found
+		CONTINOUS_CAST->get_optima_found().update_objective<solution<>>();
+		for(size_t i=0;i<CONTINOUS_CAST->get_optima_found().num_optima_found();++i)
+			if(CONTINOUS_CAST->get_optima_found().objective_flag(i))
+				std::cout << i+1 << " " << CONTINOUS_CAST->get_optima_found().single_objective(i) << " " << std::endl;
+		
 		return tag;
 	}
 }

@@ -44,12 +44,17 @@ namespace OFEC {
 		m_objective_accuracy = 1.e-4;
 		m_variable_accuracy = 0.2;
 
-		//m_original_optima.resize_variable_set((int)pow(6, m_variable_size));
-		std::vector<std::vector<real>> obj_data((int)pow(6, m_variable_size), std::vector<real>(m_objective_size, 1));
+		size_t num_solution = pow(6, m_variable_size);
+		
+		std::vector<std::vector<real>> obj_data((int)num_solution, std::vector<real>(m_objective_size, 1));
 		for (auto &i : obj_data)
 			m_original_optima.append(i);
 		m_optima = m_original_optima;
-		
+		// allocated memory for m_optima_found
+		variable<real> init(m_variable_size);
+		for (size_t i = 0; i < num_solution; ++i) {
+			m_optima_found.append(init);
+		}
 	}
 	void vincent::evaluate__(real *x, std::vector<real>& obj) {
 		double s = 0;

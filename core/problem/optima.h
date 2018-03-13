@@ -116,31 +116,35 @@ namespace OFEC {
 		}
 
 		template<typename Solution>
-		bool is_optimal_variable(const Solution &s, double epsilon) {
+		bool is_optimal_variable(const Solution &s, optima &opt_found, double epsilon) {
 			bool flag = false;
-			for (auto &i : m_var) {
-				if (i.second) continue;
-				if (s.variable_distance(i.first) <= epsilon) {
-					i.second = true;
+			for (size_t i = 0; i < m_var.size(); ++i) {
+				if (m_var[i].second) continue;
+				if (s.variable_distance(m_var[i].first) <= epsilon) {
+					m_var[i].second = true;
 					flag = true;
+					opt_found.set_variable(s.get_variable(), i);   // record the variable found
+					opt_found.m_var[i].second = true;
 				}
 			}
 			return flag;
 		}
 
 		template<typename Solution>
-		bool is_optimal_objective(const Solution &s, double epsilon_obj, double epsilon_var) {
+		bool is_optimal_objective(const Solution &s, optima &opt_found, double epsilon_obj, double epsilon_var) {
 			for (size_t i = 0; i < m_obj.size(); ++i) {
 				if (m_obj[i].second) continue;
 				double dis_obj = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), m_obj[i].first.begin());
 				if (dis_obj <= epsilon_obj) {
 					for (size_t j = 0; j < m_obj.size(); ++j) {
 						if (m_obj[j].second && euclidean_distance(m_obj[j].first.begin(), m_obj[j].first.end(), m_obj[i].first.begin()) <= epsilon_obj &&
-							s.variable_distance(m_var[j].first) <= epsilon_var)
+							s.variable_distance(opt_found.variable(j)) <= epsilon_var)
 							return false;				
 					}
 					m_obj[i].second = true;
-					append(s.get_variable());
+					
+					opt_found.set_variable(s.get_variable(), i);  // record the variable found
+					opt_found.m_var[i].second = true;
 					return true;
 				}
 			}
@@ -189,6 +193,24 @@ namespace OFEC {
 			else if(dynamic_cast<continuous*>(global::ms_global->m_problem.get())->objective_monitor())
 				return num_objective_found();
 			else throw myexcept("No monitor!");
+		}
+		template<typename Solution>
+		void update_objective() {
+			//resize_objective_set(m_number_var);
+			for (size_t i = 0; i < m_number_var; ++i) {
+				if (!(m_var[i].second)) continue;
+				objective<ObjetiveType> temp_obj(GET_NUM_OBJ);
+				Solution temp(m_var[i].first, temp_obj);
+				global::ms_global->m_problem.get()->evaluate_(temp, caller::Problem, false, false);
+				append(temp.get_objective());
+				m_obj[i].second = true;
+			}
+		}
+		const bool variable_flag(size_t i)const {
+			return m_var[i].second;
+		}
+		const bool objective_flag(size_t i)const {
+			return m_obj[i].second;
 		}
 	protected:
 		int num_variable_found() const {
