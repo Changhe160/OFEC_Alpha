@@ -22,7 +22,8 @@ namespace OFEC {
 			m_opt_mode[0] = optimization_mode::Maximization;
 			m_variable_accuracy = 0.01;
 			m_objective_accuracy = 1.e-4;
-			m_original_optima.set_number_variable(2);
+			m_objective_monitor = true;
+			
 			std::vector<std::vector<real>> obj_data(2, std::vector<real>(1, 200));
 			for (auto &i : obj_data) {
 				m_original_optima.append(i[0]);

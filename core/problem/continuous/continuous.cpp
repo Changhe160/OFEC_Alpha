@@ -169,12 +169,7 @@ namespace OFEC {
 		}
 		return evaluation_tag::Normal;
 	}
-	void continuous::set_objective_monitor_true() {
-		m_objective_monitor = true;
-	}
-	void continuous::set_variable_monitor_true() {
-		m_variable_monitor = true;
-	}
+	
 	bool continuous::objective_monitor() const {
 		return m_objective_monitor;
 	}

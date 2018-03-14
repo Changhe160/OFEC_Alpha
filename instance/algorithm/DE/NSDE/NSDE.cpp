@@ -118,7 +118,6 @@ namespace OFEC {
 		//measure::ms_measure->record(global::ms_global.get(), m_iter, CONTINOUS_CAST->get_optima().num_optima_found());
 
 		// output objective found
-		CONTINOUS_CAST->get_optima_found().update_objective<solution<>>();
 		for(size_t i=0;i<CONTINOUS_CAST->get_optima_found().num_optima_found();++i)
 			if(CONTINOUS_CAST->get_optima_found().objective_flag(i))
 				std::cout << i+1 << " " << CONTINOUS_CAST->get_optima_found().single_objective(i) << " " << std::endl;

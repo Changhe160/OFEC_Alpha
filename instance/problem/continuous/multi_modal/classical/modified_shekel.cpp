@@ -36,6 +36,7 @@ namespace OFEC {
 		double a[8][5] = { 4,4,6.3,4,4,1,1,8.5,1,1,6,6,9.1,6,6,3.5,7.5,4,9,4,5,5,3,3,9,9.1,8.2,2,3,9,1.5,9.3,7.4,3,9,7.8,2.2,5.3,9,3 };
 		double c[8] = { 0.1,0.2,0.4,0.15,0.6,0.2,0.06,0.18 };
 		std::copy(c, c + 8, m_c);
+		m_variable_monitor = true;
 		for (size_t i = 0; i < 8; ++i) std::copy(a[i], a[i] + 5, m_a[i]);
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.2;

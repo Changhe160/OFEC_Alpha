@@ -49,7 +49,7 @@ namespace OFEC {
 	void FIBA::initialize() {
 		set_para();
 
-		m_original_optima.set_number_variable(4);
+		m_variable_monitor = true;
 		m_variable_accuracy = 1.e-6;
 
 
@@ -70,7 +70,7 @@ namespace OFEC {
 
 		m_optima = m_original_optima;
 		add_tag(problem_tag::MMP);
-		//setObjSet();
+		
 	}
 	void FIBA::evaluate__(real *x, std::vector<real>& obj) {
 

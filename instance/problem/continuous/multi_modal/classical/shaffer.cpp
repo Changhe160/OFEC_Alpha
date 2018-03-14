@@ -34,9 +34,9 @@ namespace OFEC {
 	void shaffer::initialize() {
 		m_variable_accuracy = 1.e-6;
 		m_objective_accuracy = 0.1;
+		m_variable_monitor = true;
 		m_opt_mode[0] = optimization_mode::Maximization;
 
-		m_original_optima.set_number_variable(1);
 		std::vector<real> var_data = { 0.0, 0.0 };
 		set_original_global_opt(var_data.data());
 

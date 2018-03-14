@@ -38,7 +38,7 @@ namespace OFEC {
 
 		m_variable_accuracy = 1.e-4;
 		m_objective_accuracy = 0.1;
-
+		m_variable_monitor = true;
 		// 2gopt+ 4 lopt
 		std::vector<std::vector<real>> var_data = { {-0.089842, 0.712656 }, {0.712656, -0.712656}, {-1.70361, 0.796084}, {1.70361, -0.796084}, {-1.6071,-0.56865}, {1.6071, 0.56865} };
 

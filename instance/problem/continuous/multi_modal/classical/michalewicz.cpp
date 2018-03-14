@@ -19,9 +19,10 @@ namespace OFEC {
 		set_init_range(0, OFEC_PI);
 		m_variable_accuracy = 1.e-3;
 		m_objective_accuracy = 0.2;
+		m_variable_monitor = true;
 		m_opt_mode[0] = optimization_mode::Maximization;
 
-		m_original_optima.set_number_variable(2); //1 gopt + 1 lopt
+		 //1 gopt + 1 lopt
 		std::vector<std::vector<real>> var_data = { { 2.20291, 1.5708 },{ 2.20291, 2.71157 } };
 		for (auto &i : var_data) {
 			set_original_global_opt(i.data());
@@ -29,7 +30,7 @@ namespace OFEC {
 
 		m_optima = m_original_optima;
 		add_tag(problem_tag::MMP);
-		//setObjSet();
+		
 	}
 	void michalewicz::evaluate__(real *x, std::vector<real>& obj) {
 		double s = 0;

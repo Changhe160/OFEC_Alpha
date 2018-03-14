@@ -19,10 +19,10 @@ namespace OFEC {
 
 	void uneven_de_maxima::initialize() { // note
 		m_opt_mode[0] = optimization_mode::Maximization;
-
 		m_objective_accuracy = 0.01;
 		m_variable_accuracy = 1.e-4;
-		m_original_optima.set_number_variable(1);
+		m_objective_monitor = true;
+		
 		std::vector<std::vector<real>> obj_data(1, std::vector<real>(m_objective_size, 1.));
 		for (auto &i : obj_data)
 			m_original_optima.append(i);

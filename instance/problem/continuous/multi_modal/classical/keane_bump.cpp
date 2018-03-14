@@ -33,12 +33,12 @@ namespace OFEC {
 		initialize();
 	}
 
-	void keane_bump::initialize() {
+	void keane_bump::initialize() {  // note: no optima
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.5;
 		m_variable_accuracy = 1.e-4;
 
-		m_original_optima.set_number_variable(1);
+		//m_original_optima.set_number_variable(1);
 		m_optima = m_original_optima;
 	}
 

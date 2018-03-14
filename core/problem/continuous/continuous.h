@@ -51,8 +51,6 @@ namespace OFEC {
 		bool is_optimal_given();
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
 
-		void set_objective_monitor_true();
-		void set_variable_monitor_true();
 		bool objective_monitor() const;
 		bool variable_monitor() const;
 	protected:

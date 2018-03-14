@@ -36,7 +36,7 @@ namespace OFEC {
 		m_opt_mode[0] = optimization_mode::Maximization;
 
 		//m_original_optima.set_number_variable(5); //1 gopt + 4 lopt
-		set_variable_monitor_true();
+		m_variable_monitor = true;
 		m_objective_accuracy = 1.e-5;
 		m_variable_accuracy = 0.2;
 

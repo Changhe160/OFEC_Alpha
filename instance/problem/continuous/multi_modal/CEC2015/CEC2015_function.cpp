@@ -11,6 +11,7 @@ namespace OFEC {
 			m_variable_accuracy = 0.01;
 			m_objective_accuracy = 1.e-4;
 			set_condition_number(1.0);
+			m_variable_monitor = true;
 		}
 		
 		bool CEC2015_function::load_translation(const std::string &path) {

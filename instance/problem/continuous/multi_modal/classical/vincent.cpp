@@ -40,7 +40,7 @@ namespace OFEC {
 	void vincent::initialize() { // note
 		add_tag(problem_tag::MMP);
 		m_opt_mode[0] = optimization_mode::Maximization;  // note
-		set_objective_monitor_true();
+		m_objective_monitor = true;
 		m_objective_accuracy = 1.e-4;
 		m_variable_accuracy = 0.2;
 
@@ -50,11 +50,7 @@ namespace OFEC {
 		for (auto &i : obj_data)
 			m_original_optima.append(i);
 		m_optima = m_original_optima;
-		// allocated memory for m_optima_found
-		variable<real> init(m_variable_size);
-		for (size_t i = 0; i < num_solution; ++i) {
-			m_optima_found.append(init);
-		}
+		
 	}
 	void vincent::evaluate__(real *x, std::vector<real>& obj) {
 		double s = 0;

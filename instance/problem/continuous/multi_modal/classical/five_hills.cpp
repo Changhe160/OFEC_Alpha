@@ -43,8 +43,8 @@ namespace OFEC {
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.2;
 		m_variable_accuracy = 1.e-5;
-
-		m_original_optima.set_number_variable(5); //1 gopt + 4 lopt
+		m_variable_monitor = true;
+		 //1 gopt + 4 lopt
 
 		std::ifstream in;
 		std::stringstream ss;

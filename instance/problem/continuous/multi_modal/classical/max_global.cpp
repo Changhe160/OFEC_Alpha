@@ -32,8 +32,8 @@ namespace OFEC {
 
 	void max_global::initialize() {
 		m_opt_mode[0] = optimization_mode::Maximization;
-
-		m_original_optima.set_number_variable(5); //5 gopt
+		m_variable_monitor = true;
+		 //5 gopt
 
 		m_objective_accuracy = 0.1;
 		m_variable_accuracy = 1.e-5;
@@ -44,7 +44,6 @@ namespace OFEC {
 
 		m_optima = m_original_optima;
 		add_tag(problem_tag::MMP);
-		//setObjSet();
 	}
 
 	void max_global::evaluate__(real *x, std::vector<real>& obj) {

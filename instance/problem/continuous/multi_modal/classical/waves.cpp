@@ -43,8 +43,8 @@ namespace OFEC {
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.15;
 		m_variable_accuracy = 1.e-3;
-
-		m_original_optima.set_number_variable(10);	//one global optimum+9 local optimum
+		m_variable_monitor = true;
+		//one global optimum+9 local optimum
 
 		std::ifstream in;
 		std::stringstream ss;

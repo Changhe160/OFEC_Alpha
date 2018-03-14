@@ -25,6 +25,7 @@ namespace OFEC {
 			m_f_bias.resize(m_num_function);
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
+			m_variable_monitor = true;
 		}
 
 		void composition_2015::set_weight(std::vector<double>& weight, const std::vector<real>&x) {

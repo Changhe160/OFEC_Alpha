@@ -88,7 +88,7 @@ namespace OFEC {
 				m_optima.append(i->get_optima().variable(0));
 				m_optima.append(0);
 			}
-
+			m_variable_monitor = true;
 			m_variable_accuracy = 1.0e-2;
 			m_objective_accuracy = 0.01;
 		}

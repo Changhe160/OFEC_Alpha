@@ -45,8 +45,8 @@ namespace OFEC {
 
 		m_objective_accuracy = 0.5;
 		m_variable_accuracy = 1.e-4;
-
-		m_original_optima.set_number_variable(2); //1 gopt + 1 lopt
+		m_variable_monitor = true;
+		 //1 gopt + 1 lopt
 		std::vector<std::vector<real>> var_data = { { 1.69714, 0.0 }, {-1.44446, 0.0 } };
 
 		for (auto &i : var_data) {
@@ -54,7 +54,7 @@ namespace OFEC {
 		}
 		m_optima = m_original_optima;
 		add_tag(problem_tag::MMP);
-		//setObjSet();
+		
 	}
 	void valleys::evaluate__(real *x, std::vector<real>& obj) {
 		double s;

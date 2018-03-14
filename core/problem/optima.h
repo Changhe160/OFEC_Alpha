@@ -123,15 +123,17 @@ namespace OFEC {
 				if (s.variable_distance(m_var[i].first) <= epsilon) {
 					m_var[i].second = true;
 					flag = true;
-					opt_found.set_variable(s.get_variable(), i);   // record the variable found
+					opt_found.append(s.get_variable());   // record the variable found
+					opt_found.append(s.get_objective());
 					opt_found.m_var[i].second = true;
+					opt_found.m_obj[i].second = true;
 				}
 			}
 			return flag;
 		}
 
 		template<typename Solution>
-		bool is_optimal_objective(const Solution &s, optima &opt_found, double epsilon_obj, double epsilon_var) {
+		bool is_optimal_objective(const Solution &s, optima &opt_found, double epsilon_obj, double epsilon_var) {  //  for multi-modal opt
 			for (size_t i = 0; i < m_obj.size(); ++i) {
 				if (m_obj[i].second) continue;
 				double dis_obj = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), m_obj[i].first.begin());
@@ -143,15 +145,17 @@ namespace OFEC {
 					}
 					m_obj[i].second = true;
 					
-					opt_found.set_variable(s.get_variable(), i);  // record the variable found
+					opt_found.append(s.get_variable());   // record the variable found
+					opt_found.append(s.get_objective());
 					opt_found.m_var[i].second = true;
+					opt_found.m_obj[i].second = true;
 					return true;
 				}
 			}
 			return false;
 		}
 
-		bool is_optimal_objective(const std::vector<objective_type> &o, double epsilon) {  // note error by zhouli
+		bool is_optimal_objective(const std::vector<objective_type> &o, double epsilon) {  // for multi-objective opt
 			bool flag = false;
 			for (auto &i : m_obj) {
 				if (i.second) continue;

@@ -41,7 +41,7 @@ namespace OFEC {
 		m_k[0] = 3; m_k[1] = 4;
 		m_objective_accuracy = 0.1;
 		m_variable_accuracy = 1.e-5;
-
+		m_variable_monitor = true;
 		std::ifstream in;
 		std::stringstream ss;
 		std::vector<std::vector<real>> var_data(12, std::vector<real>(m_variable_size));

@@ -20,9 +20,10 @@ namespace OFEC {
 		m_opt_mode[0] = optimization_mode::Minimization;
 		m_variable_accuracy = 0.01;
 		m_objective_accuracy = 1.e-4;
+		m_objective_monitor = true;
 		// 5^Dim gopt 
 		size_t num = (int)pow(5, m_variable_size);
-		m_original_optima.set_number_variable(num);
+		
 		std::vector<std::vector<real>> obj_data(num, std::vector<real>(1, 0));
 
 		for (auto &i : obj_data) {
