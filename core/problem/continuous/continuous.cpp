@@ -176,4 +176,12 @@ namespace OFEC {
 	bool continuous::variable_monitor() const {
 		return m_variable_monitor;
 	}
+
+	size_t continuous::num_optima_found() const {
+		if (m_variable_monitor)
+			return m_optima.num_variable_found();
+		else if (m_objective_monitor)
+			return m_optima.num_objective_found();
+		else throw myexcept("No monitor!");
+	}
 }

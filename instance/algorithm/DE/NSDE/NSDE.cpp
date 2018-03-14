@@ -104,7 +104,7 @@ namespace OFEC {
 			//update_best();
 			double best = problem::get_sofar_best<solution<>>(0)->get_objective()[0];
 			double error = fabs(best - gopt[0]);
-			int num_opt_found = CONTINOUS_CAST->get_optima().num_optima_found();
+			int num_opt_found = CONTINOUS_CAST->num_optima_found();
 			
 			std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error <<' '<<num_opt_found<< std::endl;
 			//std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error << ' ' << std::endl;
@@ -118,10 +118,12 @@ namespace OFEC {
 		//measure::ms_measure->record(global::ms_global.get(), m_iter, CONTINOUS_CAST->get_optima().num_optima_found());
 
 		// output objective found
-		for(size_t i=0;i<CONTINOUS_CAST->get_optima_found().num_optima_found();++i)
-			if(CONTINOUS_CAST->get_optima_found().objective_flag(i))
-				std::cout << i+1 << " " << CONTINOUS_CAST->get_optima_found().single_objective(i) << " " << std::endl;
-		
+		optima< variable<real>, real > test = CONTINOUS_CAST->get_optima_found();
+		for(size_t i=0;i<CONTINOUS_CAST->num_optima_found();++i)
+			if (CONTINOUS_CAST->get_optima_found().objective_flag(i)) {
+				std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima_found().single_objective(i) << " " << std::endl;
+				std::cout << " " << " " << CONTINOUS_CAST->get_optima_found().variable(i)[0] << " " << CONTINOUS_CAST->get_optima_found().variable(i)[1] << std::endl;
+			}
 		return tag;
 	}
 }

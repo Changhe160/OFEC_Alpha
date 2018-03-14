@@ -138,14 +138,14 @@ namespace OFEC {
 			double best = problem::get_sofar_best<solution<>>(0)->get_objective()[0];
 			double error = fabs(best - gopt[0]);
 			//std::cout << m_iter << " " << error <<" "<< m_best[0]->get_variable()[0] << " " << m_best[0]->get_variable()[1] << std::endl;
-			std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " <<CONTINOUS_CAST->get_optima().num_optima_found() << std::endl;
+			std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " <<CONTINOUS_CAST->num_optima_found() << std::endl;
 			//g_mutexStream.unlock();
 			measure::ms_measure->record(global::ms_global.get(), m_iter, error);
 			updateCR();
 			updateF();
 			tag = evolve();
 		}
-		std::cout << m_iter+1 << " " << CONTINOUS_CAST->get_optima().num_optima_found() <<std::endl;
+		std::cout << m_iter+1 << " " << CONTINOUS_CAST->num_optima_found() <<std::endl;
 		std::cout << CONTINOUS_CAST->get_optima().number_variable() << std::endl;
 		
 		return tag;

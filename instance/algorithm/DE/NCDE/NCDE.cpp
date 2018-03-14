@@ -110,7 +110,7 @@ namespace OFEC {
 			//update_best();
 			double best = problem::get_sofar_best<solution<>>(0)->get_objective()[0];
 			double error = fabs(best - gopt[0]);
-			int num_opt_found = CONTINOUS_CAST->get_optima().num_optima_found();
+			int num_opt_found = CONTINOUS_CAST->num_optima_found();
 			//std::cout << m_iter << " " << error <<" "<< m_best[0]->get_variable()[0] << " " << m_best[0]->get_variable()[1] << std::endl;
 			std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << num_opt_found << std::endl;
 			//g_mutexStream.unlock();

@@ -123,7 +123,7 @@ namespace OFEC {
 			//double error = fabs(gopt[0] - m_best[0]->get_objective()[0]); 
 			double best = problem::get_sofar_best<solution<>>(0)->get_objective()[0];
 			double error = fabs(gopt[0] - best);
-			int num_obj_found = CONTINOUS_CAST->get_optima().num_optima_found();
+			int num_obj_found = CONTINOUS_CAST->num_optima_found();
 			std::cout << m_iter << ' ' << num_obj_found << ' ' << error <<std::endl;
 			//g_mutexStream.unlock();
 			//measure::ms_measure->record(global::ms_global.get(), m_iter, num_obj_found);

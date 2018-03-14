@@ -118,6 +118,7 @@ namespace OFEC {
 		template<typename Solution>
 		bool is_optimal_variable(const Solution &s, optima &opt_found, double epsilon) {
 			bool flag = false;
+			size_t count = 0;
 			for (size_t i = 0; i < m_var.size(); ++i) {
 				if (m_var[i].second) continue;
 				if (s.variable_distance(m_var[i].first) <= epsilon) {
@@ -125,8 +126,9 @@ namespace OFEC {
 					flag = true;
 					opt_found.append(s.get_variable());   // record the variable found
 					opt_found.append(s.get_objective());
-					opt_found.m_var[i].second = true;
-					opt_found.m_obj[i].second = true;
+					size_t num = opt_found.number_variable() - 1;
+					opt_found.m_var[num].second = true;
+					opt_found.m_obj[num].second = true;
 				}
 			}
 			return flag;
@@ -134,6 +136,7 @@ namespace OFEC {
 
 		template<typename Solution>
 		bool is_optimal_objective(const Solution &s, optima &opt_found, double epsilon_obj, double epsilon_var) {  //  for multi-modal opt
+			size_t count = 0;
 			for (size_t i = 0; i < m_obj.size(); ++i) {
 				if (m_obj[i].second) continue;
 				double dis_obj = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), m_obj[i].first.begin());
@@ -147,8 +150,9 @@ namespace OFEC {
 					
 					opt_found.append(s.get_variable());   // record the variable found
 					opt_found.append(s.get_objective());
-					opt_found.m_var[i].second = true;
-					opt_found.m_obj[i].second = true;
+					size_t num = opt_found.number_variable() - 1;
+					opt_found.m_var[num].second = true;
+					opt_found.m_obj[num].second = true;
 					return true;
 				}
 			}
@@ -191,13 +195,7 @@ namespace OFEC {
 			m_obj.clear();
 			m_number_var = 0;
 		}
-		int num_optima_found() const {
-			if (dynamic_cast<continuous*>(global::ms_global->m_problem.get())->variable_monitor())
-				return num_variable_found();
-			else if(dynamic_cast<continuous*>(global::ms_global->m_problem.get())->objective_monitor())
-				return num_objective_found();
-			else throw myexcept("No monitor!");
-		}
+		
 		template<typename Solution>
 		void update_objective() {
 			//resize_objective_set(m_number_var);
@@ -216,15 +214,15 @@ namespace OFEC {
 		const bool objective_flag(size_t i)const {
 			return m_obj[i].second;
 		}
-	protected:
-		int num_variable_found() const {
-			int count = 0;
+	
+		size_t num_variable_found() const {
+			size_t count = 0;
 			for (auto &i : m_var)
 				if (i.second) ++count;
 			return count;
 		}
-		int num_objective_found() const {
-			int count = 0;
+		size_t num_objective_found() const {
+			size_t count = 0;
 			for (auto &i : m_obj)
 				if (i.second) ++count;
 			return count;

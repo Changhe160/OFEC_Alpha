@@ -32,8 +32,8 @@ namespace OFEC {
 	}
 
 	void shaffer::initialize() {
-		m_variable_accuracy = 1.e-6;
-		m_objective_accuracy = 0.1;
+		m_variable_accuracy = 0.1;
+		m_objective_accuracy = 1.e-6;
 		m_variable_monitor = true;
 		m_opt_mode[0] = optimization_mode::Maximization;
 

@@ -53,6 +53,8 @@ namespace OFEC {
 
 		bool objective_monitor() const;
 		bool variable_monitor() const;
+
+		size_t num_optima_found() const;
 	protected:
 		continuous& operator=(const continuous& rhs);
 		continuous& operator=(continuous&& rhs);
