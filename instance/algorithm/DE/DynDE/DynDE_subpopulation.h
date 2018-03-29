@@ -15,40 +15,30 @@
 *********************************************************************************/
 // updated Mar 28, 2018 by Li Zhou
 
-/*
-Paper:B. Y. Qu, P. N. Suganthan, and J. J. Liang, ¡°Differential evolution
-with neighborhood mutation for multimodal optimization,¡± IEEE Trans.
-Evol. Comput., vol. 16, no. 5, pp. 601¨C614, Oct. 2012.
-*/
-#ifndef OFEC_NSDE_H
-#define OFEC_NSDE_H
 
-
-#include "../DE_individual.h"
+#ifndef OFEC_DYNDESUBPOP_H
+#define OFEC_DYNDESUBPOP_H
+#include "DynDE_Individual.h"
 #include "../DE_population.h"
-#include <list>
-#include "../../../../core/measure/measure.h"
-
 namespace OFEC {
 	namespace DE {
-		class NSDE :public population<individual<>>
-		{
+		class DynDE;
+		class DynDE_subpopulation :public population<DynDE_individual> {
 		public:
-			NSDE(param_map &v);
-			evaluation_tag run_();
-		protected:
+			bool m_flag;
+		public:
+			friend class DynDE;
+			DynDE_subpopulation(size_t size, size_t dim);
+			void assign_type();
+
 			evaluation_tag evolve();
-			void select_subpopulation();
-			void sort();
-		protected:
-			int m_m;                                //size of neighborhood
-			std::vector<std::list<std::pair<double, int>>> m_dis;  //save individuals' distance
-			std::vector<int> m_seed;                     //best fittness of neighborhood
-			std::vector<int> m_order_list;
+		private:
+			int m_num_normal;    // the number of normal individuals of each swarm
+			int m_num_brownian;       // the number of brownian individuals of each swarm
+			int m_num_quantum;    // the number of quantum individuals of each swarm
+			double m_r_cloud; // radius of quantum swarms
+			double m_sigma;	// deviation for generation of Brownian individuals
 		};
 	}
-	using NSDE = DE::NSDE;
 }
-
-
-#endif // NSDE_H
+#endif //OFEC_DYNDESUBPOP_H

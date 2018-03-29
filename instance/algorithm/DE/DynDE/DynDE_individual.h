@@ -15,40 +15,33 @@
 *********************************************************************************/
 // updated Mar 28, 2018 by Li Zhou
 
-/*
-Paper:B. Y. Qu, P. N. Suganthan, and J. J. Liang, ¡°Differential evolution
-with neighborhood mutation for multimodal optimization,¡± IEEE Trans.
-Evol. Comput., vol. 16, no. 5, pp. 601¨C614, Oct. 2012.
-*/
-#ifndef OFEC_NSDE_H
-#define OFEC_NSDE_H
 
+#ifndef OFEC_DynDE_individual_H
+#define OFEC_DynDE_individual_H
 
 #include "../DE_individual.h"
-#include "../DE_population.h"
-#include <list>
-#include "../../../../core/measure/measure.h"
+
 
 namespace OFEC {
 	namespace DE {
-		class NSDE :public population<individual<>>
+		class DynDE_subpopulation;
+		//class DynPopDESubPop;
+		class DynDE_individual : public individual<>
 		{
+			friend class DynDE_subpopulation;
+			//friend class DynPopDESubPop;
 		public:
-			NSDE(param_map &v);
-			evaluation_tag run_();
-		protected:
-			evaluation_tag evolve();
-			void select_subpopulation();
-			void sort();
-		protected:
-			int m_m;                                //size of neighborhood
-			std::vector<std::list<std::pair<double, int>>> m_dis;  //save individuals' distance
-			std::vector<int> m_seed;                     //best fittness of neighborhood
-			std::vector<int> m_order_list;
+			enum class individual_type { TYPE_DE, TYPE_ENTROPY_DE, TYPE_QUANTUM, TYPE_BROWNIAN };
+			template<typename ... Args>
+			DynDE_individual(size_t no, Args&& ... args) : individual(no, std::forward<Args>(args)...) {}
+			DynDE_individual(const DynDE_individual & indi);
+
+			evaluation_tag brownian(const solution_type &best, double sigma);
+			evaluation_tag quantum(const solution_type &best, double r);
+			evaluation_tag entropy(double sigma);
+		private:
+			individual_type m_type;
 		};
 	}
-	using NSDE = DE::NSDE;
 }
-
-
-#endif // NSDE_H
+#endif // OFEC_DynDE_individual_H
