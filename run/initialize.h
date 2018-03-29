@@ -8,8 +8,8 @@
 namespace OFEC {
 
 	void register_paramter();
-	void register_problem_class();
-	void register_algorithm_class();
+	void register_problem();
+	void register_algorithm();
 	void set_global_parameters(int argn, char *argv[]);
 	void run();
 	int go(std::vector<int> runIds);

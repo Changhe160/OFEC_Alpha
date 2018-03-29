@@ -26,27 +26,29 @@ namespace OFEC {
     protected:
 		double m_GAratio = global::ms_arg.find(param_GAratio) == global::ms_arg.end() ? 1.0 : (int)(global::ms_arg[param_GAratio]);
 		NSGAIIpopulation<Individual> m_parent, m_offspring;
-		int m_objcomp; // Cumulative number of objective comparisons
 		int m_numrank;
 	};
 	using FNS_NSGAII = NSGAII<>;
 
 	template<typename Individual>
-	NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_objcomp(0), m_numrank(0) {
+	NSGAII<Individual>::NSGAII(param_map & v) : m_parent(v[param_popSize]), m_offspring(size_t(m_parent.size() * (1.0 + m_GAratio))), algorithm(v[param_algName]), m_numrank(0) {
 		for (size_t i = 0; i < m_parent.size(); i++) {
 			m_parent[i].evaluate();
 		}
 		set_termination(new term_max_evals(v));
+
+		//initialize measurement //
+		std::vector<std::string> headers{ "number of evaluation","IGD" };
+		int num_run = static_cast<int>(OFEC::global::ms_arg[OFEC::param_numRun]);
+		if (measure::ms_measure == nullptr)
+			measure::ms_measure.reset(new OFEC::measure(num_run, headers));
 	}
 	template<typename Individual>
 	evaluation_tag NSGAII<Individual>::run_() {
 
-		size_t evals = global::ms_global->m_problem->total_evaluations();
+		int evals = global::ms_global->m_problem->total_evaluations();
 		double IGD = CONTINOUS_CAST->get_optima().distance_to_optimal_obj(m_parent);
-
-		std::cout << evals << ", " << IGD << std::endl;
-
-		measure::ms_measure->record(global::ms_global.get(), evals, IGD, m_objcomp);
+		measure::ms_measure->record(global::ms_global.get(), evals, IGD);
 
 		// evolution
 		while (!terminating())
@@ -58,8 +60,7 @@ namespace OFEC {
 			evals = global::ms_global->m_problem->total_evaluations();
 			if (evals % (int)global::ms_arg[param_sampleFre] == 0) {
 				IGD = CONTINOUS_CAST->get_optima().distance_to_optimal_obj(m_parent);
-				std::cout << evals << ", " << IGD << std::endl;
-				measure::ms_measure->record(global::ms_global.get(), evals, IGD, m_objcomp);
+				measure::ms_measure->record(global::ms_global.get(), evals, IGD);
 			}
 		}
 		return evaluation_tag::Normal;
@@ -67,10 +68,10 @@ namespace OFEC {
 
 	template<typename Individual>
 	void NSGAII<Individual>::sort() {
-		size_t pop_size = m_offspring.size();
+		int pop_size = m_offspring.size();
 		std::vector<int> rank_(pop_size, 0);
 		std::vector<int> count(pop_size, 0);
-		std::list<std::vector<size_t> > cset(pop_size, std::vector<size_t>(pop_size));
+		std::list<std::vector<int> > cset(pop_size, std::vector<int>(pop_size));
 
 		for (size_t i = 0; i < pop_size; i++)
 		{
@@ -82,7 +83,6 @@ namespace OFEC {
 			for (size_t j = 0; j<pop_size; j++) {
 				if (k != j) {
 					std::pair<dominationship, int> result = objective_compare(m_offspring[j].get_objective(), m_offspring[k].get_objective(), global::ms_global->m_problem->opt_mode());
-					m_objcomp += result.second;
 					if (result.first == dominationship::Dominating)
 						rank_[k]++;
 					else if (result.first == dominationship::Dominated) {
@@ -109,7 +109,7 @@ namespace OFEC {
 					for (size_t j = 0; j<count[k]; j++)
 					{
 						//int id =	cset[k][j];
-						size_t id = (*i)[j];
+						int id = (*i)[j];
 						rank2[id]--;
 						stop_count++;
 					}
@@ -127,9 +127,9 @@ namespace OFEC {
 
 	template<typename Individual>
 	void NSGAII<Individual>::eval_dens() {
-		size_t numobj = global::ms_global->m_problem->objective_size();
+		int numobj = global::ms_global->m_problem->objective_size();
 		int pops = 0;  //indicate parent population size be 0
-		size_t size = m_offspring.size();
+		int size = m_offspring.size();
 		int rank = 0;
 		while (1) {
 			int count = 0;
@@ -154,24 +154,24 @@ namespace OFEC {
 		}
 
 		if (pops<m_parent.size()) {
-			std::vector<size_t> list;
+			std::vector<int> list;
 			// save the individuals in the overflowed front
 			for (size_t i = 0; i<size; i++)
 				if (m_offspring[i].rank() == rank)
 					list.push_back(i);
-			int s2 = (int)list.size();
+			int s2 = list.size();
 			std::vector<double> density(s2);
 			std::vector<double> obj(s2);
 			std::vector<int> idx(s2);
 			std::vector<int> idd(s2);
 
-			for (int i = 0; i<s2; i++) {
+			for (size_t i = 0; i<s2; i++) {
 				idx[i] = i;
 				density[i] = 0;
 			}
 
 			for (size_t j = 0; j<numobj; j++) {
-				for (int i = 0; i<s2; i++) {
+				for (size_t i = 0; i<s2; i++) {
 					idd[i] = i;
 					obj[i] = m_offspring[list[i]].get_objective()[j];
 				}
@@ -185,7 +185,7 @@ namespace OFEC {
 			idd.clear();
 			obj.clear();
 
-			int s3 = (int)m_parent.size() - pops;
+			int s3 = m_parent.size() - pops;
 
 			//gMinfastsort(density,idx,s2,s3);
 			quick_sort(density, s2, idx, true, 0, s2 - 1, s3);
@@ -204,7 +204,7 @@ namespace OFEC {
 
 	template<typename Individual>
 	void NSGAII<Individual>::evolve_mo() {
-		size_t m = m_parent.size();
+		int m = m_parent.size();
 		if (m_parent.size() % 2 != 0)
 			throw myexcept("population size should be even @NSGAII::evolve_mo()");
 		for (int n = 0; n<m_parent.size(); n += 2)
@@ -234,8 +234,8 @@ namespace OFEC {
 
 	template<typename Individual>
 	int NSGAII<Individual>::tour_selection() {
-		int p1 = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)m_parent.size());
-		int p2 = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)m_parent.size());
+		int p1 = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, m_parent.size());
+		int p2 = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, m_parent.size());
 
 		if (m_parent[p1].rank() < m_parent[p2].rank())
 			return p1;
@@ -244,4 +244,4 @@ namespace OFEC {
 	}
 }
 
-#endif NSGAII_H
+#endif //!NSGAII_H

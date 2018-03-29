@@ -219,8 +219,8 @@
 #include "../instance/problem/continuous/multi_modal/CEC2015/F15_composition2015_C7.h"
 
 /*realworld*/
-#include "../instance/problem/realworld/FGear_Train.h"
-#include "../instance/problem/realworld/FParEst_FMSoundWaves.h"
+#include "../instance/problem/realworld/gear_train/gear_train.h" 
+#include "../instance/problem/realworld/sound_waves/par_est_FM_sound_waves.h"
 #include "../instance/problem/realworld/EPANET/epanet.h"
 
 #endif // !INCLUDE_PROBLEM_H

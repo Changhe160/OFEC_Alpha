@@ -10,6 +10,8 @@
 
 #include<malloc.h>
 #include<stdlib.h>
+#include <vector>
+#include <chrono>
 
 namespace NDS{
 	struct node
@@ -26,12 +28,12 @@ namespace NDS{
 	//POP-population??obj_index-objective index??head-linked list head?? mh-the head of the mark linked list
 	//Output:cur-the index of individual with the minimal obj_index-th objective
 	//==================================================================
-	unsigned int min_obj(double **POP, unsigned int obj_index, node **head, node **mh, int *comp, int& comparisons);
+	unsigned int min_obj(const double **POP, unsigned int obj_index, node **head, node **mh, int *comp, const unsigned int m, int& NumComp);
 
 	//==================================================================
 	//void  cornerSort(double **POP,unsigned int m,unsigned int n,unsigned int *rank)
-	//POP-population??m-No. of Objectives??n-size of POP??rank-the ranking result as output
-	//==================================================================
-	void  cornerSort(double **POP, size_t m, size_t n, int *rank, int* comp, int &comparisons);
+	//POP-population  m-No. of Objectives  n-size of POP  rank-the ranking result as output
+	void  cornerSort(const double **POP, unsigned int m, unsigned int n, int *rank, int* comp, int& NumComp);
+	void CornerSort(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
 }
 #endif

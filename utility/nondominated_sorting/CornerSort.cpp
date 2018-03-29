@@ -1,7 +1,8 @@
 #include "CornerSort.h"
 
 namespace NDS {
-	unsigned int min_obj(double ** POP, unsigned int obj_index, node ** head, node ** mh, int * comp, int & comparisons) {
+	unsigned int min_obj(const double ** POP, unsigned int obj_index, node ** head, node ** mh, int * comp, const unsigned int m, int& NumComp) {
+		std::chrono::time_point<std::chrono::system_clock> start_time;
 		unsigned int i = 0, cur;
 		node *p = *mh, *q = NULL;
 		cur = p->index;
@@ -10,19 +11,58 @@ namespace NDS {
 		{
 			if (comp[obj_index] == 0) // minimization 
 			{
-				comparisons++;
+				NumComp++;
 				if (POP[p->marknext->index][obj_index] < POP[cur][obj_index])
 				{
 					cur = p->marknext->index;
 					q = p->marknext;
 				}
+				else if (POP[p->marknext->index][obj_index] == POP[cur][obj_index])
+				{
+					unsigned int i = 0;
+					while (i < m)
+					{
+						unsigned int temp_obj_index = (obj_index + i) % m;
+						NumComp++;
+						if (POP[p->marknext->index][temp_obj_index] < POP[cur][temp_obj_index]) {
+							cur = p->marknext->index;
+							q = p->marknext;
+							break;
+						}
+						else if (POP[p->marknext->index][temp_obj_index] > POP[cur][temp_obj_index]) {
+							break;
+						}
+						else
+							i++;
+					}
+				}
 			}
-			else {
-				comparisons++;
+			else 
+			{
+				NumComp++;
 				if (POP[p->marknext->index][obj_index] > POP[cur][obj_index])
 				{
 					cur = p->marknext->index;
 					q = p->marknext;
+				}
+				else if (POP[p->marknext->index][obj_index] == POP[cur][obj_index])
+				{
+					unsigned int i = 0;
+					while (i < m)
+					{
+						unsigned int temp_obj_index = (obj_index + i) % m;
+						NumComp++;
+						if (POP[p->marknext->index][temp_obj_index] > POP[cur][temp_obj_index]) {
+							cur = p->marknext->index;
+							q = p->marknext;
+							break;
+						}
+						else if (POP[p->marknext->index][temp_obj_index] < POP[cur][temp_obj_index]) {
+							break;
+						}
+						else
+							i++;
+					}
 				}
 			}
 
@@ -69,8 +109,10 @@ namespace NDS {
 		}
 		return(cur);
 	}
-	void cornerSort(double ** POP, size_t m, size_t n, int * rank, int * comp, int & comparisons) {
-		unsigned int i, j, cout = 0, markcout = 0, r = 0, cur, obj_index, flag;
+	void cornerSort(const double ** POP, unsigned int m, unsigned int n, int * rank, int * comp, int& NumComp) {
+		std::chrono::time_point<std::chrono::system_clock> start_time;
+		unsigned int i, j, cout = 0, markcout = 0, cur, obj_index, flag;
+		int r = -1;
 		node *head = NULL, *mh = NULL, *p = NULL, *newone = NULL;
 		//initialize linked list(rank and mark)
 		for (i = 0; i < n; i++)
@@ -109,7 +151,7 @@ namespace NDS {
 				for (obj_index = 0; mh != NULL&&obj_index < m; ++obj_index)
 				{
 					// find solution of the best objective obj_index among unmarked ones
-					cur = min_obj(POP, obj_index, &head, &mh, comp, comparisons);// delete it in both mark and rank linked lists
+					cur = min_obj(POP, obj_index, &head, &mh, comp, m, NumComp);// delete it in both mark and rank linked lists
 					rank[cur] = r;
 					cout++;
 					p = mh;
@@ -119,8 +161,8 @@ namespace NDS {
 						flag = 0;
 						for (j = 0; j < m; ++j)
 						{
+							NumComp++;
 							if (comp[j] == 0) {
-								comparisons++;
 								if (j != obj_index&&POP[cur][j] > POP[p->index][j])
 								{
 									flag = 1;
@@ -128,9 +170,9 @@ namespace NDS {
 								}
 							}
 							else {
-								comparisons++;
 								if (j != obj_index&&POP[cur][j] < POP[p->index][j])
 								{
+
 									flag = 1;
 									break;
 								}
@@ -162,5 +204,27 @@ namespace NDS {
 				}
 			}
 		}
+	}
+	void CornerSort(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement) {
+
+		std::chrono::time_point<std::chrono::system_clock> Total_start_time;
+		std::chrono::microseconds Total_time_cost;
+		Total_time_cost = Total_time_cost.zero();
+		int NumComp(0);
+		Total_start_time = std::chrono::system_clock::now();
+
+		const int data_size = data.size();
+		if (data_size == 0) return;
+		const int obj_num = data.front().size();
+		const double** POP = new const double*[data_size];
+		for (int i = 0; i < data_size; ++i)
+			POP[i] = data[i].data();
+		std::vector<int> cs_comp(data_size, 0);
+		NDS::cornerSort(POP, obj_num, data_size, rank.data(), cs_comp.data(), NumComp);
+		delete[] POP;
+
+		measurement.first += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
+		measurement.second += NumComp;
+
 	}
 }

@@ -5,11 +5,11 @@ namespace OFEC {
 		double betaq = 0.0;
 		if (rand <= (1.0 / alpha))
 		{
-			betaq = std::pow((rand*alpha), (1.0 / (ceta + 1.0)));
+			betaq = pow((rand*alpha), (1.0 / (ceta + 1.0)));
 		}
 		else
 		{
-			betaq = std::pow((1.0 / (2.0 - rand*alpha)), (1.0 / (ceta + 1.0)));
+			betaq = pow((1.0 / (2.0 - rand*alpha)), (1.0 / (ceta + 1.0)));
 		}
 		return betaq;
 	}
