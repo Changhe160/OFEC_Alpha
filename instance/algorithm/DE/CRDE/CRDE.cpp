@@ -60,7 +60,7 @@ namespace OFEC {
 			}
 			measure::ms_measure->record(global::ms_global.get(), m_iter, CONTINOUS_CAST->num_optima_found());
 			std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << CONTINOUS_CAST->num_optima_found() << std::endl;
-			std::cout << CONTINOUS_CAST->get_optima().number_variable() << std::endl;
+			
 			return tag;
 		}
 	}

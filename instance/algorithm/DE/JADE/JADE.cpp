@@ -147,7 +147,7 @@ namespace OFEC {
 				tag = evolve();
 			}
 			std::cout << m_iter + 1 << " " << CONTINOUS_CAST->num_optima_found() << std::endl;
-			std::cout << CONTINOUS_CAST->get_optima().number_variable() << std::endl;
+			
 
 			return tag;
 		}

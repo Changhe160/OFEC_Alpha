@@ -42,7 +42,7 @@ namespace OFEC {
 		m_objective_accuracy = 0.2;
 		m_variable_accuracy = 1.e-3;
 
-		m_original_optima.set_number_variable(8); //1 gopt+7 lopt
+		 //1 gopt+7 lopt
 		set_original_global_opt(m_a[6]);
 		for (size_t m = 0; m < 8; ++m) {
 			if (m == 6) continue;

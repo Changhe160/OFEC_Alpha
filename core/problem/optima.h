@@ -33,16 +33,12 @@ namespace OFEC {
 
 		void append(const variable_encoding &x) {
 			m_var.push_back(std::make_pair(x, false));
-			++m_number_var;
 		}
 		void append(const std::vector<objective_type> &obj) {
 			m_obj.push_back(std::make_pair(obj, false));
 		}
 		void append(const objective_type obj) {
 			m_obj.push_back(std::make_pair(std::vector<objective_type>(1, obj), false));
-		}
-		size_t number_variable() const {
-			return m_number_var;
 		}
 
 		bool variable_given() const {
@@ -51,9 +47,7 @@ namespace OFEC {
 		bool objective_given() const {
 			return !m_obj.empty();
 		}
-		void set_number_variable(size_t n) {
-			m_number_var = n;
-		}
+		
 		void resize_variable(size_t n) { // reallocate memory for each variable
 			for (auto &i : m_var) {
 				i.first.resize(n);
@@ -116,46 +110,34 @@ namespace OFEC {
 		}
 
 		template<typename Solution>
-		bool is_optimal_variable(const Solution &s, optima &opt_found, double epsilon) {
+		bool is_optimal_variable(const Solution &s, std::vector<Solution> &opt_found, double epsilon) {
 			bool flag = false;
-			size_t count = 0;
 			for (size_t i = 0; i < m_var.size(); ++i) {
 				if (m_var[i].second) continue;
 				if (s.variable_distance(m_var[i].first) <= epsilon) {
 					m_var[i].second = true;
 					flag = true;
-					opt_found.append(s.get_variable());   // record the variable found
-					opt_found.append(s.get_objective());
-					size_t num = opt_found.number_variable() - 1;
-					opt_found.m_var[num].second = true;
-					opt_found.m_obj[num].second = true;
+					opt_found.push_back(s);   // record the variable found
 				}
 			}
 			return flag;
 		}
 
 		template<typename Solution>
-		bool is_optimal_objective(const Solution &s, optima &opt_found, double epsilon_obj, double epsilon_var) {  //  for multi-modal opt
-			size_t count = 0;
-			for (size_t i = 0; i < m_obj.size(); ++i) {
-				if (m_obj[i].second) continue;
-				double dis_obj = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), m_obj[i].first.begin());
-				if (dis_obj <= epsilon_obj) {
-					for (size_t j = 0; j < m_obj.size(); ++j) {
-						if (m_obj[j].second && euclidean_distance(m_obj[j].first.begin(), m_obj[j].first.end(), m_obj[i].first.begin()) <= epsilon_obj &&
-							s.variable_distance(opt_found.variable(j)) <= epsilon_var)
-							return false;				
-					}
-					m_obj[i].second = true;
-					
-					opt_found.append(s.get_variable());   // record the variable found
-					opt_found.append(s.get_objective());
-					size_t num = opt_found.number_variable() - 1;
-					opt_found.m_var[num].second = true;
-					opt_found.m_obj[num].second = true;
-					return true;
+		bool is_optimal_objective(const Solution &s, std::vector<Solution> &opt_found, double epsilon_obj, double epsilon_var) {  //  for multi-modal opt, only for global optimal solutions
+			double dis_obj = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), m_obj[0].first.begin());
+			if (dis_obj <= epsilon_obj) {
+				for (size_t i = 0; i < opt_found.size(); ++i) {
+					if (s.variable_distance(opt_found[i]) <= epsilon_var)
+						return false;				
 				}
+				m_obj[opt_found.size()].second = true;
+					
+				opt_found.push_back(s);   // record the variable found
+	
+				return true;
 			}
+			
 			return false;
 		}
 
@@ -172,11 +154,11 @@ namespace OFEC {
 			return flag;
 		}
 
-		bool is_optimal_objective(const objective_type &o, double epsilon) { // single objective optimization problem
+		/*bool is_optimal_objective(const objective_type &o, double epsilon) { // single objective optimization problem
 			if (m_obj[0].second) return true;
 
 			return m_obj[0].second = fabs(m_obj[0].first[0] - o) <= epsilon;
-		}
+		}*/
 
 		bool is_variable_found() {
 			for (auto &i : m_var) {
@@ -193,7 +175,6 @@ namespace OFEC {
 		void clear() {
 			m_var.clear();
 			m_obj.clear();
-			m_number_var = 0;
 		}
 		
 		template<typename Solution>
@@ -227,10 +208,16 @@ namespace OFEC {
 				if (i.second) ++count;
 			return count;
 		}
+		size_t number_variable() const {
+			return m_var.size();
+		}
+		size_t number_objective() const {
+			return m_obj.size();
+		}
 	private:
 		std::vector<std::pair<variable_encoding, bool>> m_var;
 		std::vector<std::pair<std::vector<objective_type>, bool>> m_obj;
-		size_t m_number_var = 0;
+		
 	};
 
 

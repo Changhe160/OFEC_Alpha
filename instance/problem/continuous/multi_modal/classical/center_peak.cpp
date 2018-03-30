@@ -35,7 +35,7 @@ namespace OFEC {
 	void center_peak::initialize() {
 		m_opt_mode[0] = optimization_mode::Maximization;
 
-		//m_original_optima.set_number_variable(5); //1 gopt + 4 lopt
+		 //1 gopt + 4 lopt
 		m_variable_monitor = true;
 		m_objective_accuracy = 1.e-5;
 		m_variable_accuracy = 0.2;

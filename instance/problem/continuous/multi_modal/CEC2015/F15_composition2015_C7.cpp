@@ -91,7 +91,7 @@ namespace OFEC {
 			//set_bias(1300);
 		}
 
-		void F15_composition2015_C7::initialize() {
+		void F15_composition2015_C7::initialize() {   // don't set optima
 			set_function();
 			
 			load_translation("instance/problem/continuous/multi_modal/CEC2015/data/");
@@ -101,7 +101,7 @@ namespace OFEC {
 			for (auto &i : m_function)
 				i->set_scale_flag(false);
 			// 10 or 20 or 30 Dim : 1 gopt and 19 lopt 
-			m_optima.set_number_variable(20);
+			//m_optima.set_number_variable(20);
 			if (m_variable_size == 10) m_pre_opt_distance = 139;
 			else if (m_variable_size == 20) m_pre_opt_distance = 191;
 			else if (m_variable_size == 30) m_pre_opt_distance = 301;

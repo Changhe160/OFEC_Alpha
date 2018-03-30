@@ -117,7 +117,7 @@ namespace OFEC {
 	optima<variable<real>, real>& continuous::get_optima() {
 		return m_optima;
 	}
-	optima<variable<real>, real>& continuous::get_optima_found() {
+	std::vector<solution<variable<real>, real>>& continuous::get_optima_found() {
 		return m_optima_found;
 	}
 	domain<real>& continuous::get_domain() {

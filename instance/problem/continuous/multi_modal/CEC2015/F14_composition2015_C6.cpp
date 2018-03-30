@@ -71,7 +71,7 @@ namespace OFEC {
 
 		}
 
-		void F14_composition2015_C6::initialize() {
+		void F14_composition2015_C6::initialize() {  // don't set optima
 			set_function();
 			load_translation("instance/problem/continuous/multi_modal/CEC2015/data/");
 			load_rotation("instance/problem/continuous/multi_modal/CEC2015/data/");
@@ -80,7 +80,7 @@ namespace OFEC {
 			for (auto &i : m_function)
 				i->set_scale_flag(false);
 			// 10 or 20 or 30 Dim : 1 gopt and 19 lopt 
-			m_optima.set_number_variable(20);
+			//m_optima.set_number_variable(20);      
 			if (m_variable_size == 10) m_pre_opt_distance = 113;
 			else if(m_variable_size == 20) m_pre_opt_distance = 183;
 			else if(m_variable_size == 30) m_pre_opt_distance = 285;
@@ -167,7 +167,7 @@ namespace OFEC {
 		void F14_composition2015_C6::set_translation() {
 			for (int i = 0; i < m_num_function; i++)
 				for (int j = 0; j < m_variable_size; j++)
-					m_function[i]->translation()[j] = (global::ms_global->m_uniform[caller::Problem]->next() - 0.5) * 2 * 80.;;
+					m_function[i]->translation()[j] = (global::ms_global->m_uniform[caller::Problem]->next() - 0.5) * 2 * 80.;
 		}
 
 		void F14_composition2015_C6::rotate(size_t num, real *x) {
