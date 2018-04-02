@@ -117,7 +117,7 @@ namespace OFEC {
 				if (s.variable_distance(m_var[i].first) <= epsilon) {
 					m_var[i].second = true;
 					flag = true;
-					opt_found.push_back(s);   // record the variable found
+					opt_found.push_back(s);   // record the solutions found
 				}
 			}
 			return flag;
@@ -133,7 +133,7 @@ namespace OFEC {
 				}
 				m_obj[opt_found.size()].second = true;
 					
-				opt_found.push_back(s);   // record the variable found
+				opt_found.push_back(s);   // record the solutions found
 	
 				return true;
 			}
@@ -179,10 +179,10 @@ namespace OFEC {
 		
 		template<typename Solution>
 		void update_objective() {
-			//resize_objective_set(m_number_var);
-			for (size_t i = 0; i < m_number_var; ++i) {
+			size_t num_obj m_obj.size();
+			for (size_t i = 0; i < m_var.size(); ++i) {
 				if (!(m_var[i].second)) continue;
-				objective<ObjetiveType> temp_obj(GET_NUM_OBJ);
+				objective<ObjetiveType> temp_obj(num_obj);
 				Solution temp(m_var[i].first, temp_obj);
 				global::ms_global->m_problem.get()->evaluate_(temp, caller::Problem, false, false);
 				append(temp.get_objective());

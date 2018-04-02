@@ -21,7 +21,7 @@ namespace OFEC {
 		}
 
 		evaluation_tag DynDE_individual::brownian(const solution_type &best, double sigma) {
-			for (size_t i = 0; i < GET_NUM_DIM; ++i) {
+			for (size_t i = 0; i < m_var.size(); ++i) {
 				m_var[i] = (best.get_variable()[i]) + global::ms_global->m_normal[caller::Algorithm]->next_non_standard(0, sigma);
 			}
 
@@ -30,16 +30,16 @@ namespace OFEC {
 			return evaluate();
 		}
 		evaluation_tag DynDE_individual::quantum(const solution_type &best, double rcloud) {
-
-			std::vector<double> x(GET_NUM_DIM, 0);
+			size_t dim = best.get_variable().size();
+			std::vector<double> x(dim, 0);
 			double dis = 0;
-			for (size_t i = 0; i < GET_NUM_DIM; ++i) {
+			for (size_t i = 0; i < dim; ++i) {
 				x[i] = global::ms_global->m_normal[caller::Algorithm]->next();
 				dis += x[i] * x[i];
 			}
 			dis = sqrt(dis);
 			double r = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<real>(0, rcloud);
-			for (size_t i = 0; i < GET_NUM_DIM; ++i) {
+			for (size_t i = 0; i < dim; ++i) {
 				m_var[i] = (best.get_variable()[i]) + r*x[i] / dis;
 			}
 			x.clear();
@@ -47,7 +47,7 @@ namespace OFEC {
 			return evaluate();
 		}
 		evaluation_tag DynDE_individual::entropy(double sigma) {
-			for (size_t i = 0; i < GET_NUM_DIM; ++i) {
+			for (size_t i = 0; i < m_var.size(); ++i) {
 				m_var[i] = m_var[i] + global::ms_global->m_normal[caller::Algorithm]->next_non_standard(0, sigma);
 			}
 

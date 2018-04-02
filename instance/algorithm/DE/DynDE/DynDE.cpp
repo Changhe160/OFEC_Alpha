@@ -1,22 +1,8 @@
-/*************************************************************************
-* Project:Open Frameworks for Evolutionary Computation (OFEC)
-*************************************************************************
-* Author: Changhe Li
-* Email: changhe.lw@gmail.com 
-* Language: C++
-*************************************************************************
-*  This file is part of OFEC. This library is free software;
-*  you can redistribute it and/or modify it under the terms of the
-*  GNU General Public License as published by the Free Software
-*  Foundation; either version 2, or (at your option) any later version.
-*************************************************************************/
-// Created: 25 Sep. 2014
-// Last modified:
-
 #include "DynDE.h"
+
 namespace OFEC {
 	namespace DE {
-		DynDE::DynDE(param_map &v) :population(v[param_popSize], v[param_numDim]), multi_population(v[param_popSize] / v[param_subPopSize], v[param_subPopSize]), \
+		DynDE::DynDE(param_map &v) :population(v[param_popSize], v[param_numDim]), multi_population(v[param_popSize] / v[param_subPopSize], v[param_numDim], v[param_subPopSize]), \
 			m_M(v[param_popSize] / v[param_subPopSize]), m_r_excl(v[param_exlRadius]) {
 			//set_default(v);
 

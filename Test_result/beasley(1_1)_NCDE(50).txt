@@ -1,3 +1,0 @@
-Iter Num_Solution_Found
-0 4
-1 4

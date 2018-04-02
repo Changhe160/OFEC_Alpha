@@ -120,7 +120,7 @@ namespace OFEC {
 				solution_type *r5) {
 
 			real l, u;
-			for (int i = 0; i < GET_NUM_DIM; ++i) {
+			for (size_t i = 0; i < m_pv.get_variable().size(); ++i) {
 				l = CONTINOUS_CAST->range(i).first;
 				u = CONTINOUS_CAST->range(i).second;
 				m_pv.get_variable()[i] = (r1->get_variable()[i]) + F*((r2->get_variable()[i]) - (r3->get_variable()[i]));
@@ -139,9 +139,10 @@ namespace OFEC {
 		template<typename VariableEncoding = variable<real>,
 			typename ObjetiveType = real>
 			void individual<VariableEncoding, ObjetiveType>::recombine(double CR) {
-			int I = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)GET_NUM_DIM);
+			size_t dim = m_var.size();
+			int I = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)dim);
 
-			for (int i = 0; i < GET_NUM_DIM; i++) {
+			for (size_t i = 0; i < dim; ++i) {
 				double p = global::ms_global->m_uniform[caller::Algorithm]->next();
 				if (p <= CR || i == I)     m_pu.get_variable()[i] = m_pv.get_variable()[i];
 				else m_pu.get_variable()[i] = get_variable()[i];
@@ -206,7 +207,7 @@ namespace OFEC {
 		template<typename VariableEncoding = variable<real>,
 			typename ObjetiveType = real>
 			evaluation_tag individual<VariableEncoding, ObjetiveType>::select(const std::vector<int> &var, solution_type &best) {
-			int dim = GET_NUM_DIM;
+			int dim = m_var.size();
 			solution_type t(m_pu);
 			for (int i = 0, j = 0; i < dim; ++i) {
 				if (find(var.begin(), var.end(), i) == var.end()) {

@@ -69,7 +69,7 @@ namespace OFEC {
 					tag = m_pop[it->second]->select();
 					if (m_seed[i] != it->second) {
 						if (m_pop[m_seed[i]]->equal(*m_pop[it->second])) {
-							for (int k = 0; k < GET_NUM_DIM; ++k) {
+							for (size_t k = 0; k < m_pop[it->second]->get_variable().size(); ++k) {
 								l = CONTINOUS_CAST->get_domain().range(k).limit.first;
 								u = CONTINOUS_CAST->get_domain().range(k).limit.second;
 
