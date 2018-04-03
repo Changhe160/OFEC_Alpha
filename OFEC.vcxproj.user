@@ -11,7 +11,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>NT=1 NR=1 NO=1 ND=2 PN=center_peak AN=NSDE PS=50 ME=30000 SF=1</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>NT=1 NR=1 NO=1 ND=2 PN=vincent AN=DynDE PS=50 SPS=10 ME=30000 SF=1 ER=0.0 </LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

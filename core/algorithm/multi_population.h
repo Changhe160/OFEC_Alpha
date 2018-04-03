@@ -40,15 +40,39 @@ namespace OFEC {
 				i = std::move(std::unique_ptr<Population>(new Population(subsize, global::ms_global->m_problem->variable_size())));
 		}
 
-		void resize_objective(int n);
-		void resize_variable(int n);
+		void resize_objective(int n) {
+			for (auto& i : m_sub)
+				i.resize_objective(n);
+		}
+		void resize_variable(int n) {
+			for (auto& i : m_sub)
+				i.resize_variable(n);
+		}
 
-		iterator_type operator +(Population&& p);
-		iterator_type operator +(Population& p);
-		void operator- (int id);
+		iterator_type operator +(Population&& p) {
+			m_sub.emplace_back(std::move(new Population(p)));
+			return m_sub;
+		}
+		iterator_type operator +(Population& p) {
+			m_sub.emplace_back(new Population(p));
+			return m_sub;
+		}
+		void operator- (size_t id) {
+			for (size_t i = id; i < m_sub.size() - 1; ++i)
+				m_sub[i] = m_sub[i + 1];
+			m_sub.pop_back();
+		}
 
-		Population& operator[](int i);
-		const Population& operator[](int i) const;
+		Population& operator[](size_t i) {
+			return *m_sub[i];
+		}
+		const Population& operator[](size_t i) const {
+			return *m_sub[i];
+		}
+
+		const size_t& size() const{
+			return m_sub.size();
+		}
 
 		void handle_evaluation_tag_all(evaluation_tag tag){}
 		

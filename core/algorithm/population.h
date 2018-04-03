@@ -215,21 +215,61 @@ namespace OFEC {
 	}
 
 	template<typename Individual>
-	population<Individual>::population(const population &rhs) :algorithm(std::string()) {
-
+	population<Individual>::population(const population &rhs) :algorithm(std::string()), m_iter(rhs.m_iter), m_id(rhs.m_id), m_pop(rhs.m_pop),\
+	m_best(rhs.m_best), m_worst(rhs.m_worst), m_arc(rhs.m_arc), m_order(rhs.m_order), m_ordered(rhs.m_ordered), m_best_updated(rhs.m_best_updated),\
+	m_worst_updated(rhs.m_worst_updated), m_max_id(rhs.m_max_id) {
+		
 	}
 
 	template<typename Individual>
-	population<Individual>& population<Individual>::operator=(const population &rhs) {}
+	population<Individual>& population<Individual>::operator=(const population &rhs) {
+		m_iter = rhs.m_iter;
+		m_id = rhs.m_id;
+		m_pop = rhs.m_pop;
+		m_best = rhs.m_best;
+		m_worst = rhs.m_worst;
+		m_arc = rhs.m_arc;
+		m_order = rhs.m_order;
+		m_ordered = rhs.m_ordered;
+		m_best_updated = rhs.m_best_updated;
+		m_worst_updated = rhs.m_worst_updated;
+		m_max_id = rhs.m_max_id;
+		return *this;
+	}
 
 	template<typename Individual>
-	population<Individual>::population(population&&rhs) :algorithm(std::string()) {
-
+	population<Individual>::population(population&&rhs) :algorithm(std::string()), m_iter(rhs.m_iter), m_id(rhs.m_id), m_pop(std::move(rhs.m_pop)), \
+		m_best(std::move(rhs.m_best)), m_worst(std::move(rhs.m_worst)), m_arc(std::move(rhs.m_arc)), m_order(std::move(rhs.m_order)), m_ordered(rhs.m_ordered),\
+		m_best_updated(rhs.m_best_updated),	m_worst_updated(rhs.m_worst_updated), m_max_id(rhs.m_max_id) {
+		
 	}
 
 	template<typename Individual>
 	population<Individual>& population<Individual>::operator=(population&&rhs) {
+		m_iter = rhs.m_iter;
+		m_id = rhs.m_id;
+		m_pop = std::move(rhs.m_pop);
+		m_best = std::move(rhs.m_best);
+		m_worst = std::move(rhs.m_worst);
+		m_arc = std::move(rhs.m_arc);
+		m_order = std::move(rhs.m_order);
+		m_ordered = rhs.m_ordered;
+		m_best_updated = rhs.m_best_updated;
+		m_worst_updated = rhs.m_worst_updated;
+		m_max_id = rhs.m_max_id;
+		return *this;
+	}
 
+	template<typename Individual>
+	void population<Individual>::reset() {
+
+		m_iter = 0;
+		m_best.clear();
+		m_worst.clear();
+		m_pop.clear();
+		m_arc.clear();
+		m_order.clear();
+		m_ordered = false, m_best_updated = false, m_worst_updated = false;
 	}
 
 	template<typename Individual>
@@ -296,6 +336,17 @@ namespace OFEC {
 			if (tag != evaluation_tag::Normal) break;
 		}
 		return tag;
+	}
+
+	template<typename Individual>
+	void population<Individual>::resize_objective(int n) {
+		for (auto &i : m_pop)
+			i.resize_objective(n);
+	}
+	template<typename Individual>
+	void population<Individual>::resize_variable(int n) {
+		for (auto &i : m_pop)
+			i.resize_variable(n);
 	}
 }
 

@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *********************************************************************************/
-// updated Mar 28, 2018 by Li Zhou
+// updated Apr 3, 2018 by Li Zhou
 
 
 /*
@@ -27,10 +27,11 @@ of the IEEE Congress on Evolutionary Computation (CEC¡¯05), pp. 2808¨C2815. IEEE
 #include "DynDE_individual.h"
 #include "../DE_population.h"
 #include "../../../../core/algorithm/multi_population.h"
+#include "../../../../core/measure/measure.h"
 
 namespace OFEC {
 	namespace DE {
-		class DynDE : public population<DynDE_individual>, public multi_population<DynDE_subpopulation>
+		class DynDE : public population<DynDE_individual>
 		{
 		public:
 			DynDE(param_map &v);
@@ -38,9 +39,9 @@ namespace OFEC {
 			evaluation_tag run_();
 			void exclude();
 		public:
-			int m_M;        // the number of populations
+			//int m_M;        // the number of populations
 			double m_r_excl; // radius of exlusion radius
-
+			multi_population<DynDE_subpopulation> m_sub_population;
 		};
 	}
 	using DynDE = DE::DynDE;

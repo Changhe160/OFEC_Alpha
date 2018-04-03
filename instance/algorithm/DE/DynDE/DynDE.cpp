@@ -2,42 +2,27 @@
 
 namespace OFEC {
 	namespace DE {
-		DynDE::DynDE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size()), multi_population(v[param_popSize] / v[param_subPopSize], v[param_subPopSize]), \
-			m_M(v[param_popSize] / v[param_subPopSize]), m_r_excl(v[param_exlRadius]) {
+		DynDE::DynDE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size()), \
+			m_r_excl(v[param_exlRadius]), m_sub_population(v[param_popSize] / v[param_subPopSize], v[param_subPopSize]){
 			//set_default(v);
 
-			m_parameter << "M(N,Nbrownian):" << m_M << "(" << 5 << "," << 5 << "); Rexcl:" << m_r_excl << "; Rcloud:" << 0.2;
+			//m_parameter << "M(N,Nbrownian):" << m_M << "(" << 5 << "," << 5 << "); Rexcl:" << m_r_excl << "; Rcloud:" << 0.2;
 		}
 
 
 		void DynDE::set_default(param_map &v) {
-			// for global population size =100
-			if ((v[param_popSize]) == 100) m_M = 10;
-			else m_M = (v[param_popSize]) / 10;
-
-			/*double u, l;
-			int d = GET_NUM_DIM;
-			int peaks = 0;
-			if (CAST_PROBLEM_DYN)peaks = CAST_PROBLEM_DYN->getNumberofPeak();
-			else if (CAST_PROBLEM_DYN_ONEPEAK) peaks = CAST_PROBLEM_DYN_ONEPEAK->getNumPeak();
-			CAST_PROBLEM_CONT->getSearchRange(l, u, 0);
-
-
-			if ((v[param_exlRadius]) <= 0.0)
-				m_r_excl = 0.5*(u - l) / pow((double)peaks, 1. / d);
-			else m_r_excl = (v[param_exlRadius]);*/
-
+		
 		}
 
 		void DynDE::exclude() {
-			for (size_t i = 0; i < m_M; ++i) {
-				for (size_t j = i + 1; j < m_M; ++j) {
-					if (m_sub[i]->m_flag == false && m_sub[j]->m_flag == false && m_sub[i]->best()[0]->variable_distance(*m_sub[j]->best()[0]) < m_r_excl) {
-						if (m_sub[i]->best()[0]->dominate(*m_sub[j]->best()[0])) {
-							m_sub[j]->m_flag = true;
+			for (size_t i = 0; i < m_sub_population.size(); ++i) {
+				for (size_t j = i + 1; j < m_sub_population.size(); ++j) {
+					if (m_sub_population[i].m_flag == false && m_sub_population[j].m_flag == false && m_sub_population[i].best()[0]->variable_distance(*m_sub_population[j].best()[0]) < m_r_excl) {
+						if (m_sub_population[i].best()[0]->dominate(*m_sub_population[j].best()[0])) {
+							m_sub_population[j].m_flag = true;
 						}
 						else {
-							m_sub[i]->m_flag = true;
+							m_sub_population[i].m_flag = true;
 						}
 					}
 				}
@@ -46,37 +31,44 @@ namespace OFEC {
 		evaluation_tag DynDE::run_() {
 			evaluation_tag tag = evaluation_tag::Normal;
 
-
+			std::vector<double> gopt(1);
+			gopt = CONTINOUS_CAST->get_optima().multi_objective(0);
 			while (tag != evaluation_tag::Terminate) {
-				for (size_t i = 0; i < m_M; ++i) {
-					if (!m_sub[i]->m_flag)       tag = m_sub[i]->evolve();
+				double best = problem::get_sofar_best<solution<>>(0)->get_objective()[0];
+				double error = fabs(best - gopt[0]);
+				int num_opt_found = CONTINOUS_CAST->num_optima_found();
+
+				std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error << ' ' << num_opt_found << std::endl;
+				//std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error << ' ' << std::endl;
+
+				measure::ms_measure->record(global::ms_global.get(), m_iter, num_opt_found);
+
+				for (size_t i = 0; i < m_sub_population.size(); ++i) {
+					if (!m_sub_population[i].m_flag)       
+						tag = m_sub_population[i].evolve();
 
 					handle_evaluation_tag(tag);
-					handle_evaluation_tag_all(tag);
-					//HANDLE_RETURN_FLAG(rf)    //note by zhouli
 				}
 
 				if (tag == evaluation_tag::Terminate) break;
 				//exclusion
 				exclude();
 
-				for (size_t i = 0; i < m_M; ++i) {
-					//if (m_sub[i]->m_flag && (CAST_PROBLEM_DYN && !CAST_PROBLEM_DYN->predictChange(m_subPop[i]->m_popsize) || CAST_PROBLEM_DYN_ONEPEAK && !CAST_PROBLEM_DYN_ONEPEAK->predictChange(m_subPop[i]->m_popsize))) 
+				for (size_t i = 0; i < m_sub_population.size(); ++i) {
 					{
-						//cout<<"Reinitial Evals: "<<i<<" "<<Global::msp_global->mp_problem->getEvaluations()<<endl;
-						//m_subPop[i]->m_best.clear();
-						m_sub[i]->initialize();
-
-						//m_subPop[i]->printToScreen();
-						//getchar();
+						m_sub_population[i].initialize();
 					}
 					if (terminating()) break;
-					m_sub[i]->m_flag = false;
+					m_sub_population[i].m_flag = false;
 				}
-				//measureMultiPop();
-				//cout<<Global::gp_problem->getEvaluations()<<endl;
+				++m_iter;
 			}
-
+			// output objective found
+			std::vector<solution< variable<real>, real >> test = CONTINOUS_CAST->get_optima_found();
+			for (size_t i = 0; i < CONTINOUS_CAST->num_optima_found(); ++i) {
+				std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima_found()[i].get_objective()[0] << " " << std::endl;
+				std::cout << " " << " " << CONTINOUS_CAST->get_optima_found()[i].get_variable()[0] << " " << CONTINOUS_CAST->get_optima_found()[i].get_variable()[1] << std::endl;
+			}
 
 			return tag;
 
