@@ -3,7 +3,7 @@
 namespace OFEC {
 	namespace DE {
 		std::mutex m_mutex_stream;
-		CRDE::CRDE(param_map &v) :population(v[param_popSize], v[param_numDim])
+		CRDE::CRDE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size())
 		{
 			m_F = 0.5;
 			m_CR = 0.9;

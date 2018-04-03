@@ -91,9 +91,10 @@ namespace OFEC {
 		global::ms_param["param_al"] = param_alpha;
 		global::ms_param["param_ga"] = param_gamma;
 		global::ms_param["param_GS"] = param_glstrture;
+		global::ms_param["param_NSP"] = param_numSubPop;
 	}
 
-	void register_problem_class() {
+	void register_problem() {
 		RIGIESTER(problem, ZDT1, "ZDT1", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(problem, ZDT2, "ZDT2", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(problem, ZDT3, "ZDT3", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
@@ -331,16 +332,13 @@ namespace OFEC {
 		RIGIESTER(problem, CEC2015_MMP_F14, "F14_composition2015_C6", std::set<problem_tag>({ problem_tag::MMP,problem_tag::CONT }));
 		RIGIESTER(problem, CEC2015_MMP_F15, "F15_composition2015_C7", std::set<problem_tag>({ problem_tag::MMP,problem_tag::CONT }));
 		/*realworld*/
-		RIGIESTER(problem, FGear_Train, "FGear_Train", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
-		RIGIESTER(problem, FParEst_FMSoundWaves, "FParEst_FMSoundWaves", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, gear_train, "gear_Train", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
+		RIGIESTER(problem, par_est_FM_sound_waves, "par_est_FM_sound_waves", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
 		RIGIESTER(problem, epanet, "epanet", std::set<problem_tag>({ problem_tag::GOP}));
 	}
 
-	void register_algorithm_class() {
+	void register_algorithm() {
 		RIGIESTER(algorithm, FNS_NSGAII, "NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
-		RIGIESTER(algorithm, CS_NSGAII, "CS_NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
-		RIGIESTER(algorithm, DG_NSGAII, "DG_NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
-		RIGIESTER(algorithm, T_ENS_NSGAII, "T_ENS_NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::CONT }));
 		RIGIESTER(algorithm, JADE, "JADE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
 		RIGIESTER(algorithm, CRDE, "CRDE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
 		RIGIESTER(algorithm, DynDE, "DynDE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::CONT }));
@@ -348,6 +346,7 @@ namespace OFEC {
 		RIGIESTER(algorithm, NCDE, "NCDE", std::set<problem_tag>({ problem_tag::MMP,problem_tag::CONT }));
 		RIGIESTER(algorithm, NSDE, "NSDE", std::set<problem_tag>({ problem_tag::MMP,problem_tag::CONT }));
 		RIGIESTER(algorithm, SaDE, "SaDE", std::set<problem_tag>({ problem_tag::MMP,problem_tag::CONT }));
+		//RIGIESTER(algorithm, COGL, "COGL", std::set<problem_tag>({ problem_tag::MMP, problem_tag::DOP, problem_tag::LSOP}));
 	}
 
 	void set_global_parameters(int argn, char * argv[]) {
@@ -418,7 +417,7 @@ namespace OFEC {
 
 	void run() {
 		//std::vector<std::string> headers({ "Evals","IGD", "numComp" });
-		std::vector<std::string> headers({ "Iter","Num_Opt_Found"});
+		std::vector<std::string> headers({ "Iter", "NumOptFound" });
 		
 		measure::ms_measure.reset(new measure((int)(global::ms_arg[param_numRun]), headers));
 

@@ -83,7 +83,7 @@ namespace OFEC {
 		param_numParetoRegion, param_validRadius, param_radius, param_jumpHeight, param_variableRelation, param_peakShape, param_divisionMode, \
 		param_peakOffset, param_flagIrregular, param_flagAsymmetry, param_flagRotation, param_dataFile2, param_dataFile3, param_dataDirectory1, \
 		param_maxIter, param_maxSucIter, param_epsilon, param_mutationSchemeDE, param_updateSchemeProbabilityLearning, param_beta, param_alpha, param_gamma,
-		param_glstrture, param_maxRunTime, param_GAratio
+		param_glstrture, param_maxRunTime, param_GAratio, param_numSubPop
 	};
 }
 #endif // !OFEC_DEFINITION_H

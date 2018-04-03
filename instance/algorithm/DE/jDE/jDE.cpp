@@ -2,7 +2,7 @@
 
 namespace OFEC {
 	namespace DE {
-		jDE::jDE(param_map &v) :population(v[param_popSize], v[param_numDim]), \
+		jDE::jDE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size()), \
 			mv_F(v[param_popSize]), mv_CR(v[param_popSize]) {
 
 			m_t1 = 0.1;

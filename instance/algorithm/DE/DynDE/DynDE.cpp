@@ -2,7 +2,7 @@
 
 namespace OFEC {
 	namespace DE {
-		DynDE::DynDE(param_map &v) :population(v[param_popSize], v[param_numDim]), multi_population(v[param_popSize] / v[param_subPopSize], v[param_numDim], v[param_subPopSize]), \
+		DynDE::DynDE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size()), multi_population(v[param_popSize] / v[param_subPopSize], v[param_subPopSize]), \
 			m_M(v[param_popSize] / v[param_subPopSize]), m_r_excl(v[param_exlRadius]) {
 			//set_default(v);
 

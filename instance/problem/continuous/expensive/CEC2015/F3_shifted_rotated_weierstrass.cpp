@@ -14,7 +14,7 @@ namespace OFEC {
 		}
 
 		void F3_shifted_rotated_weierstrass::initialize() {
-
+			m_variable_monitor = true;
 			set_bias(300);
 
 			load_translation("instance/problem/continuous/expensive/CEC2015/data/");  //data path

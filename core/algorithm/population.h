@@ -288,6 +288,15 @@ namespace OFEC {
 		return index;
 	}
 
+	template<typename Individual>
+	evaluation_tag population<Individual>::evaluate() {
+		evaluation_tag tag = evaluation_tag::Normal;
+		for (auto &i : m_pop) {
+			tag = i->evaluate();
+			if (tag != evaluation_tag::Normal) break;
+		}
+		return tag;
+	}
 }
 
 #endif // !OFEC_POPULATION_H

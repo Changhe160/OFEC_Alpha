@@ -2,7 +2,7 @@
 
 namespace OFEC {
 	namespace DE {
-		NCDE::NCDE(param_map &v) : population(v[param_popSize], v[param_numDim]), \
+		NCDE::NCDE(param_map &v) : population(v[param_popSize], global::ms_global->m_problem->variable_size()), \
 			m_dis(v[param_popSize])  \
 		{
 			m_r = 0.1;

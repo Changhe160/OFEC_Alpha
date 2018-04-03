@@ -131,25 +131,26 @@
 #define EN_SAVE         1
 #define EN_INITFLOW     10  /* Re-initialize flow flag   */
 
-#define m_totalDuration  (24 * 60 * 60)    // set time pattern, is integer multiple of m_patternStep
-#define m_qualityTimeStep  (5 * 60)
-#define m_patternStep (10 * 60)
-#define m_tc (m_totalDuration/m_qualityTimeStep)
-#define m_TS 24
-#define m_setPatternNum (m_totalDuration/m_patternStep)
+//#define m_totalDuration  (24 * 60 * 60)    // set time pattern, is integer multiple of m_patternStep
+//#define m_qualityTimeStep  (5 * 60)
+//#define m_patternStep (10 * 60)
+//#define m_tc (m_totalDuration/m_qualityTimeStep)
+//#define m_TS 24
+//#define m_setPatternNum (m_totalDuration/m_patternStep)
 
 
 #include "../../../../core/problem/optima.h"
 #include "../../../../core/problem/problem.h"
 #include "epa_encoding.h"
 
-#define CAST_RP_EPANET dynamic_cast<epanet *>(Global::msp_global->mp_problem.get())
+#define CAST_RP_EPANET dynamic_cast<epanet *>(global::ms_global->m_problem.get())
 namespace OFEC {
 	class epanet : public problem
 	{
 	protected:
+		int m_phase = 0;
 		optima<variable_epanet, real> m_optima;
-		std::vector<variable_epanet> data_read;
+		std::vector<variable_epanet> m_real_PS_read;
 
 		std::vector<std::vector<float>> m_Ciobs;    // real value
 		int m_numSource;                  // number of source    
@@ -161,14 +162,15 @@ namespace OFEC {
 		long m_minstartTime, m_maxstartTime;
 		float m_minmultiplier, m_maxmultiplier;
 
+		char m_map_inp[100];
+		char m_map_rpt[100];
+
 		//***set parameters of epanet function***//
-		//long m_totalDuration;
-		//long m_qualityTimeStep;
-		//long m_patternStep;
-		//static int m_tc;
-		//static int m_TS;
-		//char* m_InpPath;
-		//char* m_RptPath;
+		long m_totalDuration;
+		long m_qualityTimeStep;
+		long m_patternStep;
+		int m_num_pattern;   // number of pattern : m_totalDuration / m_patternStep
+		int m_time_interval;    
 
 	public:
 		epanet(param_map &v);
@@ -176,13 +178,21 @@ namespace OFEC {
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
 		void getData(variable_epanet &sol, std::vector<std::vector<float>> &data, bool mode);
 		void readParam();
+		void set_phase(int num) { m_phase = num; }
+
+		const size_t & phase() const{	return m_phase; }
+		const size_t & interval() const { return m_time_interval; }
+		const size_t & num_sensor() const { return m_numSensor; }
+		const std::vector<std::vector<float>> & observation_concentration() const { return m_Ciobs; }
 
 		bool same(const base &s1, const base &s2) const;
 		double variable_distance(const base &s1, const base &s2) const { return 0.0; }
 		double variable_distance(const variable_base &s1, const variable_base &s2) const { return 0.0; }
-		void initialize_solution(base &s) const {}
+		void initialize_solution(base &s) const;
 
 		optima<variable_epanet, real> & get_optima();
+		bool is_time_out() const;
+
 
 	protected:
 		void evaluate__(variable_epanet & x, std::vector<real>& obj);

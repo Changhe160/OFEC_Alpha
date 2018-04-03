@@ -2,7 +2,7 @@
 
 namespace OFEC {
 	namespace DE {
-		JADE::JADE(param_map &v) :population(v[param_popSize], v[param_numDim]), m_candi(3, nullptr), m_pcent_best_index(size()), \
+		JADE::JADE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size()), m_candi(3, nullptr), m_pcent_best_index(size()), \
 			m_pcent_best(size()), mv_F(size()), mv_CR(size()) {
 
 			m_archive_flag = 1;

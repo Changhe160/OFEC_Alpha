@@ -6,13 +6,14 @@
 
 #include "../../../../utility/myexcept.h"
 #include "../../../../utility/functional.h"
-#include "../../../../utility/typevar/typevar.h"
+//#include "../../../../utility/typevar/typevar.h"
 
 
 namespace OFEC {
 	class variable_epanet {
 	public:
 		variable_epanet() {};
+		variable_epanet(size_t size) {};
 		variable_epanet(const variable_epanet& rhs) : m_x(rhs.m_x) {}
 		variable_epanet(variable_epanet&& rhs) :m_x(std::move(rhs.m_x)) {}
 
@@ -61,7 +62,7 @@ namespace OFEC {
 			return m_x.Interval;
 		}
 	protected:
-		struct epa_type : typevar {
+		struct epa_type  {
 			int Interval = 0;
 			bool isLoc = true;
 			bool isDetected = false;

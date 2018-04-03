@@ -1,7 +1,7 @@
 #include "SaDE.h"
 namespace OFEC {
 	namespace DE {
-		SaDE::SaDE(param_map &v) :population(v[param_popSize], v[param_numDim]), m_F(v[param_popSize]), \
+		SaDE::SaDE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size()), m_F(v[param_popSize]), \
 			m_CR(v[param_popSize], std::vector<double>(m_num_strategy)), m_CRm(m_num_strategy, 0.5), m_probability(m_num_strategy, 1. / m_num_strategy), \
 			m_strategy_selection(v[param_popSize]) {
 			for (auto i = 0; i < m_probability.size(); ++i) {
@@ -117,17 +117,16 @@ namespace OFEC {
 
 			std::vector<double> gopt(1);
 			gopt = CONTINOUS_CAST->get_optima().multi_objective(0);
-			//CONTINOUS_CAST->set_variable_monitor_true();
+	
 			do {
 				//g_mutexStream.lock();
-				//update_best();
 				//double error = fabs(gopt[0] - m_best[0]->get_objective()[0]); 
 				double best = problem::get_sofar_best<solution<>>(0)->get_objective()[0];
 				double error = fabs(gopt[0] - best);
 				int num_obj_found = CONTINOUS_CAST->num_optima_found();
 				std::cout << m_iter << ' ' << num_obj_found << ' ' << error << std::endl;
 				//g_mutexStream.unlock();
-				//measure::ms_measure->record(global::ms_global.get(), m_iter, num_obj_found);
+				measure::ms_measure->record(global::ms_global.get(), m_iter, num_obj_found);
 				update_CR();
 				update_F();
 				tag = evolve();

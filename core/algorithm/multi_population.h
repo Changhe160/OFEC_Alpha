@@ -37,7 +37,7 @@ namespace OFEC {
 		multi_population(int n) :m_sub(n) {}
 		multi_population(size_t n, size_t subsize) :m_sub(n) {
 			for (auto& i : m_sub)
-				i = std::move(std::unique_ptr<Population>(new Population(subsize, GET_NUM_DIM)));
+				i = std::move(std::unique_ptr<Population>(new Population(subsize, global::ms_global->m_problem->variable_size())));
 		}
 
 		void resize_objective(int n);
@@ -51,7 +51,7 @@ namespace OFEC {
 		const Population& operator[](int i) const;
 
 		void handle_evaluation_tag_all(evaluation_tag tag){}
-
+		
 	protected:
 		std::vector<std::unique_ptr<Population>> m_sub;
 		int m_maxsize;		// the maximum size of each sub-population

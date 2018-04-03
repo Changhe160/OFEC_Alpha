@@ -2,7 +2,7 @@
 
 namespace OFEC {
 	namespace DE {
-		NSDE::NSDE(param_map &v) :population(v[param_popSize], v[param_numDim]), m_order_list(v[param_popSize]), \
+		NSDE::NSDE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size()), m_order_list(v[param_popSize]), \
 			m_m(9), m_dis((v[param_popSize] / (m_m + 1)) + 1), m_seed((v[param_popSize] / (m_m + 1)) + 1) \
 		{
 			set_mutation_strategy(DE_rand_1);
@@ -102,7 +102,6 @@ namespace OFEC {
 			while (tag != evaluation_tag::Terminate) {
 				//g_mutexStream.lock();
 
-				//update_best();
 				double best = problem::get_sofar_best<solution<>>(0)->get_objective()[0];
 				double error = fabs(best - gopt[0]);
 				int num_opt_found = CONTINOUS_CAST->num_optima_found();
@@ -116,14 +115,26 @@ namespace OFEC {
 
 			}
 
-			//measure::ms_measure->record(global::ms_global.get(), m_iter, CONTINOUS_CAST->get_optima().num_optima_found());
-
 			// output objective found
 			std::vector<solution< variable<real>, real >> test = CONTINOUS_CAST->get_optima_found();
 			for (size_t i = 0; i < CONTINOUS_CAST->num_optima_found(); ++i) {
 					std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima_found()[i].get_objective()[0] << " " << std::endl;
 					std::cout << " " << " " << CONTINOUS_CAST->get_optima_found()[i].get_variable()[0] << " " << CONTINOUS_CAST->get_optima_found()[i].get_variable()[1] << std::endl;
 			}
+			/*std::cout << "global optimal solution:" << std::endl;
+			for (size_t i = 0; i <CONTINOUS_CAST->get_optima().variable(0).size(); ++i) {
+				std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima().variable(0)[i] << " " << std::endl;
+			}
+			std::cout << "current optimal solution found:" << std::endl;
+			for (size_t i = 0; i <problem::get_sofar_best<solution<>>(0)->get_variable().size(); ++i) {
+				std::cout << i + 1 << " " << problem::get_sofar_best<solution<>>(0)->get_variable()[i] << " " << std::endl;
+			}
+			if (global::ms_global->m_problem->solved()) {
+				std::cout << "global optimal solution found:" << std::endl;
+				for (size_t i = 0; i < CONTINOUS_CAST->get_optima_found()[0].get_variable().size(); ++i) {
+					std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima_found()[0].get_variable()[i] << " " << std::endl;
+				}
+			}*/
 			return tag;
 		}
 	}
