@@ -124,6 +124,72 @@
     <Filter Include="instance\problem\continuous\global\CEC2015">
       <UniqueIdentifier>{5da47b23-e76e-4d69-9df0-28c102cea28f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="instance\problem\realworld\EPANET">
+      <UniqueIdentifier>{441d7859-ae9e-4f00-8578-dac6a9c8a385}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\combination">
+      <UniqueIdentifier>{1416cde5-90fc-4d60-87d4-b2d0b47fa4d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\combination\MKP">
+      <UniqueIdentifier>{d90f5579-03d8-448d-ab87-8e320ab610d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\combination\TSP">
+      <UniqueIdentifier>{f4daad1c-f5be-42f6-8f2c-c28e445a825e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\combination\QAP">
+      <UniqueIdentifier>{e898aa60-aee4-459e-8846-630f689a5336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\combination\one_max">
+      <UniqueIdentifier>{80ddcde8-b533-4cc6-8e41-fd2e279bd582}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\corner_sort">
+      <UniqueIdentifier>{e42b28c7-3b3e-4a0e-b3d1-2ccac5ac32f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\deductive_sort">
+      <UniqueIdentifier>{c1922c30-9218-4154-8eda-fc24c4a4f90d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\fast_sort">
+      <UniqueIdentifier>{41fd824d-8954-4c6b-ac71-d347be500c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\filter_sort">
+      <UniqueIdentifier>{ee988590-af08-4886-9940-b9087c8edcef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\link_sort">
+      <UniqueIdentifier>{72f5d895-04c8-49b6-a56f-4fae7c4c72bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\T_ENS">
+      <UniqueIdentifier>{9d09edd0-0e8f-4906-8736-d089eb5b67b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\benchmark">
+      <UniqueIdentifier>{4ce6d168-3d28-413e-951e-d98e1c4227ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\DE">
+      <UniqueIdentifier>{8e0b1ee3-2a52-4f4c-906f-da028f5529ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\DE\jDE">
+      <UniqueIdentifier>{b0aded7c-6bcd-4cfa-acfd-6dd714d2a7e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\DE\CRDE">
+      <UniqueIdentifier>{14212f51-1d39-4ec0-843a-6ec5298cdf1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\DE\JADE">
+      <UniqueIdentifier>{ca728e57-1eaf-4a7b-8e67-5c6c6504f825}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\DE\NCDE">
+      <UniqueIdentifier>{06c2d49d-13c4-4e9e-ba2c-9fecb57a0079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\DE\NSDE">
+      <UniqueIdentifier>{f46cc9c9-279c-42de-b5da-69db02276e4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\DE\SaDE">
+      <UniqueIdentifier>{3c4bda9c-07a0-415a-ba8b-b46dca2560e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\DE\DynDE">
+      <UniqueIdentifier>{45cf3508-0b4a-4d1b-a0ae-a663fcdfe9b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\best_order_sort">
+      <UniqueIdentifier>{45f6d570-19a4-43b2-bd3f-d63d9998edf1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\algorithm\encoding.h">
@@ -344,15 +410,6 @@
     </ClInclude>
     <ClInclude Include="instance\problem\continuous\multi_objective\ZDT\ZDT6.h">
       <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII.h">
-      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAIIpopulation.h">
-      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
-    </ClInclude>
-    <ClInclude Include="run\initialize.h">
-      <Filter>run</Filter>
     </ClInclude>
     <ClInclude Include="instance\problem\continuous\global\CEC2005\composition.h">
       <Filter>instance\problem\continuous\global\CEC2005</Filter>
@@ -795,39 +852,6 @@
     <ClInclude Include="run\include_problem.h">
       <Filter>run</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\CornerSort.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\DeductiveSort.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\DominanceGraphLinkSort.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\FastSort.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\LinkSort.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\new_static_population.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\nodes_initialize.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\quick_sort.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\static_population.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\T_ENS.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\YiyaSort.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
     <ClInclude Include="instance\problem\realworld\gear_train\gear_train.h">
       <Filter>instance\problem\realworld\gear_train</Filter>
     </ClInclude>
@@ -878,6 +902,129 @@
     </ClInclude>
     <ClInclude Include="instance\problem\continuous\global\CEC2015\F15_global_composition7.h">
       <Filter>instance\problem\continuous\global\CEC2015</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\enumstxt.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\epa_encoding.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\epanet.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\funcs.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\hash.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\mempool.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\text.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\toolkit.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\types.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\realworld\EPANET\vars.h">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\combination\MKP\multi_dimensional_knapsack.h">
+      <Filter>instance\problem\combination\MKP</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\combination\TSP\travelling_salesman.h">
+      <Filter>instance\problem\combination\TSP</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\combination\QAP\quadratic_assignment.h">
+      <Filter>instance\problem\combination\QAP</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\combination\one_max\one_max.h">
+      <Filter>instance\problem\combination\one_max</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\benchmark\benchmark.h">
+      <Filter>utility\nondominated_sorting\benchmark</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\ENS_NDT.h">
+      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDNode.h">
+      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDSplit.h">
+      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDTree.h">
+      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\corner_sort\corner_sort.h">
+      <Filter>utility\nondominated_sorting\corner_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\deductive_sort\deductive_sort.h">
+      <Filter>utility\nondominated_sorting\deductive_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\fast_sort\fast_sort.h">
+      <Filter>utility\nondominated_sorting\fast_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\filter_sort\filter_sort.h">
+      <Filter>utility\nondominated_sorting\filter_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\link_sort\link_sort.h">
+      <Filter>utility\nondominated_sorting\link_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\T_ENS\T_ENS.h">
+      <Filter>utility\nondominated_sorting\T_ENS</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\quick_sort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\DE_individual.h">
+      <Filter>instance\algorithm\DE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\DE_population.h">
+      <Filter>instance\algorithm\DE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\jDE\jDE.h">
+      <Filter>instance\algorithm\DE\jDE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\CRDE\CRDE.h">
+      <Filter>instance\algorithm\DE\CRDE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\JADE\JADE.h">
+      <Filter>instance\algorithm\DE\JADE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\NCDE\NCDE.h">
+      <Filter>instance\algorithm\DE\NCDE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\NSDE\NSDE.h">
+      <Filter>instance\algorithm\DE\NSDE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\SaDE\SaDE.h">
+      <Filter>instance\algorithm\DE\SaDE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\DynDE\DynDE.h">
+      <Filter>instance\algorithm\DE\DynDE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\DynDE\DynDE_individual.h">
+      <Filter>instance\algorithm\DE\DynDE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\DynDE\DynDE_subpopulation.h">
+      <Filter>instance\algorithm\DE\DynDE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII.h">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClInclude>
+    <ClInclude Include="run\system_initialization.h">
+      <Filter>run</Filter>
+    </ClInclude>
+    <ClInclude Include="run\user_initialization.h">
+      <Filter>run</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\best_order_sort\best_order_sort.h">
+      <Filter>utility\nondominated_sorting\best_order_sort</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1081,12 +1228,6 @@
     </ClCompile>
     <ClCompile Include="instance\problem\continuous\multi_objective\ZDT\ZDT6.cpp">
       <Filter>instance\problem\continuous\multi_objective\ZDT</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAIIpopulation.cpp">
-      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
-    </ClCompile>
-    <ClCompile Include="run\initialize.cpp">
-      <Filter>run</Filter>
     </ClCompile>
     <ClCompile Include="instance\problem\continuous\global\CEC2005\composition.cpp">
       <Filter>instance\problem\continuous\global\CEC2005</Filter>
@@ -1502,30 +1643,6 @@
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F15_composition2015_C7.cpp">
       <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
     </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\CornerSort.cpp">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\DeductiveSort.cpp">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\FastSort.cpp">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\LinkSort.cpp">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\new_static_population.cpp">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\static_population.cpp">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\T_ENS.cpp">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\YiyaSort.cpp">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_core.cpp">
       <Filter>test</Filter>
     </ClCompile>
@@ -1583,5 +1700,124 @@
     <ClCompile Include="instance\problem\continuous\global\CEC2015\F15_global_composition7.cpp">
       <Filter>instance\problem\continuous\global\CEC2015</Filter>
     </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\epanet.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\hash.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\hydraul.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\inpfile.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\input1.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\input2.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\input3.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\mempool.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\output.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\quality.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\report.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\rules.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\realworld\EPANET\smatrix.cpp">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\combination\MKP\multi_dimensional_knapsack.cpp">
+      <Filter>instance\problem\combination\MKP</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\combination\TSP\travelling_salesman.cpp">
+      <Filter>instance\problem\combination\TSP</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\combination\QAP\quadratic_assignment.cpp">
+      <Filter>instance\problem\combination\QAP</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\combination\one_max\one_max.cpp">
+      <Filter>instance\problem\combination\one_max</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\benchmark\benchmark.cpp">
+      <Filter>utility\nondominated_sorting\benchmark</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\ENS_NDT\ENS_NDT.cpp">
+      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\corner_sort\corner_sort.cpp">
+      <Filter>utility\nondominated_sorting\corner_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\deductive_sort\deductive_sort.cpp">
+      <Filter>utility\nondominated_sorting\deductive_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\fast_sort\fast_sort.cpp">
+      <Filter>utility\nondominated_sorting\fast_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\filter_sort\filter_sort.cpp">
+      <Filter>utility\nondominated_sorting\filter_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\link_sort\link_sort.cpp">
+      <Filter>utility\nondominated_sorting\link_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\T_ENS\T_ENS.cpp">
+      <Filter>utility\nondominated_sorting\T_ENS</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\jDE\jDE.cpp">
+      <Filter>instance\algorithm\DE\jDE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\CRDE\CRDE.cpp">
+      <Filter>instance\algorithm\DE\CRDE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\JADE\JADE.cpp">
+      <Filter>instance\algorithm\DE\JADE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\NCDE\NCDE.cpp">
+      <Filter>instance\algorithm\DE\NCDE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\NSDE\NSDE.cpp">
+      <Filter>instance\algorithm\DE\NSDE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\SaDE\SaDE.cpp">
+      <Filter>instance\algorithm\DE\SaDE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\DynDE\DynDE.cpp">
+      <Filter>instance\algorithm\DE\DynDE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\DynDE\DynDE_individual.cpp">
+      <Filter>instance\algorithm\DE\DynDE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\DynDE\DynDE_subpopulation.cpp">
+      <Filter>instance\algorithm\DE\DynDE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAII.cpp">
+      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    </ClCompile>
+    <ClCompile Include="run\system_initialization.cpp">
+      <Filter>run</Filter>
+    </ClCompile>
+    <ClCompile Include="run\user_initialization.cpp">
+      <Filter>run</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\best_order_sort\best_order_sort.cpp">
+      <Filter>utility\nondominated_sorting\best_order_sort</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="instance\problem\realworld\EPANET\Readme.txt">
+      <Filter>instance\problem\realworld\EPANET</Filter>
+    </Text>
   </ItemGroup>
 </Project>

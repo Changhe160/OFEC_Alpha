@@ -2,8 +2,8 @@
 #include "N20_SR_Ackley_F10.h"
 namespace OFEC {
 	namespace CEC2013 {
-		N20_SR_Ackley_F10::N20_SR_Ackley_F10(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-			function_CEC2013((v[param_proName]), (v[param_numDim]), 1) \
+		N20_SR_Ackley_F10::N20_SR_Ackley_F10(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
 		{
 			set_range(-5, 5);
 			set_init_range(-5, 5);

@@ -22,8 +22,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		F23_non_continuous_rotated_hybrid::F23_non_continuous_rotated_hybrid(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			composition((v[param_proName]), (v[param_numDim]), 1) {
+		F23_non_continuous_rotated_hybrid::F23_non_continuous_rotated_hybrid(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			composition((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

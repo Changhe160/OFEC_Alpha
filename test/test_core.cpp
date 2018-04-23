@@ -6,7 +6,7 @@
 
 using namespace OFEC;
 void global_setup() {
-	global::ms_arg[param_workingDir] = std::string("../");
+	global::ms_arg.at("workingDir") = std::string("../");
 }
 
 TEST_CASE("domination relationship","[domination]")

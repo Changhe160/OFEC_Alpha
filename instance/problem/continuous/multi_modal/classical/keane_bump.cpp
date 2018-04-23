@@ -18,8 +18,8 @@
 
 namespace OFEC {
 	
-	keane_bump::keane_bump(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	keane_bump::keane_bump(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		set_range(0, 10);
 		set_init_range(0, 10);
@@ -33,12 +33,12 @@ namespace OFEC {
 		initialize();
 	}
 
-	void keane_bump::initialize() {
+	void keane_bump::initialize() {  // note: no optima
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.5;
 		m_variable_accuracy = 1.e-4;
 
-		m_original_optima.set_number_variable(1);
+		//m_original_optima.set_number_variable(1);
 		m_optima = m_original_optima;
 	}
 

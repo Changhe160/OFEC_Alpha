@@ -19,9 +19,9 @@
 
 namespace OFEC {
 
-	branin_rcos::branin_rcos(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
-		v[param_numDim] = 2;
+	branin_rcos::branin_rcos(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
+		v.at("numDim") = 2;
 
 		std::vector<std::pair<real, real>> range;
 		range.push_back(std::make_pair(-5., 10.));
@@ -45,7 +45,7 @@ namespace OFEC {
 		m_variable_accuracy = 0.1;
 		m_objective_accuracy = 1.e-5;
 
-		//m_original_optima.set_number_variable(3);
+	
 		m_variable_monitor = true;
 		std::vector<std::vector<real>> var_data = { { -OFEC_PI, 12.275 },{ -OFEC_PI, 2.275 },{9.42478, 2.475} };
 		for (auto &i : var_data) {

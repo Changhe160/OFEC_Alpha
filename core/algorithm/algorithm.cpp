@@ -8,7 +8,7 @@ namespace OFEC {
 #if defined OFEC_DEMON
 		m_term.reset(new termination(global::ms_arg));
 #else
-		if (global::ms_arg.find(param_maxEvals) != global::ms_arg.end()) {
+		if (global::ms_arg.find("maxEvals") != global::ms_arg.end()) {
 			m_term.reset(new term_max_evals(global::ms_arg));
 		}
 		else {

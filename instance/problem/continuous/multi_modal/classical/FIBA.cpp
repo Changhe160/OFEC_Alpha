@@ -18,9 +18,9 @@
 #include "FIBA.h"
 namespace OFEC {
 	
-	FIBA::FIBA(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1), m_case(v[param_case] = (v.find(param_case) == v.end() ? 1 : (int)v[param_case])) {
-		v[param_numDim] = 2;
+	FIBA::FIBA(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1), m_case(v.at("case") = (v.find("case") == v.end() ? 1 : (int)v.at("case"))) {
+		v.at("numDim") = 2;
 		set_range(-4.0, 4.0);
 		set_init_range(-4., 4.);
 		initialize();
@@ -49,7 +49,7 @@ namespace OFEC {
 	void FIBA::initialize() {
 		set_para();
 
-		m_original_optima.set_number_variable(4);
+		m_variable_monitor = true;
 		m_variable_accuracy = 1.e-6;
 
 
@@ -70,7 +70,7 @@ namespace OFEC {
 
 		m_optima = m_original_optima;
 		add_tag(problem_tag::MMP);
-		//setObjSet();
+		
 	}
 	void FIBA::evaluate__(real *x, std::vector<real>& obj) {
 

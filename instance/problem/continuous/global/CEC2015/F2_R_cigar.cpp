@@ -2,8 +2,8 @@
 #include "F2_R_cigar.h"
 namespace OFEC {
 	namespace CEC2015 {
-		F2_R_cigar::F2_R_cigar(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			bent_cigar((v[param_proName]), (v[param_numDim]), 1) {
+		F2_R_cigar::F2_R_cigar(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			bent_cigar((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

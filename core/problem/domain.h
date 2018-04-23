@@ -42,7 +42,7 @@ namespace OFEC {
 		void resize(size_t n) {
 			m_range.resize(n);
 		}
-		const single_set& range(int i = 0)const {
+		const single_set& range(size_t i = 0)const {
 			return m_range[i];
 		}
 		size_t size()const noexcept {

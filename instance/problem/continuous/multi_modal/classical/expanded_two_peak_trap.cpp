@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	
-		expanded_two_peak_trap::expanded_two_peak_trap(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			function((v[param_proName]), (v[param_numDim]), 1) {
+		expanded_two_peak_trap::expanded_two_peak_trap(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			function((v.at("proName")), (v.at("numDim")), 1) {
 
 			set_range(-40., 40.);
 			set_init_range(-40., 40.);
@@ -20,6 +20,7 @@ namespace OFEC {
 			m_opt_mode[0] = optimization_mode::Minimization;
 			m_variable_accuracy = 0.01;
 			m_objective_accuracy = 1.e-4;
+			m_variable_monitor = true;
 			// 1 gopt 
 			std::vector<std::vector<real>> var_data(1, std::vector<real>(m_variable_size,0));
 			

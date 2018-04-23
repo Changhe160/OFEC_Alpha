@@ -18,9 +18,9 @@
 
 namespace OFEC {
 	
-	himmenblau::himmenblau(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
-		v[param_numDim] = 2;
+	himmenblau::himmenblau(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
+		v.at("numDim") = 2;
 		set_range(-6, 6);
 		set_init_range(-6, 6);
 		initialize();
@@ -37,7 +37,7 @@ namespace OFEC {
 
 		m_objective_accuracy = 0.5;
 		m_variable_accuracy = 1.e-4;
-
+		m_variable_monitor = true;
 		// 1 gopt+3 lopt
 		std::vector<std::vector<real>> var_data = { { 3.0, 2.0 },{ 3.58149, -1.8208 },{ 2.78706, 3.1282 },{ -3.76343, -3.26605 } };
 
@@ -46,8 +46,6 @@ namespace OFEC {
 		}
 		m_optima = m_original_optima;
 		add_tag(problem_tag::MMP);
-
-		//setObjSet();
 
 
 	}

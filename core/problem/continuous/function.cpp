@@ -109,7 +109,7 @@ namespace OFEC {
 		s = ss.str();
 		s.insert(0, m_name + "_Shift_");
 		s.insert(0, path);    // data path
-		s.insert(0, global::ms_arg[param_workingDir]);
+		s.insert(0, global::ms_arg.at("workingDir"));
 
 		load_translation_(s);
 
@@ -160,7 +160,7 @@ namespace OFEC {
 		s.insert(0, m_name + "_RotM_");
 
 		s.insert(0, path);// data path
-		s.insert(0, global::ms_arg[param_workingDir]);
+		s.insert(0, global::ms_arg.at("workingDir"));
 
 		load_rotation_(s);
 

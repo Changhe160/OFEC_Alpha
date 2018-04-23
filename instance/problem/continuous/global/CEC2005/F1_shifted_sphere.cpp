@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		F1_shifted_sphere::F1_shifted_sphere(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			sphere((v[param_proName]), (v[param_numDim]), 1) {
+		F1_shifted_sphere::F1_shifted_sphere(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			sphere((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

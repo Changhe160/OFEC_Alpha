@@ -15,8 +15,8 @@
 #include "ShiftedRastrigin_F2.h"
 namespace OFEC {
 	namespace CEC2013 {
-		ShiftedRastrigin_F2::ShiftedRastrigin_F2(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-			function_CEC2013((v[param_proName]), (v[param_numDim]), 1) \
+		ShiftedRastrigin_F2::ShiftedRastrigin_F2(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
 		{
 			set_range(-5, 5);
 			set_init_range(-5, 5);

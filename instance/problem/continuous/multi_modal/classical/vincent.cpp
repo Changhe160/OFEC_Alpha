@@ -23,8 +23,8 @@
 #include "vincent.h"
 namespace OFEC {
 	
-	vincent::vincent(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	vincent::vincent(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		set_range(0.25, 10.); // note
 		set_init_range(0.25, 10.);
@@ -44,8 +44,9 @@ namespace OFEC {
 		m_objective_accuracy = 1.e-4;
 		m_variable_accuracy = 0.2;
 
-		//m_original_optima.resize_variable_set((int)pow(6, m_variable_size));
-		std::vector<std::vector<real>> obj_data((int)pow(6, m_variable_size), std::vector<real>(m_objective_size, 1));
+		size_t num_solution = pow(6, m_variable_size);
+		
+		std::vector<std::vector<real>> obj_data((int)num_solution, std::vector<real>(m_objective_size, 1));
 		for (auto &i : obj_data)
 			m_original_optima.append(i);
 		m_optima = m_original_optima;

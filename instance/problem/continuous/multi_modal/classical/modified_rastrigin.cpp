@@ -21,12 +21,12 @@
 #include "modified_rastrigin.h"
 namespace OFEC {
 	
-	modified_rastrigin::modified_rastrigin(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1), m_k(2) {
-		v[param_numDim] = 2;
+	modified_rastrigin::modified_rastrigin(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1), m_k(2) {
+		v.at("numDim") = 2;
 		set_range(0.0, 1.); // note
 		set_init_range(0.0, 1.); // note
-		v[param_proName] = "modified_rastrigin";
+		v.at("proName") = "modified_rastrigin";
 		initialize();
 	}
 	modified_rastrigin::modified_rastrigin(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
@@ -41,11 +41,11 @@ namespace OFEC {
 		m_k[0] = 3; m_k[1] = 4;
 		m_objective_accuracy = 0.1;
 		m_variable_accuracy = 1.e-5;
-
+		m_variable_monitor = true;
 		std::ifstream in;
 		std::stringstream ss;
 		std::vector<std::vector<real>> var_data(12, std::vector<real>(m_variable_size));
-		ss << global::ms_arg[param_workingDir] << "instance/problem/continuous/multi_modal/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
+		ss << global::ms_arg.at("workingDir") << "instance/problem/continuous/multi_modal/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
 		in.open(ss.str());
 		if (in.fail()) {
 			throw myexcept("cannot open data file@modified_rastrigin::initialize()");

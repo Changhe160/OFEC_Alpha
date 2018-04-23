@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		F7_shifted_rotated_griewank_no_bound::F7_shifted_rotated_griewank_no_bound(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			griewank((v[param_proName]), (v[param_numDim]), 1) {
+		F7_shifted_rotated_griewank_no_bound::F7_shifted_rotated_griewank_no_bound(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			griewank((v.at("proName")), (v.at("numDim")), 1) {
 			set_range(0, 600.);
 			set_init_range(0, 600.);
 			initialize();

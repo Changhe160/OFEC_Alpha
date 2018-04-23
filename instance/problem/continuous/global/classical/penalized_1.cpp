@@ -14,8 +14,8 @@
 #include "penalized_1.h"
 namespace OFEC {
 	
-	penalized_1::penalized_1(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	penalized_1::penalized_1(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		set_range(-50, 50);
 		set_init_range(-50., 50.);

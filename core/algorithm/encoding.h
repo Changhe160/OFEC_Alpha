@@ -120,7 +120,7 @@ namespace OFEC {
 	class variable_base {
 	public:
 		virtual void resize(size_t n) = 0;
-		virtual size_t size() noexcept = 0;
+		virtual size_t size() const noexcept = 0;
 	};
 
 	template <typename VariableType>
@@ -153,7 +153,7 @@ namespace OFEC {
 		void resize(size_t n) {
 			m_x.resize(n);
 		}
-		size_t size() noexcept {
+		size_t size() const noexcept {
 			return m_x.size();
 		}
 

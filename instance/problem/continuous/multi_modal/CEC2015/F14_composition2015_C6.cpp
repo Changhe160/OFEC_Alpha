@@ -4,8 +4,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F14_composition2015_C6::F14_composition2015_C6(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			composition_2015((v[param_proName]), (v[param_numDim]), 1) {
+		F14_composition2015_C6::F14_composition2015_C6(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
 			m_num_function = 10;
 			m_function.resize(m_num_function);
 			m_height.resize(m_num_function);
@@ -71,7 +71,7 @@ namespace OFEC {
 
 		}
 
-		void F14_composition2015_C6::initialize() {
+		void F14_composition2015_C6::initialize() {  // don't set optima
 			set_function();
 			load_translation("instance/problem/continuous/multi_modal/CEC2015/data/");
 			load_rotation("instance/problem/continuous/multi_modal/CEC2015/data/");
@@ -80,7 +80,7 @@ namespace OFEC {
 			for (auto &i : m_function)
 				i->set_scale_flag(false);
 			// 10 or 20 or 30 Dim : 1 gopt and 19 lopt 
-			m_optima.set_number_variable(20);
+			//m_optima.set_number_variable(20);      
 			if (m_variable_size == 10) m_pre_opt_distance = 113;
 			else if(m_variable_size == 20) m_pre_opt_distance = 183;
 			else if(m_variable_size == 30) m_pre_opt_distance = 285;
@@ -130,7 +130,7 @@ namespace OFEC {
 			s = ss.str();
 			s.insert(0, m_name + "_Shift");
 			s.insert(0, path);    // data path
-			s.insert(0, global::ms_arg[param_workingDir]);
+			s.insert(0, global::ms_arg.at("workingDir"));
 
 			for (auto &i : m_function)
 				i->translation().resize(m_variable_size);
@@ -167,7 +167,7 @@ namespace OFEC {
 		void F14_composition2015_C6::set_translation() {
 			for (int i = 0; i < m_num_function; i++)
 				for (int j = 0; j < m_variable_size; j++)
-					m_function[i]->translation()[j] = (global::ms_global->m_uniform[caller::Problem]->next() - 0.5) * 2 * 80.;;
+					m_function[i]->translation()[j] = (global::ms_global->m_uniform[caller::Problem]->next() - 0.5) * 2 * 80.;
 		}
 
 		void F14_composition2015_C6::rotate(size_t num, real *x) {

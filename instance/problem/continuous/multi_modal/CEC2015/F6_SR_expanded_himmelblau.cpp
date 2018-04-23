@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F6_SR_expanded_himmelblau::F6_SR_expanded_himmelblau(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			CEC2015_function((v[param_proName]), (v[param_numDim]), 1) {
+		F6_SR_expanded_himmelblau::F6_SR_expanded_himmelblau(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			CEC2015_function((v.at("proName")), (v.at("numDim")), 1) {
 			initialize();
 		}
 		F6_SR_expanded_himmelblau::F6_SR_expanded_himmelblau(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

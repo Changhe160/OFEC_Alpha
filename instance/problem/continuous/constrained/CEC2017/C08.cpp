@@ -1,9 +1,9 @@
 #include "C08.h"
-#include <algorithm>
+
 namespace OFEC {
 	namespace CEC2017 {
-		C08::C08(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			function((v[param_proName]), (v[param_numDim]), 1) {
+		C08::C08(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			function((v.at("proName")), (v.at("numDim")), 1) {
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
 			initialize();

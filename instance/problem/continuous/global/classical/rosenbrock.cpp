@@ -15,8 +15,8 @@
 
 namespace OFEC {
 	
-	rosenbrock::rosenbrock(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	rosenbrock::rosenbrock(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		set_range(-2.048, 2.048);
 		set_init_range(-2.048, 2.048);

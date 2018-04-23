@@ -27,7 +27,7 @@ namespace OFEC {
 				x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(m_init_domain[i].limit.first, m_init_domain[i].limit.second);
 			}
 			else {
-				x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(std::numeric_limits<real>::min(),std::numeric_limits<real>::max());
+				x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(std::numeric_limits<real>::min(), std::numeric_limits<real>::max());
 			}
 		}
 
@@ -88,7 +88,7 @@ namespace OFEC {
 		return *this;
 	}
 
-	const std::pair<real, real>& continuous::range(int i) const {
+	const std::pair<real, real>& continuous::range(size_t i) const {
 		return m_domain.range(i).limit;
 	}
 	void continuous::set_range(real l, real u) {
@@ -116,6 +116,12 @@ namespace OFEC {
 
 	optima<variable<real>, real>& continuous::get_optima() {
 		return m_optima;
+	}
+	std::vector<solution<variable<real>, real>>& continuous::get_optima_found() {
+		return m_optima_found;
+	}
+	domain<real>& continuous::get_domain() {
+		return m_domain;
 	}
 
 	double continuous::variable_distance(const base &s1, const base &s2) const {
@@ -146,12 +152,12 @@ namespace OFEC {
 			if (effective_fes)		m_effective_eval++;
 
 			if (m_variable_monitor) {
-				m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_variable_accuracy);
+				m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_optima_found, m_variable_accuracy);
 				if (m_optima.is_variable_found())
 					m_solved = true;
 			}
 			if (m_objective_monitor) {
-				m_optima.is_optimal_objective(obj, m_objective_accuracy);
+				m_optima.is_optimal_objective(dynamic_cast<solution<variable<real>, real> &>(s), m_optima_found, m_objective_accuracy, m_variable_accuracy);
 				if (m_optima.is_objective_found())
 					m_solved = true;
 			}
@@ -162,5 +168,20 @@ namespace OFEC {
 			//if (Global::msp_global != nullptr&&Global::msp_global->mp_algorithm != nullptr&&Global::msp_global->mp_algorithm->ifTerminating()) { return Return_Terminate; }
 		}
 		return evaluation_tag::Normal;
+	}
+	
+	bool continuous::objective_monitor() const {
+		return m_objective_monitor;
+	}
+	bool continuous::variable_monitor() const {
+		return m_variable_monitor;
+	}
+
+	size_t continuous::num_optima_found() const {
+		if (m_variable_monitor)
+			return m_optima.num_variable_found();
+		else if (m_objective_monitor)
+			return m_optima.num_objective_found();
+		else throw myexcept("No monitor!");
 	}
 }

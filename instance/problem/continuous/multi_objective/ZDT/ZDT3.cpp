@@ -1,7 +1,8 @@
 #include "ZDT3.h"
 
 namespace OFEC {
-	ZDT3::ZDT3(param_map & v) : problem(v[param_proName], v[param_numDim], 2), ZDT(v[param_proName], v[param_numDim]) {
+	ZDT3::ZDT3(param_map & v) : problem(v.at("proName"), v.at("numDim"), 2), ZDT(v.at("proName"), v.at("numDim")) { //param_numDim = 30 is suggested
+		v.at("numObj") = 2;
 		generateAdLoadPF();
 	}
 	ZDT3::ZDT3(const std::string & name, size_t size_var) : problem(name, size_var, 2), ZDT(name, size_var) {

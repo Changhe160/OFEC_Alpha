@@ -7,8 +7,8 @@
 
 namespace OFEC {
 	namespace CEC2013 {
-		F9_composition1::F9_composition1(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			composition((v[param_proName]), (v[param_numDim]), 1) {
+		F9_composition1::F9_composition1(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			composition((v.at("proName")), (v.at("numDim")), 1) {
 			m_num_function = 6;
 			m_function.resize(m_num_function);
 			m_fmax.resize(m_num_function);
@@ -75,7 +75,7 @@ namespace OFEC {
 				m_optima.append(i->get_optima().variable(0));
 				m_optima.append(0);
 			}
-
+			m_variable_monitor = true;
 			m_variable_accuracy = 1.0e-2;
 			m_objective_accuracy = 0.01;
 		}

@@ -2,10 +2,10 @@
 
 namespace OFEC {
 	
-		five_uneven_peak_trap::five_uneven_peak_trap(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			function((v[param_proName]), (v[param_numDim]), 1) {
+		five_uneven_peak_trap::five_uneven_peak_trap(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			function((v.at("proName")), (v.at("numDim")), 1) {
 
-			v[param_numDim] = 1;
+			v.at("numDim") = 1;
 
 			set_range(0, 30);
 			set_init_range(0, 30);
@@ -22,7 +22,8 @@ namespace OFEC {
 			m_opt_mode[0] = optimization_mode::Maximization;
 			m_variable_accuracy = 0.01;
 			m_objective_accuracy = 1.e-4;
-			m_original_optima.set_number_variable(2);
+			m_objective_monitor = true;
+			
 			std::vector<std::vector<real>> obj_data(2, std::vector<real>(1, 200));
 			for (auto &i : obj_data) {
 				m_original_optima.append(i[0]);

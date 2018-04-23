@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F5_shifted_rotated_katsuura::F5_shifted_rotated_katsuura(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			katsuura((v[param_proName]), (v[param_numDim]), 1) {
+		F5_shifted_rotated_katsuura::F5_shifted_rotated_katsuura(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			katsuura((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

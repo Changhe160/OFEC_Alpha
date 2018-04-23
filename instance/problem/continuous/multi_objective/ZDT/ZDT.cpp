@@ -3,22 +3,22 @@
 
 namespace OFEC {
 	ZDT::ZDT(const std::string &name, size_t size_var) : problem(name, size_var, 2), continuous(name, size_var, 2) {
+		set_init_range(0., 1.);
 		set_range(0., 1.);
-		set_tag(std::set<problem_tag>({ problem_tag::MOP, problem_tag::CONT }));
-		for (size_t idx = 0; idx < opt_mode().size(); ++idx)
-			set_opt_mode(optimization_mode::Minimization, idx);
+		m_tag = std::set<problem_tag>({ problem_tag::MOP, problem_tag::CONT });
+		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
+			m_opt_mode[idx] = optimization_mode::Minimization;
 	}
 	void ZDT::generateAdLoadPF() {
 		size_t num = 1000;
 		m_optima.resize_objective_set(num);
 		m_optima.resize_variable_set(num);
 		m_optima.resize_variable(m_variable_size);
-		m_optima.set_number_variable(num);
 
 		std::ofstream out;
 		std::ifstream infile;
 		std::stringstream os;
-		os << global::ms_arg[param_workingDir] << "FunctionOpt/PF_" << global::ms_arg[param_proName] << "_Opt_" << num << ".txt";
+		os << "./instance/problem/continuous/multi_objective/ZDT/data/PF_" << m_name << "_Opt_" << num << ".txt";
 		infile.open(os.str());
 
 		if (!infile)

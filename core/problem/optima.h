@@ -33,16 +33,12 @@ namespace OFEC {
 
 		void append(const variable_encoding &x) {
 			m_var.push_back(std::make_pair(x, false));
-			++m_number_var;
 		}
 		void append(const std::vector<objective_type> &obj) {
 			m_obj.push_back(std::make_pair(obj, false));
 		}
 		void append(const objective_type obj) {
 			m_obj.push_back(std::make_pair(std::vector<objective_type>(1, obj), false));
-		}
-		int number_variable() const {
-			return m_number_var;
 		}
 
 		bool variable_given() const {
@@ -51,9 +47,7 @@ namespace OFEC {
 		bool objective_given() const {
 			return !m_obj.empty();
 		}
-		void set_number_variable(size_t n) {
-			m_number_var = n;
-		}
+		
 		void resize_variable(size_t n) { // reallocate memory for each variable
 			for (auto &i : m_var) {
 				i.first.resize(n);
@@ -101,7 +95,7 @@ namespace OFEC {
 		*/
 		//return IGD(Inverted Generational Distance) of pop to optima 
 		template<typename Population>
-		double distance_to_optimal_obj(const Population &pop)const {
+		double IGD_to_PF(const Population &pop)const {
 			double distance = 0;
 			for (auto &i : m_obj) {
 				double min_d = std::numeric_limits<double>::max();
@@ -116,50 +110,38 @@ namespace OFEC {
 		}
 
 		template<typename Solution>
-		bool is_optimal_variable(const Solution &s, double epsilon) { // call this method if locations of targets in decision space are known
+		bool is_optimal_variable(const Solution &s, std::vector<Solution> &opt_found, double epsilon) {
 			bool flag = false;
-			for (auto &i : m_var) {
-				if (i.second) continue;
-				if (s.variable_distance(i.first) <= epsilon) {
-					i.second = true;
+			for (size_t i = 0; i < m_var.size(); ++i) {
+				if (m_var[i].second) continue;
+				if (s.variable_distance(m_var[i].first) <= epsilon) {
+					m_var[i].second = true;
 					flag = true;
+					opt_found.push_back(s);   // record the variable found
 				}
 			}
 			return flag;
 		}
 
 		template<typename Solution>
-		bool is_optimal_objective(const Solution &s, double epsilon_obj, double epsilon_var) { // call this method for multi-modal opt. problems with unknown locations
-			for (size_t i = 0; i < m_obj.size(); ++i) {
-				if (m_obj[i].second) continue;
-				double dis_obj = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), m_obj[i].first.begin());
-				if (dis_obj <= epsilon_obj) { // check objective first, then check location
-					for (size_t j = 0; j < m_var.size(); ++j) {
-						if (s.variable_distance(m_var[j].first) <= epsilon_var) return false;
-					}
-					m_obj[i].second = true;
-					m_var.push_back(std::make_pair(s.get_variable(), true));
-					return true;
+		bool is_optimal_objective(const Solution &s, std::vector<Solution> &opt_found, double epsilon_obj, double epsilon_var) {  //  for multi-modal opt, only for global optimal solutions
+			double dis_obj = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), m_obj[0].first.begin());
+			if (dis_obj <= epsilon_obj) {
+				for (size_t i = 0; i < opt_found.size(); ++i) {
+					if (s.variable_distance(opt_found[i]) <= epsilon_var)
+						return false;				
 				}
+				m_obj[opt_found.size()].second = true;
+					
+				opt_found.push_back(s);   // record the variable found
+	
+				return true;
 			}
+			
 			return false;
 		}
 
-		template<typename Solution>
-		bool is_optimal_objective(const Solution &s, double epsilon) {// call this method for multi-objective opt. problems
-			bool flag = false;
-			for (auto &i : m_obj) {
-				if (i.second) continue;
-				double d = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), i.first.begin());
-				if (d <= epsilon) {
-					i.second = true;
-					flag = true;
-				}
-			}
-			return flag;
-		}
-
-		bool is_optimal_objective(const std::vector<objective_type> &o, double epsilon) {  
+		bool is_optimal_objective(const std::vector<objective_type> &o, double epsilon) {  // for multi-objective opt
 			bool flag = false;
 			for (auto &i : m_obj) {
 				if (i.second) continue;
@@ -172,13 +154,19 @@ namespace OFEC {
 			return flag;
 		}
 
-		bool is_variable_found() const {
+		/*bool is_optimal_objective(const objective_type &o, double epsilon) { // single objective optimization problem
+			if (m_obj[0].second) return true;
+
+			return m_obj[0].second = fabs(m_obj[0].first[0] - o) <= epsilon;
+		}*/
+
+		bool is_variable_found() {
 			for (auto &i : m_var) {
 				if (!i.second) return false;
 			}
 			return true;
 		}
-		bool is_objective_found() const {
+		bool is_objective_found() {
 			for (auto &i : m_obj) {
 				if (!i.second) return false;
 			}
@@ -187,24 +175,49 @@ namespace OFEC {
 		void clear() {
 			m_var.clear();
 			m_obj.clear();
-			m_number_var = 0;
 		}
-		int num_variable_found() const {
-			int count = 0;
+		
+		template<typename Solution>
+		void update_objective() {
+			//resize_objective_set(m_number_var);
+			for (size_t i = 0; i < m_number_var; ++i) {
+				if (!(m_var[i].second)) continue;
+				objective<ObjetiveType> temp_obj(GET_NUM_OBJ);
+				Solution temp(m_var[i].first, temp_obj);
+				global::ms_global->m_problem.get()->evaluate_(temp, caller::Problem, false, false);
+				append(temp.get_objective());
+				m_obj[i].second = true;
+			}
+		}
+		const bool variable_flag(size_t i)const {
+			return m_var[i].second;
+		}
+		const bool objective_flag(size_t i)const {
+			return m_obj[i].second;
+		}
+	
+		size_t num_variable_found() const {
+			size_t count = 0;
 			for (auto &i : m_var)
 				if (i.second) ++count;
 			return count;
 		}
-		int num_objective_found() const {
-			int count = 0;
+		size_t num_objective_found() const {
+			size_t count = 0;
 			for (auto &i : m_obj)
 				if (i.second) ++count;
 			return count;
 		}
+		size_t number_variable() const {
+			return m_var.size();
+		}
+		size_t number_objective() const {
+			return m_obj.size();
+		}
 	private:
 		std::vector<std::pair<variable_encoding, bool>> m_var;
 		std::vector<std::pair<std::vector<objective_type>, bool>> m_obj;
-		size_t m_number_var = 0;
+		
 	};
 
 

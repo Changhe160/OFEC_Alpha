@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		F8_shifted_rotated_ackley_bound::F8_shifted_rotated_ackley_bound(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			ackley((v[param_proName]), (v[param_numDim]), 1) {
+		F8_shifted_rotated_ackley_bound::F8_shifted_rotated_ackley_bound(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			ackley((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

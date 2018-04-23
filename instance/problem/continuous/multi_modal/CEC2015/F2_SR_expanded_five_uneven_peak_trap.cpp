@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F2_SR_expanded_five_uneven_peak_trap::F2_SR_expanded_five_uneven_peak_trap(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			CEC2015_function((v[param_proName]), (v[param_numDim]), 1) {
+		F2_SR_expanded_five_uneven_peak_trap::F2_SR_expanded_five_uneven_peak_trap(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			CEC2015_function((v.at("proName")), (v.at("numDim")), 1) {
 			initialize();
 		}
 		F2_SR_expanded_five_uneven_peak_trap::F2_SR_expanded_five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

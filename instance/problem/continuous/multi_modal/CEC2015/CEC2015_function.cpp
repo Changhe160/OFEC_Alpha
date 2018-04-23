@@ -11,6 +11,7 @@ namespace OFEC {
 			m_variable_accuracy = 0.01;
 			m_objective_accuracy = 1.e-4;
 			set_condition_number(1.0);
+			m_variable_monitor = true;
 		}
 		
 		bool CEC2015_function::load_translation(const std::string &path) {
@@ -20,7 +21,7 @@ namespace OFEC {
 			s = ss.str();
 			s.insert(0, m_name + "_Shift");
 			s.insert(0, path);    // data path
-			s.insert(0, global::ms_arg[param_workingDir]);
+			s.insert(0, global::ms_arg.at("workingDir"));
 
 			load_translation_(s);
 
@@ -56,7 +57,7 @@ namespace OFEC {
 			s.insert(0, m_name + "_Optima_");
 
 			s.insert(0, path);// data path
-			s.insert(0, global::ms_arg[param_workingDir]);
+			s.insert(0, global::ms_arg.at("workingDir"));
 
 			load_optima_(s);
 

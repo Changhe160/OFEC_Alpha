@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	
-	shubert::shubert(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	shubert::shubert(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		initialize();
 	}
@@ -17,8 +17,9 @@ namespace OFEC {
 		set_range(-10, 10);
 		set_init_range(-10, 10);
 		m_variable_accuracy = 0.5;
+		m_objective_monitor = true;
 		size_t num = m_variable_size*(size_t)pow(3, m_variable_size);
-		m_original_optima.set_number_variable(num);
+		
 		if (m_variable_size == 2) {
 			m_objective_accuracy = 1.e-4;
 

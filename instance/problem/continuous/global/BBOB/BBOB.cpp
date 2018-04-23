@@ -18,7 +18,7 @@ namespace OFEC {
 		m_rot(size_var), m_rot2(size_var), m_norRand(size_var*size_var), m_linearTF(size_var) {
 		initialize();
 	}
-	BBOB::BBOB(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), continuous((v[param_proName]), (v[param_numDim]), 1), \
+	BBOB::BBOB(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), continuous((v.at("proName")), (v.at("numDim")), 1), \
 		m_rot(m_variable_size), m_rot2(m_variable_size), m_norRand(m_variable_size*m_variable_size), \
 		m_linearTF(m_variable_size) {
 		initialize();
@@ -455,12 +455,12 @@ namespace OFEC {
 			if (effective_fes)		m_effective_eval++;
 
 			if (m_variable_monitor) {
-				m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_variable_accuracy);
+				m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_optima_found, m_variable_accuracy);
 				if (m_optima.is_variable_found())
 					m_solved = true;
 			}
 			if (m_objective_monitor) {
-				m_optima.is_optimal_objective(obj, m_objective_accuracy);
+				m_optima.is_optimal_objective(dynamic_cast<solution<variable<real>, real> &>(s), m_optima_found, m_objective_accuracy, m_variable_accuracy);
 				if (m_optima.is_objective_found())
 					m_solved = true;
 			}

@@ -13,8 +13,8 @@
 
 #include "gear_train.h"
 namespace OFEC {
-	gear_train::gear_train(param_map &v) :problem((v[param_proName]), 4, 1), \
-		function((v[param_proName]), 4, 1) {
+	gear_train::gear_train(param_map &v) :problem((v.at("proName")), 4, 1), \
+		function((v.at("proName")), 4, 1) {
 		set_range(12, 60); 
 		set_init_range(12, 60);
 		initialize();

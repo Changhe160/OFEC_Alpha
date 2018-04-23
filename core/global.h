@@ -52,7 +52,8 @@ namespace OFEC{
 		static unique_ptr<global> ms_global;
 #endif
 		static param_map ms_arg;
-		static std::map<std::string, parameter> ms_param;
+		static std::map<const std::string, bool> ms_filename_info; // to indicate whether a const std::string information is included in output file's name 
+		static std::map<const std::string, const std::string> ms_param;
 		static factory<problem> ms_reg_problem;
 		static factory<algorithm> ms_reg_algorithm;
 	};

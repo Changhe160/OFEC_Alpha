@@ -1,7 +1,11 @@
 #ifndef INCLUDE_PROBLEM_H
 #define INCLUDE_PROBLEM_H
 
-/* * * * * * * * * * problem * * * * * * * * * */
+/*combination*/
+#include "../instance/problem/combination/MKP/multi_dimensional_knapsack.h"
+#include "../instance/problem/combination/one_max/one_max.h"
+#include "../instance/problem/combination/QAP/quadratic_assignment.h"
+#include "../instance/problem/combination/TSP/travelling_salesman.h"
 
 /*multi_objective*/
 #include "../instance/problem/continuous/multi_objective/ZDT/ZDT1.h"
@@ -223,6 +227,6 @@
 /*realworld*/
 #include "../instance/problem/realworld/gear_train/gear_train.h" 
 #include "../instance/problem/realworld/sound_waves/par_est_FM_sound_waves.h"
+#include "../instance/problem/realworld/EPANET/epanet.h"
 
-
-#endif // !INCLUDE_H
+#endif // !INCLUDE_PROBLEM_H

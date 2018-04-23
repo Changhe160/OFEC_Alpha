@@ -359,7 +359,7 @@ namespace OFEC {
 		else THROW("invalid *= from double to var @ double operator *=");
 	}
 
-	using param_map = std::map<parameter, typevar>;
+	using param_map = std::map<const std::string, typevar>;
 
 }
 

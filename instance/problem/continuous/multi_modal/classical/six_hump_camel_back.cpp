@@ -17,9 +17,9 @@
 #include "six_hump_camel_back.h"
 namespace OFEC {
 	
-	six_hump_camel_back::six_hump_camel_back(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
-		v[param_numDim] = 2;
+	six_hump_camel_back::six_hump_camel_back(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
+		v.at("numDim") = 2;
 		initialize();
 	}
 	six_hump_camel_back::six_hump_camel_back(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
@@ -38,7 +38,7 @@ namespace OFEC {
 
 		m_variable_accuracy = 1.e-4;
 		m_objective_accuracy = 0.1;
-
+		m_variable_monitor = true;
 		// 2gopt+ 4 lopt
 		std::vector<std::vector<real>> var_data = { {-0.089842, 0.712656 }, {0.712656, -0.712656}, {-1.70361, 0.796084}, {1.70361, -0.796084}, {-1.6071,-0.56865}, {1.6071, 0.56865} };
 

@@ -16,7 +16,8 @@ namespace OFEC {
 #endif // USING_GPU
 
 	param_map global::ms_arg;
-	std::map<std::string, parameter> global::ms_param;
+	std::map<const std::string, bool> global::ms_filename_info;
+	std::map<const std::string, const std::string> global::ms_param;
 	factory<problem> global::ms_reg_problem;
 	factory<algorithm> global::ms_reg_algorithm;
 

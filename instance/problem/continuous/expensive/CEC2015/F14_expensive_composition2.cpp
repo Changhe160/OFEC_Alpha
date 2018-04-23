@@ -20,8 +20,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F14_expensive_composition2::F14_expensive_composition2(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			composition_2015((v[param_proName]), (v[param_numDim]), 1) {
+		F14_expensive_composition2::F14_expensive_composition2(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
 			m_num_function = 3;
 			m_function.resize(m_num_function);
 			m_height.resize(m_num_function);

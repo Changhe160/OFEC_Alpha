@@ -2,10 +2,10 @@
 
 namespace OFEC {
 	
-		equal_maxima::equal_maxima(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			function((v[param_proName]), (v[param_numDim]), 1) {
+		equal_maxima::equal_maxima(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			function((v.at("proName")), (v.at("numDim")), 1) {
 
-			v[param_numDim] = 1;
+			v.at("numDim") = 1;
 			set_range(0, 1.); // note
 			set_init_range(0, 1.);
 			initialize();
@@ -21,7 +21,7 @@ namespace OFEC {
 			m_objective_monitor = true;
 			m_objective_accuracy = 1.e-4;
 			m_variable_accuracy = 1.e-2;
-			//m_original_optima.set_number_variable(5);
+			
 			std::vector<std::vector<real>> obj_data(5, std::vector<real>(1, 1.));
 			for (auto &i : obj_data) {
 				m_original_optima.append(i[0]);

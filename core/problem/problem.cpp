@@ -54,5 +54,5 @@ namespace OFEC {
 		m_paramters = std::move(rhs.m_paramters);
 		return *this;
 	}
-
+	
 }

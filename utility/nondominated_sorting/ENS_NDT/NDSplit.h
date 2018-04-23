@@ -1,3 +1,20 @@
+/*************************************************************************
+* Project: Library of Open Frameworks for Evolutionary Computation (OFEC)
+*************************************************************************
+* Author: Changhe Li & Junchen Wang
+* Email: changhe.lw@gmail.com, wangjunchen@cug.edu.cn
+* Language: C++
+*************************************************************************
+*  This file is part of OFEC. This library is free software;
+*  you can redistribute it and/or modify it under the terms of the
+*  GNU General Public License as published by the Free Software
+*  Foundation; either version 2, or (at your option) any later version.
+
+*************************************************************************/
+// Created: 29 Mar 2018 by Junchen Wang
+// Last modified:
+
+
 #ifndef ENS_NDT_NDSPLIT_H
 #define ENS_NDT_NDSPLIT_H
 
@@ -41,7 +58,7 @@ namespace ENS_NDT {
 
 			std::vector<int>* temp_index = new std::vector<int>;
 			std::vector<std::vector<double>>* temp_points = new std::vector<std::vector<double>>;
-			NumComp += NDS::quick_sort(points, *temp_index, dimension, startIndex, startIndex + count - 1);
+			NumComp += NS::quick_sort(points, *temp_index, dimension, startIndex, startIndex + count - 1);
 			temp_points->assign(points.begin() + startIndex, points.begin() + startIndex + count);
 			for (int i = 0; i < count; ++i)
 				points[i + startIndex] = temp_points->at(temp_index->at(i)-startIndex);

@@ -14,8 +14,8 @@
 #include "quartic_noisy.h"
 namespace OFEC {
 	
-	quartic_noisy::quartic_noisy(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	quartic_noisy::quartic_noisy(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		set_range(-1.28, 1.28);
 		set_init_range(-1.28, 1.28);

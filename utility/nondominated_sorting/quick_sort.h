@@ -2,14 +2,13 @@
 #define NDS_QUICK_SORT_H
 
 #include <vector>
-#include <algorithm>
 
-namespace NDS {
+namespace NS {
 
 	template<typename T>
 	bool greater(const std::vector<T>& a, const std::vector<T>& b, const int obj_idx, int& Noc) {
-		size_t obj_num = a.size();
-		for (size_t i = 0; i < obj_num; ++i) {
+		std::size_t obj_num = a.size();
+		for (std::size_t i = 0; i < obj_num; ++i) {
 			int idx = (i + obj_idx) % obj_num;
 			Noc++;
 			if (a[idx] > b[idx])
@@ -55,7 +54,7 @@ namespace NDS {
 	}
 
 	template<typename T>
-	int quick_sort(const std::vector<std::vector<T>>& data, std::vector<int>& index, const int obj_idx = 0, int low = -1, int high = - 1, bool ascending = true) {
+	int quick_sort(const std::vector<std::vector<T>>& data, std::vector<int>& index, const int obj_idx, int low = -1, int high = - 1, bool ascending = true) {
 		if (low == -1) {
 			low = 0;
 			high = data.size() - 1;
@@ -70,7 +69,7 @@ namespace NDS {
 		for (int i = 0; i < N; ++i)
 			index[i] = temp_index[i + low];
 		if (!ascending) {
-			for (size_t i = 0; i < N / 2; i++)
+			for (std::size_t i = 0; i < N / 2; i++)
 				std::swap(index[i], index[N - 1 - i]);
 		}
 		return Noc;

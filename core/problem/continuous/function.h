@@ -73,7 +73,7 @@ namespace OFEC {
 	protected:
 		std::vector<real> m_translation;
 		bool m_scale_flag = false, m_rotation_flag = false, m_translation_flag = false, m_noise_flag = false;
-		real m_scale, m_bias;
+		real m_scale, m_bias = 0.;
 		real m_condition_number;
 		matrix m_rotation;
 		optima<variable<real>, real> m_original_optima;

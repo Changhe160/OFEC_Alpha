@@ -51,11 +51,11 @@ namespace OFEC {
 
 		template<typename Solution>
 		evaluation_tag evaluate(Solution &s, caller call, bool effective_eval = true) {
-			
+
 			evaluation_tag tag = evaluate_(s, call, effective_eval, true);
 
 			if (effective_eval) {
-				update_objective_minmax(s,m_opt_mode);
+				update_objective_minmax(s, m_opt_mode);
 			}
 			++m_total_eval;
 
@@ -153,7 +153,15 @@ namespace OFEC {
 		void set_opt_mode(optimization_mode m, size_t idx = 0) {
 			m_opt_mode[idx] = m;
 		}
+		template<typename Solution>
+		static Solution * get_sofar_best(size_t i) {
+			return dynamic_cast<Solution *>(ms_minmax_objective[i].first.get());
+		}
 
+		template<typename Solution>
+		static Solution * get_sofar_worst(size_t i) {
+			return dynamic_cast<Solution *>(ms_minmax_objective[i].second.get());
+		}
 	protected:
 		problem& operator=(const problem& rhs);  // assignment is not allowed outside
 		problem& operator=(problem&& rhs);

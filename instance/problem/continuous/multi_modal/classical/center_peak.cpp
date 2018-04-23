@@ -17,9 +17,9 @@
 #include "center_peak.h"
 namespace OFEC {
 	
-	center_peak::center_peak(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
-		v[param_numDim] = 2;
+	center_peak::center_peak(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
+		v.at("numDim") = 2;
 		set_range(-2, 2);
 		set_init_range(-2, 2);
 		initialize();
@@ -35,7 +35,7 @@ namespace OFEC {
 	void center_peak::initialize() {
 		m_opt_mode[0] = optimization_mode::Maximization;
 
-		//m_original_optima.set_number_variable(5); //1 gopt + 4 lopt
+		 //1 gopt + 4 lopt
 		m_variable_monitor = true;
 		m_objective_accuracy = 1.e-5;
 		m_variable_accuracy = 0.2;

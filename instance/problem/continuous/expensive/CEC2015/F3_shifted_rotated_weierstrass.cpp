@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F3_shifted_rotated_weierstrass::F3_shifted_rotated_weierstrass(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			weierstrass((v[param_proName]), (v[param_numDim]), 1) {
+		F3_shifted_rotated_weierstrass::F3_shifted_rotated_weierstrass(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			weierstrass((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}
@@ -14,7 +14,7 @@ namespace OFEC {
 		}
 
 		void F3_shifted_rotated_weierstrass::initialize() {
-
+			m_variable_monitor = true;
 			set_bias(300);
 
 			load_translation("instance/problem/continuous/expensive/CEC2015/data/");  //data path

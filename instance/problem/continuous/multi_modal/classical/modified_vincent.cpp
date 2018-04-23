@@ -2,8 +2,8 @@
 
 namespace OFEC {
 
-	modified_vincent::modified_vincent(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	modified_vincent::modified_vincent(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		set_range(-10, 10);
 		set_init_range(-10, 10);
@@ -20,9 +20,10 @@ namespace OFEC {
 		m_opt_mode[0] = optimization_mode::Minimization;
 		m_variable_accuracy = 0.01;
 		m_objective_accuracy = 1.e-4;
+		m_objective_monitor = true;
 		// 6^Dim gopt 
 		size_t num = (int)pow(6, m_variable_size);
-		m_original_optima.set_number_variable(num);
+		
 		std::vector<std::vector<real>> obj_data(num, std::vector<real>(1, 0));
 
 		for (auto &i : obj_data) {

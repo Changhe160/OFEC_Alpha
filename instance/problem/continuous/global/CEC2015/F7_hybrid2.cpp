@@ -5,8 +5,8 @@
 #include "../../global/classical/scaffer_F6.h"
 namespace OFEC {
 	namespace CEC2015 {
-		F7_hybrid2::F7_hybrid2(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			hybrid((v[param_proName]), (v[param_numDim]), 1) {
+		F7_hybrid2::F7_hybrid2(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			hybrid((v.at("proName")), (v.at("numDim")), 1) {
 			m_num_function = 4;
 			m_function.resize(m_num_function);
 			m_start.resize(m_num_function);

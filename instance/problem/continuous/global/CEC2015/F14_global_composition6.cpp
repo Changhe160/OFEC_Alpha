@@ -9,8 +9,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F14_global_composition6::F14_global_composition6(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			composition_2015((v[param_proName]), (v[param_numDim]), 1) {
+		F14_global_composition6::F14_global_composition6(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
 			m_num_function = 7;
 			m_function.resize(m_num_function);
 			m_height.resize(m_num_function);

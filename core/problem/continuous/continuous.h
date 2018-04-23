@@ -33,13 +33,15 @@ namespace OFEC {
 		violation_type check_boundary_violation(const base &s) const; // boudary check only
 		void initialize_solution(base &s) const;
 
-		const std::pair<real, real>& range(int i) const;
+		const std::pair<real, real>& range(size_t i) const;
 		void set_range(real l, real u);
 		void set_range(const std::vector<std::pair<real, real>>& r);
 		void set_init_range(real l, real u);
 		void set_init_range(const std::vector<std::pair<real, real>>& r);
 
 		optima<variable<real>, real>& get_optima();
+		std::vector<solution<variable<real>, real>>& get_optima_found();
+		domain<real>& get_domain();
 
 		virtual bool same(const base &s1, const base &s2) const { return false; }
 		double variable_distance(const base &s1, const base &s2) const;
@@ -48,6 +50,11 @@ namespace OFEC {
 		//virtual void constraint_value(const base &, std::pair<double, vector<double>>&) {}
 		bool is_optimal_given();
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
+
+		bool objective_monitor() const;
+		bool variable_monitor() const;
+
+		size_t num_optima_found() const;
 	protected:
 		continuous& operator=(const continuous& rhs);
 		continuous& operator=(continuous&& rhs);
@@ -63,6 +70,7 @@ namespace OFEC {
 		domain<real> m_domain;		// search domain
 		domain<real> m_init_domain; // range for intial population
 		optima<variable<real>, real> m_optima;
+		std::vector<solution<variable<real>, real>> m_optima_found;
 		bool m_variable_monitor = false, m_objective_monitor = false;
 	};
 

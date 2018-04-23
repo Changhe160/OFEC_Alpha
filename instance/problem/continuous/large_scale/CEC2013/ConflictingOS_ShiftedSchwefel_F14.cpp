@@ -2,8 +2,8 @@
 #include "ConflictingOS_ShiftedSchwefel_F14.h"
 namespace OFEC {
 	namespace CEC2013 {
-		ConflictingOS_ShiftedSchwefel_F14::ConflictingOS_ShiftedSchwefel_F14(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-			function_CEC2013((v[param_proName]), (v[param_numDim]), 1) \
+		ConflictingOS_ShiftedSchwefel_F14::ConflictingOS_ShiftedSchwefel_F14(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
 		{
 			set_range(-100, 100);
 			set_init_range(-100, 100);

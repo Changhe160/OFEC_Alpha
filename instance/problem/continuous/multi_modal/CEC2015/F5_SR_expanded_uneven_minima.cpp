@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F5_SR_expanded_uneven_minima::F5_SR_expanded_uneven_minima(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			CEC2015_function((v[param_proName]), (v[param_numDim]), 1) {
+		F5_SR_expanded_uneven_minima::F5_SR_expanded_uneven_minima(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			CEC2015_function((v.at("proName")), (v.at("numDim")), 1) {
 			initialize();
 		}
 		F5_SR_expanded_uneven_minima::F5_SR_expanded_uneven_minima(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

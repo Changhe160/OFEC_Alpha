@@ -26,13 +26,13 @@ namespace OFEC {
 	template<typename>  class multi_population;
 
 	template<typename Individual>
-	class population: public algorithm{
+	class population : public algorithm {
 		template<typename> friend class multi_population;
 		using individual_type = Individual;
 	public:
 		using iterator_type = typename std::vector<std::shared_ptr< Individual>>::iterator;
 		//element access
-		int size()const {
+		size_t size()const {
 			return m_pop.size();
 		}
 		const std::vector<int> order(int idx) const { // get individual(s) with order idx
@@ -42,10 +42,10 @@ namespace OFEC {
 				inds.push_back(i->second);
 			return inds;
 		}
-		const Individual& operator[](int i) const {
+		const Individual& operator[](size_t i) const {
 			return *m_pop[i];
 		}
-		Individual& operator[](int i)  {
+		Individual& operator[](size_t i) {
 			return *m_pop[i];
 		}
 		std::vector<std::unique_ptr<typename Individual::solution_type>>& archive() {
@@ -59,17 +59,17 @@ namespace OFEC {
 		void update_best();
 		void update_worst();
 		virtual bool update_archive(const typename Individual::solution_type &x);
-		void handle_evaluation_tag(evaluation_tag tag);
+		void handle_evaluation_tag(evaluation_tag tag) {}
 
 		//constructors and members
-		population()=default;
+		population() = default;
 		template<typename ... Args>
-		population(int n, Args&& ...args);
+		population(size_t n, Args&& ...args);
 		population(const population &rhs);
 		population& operator=(const population &rhs);
 		population(population&&rhs);
 		population& operator=(population&&rhs);
-		
+
 		//operations
 		iterator_type operator +(const population &p);
 		iterator_type operator +(population &&p);
@@ -85,31 +85,33 @@ namespace OFEC {
 		iterator_type operator-(int n); // remove n worst individuals by default
 
 		template<typename Fun, typename ... Args>
-		void sort(Fun fun, Args&& ... args);		
+		void sort(Fun fun, Args&& ... args);
 
 		void resize_objective(int n);
 		void resize_variable(int n);
 
 		evaluation_tag evaluate(); // evaluate each individual 
 		evaluation_tag evolve();
-				
+
 		void reset(); // delete all individuals
-		
+
 		double mean(int oidx);	//mean value of the oidx-th objective
 		double variance(int oidx, double mean); //variance of the oidx-th objective
 
 		virtual void initialize(); //a uniformly distributed initialization by default
 		template<typename Fun, typename Problem, typename... Args>
 		void initialize(Fun fun, const Problem* pro, Args&& ... args);
+
+		size_t nearest_solution(size_t idx, double * min_dis=0);
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
 	protected:
 		int m_iter = 0;			// the current number of iterations
-		int m_id;				
-		std::vector<std::shared_ptr<Individual>> m_pop; 
-		std::vector<std::shared_ptr<Individual>> m_best,m_worst;
+		int m_id;
+		std::vector<std::shared_ptr<Individual>> m_pop;
+		std::vector<std::shared_ptr<Individual>> m_best, m_worst;
 		std::vector<std::unique_ptr<typename Individual::solution_type>> m_arc;// external archive for solutions
-		std::multimap<int,int> m_order; 
+		std::multimap<int, int> m_order;
 
 		bool m_ordered = false, m_best_updated = false, m_worst_updated = false;
 	private:
@@ -142,11 +144,11 @@ namespace OFEC {
 	void population<Individual>::update_best() {
 		m_best.clear();
 		std::vector<bool> flag(m_pop.size(), true);
-	
+
 		for (size_t j = 0; j<m_pop.size(); j++) {
 			for (size_t i = 0; i<m_pop.size(); i++) {
 				if (i == j || !flag[j] || !flag[i]) continue;
-				if (*m_pop[j]>*m_pop[i]) {
+				if (m_pop[j]->dominate(*m_pop[i])) {
 					flag[i] = false;
 				}
 			}
@@ -163,7 +165,7 @@ namespace OFEC {
 		for (size_t j = 0; j<m_pop.size(); j++) {
 			for (size_t i = 0; i<m_pop.size(); i++) {
 				if (i == j || !flag[j] || !flag[i]) continue;
-				if (*m_pop[j]<*m_pop[i]) {
+				if (m_pop[i]->dominate(m_pop[j])) {
 					flag[i] = false;
 				}
 			}
@@ -205,7 +207,7 @@ namespace OFEC {
 
 	template<typename Individual>
 	template<typename ... Args>
-	population<Individual>::population(int n, Args&& ... args) : m_pop(n) {
+	population<Individual>::population(size_t n, Args&& ... args) :algorithm(std::string()), m_pop(n) {
 		size_t size_obj = global::ms_global->m_problem->objective_size();
 		for (auto& i : m_pop)
 			i = std::move(std::unique_ptr<Individual>(new Individual(size_obj, std::forward<Args>(args)...)));
@@ -213,29 +215,69 @@ namespace OFEC {
 	}
 
 	template<typename Individual>
-	population<Individual>::population(const population &rhs) {
-	
+	population<Individual>::population(const population &rhs) :algorithm(std::string()), m_iter(rhs.m_iter), m_id(rhs.m_id), m_pop(rhs.m_pop),\
+	m_best(rhs.m_best), m_worst(rhs.m_worst), m_arc(rhs.m_arc), m_order(rhs.m_order), m_ordered(rhs.m_ordered), m_best_updated(rhs.m_best_updated),\
+	m_worst_updated(rhs.m_worst_updated), m_max_id(rhs.m_max_id) {
+		
 	}
 
 	template<typename Individual>
-	population<Individual>& population<Individual>::operator=(const population &rhs) {}
+	population<Individual>& population<Individual>::operator=(const population &rhs) {
+		m_iter = rhs.m_iter;
+		m_id = rhs.m_id;
+		m_pop = rhs.m_pop;
+		m_best = rhs.m_best;
+		m_worst = rhs.m_worst;
+		m_arc = rhs.m_arc;
+		m_order = rhs.m_order;
+		m_ordered = rhs.m_ordered;
+		m_best_updated = rhs.m_best_updated;
+		m_worst_updated = rhs.m_worst_updated;
+		m_max_id = rhs.m_max_id;
+		return *this;
+	}
 
 	template<typename Individual>
-	population<Individual>::population(population&&rhs) {
-	
+	population<Individual>::population(population&&rhs) :algorithm(std::string()), m_iter(rhs.m_iter), m_id(rhs.m_id), m_pop(std::move(rhs.m_pop)), \
+		m_best(std::move(rhs.m_best)), m_worst(std::move(rhs.m_worst)), m_arc(std::move(rhs.m_arc)), m_order(std::move(rhs.m_order)), m_ordered(rhs.m_ordered),\
+		m_best_updated(rhs.m_best_updated),	m_worst_updated(rhs.m_worst_updated), m_max_id(rhs.m_max_id) {
+		
 	}
 
 	template<typename Individual>
 	population<Individual>& population<Individual>::operator=(population&&rhs) {
+		m_iter = rhs.m_iter;
+		m_id = rhs.m_id;
+		m_pop = std::move(rhs.m_pop);
+		m_best = std::move(rhs.m_best);
+		m_worst = std::move(rhs.m_worst);
+		m_arc = std::move(rhs.m_arc);
+		m_order = std::move(rhs.m_order);
+		m_ordered = rhs.m_ordered;
+		m_best_updated = rhs.m_best_updated;
+		m_worst_updated = rhs.m_worst_updated;
+		m_max_id = rhs.m_max_id;
+		return *this;
+	}
 
+	template<typename Individual>
+	void population<Individual>::reset() {
+
+		m_iter = 0;
+		m_best.clear();
+		m_worst.clear();
+		m_pop.clear();
+		m_arc.clear();
+		m_order.clear();
+		m_ordered = false, m_best_updated = false, m_worst_updated = false;
 	}
 
 	template<typename Individual>
 	void population<Individual>::initialize() {
-		for (size_t i = 0; i < m_pop.size(); ++i) {
+		for (int i = 0; i < m_pop.size(); ++i) {
 			m_pop[i]->initialize(i);
 		}
-			
+
 	}
 	template<typename Individual>
 	template<typename Fun, typename Problem, typename... Args>
@@ -255,8 +297,57 @@ namespace OFEC {
 		std::vector<int> rank(N);
 		fun(obj, rank, std::forward<Args>(args)...);
 	}
+	template<typename Individual>
+	size_t population<Individual>::nearest_solution(size_t idx, double * min_dis) {
+		double Min_dis;
+		size_t index;
+		size_t count = 0;
+		std::vector<double> dis(size());
+		for (size_t i = 0; i < size(); ++i) {
+			if (idx == i) {
+				dis[i] = 0;
+				continue;
+			}
+			dis[i] = m_pop[idx]->variable_distance(*m_pop[i]);
+		}
 
+		for (size_t i = 0; i < size(); ++i) {
+			if (i == idx) continue;
+			++count;
+			if (count == 1) {
+				Min_dis = dis[i];
+				index = i;
+			}
+			else if (dis[i]<Min_dis) {
+				Min_dis = dis[i];
+				index = i;
+			}
+		}
+		if (min_dis) *min_dis = Min_dis;
+		
+		return index;
+	}
 
+	template<typename Individual>
+	evaluation_tag population<Individual>::evaluate() {
+		evaluation_tag tag = evaluation_tag::Normal;
+		for (auto &i : m_pop) {
+			tag = i->evaluate();
+			if (tag != evaluation_tag::Normal) break;
+		}
+		return tag;
+	}
+
+	template<typename Individual>
+	void population<Individual>::resize_objective(int n) {
+		for (auto &i : m_pop)
+			i.resize_objective(n);
+	}
+	template<typename Individual>
+	void population<Individual>::resize_variable(int n) {
+		for (auto &i : m_pop)
+			i.resize_variable(n);
+	}
 }
 
 #endif // !OFEC_POPULATION_H
