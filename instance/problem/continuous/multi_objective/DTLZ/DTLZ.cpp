@@ -6,7 +6,7 @@ namespace OFEC {
 		if (m_objective_size > m_variable_size) throw myexcept("the number of dim must be greater or eaqual to the number of obj for DTLZ pros");
 		set_init_range(0., 1.);
 		set_range(0., 1.);
-		m_tag = std::set<problem_tag>({ problem_tag::MOP, problem_tag::CONT });
+
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Minimization;
 		load_PF();

@@ -16,7 +16,7 @@ namespace OFEC {
 
 		for (size_t i = 0; i < m_variable_size; ++i)
 			m_domain.set_range(0, (v.at("numDim")) - 1, i);
-		m_tag = std::set<problem_tag>({ problem_tag::QAP, problem_tag::COMB });
+
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Minimization;
 
@@ -39,7 +39,7 @@ namespace OFEC {
 
 		for (size_t i = 0; i < m_variable_size; ++i)
 			m_domain.set_range(0, m_variable_size - 1, i);
-		m_tag = std::set<problem_tag>({ problem_tag::QAP, problem_tag::COMB });
+
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Minimization;
 

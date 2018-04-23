@@ -8,7 +8,6 @@ namespace OFEC {
 		m_file_name = static_cast<std::string>(v.at("dataFile1"));
 		read_problem();
 		
-		m_tag = std::set<problem_tag>({ problem_tag::MKP, problem_tag::COMB });
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Maximization;
 
@@ -23,7 +22,6 @@ namespace OFEC {
 		m_file_name = file_name;
 		read_problem();
 
-		m_tag = std::set<problem_tag>({ problem_tag::MKP, problem_tag::COMB });
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Maximization;
 

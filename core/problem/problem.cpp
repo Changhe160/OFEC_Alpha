@@ -10,6 +10,11 @@ namespace OFEC {
 	std::map<int, pair<unique_ptr<base>, unique_ptr<base>>> problem::ms_minmax_objective; // the best and worst so far solutions of each objective 
 #endif	
 
+	problem::problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var),
+		m_objective_size(size_obj), m_opt_mode(size_obj, optimization_mode::Minimization) {
+		m_tag = factory<problem>::get().at(m_name).second;
+	}
+
 	void problem::resize_objective(size_t n) {
 		m_objective_size = n;
 		m_opt_mode.resize(n);
