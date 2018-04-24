@@ -112,7 +112,6 @@ namespace OFEC {
 		std::vector<std::shared_ptr<Individual>> m_best, m_worst;
 		std::vector<std::unique_ptr<typename Individual::solution_type>> m_arc;// external archive for solutions
 		std::multimap<int, int> m_order;
-
 		bool m_ordered = false, m_best_updated = false, m_worst_updated = false;
 	private:
 		int m_max_id;

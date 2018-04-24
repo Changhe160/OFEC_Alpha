@@ -104,12 +104,12 @@ namespace OFEC {
 			for (size_t i = 0; i < final_data.size(); i++) {
 				mean_and_var[j].second += pow((final_data[i][j] - mean_and_var[j].first), 2);
 			}
-			mean_and_var[j].second = sqrt(mean_and_var[j].second / final_data.size());
+			mean_and_var[j].second = sqrt(mean_and_var[j].second / (final_data.size() - 1));
 		}
 		//output mean and variance
 		for (size_t j = 0; j < size_row; ++j) {
 			out << "Mean of " << m_heading[j] << ": " << mean_and_var[j].first << std::endl;
-			out << "Variance of " << m_heading[j] << ": " << mean_and_var[j].second << std::endl;
+			out << "St.D. of " << m_heading[j] << ": " << mean_and_var[j].second << std::endl;
 		}
 		out.close();
 		out.clear();

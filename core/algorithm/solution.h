@@ -124,6 +124,7 @@ namespace  OFEC {
 		evaluation_tag evaluate(bool effective_eval=true) {
 				
 			return  global::ms_global->m_problem->evaluate(*this, caller::Algorithm, effective_eval);
+
 		}
 
 		double objective_distance(const solution& rhs) const {			

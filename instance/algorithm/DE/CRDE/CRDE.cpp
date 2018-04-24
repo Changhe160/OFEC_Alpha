@@ -8,6 +8,7 @@ namespace OFEC {
 			m_F = 0.5;
 			m_CR = 0.9;
 			m_mutation_strategy = DE_rand_1;
+
 		}
 
 		evaluation_tag CRDE::evolve()
@@ -65,3 +66,4 @@ namespace OFEC {
 		}
 	}
 }
+
