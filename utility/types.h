@@ -13,12 +13,15 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* class factory is for the registration of all problems and algorithms
+* This file includes types for special purpose
 *
 *********************************************************************************/
 
-#ifndef OFEC_SINGLETON_H
-#define OFEC_SINGLETON_H
+#ifndef OFEC_TYPES_H
+#define OFEC_TYPES_H
+class null_type {
+
+};
 class singleton {
 protected:
 	singleton() = default;

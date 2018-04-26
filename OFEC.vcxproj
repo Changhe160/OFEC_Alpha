@@ -703,6 +703,7 @@
     <ClInclude Include="utility\nondominated_sorting\T_ENS\T_ENS.h" />
     <ClInclude Include="utility\random\extreal.h" />
     <ClInclude Include="utility\random\newran.h" />
+    <ClInclude Include="utility\types.h" />
     <ClInclude Include="utility\typevar\typevar.h" />
     <ClInclude Include="utility\vector.h" />
   </ItemGroup>

@@ -57,6 +57,7 @@ namespace OFEC {
 				solution_type *r4 = 0,
 				solution_type *r5 = 0);
 			virtual void recombine(double CR);
+
 			virtual evaluation_tag select();
 			solution_type& trial();
 

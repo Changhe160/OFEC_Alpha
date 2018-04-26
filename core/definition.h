@@ -68,7 +68,7 @@ namespace OFEC {
 	//MKP: multi-dimensional knapsack problem
 	//EOP: expensive optimization problem
 	//LSOP: large scale optimization problem
-	enum class problem_tag {
+	enum class problem_tag {null_tag,
 		SOP, MOP, DOP, MMP, GOP, ROOT, CONT, COMB, TSP, COP, VRP, TTP, JSP,
 		KOP, SAT, ONEMAX, QAP, MKP, EOP, LSOP
 	};

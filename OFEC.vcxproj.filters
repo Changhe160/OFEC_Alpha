@@ -1026,6 +1026,9 @@
     <ClInclude Include="utility\nondominated_sorting\best_order_sort\best_order_sort.h">
       <Filter>utility\nondominated_sorting\best_order_sort</Filter>
     </ClInclude>
+    <ClInclude Include="utility\types.h">
+      <Filter>utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">

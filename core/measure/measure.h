@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "../global.h"
-#include "../../utility/singleton.h"
+#include "../../utility/types.h"
 namespace OFEC {
 	struct global;
 	class measure:public singleton {
