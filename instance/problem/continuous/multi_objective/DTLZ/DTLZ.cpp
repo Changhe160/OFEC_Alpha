@@ -13,16 +13,16 @@ namespace OFEC {
 	void DTLZ::generateAdLoadPF() {
 		const std::string problem_name[] = { "DTLZ1", "DTLZ2", "DTLZ3", "DTLZ4" };
 		std::stringstream os;
-		os << global::ms_arg[param_workingDir] << "FunctionOpt/PF_" << global::ms_arg[param_proName] << "(" << global::ms_arg[param_numObj] << ")" << "_Opt.txt";
+		os << global::ms_arg.at("workingDir") << "FunctionOpt/PF_" << global::ms_arg.at("proName") << "(" << global::ms_arg.at("numObj") << ")" << "_Opt.txt";
 
 		for (size_t i = 0; i<4; i += 1) // problem
 		{
-			if (global::ms_arg[param_proName] != problem_name[i])
+			if (global::ms_arg.at("proName") != problem_name[i])
 				continue;
 			const int M[5] = { 3, 5, 8, 10, 15 };
 			for (size_t j = 0; j<5; j += 1) // objectives
 			{
-				if (global::ms_arg[param_numObj] != M[j])
+				if (global::ms_arg.at("numObj") != M[j])
 					continue;
 				std::ifstream infile(os.str());
 				if (infile)
@@ -45,7 +45,7 @@ namespace OFEC {
 				ofile.close();
 			}
 		}
-		size_t numObj = global::ms_arg[param_numObj];
+		size_t numObj = global::ms_arg.at("numObj");
 		std::ifstream infile(os.str());
 		if (!infile)
 			throw myexcept("please std::set your own pareto front @DTLZ::generatePF()");

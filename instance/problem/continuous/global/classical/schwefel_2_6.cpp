@@ -1,8 +1,8 @@
 #include "schwefel_2_6.h"
 namespace OFEC {
 	
-	schwefel_2_6::schwefel_2_6(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1), m_a(v[param_numDim], std::vector<int>(v[param_numDim])), m_b(v[param_numDim]) {
+	schwefel_2_6::schwefel_2_6(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1), m_a(v.at("numDim"), std::vector<int>(v.at("numDim"))), m_b(v.at("numDim")) {
 
 		set_range(-100, 100);
 		set_init_range(-100, 100);
@@ -28,7 +28,7 @@ namespace OFEC {
 		sa = ss.str();
 		sa.insert(0, m_name + "_a_");
 		sa.insert(0, "instance/problem/continuous/global/classical/data/");
-		//sa.insert(0, global::ms_arg[param_workingDir]);// data path
+		//sa.insert(0, global::ms_arg.at("workingDir"));// data path
 
 		std::ifstream in_a;
 		in_a.open(sa.data());
@@ -61,7 +61,7 @@ namespace OFEC {
 		so.insert(0, m_name + "_Shift_");
 
 		so.insert(0, "instance/problem/continuous/global/classical/data/");
-		//so.insert(0, global::ms_arg[param_workingDir]);// data path
+		//so.insert(0, global::ms_arg.at("workingDir"));// data path
 
 		std::ifstream in;
 		in.open(so.data());

@@ -1,3 +1,20 @@
+/*************************************************************************
+* Project: Library of Open Frameworks for Evolutionary Computation (OFEC)
+*************************************************************************
+* Author: Changhe Li & Junchen Wang
+* Email: changhe.lw@gmail.com, wangjunchen@cug.edu.cn
+* Language: C++
+*************************************************************************
+*  This file is part of OFEC. This library is free software;
+*  you can redistribute it and/or modify it under the terms of the
+*  GNU General Public License as published by the Free Software
+*  Foundation; either version 2, or (at your option) any later version.
+
+*************************************************************************/
+// Created: 29 Mar 2018 by Junchen Wang
+// Last modified:
+
+
 #ifndef ENS_NDT_NDNODE_H
 #define ENS_NDT_NDNODE_H
 
@@ -22,7 +39,7 @@ namespace ENS_NDT {
 
 	public:
 		NDNode(std::shared_ptr<NDSplit>& split, int bucketSize) : BucketSize(bucketSize), Split(split), Points(new std::vector<std::vector<double>*>()){}
-
+		~NDNode() { delete Points; }
 		void AddPoint(std::vector<double>* point, int& NumComp)
 		{
 			if (IsLeaf())
@@ -55,6 +72,7 @@ namespace ENS_NDT {
 		void SplitLeaf(int& NumComp)
 		{
 			std::vector<std::vector<double>*> points = *Points;
+			delete Points;
 			Points = nullptr;
 
 			for(std::vector<double>* point : points)

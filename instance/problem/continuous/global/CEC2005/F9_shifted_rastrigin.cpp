@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		F9_shifted_rastrigin::F9_shifted_rastrigin(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			rastrigin((v[param_proName]), (v[param_numDim]), 1) {
+		F9_shifted_rastrigin::F9_shifted_rastrigin(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			rastrigin((v.at("proName")), (v.at("numDim")), 1) {
 			initialize();
 		}
 		F9_shifted_rastrigin::F9_shifted_rastrigin(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

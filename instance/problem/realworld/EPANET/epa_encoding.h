@@ -61,14 +61,18 @@ namespace OFEC {
 		int & interval() {
 			return m_x.Interval;
 		}
+		long & first_detected_time() {
+			return m_x.first_detected_time;
+		}
 	protected:
 		struct epa_type  {
 			int Interval = 0;
 			bool isLoc = true;
 			bool isDetected = false;
+			long first_detected_time;
 			char Loc[32];
 			int Index;
-			float Source;
+			float Source = 1.0;
 			long startTime;
 			long Duration;
 			std::vector<float> Multiplier;

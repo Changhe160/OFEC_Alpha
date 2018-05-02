@@ -7,8 +7,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F13_global_composition5::F13_global_composition5(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			composition_2015((v[param_proName]), (v[param_numDim]), 1) {
+		F13_global_composition5::F13_global_composition5(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
 			m_num_function = 3;
 			m_num_hybrid = 2;
 			m_function.resize(m_num_function);
@@ -162,7 +162,7 @@ namespace OFEC {
 			s = ss.str();
 			s.insert(0, m_name + "_HyShift_");
 			s.insert(0, path);    // data path
-			s.insert(0, global::ms_arg[param_workingDir]);
+			s.insert(0, global::ms_arg.at("workingDir"));
 
 			for (auto &i : m_hybrid)
 				i->hybrid_translation().resize(m_variable_size);

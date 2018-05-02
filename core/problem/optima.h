@@ -94,6 +94,22 @@ namespace OFEC {
 		International Journal of Industrial Engineering Computations 5 (2014) 1¨C22
 		*/
 		//return IGD(Inverted Generational Distance) of pop to optima 
+
+		template<typename Population>
+		double IGD_to_PF(const Population &pop)const {
+			double distance = 0;
+			for (auto &i : m_obj) {
+				double min_d = std::numeric_limits<double>::max();
+				for (int j = 0; j < pop.size(); ++j) {
+					double d = euclidean_distance(pop[j].get_objective().begin(), pop[j].get_objective().end(), i.first.begin());
+					if (d<min_d)  min_d = d;
+				}
+				distance += min_d;
+			}
+			return distance / m_obj.size();
+
+		}
+
 		template<typename Population>
 		double distance_to_optimal_obj(const Population &pop)const {
 			double distance = 0;

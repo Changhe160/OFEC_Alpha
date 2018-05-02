@@ -7,8 +7,8 @@ namespace OFEC {
 #endif
 
 	termination::termination(param_map &v) :m_maxTime(24 * 3600) {
-		if (v.find(param_maxRunTime) != v.end())
-			m_maxTime = (int)v[param_maxRunTime];
+		if (v.find("maxRunTime") != v.end())
+			m_maxTime = (int)v.at("maxRunTime");
 
 	}
 

@@ -18,9 +18,9 @@
 
 namespace OFEC {
 	
-	himmenblau::himmenblau(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
-		v[param_numDim] = 2;
+	himmenblau::himmenblau(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
+		v.at("numDim") = 2;
 		set_range(-6, 6);
 		set_init_range(-6, 6);
 		initialize();

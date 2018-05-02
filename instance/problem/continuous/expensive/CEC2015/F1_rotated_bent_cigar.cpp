@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F1_rotated_bent_cigar::F1_rotated_bent_cigar(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			bent_cigar((v[param_proName]), (v[param_numDim]), 1) {
+		F1_rotated_bent_cigar::F1_rotated_bent_cigar(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			bent_cigar((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

@@ -119,7 +119,7 @@ namespace OFEC {
 				solution_type *r4,
 				solution_type *r5) {
 
-			real l, u;
+		/*	real l, u;
 			for (size_t i = 0; i < m_pv.get_variable().size(); ++i) {
 				l = CONTINOUS_CAST->range(i).first;
 				u = CONTINOUS_CAST->range(i).second;
@@ -133,21 +133,21 @@ namespace OFEC {
 					m_pv.get_variable()[i] = ((r1->get_variable()[i]) + l) / 2;
 				}
 
-			}
+			}*/
 		}
 
 		template<typename VariableEncoding = variable<real>,
 			typename ObjetiveType = real>
 			void individual<VariableEncoding, ObjetiveType>::recombine(double CR) {
-			size_t dim = m_var.size();
+		/*	size_t dim = m_var.size();
 			int I = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)dim);
 
 			for (size_t i = 0; i < dim; ++i) {
 				double p = global::ms_global->m_uniform[caller::Algorithm]->next();
 				if (p <= CR || i == I)     m_pu.get_variable()[i] = m_pv.get_variable()[i];
 				else m_pu.get_variable()[i] = get_variable()[i];
-			}
-
+			}*/
+			
 		}
 
 		template<typename VariableEncoding = variable<real>,

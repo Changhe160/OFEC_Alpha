@@ -15,8 +15,8 @@
 
 namespace OFEC {
 	
-	schwefel::schwefel(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1)
+	schwefel::schwefel(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1)
 	{
 
 		set_range(-500, 500);

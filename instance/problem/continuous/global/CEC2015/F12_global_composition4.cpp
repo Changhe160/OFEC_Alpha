@@ -7,8 +7,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F12_global_composition4::F12_global_composition4(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			composition_2015((v[param_proName]), (v[param_numDim]), 1) {
+		F12_global_composition4::F12_global_composition4(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

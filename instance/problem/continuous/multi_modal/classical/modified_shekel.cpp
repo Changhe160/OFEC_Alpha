@@ -17,8 +17,8 @@
 #include "modified_shekel.h"
 namespace OFEC {
 	
-	modified_shekel::modified_shekel(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	modified_shekel::modified_shekel(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 		if (m_variable_size > 5) throw myexcept("number of dim must be <=5@ modified_shekel::modified_shekel");
 		set_range(0.0, 11.0);
 		set_init_range(0.0, 11.0);

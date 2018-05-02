@@ -1,9 +1,9 @@
 #include "SaDE.h"
 namespace OFEC {
 	namespace DE {
-		SaDE::SaDE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size()), m_F(v[param_popSize]), \
-			m_CR(v[param_popSize], std::vector<double>(m_num_strategy)), m_CRm(m_num_strategy, 0.5), m_probability(m_num_strategy, 1. / m_num_strategy), \
-			m_strategy_selection(v[param_popSize]) {
+		SaDE::SaDE(param_map &v) :population(v.at("popSize"), global::ms_global->m_problem->variable_size()), m_F(v.at("popSize")), \
+			m_CR(v.at("popSize"), std::vector<double>(m_num_strategy)), m_CRm(m_num_strategy, 0.5), m_probability(m_num_strategy, 1. / m_num_strategy), \
+			m_strategy_selection(v.at("popSize")) {
 			for (auto i = 0; i < m_probability.size(); ++i) {
 				if (i > 0) m_probability[i] += m_probability[i - 1];
 			}

@@ -17,9 +17,9 @@
 #include "six_hump_camel_back.h"
 namespace OFEC {
 	
-	six_hump_camel_back::six_hump_camel_back(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
-		v[param_numDim] = 2;
+	six_hump_camel_back::six_hump_camel_back(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
+		v.at("numDim") = 2;
 		initialize();
 	}
 	six_hump_camel_back::six_hump_camel_back(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

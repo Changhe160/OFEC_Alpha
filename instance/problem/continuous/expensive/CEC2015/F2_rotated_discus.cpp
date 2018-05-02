@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F2_rotated_discus::F2_rotated_discus(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			discus((v[param_proName]), (v[param_numDim]), 1) {
+		F2_rotated_discus::F2_rotated_discus(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			discus((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

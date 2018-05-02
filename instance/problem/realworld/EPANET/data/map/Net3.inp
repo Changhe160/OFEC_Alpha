@@ -273,33 +273,6 @@ system changes over time.
  5               	4572        	4613        	4643        	4643        	4592        	4613        
  5               	4531        	4521        	4449        	4439        	4449        	4460        
  5               	4439        	4419        	4368        	4399        	4470        	4480        
-;
-
-;
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	50          	60          	90          	80          	70          	40          
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
- 7               	0           	0           	0           	0           	0           	0           
 
 [CURVES]
 ;ID              	X-Value     	Y-Value
@@ -358,11 +331,11 @@ Link 330 OPEN IF Node 1 ABOVE 19.1
 ;Tank            	Model
 
 [TIMES]
- Duration           	24:00
- Hydraulic Timestep 	1:00
- Quality Timestep   	0:05
- Pattern Timestep   	0:10
- Pattern Start      	0:00
+ Duration           	24:00 
+ Hydraulic Timestep 	1:00 
+ Quality Timestep   	0:05 
+ Pattern Timestep   	1:00 
+ Pattern Start      	0:00 
  Report Timestep    	1:00 
  Report Start       	0:00 
  Start ClockTime    	12 am
@@ -387,7 +360,7 @@ Link 330 OPEN IF Node 1 ABOVE 19.1
  Pattern            	1
  Demand Multiplier  	1.0
  Emitter Exponent   	0.5
- Quality            	Chemical mg/L
+ Quality            	Trace Lake
  Diffusivity        	1.0
  Tolerance          	0.01
 
@@ -437,6 +410,7 @@ Link 330 OPEN IF Node 1 ABOVE 19.1
  169             	25.68           	12.74           
  171             	26.65           	11.80           
  173             	26.87           	11.59           
+ 177             	26.90           	11.65           
  179             	25.71           	10.40           
  181             	25.72           	10.74           
  183             	25.45           	10.18           

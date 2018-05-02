@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	
-	shubert::shubert(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	shubert::shubert(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		initialize();
 	}

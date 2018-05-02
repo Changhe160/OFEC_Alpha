@@ -19,8 +19,8 @@
 
 namespace OFEC {
 	namespace CEC2013 {
-		F11_composition3::F11_composition3(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			composition((v[param_proName]), (v[param_numDim]), 1) {
+		F11_composition3::F11_composition3(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			composition((v.at("proName")), (v.at("numDim")), 1) {
 			m_num_function = 6;
 			m_function.resize(m_num_function);
 			m_fmax.resize(m_num_function);

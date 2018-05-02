@@ -2,8 +2,8 @@
 #include "F4_SR_rastrigin.h"
 namespace OFEC {
 	namespace CEC2015 {
-		F4_SR_rastrigin::F4_SR_rastrigin(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			rastrigin((v[param_proName]), (v[param_numDim]), 1) {
+		F4_SR_rastrigin::F4_SR_rastrigin(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			rastrigin((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

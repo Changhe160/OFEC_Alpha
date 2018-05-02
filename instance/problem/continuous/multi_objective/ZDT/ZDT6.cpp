@@ -1,7 +1,7 @@
 #include "ZDT6.h"
 
 namespace OFEC {
-	ZDT6::ZDT6(param_map & v) : problem(v[param_proName], v[param_numDim], 2), ZDT(v[param_proName], v[param_numDim]) {
+	ZDT6::ZDT6(param_map & v) : problem(v.at("proName"), v.at("numDim"), 2), ZDT(v.at("proName"), v.at("numDim")) {
 		generateAdLoadPF();
 	}
 	ZDT6::ZDT6(const std::string & name, size_t size_var) : problem(name, size_var, 2), ZDT(name, size_var) {

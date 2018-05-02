@@ -1,7 +1,7 @@
 #include "ZDT4.h"
 
 namespace OFEC {
-	ZDT4::ZDT4(param_map & v) : problem(v[param_proName], v[param_numDim], 2), ZDT(v[param_proName], v[param_numDim]) {
+	ZDT4::ZDT4(param_map & v) : problem(v.at("proName"), v.at("numDim"), 2), ZDT(v.at("proName"), v.at("numDim")) {
 		generateAdLoadPF();
 	}
 	ZDT4::ZDT4(const std::string & name, size_t size_var) : problem(name, size_var, 2), ZDT(name, size_var) {

@@ -15,8 +15,8 @@
 #include "rotated_rosenbrock.h"
 namespace OFEC {
 
-	rotated_rosenbrock::rotated_rosenbrock(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		rosenbrock((v[param_proName]), (v[param_numDim]), 1) {
+	rotated_rosenbrock::rotated_rosenbrock(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		rosenbrock((v.at("proName")), (v.at("numDim")), 1) {
 		initialize();
 	}
 	rotated_rosenbrock::rotated_rosenbrock(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

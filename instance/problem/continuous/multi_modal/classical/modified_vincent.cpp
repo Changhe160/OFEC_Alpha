@@ -2,8 +2,8 @@
 
 namespace OFEC {
 
-	modified_vincent::modified_vincent(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	modified_vincent::modified_vincent(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		set_range(-10, 10);
 		set_init_range(-10, 10);

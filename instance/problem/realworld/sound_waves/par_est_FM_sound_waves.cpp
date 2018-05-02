@@ -2,8 +2,8 @@
 
 #include "par_est_FM_sound_waves.h"
 namespace OFEC {
-	par_est_FM_sound_waves::par_est_FM_sound_waves(param_map &v) :problem((v[param_proName]), 6, 1), \
-		function((v[param_proName]), 6, 1) {
+	par_est_FM_sound_waves::par_est_FM_sound_waves(param_map &v) :problem((v.at("proName")), 6, 1), \
+		function((v.at("proName")), 6, 1) {
 		set_range(-6.4, 6.35);
 		set_init_range(-6.4, 6.35);
 		initialize();

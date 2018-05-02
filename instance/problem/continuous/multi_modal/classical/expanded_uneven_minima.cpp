@@ -2,8 +2,8 @@
 
 namespace OFEC {
 
-	expanded_uneven_minima::expanded_uneven_minima(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	expanded_uneven_minima::expanded_uneven_minima(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		set_range(-40., 40.);
 		set_init_range(-40., 40.);

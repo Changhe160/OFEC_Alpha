@@ -741,9 +741,6 @@
     <ClInclude Include="core\measure\measure.h">
       <Filter>core\measure</Filter>
     </ClInclude>
-    <ClInclude Include="run\initialize.h">
-      <Filter>run</Filter>
-    </ClInclude>
     <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ.h">
       <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
     </ClInclude>
@@ -871,7 +868,6 @@
     <ClInclude Include="instance\algorithm\DE\NCDE\NCDE.h" />
     <ClInclude Include="instance\algorithm\DE\SaDE\SaDE.h" />
     <ClInclude Include="instance\algorithm\DE\NSDE\NSDE.h" />
-    <ClInclude Include="instance\algorithm\EPANET\COGL.h" />
     <ClInclude Include="instance\algorithm\DE\DynDE\DynDE_individual.h" />
     <ClInclude Include="instance\algorithm\DE\DynDE\DynDE_subpopulation.h" />
     <ClInclude Include="instance\algorithm\DE\DE_individual.h">
@@ -886,23 +882,32 @@
     <ClInclude Include="instance\problem\realworld\sound_waves\par_est_FM_sound_waves.h">
       <Filter>instance\problem\realworld</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\CornerSort.h" />
-    <ClInclude Include="utility\nondominated_sorting\DeductiveSort.h" />
-    <ClInclude Include="utility\nondominated_sorting\DominanceGraphLinkSort.h" />
-    <ClInclude Include="utility\nondominated_sorting\FastSort.h" />
-    <ClInclude Include="utility\nondominated_sorting\LinkSort.h" />
-    <ClInclude Include="utility\nondominated_sorting\new_static_population.h" />
-    <ClInclude Include="utility\nondominated_sorting\nodes_initialize.h" />
-    <ClInclude Include="utility\nondominated_sorting\quick_sort.h" />
-    <ClInclude Include="utility\nondominated_sorting\static_population.h" />
-    <ClInclude Include="utility\nondominated_sorting\T_ENS.h" />
-    <ClInclude Include="utility\nondominated_sorting\YiyaSort.h" />
+    <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII.h" />
+    <ClInclude Include="instance\algorithm\EPANET\ADOPT_individual.h" />
+    <ClInclude Include="instance\algorithm\EPANET\ADOPT_sub_population.h" />
+    <ClInclude Include="instance\algorithm\EPANET\ADOPT.h" />
+    <ClInclude Include="utility\types.h" />
+    <ClInclude Include="run\system_initialization.h">
+      <Filter>run</Filter>
+    </ClInclude>
+    <ClInclude Include="run\user_initialization.h" />
+    <ClInclude Include="instance\problem\combination\MKP\multi_dimensional_knapsack.h" />
+    <ClInclude Include="instance\problem\combination\one_max\one_max.h" />
+    <ClInclude Include="instance\problem\combination\QAP\quadratic_assignment.h" />
+    <ClInclude Include="instance\problem\combination\TSP\travelling_salesman.h" />
+    <ClInclude Include="utility\nondominated_sorting\T_ENS\T_ENS.h" />
+    <ClInclude Include="utility\nondominated_sorting\benchmark\benchmark.h" />
+    <ClInclude Include="utility\nondominated_sorting\best_order_sort\best_order_sort.h" />
+    <ClInclude Include="utility\nondominated_sorting\corner_sort\corner_sort.h" />
+    <ClInclude Include="utility\nondominated_sorting\deductive_sort\deductive_sort.h" />
+    <ClInclude Include="utility\nondominated_sorting\fast_sort\fast_sort.h" />
     <ClInclude Include="utility\nondominated_sorting\ENS_NDT\ENS_NDT.h" />
     <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDNode.h" />
     <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDSplit.h" />
     <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDTree.h" />
-    <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII.h" />
-    <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAIIpopulation.h" />
+    <ClInclude Include="utility\nondominated_sorting\filter_sort\filter_sort.h" />
+    <ClInclude Include="utility\nondominated_sorting\link_sort\link_sort.h" />
+    <ClInclude Include="utility\nondominated_sorting\quick_sort.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">
@@ -1514,9 +1519,6 @@
     <ClCompile Include="core\measure\measure.cpp">
       <Filter>core\measure</Filter>
     </ClCompile>
-    <ClCompile Include="run\initialize.cpp">
-      <Filter>run</Filter>
-    </ClCompile>
     <ClCompile Include="run\main.cpp">
       <Filter>run</Filter>
     </ClCompile>
@@ -1644,7 +1646,6 @@
     <ClCompile Include="instance\algorithm\DE\NCDE\NCDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\SaDE\SaDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\NSDE\NSDE.cpp" />
-    <ClCompile Include="instance\algorithm\EPANET\COGL.cpp" />
     <ClCompile Include="instance\algorithm\DE\DynDE\DynDE_individual.cpp" />
     <ClCompile Include="instance\algorithm\DE\DynDE\DynDE_subpopulation.cpp" />
     <ClCompile Include="instance\problem\realworld\gear_train\gear_train.cpp">
@@ -1654,15 +1655,26 @@
       <Filter>instance\problem\realworld</Filter>
     </ClCompile>
     <ClCompile Include="test\test_core.cpp" />
-    <ClCompile Include="utility\nondominated_sorting\CornerSort.cpp" />
-    <ClCompile Include="utility\nondominated_sorting\DeductiveSort.cpp" />
-    <ClCompile Include="utility\nondominated_sorting\FastSort.cpp" />
-    <ClCompile Include="utility\nondominated_sorting\LinkSort.cpp" />
-    <ClCompile Include="utility\nondominated_sorting\new_static_population.cpp" />
-    <ClCompile Include="utility\nondominated_sorting\static_population.cpp" />
-    <ClCompile Include="utility\nondominated_sorting\T_ENS.cpp" />
-    <ClCompile Include="utility\nondominated_sorting\YiyaSort.cpp" />
+    <ClCompile Include="instance\algorithm\EPANET\ADOPT_individual.cpp" />
+    <ClCompile Include="instance\algorithm\EPANET\ADOPT_sub_population.cpp" />
+    <ClCompile Include="instance\algorithm\EPANET\ADOPT.cpp" />
+    <ClCompile Include="run\system_initialization.cpp">
+      <Filter>run</Filter>
+    </ClCompile>
+    <ClCompile Include="run\user_initialization.cpp" />
+    <ClCompile Include="instance\problem\combination\MKP\multi_dimensional_knapsack.cpp" />
+    <ClCompile Include="instance\problem\combination\one_max\one_max.cpp" />
+    <ClCompile Include="instance\problem\combination\QAP\quadratic_assignment.cpp" />
+    <ClCompile Include="instance\problem\combination\TSP\travelling_salesman.cpp" />
+    <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAII.cpp" />
+    <ClCompile Include="utility\nondominated_sorting\T_ENS\T_ENS.cpp" />
+    <ClCompile Include="utility\nondominated_sorting\benchmark\benchmark.cpp" />
+    <ClCompile Include="utility\nondominated_sorting\best_order_sort\best_order_sort.cpp" />
+    <ClCompile Include="utility\nondominated_sorting\corner_sort\corner_sort.cpp" />
+    <ClCompile Include="utility\nondominated_sorting\deductive_sort\deductive_sort.cpp" />
+    <ClCompile Include="utility\nondominated_sorting\fast_sort\fast_sort.cpp" />
     <ClCompile Include="utility\nondominated_sorting\ENS_NDT\ENS_NDT.cpp" />
-    <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAIIpopulation.cpp" />
+    <ClCompile Include="utility\nondominated_sorting\filter_sort\filter_sort.cpp" />
+    <ClCompile Include="utility\nondominated_sorting\link_sort\link_sort.cpp" />
   </ItemGroup>
 </Project>

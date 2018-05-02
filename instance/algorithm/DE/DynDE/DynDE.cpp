@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace DE {
-		DynDE::DynDE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size()), \
-			m_r_excl(v[param_exlRadius]), m_sub_population(v[param_popSize] / v[param_subPopSize], v[param_subPopSize]){
+		DynDE::DynDE(param_map &v) :population(v.at("popSize"), global::ms_global->m_problem->variable_size()), \
+			m_r_excl(v.at("exlRadius")), m_sub_population(v.at("popSize") / v.at("subPopSize"), v.at("subPopSize")){
 			//set_default(v);
 
 			//m_parameter << "M(N,Nbrownian):" << m_M << "(" << 5 << "," << 5 << "); Rexcl:" << m_r_excl << "; Rcloud:" << 0.2;

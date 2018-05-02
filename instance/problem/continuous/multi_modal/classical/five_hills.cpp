@@ -18,9 +18,9 @@
 
 namespace OFEC {
 	
-	five_hills::five_hills(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
-		v[param_numDim] = 2;
+	five_hills::five_hills(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
+		v.at("numDim") = 2;
 
 		std::vector<std::pair<real, real>> range;
 		range.push_back(std::make_pair(-2.5, 3.));
@@ -49,7 +49,7 @@ namespace OFEC {
 		std::ifstream in;
 		std::stringstream ss;
 		std::vector<std::vector<real>> var_data(5, std::vector<real>(m_variable_size));
-		ss << global::ms_arg[param_workingDir] << "instance/problem/continuous/global/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
+		ss << global::ms_arg.at("workingDir") << "instance/problem/continuous/global/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
 		in.open(ss.str().c_str());
 		if (in.fail()) {
 			throw myexcept("cannot open data file@five_hills::initialize()");

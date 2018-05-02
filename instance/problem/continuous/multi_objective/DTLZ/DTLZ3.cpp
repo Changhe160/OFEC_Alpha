@@ -1,8 +1,8 @@
 #include "DTLZ3.h"
 
 namespace OFEC {
-	DTLZ3::DTLZ3(param_map & v) : problem(v[param_proName], (v[param_numObj] + v[param_interTest1] - 1), v[param_numObj]), \
-		DTLZ(v[param_proName], (v[param_numObj] + v[param_interTest1] - 1), v[param_numObj]) {
+	DTLZ3::DTLZ3(param_map & v) : problem(v.at("proName"), (v.at("numObj") + v.at("interTest1") - 1), v.at("numObj")), \
+		DTLZ(v.at("proName"), (v.at("numObj") + v.at("interTest1") - 1), v.at("numObj")) {
 	}
 
 	DTLZ3::DTLZ3(const std::string & name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \

@@ -18,9 +18,9 @@
 
 namespace OFEC {
 	
-	valleys::valleys(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
-		v[param_numDim] = 2;
+	valleys::valleys(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
+		v.at("numDim") = 2;
 		std::vector<std::pair<real, real>> data;
 		data.push_back(std::make_pair(-2.5, 3));
 		data.push_back(std::make_pair(-2, 2));

@@ -2,8 +2,8 @@
 #include "N7S1_ShiftedSchwefel_F7.h"
 namespace OFEC {
 	namespace CEC2013 {
-		N7S1_ShiftedSchwefel_F7::N7S1_ShiftedSchwefel_F7(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-			function_CEC2013((v[param_proName]), (v[param_numDim]), 1) \
+		N7S1_ShiftedSchwefel_F7::N7S1_ShiftedSchwefel_F7(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
 		{
 			set_range(-100, 100);
 			set_init_range(-100, 100);

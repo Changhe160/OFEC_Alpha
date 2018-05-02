@@ -23,8 +23,8 @@
 #include "vincent.h"
 namespace OFEC {
 	
-	vincent::vincent(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	vincent::vincent(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		set_range(0.25, 10.); // note
 		set_init_range(0.25, 10.);

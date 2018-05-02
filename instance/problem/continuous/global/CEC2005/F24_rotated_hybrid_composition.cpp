@@ -26,8 +26,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		F24_rotated_hybrid_composition::F24_rotated_hybrid_composition(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			composition((v[param_proName]), (v[param_numDim]), 1) {
+		F24_rotated_hybrid_composition::F24_rotated_hybrid_composition(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			composition((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

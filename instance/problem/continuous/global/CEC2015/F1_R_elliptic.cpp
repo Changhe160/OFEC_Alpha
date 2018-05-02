@@ -2,8 +2,8 @@
 #include "F1_R_elliptic.h"
 namespace OFEC {
 	namespace CEC2015 {
-		F1_R_elliptic::F1_R_elliptic(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			elliptic((v[param_proName]), (v[param_numDim]), 1) {
+		F1_R_elliptic::F1_R_elliptic(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			elliptic((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

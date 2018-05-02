@@ -15,8 +15,8 @@
 #include "bent_cigar.h"
 namespace OFEC {
 
-	bent_cigar::bent_cigar(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	bent_cigar::bent_cigar(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 		set_range(-100., 100.);
 		set_init_range(-100., 100.);
 		initialize();

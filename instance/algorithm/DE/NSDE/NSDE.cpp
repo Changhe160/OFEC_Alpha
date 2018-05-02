@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace DE {
-		NSDE::NSDE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size()), m_order_list(v[param_popSize]), \
-			m_m(9), m_dis((v[param_popSize] / (m_m + 1)) + 1), m_seed((v[param_popSize] / (m_m + 1)) + 1) \
+		NSDE::NSDE(param_map &v) :population(v.at("popSize"), global::ms_global->m_problem->variable_size()), m_order_list(v.at("popSize")), \
+			m_m(9), m_dis((v.at("popSize") / (m_m + 1)) + 1), m_seed((v.at("popSize") / (m_m + 1)) + 1) \
 		{
 			set_mutation_strategy(DE_rand_1);
 			set_parmeter(0.7, 0.5);  // set CR=0.7, F=0.5

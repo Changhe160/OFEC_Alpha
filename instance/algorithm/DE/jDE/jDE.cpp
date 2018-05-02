@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace DE {
-		jDE::jDE(param_map &v) :population(v[param_popSize], global::ms_global->m_problem->variable_size()), \
-			mv_F(v[param_popSize]), mv_CR(v[param_popSize]) {
+		jDE::jDE(param_map &v) :population(v.at("popSize"), global::ms_global->m_problem->variable_size()), \
+			mv_F(v.at("popSize")), mv_CR(v.at("popSize")) {
 
 			m_t1 = 0.1;
 			m_t2 = 0.1;

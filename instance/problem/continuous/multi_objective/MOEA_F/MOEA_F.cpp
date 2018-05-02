@@ -305,7 +305,7 @@ namespace OFEC {
 	void MOEA_FBase::LoadPF() {
 		std::ifstream infile;
 		std::stringstream os;
-		os << global::ms_arg[param_workingDir] << "FunctionOpt/pf_P" << m_ptype << "D" << m_dtype << "L" << m_ltype << ".dat";
+		os << global::ms_arg.at("workingDir") << "FunctionOpt/pf_P" << m_ptype << "D" << m_dtype << "L" << m_ltype << ".dat";
 		infile.open(os.str());
 		if (!infile)
 			return;

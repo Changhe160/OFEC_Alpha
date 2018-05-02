@@ -17,9 +17,9 @@
 #include "shaffer.h"
 namespace OFEC {
 
-	shaffer::shaffer(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
-		v[param_numDim] = 2;
+	shaffer::shaffer(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
+		v.at("numDim") = 2;
 		set_range(-15, 15);
 		set_init_range(-15, 15);
 		initialize();

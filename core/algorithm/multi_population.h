@@ -58,8 +58,9 @@ namespace OFEC {
 			return m_sub;
 		}
 		void operator- (size_t id) {
-			for (size_t i = id; i < m_sub.size() - 1; ++i)
-				m_sub[i] = m_sub[i + 1];
+			m_sub[id].release();
+			if(id!=m_sub.size()-1)
+				m_sub[id] = std::move(m_sub[m_sub.size()-1]);
 			m_sub.pop_back();
 		}
 

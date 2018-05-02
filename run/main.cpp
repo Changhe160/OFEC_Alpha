@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_RUNNER
 #include "../utility/catch.hpp"
 
-#include "initialize.h"
+#include "system_initialization.h"
 
 int main(int argc, char* argv[]) {
 
@@ -9,6 +9,8 @@ int main(int argc, char* argv[]) {
 
 #ifndef OFEC_UNIT_TEST
 	OFEC::set_global_parameters(argc, argv);
+#else
+	OFEC::register_parameter();
 #endif // !OFEC_UNIT_TEST
 
 	OFEC::register_problem();

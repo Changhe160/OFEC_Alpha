@@ -18,9 +18,9 @@
 #include "FIBA.h"
 namespace OFEC {
 	
-	FIBA::FIBA(param_map &v) : problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1), m_case(v[param_case] = (v.find(param_case) == v.end() ? 1 : (int)v[param_case])) {
-		v[param_numDim] = 2;
+	FIBA::FIBA(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1), m_case(v.at("case") = (v.find("case") == v.end() ? 1 : (int)v.at("case"))) {
+		v.at("numDim") = 2;
 		set_range(-4.0, 4.0);
 		set_init_range(-4., 4.);
 		initialize();

@@ -2,8 +2,8 @@
 #include "F5_SR_schwefel.h"
 namespace OFEC {
 	namespace CEC2015 {
-		F5_SR_schwefel::F5_SR_schwefel(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			schwefel((v[param_proName]), (v[param_numDim]), 1) {
+		F5_SR_schwefel::F5_SR_schwefel(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			schwefel((v.at("proName")), (v.at("numDim")), 1) {
 
 			initialize();
 		}

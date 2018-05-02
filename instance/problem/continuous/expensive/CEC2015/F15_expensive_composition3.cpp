@@ -22,8 +22,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F15_expensive_composition3::F15_expensive_composition3(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			composition_2015((v[param_proName]), (v[param_numDim]), 1) {
+		F15_expensive_composition3::F15_expensive_composition3(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
 			
 			initialize();
 		}

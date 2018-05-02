@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F3_SR_expanded_equal_minima::F3_SR_expanded_equal_minima(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			CEC2015_function((v[param_proName]), (v[param_numDim]), 1) {
+		F3_SR_expanded_equal_minima::F3_SR_expanded_equal_minima(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			CEC2015_function((v.at("proName")), (v.at("numDim")), 1) {
 			initialize();
 		}
 		F3_SR_expanded_equal_minima::F3_SR_expanded_equal_minima(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

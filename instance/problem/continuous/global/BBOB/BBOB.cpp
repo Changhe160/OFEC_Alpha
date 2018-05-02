@@ -18,7 +18,7 @@ namespace OFEC {
 		m_rot(size_var), m_rot2(size_var), m_norRand(size_var*size_var), m_linearTF(size_var) {
 		initialize();
 	}
-	BBOB::BBOB(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), continuous((v[param_proName]), (v[param_numDim]), 1), \
+	BBOB::BBOB(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), continuous((v.at("proName")), (v.at("numDim")), 1), \
 		m_rot(m_variable_size), m_rot2(m_variable_size), m_norRand(m_variable_size*m_variable_size), \
 		m_linearTF(m_variable_size) {
 		initialize();

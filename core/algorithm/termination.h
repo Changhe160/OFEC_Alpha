@@ -65,7 +65,7 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_max_iteration(param_map &v) :termination(v) {
-			if (v.find(param_maxIter) != v.end()) m_max_iter = v[param_maxIter];
+			if (v.find("maxIter") != v.end()) m_max_iter = v.at("maxIter");
 			else	THROW("para_maxIter is not given");
 		}
 		term_max_iteration(int iters) :m_max_iter(iters) {	}
@@ -78,7 +78,7 @@ namespace OFEC {
 		int m_max_evals;
 	public:
 		term_max_evals(param_map &v) :termination(v) {
-			if (v.find(param_maxEvals) != v.end()) m_max_evals = v[param_maxEvals];
+			if (v.find("maxEvals") != v.end()) m_max_evals = v.at("maxEvals");
 			else	THROW("m_max_evals is not given");
 		}
 		term_max_evals(int evals) :m_max_evals(evals) { }
@@ -94,7 +94,7 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_best_remain(param_map &v) :termination(v) {
-			if (v.find(param_maxSucIter) != v.end()) m_max_iter = v[param_maxSucIter];
+			if (v.find("maxSucIter") != v.end()) m_max_iter = v.at("maxSucIter");
 			else	THROW("param_maxSucIter is not given");
 		}
 		term_best_remain(int iters) :m_max_iter(iters) {	}
@@ -113,9 +113,9 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_mean_remain(param_map &v) :termination(v) {
-			if (v.find(param_epsilon) != v.end()) m_epsilon = v[param_epsilon];
+			if (v.find("epsilon") != v.end()) m_epsilon = v.at("epsilon");
 			else	THROW("param_epsilon is not given");
-			if (v.find(param_maxSucIter) != v.end()) m_max_iter = v[param_maxSucIter];
+			if (v.find("maxSucIter") != v.end()) m_max_iter = v.at("maxSucIter");
 			else	THROW("param_maxSucIter is not given");
 		}
 		term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
@@ -138,7 +138,7 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_variance(param_map &v) :termination(v) {
-			if (v.find(param_epsilon) != v.end()) m_epsilon = v[param_epsilon];
+			if (v.find("epsilon") != v.end()) m_epsilon = v.at("epsilon");
 			else	THROW("param_epsilon is not given");
 		}
 		term_variance(double epsilon) :m_epsilon(epsilon) {}
@@ -157,7 +157,7 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_stagnation(param_map &v) :termination(v) {
-			if (v.find(param_maxSucIter) != v.end()) m_suc_iter = v[param_maxSucIter];
+			if (v.find("maxSucIter") != v.end()) m_suc_iter = v.at("maxSucIter");
 			else	THROW("param_maxSucIter is not given");
 		}
 		term_stagnation(int iter) :m_suc_iter(iter) {}

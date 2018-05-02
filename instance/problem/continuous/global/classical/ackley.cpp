@@ -15,8 +15,8 @@
 #include "ackley.h"
 namespace OFEC {
 	
-	ackley::ackley(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-		function((v[param_proName]), (v[param_numDim]), 1) {
+	ackley::ackley(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+		function((v.at("proName")), (v.at("numDim")), 1) {
 
 		set_range(-32.768, 32.768);
 		set_init_range(-32.768, 32.768);

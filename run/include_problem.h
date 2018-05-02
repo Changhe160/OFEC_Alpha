@@ -1,6 +1,12 @@
 #ifndef INCLUDE_PROBLEM_H
 #define INCLUDE_PROBLEM_H
 
+/*combination*/
+#include "../instance/problem/combination/MKP/multi_dimensional_knapsack.h"
+#include "../instance/problem/combination/one_max/one_max.h"
+#include "../instance/problem/combination/QAP/quadratic_assignment.h"
+#include "../instance/problem/combination/TSP/travelling_salesman.h"
+
 /*multi_objective*/
 #include "../instance/problem/continuous/multi_objective/ZDT/ZDT1.h"
 #include "../instance/problem/continuous/multi_objective/ZDT/ZDT2.h"

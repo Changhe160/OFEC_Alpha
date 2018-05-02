@@ -40,7 +40,7 @@ namespace OFEC {
 					return new T(par);
 				},
 						std::forward<std::set<problem_tag>>(tag))
-					);
+				);
 			}
 		};
 

@@ -124,7 +124,7 @@ namespace OFEC {
 			s = ss.str();
 			s.insert(0, m_name + "_Shift_");
 			s.insert(0, path);    // data path
-			s.insert(0, global::ms_arg[param_workingDir]);
+			s.insert(0, global::ms_arg.at("workingDir"));
 
 			for (auto &i : m_function)
 				i->translation().resize(m_variable_size);
@@ -156,7 +156,7 @@ namespace OFEC {
 			s.insert(0, m_name + "_RotM_");
 
 			s.insert(0, path);// data path
-			s.insert(0, global::ms_arg[param_workingDir]);
+			s.insert(0, global::ms_arg.at("workingDir"));
 
 			for (auto &i : m_function)
 				i->rotation().resize(m_variable_size, m_variable_size);

@@ -3,9 +3,9 @@
 namespace OFEC {
 #pragma warning(disable:4996)
 	namespace CEC2005 {
-		F12_schwefel_2_13::F12_schwefel_2_13(param_map &v) :problem((v[param_proName]), (v[param_numDim]), 1), \
-			function((v[param_proName]), (v[param_numDim]), 1), m_a(v[param_numDim], std::vector<int>(v[param_numDim])), \
-			m_b(v[param_numDim], std::vector<int>(v[param_numDim])), m_alpha(v[param_numDim]) {
+		F12_schwefel_2_13::F12_schwefel_2_13(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
+			function((v.at("proName")), (v.at("numDim")), 1), m_a(v.at("numDim"), std::vector<int>(v.at("numDim"))), \
+			m_b(v.at("numDim"), std::vector<int>(v.at("numDim"))), m_alpha(v.at("numDim")) {
 
 			set_range(-OFEC_PI, OFEC_PI);
 			set_init_range(-OFEC_PI, OFEC_PI);
@@ -42,7 +42,7 @@ namespace OFEC {
 			sa.insert(0, m_name + "_a_");
 
 			sa.insert(0, path);
-			sa.insert(0, global::ms_arg[param_workingDir]);//probDataPath
+			sa.insert(0, global::ms_arg.at("workingDir"));//probDataPath
 
 			std::string sb;
 			sprintf(astr, "%d", (int)m_variable_size);
@@ -50,7 +50,7 @@ namespace OFEC {
 			sb = astr;
 			sb.insert(0, m_name + "_b_");
 			sb.insert(0, path);
-			sb.insert(0, global::ms_arg[param_workingDir]);//probDataPath
+			sb.insert(0, global::ms_arg.at("workingDir"));//probDataPath
 
 			std::string salpha;
 			sprintf(astr, "%d", (int)m_variable_size);
@@ -59,7 +59,7 @@ namespace OFEC {
 			salpha.insert(0, m_name + "_alpha_");
 
 			salpha.insert(0, path);
-			salpha.insert(0, global::ms_arg[param_workingDir]);//probDataPath
+			salpha.insert(0, global::ms_arg.at("workingDir"));//probDataPath
 
 			std::ifstream in_a;
 			in_a.open(sa.data());

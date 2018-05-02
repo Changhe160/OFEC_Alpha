@@ -1,31 +1,29 @@
 #include "ENS_NDT.h"
 
-namespace NDS {
-	std::vector<int> ENS_NDT::Sort(const std::vector<std::vector<double>>& individuals, std::pair<int, int>& measurement)
+namespace NS {
+	int ENS_NDT_sort(const std::vector<std::vector<double>>& individuals, std::vector<int>& rank, std::pair<int, int>& measurement)
 	{
-
 		std::chrono::time_point<std::chrono::system_clock> Total_start_time;
-		std::chrono::microseconds Total_time_cost;
-		Total_time_cost = Total_time_cost.zero();
 		int NumComp(0);
 		Total_start_time = std::chrono::system_clock::now();
 
 		if (individuals.size() == 0)
-			return std::vector<int>();
-		std::vector<int> result_rank = NondominatedSort(individuals, individuals[0].size(), NumComp);
+			return 0;
+		int num_fro = ENS_NDT::NondominatedSort(individuals, individuals[0].size(), NumComp, rank);
 
-		measurement.first += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
+		int time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
+		measurement.first += time;
 		measurement.second += NumComp;
 
-		return result_rank;
-
+		return num_fro;
 	}
-	std::vector<int> ENS_NDT::NondominatedSort(const std::vector<std::vector<double>>& P, int k, int& NumComp)
+
+	int ENS_NDT::NondominatedSort(const std::vector<std::vector<double>>& P, int k, int& NumComp, std::vector<int>& rank)
 	{
 		// Create a copy of the population and sort it in reverse lexicographic order
 		std::vector<std::vector<double>> S(P.size());
 		std::vector<int> temp_index;
-		NumComp += NDS::quick_sort(P, temp_index, k - 1);
+		NumComp += NS::quick_sort(P, temp_index, k - 1);
 		for (int i = 0; i < P.size(); ++i)
 			S[i] = P[temp_index[i]];
 
@@ -35,8 +33,8 @@ namespace NDS {
 
 		// Create the front set "F" and the NDTree front set "NDT" and add the first solution to both
 		std::vector<std::vector<int>> F({{temp_index[0]}});
-		std::vector<NDTree*> NDT;
-		NDT.push_back(new NDTree(splits));
+		std::vector<std::unique_ptr<NDTree>> NDT;
+		NDT.push_back(std::unique_ptr<NDTree>(new NDTree(splits)));
 		NDT[0]->Insert(&S[0], NumComp);
 
 		// Do the non dominated sorting
@@ -49,23 +47,23 @@ namespace NDS {
 				if (j == F.size())
 				{
 					F.push_back(std::vector<int>());
-					NDT.push_back(new NDTree(splits));
+					NDT.push_back(std::unique_ptr<NDTree>(new NDTree(splits)));
 				}
 				NDT[j]->Insert(&S[i], NumComp);
 			}
 			F[j].push_back(temp_index[i]);
 		}
-		std::vector<int> rank(P.size());
+		rank.resize(P.size());
 		for (int rank_num = 0; rank_num < F.size(); ++rank_num)
 			for (auto idx : F[rank_num])
 				rank[idx] = rank_num;
 
-		for (int i = 0; i < NDT.size(); ++i)
-			delete NDT[i];
+		//for (int i = 0; i < NDT.size(); ++i)
+		//	delete NDT[i];
 
-		return rank;
+		return F.size();
 	}
-	int ENS_NDT::FrontIndexBinarySearch(std::vector<double>* s, std::vector<NDTree*>& NDT, int& NumComp)
+	int ENS_NDT::FrontIndexBinarySearch(std::vector<double>* s, std::vector<std::unique_ptr<NDTree>>& NDT, int& NumComp)
 	{
 		int i1 = 0;
 		int i2 = NDT.size();

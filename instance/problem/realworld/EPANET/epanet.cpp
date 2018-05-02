@@ -230,32 +230,53 @@ int   main(int argc, char *argv[])
 //#define NetN_rpt "C:/Users/lenovo/Desktop/DATA/网管模型INP/Net3.rpt"
 namespace OFEC {
 
-	epanet::epanet(param_map &v) :problem((v[param_proName]),5,1) \
+	epanet::epanet(param_map &v) :problem((v.at("proName")),1,1) \
 		\
 	{
-		std::stringstream path1, path2;
-		path1 << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/realworld/EPANET/data/map/" << v[param_dataFile2];
-		path2 << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/realworld/EPANET/data/map/" << v[param_dataFile3];
-		path1 >> m_map_inp;
-		path2 >> m_map_rpt;
+		m_path_inp << global::ms_arg.at("workingDir") << "instance/problem/realworld/EPANET/data/map/" << v.at("dataFile2");
+		m_path_rpt << global::ms_arg.at("workingDir") << "instance/problem/realworld/EPANET/data/map/" << v.at("dataFile3");
+		m_path_inp >> m_map_inp;
+		m_path_rpt >> m_map_rpt;
 		
-		m_fileName.assign(v[param_dataFile1]);
+		m_fileName.assign(v.at("dataFile1"));
 		
 		m_opt_mode[0] = optimization_mode::Minimization;
 
 		readParam();
+
 		long num_WQS = m_totalDuration / m_qualityTimeStep;  // times of water quality simulation (WQS)
 		m_num_pattern = m_totalDuration / m_patternStep;
 		m_Ciobs.resize(m_numSensor, std::vector<float>(num_WQS));
 		for (auto &i : m_real_PS_read) {
 			m_optima.append(i);
-			//m_optima.append(0);
+			m_optima.append(0);
 		}
+		m_phase = m_totalDuration / (m_time_interval*m_qualityTimeStep);
+		getData(m_optima.variable(0), m_Ciobs);
+
+		/*variable_epanet sol;
+		std::vector<real> sol_obj(1);
+		std::vector<std::vector<float>> sol_data(4, std::vector<float>(144));
+		int temp = 0;
+		sol.index() = 88;
+		sol.duration() = 2000;
+		sol.start_time() = 10000;
+		sol.multiplier().resize(4);
+		for (auto &i : sol.multiplier())
+			i = (++temp) * 50;
+		//getData(sol, sol_data, true);
+		evaluate__(sol, sol_obj);*/
+		int first_detected_interval = m_optima.variable(0).first_detected_time() / m_qualityTimeStep;
+		m_phase = first_detected_interval / m_time_interval + 1;
 		
-		getData(m_optima.variable(0), m_Ciobs, true);
-		
+		read_location();
+
 		m_objective_accuracy = 1.e-4;
 	
+	}
+
+	float epanet::calculate_distance(int index1, int index2) {
+		return sqrt(pow(m_location[index1 - 1][0] - m_location[index2 - 1][0], 2) + pow(m_location[index1 - 1][1] - m_location[index2 - 1][1], 2));
 	}
 
 	void epanet::readParam() {
@@ -370,7 +391,7 @@ namespace OFEC {
 	evaluation_tag epanet::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
 		variable_epanet &x = dynamic_cast<solution<variable_epanet, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable_epanet, real> &>(s).get_objective();
-		
+
 		evaluate__(x, obj);
 
 		if (constructed) {
@@ -387,7 +408,9 @@ namespace OFEC {
 		int num = m_phase*m_time_interval;
 		std::vector<std::vector<float>> Cit(m_numSensor, std::vector<float>(num));
 		float temp = 0;
-		getData(x, Cit, true);
+		getData(x, Cit);
+		
+		//size_t first_detected_interval = m_optima.variable(0).first_detected_time() / m_qualityTimeStep;
 		if (x.is_detected()) {
 			for (size_t i = 0; i < num; ++i) {
 				for (size_t j = 0; j < m_numSensor; ++j) {
@@ -396,11 +419,38 @@ namespace OFEC {
 			}
 			obj[0] = sqrt(temp / (m_numSensor*num));
 		}
-		else obj[0] = 1000;   //将检测不到的个体的目标值置为1000
+		else
+			obj[0] = 1000;
+		//if (fabs(obj[0] - 0.821984) < 1e-6)
+			//std::cout << "check!"<<std::endl;
+		 
 		x.is_detected() = false;
+
 	}
 
-	void epanet::getData(variable_epanet &sol, std::vector<std::vector<float>> &data, bool mode) {
+	void epanet::read_location() {
+		bool flag = false;
+		m_location.resize(m_numNode, std::vector<double>(2));
+		std::string line;
+		std::ifstream ifname;
+		ifname.open(m_path_inp.str());
+		size_t i = 0;
+		while (getline(ifname, line)) {
+			if (line == "[COORDINATES]") {
+				flag = true;
+				continue;
+			}
+			if (i == m_numNode)
+				break;
+			if (flag) {
+				ifname >> m_location[i][0];
+				ifname >> m_location[i][1];
+				++i;
+			}
+		}
+	}
+
+	void epanet::getData(variable_epanet &sol, std::vector<std::vector<float>> &data) {
 		long tstep;
 		long t;
 		int index;
@@ -418,67 +468,61 @@ namespace OFEC {
 
 		ENsolveH();
 
-		ENinitQ(0);
+		//ENinitQ(0);
 		ENgetcount(EN_NODECOUNT, &m_numNode);      // get number of node
 		ENsetqualtype(EN_CHEM, "Chlorine", "mg/L", ""); // set type of source
 
 		ENopenQ();
 		
 		int patternIndex;
-		//float va;
-		char patternId[] = "7";
-		//float patternValue[m_num_pattern] = { 0.0 };
+		char patternId[] = "epanet";
 		std::vector<float> patternValue(m_num_pattern,0.0);
+		ENaddpattern(patternId);
 		ENgetpatternindex(patternId, &patternIndex);
 		ENsetpattern(patternIndex, patternValue.data(), m_num_pattern);
-		//if (s.m_x[0].index == 7)
-		//	va=1;
-		//for (int j = 1; j <= m_totalDuration / m_patternStep; j++)
-		//{
-		//	ENsetpatternvalue(patternIndex, j, 0.0);
-		//}
-		//ENgetpatternlen(patternIndex, &len);
-		//ENgetpatternvalue(patternIndex, 10, &va);
-		if(mode)
+		
 		for (int j = 1; j <= sol.multiplier().size(); ++j)         
 		{
 			ENsetpatternvalue(patternIndex, sol.start_time() / m_patternStep + j, sol.multiplier()[j-1]);
 		}
-		else {
-			for (int j = 1; j <= m_num_pattern; ++j)
-			{
-				ENsetpatternvalue(patternIndex, j, sol.multiplier()[j]);
-			}
-		}
+		
+		int len;
+		ENgetpatternlen(patternIndex, &len);
 	
 		if (sol.flag_location()) {
 			ENgetnodeindex(sol.location(), &sol.index());
 		}
 		else ENgetnodeid(sol.index(), sol.location());
 
-		ENsetnodevalue(sol.index(), EN_SOURCEQUAL, sol.source());//设置源头水质
+		ENsetnodevalue(sol.index(), EN_SOURCEQUAL, sol.index());//设置源头水质
 		ENsetnodevalue(sol.index(), EN_SOURCEPAT, (float)patternIndex);//时间模式的索引
-		ENsetnodevalue(sol.index(), EN_SOURCETYPE, EN_FLOWPACED);//采用流量步进注入
+		ENsetnodevalue(sol.index(), EN_SOURCETYPE, EN_FLOWPACED);
 		
 		ENinitQ(0);
-		//++(sol.interval());
+		
 		long count = 0;
 		do {
-			ENrunQ(&t); //把时间记录下来
+			ENrunQ(&t); 
 			ENstepQ(&tstep);
 			for (int i = 0; i<m_numSensor; ++i)
 			{
-				//itoa(m_sensorLoc[i], label, 10);  
 				sprintf(label, "%d", m_sensorLoc[i]);
 				ENgetnodeindex(label, &index);
 				ENgetnodevalue(index, EN_QUALITY, &c);
 				data[i][t / m_qualityTimeStep] = c;
-				if (c != 0 && !(sol.is_detected()))
+				if (c > 1e-6 && !(sol.is_detected())) {
+					sol.first_detected_time() = t;
 					sol.is_detected() = true;
+				}
 			}
 			++count;
 			if (count == m_time_interval*m_phase) break;  //分时段
 		} while (tstep > 0); //tstep=0表示模拟结束
+		
+		/*int idx;
+		ENgetnodeindex("205", &idx);
+		if (sol.index()==7)
+			std::cout << "check!" << std::endl;*/
 		ENcloseQ();
 		ENclose();
 		
@@ -491,13 +535,14 @@ namespace OFEC {
 		var.flag_location() = false;
 		var.index() = global::ms_global->m_uniform[caller::Problem]->next_non_standard<int>(1, m_numNode);
 		var.source() = 1.0;  
-		var.start_time() = global::ms_global->m_uniform[caller::Problem]->next_non_standard<long>(m_minstartTime, m_maxstartTime);
-		var.duration() = global::ms_global->m_uniform[caller::Problem]->next_non_standard<long>(m_minduration, m_maxduration);
+		var.start_time() = m_patternStep * global::ms_global->m_uniform[caller::Problem]->next_non_standard<long>(m_minstartTime/m_patternStep, m_maxstartTime/m_patternStep);
+		var.duration() = m_patternStep * global::ms_global->m_uniform[caller::Problem]->next_non_standard<long>(m_minduration/m_patternStep, m_maxduration/m_patternStep);
 		size_t size = var.duration() / m_patternStep;
 		if (var.duration() % m_patternStep != 0) ++size;
 		var.multiplier().resize(size);
-		for(auto &i:var.multiplier())
+		for (auto &i : var.multiplier()) {
 			i = global::ms_global->m_uniform[caller::Problem]->next_non_standard<float>(m_minmultiplier, m_maxmultiplier);
+		}
 	}
 
 	bool epanet::same(const base &s1, const base &s2) const     //   to do ..
