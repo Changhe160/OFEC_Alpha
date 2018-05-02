@@ -19,8 +19,11 @@
 
 #ifndef OFEC_TYPES_H
 #define OFEC_TYPES_H
-class null_type {
+#include "typevar/typevar.h"
 
+class null_type {
+public:
+	null_type(OFEC::param_map&) {};
 };
 class singleton {
 protected:

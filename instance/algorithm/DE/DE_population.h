@@ -176,7 +176,7 @@ namespace OFEC {
 			//this->updateIDnIndex();
 			for (size_t i = 0; i < this->m_pop.size(); ++i) {
 				tag = this->m_pop[i]->select();
-				this->update_archive(this->m_pop[i]);
+				//this->update_archive(this->m_pop[i]);
 				if (tag != evaluation_tag::Normal) break;
 
 			}
