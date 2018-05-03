@@ -31,7 +31,7 @@ namespace OFEC {
 			~F10_global_composition2();
 			hybrid* get_hybrid(size_t num); 
 		protected:
-			void initialize();
+			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 			bool load_translation(const std::string &path);

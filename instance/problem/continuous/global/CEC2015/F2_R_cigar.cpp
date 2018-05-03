@@ -5,20 +5,26 @@ namespace OFEC {
 		F2_R_cigar::F2_R_cigar(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			bent_cigar((v.at("proName")), (v.at("numDim")), 1) {
 
-			initialize();
+			
 		}
 		F2_R_cigar::F2_R_cigar(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			bent_cigar(name, size_var, size_obj) {
 
-			initialize();
+			
 		}
 
-		void F2_R_cigar::initialize() {
+		void F2_R_cigar::initialize_problem() {
+			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-100., 100.);
+			set_init_range(-100., 100.);
+
+			set_original_global_opt();
 			set_condition_number(1.);
 			set_bias(200.);
 			load_translation("instance/problem/continuous/global/CEC2015/data/");
 			load_rotation("instance/problem/continuous/global/CEC2015/data/");
-			m_optima.clear();
+			
 			set_global_opt(m_translation.data());
 
 		}

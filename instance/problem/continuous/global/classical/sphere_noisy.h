@@ -13,16 +13,16 @@
 
 #ifndef OFEC_SPHERE_NOISY_H
 #define OFEC_SPHERE_NOISY_H
-#include "sphere.h"
+#include "../../../../../core/problem/continuous/function.h"
 namespace OFEC {
 	
-	class sphere_noisy : public sphere
+	class sphere_noisy : public function
 	{
 	public:
 		sphere_noisy(param_map &v);
 		sphere_noisy(const std::string &name, size_t size_var, size_t size_obj);
 	protected:
-		void initialize();
+		void initialize_problem();
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};

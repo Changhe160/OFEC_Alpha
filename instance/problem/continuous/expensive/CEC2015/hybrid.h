@@ -34,7 +34,6 @@ namespace OFEC {
 				return m_hybrid_translation;
 			}
 		protected:
-			virtual void initialize() = 0;
 			virtual void evaluate__(real *x, std::vector<real>& obj);
 			virtual void set_function() = 0;
 		protected:

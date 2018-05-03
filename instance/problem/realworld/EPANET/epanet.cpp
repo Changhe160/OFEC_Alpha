@@ -68,7 +68,7 @@ This module calls the following functions that reside in other modules:
      allocrules()
      closerules()
    INPUT1.C
-     getdata()
+     get_data()
      initreport()
    INPUT2.C
      netsize()
@@ -226,60 +226,49 @@ int   main(int argc, char *argv[])
 */
 //static mutex g_mutex1;
 #pragma warning(disable:4996)
-//#define NetN_inp "C:/Users/lenovo/Desktop/DATA/网管模型INP/Net3.inp"
-//#define NetN_rpt "C:/Users/lenovo/Desktop/DATA/网管模型INP/Net3.rpt"
+
 namespace OFEC {
 
-	epanet::epanet(param_map &v) :problem((v.at("proName")),1,1) \
-		\
-	{
+	epanet::epanet(param_map &v) :problem((v.at("proName")),1,1) {
 		m_path_inp << global::ms_arg.at("workingDir") << "instance/problem/realworld/EPANET/data/map/" << v.at("dataFile2");
 		m_path_rpt << global::ms_arg.at("workingDir") << "instance/problem/realworld/EPANET/data/map/" << v.at("dataFile3");
 		m_path_inp >> m_map_inp;
 		m_path_rpt >> m_map_rpt;
-		
-		m_fileName.assign(v.at("dataFile1"));
-		
+
+		m_file_name.assign(v.at("dataFile1"));
+	
+	}
+
+	void epanet::initialize_problem() {
+		set_tag(std::set<problem_tag>({ problem_tag::epanet }));
+
 		m_opt_mode[0] = optimization_mode::Minimization;
 
-		readParam();
+		read_parameter();
 
-		long num_WQS = m_totalDuration / m_qualityTimeStep;  // times of water quality simulation (WQS)
-		m_num_pattern = m_totalDuration / m_patternStep;
-		m_Ciobs.resize(m_numSensor, std::vector<float>(num_WQS));
+		long num_WQS = m_total_duration / m_quality_time_step;  // times of water quality simulation (WQS)
+		m_num_pattern = m_total_duration / m_pattern_step;
+		m_Ciobs.resize(m_num_sensor, std::vector<float>(num_WQS));
 		for (auto &i : m_real_PS_read) {
 			m_optima.append(i);
 			m_optima.append(0);
 		}
-		m_phase = m_totalDuration / (m_time_interval*m_qualityTimeStep);
-		getData(m_optima.variable(0), m_Ciobs);
+		m_phase = m_total_duration / (m_time_interval*m_quality_time_step);
+		get_data(m_optima.variable(0), m_Ciobs);
 
-		/*variable_epanet sol;
-		std::vector<real> sol_obj(1);
-		std::vector<std::vector<float>> sol_data(4, std::vector<float>(144));
-		int temp = 0;
-		sol.index() = 88;
-		sol.duration() = 2000;
-		sol.start_time() = 10000;
-		sol.multiplier().resize(4);
-		for (auto &i : sol.multiplier())
-			i = (++temp) * 50;
-		//getData(sol, sol_data, true);
-		evaluate__(sol, sol_obj);*/
-		int first_detected_interval = m_optima.variable(0).first_detected_time() / m_qualityTimeStep;
+
+		int first_detected_interval = m_optima.variable(0).first_detected_time() / m_quality_time_step;
 		m_phase = first_detected_interval / m_time_interval + 1;
-		
+
 		read_location();
 
 		m_objective_accuracy = 1.e-4;
-	
 	}
-
 	float epanet::calculate_distance(int index1, int index2) {
 		return sqrt(pow(m_location[index1 - 1][0] - m_location[index2 - 1][0], 2) + pow(m_location[index1 - 1][1] - m_location[index2 - 1][1], 2));
 	}
 
-	void epanet::readParam() {
+	void epanet::read_parameter() {
 		size_t i;
 		std::string Line;
 		char label[32];
@@ -288,7 +277,7 @@ namespace OFEC {
 		const char *Delimiters = " ():=\n\t\r\f\v\xef\xbb\xbf";
 		std::ostringstream oss1;
 		std::ifstream infile;
-		oss1 << "instance/problem/realworld/EPANET/data/input/"<< m_fileName;
+		oss1 << "instance/problem/realworld/EPANET/data/input/"<< m_file_name;
 		infile.open(oss1.str().c_str());
 		if (!infile) {
 			throw myexcept("read epanet data error");
@@ -303,42 +292,42 @@ namespace OFEC {
 		
 			if (!strcmp(Keyword, "SET_GLOBALOPTNUMBER")) {
 				char *token = gStrtok_r(0, Delimiters, &savePtr);
-				m_numSource = atoi(token);
-				m_real_PS_read.resize(m_numSource);
+				m_num_source = atoi(token);
+				m_real_PS_read.resize(m_num_source);
 			}
 			else if (!strcmp(Keyword, "NUMSENSOR")) {
 				char *token = gStrtok_r(0, Delimiters, &savePtr);
-				m_numSensor = atoi(token);
-				m_sensorLoc.resize(m_numSensor);
+				m_num_sensor = atoi(token);
+				m_sensor_Loc.resize(m_num_sensor);
 			}
 			else if (!strcmp(Keyword, "SET_DURATIONRANGE")) {
-				infile >> m_minduration;
-				infile >> m_maxduration;
+				infile >> m_min_duration;
+				infile >> m_max_duration;
 			}
 			else if (!strcmp(Keyword, "SET_STARTTIMERANGE")) {
-				infile >> m_minstartTime;
-				infile >> m_maxstartTime;
+				infile >> m_min_start_time;
+				infile >> m_max_start_time;
 			}
 			else if (!strcmp(Keyword, "SET_MULTIPLIERRANGE")) {
-				infile >> m_minmultiplier;
-				infile >> m_maxmultiplier;
+				infile >> m_min_multiplier;
+				infile >> m_max_multiplier;
 			}
 			else if (!strcmp(Keyword, "SET_SENSORLOC"))
 			{
-				for (i = 0; i < m_numSensor; i++)
-					infile >> m_sensorLoc[i];
+				for (i = 0; i < m_num_sensor; i++)
+					infile >> m_sensor_Loc[i];
 			}
 			else if (!strcmp(Keyword, "SET_TOTALDURATION"))
 			{
-				infile >> m_totalDuration;
+				infile >> m_total_duration;
 			}
 			else if (!strcmp(Keyword, "SET_QUALITYTIMESTEP"))
 			{
-				infile >> m_qualityTimeStep;
+				infile >> m_quality_time_step;
 			}
 			else if (!strcmp(Keyword, "SET_PATTERNSTEP"))
 			{
-				infile >> m_patternStep;
+				infile >> m_pattern_step;
 			}
 			else if (!strcmp(Keyword, "SET_TIMEINTERVAL"))
 			{
@@ -346,7 +335,7 @@ namespace OFEC {
 			}
 			else if (!strcmp(Keyword, "LOC"))
 			{
-				for (i = 0; i < m_numSource; ++i) {
+				for (i = 0; i < m_num_source; ++i) {
 					//infile >> TempChar;
 					//getline(infile,label,' ');
 					//m_globalOpt[i].data().m_x[0].Loc = Temp;
@@ -356,27 +345,27 @@ namespace OFEC {
 			}
 			else if (!strcmp(Keyword, "DURATION"))
 			{
-				for (i = 0; i < m_numSource; ++i) {
+				for (i = 0; i < m_num_source; ++i) {
 					infile >> m_real_PS_read[i].duration();
 				}
 			}
 			else if (!strcmp(Keyword, "SOURCE"))
 			{
-				for (i = 0; i < m_numSource; ++i) {
+				for (i = 0; i < m_num_source; ++i) {
 					infile >> m_real_PS_read[i].source();
 				}
 			}
 			else if (!strcmp(Keyword, "STARTTIME"))
 			{
-				for (i = 0; i < m_numSource; ++i) {
+				for (i = 0; i < m_num_source; ++i) {
 					infile >> m_real_PS_read[i].start_time();
 				}
 			}
 			else if (!strcmp(Keyword, "MULTIPLIER"))
 			{
 				size_t mul_size;
-				for (i = 0; i < m_numSource; ++i) {
-					mul_size = (size_t)(m_real_PS_read[i].duration() / m_patternStep);
+				for (i = 0; i < m_num_source; ++i) {
+					mul_size = (size_t)(m_real_PS_read[i].duration() / m_pattern_step);
 					m_real_PS_read[i].multiplier().resize(mul_size);
 					for (size_t j = 0; j < mul_size; ++j) {
 						infile >> m_real_PS_read[i].multiplier()[j];
@@ -406,18 +395,18 @@ namespace OFEC {
 	void epanet::evaluate__(variable_epanet & x, std::vector<real>& obj) {
 		
 		int num = m_phase*m_time_interval;
-		std::vector<std::vector<float>> Cit(m_numSensor, std::vector<float>(num));
+		std::vector<std::vector<float>> Cit(m_num_sensor, std::vector<float>(num));
 		float temp = 0;
-		getData(x, Cit);
+		get_data(x, Cit);
 		
-		//size_t first_detected_interval = m_optima.variable(0).first_detected_time() / m_qualityTimeStep;
+		//size_t first_detected_interval = m_optima.variable(0).first_detected_time() / m_quality_time_step;
 		if (x.is_detected()) {
 			for (size_t i = 0; i < num; ++i) {
-				for (size_t j = 0; j < m_numSensor; ++j) {
+				for (size_t j = 0; j < m_num_sensor; ++j) {
 					temp += pow(m_Ciobs[j][i] - Cit[j][i], 2);
 				}
 			}
-			obj[0] = sqrt(temp / (m_numSensor*num));
+			obj[0] = sqrt(temp / (m_num_sensor*num));
 		}
 		else
 			obj[0] = 1000;
@@ -430,7 +419,7 @@ namespace OFEC {
 
 	void epanet::read_location() {
 		bool flag = false;
-		m_location.resize(m_numNode, std::vector<double>(2));
+		m_location.resize(m_num_node, std::vector<double>(2));
 		std::string line;
 		std::ifstream ifname;
 		ifname.open(m_path_inp.str());
@@ -440,7 +429,7 @@ namespace OFEC {
 				flag = true;
 				continue;
 			}
-			if (i == m_numNode)
+			if (i == m_num_node)
 				break;
 			if (flag) {
 				ifname >> m_location[i][0];
@@ -450,7 +439,7 @@ namespace OFEC {
 		}
 	}
 
-	void epanet::getData(variable_epanet &sol, std::vector<std::vector<float>> &data) {
+	void epanet::get_data(variable_epanet &sol, std::vector<std::vector<float>> &data) {
 		long tstep;
 		long t;
 		int index;
@@ -458,10 +447,10 @@ namespace OFEC {
 		float c;
 
 		ENopen(m_map_inp, m_map_rpt, "");   //  open input and report file 
-		ENsettimeparam(EN_DURATION, m_totalDuration);     //  set Total Duration
+		ENsettimeparam(EN_DURATION, m_total_duration);     //  set Total Duration
 		ENsettimeparam(EN_HYDSTEP, 60 * 60);         //  set Hydraulic Time Step
-		ENsettimeparam(EN_QUALSTEP, m_qualityTimeStep);         //  set Quality Time Step 5mins
-		ENsettimeparam(EN_PATTERNSTEP, m_patternStep);     //  set Pattern Time Step
+		ENsettimeparam(EN_QUALSTEP, m_quality_time_step);         //  set Quality Time Step 5mins
+		ENsettimeparam(EN_PATTERNSTEP, m_pattern_step);     //  set Pattern Time Step
 		ENsettimeparam(EN_PATTERNSTART, 0);        //  set Pattern Start Time
 		ENsettimeparam(EN_REPORTSTEP, 60 * 60);      //  set Report Time Step
 		ENsettimeparam(EN_REPORTSTART, 0);         //  set Report Start Time
@@ -469,7 +458,7 @@ namespace OFEC {
 		ENsolveH();
 
 		//ENinitQ(0);
-		ENgetcount(EN_NODECOUNT, &m_numNode);      // get number of node
+		ENgetcount(EN_NODECOUNT, &m_num_node);      // get number of node
 		ENsetqualtype(EN_CHEM, "Chlorine", "mg/L", ""); // set type of source
 
 		ENopenQ();
@@ -483,7 +472,7 @@ namespace OFEC {
 		
 		for (int j = 1; j <= sol.multiplier().size(); ++j)         
 		{
-			ENsetpatternvalue(patternIndex, sol.start_time() / m_patternStep + j, sol.multiplier()[j-1]);
+			ENsetpatternvalue(patternIndex, sol.start_time() / m_pattern_step + j, sol.multiplier()[j-1]);
 		}
 		
 		int len;
@@ -504,12 +493,12 @@ namespace OFEC {
 		do {
 			ENrunQ(&t); 
 			ENstepQ(&tstep);
-			for (int i = 0; i<m_numSensor; ++i)
+			for (int i = 0; i<m_num_sensor; ++i)
 			{
-				sprintf(label, "%d", m_sensorLoc[i]);
+				sprintf(label, "%d", m_sensor_Loc[i]);
 				ENgetnodeindex(label, &index);
 				ENgetnodevalue(index, EN_QUALITY, &c);
-				data[i][t / m_qualityTimeStep] = c;
+				data[i][t / m_quality_time_step] = c;
 				if (c > 1e-6 && !(sol.is_detected())) {
 					sol.first_detected_time() = t;
 					sol.is_detected() = true;
@@ -533,15 +522,15 @@ namespace OFEC {
 		//real & obj = dynamic_cast< solution<variable_epanet, real> &>(s).get_objective();
 
 		var.flag_location() = false;
-		var.index() = global::ms_global->m_uniform[caller::Problem]->next_non_standard<int>(1, m_numNode);
+		var.index() = global::ms_global->m_uniform[caller::Problem]->next_non_standard<int>(1, m_num_node);
 		var.source() = 1.0;  
-		var.start_time() = m_patternStep * global::ms_global->m_uniform[caller::Problem]->next_non_standard<long>(m_minstartTime/m_patternStep, m_maxstartTime/m_patternStep);
-		var.duration() = m_patternStep * global::ms_global->m_uniform[caller::Problem]->next_non_standard<long>(m_minduration/m_patternStep, m_maxduration/m_patternStep);
-		size_t size = var.duration() / m_patternStep;
-		if (var.duration() % m_patternStep != 0) ++size;
+		var.start_time() = m_pattern_step * global::ms_global->m_uniform[caller::Problem]->next_non_standard<long>(m_min_start_time/m_pattern_step, m_max_start_time/m_pattern_step);
+		var.duration() = m_pattern_step * global::ms_global->m_uniform[caller::Problem]->next_non_standard<long>(m_min_duration/m_pattern_step, m_max_duration/m_pattern_step);
+		size_t size = var.duration() / m_pattern_step;
+		if (var.duration() % m_pattern_step != 0) ++size;
 		var.multiplier().resize(size);
 		for (auto &i : var.multiplier()) {
-			i = global::ms_global->m_uniform[caller::Problem]->next_non_standard<float>(m_minmultiplier, m_maxmultiplier);
+			i = global::ms_global->m_uniform[caller::Problem]->next_non_standard<float>(m_min_multiplier, m_max_multiplier);
 		}
 	}
 
@@ -554,7 +543,7 @@ namespace OFEC {
 		return m_optima;
 	}
 	bool epanet::is_time_out() const {
-		return (m_totalDuration / (m_time_interval*m_qualityTimeStep) < m_phase);
+		return (m_total_duration / (m_time_interval*m_quality_time_step) < m_phase);
 	}
 
 	/*            EPANET function           */

@@ -5,17 +5,13 @@ namespace OFEC {
 		N20_SR_Elliptic_F8::N20_SR_Elliptic_F8(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
 		{
-			set_range(-100, 100);
-			set_init_range(-100, 100);
-			initialize();
+			
 		}
 
 		N20_SR_Elliptic_F8::N20_SR_Elliptic_F8(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 			function_CEC2013(name, size_var, size_obj) \
 		{
-			set_range(-100, 100);
-			set_init_range(-100, 100);
-			initialize();
+			
 		}
 
 		N20_SR_Elliptic_F8::~N20_SR_Elliptic_F8() {
@@ -38,7 +34,11 @@ namespace OFEC {
 
 		}
 
-		void N20_SR_Elliptic_F8::initialize() {
+		void N20_SR_Elliptic_F8::initialize_problem() {
+			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-100, 100);
+			set_init_range(-100, 100);
 			ID = 8;
 			m_nonSeparableGroupNumber = 20;
 			mp_anotherz = new real[m_variable_size];

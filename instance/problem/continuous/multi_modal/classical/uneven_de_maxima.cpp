@@ -2,22 +2,21 @@
 
 namespace OFEC {
 	
-	uneven_de_maxima::uneven_de_maxima(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	uneven_de_maxima::uneven_de_maxima(param_map &v) : problem((v.at("proName")), 1, 1), \
+		function((v.at("proName")), 1, 1) {
 
-		v.at("numDim") = 1;
-		set_range(0, 1.); // note
-		set_init_range(0, 1.); // note
-		initialize();
+		
+		
 	}
 	uneven_de_maxima::uneven_de_maxima(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
-		set_range(0, 1.); // note
-		set_range(0, 1.); // note
-		initialize();
+		
 	}
 
-	void uneven_de_maxima::initialize() { // note
+	void uneven_de_maxima::initialize_problem() { 
+		set_range(0, 1.); // note
+		set_init_range(0, 1.); // note
+
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.01;
 		m_variable_accuracy = 1.e-4;
@@ -27,7 +26,7 @@ namespace OFEC {
 		for (auto &i : obj_data)
 			m_original_optima.append(i);
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		
 	}
 	void uneven_de_maxima::evaluate__(real *x, std::vector<real>& obj) {

@@ -25,7 +25,7 @@ namespace OFEC {
 			void evaluate__(real *x, std::vector<real>& obj);
 			~N20_SR_Elliptic_F8();
 		protected:
-			void initialize();
+			void initialize_problem();
 		};
 	}
 	using CEC2013_LSOP_F8 = CEC2013::N20_SR_Elliptic_F8;

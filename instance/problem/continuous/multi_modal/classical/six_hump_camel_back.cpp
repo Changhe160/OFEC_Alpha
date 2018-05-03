@@ -17,18 +17,16 @@
 #include "six_hump_camel_back.h"
 namespace OFEC {
 	
-	six_hump_camel_back::six_hump_camel_back(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
-		v.at("numDim") = 2;
-		initialize();
+	six_hump_camel_back::six_hump_camel_back(param_map &v) :problem((v.at("proName")), 2, 1), \
+		function((v.at("proName")), 2, 1) {
+		
 	}
 	six_hump_camel_back::six_hump_camel_back(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 
-		initialize();
 	}
 
-	void six_hump_camel_back::initialize() {
+	void six_hump_camel_back::initialize_problem() {
 		m_opt_mode[0] = optimization_mode::Minimization;
 		std::vector<std::pair<real, real>> range;
 		range.push_back(std::make_pair(-1.9, 1.9));
@@ -46,7 +44,7 @@ namespace OFEC {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		
 
 	}

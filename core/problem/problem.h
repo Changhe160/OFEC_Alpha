@@ -162,6 +162,8 @@ namespace OFEC {
 		static Solution * get_sofar_worst(size_t i) {
 			return dynamic_cast<Solution *>(ms_minmax_objective[i].second.get());
 		}
+
+		virtual void initialize_problem() = 0;
 	protected:
 		problem& operator=(const problem& rhs);  // assignment is not allowed outside
 		problem& operator=(problem&& rhs);

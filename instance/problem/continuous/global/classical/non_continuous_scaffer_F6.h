@@ -14,19 +14,18 @@
 #ifndef OFEC_NON_CONTINUOUS_SCAFFER_F6_H
 #define OFEC_NON_CONTINUOUS_SCAFFER_F6_H
 
-
-#include "scaffer_F6.h"
+#include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
 	
 
-	class non_continuous_scaffer_F6 : public scaffer_F6
+	class non_continuous_scaffer_F6 : public function
 	{
 	public:
 		non_continuous_scaffer_F6(param_map &v);
 		non_continuous_scaffer_F6(const std::string &name, size_t size_var, size_t size_obj);
 	protected:
-		void initialize();
+		void initialize_problem();
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};

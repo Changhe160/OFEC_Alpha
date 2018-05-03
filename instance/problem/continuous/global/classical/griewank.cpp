@@ -18,18 +18,17 @@ namespace OFEC {
 	griewank::griewank(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
 
-		set_range(-600, 600);
-		set_init_range(-600., 600.);
-		initialize();
 	}
 	griewank::griewank(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
-		set_range(-600, 600);
-		set_init_range(-600., 600.);
-		initialize();
+		
 	}
 
-	void griewank::initialize() {
+	void griewank::initialize_problem() {
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		m_variable_monitor = true;
+		set_range(-600, 600);
+		set_init_range(-600., 600.);
 		set_original_global_opt();
 
 		set_global_opt();

@@ -5,36 +5,30 @@
 namespace OFEC {
 	quadratic_assignment::quadratic_assignment(param_map & v) :problem(v.at("proName"), v.at("numDim"), 1),m_domain(m_variable_size)
 	{
-		mvv_flow.resize(m_variable_size);
-		mvv_distance.resize(m_variable_size);
-		for (int i = 0; i < m_variable_size; i++) {
-			mvv_flow[i].resize(m_variable_size);
-			mvv_distance[i].resize(m_variable_size);
-		}
+		
 		m_file_name = static_cast<std::string>(v.at("dataFile1"));
-		read_problem();
-
-		for (size_t i = 0; i < m_variable_size; ++i)
-			m_domain.set_range(0, (v.at("numDim")) - 1, i);
-
-		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
-			m_opt_mode[idx] = optimization_mode::Minimization;
 
 		v.at("sampleFre") = m_variable_size * 2;
 
-		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
 	}
 
 	quadratic_assignment::quadratic_assignment(const std::string& pro_name, size_t size_var, const std::string& file_name)
 		:problem(pro_name, size_var, 1), m_domain(m_variable_size)
 	{
+		m_file_name = file_name;
+	}
+
+	quadratic_assignment::~quadratic_assignment()
+	{
+	}
+	void quadratic_assignment::initialize_problem() {
 		mvv_flow.resize(m_variable_size);
 		mvv_distance.resize(m_variable_size);
 		for (int i = 0; i < m_variable_size; i++) {
 			mvv_flow[i].resize(m_variable_size);
 			mvv_distance[i].resize(m_variable_size);
 		}
-		m_file_name = file_name;
+		
 		read_problem();
 
 		for (size_t i = 0; i < m_variable_size; ++i)
@@ -45,11 +39,6 @@ namespace OFEC {
 
 		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
 	}
-
-	quadratic_assignment::~quadratic_assignment()
-	{
-	}
-
 	evaluation_tag quadratic_assignment::evaluate_(base & s, caller call, bool effective_fes, bool constructed)
 	{
 		variable<int> &x = dynamic_cast< solution<variable<int>, real> &>(s).get_variable();

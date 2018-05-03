@@ -24,7 +24,7 @@ namespace OFEC {
 			F14_expensive_composition2(param_map &v);
 			F14_expensive_composition2(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
-			void initialize();
+			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 

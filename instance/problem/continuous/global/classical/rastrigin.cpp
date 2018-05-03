@@ -17,23 +17,23 @@ namespace OFEC {
 	rastrigin::rastrigin(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
 
-		set_range(-5.12, 5.12);
-		set_init_range(-5.12, 5.12);
-		initialize();
+		
 	}
 	rastrigin::rastrigin(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 
-		set_range(-5.12, 5.12);
-		set_init_range(-5.12, 5.12);
-		initialize();
+		
 	}
 
-	void rastrigin::initialize() {
+	void rastrigin::initialize_problem() {
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		m_variable_monitor = true;
+		set_range(-5.12, 5.12);
+		set_init_range(-5.12, 5.12);
 		set_original_global_opt();
 
 		set_global_opt();
-		//setAccuracy(1.0e-2);
+		
 
 	}
 

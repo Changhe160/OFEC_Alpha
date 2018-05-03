@@ -24,7 +24,7 @@ namespace OFEC {
 			void evaluate__(real *x, std::vector<real>& obj);
 			~ConflictingOS_ShiftedSchwefel_F14();
 		protected:
-			void initialize();
+			void initialize_problem();
 		};
 	}
 	using CEC2013_LSOP_F14 = CEC2013::ConflictingOS_ShiftedSchwefel_F14;

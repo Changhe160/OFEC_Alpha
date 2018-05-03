@@ -19,28 +19,23 @@
 
 namespace OFEC {
 
-	branin_rcos::branin_rcos(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
-		v.at("numDim") = 2;
-
-		std::vector<std::pair<real, real>> range;
-		range.push_back(std::make_pair(-5., 10.));
-		range.push_back(std::make_pair(0., 15.));
-		set_init_range(range);
-		set_range(std::move(range));
-		initialize();
+	branin_rcos::branin_rcos(param_map &v) :problem((v.at("proName")), 2, 1), \
+		function((v.at("proName")), 2, 1) {
+		
 	}
 	branin_rcos::branin_rcos(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
+		
+		
+	}
+
+	void branin_rcos::initialize_problem() {
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		std::vector<std::pair<real, real>> range;
 		range.push_back(std::make_pair(-5., 10.));
 		range.push_back(std::make_pair(0., 15.));
 		set_init_range(range);
 		set_range(std::move(range));
-		initialize();
-	}
-
-	void branin_rcos::initialize() {
 		m_opt_mode[0] = optimization_mode::Minimization;
 		m_variable_accuracy = 0.1;
 		m_objective_accuracy = 1.e-5;
@@ -52,7 +47,7 @@ namespace OFEC {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
+		
 		//setObjSet();
 	}
 	void branin_rcos::evaluate__(real *x, std::vector<real>& obj) {

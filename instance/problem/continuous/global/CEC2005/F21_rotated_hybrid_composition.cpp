@@ -25,12 +25,12 @@ namespace OFEC {
 		F21_rotated_hybrid_composition::F21_rotated_hybrid_composition(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition((v.at("proName")), (v.at("numDim")), 1) {
 
-			initialize();
+			
 		}
 		F21_rotated_hybrid_composition::F21_rotated_hybrid_composition(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			composition(name, size_var, size_obj) {
 
-			initialize();
+			
 		}
 		
 		void F21_rotated_hybrid_composition::set_function() {
@@ -59,6 +59,12 @@ namespace OFEC {
 			m_function[6]->set_range(-0.5, 0.5); m_function[7]->set_range(-0.5, 0.5);
 			m_function[8]->set_range(-200, 200); m_function[9]->set_range(-200, 200);
 
+			m_function[0]->set_init_range(-100, 100);   m_function[1]->set_init_range(-100, 100);
+			m_function[2]->set_init_range(-5, 5);     m_function[3]->set_init_range(-5, 5);
+			m_function[4]->set_init_range(-5, 5); m_function[5]->set_init_range(-5, 5);
+			m_function[6]->set_init_range(-0.5, 0.5); m_function[7]->set_init_range(-0.5, 0.5);
+			m_function[8]->set_init_range(-200, 200); m_function[9]->set_init_range(-200, 200);
+
 			m_stretch_severity[0] = 5.*5. / 100; m_stretch_severity[1] = 5. / 100;
 			m_stretch_severity[2] = 5.;		m_stretch_severity[3] = 1.;
 			m_stretch_severity[4] = 5;  m_stretch_severity[5] = 1;
@@ -78,9 +84,16 @@ namespace OFEC {
 
 			//set_bias(360.);
 		}
-		void F21_rotated_hybrid_composition::initialize() {
+		void F21_rotated_hybrid_composition::initialize_problem() {
+			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-5., 5.);
+			set_init_range(-5., 5.);
+			m_height_normalize_severity = 2000.;
 			set_function();
-
+			for (auto &i : m_function) {
+				i->set_original_global_opt();
+			}
 			load_rotation("instance/problem/continuous/global/CEC2005/data/");
 			
 			compute_fmax();
@@ -88,7 +101,6 @@ namespace OFEC {
 			load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
 			
 			for (auto &i : m_function) {
-				i->get_optima().clear();
 				i->set_global_opt(i->translation().data());
 			}
 			// Set optimal solution

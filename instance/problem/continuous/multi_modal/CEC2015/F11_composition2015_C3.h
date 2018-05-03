@@ -29,7 +29,7 @@ namespace OFEC {
 			F11_composition2015_C3(param_map &v);
 			F11_composition2015_C3(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
-			void initialize();
+			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 

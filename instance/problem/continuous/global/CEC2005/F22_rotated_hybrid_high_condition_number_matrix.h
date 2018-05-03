@@ -24,7 +24,7 @@ namespace OFEC {
 			F22_rotated_hybrid_high_condition_number_matrix(param_map &v);
 			F22_rotated_hybrid_high_condition_number_matrix(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
-			void initialize();
+			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 		private:

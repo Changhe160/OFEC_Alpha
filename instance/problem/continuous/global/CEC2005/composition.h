@@ -28,7 +28,7 @@ namespace OFEC {
 			function* get_function(size_t num);
 			
 		protected:
-			virtual void initialize() = 0;
+			
 			virtual void evaluate__(real *x, std::vector<real>& obj);
 			void compute_fmax();
 			virtual void set_function() = 0;

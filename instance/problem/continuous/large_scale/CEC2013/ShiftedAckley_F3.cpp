@@ -18,17 +18,13 @@ namespace OFEC {
 		ShiftedAckley_F3::ShiftedAckley_F3(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
 		{
-			set_range(-32, 32);
-			set_init_range(-32, 32);
-			initialize();
+			
 		}
 
 		ShiftedAckley_F3::ShiftedAckley_F3(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 			function_CEC2013(name, size_var, size_obj) \
 		{
-			set_range(-32, 32);
-			set_init_range(-32, 32);
-			initialize();
+			
 		}
 
 		ShiftedAckley_F3::~ShiftedAckley_F3() {
@@ -36,7 +32,11 @@ namespace OFEC {
 			delete[] mp_anotherz;
 		}
 
-		void ShiftedAckley_F3::initialize() {
+		void ShiftedAckley_F3::initialize_problem() {
+			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-32, 32);
+			set_init_range(-32, 32);
 			ID = 3;
 			mp_anotherz = new real[m_variable_size];
 

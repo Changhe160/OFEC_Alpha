@@ -27,7 +27,7 @@ namespace OFEC {
 			void evaluate__(real *x, std::vector<real>& obj);
 			~ShiftedElliptic_F1();
 		protected:
-			void initialize();
+			void initialize_problem();
 		};
 	}
 	using CEC2013_LSOP_F1 = CEC2013::ShiftedElliptic_F1;

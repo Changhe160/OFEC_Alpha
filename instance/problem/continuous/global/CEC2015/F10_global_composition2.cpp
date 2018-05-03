@@ -21,21 +21,11 @@ namespace OFEC {
 	namespace CEC2015 {
 		F10_global_composition2::F10_global_composition2(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
-			m_num_function = 3;
-			m_hybrid.resize(m_num_function);
-			m_height.resize(m_num_function);
-			m_converge_severity.resize(m_num_function);
-			m_f_bias.resize(m_num_function);
-			initialize();
+			
 		}
 		F10_global_composition2::F10_global_composition2(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			composition_2015(name, size_var, size_obj) {
-			m_num_function = 3;
-			m_hybrid.resize(m_num_function);
-			m_height.resize(m_num_function);
-			m_converge_severity.resize(m_num_function);
-			m_f_bias.resize(m_num_function);
-			initialize();
+			
 		}
 		F10_global_composition2::~F10_global_composition2() {
 			if (m_num_function > 0) {
@@ -51,6 +41,7 @@ namespace OFEC {
 
 			for (size_t i = 0; i < m_num_function; ++i) {
 				m_hybrid[i] = dynamic_cast<hybrid*>(f[i]("", m_variable_size, m_objective_size));
+				m_function[i]->initialize_problem();
 			}
 
 			m_converge_severity[0] = 10;
@@ -66,7 +57,14 @@ namespace OFEC {
 			m_f_bias[2] = 200;
 
 		}
-		void F10_global_composition2::initialize() {
+		void F10_global_composition2::initialize_problem() {
+			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			m_num_function = 3;
+			m_hybrid.resize(m_num_function);
+			m_height.resize(m_num_function);
+			m_converge_severity.resize(m_num_function);
+			m_f_bias.resize(m_num_function);
 			std::vector<real> hy_bias = { 600,700,800 };
 			set_function();
 			load_translation("instance/problem/continuous/global/CEC2015/data/");  //data path

@@ -9,18 +9,21 @@ namespace OFEC {
 
 			set_range(-OFEC_PI, OFEC_PI);
 			set_init_range(-OFEC_PI, OFEC_PI);
-			initialize();
+			
 		}
 		F12_schwefel_2_13::F12_schwefel_2_13(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj), m_a(size_var, std::vector<int>(size_var)), m_b(size_var, std::vector<int>(size_var)), \
 			m_alpha(size_var) {
 			set_range(-OFEC_PI, OFEC_PI);
 			set_init_range(-OFEC_PI, OFEC_PI);
-			initialize();
+			
 		}
 
-		void F12_schwefel_2_13::initialize() {
-
+		void F12_schwefel_2_13::initialize_problem() {
+			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-OFEC_PI, OFEC_PI);
+			set_init_range(-OFEC_PI, OFEC_PI);
 			load_data("instance/problem/continuous/global/CEC2005/data/");
 			set_original_global_opt();
 			set_bias(-460);

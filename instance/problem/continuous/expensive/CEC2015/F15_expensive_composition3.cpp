@@ -25,12 +25,10 @@ namespace OFEC {
 		F15_expensive_composition3::F15_expensive_composition3(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
 			
-			initialize();
 		}
 		F15_expensive_composition3::F15_expensive_composition3(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			composition_2015(name, size_var, size_obj) {
 			
-			initialize();
 		}
 		
 		void F15_expensive_composition3::set_function() {
@@ -43,6 +41,7 @@ namespace OFEC {
 
 			for (size_t i = 0; i < m_num_function; ++i) {
 				m_function[i] = dynamic_cast<function*>(f[i]("", m_variable_size, m_objective_size));
+				m_function[i]->initialize_problem();
 				m_function[i]->set_bias(0);
 			}
 
@@ -69,7 +68,17 @@ namespace OFEC {
 
 			//set_bias(1500);
 		}
-		void F15_expensive_composition3::initialize() {
+		void F15_expensive_composition3::initialize_problem() {
+			set_tag(std::set<problem_tag>({ problem_tag::EOP, problem_tag::CONT }));
+			m_num_function = 5;
+			m_function.resize(m_num_function);
+			m_height.resize(m_num_function);
+			m_converge_severity.resize(m_num_function);
+			m_f_bias.resize(m_num_function);
+			set_range(-100., 100.);
+			set_init_range(-100., 100.);
+			m_variable_monitor = true;
+
 			set_function();
 			load_translation("instance/problem/continuous/expensive/CEC2015/data/");  //data path
 			

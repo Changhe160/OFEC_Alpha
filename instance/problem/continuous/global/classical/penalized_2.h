@@ -24,7 +24,7 @@ namespace OFEC {
 		penalized_2(param_map &v);
 		penalized_2(const std::string &name, size_t size_var, size_t size_obj);
 	protected:
-		void initialize();
+		void initialize_problem();
 		double u(real x, double a, double k, double m)const;
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:

@@ -24,7 +24,7 @@ namespace OFEC {
 			void evaluate__(real *x, std::vector<real>& obj);
 			~N7S1_SR_Ackley_F6();
 		protected:
-			void initialize();
+			void initialize_problem();
 		};
 	}
 	using CEC2013_LSOP_F6 = CEC2013::N7S1_SR_Ackley_F6;

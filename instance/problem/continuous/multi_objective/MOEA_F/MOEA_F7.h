@@ -10,6 +10,7 @@ namespace OFEC {
 		MOEA_F7(param_map &v);
 		MOEA_F7(const std::string &name, size_t size_var);
 		~MOEA_F7() {}
+		void initialize_problem();
 	};
 }
 

@@ -10,27 +10,24 @@
 *  GNU General Public License as published by the Free Software
 *  Foundation; either version 2, or (at your option) any later version.
 *************************************************************************/
-// Created: 21 July 2011
-// Last modified:
+
 #include "max_global.h"
 
 namespace OFEC {
 	
-	max_global::max_global(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
-		v.at("numDim") = 1;
-		set_range(0, 1);
-		set_init_range(0, 1);
-		initialize();
+	max_global::max_global(param_map &v) : problem((v.at("proName")),1, 1), \
+		function((v.at("proName")), 1, 1) {
+		
+		
 	}
 	max_global::max_global(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
-		set_range(0, 1);
-		set_init_range(0, 1);
-		initialize();
+		
 	}
 
-	void max_global::initialize() {
+	void max_global::initialize_problem() {
+		set_range(0, 1);
+		set_init_range(0, 1);
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_variable_monitor = true;
 		 //5 gopt
@@ -43,7 +40,7 @@ namespace OFEC {
 		}
 
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 	}
 
 	void max_global::evaluate__(real *x, std::vector<real>& obj) {

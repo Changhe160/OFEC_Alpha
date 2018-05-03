@@ -11,7 +11,7 @@ namespace OFEC {
 		michalewicz(param_map &v);
 		michalewicz(const std::string &name, size_t size_var, size_t size_obj);
 	protected:
-		void initialize();
+		void initialize_problem();
 		void evaluate__(real *x, std::vector<real>& obj);
 		int m_m;
 	private:

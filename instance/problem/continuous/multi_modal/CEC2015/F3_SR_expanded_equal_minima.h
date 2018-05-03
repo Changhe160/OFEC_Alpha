@@ -28,7 +28,7 @@ namespace OFEC {
 			F3_SR_expanded_equal_minima(param_map &v);
 			F3_SR_expanded_equal_minima(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
-			void initialize();
+			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 		private:
 		};

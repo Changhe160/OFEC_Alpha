@@ -1,19 +1,17 @@
 #include "michalewicz.h"
 namespace OFEC {
 	
-	michalewicz::michalewicz(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1), m_m(20) {
-		v.at("numDim") = 2;
-
-		initialize();
+	michalewicz::michalewicz(param_map &v) : problem((v.at("proName")), 2, 1), \
+		function((v.at("proName")), 2, 1), m_m(20) {
+		
 	}
 	michalewicz::michalewicz(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj), m_m(20) {
 
-		initialize();
+	
 	}
 
-	void michalewicz::initialize() {
+	void michalewicz::initialize_problem() {
 
 		set_range(0, OFEC_PI);
 		set_init_range(0, OFEC_PI);
@@ -29,7 +27,7 @@ namespace OFEC {
 		}
 
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		
 	}
 	void michalewicz::evaluate__(real *x, std::vector<real>& obj) {

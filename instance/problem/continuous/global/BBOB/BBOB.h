@@ -25,7 +25,7 @@ namespace OFEC {
 		BBOB(param_map &v);
 
 	protected:
-		void initialize();
+		void initialize_problem();
 		void computeXopt();
 		real computeFopt();
 		real penalize(real *x);

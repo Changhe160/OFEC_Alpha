@@ -2,9 +2,13 @@
 
 namespace OFEC {
 	ZDT4::ZDT4(param_map & v) : problem(v.at("proName"), v.at("numDim"), 2), ZDT(v.at("proName"), v.at("numDim")) {
-		generateAdLoadPF();
+		
 	}
 	ZDT4::ZDT4(const std::string & name, size_t size_var) : problem(name, size_var, 2), ZDT(name, size_var) {
+		
+	}
+	void ZDT4::initialize_problem() {
+		ZDT::initialize_problem();
 		generateAdLoadPF();
 	}
 	void ZDT4::evaluate__(double * x, std::vector<double>& obj) {

@@ -24,7 +24,7 @@ namespace OFEC {
 			void evaluate__(real *x, std::vector<real>& obj);
 			~N20_ShiftedSchwefel_F11();
 		protected:
-			void initialize();
+			void initialize_problem();
 		};
 	}
 	using CEC2013_LSOP_F11 = CEC2013::N20_ShiftedSchwefel_F11;

@@ -28,7 +28,7 @@ namespace OFEC {
 			five_uneven_peak_trap(param_map &v);
 			five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
-			void initialize();
+			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 		private:
 		};

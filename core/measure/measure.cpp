@@ -5,16 +5,16 @@
 namespace OFEC {
 	std::unique_ptr<measure> measure::ms_measure(nullptr);
 	void measure::set_filename() {
-		m_filename.str("");
+		m_file_name.str("");
 		if (global::ms_arg.find("workingDir") == global::ms_arg.end())
-			m_filename << "./result/";
+			m_file_name << "./result/";
 		else
-			m_filename << global::ms_arg.at("workingDir") << "result/";
+			m_file_name << global::ms_arg.at("workingDir") << "result/";
 		for (auto& i : global::ms_arg) {
 			if (global::ms_filename_info.at(i.first)) {
 				for (auto& j : global::ms_param) {
 					if (i.first == j.second) {
-						m_filename << j.first << "(" << i.second << ")_";
+						m_file_name << j.first << "(" << i.second << ")_";
 						break;
 					}
 				}
@@ -30,10 +30,10 @@ namespace OFEC {
 	void measure::output_progr() {
 		if (mvv_data.empty())
 			throw myexcept("No data recorded");
-		if (m_filename.str().empty())
+		if (m_file_name.str().empty())
 			set_filename();
 		std::stringstream os;
-		os << m_filename.str();
+		os << m_file_name.str();
 		os << "Progr.txt";
 		std::ofstream out(os.str());
 		std::vector<double> sum;
@@ -77,10 +77,10 @@ namespace OFEC {
 	void measure::output_final() {
 		if (mvv_data.empty())
 			throw myexcept("No data recorded");
-		if (m_filename.str().empty())
+		if (m_file_name.str().empty())
 			set_filename();
 		std::stringstream os;
-		os << m_filename.str();
+		os << m_file_name.str();
 		os << "final.txt";
 		std::ofstream out(os.str());
 		size_t size_row = m_heading.size();

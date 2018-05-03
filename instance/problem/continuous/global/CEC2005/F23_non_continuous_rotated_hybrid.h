@@ -24,7 +24,7 @@ namespace OFEC {
 			F23_non_continuous_rotated_hybrid(param_map &v);
 			F23_non_continuous_rotated_hybrid(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
-			void initialize();
+			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 		private:

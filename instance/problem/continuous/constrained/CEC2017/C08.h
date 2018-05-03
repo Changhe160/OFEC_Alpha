@@ -25,7 +25,7 @@ namespace OFEC {
 			C08(param_map &v);
 			C08(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
-			void initialize();
+			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values);
 		private:
 

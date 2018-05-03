@@ -3,20 +3,20 @@
 namespace OFEC {
 	gear_train::gear_train(param_map &v) :problem((v.at("proName")), 4, 1), \
 		function((v.at("proName")), 4, 1) {
-		set_range(12, 60);
-		set_init_range(12, 60);
-		initialize();
+		
 
 	}
 
 	gear_train::gear_train(const std::string &name, size_t size_var, size_t size_obj) :problem(name, 4, 1), \
 		function(name, 4, 1) {
-		set_range(12, 60);
-		set_init_range(12, 60);
-		initialize();
+		
 	}
 
-	void gear_train::initialize() {
+	void gear_train::initialize_problem() {
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		m_variable_monitor = true;
+		set_range(12, 60);
+		set_init_range(12, 60);
 		std::vector<real> v(m_variable_size, 0);
 		v[0] = 15; v[1] = 20; v[2] = 57; v[3] = 59;
 

@@ -4,14 +4,21 @@ namespace OFEC {
 	namespace CEC2015 {
 		F2_SR_expanded_five_uneven_peak_trap::F2_SR_expanded_five_uneven_peak_trap(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			CEC2015_function((v.at("proName")), (v.at("numDim")), 1) {
-			initialize();
+			
 		}
 		F2_SR_expanded_five_uneven_peak_trap::F2_SR_expanded_five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			CEC2015_function(name, size_var, size_obj) {
-			initialize();
+			
 		}
 
-		void F2_SR_expanded_five_uneven_peak_trap::initialize() {
+		void F2_SR_expanded_five_uneven_peak_trap::initialize_problem() {
+			set_range(-100, 100);
+			set_init_range(-100, 100);
+			m_opt_mode[0] = optimization_mode::Minimization;
+			m_variable_accuracy = 0.01;
+			m_objective_accuracy = 1.e-4;
+			set_condition_number(1.0);
+			m_variable_monitor = true;
 			set_bias(200.);
 
 			load_optima("instance/problem/continuous/multi_modal/CEC2015/data/");
@@ -21,7 +28,7 @@ namespace OFEC {
 			// 2^Dim gopt and 5^Dim - 2^Dim lopt 
 			evaluate_optima();
 
-			add_tag(problem_tag::MMP);
+			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		}
 		void F2_SR_expanded_five_uneven_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
 

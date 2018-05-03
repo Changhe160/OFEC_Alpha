@@ -14,21 +14,11 @@ namespace OFEC {
 	namespace CEC2015 {
 		F15_composition2015_C7::F15_composition2015_C7(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
-			m_num_function = 10;
-			m_function.resize(m_num_function);
-			m_height.resize(m_num_function);
-			m_converge_severity.resize(m_num_function);
-			m_f_bias.resize(m_num_function);
-			initialize();
+			
 		}
 		F15_composition2015_C7::F15_composition2015_C7(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			composition_2015(name, size_var, size_obj) {
-			m_num_function = 10;
-			m_function.resize(m_num_function);
-			m_height.resize(m_num_function);
-			m_converge_severity.resize(m_num_function);
-			m_f_bias.resize(m_num_function);
-			initialize();
+			
 		}
 
 		void F15_composition2015_C7::set_function() {
@@ -46,6 +36,7 @@ namespace OFEC {
 
 			for (size_t i = 0; i < m_num_function; ++i) {
 				m_function[i] = dynamic_cast<function*>(f[i / 2]("", m_variable_size, m_objective_size));
+				m_function[i]->initialize_problem();
 				m_function[i]->set_bias(0);
 			}
 
@@ -91,7 +82,17 @@ namespace OFEC {
 			//set_bias(1300);
 		}
 
-		void F15_composition2015_C7::initialize() {   // don't set optima
+		void F15_composition2015_C7::initialize_problem() {   // don't set optima
+			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-100., 100.);
+			set_init_range(-100., 100.);
+			m_num_function = 10;
+			m_function.resize(m_num_function);
+			m_height.resize(m_num_function);
+			m_converge_severity.resize(m_num_function);
+			m_f_bias.resize(m_num_function);
+			
 			set_function();
 			
 			load_translation("instance/problem/continuous/multi_modal/CEC2015/data/");
@@ -107,7 +108,7 @@ namespace OFEC {
 			else if (m_variable_size == 30) m_pre_opt_distance = 301;
 			
 
-			add_tag(problem_tag::MMP);
+			
 		}
 		void F15_composition2015_C7::evaluate__(real *x, std::vector<real>& obj) {
 			std::vector<real> x_(m_variable_size);

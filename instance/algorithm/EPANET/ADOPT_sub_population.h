@@ -24,8 +24,12 @@
 #include "../../problem/realworld/EPANET/epanet.h"
 
 namespace OFEC {
-	class ADOPT_sub_population : public DE::population<ADOPT_individual>
+	class ADOPT_sub_population : public population<ADOPT_individual>
 	{
+	protected:
+		double  m_F, m_CR;
+		enum DE_mutation_stratgy { DE_rand_1, DE_best_1, DE_target_to_best_1, DE_best_2, DE_rand_2, DE_rand_to_best_1, DE_target_to_rand_1 };
+		DE_mutation_stratgy m_mutation_strategy;
 	public:
 		template<typename ... Args>
 		ADOPT_sub_population(size_t no, Args&& ... args) : population(no, std::forward<Args>(args)...), m_probability(3), \
@@ -35,18 +39,27 @@ namespace OFEC {
 			m_probability[0].resize(CAST_RP_EPANET->number_node());
 			m_probability[1].resize(CAST_RP_EPANET->max_start_time_size());
 			m_probability[2].resize(CAST_RP_EPANET->max_duration_size());
+			default_parameter();
 			set_mutation_strategy(DE_rand_1); 
 			set_parmeter(0.6, 1);
 		}
-		ADOPT_sub_population(size_t size) : population(size) {}
 
 		void mutate_(const int idx, const std::vector<std::vector<double>> & pro);
 
 		bool is_feasible_population(const float tar);
 		void mutate();
+		void mutate(const int idx){}
 		void recombine();
 		void update_probability();
 		evaluation_tag select(bool flag);
+
+		void set_mutation_strategy(DE_mutation_stratgy rS);
+		void default_parameter();
+		void set_parmeter(double cr, double f);
+
+	protected:
+		virtual void select_in_neighborhood(int number, std::vector<int>&, std::vector<int>&);
+		virtual void select(int base, int number, std::vector<int>& result);
 	public:
 		bool m_is_feasible = false;
 		std::vector<std::vector<double>> m_probability;

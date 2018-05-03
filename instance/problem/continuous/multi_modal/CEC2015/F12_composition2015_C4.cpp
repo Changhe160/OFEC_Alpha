@@ -9,21 +9,11 @@ namespace OFEC {
 	namespace CEC2015 {
 		F12_composition2015_C4::F12_composition2015_C4(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
-			m_num_function = 10;
-			m_function.resize(m_num_function);
-			m_height.resize(m_num_function);
-			m_converge_severity.resize(m_num_function);
-			m_f_bias.resize(m_num_function);
-			initialize();
+			
 		}
 		F12_composition2015_C4::F12_composition2015_C4(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			composition_2015(name, size_var, size_obj) {
-			m_num_function = 10;
-			m_function.resize(m_num_function);
-			m_height.resize(m_num_function);
-			m_converge_severity.resize(m_num_function);
-			m_f_bias.resize(m_num_function);
-			initialize();
+			
 		}
 
 		void F12_composition2015_C4::set_function() {
@@ -81,7 +71,16 @@ namespace OFEC {
 			//set_bias(1300);
 		}
 
-		void F12_composition2015_C4::initialize() {
+		void F12_composition2015_C4::initialize_problem() {
+			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-100., 100.);
+			set_init_range(-100., 100.);
+			m_num_function = 10;
+			m_function.resize(m_num_function);
+			m_height.resize(m_num_function);
+			m_converge_severity.resize(m_num_function);
+			m_f_bias.resize(m_num_function);
 			set_function();
 			load_optima("instance/problem/continuous/multi_modal/CEC2015/data/");
 			load_translation("instance/problem/continuous/multi_modal/CEC2015/data/");

@@ -11,23 +11,11 @@ namespace OFEC {
 	namespace CEC2013 {
 		F10_composition2::F10_composition2(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition((v.at("proName")), (v.at("numDim")), 1) {
-			m_num_function = 8;
-			m_function.resize(m_num_function);
-			m_fmax.resize(m_num_function);
-			m_stretch_severity.resize(m_num_function);
-			m_converge_severity.resize(m_num_function);
-			m_height.resize(m_num_function);
-			initialize();
+			
 		}
 		F10_composition2::F10_composition2(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			composition(name, size_var, size_obj) {
-			m_num_function = 8;
-			m_function.resize(m_num_function);
-			m_fmax.resize(m_num_function);
-			m_stretch_severity.resize(m_num_function);
-			m_converge_severity.resize(m_num_function);
-			m_height.resize(m_num_function);
-			initialize();
+			
 		}
 
 		void F10_composition2::set_function() {
@@ -39,6 +27,7 @@ namespace OFEC {
 
 			for (size_t i = 0; i < m_num_function; ++i) {
 				m_function[i] = dynamic_cast<function*>(f[i / 2]("", m_variable_size, m_objective_size));
+				m_function[i]->initialize_problem();
 				m_function[i]->set_bias(0);
 			}
 
@@ -59,8 +48,18 @@ namespace OFEC {
 				m_height[i] = 0;
 			}
 		}
-		void F10_composition2::initialize() {
-			add_tag(problem_tag::MMP);
+		void F10_composition2::initialize_problem() {
+			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-5., 5.);
+			set_init_range(-5., 5.);
+			m_num_function = 8;
+			m_function.resize(m_num_function);
+			m_fmax.resize(m_num_function);
+			m_stretch_severity.resize(m_num_function);
+			m_converge_severity.resize(m_num_function);
+			m_height.resize(m_num_function);
+			
 			set_function();
 
 			load_rotation("instance/problem/continuous/multi_modal/CEC2013/data/");

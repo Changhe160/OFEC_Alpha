@@ -28,7 +28,7 @@ namespace OFEC {
 		expanded_decreasing_minima(param_map &v);
 		expanded_decreasing_minima(const std::string &name, size_t size_var, size_t size_obj);
 	protected:
-		void initialize();
+		void initialize_problem();
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};

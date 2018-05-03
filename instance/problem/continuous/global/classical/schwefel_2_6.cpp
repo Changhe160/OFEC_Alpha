@@ -4,20 +4,19 @@ namespace OFEC {
 	schwefel_2_6::schwefel_2_6(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1), m_a(v.at("numDim"), std::vector<int>(v.at("numDim"))), m_b(v.at("numDim")) {
 
-		set_range(-100, 100);
-		set_init_range(-100, 100);
-		initialize();
+		
 	}
 	schwefel_2_6::schwefel_2_6(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj), m_a(size_var, std::vector<int>(size_var)), m_b(size_var) {
 
-		set_range(-100, 100);
-		set_init_range(-100, 100);
-		initialize();
+		
 	}
 
-	void schwefel_2_6::initialize() {
-
+	void schwefel_2_6::initialize_problem() {    // To be continued ..
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		m_variable_monitor = true;
+		set_range(-100, 100);
+		set_init_range(-100, 100);
 	}
 
 	void schwefel_2_6::load_data()
@@ -92,7 +91,7 @@ namespace OFEC {
 	}
 
 	void schwefel_2_6::evaluate__(real *x, std::vector<real>& obj) {
-
+		// To be continued ..
 	}
 	
 }

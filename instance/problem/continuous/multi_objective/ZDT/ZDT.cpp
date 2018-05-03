@@ -3,6 +3,9 @@
 
 namespace OFEC {
 	ZDT::ZDT(const std::string &name, size_t size_var) : problem(name, size_var, 2), continuous(name, size_var, 2) {
+		
+	}
+	void ZDT::initialize_problem() {
 		set_range(0., 1.);
 		set_tag(std::set<problem_tag>({ problem_tag::MOP, problem_tag::CONT }));
 		for (size_t idx = 0; idx < opt_mode().size(); ++idx)

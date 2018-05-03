@@ -30,7 +30,7 @@ namespace OFEC {
 			F15_composition2015_C7(const std::string &name, size_t size_var, size_t size_obj);
 			real pre_opt_distance();
 		protected:
-			void initialize();
+			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 

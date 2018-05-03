@@ -26,7 +26,7 @@ namespace OFEC {
 			void evaluate__(real *x, std::vector<real>& obj);
 			~ShiftedAckley_F3();
 		protected:
-			void initialize();
+			void initialize_problem();
 		};
 	}
 	using CEC2013_LSOP_F3 = CEC2013::ShiftedAckley_F3;

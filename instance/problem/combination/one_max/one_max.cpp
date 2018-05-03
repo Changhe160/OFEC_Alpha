@@ -3,13 +3,13 @@
 namespace OFEC {
 	one_max::one_max(param_map & v) : problem(v.at("proName"), v.at("numDim"), 1)
 	{
-		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
-			m_opt_mode[idx] = optimization_mode::Maximization;
-		m_optima.append(variable<int>(std::vector<int>(m_variable_size, 1)));
-		m_optima.append(m_variable_size);
+		
 	}
 	one_max::one_max(const std::string & name, int size_var) : problem(name, size_var, 1)
 	{
+		
+	}
+	void one_max::initialize_problem() {
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Maximization;
 		m_optima.append(variable<int>(std::vector<int>(m_variable_size, 1)));

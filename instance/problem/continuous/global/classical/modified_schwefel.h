@@ -23,7 +23,7 @@ namespace OFEC {
 		modified_schwefel(param_map &v);
 		modified_schwefel(const std::string &name, size_t size_var, size_t size_obj);
 	protected:
-		void initialize();
+		void initialize_problem();
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};

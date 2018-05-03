@@ -8,7 +8,9 @@ namespace OFEC {
 	DTLZ3::DTLZ3(const std::string & name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		DTLZ(name, size_var, size_obj) {
 	}
-
+	void DTLZ3::initialize_problem() {
+		DTLZ::initialize_problem();
+	}
 	void DTLZ3::evaluate__(double * x, std::vector<double>& obj) {
 		double g = 0;
 		for (size_t i = m_objective_size - 1; i < m_variable_size; i += 1)

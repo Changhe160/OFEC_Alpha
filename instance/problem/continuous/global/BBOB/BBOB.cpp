@@ -16,15 +16,16 @@ namespace OFEC {
 	}
 	BBOB::BBOB(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), continuous(name, size_var, size_obj), \
 		m_rot(size_var), m_rot2(size_var), m_norRand(size_var*size_var), m_linearTF(size_var) {
-		initialize();
+		
 	}
 	BBOB::BBOB(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), continuous((v.at("proName")), (v.at("numDim")), 1), \
 		m_rot(m_variable_size), m_rot2(m_variable_size), m_norRand(m_variable_size*m_variable_size), \
 		m_linearTF(m_variable_size) {
-		initialize();
+		
 	}
 
-	void BBOB::initialize() {
+	void BBOB::initialize_problem() {
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 		set_range(-5, 5);
 		m_bias = computeFopt();
 		m_optima.append(m_bias);

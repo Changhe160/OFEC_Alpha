@@ -27,7 +27,7 @@ namespace OFEC {
 		modified_rastrigin(param_map &v);
 		modified_rastrigin(const std::string &name, size_t size_var, size_t size_obj);
 	protected:
-		void initialize();
+		void initialize_problem();
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 		std::vector<double> m_k;

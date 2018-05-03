@@ -13,7 +13,7 @@ namespace OFEC {
 	public:
 		static std::unique_ptr<measure> ms_measure;
 	protected:
-		std::stringstream m_filename;
+		std::stringstream m_file_name;
 		std::vector<std::vector<double>> mvv_data;
 		std::vector<std::string> m_heading;
 	protected:

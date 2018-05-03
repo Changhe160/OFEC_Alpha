@@ -18,22 +18,18 @@
 
 namespace OFEC {
 	
-	himmenblau::himmenblau(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
-		v.at("numDim") = 2;
-		set_range(-6, 6);
-		set_init_range(-6, 6);
-		initialize();
+	himmenblau::himmenblau(param_map &v) : problem((v.at("proName")), 2, 1), \
+		function((v.at("proName")), 2, 1) {
+		
 	}
 	himmenblau::himmenblau(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
-		set_range(-6, 6);
-		set_init_range(-6, 6);
-		initialize();
+		
 	}
 
-	void himmenblau::initialize() {
-
+	void himmenblau::initialize_problem() {
+		set_range(-6, 6);
+		set_init_range(-6, 6);
 
 		m_objective_accuracy = 0.5;
 		m_variable_accuracy = 1.e-4;
@@ -45,7 +41,7 @@ namespace OFEC {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 
 
 	}

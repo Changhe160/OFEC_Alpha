@@ -106,33 +106,66 @@ namespace OFEC {
 		std::vector<int> ridx;
 		switch (m_mutation_strategy) {
 		case DE_rand_1:
-			population::select(idx, 3, ridx);
+			select(idx, 3, ridx);
 			this->m_pop[idx]->mutate__(m_F, pro, m_pop[ridx[0]].get(), m_pop[ridx[1]].get(), m_pop[ridx[2]].get());
 			break;
 		case DE_best_1:
-			population::select(idx, 2, ridx);
+			select(idx, 2, ridx);
 			this->m_pop[idx]->mutate__(m_F, pro, m_arc[0].get(), m_pop[ridx[0]].get(), m_pop[ridx[1]].get());
 			break;
 		case DE_target_to_best_1:
-			population::select(idx, 2, ridx);
+			select(idx, 2, ridx);
 			this->m_pop[idx]->mutate__(m_F, pro, m_pop[idx].get(), m_arc[0].get(), m_pop[idx].get(), m_pop[ridx[0]].get(), m_pop[ridx[1]].get());
 			break;
 		case DE_best_2:
-			population::select(idx, 4, ridx);
+			select(idx, 4, ridx);
 			this->m_pop[idx]->mutate__(m_F, pro, m_arc[0].get(), m_pop[ridx[0]].get(), m_pop[ridx[1]].get(), m_pop[ridx[2]].get(), m_pop[ridx[3]].get());
 			break;
 		case DE_rand_2:
-			population::select(idx, 5, ridx);
+			select(idx, 5, ridx);
 			this->m_pop[idx]->mutate__(m_F, pro, m_pop[ridx[0]].get(), m_pop[ridx[1]].get(), m_pop[ridx[2]].get(), m_pop[ridx[3]].get(), m_pop[ridx[4]].get());
 			break;
 		case DE_rand_to_best_1:
-			population::select(idx, 3, ridx);
+			select(idx, 3, ridx);
 			this->m_pop[idx]->mutate__(m_F, pro, m_pop[ridx[0]].get(), m_arc[0].get(), m_pop[ridx[0]].get(), m_pop[ridx[1]].get(), m_pop[ridx[2]].get());
 			break;
 		case DE_target_to_rand_1:
-			population::select(idx, 3, ridx);
+			select(idx, 3, ridx);
 			this->m_pop[idx]->mutate__(m_F, pro, m_pop[idx].get(), m_pop[ridx[0]].get(), m_pop[idx].get(), m_pop[ridx[1]].get(), m_pop[ridx[2]].get());
 			break;
+		}
+	}
+	void ADOPT_sub_population::set_mutation_strategy(DE_mutation_stratgy rS) {
+		m_mutation_strategy = rS;
+	}
+	void ADOPT_sub_population::set_parmeter(const double cr, const double f) {
+		m_CR = cr;
+		m_F = f;
+	}
+	void ADOPT_sub_population::default_parameter() {
+		m_CR = 0.6;
+		m_F = 0.5;
+		m_mutation_strategy = DE_best_1;
+	}
+	
+	void ADOPT_sub_population::select(int base, int number, std::vector<int>& result) {
+		std::vector<int> candidate;
+		for (int i = 0; i < this->m_pop.size(); ++i) {
+			if (base != i) candidate.push_back(i);
+		}
+		result.resize(number);
+		for (int i = 0; i < number; ++i) {
+			int idx = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)candidate.size() - i);
+			result[i] = candidate[idx];
+			if (idx != candidate.size() - (i + 1)) candidate[idx] = candidate[candidate.size() - (i + 1)];
+		}
+	}
+
+	void ADOPT_sub_population::select_in_neighborhood(int number, std::vector<int>& candidate, std::vector<int>& result) {
+		for (int i = 0; i < number; ++i) {
+			int idx = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)candidate.size() - i);
+			result[i] = candidate[idx];
+			if (idx != candidate.size() - (i + 1)) candidate[idx] = candidate[candidate.size() - (i + 1)];
 		}
 	}
 }

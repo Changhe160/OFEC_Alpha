@@ -5,22 +5,27 @@ namespace OFEC {
 		F6_shifted_rotated_happy_cat::F6_shifted_rotated_happy_cat(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			happy_cat((v.at("proName")), (v.at("numDim")), 1) {
 
-			initialize();
+			
 		}
 		F6_shifted_rotated_happy_cat::F6_shifted_rotated_happy_cat(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			happy_cat(name, size_var, size_obj) {
 
-			initialize();
+			
 		}
 
-		void F6_shifted_rotated_happy_cat::initialize() {
+		void F6_shifted_rotated_happy_cat::initialize_problem() {
+			set_tag(std::set<problem_tag>({ problem_tag::EOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-100., 100.);
+			set_init_range(-100., 100.);
+			set_original_global_opt();
 
 			set_bias(600);
 
 			load_translation("instance/problem/continuous/expensive/CEC2015/data/");  //data path
 			
 			load_rotation("instance/problem/continuous/expensive/CEC2015/data/");
-			m_optima.clear();
+			
 			set_global_opt(m_translation.data());
 		}
 		void F6_shifted_rotated_happy_cat::evaluate__(real *x, std::vector<real>& obj) {

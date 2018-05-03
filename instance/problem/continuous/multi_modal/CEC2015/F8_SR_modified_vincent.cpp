@@ -4,14 +4,21 @@ namespace OFEC {
 	namespace CEC2015 {
 		F8_SR_modified_vincent::F8_SR_modified_vincent(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			CEC2015_function((v.at("proName")), (v.at("numDim")), 1) {
-			initialize();
+			
 		}
 		F8_SR_modified_vincent::F8_SR_modified_vincent(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			CEC2015_function(name, size_var, size_obj) {
-			initialize();
+		
 		}
 
-		void F8_SR_modified_vincent::initialize() {
+		void F8_SR_modified_vincent::initialize_problem() {
+			set_range(-100, 100);
+			set_init_range(-100, 100);
+			m_opt_mode[0] = optimization_mode::Minimization;
+			m_variable_accuracy = 0.01;
+			m_objective_accuracy = 1.e-4;
+			set_condition_number(1.0);
+			m_variable_monitor = true;
 			set_bias(800.);
 			set_scale(5.);
 			load_optima("instance/problem/continuous/multi_modal/CEC2015/data/");
@@ -22,7 +29,7 @@ namespace OFEC {
 
 			evaluate_optima();
 
-			add_tag(problem_tag::MMP);
+			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		}
 		void F8_SR_modified_vincent::evaluate__(real *x, std::vector<real>& obj) {
 

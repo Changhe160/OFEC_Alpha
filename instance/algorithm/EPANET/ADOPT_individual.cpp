@@ -1,6 +1,7 @@
 #include "ADOPT_individual.h"
 
 namespace OFEC {
+	
 	void ADOPT_individual::mutate__(double F, const std::vector<std::vector<double>> & pro, solution<variable_epanet, real> *r1,
 		solution<variable_epanet, real> *r2,
 		solution<variable_epanet, real> *r3,
@@ -39,8 +40,8 @@ namespace OFEC {
 
 		/// mutate index of starting time
 		/*
-		long u_start = CAST_RP_EPANET->m_maxstartTime;
-		long l_start = CAST_RP_EPANET->m_minstartTime;
+		long u_start = CAST_RP_EPANET->m_max_start_time;
+		long l_start = CAST_RP_EPANET->m_min_start_time;
 		m_pv.get_variable().start_time() = (r1->get_variable().start_time()) + F*((r2->get_variable().start_time()) - (r3->get_variable().start_time()));
 		if (r4&&r5) m_pv.get_variable().start_time() += F*((r4->get_variable().start_time()) - (r5->get_variable().start_time()));
 
@@ -87,8 +88,8 @@ namespace OFEC {
 		for (size_t i = 0; i < roulette_duration.size()-1; ++i)
 			if (p > roulette_duration[i] && p < roulette_duration[i + 1])
 				m_pv.get_variable().duration() = i*CAST_RP_EPANET->pattern_step();
-		/*long u_dur = CAST_RP_EPANET->m_maxduration;
-		long l_dur = CAST_RP_EPANET->m_minduration;
+		/*long u_dur = CAST_RP_EPANET->m_max_duration;
+		long l_dur = CAST_RP_EPANET->m_min_duration;
 		m_pv.get_variable().duration() = (r1->get_variable().duration()) + F*((r2->get_variable().duration()) - (r3->get_variable().duration()));
 		if (r4&&r5) m_pv.get_variable().duration() += F*((r4->get_variable().duration()) - (r5->get_variable().duration()));
 
@@ -114,8 +115,8 @@ namespace OFEC {
 		m_pv.get_variable().duration() = sol[best_idx]->get_variable().duration();*/
 
 		/// mutate multiplier
-		long u_multi = CAST_RP_EPANET->m_maxmultiplier;
-		long l_multi = CAST_RP_EPANET->m_minmultiplier;
+		long u_multi = CAST_RP_EPANET->m_max_multiplier;
+		long l_multi = CAST_RP_EPANET->m_min_multiplier;
 
 		size_t pv_size = m_pv.get_variable().duration() / CAST_RP_EPANET->pattern_step();
 		if (m_pv.get_variable().duration() % CAST_RP_EPANET->pattern_step() != 0)
@@ -262,5 +263,22 @@ namespace OFEC {
 
 	bool ADOPT_individual::same_location(ADOPT_individual & indi) {
 		return m_var.index() == indi.get_variable().index();
+	}
+	void ADOPT_individual::initialize(int id) {
+		individual::initialize(id);
+		//m_flag = true;
+
+		m_pu.get_variable() = get_variable();
+		m_pu.get_objective() = get_objective();
+		m_pu.constraint_value() = constraint_value();
+
+		m_pv.get_variable() = get_variable();
+		m_pv.get_objective() = get_objective();
+		m_pv.constraint_value() = constraint_value();
+
+		//m_pv = std::move(std::unique_ptr<solution_type>(new solution_type()));
+	}
+	solution<variable_epanet, real> & ADOPT_individual::trial() {
+		return m_pu;
 	}
 }

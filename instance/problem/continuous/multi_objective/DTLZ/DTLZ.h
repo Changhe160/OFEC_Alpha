@@ -41,6 +41,8 @@ namespace OFEC {
 	protected:
 		DTLZ(const std::string &name, size_t size_var, size_t size_obj);
 		void generateAdLoadPF();
+	public:
+		void initialize_problem();
 	};
 
 }

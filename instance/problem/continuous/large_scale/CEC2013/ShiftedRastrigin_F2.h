@@ -25,7 +25,7 @@ namespace OFEC {
 			void evaluate__(real *x, std::vector<real>& obj);
 			~ShiftedRastrigin_F2();
 		protected:
-			void initialize();
+			void initialize_problem();
 		};
 	}
 	using CEC2013_LSOP_F2 = CEC2013::ShiftedRastrigin_F2;

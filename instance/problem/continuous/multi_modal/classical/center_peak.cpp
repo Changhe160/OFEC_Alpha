@@ -17,22 +17,20 @@
 #include "center_peak.h"
 namespace OFEC {
 	
-	center_peak::center_peak(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
-		v.at("numDim") = 2;
-		set_range(-2, 2);
-		set_init_range(-2, 2);
-		initialize();
+	center_peak::center_peak(param_map &v) :problem((v.at("proName")), 2, 1), \
+		function((v.at("proName")), 2, 1) {
+		
 	}
 	center_peak::center_peak(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 
-		set_range(-2, 2);
-		set_init_range(-2, 2);
-		initialize();
+		
 	}
 
-	void center_peak::initialize() {
+	void center_peak::initialize_problem() {
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+		set_range(-2, 2);
+		set_init_range(-2, 2);
 		m_opt_mode[0] = optimization_mode::Maximization;
 
 		 //1 gopt + 4 lopt
@@ -47,8 +45,7 @@ namespace OFEC {
 		}
 
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
-		//setObjSet();
+		
 	}
 	void center_peak::evaluate__(real *x, std::vector<real>& obj) {
 
