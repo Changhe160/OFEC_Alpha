@@ -5,17 +5,13 @@ namespace OFEC {
 		N7S1_SR_Rastrigin_F5::N7S1_SR_Rastrigin_F5(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
 		{
-			set_range(-5, 5);
-			set_init_range(-5, 5);
-			initialize();
+			
 		}
 
 		N7S1_SR_Rastrigin_F5::N7S1_SR_Rastrigin_F5(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 			function_CEC2013(name, size_var, size_obj) \
 		{
-			set_range(-5, 5);
-			set_init_range(-5, 5);
-			initialize();
+			
 		}
 
 		N7S1_SR_Rastrigin_F5::~N7S1_SR_Rastrigin_F5() {
@@ -39,6 +35,10 @@ namespace OFEC {
 		}
 
 		void N7S1_SR_Rastrigin_F5::initialize() {
+			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-5, 5);
+			set_init_range(-5, 5);
 			ID = 5;
 			m_nonSeparableGroupNumber = 7;
 			mp_anotherz = new real[m_variable_size];

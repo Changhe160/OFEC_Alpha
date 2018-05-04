@@ -68,7 +68,7 @@ This module calls the following functions that reside in other modules:
      allocrules()
      closerules()
    INPUT1.C
-     getdata()
+     get_data()
      initreport()
    INPUT2.C
      netsize()
@@ -226,32 +226,49 @@ int   main(int argc, char *argv[])
 */
 //static mutex g_mutex1;
 #pragma warning(disable:4996)
-#define NetN_inp "C:/Users/lenovo/Desktop/DATA/网管模型INP/Net3.inp"
-#define NetN_rpt "C:/Users/lenovo/Desktop/DATA/网管模型INP/Net3.rpt"
+
 namespace OFEC {
 
-	epanet::epanet(param_map &v) :problem((v.at("proName")), 5, 1) \
-		/* m_InpPath(nullptr), m_RptPath(nullptr),*/\
-	{
-		
-		m_fileName.assign(v.at("dataFile1"));
-		
-		m_opt_mode[0] = optimization_mode::Minimization;
+	epanet::epanet(param_map &v) :problem((v.at("proName")),1,1) {
+		m_path_inp << global::ms_arg.at("workingDir") << "instance/problem/realworld/EPANET/data/map/" << v.at("dataFile2");
+		m_path_rpt << global::ms_arg.at("workingDir") << "instance/problem/realworld/EPANET/data/map/" << v.at("dataFile3");
+		m_path_inp >> m_map_inp;
+		m_path_rpt >> m_map_rpt;
 
-		readParam();
-		m_Ciobs.resize(m_numSensor, std::vector<float>(m_tc));
-		for (auto &i : data_read) {
-			m_optima.append(i);
-			m_optima.append(0);
-		}
-		
-		getData(m_optima.variable(0), m_Ciobs, true);
-		
-		m_objective_accuracy = 1.e-4;
+		m_file_name.assign(v.at("dataFile1"));
 	
 	}
 
-	void epanet::readParam() {
+	void epanet::initialize() {
+		//set_tag(std::set<problem_tag>({ problem_tag::epanet }));
+
+		//m_opt_mode[0] = optimization_mode::Minimization;
+
+		read_parameter();
+
+		long num_WQS = m_total_duration / m_quality_time_step;  // times of water quality simulation (WQS)
+		m_num_pattern = m_total_duration / m_pattern_step;
+		m_Ciobs.resize(m_num_sensor, std::vector<float>(num_WQS));
+		for (auto &i : m_real_PS_read) {
+			m_optima.append(i);
+			m_optima.append(0);
+		}
+		m_phase = m_total_duration / (m_time_interval*m_quality_time_step);
+		get_data(m_optima.variable(0), m_Ciobs);
+
+
+		int first_detected_interval = m_optima.variable(0).first_detected_time() / m_quality_time_step;
+		m_phase = first_detected_interval / m_time_interval + 1;
+
+		read_location();
+
+		m_objective_accuracy = 1.e-4;
+	}
+	float epanet::calculate_distance(int index1, int index2) {
+		return sqrt(pow(m_location[index1 - 1][0] - m_location[index2 - 1][0], 2) + pow(m_location[index1 - 1][1] - m_location[index2 - 1][1], 2));
+	}
+
+	void epanet::read_parameter() {
 		size_t i;
 		std::string Line;
 		char label[32];
@@ -260,7 +277,7 @@ namespace OFEC {
 		const char *Delimiters = " ():=\n\t\r\f\v\xef\xbb\xbf";
 		std::ostringstream oss1;
 		std::ifstream infile;
-		oss1 << "instance/problem/continuous/realworld/EPANET/data/"<< m_fileName;
+		oss1 << "instance/problem/realworld/EPANET/data/input/"<< m_file_name;
 		infile.open(oss1.str().c_str());
 		if (!infile) {
 			throw myexcept("read epanet data error");
@@ -275,96 +292,86 @@ namespace OFEC {
 		
 			if (!strcmp(Keyword, "SET_GLOBALOPTNUMBER")) {
 				char *token = gStrtok_r(0, Delimiters, &savePtr);
-				m_numSource = atoi(token);
-				data_read.resize(m_numSource);
+				m_num_source = atoi(token);
+				m_real_PS_read.resize(m_num_source);
 			}
 			else if (!strcmp(Keyword, "NUMSENSOR")) {
 				char *token = gStrtok_r(0, Delimiters, &savePtr);
-				m_numSensor = atoi(token);
-				m_sensorLoc.resize(m_numSensor);
+				m_num_sensor = atoi(token);
+				m_sensor_Loc.resize(m_num_sensor);
+			}
+			else if (!strcmp(Keyword, "SET_DURATIONRANGE")) {
+				infile >> m_min_duration;
+				infile >> m_max_duration;
+			}
+			else if (!strcmp(Keyword, "SET_STARTTIMERANGE")) {
+				infile >> m_min_start_time;
+				infile >> m_max_start_time;
+			}
+			else if (!strcmp(Keyword, "SET_MULTIPLIERRANGE")) {
+				infile >> m_min_multiplier;
+				infile >> m_max_multiplier;
+			}
+			else if (!strcmp(Keyword, "SET_SENSORLOC"))
+			{
+				for (i = 0; i < m_num_sensor; i++)
+					infile >> m_sensor_Loc[i];
+			}
+			else if (!strcmp(Keyword, "SET_TOTALDURATION"))
+			{
+				infile >> m_total_duration;
+			}
+			else if (!strcmp(Keyword, "SET_QUALITYTIMESTEP"))
+			{
+				infile >> m_quality_time_step;
+			}
+			else if (!strcmp(Keyword, "SET_PATTERNSTEP"))
+			{
+				infile >> m_pattern_step;
+			}
+			else if (!strcmp(Keyword, "SET_TIMEINTERVAL"))
+			{
+				infile >> m_time_interval;
 			}
 			else if (!strcmp(Keyword, "LOC"))
 			{
-				for (i = 0; i < m_numSource; ++i) {
+				for (i = 0; i < m_num_source; ++i) {
 					//infile >> TempChar;
 					//getline(infile,label,' ');
 					//m_globalOpt[i].data().m_x[0].Loc = Temp;
 					infile.get(label,32,' ');
-					strcpy(data_read[i].location(), label);
+					strcpy(m_real_PS_read[i].location(), label);
 				}
 			}
 			else if (!strcmp(Keyword, "DURATION"))
 			{
-				for (i = 0; i < m_numSource; ++i) {
-					infile >> data_read[i].duration();
+				for (i = 0; i < m_num_source; ++i) {
+					infile >> m_real_PS_read[i].duration();
 				}
 			}
 			else if (!strcmp(Keyword, "SOURCE"))
 			{
-				for (i = 0; i < m_numSource; ++i) {
-					infile >> data_read[i].source();
+				for (i = 0; i < m_num_source; ++i) {
+					infile >> m_real_PS_read[i].source();
 				}
 			}
 			else if (!strcmp(Keyword, "STARTTIME"))
 			{
-				for (i = 0; i < m_numSource; ++i) {
-					infile >> data_read[i].start_time();
+				for (i = 0; i < m_num_source; ++i) {
+					infile >> m_real_PS_read[i].start_time();
 				}
 			}
 			else if (!strcmp(Keyword, "MULTIPLIER"))
 			{
 				size_t mul_size;
-				for (i = 0; i < m_numSource; ++i) {
-					mul_size = (size_t)(data_read[i].duration() / m_patternStep);
-					data_read[i].multiplier().resize(mul_size);
+				for (i = 0; i < m_num_source; ++i) {
+					mul_size = (size_t)(m_real_PS_read[i].duration() / m_pattern_step);
+					m_real_PS_read[i].multiplier().resize(mul_size);
 					for (size_t j = 0; j < mul_size; ++j) {
-						infile >> data_read[i].multiplier()[j];
+						infile >> m_real_PS_read[i].multiplier()[j];
 					}
 				}
 			}
-			else if (!strcmp(Keyword, "SET_DURATIONRANGE")) {
-				infile >> m_minduration;
-				infile >> m_maxduration;
-			}
-			else if (!strcmp(Keyword, "SET_STARTTIMERANGE")) {
-				infile >> m_minstartTime;
-				infile >> m_maxstartTime;
-			}
-			else if (!strcmp(Keyword, "SET_MULTIPLIERRANGE")) {
-				infile >> m_minmultiplier;
-				infile >> m_maxmultiplier;
-			}
-			else if (!strcmp(Keyword, "SET_SENSORLOC"))
-			{
-				for (i = 0; i < m_numSensor; i++) 
-					infile >> m_sensorLoc[i];
-			}
-			/*else if (!strcmp(Keyword, "SET_TOTALDURATION"))
-			{
-				infile >> m_totalDuration;
-			}
-			else if (!strcmp(Keyword, "SET_QUALITYTIMESTEP"))
-			{
-				infile >> m_qualityTimeStep;
-			}
-			else if (!strcmp(Keyword, "SET_PATTERNSTEP"))
-			{
-				infile >> m_patternStep;
-			}
-			else if (!strcmp(Keyword, "SET_TS"))
-			{
-				infile >> m_TS;
-			}
-			else if (!strcmp(Keyword, "SET_INPPATH"))
-			{
-				infile.get(path, 100, ' ');
-				strcpy(m_InpPath, path);
-			}
-			else if (!strcmp(Keyword, "SET_RPTPATH"))
-			{
-				infile.get(path, 100, ' ');
-				strcpy(m_RptPath, path);
-			}*/
 		}
 		infile.close();
 		infile.clear();
@@ -372,8 +379,8 @@ namespace OFEC {
 
 	evaluation_tag epanet::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
 		variable_epanet &x = dynamic_cast<solution<variable_epanet, real> &>(s).get_variable();
-		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
-		
+		auto & obj = dynamic_cast< solution<variable_epanet, real> &>(s).get_objective();
+
 		evaluate__(x, obj);
 
 		if (constructed) {
@@ -386,103 +393,145 @@ namespace OFEC {
 	}
 
 	void epanet::evaluate__(variable_epanet & x, std::vector<real>& obj) {
-		int num = x.interval()*m_TS;
-		std::vector<std::vector<float>> Cit(m_numSensor, std::vector<float>(num));
+		
+		int num = m_phase*m_time_interval;
+		std::vector<std::vector<float>> Cit(m_num_sensor, std::vector<float>(num));
 		float temp = 0;
-		getData(x, Cit, false);
+		get_data(x, Cit);
+		
+		//size_t first_detected_interval = m_optima.variable(0).first_detected_time() / m_quality_time_step;
 		if (x.is_detected()) {
-			for (int i = 0; i < num; i++) {
-				for (int j = 0; j < m_numSensor; j++) {
+			for (size_t i = 0; i < num; ++i) {
+				for (size_t j = 0; j < m_num_sensor; ++j) {
 					temp += pow(m_Ciobs[j][i] - Cit[j][i], 2);
 				}
 			}
-			obj[0] = sqrt(temp / (m_numSensor*num));
+			obj[0] = sqrt(temp / (m_num_sensor*num));
 		}
-		else obj[0] = 1000;   //将检测不到的个体的目标值置为1000
+		else
+			obj[0] = 1000;
+		//if (fabs(obj[0] - 0.821984) < 1e-6)
+			//std::cout << "check!"<<std::endl;
+		 
 		x.is_detected() = false;
+
 	}
 
-	void epanet::getData(variable_epanet &sol, std::vector<std::vector<float>> &data, bool mode) {
+	void epanet::read_location() {
+		bool flag = false;
+		m_location.resize(m_num_node, std::vector<double>(2));
+		std::string line;
+		std::ifstream ifname;
+		ifname.open(m_path_inp.str());
+		size_t i = 0;
+		while (getline(ifname, line)) {
+			if (line == "[COORDINATES]") {
+				flag = true;
+				continue;
+			}
+			if (i == m_num_node)
+				break;
+			if (flag) {
+				ifname >> m_location[i][0];
+				ifname >> m_location[i][1];
+				++i;
+			}
+		}
+	}
+
+	void epanet::get_data(variable_epanet &sol, std::vector<std::vector<float>> &data) {
 		long tstep;
 		long t;
 		int index;
 		char label[32];
 		float c;
 
-		ENopen(NetN_inp, NetN_rpt, "");   //  open input and report file 
-		ENsettimeparam(EN_DURATION, m_totalDuration);     //  set Total Duration
+		ENopen(m_map_inp, m_map_rpt, "");   //  open input and report file 
+		ENsettimeparam(EN_DURATION, m_total_duration);     //  set Total Duration
 		ENsettimeparam(EN_HYDSTEP, 60 * 60);         //  set Hydraulic Time Step
-		ENsettimeparam(EN_QUALSTEP, m_qualityTimeStep);         //  set Quality Time Step 5mins
-		ENsettimeparam(EN_PATTERNSTEP, m_patternStep);     //  set Pattern Time Step
+		ENsettimeparam(EN_QUALSTEP, m_quality_time_step);         //  set Quality Time Step 5mins
+		ENsettimeparam(EN_PATTERNSTEP, m_pattern_step);     //  set Pattern Time Step
 		ENsettimeparam(EN_PATTERNSTART, 0);        //  set Pattern Start Time
 		ENsettimeparam(EN_REPORTSTEP, 60 * 60);      //  set Report Time Step
 		ENsettimeparam(EN_REPORTSTART, 0);         //  set Report Start Time
 
 		ENsolveH();
 
-		ENinitQ(0);
-		ENgetcount(EN_NODECOUNT, &m_numNode);      // get number of node
+		//ENinitQ(0);
+		ENgetcount(EN_NODECOUNT, &m_num_node);      // get number of node
 		ENsetqualtype(EN_CHEM, "Chlorine", "mg/L", ""); // set type of source
 
 		ENopenQ();
 		
 		int patternIndex;
-		//float va;
-		char patternId[] = "7";
-		float patternValue[m_setPatternNum] = { 0.0 };
+		char patternId[] = "epanet";
+		std::vector<float> patternValue(m_num_pattern,0.0);
+		ENaddpattern(patternId);
 		ENgetpatternindex(patternId, &patternIndex);
-		ENsetpattern(patternIndex, patternValue, m_setPatternNum);
-		//if (s.m_x[0].index == 7)
-		//	va=1;
-		//for (int j = 1; j <= m_totalDuration / m_patternStep; j++)
-		//{
-		//	ENsetpatternvalue(patternIndex, j, 0.0);
-		//}
-		//ENgetpatternlen(patternIndex, &len);
-		//ENgetpatternvalue(patternIndex, 10, &va);
-		if(mode)
-		for (int j = 1; j <= sol.multiplier().size(); j++)
+		ENsetpattern(patternIndex, patternValue.data(), m_num_pattern);
+		
+		for (int j = 1; j <= sol.multiplier().size(); ++j)         
 		{
-			ENsetpatternvalue(patternIndex, sol.start_time() / m_patternStep + j, sol.multiplier()[j-1]);
+			ENsetpatternvalue(patternIndex, sol.start_time() / m_pattern_step + j, sol.multiplier()[j-1]);
 		}
-		else {
-			for (int j = 1; j <= m_setPatternNum; j++)
-			{
-				ENsetpatternvalue(patternIndex, j, sol.multiplier()[j]);
-			}
-		}
+		
+		int len;
+		ENgetpatternlen(patternIndex, &len);
 	
 		if (sol.flag_location()) {
 			ENgetnodeindex(sol.location(), &sol.index());
 		}
 		else ENgetnodeid(sol.index(), sol.location());
 
-		ENsetnodevalue(sol.index(), EN_SOURCEQUAL, sol.source());//设置源头水质
+		ENsetnodevalue(sol.index(), EN_SOURCEQUAL, sol.index());//设置源头水质
 		ENsetnodevalue(sol.index(), EN_SOURCEPAT, (float)patternIndex);//时间模式的索引
-		ENsetnodevalue(sol.index(), EN_SOURCETYPE, EN_FLOWPACED);//采用流量步进注入
+		ENsetnodevalue(sol.index(), EN_SOURCETYPE, EN_FLOWPACED);
 		
 		ENinitQ(0);
-		++(sol.interval());
-		int count = 0;
+		
+		long count = 0;
 		do {
-			ENrunQ(&t); //把时间记录下来
+			ENrunQ(&t); 
 			ENstepQ(&tstep);
-			for (int i = 0; i<m_numSensor; ++i)
+			for (int i = 0; i<m_num_sensor; ++i)
 			{
-				//itoa(m_sensorLoc[i], label, 10);  
-				sprintf(label, "%d", m_sensorLoc[i]);
+				sprintf(label, "%d", m_sensor_Loc[i]);
 				ENgetnodeindex(label, &index);
 				ENgetnodevalue(index, EN_QUALITY, &c);
-				data[i][t / m_qualityTimeStep] = c;
-				if (c != 0 && !(sol.is_detected()))
+				data[i][t / m_quality_time_step] = c;
+				if (c > 1e-6 && !(sol.is_detected())) {
+					sol.first_detected_time() = t;
 					sol.is_detected() = true;
+				}
 			}
 			++count;
-			if (count == m_TS*sol.interval()) break;  //分时段
+			if (count == m_time_interval*m_phase) break;  //分时段
 		} while (tstep > 0); //tstep=0表示模拟结束
+		
+		/*int idx;
+		ENgetnodeindex("205", &idx);
+		if (sol.index()==7)
+			std::cout << "check!" << std::endl;*/
 		ENcloseQ();
 		ENclose();
+		
+	}
 
+	void epanet::initialize_solution(base &s) const {
+		variable_epanet & var = dynamic_cast< solution<variable_epanet, real> &>(s).get_variable();
+		//real & obj = dynamic_cast< solution<variable_epanet, real> &>(s).get_objective();
+
+		var.flag_location() = false;
+		var.index() = global::ms_global->m_uniform[caller::Problem]->next_non_standard<int>(1, m_num_node);
+		var.source() = 1.0;  
+		var.start_time() = m_pattern_step * global::ms_global->m_uniform[caller::Problem]->next_non_standard<long>(m_min_start_time/m_pattern_step, m_max_start_time/m_pattern_step);
+		var.duration() = m_pattern_step * global::ms_global->m_uniform[caller::Problem]->next_non_standard<long>(m_min_duration/m_pattern_step, m_max_duration/m_pattern_step);
+		size_t size = var.duration() / m_pattern_step;
+		if (var.duration() % m_pattern_step != 0) ++size;
+		var.multiplier().resize(size);
+		for (auto &i : var.multiplier()) {
+			i = global::ms_global->m_uniform[caller::Problem]->next_non_standard<float>(m_min_multiplier, m_max_multiplier);
+		}
 	}
 
 	bool epanet::same(const base &s1, const base &s2) const     //   to do ..
@@ -493,7 +542,9 @@ namespace OFEC {
 	optima<variable_epanet, real> & epanet::get_optima() {
 		return m_optima;
 	}
-
+	bool epanet::is_time_out() const {
+		return (m_total_duration / (m_time_interval*m_quality_time_step) < m_phase);
+	}
 
 	/*            EPANET function           */
 
@@ -527,7 +578,7 @@ namespace OFEC {
 		return(errcode);
 	}
 
-	int epanet::ENopen(char *f1, char *f2, char *f3)
+	int epanet::ENopen(char *f1, char *f2, char *f3)  // add const by zhouli
 	/*----------------------------------------------------------------
 	**  Input:   f1 = pointer to name of input file              
 	**           f2 = pointer to name of report file             

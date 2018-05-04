@@ -4,23 +4,24 @@ namespace OFEC {
 	namespace CEC2017 {
 		C15::C15(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			function((v.at("proName")), (v.at("numDim")), 1) {
-			set_range(-100., 100.);
-			set_init_range(-100., 100.);
-			initialize();
+			
 		}
 		C15::C15(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj) {
-			set_range(-100., 100.);
-			set_init_range(-100., 100.);
-			initialize();
+			
 		}
 
 
 		void C15::initialize() {
+			m_variable_monitor = true;
+			set_range(-100., 100.);
+			set_init_range(-100., 100.);
+
 			add_tag(problem_tag::COP);
 			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
-			
+			set_original_global_opt(m_translation.data());
+			m_optima = m_original_optima;
 		}
 		void C15::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
 			

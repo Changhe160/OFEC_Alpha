@@ -23,7 +23,7 @@ namespace OFEC {
 			ShiftedRosenbrock_F12(const std::string &name, size_t size_var, size_t size_obj);
 			void evaluate__(real *x, std::vector<real>& obj);
 			~ShiftedRosenbrock_F12();
-		protected:
+
 			void initialize();
 		};
 	}

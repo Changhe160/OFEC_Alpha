@@ -22,18 +22,17 @@ namespace OFEC {
 	
 	szu::szu(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
-		set_range(-5.0, 5.0);
-		set_init_range(-5.0, 5.0);
-		initialize();
+		
 	}
 	szu::szu(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
-		set_range(-5., 5.);
-		set_init_range(-5.0, 5.0);
-		initialize();
+		
 	}
 
 	void szu::initialize() {
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+		set_range(-5.0, 5.0);
+		set_init_range(-5.0, 5.0);
 		m_opt_mode[0] = optimization_mode::Minimization;
 		m_objective_monitor = true;
 		

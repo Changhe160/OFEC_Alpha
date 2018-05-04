@@ -23,9 +23,8 @@ namespace OFEC {
 	public:
 		BBOB(const std::string &name, size_t size_var, size_t size_obj);
 		BBOB(param_map &v);
-
-	protected:
 		void initialize();
+	protected:
 		void computeXopt();
 		real computeFopt();
 		real penalize(real *x);

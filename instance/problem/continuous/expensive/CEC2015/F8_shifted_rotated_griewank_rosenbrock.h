@@ -25,8 +25,8 @@ namespace OFEC {
 		public:
 			F8_shifted_rotated_griewank_rosenbrock(param_map &v);
 			F8_shifted_rotated_griewank_rosenbrock(const std::string &name, size_t size_var, size_t size_obj);
-		protected:
 			void initialize();
+		protected:
 			void evaluate__(real *x, std::vector<real>& obj);
 		private:
 		};

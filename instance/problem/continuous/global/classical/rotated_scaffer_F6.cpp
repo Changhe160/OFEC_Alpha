@@ -17,22 +17,22 @@ namespace OFEC {
 	rotated_scaffer_F6::rotated_scaffer_F6(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		scaffer_F6((v.at("proName")), (v.at("numDim")), 1) {
 
-		set_range(-100, 100);
-		set_init_range(-100, 100);
-		initialize();
 	}
 	rotated_scaffer_F6::rotated_scaffer_F6(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		scaffer_F6(name, size_var, size_obj) {
 
-		set_range(-100, 100);
-		set_init_range(-100, 100);
-		initialize();
 	}
 
 	void rotated_scaffer_F6::initialize() {
-
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		m_variable_monitor = true;
+		set_range(-100, 100);
+		set_init_range(-100, 100);
+		set_original_global_opt();
+		set_bias(0);
+		
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");
-		m_optima.clear();
+		
 		set_global_opt();
 
 		m_variable_accuracy = 1.0e-2;

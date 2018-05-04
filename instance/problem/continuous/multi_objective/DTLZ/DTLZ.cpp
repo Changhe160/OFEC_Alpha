@@ -4,13 +4,15 @@
 namespace OFEC {
 	DTLZ::DTLZ(const std::string & name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), continuous(name, size_var, size_obj){
 		if (m_objective_size > m_variable_size) throw myexcept("the number of dim must be greater or eaqual to the number of obj for DTLZ pros");
+	
+	}
+	void DTLZ::initialize() {
 		set_init_range(0., 1.);
 		set_range(0., 1.);
 
-		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
-			m_opt_mode[idx] = optimization_mode::Minimization;
 		load_PF();
 	}
+
 	void DTLZ::generate_PF()
 	{
 		const std::string problem_name[] = { "DTLZ1", "DTLZ2", "DTLZ3", "DTLZ4" };

@@ -18,28 +18,21 @@
 
 namespace OFEC {
 	
-	five_hills::five_hills(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
-		v.at("numDim") = 2;
-
-		std::vector<std::pair<real, real>> range;
-		range.push_back(std::make_pair(-2.5, 3.));
-		range.push_back(std::make_pair(-2, 2.));
-		set_init_range(range);
-		set_range(std::move(range));
-		initialize();
+	five_hills::five_hills(param_map &v) :problem((v.at("proName")), 2, 1), \
+		function((v.at("proName")), 2, 1) {
+		
 	}
 	five_hills::five_hills(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
+		
+	}
+
+	void five_hills::initialize() {
 		std::vector<std::pair<real, real>> range;
 		range.push_back(std::make_pair(-2.5, 3.));
 		range.push_back(std::make_pair(-2, 2.));
 		set_init_range(range);
 		set_range(std::move(range));
-		initialize();
-	}
-
-	void five_hills::initialize() {
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.2;
 		m_variable_accuracy = 1.e-5;
@@ -65,8 +58,8 @@ namespace OFEC {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
-		//setObjSet();
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+		
 	}
 	void five_hills::evaluate__(real *x, std::vector<real>& obj) {
 

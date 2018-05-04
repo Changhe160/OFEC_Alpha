@@ -18,17 +18,13 @@ namespace OFEC {
 		ShiftedElliptic_F1::ShiftedElliptic_F1(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
 		{
-			set_range(-100., 100.);
-			set_init_range(-100., 100.);
-			initialize();
+			
 		}
 
 		ShiftedElliptic_F1::ShiftedElliptic_F1(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 			function_CEC2013(name, size_var, size_obj) \
 		{
-			set_range(-100., 100.);
-			set_init_range(-100., 100.);
-			initialize();
+			
 		}
 
 		ShiftedElliptic_F1::~ShiftedElliptic_F1() {
@@ -37,6 +33,10 @@ namespace OFEC {
 		}
 
 		void ShiftedElliptic_F1::initialize() {
+			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-100., 100.);
+			set_init_range(-100., 100.);
 			ID = 1;
 			mp_anotherz = new real[m_variable_size];
 

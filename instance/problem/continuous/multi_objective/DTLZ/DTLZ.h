@@ -37,6 +37,8 @@ namespace OFEC {
 
 	class DTLZ : public continuous
 	{
+	public:
+		void initialize();
 	protected:
 		DTLZ(const std::string &name, size_t size_var, size_t size_obj);
 		void generate_PF();

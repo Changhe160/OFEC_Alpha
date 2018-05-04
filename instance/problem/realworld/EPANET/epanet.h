@@ -131,58 +131,99 @@
 #define EN_SAVE         1
 #define EN_INITFLOW     10  /* Re-initialize flow flag   */
 
-#define m_totalDuration  (24 * 60 * 60)    // set time pattern, is integer multiple of m_patternStep
-#define m_qualityTimeStep  (5 * 60)
-#define m_patternStep (10 * 60)
-#define m_tc (m_totalDuration/m_qualityTimeStep)
-#define m_TS 24
-#define m_setPatternNum (m_totalDuration/m_patternStep)
+//#define m_total_duration  (24 * 60 * 60)    // set time pattern, is integer multiple of m_pattern_step
+//#define m_quality_time_step  (5 * 60)
+//#define m_pattern_step (10 * 60)
+//#define m_tc (m_total_duration/m_quality_time_step)
+//#define m_TS 24
+//#define m_setPatternNum (m_total_duration/m_pattern_step)
 
 
 #include "../../../../core/problem/optima.h"
 #include "../../../../core/problem/problem.h"
 #include "epa_encoding.h"
+#include <string>
 
-#define CAST_RP_EPANET dynamic_cast<epanet *>(Global::msp_global->mp_problem.get())
+#define CAST_RP_EPANET dynamic_cast<epanet *>(global::ms_global->m_problem.get())
 namespace OFEC {
 	class epanet : public problem
 	{
 	protected:
+		int m_phase = 1;
 		optima<variable_epanet, real> m_optima;
-		std::vector<variable_epanet> data_read;
+		std::vector<variable_epanet> m_real_PS_read;
 
 		std::vector<std::vector<float>> m_Ciobs;    // real value
-		int m_numSource;                  // number of source    
-		int m_numSensor;                  // number of sensors
-		int m_numNode;                    // number of nodes
-		std::vector<int> m_sensorLoc;          // location of sensors , first time detected
-		std::string m_fileName;                // file name of input data  
-		long m_minduration, m_maxduration;
-		long m_minstartTime, m_maxstartTime;
-		float m_minmultiplier, m_maxmultiplier;
+		int m_num_source;                  // number of source    
+		int m_num_sensor;                  // number of sensors
+		int m_num_node;                    // number of nodes
+		std::vector<int> m_sensor_Loc;          // location of sensors , first time detected
+		std::string m_file_name;                // file name of input data  
+		
+
+		char m_map_inp[100];
+		char m_map_rpt[100];
+		std::stringstream m_path_inp, m_path_rpt;
 
 		//***set parameters of epanet function***//
-		//long m_totalDuration;
-		//long m_qualityTimeStep;
-		//long m_patternStep;
-		//static int m_tc;
-		//static int m_TS;
-		//char* m_InpPath;
-		//char* m_RptPath;
+		long m_total_duration;
+		long m_quality_time_step;
+		long m_pattern_step;
+		int m_num_pattern;   // number of pattern : m_total_duration / m_pattern_step
+		int m_time_interval; 
 
+		std::vector<std::vector<double>> m_location;
+	public:
+		long m_min_duration, m_max_duration;
+		long m_min_start_time, m_max_start_time;
+		float m_min_multiplier, m_max_multiplier;
 	public:
 		epanet(param_map &v);
 		
+		void initialize();
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
-		void getData(variable_epanet &sol, std::vector<std::vector<float>> &data, bool mode);
-		void readParam();
+		void get_data(variable_epanet &sol, std::vector<std::vector<float>> &data);
+		void read_parameter();
+		void set_phase(int num) { 
+			m_phase = num; 
+		}
+		void read_location();
+		
+		void phase_next() {
+			++m_phase;
+		}
+		const size_t & phase() const{	
+			return m_phase; 
+		}
+		const size_t & interval() const { 
+			return m_time_interval; 
+		}
+		const size_t & num_sensor() const { return m_num_sensor; }
+		const std::vector<std::vector<float>> & observation_concentration() const { 
+			return m_Ciobs; 
+		}
 
 		bool same(const base &s1, const base &s2) const;
 		double variable_distance(const base &s1, const base &s2) const { return 0.0; }
 		double variable_distance(const variable_base &s1, const variable_base &s2) const { return 0.0; }
-		void initialize_solution(base &s) const {}
+		void initialize_solution(base &s) const;
 
 		optima<variable_epanet, real> & get_optima();
+		float calculate_distance(int index1, int index2);
+
+		bool is_time_out() const;
+		const int number_node() const {
+			return m_num_node;
+		}
+		const long pattern_step() {
+			return m_pattern_step;
+		}
+		const int max_start_time_size() {
+			return (m_max_start_time - m_min_start_time) / m_pattern_step;
+		}
+		const int max_duration_size() {
+			return (m_max_duration - m_min_duration) / m_pattern_step;
+		}
 
 	protected:
 		void evaluate__(variable_epanet & x, std::vector<real>& obj);

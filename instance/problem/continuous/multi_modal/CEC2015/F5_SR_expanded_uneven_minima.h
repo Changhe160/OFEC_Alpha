@@ -27,8 +27,8 @@ namespace OFEC {
 		public:
 			F5_SR_expanded_uneven_minima(param_map &v);
 			F5_SR_expanded_uneven_minima(const std::string &name, size_t size_var, size_t size_obj);
-		protected:
 			void initialize();
+		protected:
 			void evaluate__(real *x, std::vector<real>& obj);
 		private:
 		};

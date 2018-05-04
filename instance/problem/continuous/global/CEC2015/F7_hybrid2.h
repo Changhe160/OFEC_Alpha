@@ -25,8 +25,8 @@ namespace OFEC {
 		public:
 			F7_hybrid2(param_map &v);
 			F7_hybrid2(const std::string &name, size_t size_var, size_t size_obj);
-		protected:
 			void initialize();
+		protected:
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 		private:

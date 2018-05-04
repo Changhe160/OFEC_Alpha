@@ -5,19 +5,24 @@ namespace OFEC {
 		F2_rotated_discus::F2_rotated_discus(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			discus((v.at("proName")), (v.at("numDim")), 1) {
 
-			initialize();
+			
 		}
 		F2_rotated_discus::F2_rotated_discus(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			discus(name, size_var, size_obj) {
 
-			initialize();
+			
 		}
 
 		void F2_rotated_discus::initialize() {
+			set_tag(std::set<problem_tag>({ problem_tag::EOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-100., 100.);
+			set_init_range(-100., 100.);
 
 			set_bias(200);
+			set_original_global_opt();
 			load_rotation("instance/problem/continuous/expensive/CEC2015/data/");
-			m_optima.clear();
+			
 			set_global_opt();
 		}
 		void F2_rotated_discus::evaluate__(real *x, std::vector<real>& obj) {

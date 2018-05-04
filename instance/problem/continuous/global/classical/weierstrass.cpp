@@ -17,19 +17,19 @@ namespace OFEC {
 	weierstrass::weierstrass(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
 
-		set_range(-0.5, 0.5);
-		set_init_range(-0.5, 0.5);
-		initialize();
+		
 	}
 	weierstrass::weierstrass(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 
-		set_range(-0.5, 0.5);
-		set_init_range(-0.5, 0.5);
-		initialize();
+		
 	}
 
 	void weierstrass::initialize() {
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		m_variable_monitor = true;
+		set_range(-0.5, 0.5);
+		set_init_range(-0.5, 0.5);
 
 		set_original_global_opt();
 

@@ -17,19 +17,19 @@ namespace OFEC {
 	penalized_2::penalized_2(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
 
-		set_range(-50, 50);
-		set_init_range(-50., 50.);
-		initialize();
+		
 	}
 	penalized_2::penalized_2(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 
-		set_range(-50, 50);
-		set_init_range(-50., 50.);
-		initialize();
+		
 	}
 
 	void penalized_2::initialize() {
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		m_variable_monitor = true;
+		set_range(-50, 50);
+		set_init_range(-50., 50.);
 		std::vector<real> v(m_variable_size, 1.0);
 		set_original_global_opt(v.data());
 		m_optima = m_original_optima;

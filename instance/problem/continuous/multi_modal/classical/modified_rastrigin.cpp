@@ -21,23 +21,18 @@
 #include "modified_rastrigin.h"
 namespace OFEC {
 	
-	modified_rastrigin::modified_rastrigin(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1), m_k(2) {
-		v.at("numDim") = 2;
-		set_range(0.0, 1.); // note
-		set_init_range(0.0, 1.); // note
-		v.at("proName") = "modified_rastrigin";
-		initialize();
+	modified_rastrigin::modified_rastrigin(param_map &v) : problem((v.at("proName")), 2, 1), \
+		function((v.at("proName")), 2, 1), m_k(2) {
+		
 	}
 	modified_rastrigin::modified_rastrigin(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj), m_k(2) {
-		set_range(0.0, 1.0); // note
-		set_init_range(0.0, 1.); // note
-		m_name = "modified_rastrigin";
-		initialize();
+		
 	}
 
-	void modified_rastrigin::initialize() { // note
+	void modified_rastrigin::initialize() {
+		set_range(0.0, 1.); // note
+		set_init_range(0.0, 1.); // note
 		m_k[0] = 3; m_k[1] = 4;
 		m_objective_accuracy = 0.1;
 		m_variable_accuracy = 1.e-5;
@@ -61,7 +56,7 @@ namespace OFEC {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		
 	}
 	void modified_rastrigin::evaluate__(real *x, std::vector<real>& obj) {

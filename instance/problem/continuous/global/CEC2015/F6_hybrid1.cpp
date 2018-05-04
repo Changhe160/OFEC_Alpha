@@ -7,28 +7,24 @@ namespace OFEC {
 	namespace CEC2015 {
 		F6_hybrid1::F6_hybrid1(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			hybrid((v.at("proName")), (v.at("numDim")), 1) {
-			m_num_function = 3;
-			m_function.resize(m_num_function);
-			m_start.resize(m_num_function);
-			m_dim.resize(m_num_function);
-			set_range(-100., 100.);
-			set_init_range(-100., 100.);
-			initialize();
+			
 			
 		}
 		F6_hybrid1::F6_hybrid1(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			hybrid(name, size_var, size_obj) {
+			
+			
+		}
+
+		void F6_hybrid1::initialize() {
+			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+			m_variable_monitor = true;
 			m_num_function = 3;
 			m_function.resize(m_num_function);
 			m_start.resize(m_num_function);
 			m_dim.resize(m_num_function);
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
-			initialize();
-			
-		}
-
-		void F6_hybrid1::initialize() {
 			set_function();
 			size_t count = 0;
 			for (auto &i : m_random_perm)
@@ -71,6 +67,7 @@ namespace OFEC {
 			}
 			for (size_t i = 0; i < m_num_function; ++i) {
 				m_function[i] = dynamic_cast<function*>(f[i]("", m_dim[i], m_objective_size));
+				m_function[i]->initialize();
 				m_function[i]->set_bias(0);
 			}
 		}

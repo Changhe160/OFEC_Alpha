@@ -17,29 +17,23 @@
 #include "waves.h"
 namespace OFEC {
 	
-	waves::waves(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
-		v.at("numDim") = 2;
-		std::vector<std::pair<real, real>> data;
-		data.push_back(std::make_pair(-0.9, 1.2));
-		data.push_back(std::make_pair(-1.2, 1.2));
-		set_range(data);
-		set_init_range(std::move(data));
-		initialize();
+	waves::waves(param_map &v) : problem((v.at("proName")), 2, 1), \
+		function((v.at("proName")), 2, 1) {
+		
+		
 	}
 	waves::waves(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
-		std::vector<std::pair<real, real>> data;
-		data.push_back(std::make_pair(-0.9, 1.2));
-		data.push_back(std::make_pair(-1.2, 1.2));
-
-		set_range(data);
-		set_init_range(std::move(data));
-		initialize();
+		
 	}
 
 	void waves::initialize() {
-		add_tag(problem_tag::MMP);
+		std::vector<std::pair<real, real>> data;
+		data.push_back(std::make_pair(-0.9, 1.2));
+		data.push_back(std::make_pair(-1.2, 1.2));
+		set_range(data);
+		set_init_range(std::move(data));
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.15;
 		m_variable_accuracy = 1.e-3;

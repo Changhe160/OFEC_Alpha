@@ -23,8 +23,8 @@ namespace OFEC {
 		public:
 			F24_rotated_hybrid_composition(param_map &v);
 			F24_rotated_hybrid_composition(const std::string &name, size_t size_var, size_t size_obj);
-		protected:
 			void initialize();
+		protected:
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 

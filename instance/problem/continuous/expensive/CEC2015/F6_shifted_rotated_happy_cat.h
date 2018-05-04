@@ -24,8 +24,8 @@ namespace OFEC {
 		public:
 			F6_shifted_rotated_happy_cat(param_map &v);
 			F6_shifted_rotated_happy_cat(const std::string &name, size_t size_var, size_t size_obj);
-		protected:
 			void initialize();
+		protected:
 			void evaluate__(real *x, std::vector<real>& obj);
 		private:
 		};

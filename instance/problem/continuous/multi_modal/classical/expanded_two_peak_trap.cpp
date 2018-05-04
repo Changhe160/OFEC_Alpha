@@ -5,18 +5,16 @@ namespace OFEC {
 		expanded_two_peak_trap::expanded_two_peak_trap(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			function((v.at("proName")), (v.at("numDim")), 1) {
 
-			set_range(-40., 40.);
-			set_init_range(-40., 40.);
-			initialize();
+			
 		}
 		expanded_two_peak_trap::expanded_two_peak_trap(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj) {
-			set_range(-40., 40.);
-			set_init_range(-40., 40.);
-			initialize();
+			
 		}
 
 		void expanded_two_peak_trap::initialize() {
+			set_range(-40., 40.);
+			set_init_range(-40., 40.);
 			m_opt_mode[0] = optimization_mode::Minimization;
 			m_variable_accuracy = 0.01;
 			m_objective_accuracy = 1.e-4;
@@ -28,7 +26,7 @@ namespace OFEC {
 				set_original_global_opt(i.data());
 			}
 			m_optima = m_original_optima;
-			add_tag(problem_tag::MMP);
+			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		}
 		void expanded_two_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
 			if (m_translation_flag)

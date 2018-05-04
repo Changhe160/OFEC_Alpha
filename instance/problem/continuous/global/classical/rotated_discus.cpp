@@ -17,17 +17,23 @@ namespace OFEC {
 
 	rotated_discus::rotated_discus(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		discus((v.at("proName")), (v.at("numDim")), 1) {
-		initialize();
+		
 	}
 	rotated_discus::rotated_discus(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		discus(name, size_var, 1) {
-		initialize();
+		
 	}
 
 	void rotated_discus::initialize() {
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		m_variable_monitor = true;
+		set_range(-100., 100.);
+		set_init_range(-100., 100.);
+
+		set_original_global_opt();
 
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");
-		m_optima.clear();
+
 		set_global_opt();
 	}
 

@@ -98,7 +98,7 @@ namespace OFEC {
 		double mean(int oidx);	//mean value of the oidx-th objective
 		double variance(int oidx, double mean); //variance of the oidx-th objective
 
-		virtual void initialize(); //a uniformly distributed initialization by default
+		void initialize(); //a uniformly distributed initialization by default
 		template<typename Fun, typename Problem, typename... Args>
 		void initialize(Fun fun, const Problem* pro, Args&& ... args);
 

@@ -4,20 +4,8 @@
 
 namespace OFEC {
 	travelling_salesman::travelling_salesman(param_map & v)	: problem(v.at("proName"), v.at("numDim"), v.at("numObj")) {
-		mvvv_cost.resize(m_objective_size);
-		for (int i = 0; i<m_objective_size; i++)
-			mvvv_cost[i].resize(m_variable_size);
-		for (int i = 0; i<m_objective_size; i++)
-			for (int j = 0; j<m_variable_size; j++)
-				mvvv_cost[i][j].resize(m_variable_size);
+		
 		m_file_name = static_cast<std::string>(v.at("dataFile1"));
-		read_problem();
-
-		for (size_t i = 0; i < m_variable_size; ++i)
-			m_domain.set_range(0, m_variable_size - 1, i);
-
-		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
-			m_opt_mode[idx] = optimization_mode::Minimization;
 
 		if (m_variable_size <= 20) v.at("sampleFre") = 10;
 		else if (m_variable_size <= 50) v.at("sampleFre") = 100;
@@ -32,30 +20,27 @@ namespace OFEC {
 		else if (m_variable_size <= 900) v.at("sampleFre") = 2000000;
 		else if (m_variable_size <= 1000) v.at("sampleFre") = 3000000;
 		else if (m_variable_size <= 2000) v.at("sampleFre") = 5000000;
-
-		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
 	}
 
 	travelling_salesman::travelling_salesman(const std::string& pro_name, int size_var, int size_obj, const std::string& file_name)
-		: problem(pro_name, size_var, size_obj), m_domain(m_variable_size) {
+		: problem(pro_name, size_var, size_obj), m_domain(m_variable_size) {	
+		m_file_name = file_name;
+	}
+	void travelling_salesman::initialize() {
 		mvvv_cost.resize(m_objective_size);
 		for (int i = 0; i<m_objective_size; i++)
 			mvvv_cost[i].resize(m_variable_size);
 		for (int i = 0; i<m_objective_size; i++)
 			for (int j = 0; j<m_variable_size; j++)
 				mvvv_cost[i][j].resize(m_variable_size);
-		m_file_name = static_cast<std::string>(file_name);
+	
 		read_problem();
 
 		for (size_t i = 0; i < m_variable_size; ++i)
 			m_domain.set_range(0, m_variable_size - 1, i);
 
-		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
-			m_opt_mode[idx] = optimization_mode::Minimization;
-
 		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
 	}
-
 	evaluation_tag travelling_salesman::evaluate_(base & s, caller call, bool effective_fes, bool constructed)
 	{
 		variable<int> &x = dynamic_cast< solution<variable<int>, real> &>(s).get_variable();

@@ -5,23 +5,28 @@ namespace OFEC {
 		F5_SR_schwefel::F5_SR_schwefel(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			schwefel((v.at("proName")), (v.at("numDim")), 1) {
 
-			initialize();
+		
 		}
 		F5_SR_schwefel::F5_SR_schwefel(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			schwefel(name, size_var, size_obj) {
 
-			initialize();
+			
 		}
 
 		void F5_SR_schwefel::initialize() {
+			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-500, 500);
+			set_init_range(-500, 500);
+			set_original_global_opt();
 			set_condition_number(1.);
 			set_bias(500.);
 			load_translation("instance/problem/continuous/global/CEC2015/data/");
 			load_rotation("instance/problem/continuous/global/CEC2015/data/");
 			set_scale(1. / 10.);
-			m_optima.clear();
+			
 			set_global_opt(m_translation.data());
-
+			m_variable_accuracy = 1.0e-2;
 		}
 
 

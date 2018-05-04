@@ -23,7 +23,7 @@ namespace OFEC {
 			ConflictingOS_ShiftedSchwefel_F14(const std::string &name, size_t size_var, size_t size_obj);
 			void evaluate__(real *x, std::vector<real>& obj);
 			~ConflictingOS_ShiftedSchwefel_F14();
-		protected:
+
 			void initialize();
 		};
 	}

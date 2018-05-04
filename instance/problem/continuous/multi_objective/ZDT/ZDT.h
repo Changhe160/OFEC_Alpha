@@ -27,6 +27,8 @@ In Evolutionary Computation, 2002. CEC'02. Proceedings of the 2002 Congress on (
 
 namespace OFEC {
 	class ZDT :public continuous {
+	public:
+		void initialize();
 	protected:
 		ZDT(const std::string &name, size_t size_var);
 		void generateAdLoadPF();

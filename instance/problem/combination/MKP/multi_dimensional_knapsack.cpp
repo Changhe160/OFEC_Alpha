@@ -6,20 +6,15 @@ namespace OFEC {
 	multi_dimensional_knapsack::multi_dimensional_knapsack(param_map &v) : problem(v.at("proName"), v.at("numDim"), 1)
 	{
 		m_file_name = static_cast<std::string>(v.at("dataFile1"));
-		read_problem();
-		
-		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
-			m_opt_mode[idx] = optimization_mode::Maximization;
-
 		v.at("sampleFre") = m_variable_size * 2;
-
-		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
 	}
 
 	multi_dimensional_knapsack::multi_dimensional_knapsack(const std::string & pro_name, size_t size_var, const std::string & file_name)
 		: problem(pro_name, size_var, 1)
 	{
 		m_file_name = file_name;
+	}
+	void multi_dimensional_knapsack::initialize() {
 		read_problem();
 
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
@@ -27,7 +22,6 @@ namespace OFEC {
 
 		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
 	}
-
 	evaluation_tag multi_dimensional_knapsack::evaluate_(base &s, caller call, bool effective_fes, bool constructed)
 	{
 		variable<int> &x = dynamic_cast< solution<variable<int>, real> &>(s).get_variable();

@@ -4,15 +4,11 @@ namespace OFEC {
 	namespace CEC2005 {
 		F5_schwefel_2_6_bound::F5_schwefel_2_6_bound(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			function((v.at("proName")), (v.at("numDim")), 1), m_a(v.at("numDim"), std::vector<int>(v.at("numDim"))), m_b(v.at("numDim")) {
-			set_range(-100, 100);
-			set_init_range(-100., 100.);
-			initialize();
+			
 		}
 		F5_schwefel_2_6_bound::F5_schwefel_2_6_bound(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			function(name, size_var, size_obj), m_a(size_var, std::vector<int>(size_var)), m_b(size_var) {
-			set_range(-100, 100);
-			set_init_range(-100., 100.);
-			initialize();
+			
 		}
 
 		void F5_schwefel_2_6_bound::load_data(const std::string &path)
@@ -86,6 +82,9 @@ namespace OFEC {
 			}
 		}
 		void F5_schwefel_2_6_bound::initialize() {
+			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+			set_range(-100, 100);
+			set_init_range(-100., 100.);
 			set_original_global_opt();
 			load_data("instance/problem/continuous/global/CEC2005/data/"); // load data into m_a and m_b
 

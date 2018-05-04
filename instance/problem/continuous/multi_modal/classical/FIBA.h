@@ -27,8 +27,8 @@ namespace OFEC {
 		FIBA(param_map &v);
 		FIBA(const std::string &name, size_t size_var, size_t size_obj);
 		void set_case(int c);
-	protected:
 		void initialize();
+	protected:
 		void evaluate__(real *x, std::vector<real>& obj);
 		double m_kappa, m_chi;
 		int m_case;

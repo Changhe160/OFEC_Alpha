@@ -23,7 +23,7 @@ namespace OFEC {
 			N7S1_ShiftedSchwefel_F7(const std::string &name, size_t size_var, size_t size_obj);
 			void evaluate__(real *x, std::vector<real>& obj);
 			~N7S1_ShiftedSchwefel_F7();
-		protected:
+
 			void initialize();
 		};
 	}

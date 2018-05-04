@@ -110,10 +110,13 @@ namespace OFEC {
 
 		template<typename Solution, typename... Args>
 		static void allocate_memory(size_t no, Args&& ...args) {
-			for (int i = 0; i < no; ++i) {
-				ms_minmax_objective.emplace(i,
-					std::make_pair(std::make_unique<Solution>(no, std::forward<Solution::variable_encoding>(args)...), std::make_unique<Solution>(no, std::forward<Solution::variable_encoding>(args)...)));
+			if(no!=ms_minmax_objective.size()){
+				for (int i = 0; i < no; ++i) {
+					ms_minmax_objective.emplace(i,
+						std::make_pair(std::make_unique<Solution>(no, std::forward<Solution::variable_encoding>(args)...), std::make_unique<Solution>(no, std::forward<Solution::variable_encoding>(args)...)));
+				}
 			}
+			
 		}
 
 		virtual void initialize_solution(base &s) const = 0;
@@ -159,6 +162,8 @@ namespace OFEC {
 		static Solution * get_sofar_worst(size_t i) {
 			return dynamic_cast<Solution *>(ms_minmax_objective[i].second.get());
 		}
+
+		virtual void initialize() =0;
 	protected:
 		problem& operator=(const problem& rhs);  // assignment is not allowed outside
 		problem& operator=(problem&& rhs);

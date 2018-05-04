@@ -26,8 +26,8 @@ namespace OFEC {
 	public:
 		beasley(param_map &v);
 		beasley(const std::string &name, size_t size_var, size_t size_obj);
-	protected:
 		void initialize();
+	protected:
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};

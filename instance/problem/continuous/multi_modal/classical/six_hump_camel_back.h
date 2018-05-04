@@ -26,8 +26,8 @@ namespace OFEC {
 	public:
 		six_hump_camel_back(param_map &v);
 		six_hump_camel_back(const std::string &name, size_t size_var, size_t size_obj);
-	protected:
 		void initialize();
+	protected:
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};

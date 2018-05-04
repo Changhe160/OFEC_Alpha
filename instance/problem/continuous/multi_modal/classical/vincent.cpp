@@ -26,19 +26,17 @@ namespace OFEC {
 	vincent::vincent(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
 
-		set_range(0.25, 10.); // note
-		set_init_range(0.25, 10.);
-		initialize();
+		
 	}
 	vincent::vincent(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
-		set_range(0.25, 10.); // note
-		set_init_range(0.25, 10.);
-		initialize();
+		
 	}
 
 	void vincent::initialize() { // note
-		add_tag(problem_tag::MMP);
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+		set_range(0.25, 10.); // note
+		set_init_range(0.25, 10.);
 		m_opt_mode[0] = optimization_mode::Maximization;  // note
 		m_objective_monitor = true;
 		m_objective_accuracy = 1.e-4;

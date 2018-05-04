@@ -18,29 +18,23 @@
 
 namespace OFEC {
 	
-	valleys::valleys(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
-		v.at("numDim") = 2;
-		std::vector<std::pair<real, real>> data;
-		data.push_back(std::make_pair(-2.5, 3));
-		data.push_back(std::make_pair(-2, 2));
-
-		set_range(data);
-		set_range(std::move(data)); 
-		initialize();
+	valleys::valleys(param_map &v) : problem((v.at("proName")), 2, 1), \
+		function((v.at("proName")), 2, 1) {
+	
+		
 	}
 	valleys::valleys(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
+	
+	}
+
+	void valleys::initialize() {
 		std::vector<std::pair<real, real>> data;
 		data.push_back(std::make_pair(-2.5, 3));
 		data.push_back(std::make_pair(-2, 2));
 
 		set_range(data);
 		set_range(std::move(data));
-		initialize();
-	}
-
-	void valleys::initialize() {
 		m_opt_mode[0] = optimization_mode::Maximization;
 
 		m_objective_accuracy = 0.5;
@@ -53,7 +47,7 @@ namespace OFEC {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		
 	}
 	void valleys::evaluate__(real *x, std::vector<real>& obj) {

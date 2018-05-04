@@ -5,19 +5,24 @@ namespace OFEC {
 		F4_shifted_schwefel_1_2_noisy::F4_shifted_schwefel_1_2_noisy(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			schwefel_1_2((v.at("proName")), (v.at("numDim")), 1) {
 
-			initialize();
+			
 		}
 		F4_shifted_schwefel_1_2_noisy::F4_shifted_schwefel_1_2_noisy(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 			schwefel_1_2(name, size_var, size_obj) {
 
-			initialize();
+			
 		}
 
 		void F4_shifted_schwefel_1_2_noisy::initialize() {
+			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-100, 100);
+			set_init_range(-100, 100);
+			set_original_global_opt();
 			set_bias(-450);
 			
 			load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
-			m_optima.clear();
+			
 			set_global_opt(m_translation.data());
 		}
 		void F4_shifted_schwefel_1_2_noisy::evaluate__(real *x, std::vector<real>& obj) {

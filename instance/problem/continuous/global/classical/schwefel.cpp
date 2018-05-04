@@ -19,20 +19,19 @@ namespace OFEC {
 		function((v.at("proName")), (v.at("numDim")), 1)
 	{
 
-		set_range(-500, 500);
-		set_init_range(-500, 500);
-		initialize();
 	}
 	schwefel::schwefel(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 
-		set_range(-500, 500);
-		set_init_range(-500, 500);
-		initialize();
+		
 	}
 
 	void schwefel::initialize()
 	{
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		m_variable_monitor = true;
+		set_range(-500, 500);
+		set_init_range(-500, 500);
 		//vector<double> v(m_variable_size, 420.9687);
 		//set_original_global_opt(v.data());
 		set_original_global_opt();

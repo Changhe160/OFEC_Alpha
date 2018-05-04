@@ -19,9 +19,6 @@ namespace OFEC {
 			m_function(m_num_function), m_height(m_num_function), m_fmax(m_num_function), \
 			m_converge_severity(m_num_function), m_stretch_severity(m_num_function) {
 
-			set_range(-5., 5.);
-			set_init_range(-5., 5.);
-			m_height_normalize_severity = 2000.;
 		}
 		composition::~composition() {
 			//dtor

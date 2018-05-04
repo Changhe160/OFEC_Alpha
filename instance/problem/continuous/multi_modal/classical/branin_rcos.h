@@ -24,8 +24,8 @@ namespace OFEC {
 	public:
 		branin_rcos(param_map &v);
 		branin_rcos(const std::string &name, size_t size_var, size_t size_obj);
-	protected:
 		void initialize();
+	protected:
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};

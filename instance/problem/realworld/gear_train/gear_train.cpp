@@ -1,34 +1,22 @@
-/*************************************************************************
-* Project:Open Frameworks for Evolutionary Computation (OFEC)
-*************************************************************************
-* Author: Changhe Li
-* Email: changhe.lw@gmail.com 
-* Language: C++
-*************************************************************************
-*  This file is part of OFEC. This library is free software;
-*  you can redistribute it and/or modify it under the terms of the
-*  GNU General Public License as published by the Free Software
-*  Foundation; either version 2, or (at your option) any later version.
-*************************************************************************/
 
 #include "gear_train.h"
 namespace OFEC {
 	gear_train::gear_train(param_map &v) :problem((v.at("proName")), 4, 1), \
 		function((v.at("proName")), 4, 1) {
-		set_range(12, 60); 
-		set_init_range(12, 60);
-		initialize();
+		
 
 	}
 
 	gear_train::gear_train(const std::string &name, size_t size_var, size_t size_obj) :problem(name, 4, 1), \
 		function(name, 4, 1) {
-		set_range(12, 60);
-		set_init_range(12, 60);
-		initialize();
+		
 	}
 
 	void gear_train::initialize() {
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		m_variable_monitor = true;
+		set_range(12, 60);
+		set_init_range(12, 60);
 		std::vector<real> v(m_variable_size, 0);
 		v[0] = 15; v[1] = 20; v[2] = 57; v[3] = 59;
 

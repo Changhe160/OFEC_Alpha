@@ -1,34 +1,23 @@
-/*************************************************************************
-* Project:Open Frameworks for Evolutionary Computation (OFEC)
-*************************************************************************
-* Author: Changhe Li
-* Email: changhe.lw@gmail.com 
-* Language: C++
-*************************************************************************
-*  This file is part of OFEC. This library is free software;
-*  you can redistribute it and/or modify it under the terms of the
-*  GNU General Public License as published by the Free Software
-*  Foundation; either version 2, or (at your option) any later version.
-*************************************************************************/
+
 
 #include "par_est_FM_sound_waves.h"
 namespace OFEC {
 	par_est_FM_sound_waves::par_est_FM_sound_waves(param_map &v) :problem((v.at("proName")), 6, 1), \
 		function((v.at("proName")), 6, 1) {
-		set_range(-6.4, 6.35);
-		set_init_range(-6.4, 6.35);
-		initialize();
+		
 
 	}
 	par_est_FM_sound_waves::par_est_FM_sound_waves(const std::string &name, size_t size_var, size_t size_obj) :problem(name, 6, 1), \
 		function(name, 6, 1) {
-		set_range(-6.4, 6.35);
-		set_init_range(-6.4, 6.35);
-		initialize();
+		
 	}
 
 
 	void par_est_FM_sound_waves::initialize() {
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		m_variable_monitor = true;
+		set_range(-6.4, 6.35);
+		set_init_range(-6.4, 6.35);
 		std::vector<real> v(m_variable_size);
 		v[0] = 1.0; v[1] = 5.0; v[2] = 1.5; v[3] = 4.8; v[4] = 2.0; v[5] = 4.9;
 

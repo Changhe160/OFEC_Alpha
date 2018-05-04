@@ -28,8 +28,8 @@ namespace OFEC {
 		public:
 			F13_composition2015_C5(param_map &v);
 			F13_composition2015_C5(const std::string &name, size_t size_var, size_t size_obj);
-		protected:
 			void initialize();
+		protected:
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 

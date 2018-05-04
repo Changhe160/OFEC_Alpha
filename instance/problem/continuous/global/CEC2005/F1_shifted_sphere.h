@@ -24,8 +24,8 @@ namespace OFEC {
 		public:
 			F1_shifted_sphere(param_map &v);
 			F1_shifted_sphere(const std::string &name, size_t size_var, size_t size_obj);
-		protected:
 			void initialize();
+		protected:
 			void evaluate__(real *x, std::vector<real>& obj);
 		private:
 		};

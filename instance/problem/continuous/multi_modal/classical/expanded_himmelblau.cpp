@@ -5,18 +5,16 @@ namespace OFEC {
 	expanded_himmelblau::expanded_himmelblau(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
 
-		set_range(-40., 10.);
-		set_init_range(-40., 10.);
-		initialize();
+		
 	}
 	expanded_himmelblau::expanded_himmelblau(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
-		set_range(-40., 10.);
-		set_init_range(-40., 0.);
-		initialize();
+		
 	}
 
 	void expanded_himmelblau::initialize() {
+		set_range(-40., 10.);
+		set_init_range(-40., 10.);
 		m_opt_mode[0] = optimization_mode::Minimization;
 		m_variable_accuracy = 0.01;
 		m_objective_accuracy = 1.e-4;
@@ -30,7 +28,7 @@ namespace OFEC {
 			m_original_optima.append(i[0]);
 		}
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 	}
 	void expanded_himmelblau::evaluate__(real *x, std::vector<real>& obj) {
 		if (m_translation_flag)

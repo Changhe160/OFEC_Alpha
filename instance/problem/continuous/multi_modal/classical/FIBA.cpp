@@ -18,18 +18,14 @@
 #include "FIBA.h"
 namespace OFEC {
 	
-	FIBA::FIBA(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1), m_case(v.at("case") = (v.find("case") == v.end() ? 1 : (int)v.at("case"))) {
-		v.at("numDim") = 2;
-		set_range(-4.0, 4.0);
-		set_init_range(-4., 4.);
-		initialize();
+	FIBA::FIBA(param_map &v) : problem((v.at("proName")), 2, 1), \
+		function((v.at("proName")), 2, 1), m_case(v.at("case") = (v.find("case") == v.end() ? 1 : (int)v.at("case"))) {
+		
+		
 	}
 	FIBA::FIBA(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj), m_case(1) {
-		set_range(-4.0, 4.0);
-		set_init_range(-4., 4.);
-		initialize();
+		
 	}
 	void FIBA::set_para() {
 		if (m_case == 1) {
@@ -47,6 +43,8 @@ namespace OFEC {
 	}
 
 	void FIBA::initialize() {
+		set_range(-4.0, 4.0);
+		set_init_range(-4., 4.);
 		set_para();
 
 		m_variable_monitor = true;
@@ -69,7 +67,7 @@ namespace OFEC {
 		}
 
 		m_optima = m_original_optima;
-		add_tag(problem_tag::MMP);
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		
 	}
 	void FIBA::evaluate__(real *x, std::vector<real>& obj) {

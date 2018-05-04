@@ -18,14 +18,7 @@ namespace OFEC {
 		composition_2015::composition_2015(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
 		CEC2005::composition(name, size_var, size_obj) \
 		{
-			m_num_function = 5;
-			m_function.resize(m_num_function);
-			m_height.resize(m_num_function);
-			m_converge_severity.resize(m_num_function);
-			m_f_bias.resize(m_num_function);
-			set_range(-100., 100.);
-			set_init_range(-100., 100.);
-			m_variable_monitor = true;
+			
 		}
 
 		void composition_2015::set_weight(std::vector<double>& weight, const std::vector<real>&x) {

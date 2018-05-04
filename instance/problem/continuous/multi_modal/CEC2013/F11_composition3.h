@@ -26,8 +26,8 @@ namespace OFEC {
 		public:
 			F11_composition3(param_map &v);
 			F11_composition3(const std::string &name, size_t size_var, size_t size_obj);
-		protected:
 			void initialize();
+		protected:
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 		private:

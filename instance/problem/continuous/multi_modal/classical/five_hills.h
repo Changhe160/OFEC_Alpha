@@ -27,8 +27,8 @@ namespace OFEC {
 	public:
 		five_hills(param_map &v);
 		five_hills(const std::string &name, size_t size_var, size_t size_obj);
-	protected:
 		void initialize();
+	protected:
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};

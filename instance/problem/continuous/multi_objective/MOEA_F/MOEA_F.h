@@ -27,6 +27,8 @@
 
 namespace OFEC {
 	class MOEA_FBase : public continuous {
+	public:
+		void initialize();
 	protected:
 		MOEA_FBase(const std::string &name, size_t size_var, size_t size_obj);
 		int getDtype() const { return m_dtype; }

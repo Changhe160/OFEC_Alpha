@@ -3,11 +3,16 @@
 
 namespace OFEC {
 	ZDT::ZDT(const std::string &name, size_t size_var) : problem(name, size_var, 2), continuous(name, size_var, 2) {
+
+	}
+	void ZDT::initialize() {
 		set_init_range(0., 1.);
 		set_range(0., 1.);
-		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
+		/*for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Minimization;
+			*/
 	}
+
 	void ZDT::generateAdLoadPF() {
 		size_t num = 1000;
 		m_optima.resize_objective_set(num);

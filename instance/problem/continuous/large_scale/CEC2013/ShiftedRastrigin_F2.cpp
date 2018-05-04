@@ -18,17 +18,13 @@ namespace OFEC {
 		ShiftedRastrigin_F2::ShiftedRastrigin_F2(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
 		{
-			set_range(-5, 5);
-			set_init_range(-5, 5);
-			initialize();
+			
 		}
 
 		ShiftedRastrigin_F2::ShiftedRastrigin_F2(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 			function_CEC2013(name, size_var, size_obj) \
 		{
-			set_range(-5, 5);
-			set_init_range(-5, 5);
-			initialize();
+			
 		}
 
 		ShiftedRastrigin_F2::~ShiftedRastrigin_F2() {
@@ -37,6 +33,10 @@ namespace OFEC {
 		}
 
 		void ShiftedRastrigin_F2::initialize() {
+			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
+			m_variable_monitor = true;
+			set_range(-5, 5);
+			set_init_range(-5, 5);
 			ID = 2;
 			mp_anotherz = new real[m_variable_size];
 

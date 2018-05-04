@@ -21,23 +21,22 @@ namespace OFEC {
 	keane_bump::keane_bump(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
 
-		set_range(0, 10);
-		set_init_range(0, 10);
-		initialize();
+		
 	}
 	keane_bump::keane_bump(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		function(name, size_var, size_obj) {
 
-		set_range(0, 10);
-		set_init_range(0, 10);
-		initialize();
+		
 	}
 
 	void keane_bump::initialize() {  // note: no optima
+		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+		set_range(0, 10);
+		set_init_range(0, 10);
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.5;
 		m_variable_accuracy = 1.e-4;
-
+		set_original_global_opt();
 		//m_original_optima.set_number_variable(1);
 		m_optima = m_original_optima;
 	}
