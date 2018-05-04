@@ -8,8 +8,8 @@ namespace OFEC {
 	DTLZ4::DTLZ4(const std::string & name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		DTLZ(name, size_var, size_obj) {
 	}
-	void DTLZ4::initialize_problem() {
-		DTLZ::initialize_problem();
+	void DTLZ4::initialize() {
+		DTLZ::initialize();
 	}
 	void DTLZ4::evaluate__(double * x, std::vector<double>& obj) {
 		double g = 0;

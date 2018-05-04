@@ -28,7 +28,7 @@ namespace OFEC {
 	
 	}
 
-	void valleys::initialize_problem() {
+	void valleys::initialize() {
 		std::vector<std::pair<real, real>> data;
 		data.push_back(std::make_pair(-2.5, 3));
 		data.push_back(std::make_pair(-2, 2));

@@ -32,7 +32,7 @@ namespace OFEC {
 			delete[] mp_anotherz;
 		}
 
-		void ShiftedElliptic_F1::initialize_problem() {
+		void ShiftedElliptic_F1::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-100., 100.);

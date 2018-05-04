@@ -27,7 +27,7 @@ namespace OFEC {
 		
 	}
 
-	void shaffer::initialize_problem() {
+	void shaffer::initialize() {
 		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		set_range(-15, 15);
 		set_init_range(-15, 15);

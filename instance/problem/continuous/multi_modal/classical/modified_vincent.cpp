@@ -12,7 +12,7 @@ namespace OFEC {
 		
 	}
 
-	void modified_vincent::initialize_problem() {
+	void modified_vincent::initialize() {
 		set_range(-10, 10);
 		set_init_range(-10, 10);
 		m_opt_mode[0] = optimization_mode::Minimization;

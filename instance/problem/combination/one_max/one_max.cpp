@@ -9,7 +9,7 @@ namespace OFEC {
 	{
 		
 	}
-	void one_max::initialize_problem() {
+	void one_max::initialize() {
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Maximization;
 		m_optima.append(variable<int>(std::vector<int>(m_variable_size, 1)));

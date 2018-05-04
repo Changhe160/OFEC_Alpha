@@ -30,7 +30,7 @@ namespace OFEC {
 		
 	}
 
-	void modified_rastrigin::initialize_problem() {
+	void modified_rastrigin::initialize() {
 		set_range(0.0, 1.); // note
 		set_init_range(0.0, 1.); // note
 		m_k[0] = 3; m_k[1] = 4;
@@ -43,7 +43,7 @@ namespace OFEC {
 		ss << global::ms_arg.at("workingDir") << "instance/problem/continuous/multi_modal/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
 		in.open(ss.str());
 		if (in.fail()) {
-			throw myexcept("cannot open data file@modified_rastrigin::initialize_problem()");
+			throw myexcept("cannot open data file@modified_rastrigin::initialize()");
 		}
 		for (int i = 0; i < 12; ++i) {
 			double x0, x1;

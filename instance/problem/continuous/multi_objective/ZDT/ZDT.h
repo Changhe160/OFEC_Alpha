@@ -9,7 +9,7 @@ namespace OFEC {
 		ZDT(const std::string &name, size_t size_var);
 		void generateAdLoadPF();
 	public:
-		void initialize_problem();
+		void initialize();
 	};
 }
 

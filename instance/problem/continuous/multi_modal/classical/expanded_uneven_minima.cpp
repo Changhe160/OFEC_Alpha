@@ -12,7 +12,7 @@ namespace OFEC {
 		
 	}
 
-	void expanded_uneven_minima::initialize_problem() {
+	void expanded_uneven_minima::initialize() {
 		set_range(-40., 40.);
 		set_init_range(-40., 40.);
 		m_opt_mode[0] = optimization_mode::Minimization;

@@ -11,7 +11,7 @@ namespace OFEC {
 		
 		}
 
-		void F8_SR_modified_vincent::initialize_problem() {
+		void F8_SR_modified_vincent::initialize() {
 			set_range(-100, 100);
 			set_init_range(-100, 100);
 			m_opt_mode[0] = optimization_mode::Minimization;

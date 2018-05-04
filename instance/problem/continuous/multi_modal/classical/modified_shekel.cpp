@@ -26,7 +26,7 @@ namespace OFEC {
 		
 	}
 
-	void modified_shekel::initialize_problem() {
+	void modified_shekel::initialize() {
 		if (m_variable_size > 5) throw myexcept("number of dim must be <=5@ modified_shekel::modified_shekel");
 		set_range(0.0, 11.0);
 		set_init_range(0.0, 11.0);

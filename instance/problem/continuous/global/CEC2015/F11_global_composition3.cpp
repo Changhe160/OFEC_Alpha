@@ -28,7 +28,7 @@ namespace OFEC {
 
 			for (size_t i = 0; i < m_num_function; ++i) {
 				m_function[i] = dynamic_cast<function*>(f[i]("", m_variable_size, m_objective_size));
-				m_function[i]->initialize_problem();
+				m_function[i]->initialize();
 				m_function[i]->set_bias(0);
 			}
 
@@ -54,7 +54,7 @@ namespace OFEC {
 
 		}
 
-		void F11_global_composition3::initialize_problem() {
+		void F11_global_composition3::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::EOP, problem_tag::CONT }));
 			m_num_function = 5;
 			m_function.resize(m_num_function);

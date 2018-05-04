@@ -42,7 +42,7 @@ namespace OFEC {
 		set_para();
 	}
 
-	void FIBA::initialize_problem() {
+	void FIBA::initialize() {
 		set_range(-4.0, 4.0);
 		set_init_range(-4., 4.);
 		set_para();

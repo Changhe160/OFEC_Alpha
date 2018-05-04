@@ -9,8 +9,8 @@ namespace OFEC {
 		MOEA_FBase(name, size_var, 2){
 		
 	}
-	void MOEA_F1::initialize_problem() {
-		MOEA_FBase::initialize_problem();
+	void MOEA_F1::initialize() {
+		MOEA_FBase::initialize();
 		m_dtype = 1;
 		m_ptype = 21;
 		m_ltype = 21;

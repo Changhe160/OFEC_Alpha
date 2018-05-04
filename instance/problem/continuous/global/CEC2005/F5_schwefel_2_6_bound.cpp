@@ -81,7 +81,7 @@ namespace OFEC {
 				}
 			}
 		}
-		void F5_schwefel_2_6_bound::initialize_problem() {
+		void F5_schwefel_2_6_bound::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 			set_range(-100, 100);
 			set_init_range(-100., 100.);

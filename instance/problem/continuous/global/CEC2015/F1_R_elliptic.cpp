@@ -13,7 +13,7 @@ namespace OFEC {
 			
 		}
 
-		void F1_R_elliptic::initialize_problem() {
+		void F1_R_elliptic::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-100., 100.);

@@ -71,7 +71,7 @@ namespace OFEC {
 			//set_bias(1300);
 		}
 
-		void F12_composition2015_C4::initialize_problem() {
+		void F12_composition2015_C4::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-100., 100.);

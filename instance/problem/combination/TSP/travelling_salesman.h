@@ -56,7 +56,7 @@ namespace OFEC {
 		travelling_salesman* get_type_prt() { return this; }
 		travelling_salesman& get_type_ptr() { return *this; }
 		//virtual void create_candidate_sets(std::vector<std::vector<int>> &candidate_sets);  // LKH: create candidate sets
-		void initialize_problem();
+		void initialize();
 	protected:
 		virtual void read_problem();    //read source data from file
 	};

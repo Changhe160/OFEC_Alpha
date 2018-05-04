@@ -50,7 +50,7 @@ public:
 	bool same(const base &s1, const base &s2) const;
 	double variable_distance(const base &s1, const base &s2) const;
 	double variable_distance(const variable_base &s1, const variable_base &s2) const;
-	void initialize_problem();
+	void initialize();
 };
 }
 

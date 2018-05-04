@@ -11,7 +11,7 @@ namespace OFEC {
 	
 	}
 
-	void michalewicz::initialize_problem() {
+	void michalewicz::initialize() {
 
 		set_range(0, OFEC_PI);
 		set_init_range(0, OFEC_PI);

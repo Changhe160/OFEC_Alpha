@@ -13,7 +13,7 @@ namespace OFEC {
 		
 	}
 
-	void shubert::initialize_problem() {
+	void shubert::initialize() {
 		set_range(-10, 10);
 		set_init_range(-10, 10);
 		m_variable_accuracy = 0.5;

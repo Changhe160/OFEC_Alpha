@@ -38,11 +38,11 @@ namespace OFEC {
 			}
 			for (size_t i = 0; i < m_num_function; ++i) {
 				m_function[i] = dynamic_cast<function*>(f[i]("", m_dim[i], m_objective_size));
-				m_function[i]->initialize_problem();
+				m_function[i]->initialize();
 				m_function[i]->set_bias(0);
 			}
 		}
-		void F8_hybrid3::initialize_problem() {
+		void F8_hybrid3::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			m_num_function = 5;

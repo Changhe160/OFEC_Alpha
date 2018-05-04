@@ -32,7 +32,7 @@ namespace OFEC {
 			delete[] mp_w;
 		}
 
-		void N7S1_SR_Ackley_F6::initialize_problem() {
+		void N7S1_SR_Ackley_F6::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-32, 32);

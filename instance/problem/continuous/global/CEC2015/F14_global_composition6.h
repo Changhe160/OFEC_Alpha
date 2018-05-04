@@ -28,8 +28,8 @@ namespace OFEC {
 			F14_global_composition6(param_map &v);
 			F14_global_composition6(const std::string &name, size_t size_var, size_t size_obj);
 
+			void initialize();
 		protected:
-			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 

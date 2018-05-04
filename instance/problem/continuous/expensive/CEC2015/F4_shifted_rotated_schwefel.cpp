@@ -13,7 +13,7 @@ namespace OFEC {
 			
 		}
 
-		void F4_shifted_rotated_schwefel::initialize_problem() {
+		void F4_shifted_rotated_schwefel::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::EOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-500, 500);

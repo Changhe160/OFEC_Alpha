@@ -21,7 +21,7 @@ namespace OFEC {
 
 		}
 
-		void ShiftedRosenbrock_F12::initialize_problem() {
+		void ShiftedRosenbrock_F12::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-100, 100);

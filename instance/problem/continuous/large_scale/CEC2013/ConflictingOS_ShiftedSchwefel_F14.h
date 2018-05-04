@@ -23,8 +23,8 @@ namespace OFEC {
 			ConflictingOS_ShiftedSchwefel_F14(const std::string &name, size_t size_var, size_t size_obj);
 			void evaluate__(real *x, std::vector<real>& obj);
 			~ConflictingOS_ShiftedSchwefel_F14();
-		protected:
-			void initialize_problem();
+
+			void initialize();
 		};
 	}
 	using CEC2013_LSOP_F14 = CEC2013::ConflictingOS_ShiftedSchwefel_F14;

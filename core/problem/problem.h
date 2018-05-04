@@ -163,7 +163,7 @@ namespace OFEC {
 			return dynamic_cast<Solution *>(ms_minmax_objective[i].second.get());
 		}
 
-		virtual void initialize_problem() = 0;
+		virtual void initialize() = 0;
 	protected:
 		problem& operator=(const problem& rhs);  // assignment is not allowed outside
 		problem& operator=(problem&& rhs);

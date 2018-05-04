@@ -9,8 +9,8 @@ namespace OFEC {
 		MOEA_FBase(name, size_var, 2) {
 		
 	}
-	void MOEA_F9::initialize_problem() {
-		MOEA_FBase::initialize_problem();
+	void MOEA_F9::initialize() {
+		MOEA_FBase::initialize();
 		std::vector<std::pair<real, real>> range(m_variable_size, std::make_pair(-1, 1));
 		range[0].first = 0;
 		set_range(range);

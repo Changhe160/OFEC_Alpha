@@ -12,7 +12,7 @@ namespace OFEC {
 			
 		}
 
-		void five_uneven_peak_trap::initialize_problem() {
+		void five_uneven_peak_trap::initialize() {
 			set_range(0, 30);
 			set_init_range(0, 30);
 			m_opt_mode[0] = optimization_mode::Maximization;

@@ -11,7 +11,7 @@ namespace OFEC {
 			
 		}
 
-		void F5_SR_expanded_uneven_minima::initialize_problem() {
+		void F5_SR_expanded_uneven_minima::initialize() {
 			set_range(-100, 100);
 			set_init_range(-100, 100);
 			m_opt_mode[0] = optimization_mode::Minimization;

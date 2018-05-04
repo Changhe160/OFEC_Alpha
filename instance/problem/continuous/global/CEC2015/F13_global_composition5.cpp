@@ -35,7 +35,7 @@ namespace OFEC {
 			for (size_t i = 0; i < m_num_function + m_num_hybrid; ++i) {
 				if(i==0||i==2) m_hybrid[num1++] = dynamic_cast<hybrid*>(f[i]("", m_variable_size, m_objective_size));
 				else m_function[num2++] = dynamic_cast<function*>(f[i]("", m_variable_size, m_objective_size));
-				m_function[i]->initialize_problem();
+				m_function[i]->initialize();
 			}
 
 			for (auto &i : m_function)
@@ -61,7 +61,7 @@ namespace OFEC {
 
 		}
 
-		void F13_global_composition5::initialize_problem() {
+		void F13_global_composition5::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::EOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-100., 100.);

@@ -23,8 +23,8 @@ namespace OFEC {
 			ConformingOS_ShiftedSchwefel_F13(const std::string &name, size_t size_var, size_t size_obj);
 			void evaluate__(real *x, std::vector<real>& obj);
 			~ConformingOS_ShiftedSchwefel_F13();
-		protected:
-			void initialize_problem();
+
+			void initialize();
 		};
 	}
 	using CEC2013_LSOP_F13 = CEC2013::ConformingOS_ShiftedSchwefel_F13;

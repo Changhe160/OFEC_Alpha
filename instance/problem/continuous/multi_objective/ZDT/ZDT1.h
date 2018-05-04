@@ -10,7 +10,7 @@ namespace OFEC {
 		ZDT1(param_map &v);
 		ZDT1(const std::string &name, size_t size_var);
 		~ZDT1() {};
-		void initialize_problem();
+		void initialize();
 	private:
 		void evaluate__(double *x, std::vector<double>& obj);
 	};

@@ -23,7 +23,7 @@ namespace OFEC {
 		
 	}
 
-	void modified_schwefel::initialize_problem() {
+	void modified_schwefel::initialize() {
 		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 		m_variable_monitor = true;
 		set_range(-100., 100.);

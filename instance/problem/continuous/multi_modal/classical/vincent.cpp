@@ -33,7 +33,7 @@ namespace OFEC {
 		
 	}
 
-	void vincent::initialize_problem() { // note
+	void vincent::initialize() { // note
 		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		set_range(0.25, 10.); // note
 		set_init_range(0.25, 10.);

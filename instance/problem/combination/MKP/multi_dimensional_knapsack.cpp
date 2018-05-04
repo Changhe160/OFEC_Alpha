@@ -14,7 +14,7 @@ namespace OFEC {
 	{
 		m_file_name = file_name;
 	}
-	void multi_dimensional_knapsack::initialize_problem() {
+	void multi_dimensional_knapsack::initialize() {
 		read_problem();
 
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)

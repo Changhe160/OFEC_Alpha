@@ -25,7 +25,7 @@ namespace OFEC {
 		
 	}
 
-	void max_global::initialize_problem() {
+	void max_global::initialize() {
 		set_range(0, 1);
 		set_init_range(0, 1);
 		m_opt_mode[0] = optimization_mode::Maximization;

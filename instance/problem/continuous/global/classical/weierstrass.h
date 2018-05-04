@@ -22,8 +22,8 @@ namespace OFEC {
 	public:
 		weierstrass(param_map &v);
 		weierstrass(const std::string &name, size_t size_var, size_t size_obj);
+		void initialize();
 	protected:
-		void initialize_problem();
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 		double m_a = 0.5, m_b = 3;

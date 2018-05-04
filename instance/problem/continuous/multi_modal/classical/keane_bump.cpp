@@ -29,7 +29,7 @@ namespace OFEC {
 		
 	}
 
-	void keane_bump::initialize_problem() {  // note: no optima
+	void keane_bump::initialize() {  // note: no optima
 		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		set_range(0, 10);
 		set_init_range(0, 10);

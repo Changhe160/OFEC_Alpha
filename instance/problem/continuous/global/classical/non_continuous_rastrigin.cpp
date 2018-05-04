@@ -23,7 +23,7 @@ namespace OFEC {
 		
 	}
 
-	void non_continuous_rastrigin::initialize_problem() {
+	void non_continuous_rastrigin::initialize() {
 		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 		m_variable_monitor = true;
 		set_range(-5.12, 5.12);

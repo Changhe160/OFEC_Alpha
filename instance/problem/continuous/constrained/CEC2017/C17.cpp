@@ -10,7 +10,7 @@ namespace OFEC {
 			function(name, size_var, size_obj) {
 			
 		}
-		void C17::initialize_problem() {
+		void C17::initialize() {
 			m_variable_monitor = true;
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);

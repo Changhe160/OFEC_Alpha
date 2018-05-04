@@ -23,7 +23,7 @@ namespace OFEC {
 		void evaluate__(double *x, std::vector<double>& obj) { calObjective(x, obj); }
 		int m_dtype, m_ptype, m_ltype;
 	public:
-		void initialize_problem();
+		void initialize();
 	};
 }
 #endif //MOEA_FBASE_H

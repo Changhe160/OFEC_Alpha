@@ -51,7 +51,6 @@ namespace OFEC {
 
 		void translate_zero();
 
-		//virtual void initialize() {};
 		virtual bool load_translation(const std::string &path);
 		virtual void load_translation_(const std::string &path);
 		virtual void set_translation(const real *opt_var);

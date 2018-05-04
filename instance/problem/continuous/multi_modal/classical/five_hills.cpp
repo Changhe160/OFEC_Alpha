@@ -27,7 +27,7 @@ namespace OFEC {
 		
 	}
 
-	void five_hills::initialize_problem() {
+	void five_hills::initialize() {
 		std::vector<std::pair<real, real>> range;
 		range.push_back(std::make_pair(-2.5, 3.));
 		range.push_back(std::make_pair(-2, 2.));
@@ -45,7 +45,7 @@ namespace OFEC {
 		ss << global::ms_arg.at("workingDir") << "instance/problem/continuous/global/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
 		in.open(ss.str().c_str());
 		if (in.fail()) {
-			throw myexcept("cannot open data file@five_hills::initialize_problem()");
+			throw myexcept("cannot open data file@five_hills::initialize()");
 		}
 		for (int i = 0; i < 5; ++i) {
 			double x0, x1, obj;

@@ -34,7 +34,7 @@ namespace OFEC {
 
 		}
 
-		void N20_SR_Rastrigin_F9::initialize_problem() {
+		void N20_SR_Rastrigin_F9::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-100, 100);

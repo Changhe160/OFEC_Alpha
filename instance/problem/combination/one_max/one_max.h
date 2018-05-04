@@ -57,7 +57,7 @@ namespace OFEC {
 		optima<variable<int>, real>& get_optima() {
 			return m_optima;
 		}
-		void initialize_problem();
+		void initialize();
 	};
 
 }

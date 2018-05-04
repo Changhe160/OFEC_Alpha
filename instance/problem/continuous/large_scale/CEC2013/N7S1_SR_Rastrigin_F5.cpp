@@ -34,7 +34,7 @@ namespace OFEC {
 
 		}
 
-		void N7S1_SR_Rastrigin_F5::initialize_problem() {
+		void N7S1_SR_Rastrigin_F5::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-5, 5);

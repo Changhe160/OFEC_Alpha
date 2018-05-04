@@ -7,8 +7,8 @@ namespace OFEC {
 	ZDT3::ZDT3(const std::string & name, size_t size_var) : problem(name, size_var, 2), ZDT(name, size_var) {
 		
 	}
-	void ZDT3::initialize_problem() {
-		ZDT::initialize_problem();
+	void ZDT3::initialize() {
+		ZDT::initialize();
 		generateAdLoadPF();
 	}
 	void ZDT3::evaluate__(double * x, std::vector<double>& obj) {

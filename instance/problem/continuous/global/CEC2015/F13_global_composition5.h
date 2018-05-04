@@ -30,8 +30,8 @@ namespace OFEC {
 			F13_global_composition5(const std::string &name, size_t size_var, size_t size_obj);
 			~F13_global_composition5();
 			hybrid* get_hybrid(size_t num);
+			void initialize();
 		protected:
-			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 			bool load_hybrid_translation(const std::string &path);

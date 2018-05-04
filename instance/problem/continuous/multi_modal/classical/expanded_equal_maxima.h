@@ -27,8 +27,8 @@ namespace OFEC {
 	public:
 		expanded_equal_maxima(param_map &v);
 		expanded_equal_maxima(const std::string &name, size_t size_var, size_t size_obj);
+		void initialize();
 	protected:
-		void initialize_problem();
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};

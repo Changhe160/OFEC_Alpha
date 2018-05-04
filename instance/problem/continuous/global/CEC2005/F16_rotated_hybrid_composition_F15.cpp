@@ -31,7 +31,7 @@ namespace OFEC {
 			
 		}
 
-		void F16_rotated_hybrid_composition_F15::initialize_problem() {
+		void F16_rotated_hybrid_composition_F15::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-5., 5.);

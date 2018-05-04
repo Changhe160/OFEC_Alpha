@@ -27,7 +27,7 @@ namespace OFEC {
 		
 	}
 
-	void waves::initialize_problem() {
+	void waves::initialize() {
 		std::vector<std::pair<real, real>> data;
 		data.push_back(std::make_pair(-0.9, 1.2));
 		data.push_back(std::make_pair(-1.2, 1.2));
@@ -45,7 +45,7 @@ namespace OFEC {
 		std::vector<std::vector<real>> var_data(10, std::vector<real>(m_variable_size));
 		ss << global::ms_arg.at("workingDir") << "instance/problem/continuous/global/classical/data/" << m_name << "_Opt_" << m_variable_size << "Dim.txt";
 		in.open(ss.str().c_str());
-		if (!in)		throw myexcept("cannot open data file@waves::initialize_problem()");
+		if (!in)		throw myexcept("cannot open data file@waves::initialize()");
 
 		for (int i = 0; i < 10; ++i) {
 			double x0, x1, obj;

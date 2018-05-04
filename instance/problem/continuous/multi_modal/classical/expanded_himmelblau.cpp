@@ -12,7 +12,7 @@ namespace OFEC {
 		
 	}
 
-	void expanded_himmelblau::initialize_problem() {
+	void expanded_himmelblau::initialize() {
 		set_range(-40., 10.);
 		set_init_range(-40., 10.);
 		m_opt_mode[0] = optimization_mode::Minimization;

@@ -33,7 +33,7 @@ namespace OFEC {
 		
 	}
 
-	void beasley::initialize_problem() { 
+	void beasley::initialize() { 
 		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		
 		set_range(0, 1.); 

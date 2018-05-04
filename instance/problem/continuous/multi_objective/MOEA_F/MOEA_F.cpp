@@ -5,7 +5,7 @@ namespace OFEC {
 	MOEA_FBase::MOEA_FBase(const std::string & name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), continuous(name, size_var, size_obj) {
 		
 	}
-	void MOEA_FBase::initialize_problem() {
+	void MOEA_FBase::initialize() {
 		set_range(0., 1.);
 		set_tag(std::set<problem_tag>({ problem_tag::MOP, problem_tag::CONT }));
 		for (size_t idx = 0; idx < opt_mode().size(); ++idx)

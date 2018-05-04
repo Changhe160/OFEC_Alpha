@@ -12,7 +12,7 @@ namespace OFEC {
 			
 		}
 
-		void F7_shifted_rotated_griewank_no_bound::initialize_problem() {
+		void F7_shifted_rotated_griewank_no_bound::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(0, 600);

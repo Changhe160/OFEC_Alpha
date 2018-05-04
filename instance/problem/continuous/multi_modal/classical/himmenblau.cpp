@@ -27,7 +27,7 @@ namespace OFEC {
 		
 	}
 
-	void himmenblau::initialize_problem() {
+	void himmenblau::initialize() {
 		set_range(-6, 6);
 		set_init_range(-6, 6);
 

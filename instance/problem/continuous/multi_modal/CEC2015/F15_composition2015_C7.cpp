@@ -36,7 +36,7 @@ namespace OFEC {
 
 			for (size_t i = 0; i < m_num_function; ++i) {
 				m_function[i] = dynamic_cast<function*>(f[i / 2]("", m_variable_size, m_objective_size));
-				m_function[i]->initialize_problem();
+				m_function[i]->initialize();
 				m_function[i]->set_bias(0);
 			}
 
@@ -82,7 +82,7 @@ namespace OFEC {
 			//set_bias(1300);
 		}
 
-		void F15_composition2015_C7::initialize_problem() {   // don't set optima
+		void F15_composition2015_C7::initialize() {   // don't set optima
 			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-100., 100.);

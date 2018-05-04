@@ -12,7 +12,7 @@ namespace OFEC {
 			
 		}
 
-		void expanded_two_peak_trap::initialize_problem() {
+		void expanded_two_peak_trap::initialize() {
 			set_range(-40., 40.);
 			set_init_range(-40., 40.);
 			m_opt_mode[0] = optimization_mode::Minimization;

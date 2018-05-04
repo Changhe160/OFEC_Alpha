@@ -21,7 +21,7 @@ namespace OFEC {
 	quadratic_assignment::~quadratic_assignment()
 	{
 	}
-	void quadratic_assignment::initialize_problem() {
+	void quadratic_assignment::initialize() {
 		mvv_flow.resize(m_variable_size);
 		mvv_distance.resize(m_variable_size);
 		for (int i = 0; i < m_variable_size; i++) {

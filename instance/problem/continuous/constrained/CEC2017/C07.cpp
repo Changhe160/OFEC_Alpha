@@ -11,7 +11,7 @@ namespace OFEC {
 			
 		}
 
-		void C07::initialize_problem() {
+		void C07::initialize() {
 			m_variable_monitor = true;
 			set_range(-50., 50.);
 			set_init_range(-50., 50.);

@@ -79,7 +79,7 @@ namespace OFEC {
 
 			//set_bias(120.);
 		}
-		void F15_hybrid_composition::initialize_problem() {
+		void F15_hybrid_composition::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-5., 5.);

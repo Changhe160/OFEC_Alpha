@@ -26,7 +26,7 @@ namespace OFEC {
 		: problem(pro_name, size_var, size_obj), m_domain(m_variable_size) {	
 		m_file_name = static_cast<std::string>(file_name);
 	}
-	void travelling_salesman::initialize_problem() {
+	void travelling_salesman::initialize() {
 		mvvv_cost.resize(m_objective_size);
 		for (int i = 0; i<m_objective_size; i++)
 			mvvv_cost[i].resize(m_variable_size);

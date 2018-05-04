@@ -28,8 +28,8 @@ namespace OFEC {
 	public:
 		keane_bump(param_map &v);
 		keane_bump(const std::string &name, size_t size_var, size_t size_obj);
+		void initialize();
 	protected:
-		void initialize_problem();
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};

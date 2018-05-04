@@ -11,7 +11,7 @@ namespace OFEC {
 			
 		}
 
-		void F7_SR_expanded_six_hump_camel_back::initialize_problem() {
+		void F7_SR_expanded_six_hump_camel_back::initialize() {
 			set_range(-100, 100);
 			set_init_range(-100, 100);
 			m_opt_mode[0] = optimization_mode::Minimization;

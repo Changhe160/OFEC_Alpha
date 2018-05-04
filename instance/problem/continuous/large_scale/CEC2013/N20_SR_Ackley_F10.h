@@ -24,8 +24,8 @@ namespace OFEC {
 			N20_SR_Ackley_F10(const std::string &name, size_t size_var, size_t size_obj);
 			void evaluate__(real *x, std::vector<real>& obj);
 			~N20_SR_Ackley_F10();
-		protected:
-			void initialize_problem();
+
+			void initialize();
 		};
 	}
 	using CEC2013_LSOP_F10 = CEC2013::N20_SR_Ackley_F10;

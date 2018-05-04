@@ -10,7 +10,7 @@ namespace OFEC {
 		DTLZ3(param_map &v);
 		DTLZ3(const std::string &name, size_t size_var, size_t size_obj);
 		~DTLZ3() {};
-		void initialize_problem();
+		void initialize();
 	private:
 		void evaluate__(double *x, std::vector<double>& obj);
 	};

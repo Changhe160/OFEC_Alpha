@@ -19,7 +19,7 @@ namespace OFEC {
 			
 		}
 
-		void F12_schwefel_2_13::initialize_problem() {
+		void F12_schwefel_2_13::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-OFEC_PI, OFEC_PI);

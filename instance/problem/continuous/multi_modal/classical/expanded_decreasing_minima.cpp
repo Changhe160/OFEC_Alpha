@@ -12,7 +12,7 @@ namespace OFEC {
 		
 	}
 
-	void expanded_decreasing_minima::initialize_problem() {
+	void expanded_decreasing_minima::initialize() {
 		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		set_range(-40, 40);
 		set_init_range(-40., 40.);

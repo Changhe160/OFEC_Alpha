@@ -23,8 +23,8 @@ namespace OFEC {
 		public:
 			F15_hybrid_composition(param_map &v);
 			F15_hybrid_composition(const std::string &name, size_t size_var, size_t size_obj);
+			void initialize();
 		protected:
-			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
 

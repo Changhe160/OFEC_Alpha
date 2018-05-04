@@ -25,8 +25,8 @@ namespace OFEC {
 		public:
 			F9_shifted_rotated_scaffer_F6(param_map &v);
 			F9_shifted_rotated_scaffer_F6(const std::string &name, size_t size_var, size_t size_obj);
+			void initialize();
 		protected:
-			void initialize_problem();
 			void evaluate__(real *x, std::vector<real>& obj);
 		private:
 		};

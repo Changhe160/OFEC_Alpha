@@ -13,7 +13,7 @@ namespace OFEC {
 		
 	}
 
-	void uneven_de_maxima::initialize_problem() { 
+	void uneven_de_maxima::initialize() { 
 		set_range(0, 1.); // note
 		set_init_range(0, 1.); // note
 

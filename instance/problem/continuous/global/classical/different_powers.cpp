@@ -11,7 +11,7 @@ namespace OFEC {
 		
 	}
 
-	void different_powers::initialize_problem() {
+	void different_powers::initialize() {
 		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 		m_variable_monitor = true;
 		set_range(-100., 100.);

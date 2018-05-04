@@ -31,7 +31,7 @@ namespace OFEC {
 			
 		}
 
-		void F22_rotated_hybrid_high_condition_number_matrix::initialize_problem() {
+		void F22_rotated_hybrid_high_condition_number_matrix::initialize() {
 			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-5., 5.);

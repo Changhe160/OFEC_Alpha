@@ -180,7 +180,7 @@ namespace OFEC {
 	public:
 		epanet(param_map &v);
 		
-		void initialize_problem();
+		void initialize();
 		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
 		void get_data(variable_epanet &sol, std::vector<std::vector<float>> &data);
 		void read_parameter();

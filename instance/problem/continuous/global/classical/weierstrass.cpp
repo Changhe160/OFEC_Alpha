@@ -25,7 +25,7 @@ namespace OFEC {
 		
 	}
 
-	void weierstrass::initialize_problem() {
+	void weierstrass::initialize() {
 		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 		m_variable_monitor = true;
 		set_range(-0.5, 0.5);

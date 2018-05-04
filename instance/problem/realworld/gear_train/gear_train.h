@@ -33,8 +33,8 @@ namespace OFEC {
 	public:
 		gear_train(param_map &v);
 		gear_train(const std::string &name, size_t size_var, size_t size_obj);
+		void initialize();
 	protected:
-		void initialize_problem();
 		void evaluate__(real *x, std::vector<real>& obj);
 	private:
 	};
