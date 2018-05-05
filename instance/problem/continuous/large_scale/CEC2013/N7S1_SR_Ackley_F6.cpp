@@ -33,7 +33,6 @@ namespace OFEC {
 		}
 
 		void N7S1_SR_Ackley_F6::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::ConOP }));
 			m_variable_monitor = true;
 			set_range(-32, 32);
 			set_init_range(-32, 32);

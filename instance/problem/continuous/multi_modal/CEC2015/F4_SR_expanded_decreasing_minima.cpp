@@ -30,7 +30,6 @@ namespace OFEC {
 			// 20Dim : 1 gopt and 210 lopt 
 			evaluate_optima();
 
-			set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 		}
 		void F4_SR_expanded_decreasing_minima::evaluate__(real *x, std::vector<real>& obj) {
 

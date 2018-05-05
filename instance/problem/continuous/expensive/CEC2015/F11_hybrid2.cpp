@@ -42,7 +42,6 @@ namespace OFEC {
 		}
 
 		void F11_hybrid2::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::EOP, problem_tag::ConOP }));
 			m_variable_monitor = true;
 			m_num_function = 4;
 			m_function.resize(m_num_function);

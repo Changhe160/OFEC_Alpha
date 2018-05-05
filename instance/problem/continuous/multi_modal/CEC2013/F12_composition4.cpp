@@ -62,7 +62,6 @@ namespace OFEC {
 			}
 		}
 		void F12_composition4::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 			m_variable_monitor = true;
 			set_range(-5., 5.);
 			set_init_range(-5., 5.);

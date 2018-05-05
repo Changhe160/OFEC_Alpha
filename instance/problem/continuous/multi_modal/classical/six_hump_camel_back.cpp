@@ -44,7 +44,6 @@ namespace OFEC {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
-		set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 		
 
 	}

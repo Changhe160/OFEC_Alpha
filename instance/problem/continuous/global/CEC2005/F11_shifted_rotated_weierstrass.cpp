@@ -12,7 +12,6 @@ namespace OFEC {
 		}
 
 		void F11_shifted_rotated_weierstrass::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::ConOP }));
 			m_variable_monitor = true;
 			set_range(-0.5, 0.5);
 			set_init_range(-0.5, 0.5);

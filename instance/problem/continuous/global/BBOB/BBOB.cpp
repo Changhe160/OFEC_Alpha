@@ -25,7 +25,6 @@ namespace OFEC {
 	}
 
 	void BBOB::initialize() {
-		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::ConOP }));
 		set_range(-5, 5);
 		m_bias = computeFopt();
 		m_optima.append(m_bias);

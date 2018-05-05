@@ -12,7 +12,6 @@ namespace OFEC {
 			
 		}
 		void equal_maxima::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 			set_range(0, 1.); 
 			set_init_range(0, 1.);
 			m_opt_mode[0] = optimization_mode::Maximization;

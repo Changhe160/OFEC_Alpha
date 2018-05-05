@@ -240,7 +240,6 @@ namespace OFEC {
 	}
 
 	void epanet::initialize() {
-		//set_tag(std::set<problem_tag>({ problem_tag::epanet }));
 
 		//m_opt_mode[0] = optimization_mode::Minimization;
 
