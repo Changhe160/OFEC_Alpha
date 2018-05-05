@@ -10,12 +10,11 @@
 namespace OFEC {
 	struct global;
 	class measure:public singleton {
-	public:
-		static std::unique_ptr<measure> ms_measure;
 	protected:
 		std::stringstream m_filename;
 		std::vector<std::vector<double>> mvv_data;
 		std::vector<std::string> m_heading;
+		static std::unique_ptr<measure> ms_measure;
 	protected:
 		measure(int numRum) : mvv_data(numRum){}
 		void input_value(const int runID) {}

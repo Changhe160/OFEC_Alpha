@@ -110,7 +110,7 @@ namespace OFEC {
 				//std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error << ' ' << std::endl;
 
 				//g_mutexStream.unlock();
-				measure::ms_measure->record(global::ms_global.get(), m_iter, num_opt_found);
+				measure::get_measure()->record(global::ms_global.get(), m_iter, num_opt_found);
 				tag = evolve();
 
 			}

@@ -122,9 +122,12 @@ namespace  OFEC {
 			m_obj.resize(no);
 		}
 		evaluation_tag evaluate(bool effective_eval=true) {
-				
+			if (global::ms_global->m_problem->evaluations() > 0 && \
+				global::ms_global->m_problem->evaluations() % global::ms_global->m_problem->sample_frequency() == 0) {
+				global::ms_global->m_algorithm->record();
+			}
 			return  global::ms_global->m_problem->evaluate(*this, caller::Algorithm, effective_eval);
-
+			
 		}
 
 		double objective_distance(const solution& rhs) const {			

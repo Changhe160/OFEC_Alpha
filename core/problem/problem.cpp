@@ -65,5 +65,5 @@ namespace OFEC {
 
 		return *this;
 	}
-	
+
 }

@@ -356,14 +356,14 @@ namespace OFEC {
 
 	int before_run() {
 		measure::initialize((int)global::ms_arg.at("numRun"));
-		//measure::ms_measure->set_heading(std::vector<std::string>({ "A","B","C" }));
+		//measure::get_measure()->set_heading(std::vector<std::string>({ "A","B","C" }));
 		int numTask = std::thread::hardware_concurrency();
 		//int numTask = (int)global::ms_arg.at("numTask");
 		return numTask;
 	}
 
 	void after_run() {
-		measure::ms_measure->output_progr();
-		measure::ms_measure->output_final();
+		measure::get_measure()->output_progr();
+		measure::get_measure()->output_final();
 	}
 }

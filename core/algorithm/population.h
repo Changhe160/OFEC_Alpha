@@ -21,7 +21,7 @@
 #define OFEC_POPULATION_H
 
 #include "../global.h"
-
+#include "../measure/measure.h"
 namespace OFEC {
 	template<typename>  class multi_population;
 
@@ -104,6 +104,7 @@ namespace OFEC {
 
 		size_t nearest_solution(size_t idx, double * min_dis=0);
 		void initialize();
+		void record();
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
 	protected:
@@ -352,6 +353,11 @@ namespace OFEC {
 	template<typename Individual>
 	void population<Individual>::initialize() {
 		initialize_pop();
+	}
+
+	template<typename Individual>
+	void population<Individual>::record() {
+		measure::get_measure()->record(global::ms_global.get(), m_iter, m_best[0]->get_objective()[0]);
 	}
 }
 

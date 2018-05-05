@@ -48,14 +48,11 @@ namespace OFEC {
 
 		template<typename Solution>
 		evaluation_tag evaluate(Solution &s, caller call, bool effective_eval = true) {
-
 			evaluation_tag tag = evaluate_(s, call, effective_eval, true);
-
 			if (m_eval_monitor&&effective_eval) {
 				update_objective_minmax(s, m_opt_mode);
 			}
 			++m_total_eval;
-
 			return tag;
 		}
 		virtual evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed) = 0;
@@ -164,6 +161,10 @@ namespace OFEC {
 		}
 
 		virtual void initialize() =0;
+
+		size_t sample_frequency() {
+			return m_sample_fre;
+		}
 	protected:
 		problem& operator=(const problem& rhs);  // assignment is not allowed outside
 		problem& operator=(problem&& rhs);

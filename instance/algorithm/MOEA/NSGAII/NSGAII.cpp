@@ -22,7 +22,7 @@ namespace OFEC {
 
 		int evals = global::ms_global->m_problem->total_evaluations();
 		double IGD = CONTINOUS_CAST->get_optima().IGD_to_PF(*this);
-		measure::ms_measure->record(global::ms_global.get(), evals, IGD);
+		measure::get_measure()->record(global::ms_global.get(), evals, IGD);
 
 		// evolution
 		while (!terminating())
@@ -34,7 +34,7 @@ namespace OFEC {
 			evals = global::ms_global->m_problem->total_evaluations();
 			if (evals % (int)global::ms_arg.at("sampleFre") == 0) {
 				IGD = CONTINOUS_CAST->get_optima().IGD_to_PF(*this);
-				measure::ms_measure->record(global::ms_global.get(), evals, IGD);
+				measure::get_measure()->record(global::ms_global.get(), evals, IGD);
 			}
 		}
 		return evaluation_tag::Normal;

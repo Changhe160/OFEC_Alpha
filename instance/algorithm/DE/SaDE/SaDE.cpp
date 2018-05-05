@@ -126,7 +126,7 @@ namespace OFEC {
 				int num_obj_found = CONTINOUS_CAST->num_optima_found();
 				std::cout << m_iter << ' ' << num_obj_found << ' ' << error << std::endl;
 				//g_mutexStream.unlock();
-				measure::ms_measure->record(global::ms_global.get(), m_iter, num_obj_found);
+				measure::get_measure()->record(global::ms_global.get(), m_iter, num_obj_found);
 				update_CR();
 				update_F();
 				tag = evolve();
