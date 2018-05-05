@@ -100,6 +100,7 @@ namespace OFEC {
 				global::ms_global->m_problem->initialize();
 
 				global::ms_global->m_algorithm.reset(factory<algorithm>::produce(global::ms_arg.at("algName"), global::ms_arg));
+				global::ms_global->m_algorithm->initialize();
 				g_mutex.unlock();
 				global::ms_global->m_algorithm->run();
 			}

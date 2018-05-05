@@ -98,11 +98,12 @@ namespace OFEC {
 		double mean(int oidx);	//mean value of the oidx-th objective
 		double variance(int oidx, double mean); //variance of the oidx-th objective
 
-		void initialize(); //a uniformly distributed initialization by default
+		void initialize_pop(); //a uniformly distributed initialization by default
 		template<typename Fun, typename Problem, typename... Args>
-		void initialize(Fun fun, const Problem* pro, Args&& ... args);
+		void initialize_pop(Fun fun, const Problem* pro, Args&& ... args);
 
 		size_t nearest_solution(size_t idx, double * min_dis=0);
+		void initialize();
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
 	protected:
@@ -210,7 +211,6 @@ namespace OFEC {
 		size_t size_obj = global::ms_global->m_problem->objective_size();
 		for (auto& i : m_pop)
 			i = std::move(std::unique_ptr<Individual>(new Individual(size_obj, std::forward<Args>(args)...)));
-		initialize();
 	}
 
 	template<typename Individual>
@@ -222,6 +222,7 @@ namespace OFEC {
 
 	template<typename Individual>
 	population<Individual>& population<Individual>::operator=(const population &rhs) {
+		//Warning, deep copy here
 		m_iter = rhs.m_iter;
 		m_id = rhs.m_id;
 		m_pop = rhs.m_pop;
@@ -272,7 +273,7 @@ namespace OFEC {
 	}
 
 	template<typename Individual>
-	void population<Individual>::initialize() {
+	void population<Individual>::initialize_pop() {
 		for (int i = 0; i < m_pop.size(); ++i) {
 			m_pop[i]->initialize(i);
 		}
@@ -280,7 +281,7 @@ namespace OFEC {
 	}
 	template<typename Individual>
 	template<typename Fun, typename Problem, typename... Args>
-	void  population<Individual>::initialize(Fun fun, const Problem* pro, Args&& ... args) {
+	void  population<Individual>::initialize_pop(Fun fun, const Problem* pro, Args&& ... args) {
 
 		fun(m_pop, pro, std::forward<Args>(args)...);
 
@@ -346,6 +347,11 @@ namespace OFEC {
 	void population<Individual>::resize_variable(int n) {
 		for (auto &i : m_pop)
 			i.resize_variable(n);
+	}
+
+	template<typename Individual>
+	void population<Individual>::initialize() {
+		initialize_pop();
 	}
 }
 

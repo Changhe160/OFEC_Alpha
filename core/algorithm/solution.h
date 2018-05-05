@@ -39,7 +39,7 @@ namespace  OFEC {
 
 		template<typename ... Args>
 		solution(size_t no, Args&& ... args ):m_var(std::forward<Args>(args)...),m_obj(no){ }		
-		solution(){}
+		//solution()=default;
 		solution(const solution& rhs) :base(rhs), m_var(rhs.m_var), 
 			m_obj(rhs.m_obj),m_constraint_value(rhs.m_constraint_value){}
 		solution(solution&& rhs) :base(rhs),  m_var(std::move(rhs.m_var)), 
