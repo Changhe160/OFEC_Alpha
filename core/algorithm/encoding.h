@@ -30,7 +30,7 @@
 namespace OFEC {
 	class base {
 	public:
-		virtual evaluation_tag evaluate(bool=true) = 0;
+		virtual evaluation_tag evaluate(bool=true, caller= caller::Algorithm) = 0;
 		virtual ~base() {};
 		base(const base&) = default;
 		base(base&&) = default;

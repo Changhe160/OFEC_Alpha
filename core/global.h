@@ -56,6 +56,7 @@ namespace OFEC{
 		static std::map<const std::string, const std::string> ms_param;
 		static factory<problem> ms_reg_problem;
 		static factory<algorithm> ms_reg_algorithm;
+		static size_t ms_sample_fre;
 	};
 }
 #endif // !OFEC_GLOBAL_H

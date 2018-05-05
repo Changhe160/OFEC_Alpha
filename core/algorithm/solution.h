@@ -121,12 +121,12 @@ namespace  OFEC {
 			m_var.resize(nv);
 			m_obj.resize(no);
 		}
-		evaluation_tag evaluate(bool effective_eval=true) {
-			if (global::ms_global->m_problem->evaluations() > 0 && \
-				global::ms_global->m_problem->evaluations() % global::ms_global->m_problem->sample_frequency() == 0) {
+		evaluation_tag evaluate(bool effective_eval=true, caller c= caller::Algorithm) {
+			if (effective_eval&&global::ms_global->m_problem->evaluations() > 0 && \
+				global::ms_global->m_problem->evaluations() % global::ms_sample_fre == 0) {
 				global::ms_global->m_algorithm->record();
 			}
-			return  global::ms_global->m_problem->evaluate(*this, caller::Algorithm, effective_eval);
+			return  global::ms_global->m_problem->evaluate(*this, c, effective_eval);
 			
 		}
 

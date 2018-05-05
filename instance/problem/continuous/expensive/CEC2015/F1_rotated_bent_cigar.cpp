@@ -2,16 +2,12 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F1_rotated_bent_cigar::F1_rotated_bent_cigar(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-			bent_cigar((v.at("proName")), (v.at("numDim")), 1) {
-			if (v.find("sampleFre") != v.end()) {
-				m_sample_fre = v.at("sampleFre");
-			}
-			
+		F1_rotated_bent_cigar::F1_rotated_bent_cigar(param_map &v) :\
+			F1_rotated_bent_cigar(v.at("proName"), v.at("numDim"), 1){
+					
 		}
-		F1_rotated_bent_cigar::F1_rotated_bent_cigar(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			bent_cigar(name, size_var, size_obj) {
-
+		F1_rotated_bent_cigar::F1_rotated_bent_cigar(const std::string &name, size_t size_var, size_t size_obj ) :\
+			problem(name, size_var, size_obj), bent_cigar(name, size_var, size_obj) {
 			
 		}
 

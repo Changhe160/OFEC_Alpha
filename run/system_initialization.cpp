@@ -49,7 +49,7 @@ namespace OFEC {
 			}
 		}
 #ifdef OFEC_CONSOLE
-		if (global::ms_arg.find("sampleFre") == global::ms_arg.end()) global::ms_arg.insert({ "sampleFre", 2 });
+		if (global::ms_arg.find("sampleFre") != global::ms_arg.end()) global::ms_sample_fre= global::ms_arg["sampleFre"];
 		if (global::ms_arg.find("workingDir") == global::ms_arg.end())  global::ms_arg.insert({ "workingDir", "./" });
 		if (global::ms_arg.find("numRun") == global::ms_arg.end())  global::ms_arg.insert({ "numRun", 1 });
 		if (global::ms_arg.find("dataFile1") != global::ms_arg.end())

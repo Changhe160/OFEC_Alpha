@@ -33,7 +33,7 @@ namespace OFEC {
 		for (size_t i = 0; i < m_variable_size; ++i)
 			m_domain.set_range(0, m_variable_size - 1, i);
 
-		m_sample_fre = m_variable_size * 2;
+		global::ms_sample_fre  = m_variable_size * 2;
 
 		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
 	}

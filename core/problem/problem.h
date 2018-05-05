@@ -162,9 +162,6 @@ namespace OFEC {
 
 		virtual void initialize() =0;
 
-		size_t sample_frequency() {
-			return m_sample_fre;
-		}
 	protected:
 		problem& operator=(const problem& rhs);  // assignment is not allowed outside
 		problem& operator=(problem&& rhs);
@@ -182,7 +179,7 @@ namespace OFEC {
 		std::stringstream m_paramters;
 		bool m_solved = false;
 		bool m_eval_monitor = false;
-		size_t m_sample_fre = 1;
+		
 #ifdef OFEC_CONSOLE
 		static thread_local std::map<int, std::pair<std::unique_ptr<base>, std::unique_ptr<base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
 #endif

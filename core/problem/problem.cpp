@@ -42,7 +42,6 @@ namespace OFEC {
 		m_paramters.str(rhs.m_paramters.str());
 
 		m_eval_monitor = rhs.m_eval_monitor;
-		m_sample_fre = rhs.m_sample_fre;
 
 		return *this;
 	}
@@ -61,7 +60,6 @@ namespace OFEC {
 		m_solved = rhs.m_solved;
 		m_paramters = std::move(rhs.m_paramters);
 		m_eval_monitor = rhs.m_eval_monitor;
-		m_sample_fre = rhs.m_sample_fre;
 
 		return *this;
 	}

@@ -17,7 +17,7 @@ namespace OFEC {
 	void multi_dimensional_knapsack::initialize() {
 		read_problem();
 
-		m_sample_fre = m_variable_size * 2;
+		global::ms_sample_fre  = m_variable_size * 2;
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Maximization;
 

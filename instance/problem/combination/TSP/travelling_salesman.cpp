@@ -14,19 +14,19 @@ namespace OFEC {
 		m_file_name = file_name;
 	}
 	void travelling_salesman::initialize() {
-		if (m_variable_size <= 20) m_sample_fre = 10;
-		else if (m_variable_size <= 50) m_sample_fre = 100;
-		else if (m_variable_size <= 100) m_sample_fre = 500;
-		else if (m_variable_size <= 200) m_sample_fre = 10000;
-		else if (m_variable_size <= 300) m_sample_fre = 20000;
-		else if (m_variable_size <= 400) m_sample_fre = 50000;
-		else if (m_variable_size <= 500) m_sample_fre = 100000;
-		else if (m_variable_size <= 600) m_sample_fre = 200000;
-		else if (m_variable_size <= 700) m_sample_fre = 500000;
-		else if (m_variable_size <= 800) m_sample_fre = 1000000;
-		else if (m_variable_size <= 900) m_sample_fre = 2000000;
-		else if (m_variable_size <= 1000) m_sample_fre = 3000000;
-		else if (m_variable_size <= 2000) m_sample_fre = 5000000;
+		if (m_variable_size <= 20) global::ms_sample_fre  = 10;
+		else if (m_variable_size <= 50) global::ms_sample_fre  = 100;
+		else if (m_variable_size <= 100) global::ms_sample_fre  = 500;
+		else if (m_variable_size <= 200) global::ms_sample_fre  = 10000;
+		else if (m_variable_size <= 300) global::ms_sample_fre  = 20000;
+		else if (m_variable_size <= 400) global::ms_sample_fre  = 50000;
+		else if (m_variable_size <= 500) global::ms_sample_fre  = 100000;
+		else if (m_variable_size <= 600) global::ms_sample_fre  = 200000;
+		else if (m_variable_size <= 700) global::ms_sample_fre  = 500000;
+		else if (m_variable_size <= 800) global::ms_sample_fre  = 1000000;
+		else if (m_variable_size <= 900) global::ms_sample_fre  = 2000000;
+		else if (m_variable_size <= 1000) global::ms_sample_fre  = 3000000;
+		else if (m_variable_size <= 2000) global::ms_sample_fre  = 5000000;
 
 		mvvv_cost.resize(m_objective_size);
 		for (int i = 0; i<m_objective_size; i++)
