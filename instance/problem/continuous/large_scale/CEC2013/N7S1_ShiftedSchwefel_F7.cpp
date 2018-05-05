@@ -35,7 +35,7 @@ namespace OFEC {
 		}
 
 		void N7S1_ShiftedSchwefel_F7::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
+			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::ConOP }));
 			m_variable_monitor = true;
 			set_range(-100, 100);
 			set_init_range(-100, 100);

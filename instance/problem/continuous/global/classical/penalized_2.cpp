@@ -26,7 +26,7 @@ namespace OFEC {
 	}
 
 	void penalized_2::initialize() {
-		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::ConOP }));
 		m_variable_monitor = true;
 		set_range(-50, 50);
 		set_init_range(-50., 50.);

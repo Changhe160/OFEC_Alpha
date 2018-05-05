@@ -34,7 +34,7 @@ namespace OFEC {
 	}
 
 	void vincent::initialize() { // note
-		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+		set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 		set_range(0.25, 10.); // note
 		set_init_range(0.25, 10.);
 		m_opt_mode[0] = optimization_mode::Maximization;  // note

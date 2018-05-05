@@ -51,7 +51,7 @@ namespace OFEC {
 
 			evaluation_tag tag = evaluate_(s, call, effective_eval, true);
 
-			if (effective_eval) {
+			if (m_eval_monitor&&effective_eval) {
 				update_objective_minmax(s, m_opt_mode);
 			}
 			++m_total_eval;
@@ -180,6 +180,8 @@ namespace OFEC {
 		std::set<problem_tag> m_tag;
 		std::stringstream m_paramters;
 		bool m_solved = false;
+		bool m_eval_monitor = false;
+		size_t m_sample_fre = 1;
 #ifdef OFEC_CONSOLE
 		static thread_local std::map<int, std::pair<std::unique_ptr<base>, std::unique_ptr<base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
 #endif

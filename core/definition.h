@@ -51,11 +51,11 @@ namespace OFEC {
 	//SOP: single objective problem
 	//MOP: multi-objective problem
 	//DOP: dynamic optimization problem
-	//MMP: multi-modal problem
+	//MMOP: multi-modal optimization problem
 	//GOP: global optimization problem
 	//ROOT: robust optimzation problem
-	//CONT: continuous optimization problem
-	//COMB: combinatorial optimization problem
+	//ConOP: continuous optimization problem
+	//ComOP: combinatorial optimization problem
 	//TSP: travelling salesman problem
 	//COP: constraint optimization problem
 	//VRP: vehicle routing problem
@@ -69,7 +69,7 @@ namespace OFEC {
 	//EOP: expensive optimization problem
 	//LSOP: large scale optimization problem
 	enum class problem_tag {null_tag,
-		SOP, MOP, DOP, MMP, GOP, ROOT, CONT, COMB, TSP, COP, VRP, TTP, JSP,
+		SOP, MOP, DOP, MMOP, GOP, ROOT, ConOP, ComOP, TSP, COP, VRP, TTP, JSP,
 		KOP, SAT, ONEMAX, QAP, MKP, EOP, LSOP, epanet
 	};
 }

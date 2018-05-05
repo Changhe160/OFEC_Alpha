@@ -46,7 +46,7 @@ namespace OFEC {
 			}
 		}
 		void F9_composition1::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+			set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 			m_variable_monitor = true;
 			m_num_function = 6;
 			m_function.resize(m_num_function);

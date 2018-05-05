@@ -14,7 +14,7 @@ namespace OFEC {
 		}
 
 		void F3_shifted_rotated_weierstrass::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::EOP, problem_tag::CONT }));
+			set_tag(std::set<problem_tag>({ problem_tag::EOP, problem_tag::ConOP }));
 			set_range(-0.5, 0.5);
 			set_init_range(-0.5, 0.5);
 			m_variable_monitor = true;

@@ -34,7 +34,7 @@ namespace OFEC {
 		}
 
 		void N20_SR_Ackley_F10::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::CONT }));
+			set_tag(std::set<problem_tag>({ problem_tag::LSOP, problem_tag::ConOP }));
 			m_variable_monitor = true;
 			set_range(-5, 5);
 			set_init_range(-5, 5);

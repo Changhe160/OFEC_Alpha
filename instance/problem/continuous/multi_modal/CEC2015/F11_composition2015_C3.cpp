@@ -72,7 +72,7 @@ namespace OFEC {
 		}
 
 		void F11_composition2015_C3::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+			set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 			m_variable_monitor = true;
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
@@ -93,7 +93,7 @@ namespace OFEC {
 
 			evaluate_optima();
 
-			add_tag(problem_tag::MMP);
+			add_tag(problem_tag::MMOP);
 		}
 		void F11_composition2015_C3::evaluate__(real *x, std::vector<real>& obj) {
 			std::vector<real> x_(m_variable_size);

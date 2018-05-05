@@ -29,7 +29,7 @@ namespace OFEC {
 
 			evaluate_optima();
 
-			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+			set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 		}
 		void F6_SR_expanded_himmelblau::evaluate__(real *x, std::vector<real>& obj) {
 

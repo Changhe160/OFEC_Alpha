@@ -174,7 +174,7 @@ AUTHOR:     L. Rossman
 
 #define   w_UNBALANCED  "UNBA"
 #define   w_STOP        "STOP"
-#define   w_CONTINUE    "CONT"
+#define   w_CONTINUE    "ConOP"
 
 #define   w_RULE        "RULE"
 #define   w_IF          "IF"
@@ -192,7 +192,7 @@ AUTHOR:     L. Rossman
 #define   s_PIPES       "[PIPE"
 #define   s_PUMPS       "[PUMP"
 #define   s_VALVES      "[VALV"
-#define   s_CONTROLS    "[CONT"
+#define   s_CONTROLS    "[ConOP"
 #define   s_RULES       "[RULE"
 #define   s_DEMANDS     "[DEMA"
 #define   s_SOURCES     "[SOUR"

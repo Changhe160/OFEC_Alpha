@@ -28,7 +28,7 @@ namespace OFEC {
 			// 2^Dim gopt and 5^Dim - 2^Dim lopt 
 			evaluate_optima();
 
-			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+			set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 		}
 		void F2_SR_expanded_five_uneven_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
 

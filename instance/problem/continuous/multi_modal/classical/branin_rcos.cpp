@@ -30,7 +30,7 @@ namespace OFEC {
 	}
 
 	void branin_rcos::initialize() {
-		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+		set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 		std::vector<std::pair<real, real>> range;
 		range.push_back(std::make_pair(-5., 10.));
 		range.push_back(std::make_pair(0., 15.));

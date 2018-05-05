@@ -37,7 +37,7 @@ namespace OFEC {
 		}
 
 		void F25_rotated_hybrid_no_bound::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::ConOP }));
 			m_variable_monitor = true;
 			set_range(2, 5);
 			set_init_range(2, 5);

@@ -26,7 +26,7 @@ namespace OFEC {
 				set_original_global_opt(i.data());
 			}
 			m_optima = m_original_optima;
-			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+			set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 		}
 		void expanded_two_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
 			if (m_translation_flag)

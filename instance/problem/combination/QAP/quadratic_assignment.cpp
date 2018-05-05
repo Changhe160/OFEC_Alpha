@@ -8,7 +8,6 @@ namespace OFEC {
 		
 		m_file_name = static_cast<std::string>(v.at("dataFile1"));
 
-		v.at("sampleFre") = m_variable_size * 2;
 
 	}
 
@@ -34,8 +33,7 @@ namespace OFEC {
 		for (size_t i = 0; i < m_variable_size; ++i)
 			m_domain.set_range(0, m_variable_size - 1, i);
 
-		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
-			m_opt_mode[idx] = optimization_mode::Minimization;
+		m_sample_fre = m_variable_size * 2;
 
 		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
 	}

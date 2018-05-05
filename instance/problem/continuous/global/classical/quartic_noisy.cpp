@@ -27,7 +27,7 @@ namespace OFEC {
 
 	
 	void quartic_noisy::initialize() {
-		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
+		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::ConOP }));
 		m_variable_monitor = true;
 		set_range(-1.28, 1.28);
 		set_init_range(-1.28, 1.28);

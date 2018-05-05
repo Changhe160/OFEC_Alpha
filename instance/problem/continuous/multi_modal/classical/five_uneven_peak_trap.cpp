@@ -25,7 +25,7 @@ namespace OFEC {
 				m_original_optima.append(i[0]);
 			}
 			m_optima = m_original_optima;
-			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
+			set_tag(std::set<problem_tag>({ problem_tag::MMOP, problem_tag::ConOP }));
 		}
 		void five_uneven_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
 			double s = -1.0;
