@@ -58,7 +58,7 @@ namespace OFEC {
 			evaluation_tag run_();
 		protected:
 			evaluation_tag evolve();
-			void select_trial(int base);
+			void select_trial(int base_);
 			void update_F();
 			void update_CR();
 		protected:

@@ -38,10 +38,10 @@ namespace OFEC {
 		multi_dimensional_knapsack(param_map& v);
 		multi_dimensional_knapsack(const std::string & pro_name, size_t size_var, const std::string & file_name);
 		~multi_dimensional_knapsack() {};
-		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
-		bool is_valid(const base &s) const;
+		evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
+		bool is_valid(const solution_base &s) const;
 		void read_problem();
-		int invalid_constrain_num(base &s_) const;
+		int invalid_constrain_num(solution_base &s_) const;
 		bool get_optimal_obj(std::vector<double> &opt) const;
 		bool get_optimal_obj(std::vector<std::vector<double>> &opt) const;
 		const optima<variable<int>, real>& get_optima() const;
@@ -50,10 +50,10 @@ namespace OFEC {
 		multi_dimensional_knapsack* get_type_ptr();
 		multi_dimensional_knapsack& get_type_ref();
 		bool if_optima_found();
-		double get_constraint_value(const base& s, std::vector<double>& val) const;
-		void initialize_solution(base &s) const;
-		bool same(const base &s1, const base &s2) const;
-		double variable_distance(const base &s1, const base &s2) const;
+		double get_constraint_value(const solution_base& s, std::vector<double>& val) const;
+		void initialize_solution(solution_base &s) const;
+		bool same(const solution_base &s1, const solution_base &s2) const;
+		double variable_distance(const solution_base &s1, const solution_base &s2) const;
 		double variable_distance(const variable_base &s1, const variable_base &s2) const;
 		void initialize();
 	};

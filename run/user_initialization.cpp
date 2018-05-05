@@ -92,8 +92,6 @@ namespace OFEC {
 	}
 
 	void register_problem() {
-		/*register a null problem*/
-		RIGIESTER(null_type, null_type, "", std::set<problem_tag>());
 		/*combination*/
 		RIGIESTER(problem, multi_dimensional_knapsack, "MKP", std::set<problem_tag>({ problem_tag::MKP, problem_tag::ComOP }));
 		RIGIESTER(problem, one_max, "One_Max", std::set<problem_tag>({ problem_tag::ONEMAX, problem_tag::ComOP }));

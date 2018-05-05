@@ -42,7 +42,7 @@ namespace OFEC {
 
 		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
 	}
-	evaluation_tag travelling_salesman::evaluate_(base & s, caller call, bool effective_fes, bool constructed)
+	evaluation_tag travelling_salesman::evaluate_(solution_base & s, caller call, bool effective_fes, bool constructed)
 	{
 		variable<int> &x = dynamic_cast< solution<variable<int>, real> &>(s).get_variable();
 		std::vector<double> &obj = dynamic_cast< solution<variable<int>, real> &>(s).get_objective();
@@ -71,7 +71,7 @@ namespace OFEC {
 		return evaluation_tag::Normal;
 	}
 
-	bool travelling_salesman::is_valid(base & s) const
+	bool travelling_salesman::is_valid(solution_base & s) const
 	{
 		if (!m_if_valid_check)
 			return true;
@@ -95,7 +95,7 @@ namespace OFEC {
 		return true;
 	}
 
-	void travelling_salesman::initialize_solution(base & s) const
+	void travelling_salesman::initialize_solution(solution_base & s) const
 	{
 		variable<int>& x = dynamic_cast< solution<variable<int>, real>&>(s).get_variable();
 		global::ms_global->m_uniform[caller::Problem]->shuffle(x.begin(), x.end());
@@ -103,7 +103,7 @@ namespace OFEC {
 			throw myexcept("error in @travelling_salesman::initialize_solution() in travelling_salesman.cpp");
 	}
 
-	bool travelling_salesman::same(const base & s1, const base & s2) const
+	bool travelling_salesman::same(const solution_base & s1, const solution_base & s2) const
 	{
 		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
 		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();
@@ -133,7 +133,7 @@ namespace OFEC {
 		return false;
 	}
 
-	double travelling_salesman::variable_distance(const base & s1, const base & s2) const
+	double travelling_salesman::variable_distance(const solution_base & s1, const solution_base & s2) const
 	{
 		static std::vector<std::vector<bool>> mvv_s1_edge(m_variable_size); // a temporary matrix to store the edges of s1, thus helping calculate the distance between two solutions
 		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
@@ -169,7 +169,7 @@ namespace OFEC {
 		return dis;
 	}
 
-	std::pair<int, int> travelling_salesman::get_next_city(const base & s, int city) const
+	std::pair<int, int> travelling_salesman::get_next_city(const solution_base & s, int city) const
 	{
 		const variable<int> &x = dynamic_cast<const solution<variable<int>, real> &>(s).get_variable();
 		for (int i = 0; i<m_variable_size; i++) {

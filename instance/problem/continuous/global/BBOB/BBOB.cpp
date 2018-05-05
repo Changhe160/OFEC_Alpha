@@ -426,7 +426,7 @@ namespace OFEC {
 			}
 		}
 	}
-	bool BBOB::loadRotation(double base) {
+	bool BBOB::loadRotation(double base_) {
 		computeRotation(m_rot, m_variable_size);
 		computeRotation(m_rot2, m_variable_size);
 		/* decouple scaling from function definition*/
@@ -435,7 +435,7 @@ namespace OFEC {
 			for (j = 0; j < m_variable_size; ++j) {
 				m_linearTF[i][j] = 0.;
 				for (k = 0; k < m_variable_size; ++k) {
-					m_linearTF[i][j] += m_rot[i][k] * pow(base, ((double)k) / ((double)(m_variable_size - 1))) * m_rot2[k][j];
+					m_linearTF[i][j] += m_rot[i][k] * pow(base_, ((double)k) / ((double)(m_variable_size - 1))) * m_rot2[k][j];
 				}
 			}
 		}
@@ -443,7 +443,7 @@ namespace OFEC {
 	}
 
 
-	evaluation_tag BBOB::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
+	evaluation_tag BBOB::evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed) {
 		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
 

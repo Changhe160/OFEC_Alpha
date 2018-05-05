@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* class algorithm is the base for all algorithms.
+* class algorithm is an abstract for all algorithms.
 *
 *********************************************************************************/
 #ifndef OFEC_ALGORITHM_H

@@ -30,12 +30,12 @@ namespace OFEC {
 		one_max(param_map& v);
 		one_max(const std::string &name, int size_var);
 		~one_max() {};
-		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
-		bool is_valid(const base &s);
-		void validate(base &s) {};
-		void initialize_solution(base &s) const;
-		bool same(const base &s1, const base &s2) const;
-		double variable_distance(const base &s1, const base &s2) const;
+		evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
+		bool is_valid(const solution_base &s);
+		void validate(solution_base &s) {};
+		void initialize_solution(solution_base &s) const;
+		bool same(const solution_base &s1, const solution_base &s2) const;
+		double variable_distance(const solution_base &s1, const solution_base &s2) const;
 		double variable_distance(const variable_base &s1, const variable_base &s2) const;
 		bool is_optima_given() {
 			return true;

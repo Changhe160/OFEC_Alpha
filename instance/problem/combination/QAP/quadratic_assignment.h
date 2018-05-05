@@ -35,8 +35,8 @@ public:
 	quadratic_assignment(param_map& v);
 	quadratic_assignment(const std::string& pro_name, size_t size_var, const std::string& file_name);
 	~quadratic_assignment();
-	evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
-	bool is_valid(const base &s) const;
+	evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
+	bool is_valid(const solution_base &s) const;
 	void read_problem();    //read source data from file
 	bool get_optimal_obj(std::vector<double> &opt);
 	bool get_optimal_obj(std::vector<std::vector<double>> &opt);
@@ -46,9 +46,9 @@ public:
 	quadratic_assignment *get_type_ptr();
 	quadratic_assignment &get_type_ref();
 	bool is_optima_found();
-	void initialize_solution(base &s) const;
-	bool same(const base &s1, const base &s2) const;
-	double variable_distance(const base &s1, const base &s2) const;
+	void initialize_solution(solution_base &s) const;
+	bool same(const solution_base &s1, const solution_base &s2) const;
+	double variable_distance(const solution_base &s1, const solution_base &s2) const;
 	double variable_distance(const variable_base &s1, const variable_base &s2) const;
 	void initialize();
 };

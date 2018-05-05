@@ -51,7 +51,7 @@ namespace OFEC {
 			void mutate(int idx, const std::vector<int>&var);
 		protected:
 			virtual void select_in_neighborhood(int number, std::vector<int>&, std::vector<int>&);
-			virtual void select(int base, int number, std::vector<int>& result);
+			virtual void select(int base_, int number, std::vector<int>& result);
 			evaluation_tag evolve();
 
 		};
@@ -213,10 +213,10 @@ namespace OFEC {
 			}
 		}
 		template< typename Individual >
-		void population<Individual>::select(int base, int number, std::vector<int>& result) {
+		void population<Individual>::select(int base_, int number, std::vector<int>& result) {
 			std::vector<int> candidate;
 			for (int i = 0; i < this->m_pop.size(); ++i) {
-				if (base != i) candidate.push_back(i);
+				if (base_ != i) candidate.push_back(i);
 			}
 			result.resize(number);
 			for (int i = 0; i < number; ++i) {

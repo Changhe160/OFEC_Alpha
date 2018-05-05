@@ -28,15 +28,15 @@
 #include "../../utility/functional.h"
 
 namespace OFEC {
-	class base {
+	class solution_base {
 	public:
 		virtual evaluation_tag evaluate(bool=true, caller= caller::Algorithm) = 0;
-		virtual ~base() {};
-		base(const base&) = default;
-		base(base&&) = default;
-		base() = default;
-		base& operator=(const base&) = default;
-		base& operator=(base&&) = default;
+		virtual ~solution_base() {};
+		solution_base(const solution_base&) = default;
+		solution_base(solution_base&&) = default;
+		solution_base() = default;
+		solution_base& operator=(const solution_base&) = default;
+		solution_base& operator=(solution_base&&) = default;
 	};
 
 

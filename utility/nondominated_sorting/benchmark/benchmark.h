@@ -30,7 +30,7 @@ It has several initial objective-space distributions of solutions.
 
 namespace NS {
 
-	// abstract base class of data generator (can not controlled the number of fronts)
+	// abstract class of data generator (can not controlled the number of fronts)
 	class data_generator {
 	protected:
 		const int m_num_obj;
@@ -55,7 +55,7 @@ namespace NS {
 		void update_data();
 	};
 
-	// abstract base class for generating data with user-defined number of fronts
+	// abstract class for generating data with user-defined number of fronts
 	class fixed_num_front : public data_generator {
 	protected:
 		const int m_num_fro;

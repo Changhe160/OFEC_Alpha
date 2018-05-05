@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* class individual is a base class for all types of individuals of an evolutionary
+* class individual is an abstract class for all types of individuals of an evolutionary
 * computation algorithm
 *
 *********************************************************************************/

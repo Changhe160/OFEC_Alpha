@@ -10,15 +10,15 @@ namespace OFEC {
 			m_c = 0.1;
 		}
 
-		void JADE::select_trial(int base) {
+		void JADE::select_trial(int base_) {
 			std::vector<int> candidate;
 			for (size_t i = 0; i < size(); i++) {
-				if (base != i) candidate.push_back(i);
+				if (base_ != i) candidate.push_back(i);
 			}
 			int idx;
 			do {
 				idx = m_pcent_best_index[global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)(size()*m_p))];
-			} while (idx == base);
+			} while (idx == base_);
 
 			m_candi[0] = m_pop[idx].get();
 
