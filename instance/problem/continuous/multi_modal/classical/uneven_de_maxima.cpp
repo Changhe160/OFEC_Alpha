@@ -26,7 +26,6 @@ namespace OFEC {
 		for (auto &i : obj_data)
 			m_original_optima.append(i);
 		m_optima = m_original_optima;
-		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		
 	}
 	void uneven_de_maxima::evaluate__(real *x, std::vector<real>& obj) {

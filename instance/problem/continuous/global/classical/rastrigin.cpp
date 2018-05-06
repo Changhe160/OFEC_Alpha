@@ -26,7 +26,6 @@ namespace OFEC {
 	}
 
 	void rastrigin::initialize() {
-		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 		m_variable_monitor = true;
 		set_range(-5.12, 5.12);
 		set_init_range(-5.12, 5.12);

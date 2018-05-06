@@ -14,7 +14,6 @@ namespace OFEC {
 		}
 
 		void F9_shifted_rotated_scaffer_F6::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::EOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-100, 100);
 			set_init_range(-100, 100);

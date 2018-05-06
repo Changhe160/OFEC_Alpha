@@ -22,7 +22,6 @@
 #include <vector>
 #include <fstream>
 #include <random>
-#include <algorithm>
 
 #include "../core/definition.h"
 #include "random/newran.h"
@@ -30,7 +29,7 @@
 namespace OFEC {
 
 	class Vector final {
-
+	
 	private:
 		std::vector<real> m_data;
 		double m_length = 0;
@@ -80,11 +79,11 @@ namespace OFEC {
 
 
 		Vector point_between(const Vector & v, double ratio)const;
-
+		
 		vector_ operator [](size_t);
 		void push_back(real);
-
-		Vector projection(const Vector &v) const;
+			
+		Vector projection( const Vector &v) const;
 		void normalize();
 
 		size_t size()const;
@@ -94,18 +93,18 @@ namespace OFEC {
 		void randomize_in_sphere(double radius, uniform * rand);
 		void randomize_on_sphere(double radius, uniform * rand);
 		void randomize_on_sphere(double radius, std::uniform_real_distribution<real> &unif, std::default_random_engine &gen);
-		void randomize(uniform * rand, real min = 0, real max = 1);
-		void randomize(std::uniform_real_distribution<real> &unif, std::default_random_engine &gen, real min, real max);
+		void randomize(uniform * rand,real min = 0, real max = 1);
+		void randomize(std::uniform_real_distribution<real> &unif, std::default_random_engine &gen, real min, real max);	
 		void randomize(normal *rand);
 		void randomize_in_sphere(double radius, normal *nor, uniform * uni);
 
-		double angle(Vector & v);
+		double angle( Vector & v);
 		double length();
 		double distance(const Vector &point) const;
 		double distance(const std::vector<real> &point)const;
 		void zeroize();
 		void resize(size_t n) noexcept;
-		double perpendicular_distance(const Vector &point);
+		double perpendicular_distance(const Vector &point); 
 	protected:
 		void length_();
 		friend std::ifstream &operator>>(std::ifstream &, Vector&);

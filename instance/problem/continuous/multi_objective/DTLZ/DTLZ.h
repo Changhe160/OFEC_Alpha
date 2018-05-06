@@ -12,14 +12,13 @@
 
 *************************************************************************/
 // Created: 31 December 2014
-// Last modified:
+// Modified: 29 Mar 2018 by Junchen Wang (wangjunchen@cug.edu.cn)
 
-/*
-K. Deb, L. Thiele, M. Laumanns, and E. Zitzler, "Scalable test problems
-for evolutionary multi - objective optimization, " in Evolutionary Multiobjective
-Optimization, A.Abraham, L.Jain, and R.Goldberg, Eds.
-London, U.K.: Springer - Verlag, 2005, pp. 105¨C145.
-*/
+/***********************************************************************************
+Deb, K., Thiele, L., Laumanns, M., & Zitzler, E. (2005). 
+Scalable test problems for evolutionary multiobjective optimization. 
+In Evolutionary multiobjective optimization (pp. 105-145). Springer London.
+************************************************************************************/
 
 #ifndef DTLZ_H
 #define DTLZ_H
@@ -32,17 +31,19 @@ namespace OFEC {
 	typedef std::vector<TObjVec> TFront;
 
 	void generate_recursive(TFront *pf, TObjVec *pt, size_t num_objs, size_t left, size_t total, size_t element);
-	void GenerateWeight(TFront *pf, size_t M, size_t p);
-	void GeneratePF_OneLayer(std::ostream &os, const std::string &problem_name, int M, int p);
-	void GeneratePF_TwoLayers(std::ostream &os, const std::string &problem_name, int M, int outside_p, int inside_p);
+	void generate_weight(TFront *pf, size_t M, size_t p);
+	void generate_PF_onelayer(std::ostream &os, const std::string &problem_name, int M, int p);
+	void generate_PF_twolayers(std::ostream &os, const std::string &problem_name, int M, int outside_p, int inside_p);
 
 	class DTLZ : public continuous
 	{
-	protected:
-		DTLZ(const std::string &name, size_t size_var, size_t size_obj);
-		void generateAdLoadPF();
 	public:
 		void initialize();
+	protected:
+		DTLZ(const std::string &name, size_t size_var, size_t size_obj);
+		void generate_PF();
+		void load_PF();
+		//void generateAdLoadPF();
 	};
 
 }

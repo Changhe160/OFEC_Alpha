@@ -8,7 +8,6 @@ namespace OFEC {
 		
 		m_file_name = static_cast<std::string>(v.at("dataFile1"));
 
-		v.at("sampleFre") = m_variable_size * 2;
 
 	}
 
@@ -34,12 +33,11 @@ namespace OFEC {
 		for (size_t i = 0; i < m_variable_size; ++i)
 			m_domain.set_range(0, m_variable_size - 1, i);
 
-		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
-			m_opt_mode[idx] = optimization_mode::Minimization;
+		global::ms_sample_fre  = m_variable_size * 2;
 
 		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
 	}
-	evaluation_tag quadratic_assignment::evaluate_(base & s, caller call, bool effective_fes, bool constructed)
+	evaluation_tag quadratic_assignment::evaluate_(solution_base & s, caller call, bool effective_fes, bool constructed)
 	{
 		variable<int> &x = dynamic_cast< solution<variable<int>, real> &>(s).get_variable();
 		std::vector<double> &obj = dynamic_cast< solution<variable<int>, real> &>(s).get_objective();
@@ -70,7 +68,7 @@ namespace OFEC {
 		return evaluation_tag::Normal;
 	}
 
-	bool quadratic_assignment::is_valid(const base & s) const
+	bool quadratic_assignment::is_valid(const solution_base & s) const
 	{
 		if (!m_if_valid_check) 
 			return true;
@@ -215,7 +213,7 @@ namespace OFEC {
 		}
 		return false;
 	}
-	void quadratic_assignment::initialize_solution(base &s) const
+	void quadratic_assignment::initialize_solution(solution_base &s) const
 	{
 		variable<int>& x = dynamic_cast< solution<variable<int>, real>&>(s).get_variable();
 		std::vector<int> temp;
@@ -231,7 +229,7 @@ namespace OFEC {
 		if (!is_valid(s))
 			throw myexcept("error in @quadratic_assignment::initialize_solution() in quadratic_assignment.cpp");
 	}
-	bool quadratic_assignment::same(const base & s1, const base & s2) const
+	bool quadratic_assignment::same(const solution_base & s1, const solution_base & s2) const
 	{
 		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
 		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();
@@ -241,7 +239,7 @@ namespace OFEC {
 		return true;
 	}
 
-	double quadratic_assignment::variable_distance(const base & s1, const base & s2) const
+	double quadratic_assignment::variable_distance(const solution_base & s1, const solution_base & s2) const
 	{
 		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
 		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();

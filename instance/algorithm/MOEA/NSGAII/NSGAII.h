@@ -33,12 +33,12 @@ namespace OFEC {
 		NSGAII(const std::string& name, int size_pop, int max_evals);
 		~NSGAII() {}
 		evaluation_tag run_();
-		void sort();
+		void sort(); 
 	protected:
-		void eval_dens();
+		void eval_dens(); 
 		virtual void evolve_mo();
 		int tour_selection();
-	protected:
+    protected:
 		std::vector<std::shared_ptr<individual<>>> m_offspring;
 		double m_cr;
 		double m_ceta;

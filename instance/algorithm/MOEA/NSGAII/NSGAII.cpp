@@ -4,14 +4,14 @@
 #include <algorithm>
 
 namespace OFEC {
-	NSGAII::NSGAII(param_map & v) : population((int)(v.at("popSize")), global::ms_global->m_problem->variable_size()), m_offspring(2 * (int)(v.at("popSize"))), \
+	NSGAII::NSGAII(param_map & v) : population((int)(v.at("popSize")),global::ms_global->m_problem->variable_size()),m_offspring(2*(int)(v.at("popSize"))),\
 		m_cr(1.0), m_ceta(30), m_meta(20), m_mr(1.0 / (double)(global::ms_global->m_problem->variable_size())) {
 		set_name(v.at("algName"));
 		set_termination(new term_max_evals(v));
 		for (auto& i : m_offspring)
-			i = std::move(std::shared_ptr<individual<>>(new individual<>(global::ms_global->m_problem->objective_size(), global::ms_global->m_problem->variable_size())));
+			i = std::move(std::shared_ptr<individual<>>(new individual<>(global::ms_global->m_problem->objective_size(),global::ms_global->m_problem->variable_size())));
 	}
-	NSGAII::NSGAII(const std::string& name, int size_pop, int max_evals) : population(size_pop, global::ms_global->m_problem->variable_size()), m_offspring(2 * size_pop), \
+	NSGAII::NSGAII(const std::string& name, int size_pop, int max_evals) : population(size_pop, global::ms_global->m_problem->variable_size()), m_offspring(2 * size_pop),\
 		m_cr(1.0), m_ceta(30), m_meta(20), m_mr(1.0 / (double)(global::ms_global->m_problem->variable_size())) {
 		set_name(name);
 		set_termination(new term_max_evals(max_evals));
@@ -22,7 +22,7 @@ namespace OFEC {
 
 		int evals = global::ms_global->m_problem->total_evaluations();
 		double IGD = CONTINOUS_CAST->get_optima().IGD_to_PF(*this);
-		measure::ms_measure->record(global::ms_global.get(), evals, IGD);
+		measure::get_measure()->record(global::ms_global.get(), evals, IGD);
 
 		// evolution
 		while (!terminating())
@@ -34,7 +34,7 @@ namespace OFEC {
 			evals = global::ms_global->m_problem->total_evaluations();
 			if (evals % (int)global::ms_arg.at("sampleFre") == 0) {
 				IGD = CONTINOUS_CAST->get_optima().IGD_to_PF(*this);
-				measure::ms_measure->record(global::ms_global.get(), evals, IGD);
+				measure::get_measure()->record(global::ms_global.get(), evals, IGD);
 			}
 		}
 		return evaluation_tag::Normal;

@@ -1,7 +1,7 @@
 #include "global.h"
 
 namespace OFEC {
-
+	
 #ifdef OFEC_CONSOLE
 	thread_local std::unique_ptr<global> global::ms_global = nullptr;
 #endif // OFEC_CONSOLE
@@ -20,9 +20,10 @@ namespace OFEC {
 	std::map<const std::string, const std::string> global::ms_param;
 	factory<problem> global::ms_reg_problem;
 	factory<algorithm> global::ms_reg_algorithm;
+	size_t global::ms_sample_fre = 1;
 
-	global::global(const int runID, double seed_pro, double seed_alg) : m_runID(runID) {
-
+	global::global(const int runID, double seed_pro, double seed_alg) :  m_runID(runID){
+		
 		m_uniform.emplace(std::make_pair(caller::Problem, std::unique_ptr<uniform>(new uniform(seed_pro))));
 		m_normal.emplace(std::make_pair(caller::Problem, std::unique_ptr<normal>(new normal(seed_pro))));
 		m_cauchy.emplace(std::make_pair(caller::Problem, std::unique_ptr<cauchy>(new cauchy(seed_pro))));

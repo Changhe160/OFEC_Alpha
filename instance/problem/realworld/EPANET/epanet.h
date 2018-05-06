@@ -181,7 +181,7 @@ namespace OFEC {
 		epanet(param_map &v);
 		
 		void initialize();
-		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
+		evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
 		void get_data(variable_epanet &sol, std::vector<std::vector<float>> &data);
 		void read_parameter();
 		void set_phase(int num) { 
@@ -203,10 +203,10 @@ namespace OFEC {
 			return m_Ciobs; 
 		}
 
-		bool same(const base &s1, const base &s2) const;
-		double variable_distance(const base &s1, const base &s2) const { return 0.0; }
+		bool same(const solution_base &s1, const solution_base &s2) const;
+		double variable_distance(const solution_base &s1, const solution_base &s2) const { return 0.0; }
 		double variable_distance(const variable_base &s1, const variable_base &s2) const { return 0.0; }
-		void initialize_solution(base &s) const;
+		void initialize_solution(solution_base &s) const;
 
 		optima<variable_epanet, real> & get_optima();
 		float calculate_distance(int index1, int index2);

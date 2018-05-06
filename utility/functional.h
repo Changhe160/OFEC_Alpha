@@ -15,7 +15,7 @@
 *
 *-------------------------------------------------------------------------------
 * some general methods used in OFEC are defined in this file, including distance
-* metrics, solution domination relationship,
+* metrics, solution domination relationship, 
 *
 *********************************************************************************/
 
@@ -27,10 +27,10 @@
 #include "../core/definition.h"
 #include <memory>
 
-namespace OFEC {
-	/*
-	distance measures between two std::vector-based points
-	*/
+namespace OFEC {	
+		/*
+		distance measures between two std::vector-based points
+		*/
 	template<typename Iter1, typename Iter2>
 	double euclidean_distance(Iter1 first1, Iter1 last1, Iter2 first2) {
 		double dis = 0;
@@ -51,11 +51,11 @@ namespace OFEC {
 		}
 		return dis;
 	}
-
+	
 
 
 	template<typename Iter1, typename Iter2>
-	int hamming_distance(Iter1 first1, Iter1 last1, Iter2 first2) {
+	int hamming_distance(Iter1 first1, Iter1 last1, Iter2 first2)  {
 		int dis = 0;
 		while (first1 != last1) {
 			dis += *first1++ != *first2++;
@@ -66,8 +66,8 @@ namespace OFEC {
 
 	//domination relationship between two objective vectors
 	template<typename T = double >
-	std::pair<dominationship, int> objective_compare(const std::vector<T>& a, const std::vector<T>& b, const std::vector<optimization_mode> &mode) {
-		if (a.size() != b.size())
+	std::pair<dominationship, int> objective_compare(const std::vector<T>& a, const std::vector<T>& b, const std::vector<optimization_mode> &mode)  {
+		if (a.size() != b.size()) 
 			return std::make_pair(dominationship::Non_comparable, 0);
 
 		int comparisons = 0;
@@ -162,7 +162,7 @@ namespace OFEC {
 		else if (worse == 0) return std::make_pair(dominationship::Dominating, comparisons);
 		else if (better == 0) return std::make_pair(dominationship::Dominated, comparisons);
 	}
-
+	
 
 	template <typename T>
 	int sign(T val) {
@@ -209,7 +209,7 @@ namespace OFEC {
 			flag.reset(new std::vector<bool>(num, false));
 			lb.reset(new int(low));
 			if (index.size() == 0 || index.size() != size)		index.resize(size);
-			for (auto i = index.begin(); i != index.end(); ++i) *i = (int)(i - index.begin());
+			for (auto i = index.begin(); i != index.end(); ++i) *i = i - index.begin();
 		}
 
 
@@ -219,10 +219,10 @@ namespace OFEC {
 			if ((*flag.get())[i] == false)	break;
 		}
 		while (i < num) {
-			if ((*flag.get())[i++] == false)
+			if ((*flag.get())[i++] == false)	
 				break;
 		}
-
+	
 		if (i == num) return num_comp;
 		int left = low + 1;
 		int right = up;
@@ -230,13 +230,13 @@ namespace OFEC {
 
 		while (left<right) {
 			while (less(data[index[left]], data[index[pivot]], min) && left < right) {
-				left++;
+				left++; 
 				num_comp++;
 			}
 			num_comp++;
-			while (!less(data[index[right]], data[index[pivot]], min) && left < right) {
+			while (!less(data[index[right]], data[index[pivot]], min) && left < right) { 
 				right--;
-				num_comp++;
+				num_comp++; 
 			}
 			num_comp++;
 			if (left<right) {
@@ -274,6 +274,7 @@ namespace OFEC {
 		num_comp += quick_sort(data, up - pivot, index, min, pivot + 1, up, num, false);
 		return num_comp;
 	}
+
 }
 #endif // !OFEC_FINCTIONAL_H
 

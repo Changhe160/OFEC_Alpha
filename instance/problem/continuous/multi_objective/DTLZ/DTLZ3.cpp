@@ -2,15 +2,13 @@
 
 namespace OFEC {
 	DTLZ3::DTLZ3(param_map & v) : problem(v.at("proName"), (v.at("numObj") + v.at("interTest1") - 1), v.at("numObj")), \
-		DTLZ(v.at("proName"), (v.at("numObj") + v.at("interTest1") - 1), v.at("numObj")) {
+		DTLZ(v.at("proName"), (v.at("numObj") + v.at("interTest1") - 1), v.at("numObj")) { // param_interTest1 = 5 is recommended
 	}
 
 	DTLZ3::DTLZ3(const std::string & name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
 		DTLZ(name, size_var, size_obj) {
 	}
-	void DTLZ3::initialize() {
-		DTLZ::initialize();
-	}
+
 	void DTLZ3::evaluate__(double * x, std::vector<double>& obj) {
 		double g = 0;
 		for (size_t i = m_objective_size - 1; i < m_variable_size; i += 1)

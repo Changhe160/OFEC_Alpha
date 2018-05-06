@@ -21,19 +21,19 @@ namespace OFEC {
 		return *this;
 	}
 
-	matrix::matrix(matrix&& m) :m_row(std::move(m.m_row)), m_col_size(m.m_col_size),
-		m_row_size(m.m_row_size), m_det_flag(m.m_det_flag), m_det(m.m_det) {
+	matrix::matrix(matrix&& m):m_row(std::move(m.m_row)), m_col_size(m.m_col_size),
+		m_row_size(m.m_row_size), m_det_flag(m.m_det_flag),m_det(m.m_det){
 	}
 
-	void matrix::set_row(const real *d, size_t num) {
-		if (num != m_col_size) return;
+	void matrix::set_row(const real *d, size_t c, size_t r) {
+		if (r != m_row_size) return;
 		for (int i = 0; i < m_row_size; i++)
 			for (int j = 0; j < m_col_size; j++)
 				m_row[i][j] = d[j];
 		m_det_flag = false;
 	}
-	void matrix::set_col(const real *d, size_t num) {
-		if (num != m_row_size) return;
+	void matrix::set_col(const real *d, size_t r, size_t c) {
+		if (c != m_col_size) return;
 		for (int i = 0; i < m_row_size; i++)
 			for (int j = 0; j < m_col_size; j++)
 				m_row[i][j] = d[i];
@@ -56,7 +56,7 @@ namespace OFEC {
 
 	matrix & matrix::operator *=(const matrix &m) {
 		//TODO: GPU computing
-		if (m_col_size != m.m_row_size)
+		if (m_col_size != m.m_row_size) 
 			throw myexcept("can not *, m_col_size of 1st matrix must be equal to m_row_size of 2nd matrix@ matrix::operator *=");
 
 		matrix r(m_row_size, m.m_col_size);
@@ -78,7 +78,7 @@ namespace OFEC {
 
 	matrix  matrix::operator *(const matrix &m) {
 		//TODO: GPU computing
-		if (m_col_size != m.m_row_size)
+		if (m_col_size != m.m_row_size) 
 			throw myexcept("can not *, m_col_size of 1st matrix must be equal to m_row_size of 2nd matrix@ matrix::operator *");
 
 		matrix r(m_row_size, m.m_col_size);
@@ -114,7 +114,7 @@ namespace OFEC {
 		return *this;
 	}
 
-	bool matrix::equal(const matrix & m, double accuracy) {
+	bool matrix::eqaul(const matrix & m, double accuracy) {
 		if ((m_col_size == m.m_col_size) && (m_row_size == m.m_row_size)) {
 			for (int i = 0; i < m_row_size; i++) {
 				for (int j = 0; j < m_col_size; j++) {
@@ -148,12 +148,11 @@ namespace OFEC {
 		return true;
 	}
 	void matrix::diagonalize(normal * rand, double CondiNum) {
-		if (m_row_size != m_col_size)
+		if (m_row_size != m_col_size) 
 			throw myexcept("can not be check_diagonal, matrix must be squre@matrix::diagonalize");
 
 		double min, max;
-
-		std::vector<double> r(m_row_size);
+		double *r = new double[m_row_size];
 		for (int i = 0; i < m_row_size; i++)	r[i] = rand->next_non_standard(1., m_row_size*1.0);
 
 		min = max = r[0];
@@ -166,7 +165,7 @@ namespace OFEC {
 				if (j != i) m_row[i][j] = 0.;
 				else m_row[i][j] = pow(CondiNum, (r[i] - min) / (max - min));
 		}
-
+		delete[]r;
 		m_det_flag = false;
 	}
 	void matrix::zeroize() {
@@ -229,7 +228,7 @@ namespace OFEC {
 	}
 
 	void matrix::modified_orthonormalize() {
-		if (m_row_size != m_col_size)
+		if (m_row_size != m_col_size) 
 			throw myexcept("cannot perform orthonormalization, matrix must be squre@matrix::orthonormalize");
 		//if (!(check_invertible())) throw myexcept("cannot perform function orthonormalize(), matrix must be reversible@matrix::orthonormalize");
 		matrix v(m_row_size, m_col_size);
@@ -255,7 +254,7 @@ namespace OFEC {
 		const matrix& temp2 = temp1;
 		temp1 *= temp2;
 		return temp1.check_identity();*/
-		if (m_row_size != m_col_size)
+		if (m_row_size != m_col_size) 
 			throw myexcept("cannot perform function orthogonal(), matrix must be squre@matrix::orthogonal");
 
 		for (int i = 0; i < m_row_size; i++) {
@@ -471,7 +470,9 @@ namespace OFEC {
 		tridiag matrix == V * V_in * V^t
 		<- d             : check_diagonal
 		<- e[0..n-1]     : off check_diagonal (elements 1..n-1)
+
 		code slightly adapted from the Java JAMA package, function private tred2()
+
 		*/
 
 		size_t i, j, k;
@@ -598,8 +599,10 @@ namespace OFEC {
 		<- d     : eigenvalues
 		<- e     : garbage?
 		<- V     : basis of eigenvectors, according to d
+
 		Symmetric tridiagonal QL algorithm, iterative
 		Computes the eigensystem from a tridiagonal matrix in roughtly 3N^3 operations
+
 		code adapted from Java JAMA package, function tql2.
 		*/
 

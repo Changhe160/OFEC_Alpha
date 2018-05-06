@@ -3,13 +3,13 @@
 
 namespace OFEC {
 	MOEA_FBase::MOEA_FBase(const std::string & name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), continuous(name, size_var, size_obj) {
-		
+
 	}
 	void MOEA_FBase::initialize() {
+		set_init_range(0., 1.);
 		set_range(0., 1.);
-		set_tag(std::set<problem_tag>({ problem_tag::MOP, problem_tag::CONT }));
-		for (size_t idx = 0; idx < opt_mode().size(); ++idx)
-			set_opt_mode(optimization_mode::Minimization, idx);
+		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
+			m_opt_mode[idx] = optimization_mode::Minimization;
 	}
 	void MOEA_FBase::alphafunction(double alpha[], double const * x, int dim, int type) {
 		if (dim == 2)
@@ -308,7 +308,7 @@ namespace OFEC {
 	void MOEA_FBase::LoadPF() {
 		std::ifstream infile;
 		std::stringstream os;
-		os << global::ms_arg.at("workingDir") << "FunctionOpt/pf_P" << m_ptype << "D" << m_dtype << "L" << m_ltype << ".dat";
+		os << "./instance/problem/continuous/multi_objective/MOEA_F/data/pf_P" << m_ptype << "D" << m_dtype << "L" << m_ltype << ".dat";
 		infile.open(os.str());
 		if (!infile)
 			return;
@@ -320,10 +320,9 @@ namespace OFEC {
 		infile.close();
 		infile.clear();
 		infile.open(os.str());
-		size_t numObj = 2;
-		std::vector<real> temp_obj(numObj);
+		std::vector<real> temp_obj(m_objective_size);
 		for (size_t i = 0; i < lines; i++) {
-			for (size_t j = 0; j < numObj; j++)
+			for (size_t j = 0; j < m_objective_size; j++)
 				infile >> temp_obj[j];
 			m_optima.set_objective(temp_obj, i);
 		}

@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* class individual is a base class for all types of individuals of an evolutionary
+* class individual is an abstract class for all types of individuals of an evolutionary
 * computation algorithm
 *
 *********************************************************************************/
@@ -26,97 +26,97 @@
 namespace OFEC {
 	template<typename VariableEncoding = variable<real>,
 		typename ObjetiveType = real>
-	class individual :public solution<VariableEncoding, ObjetiveType> {
-	public:
-		using solution_type = solution<VariableEncoding, ObjetiveType>;
+		class individual :public solution<VariableEncoding, ObjetiveType> {
+		public:
+			using solution_type = solution<VariableEncoding, ObjetiveType>;
 
-		template<typename ... Args>
-		individual(size_t no, Args&& ... args) :solution_type(no, std::forward<Args>(args)...) { }
+			template<typename ... Args>
+			individual(size_t no, Args&& ... args) :solution_type(no, std::forward<Args>(args)...) { }
 
-		individual(solution_type &&s) :solution_type(std::move(s)) {}
+			individual(solution_type &&s) :solution_type(std::move(s)) {}
 
-		individual(const solution_type &s) :solution_type(s) {}
+			individual(const solution_type &s) :solution_type(s) {}
 
-		explicit individual() :solution_type() {}
-		virtual void initialize(int id) {
-			m_id = id;
-			solution_type::initialize();
-		}
-		
-		void set_id(int id)noexcept {
-			m_id = id;
-		}
-		void set_fitness(double value) noexcept {
-			m_fitness = value;
-		}
-		void set_type(int type)noexcept {
-			m_type = type;
-		}
-		void set_rank(int value) noexcept {
-			m_ranking = value;
-		}
-		void set_improve_flag(bool value) noexcept {
-			m_impr = value;
-		}
-		void set_active_flag(bool value) noexcept {
-			m_active = value;
-		}
+			explicit individual() :solution_type() {}
+			virtual void initialize(int id) {
+				m_id = id;
+				solution_type::initialize();
+			}
 
-		int id()const noexcept {
-			return m_id;
-		}
-		double fitness()const noexcept {
-			return m_fitness;
-		}
-		int type()const noexcept {
-			return m_type;
-		}
-		int rank() const noexcept {
-			return m_ranking;
-		}
-		bool is_improved()const noexcept {
-			return m_impr;
-		}
-		bool is_active()const noexcept {
-			return m_active;
-		}
+			void set_id(int id)noexcept {
+				m_id = id;
+			}
+			void set_fitness(double value) noexcept {
+				m_fitness = value;
+			}
+			void set_type(int type)noexcept {
+				m_type = type;
+			}
+			void set_rank(int value) noexcept {
+				m_ranking = value;
+			}
+			void set_improve_flag(bool value) noexcept {
+				m_impr = value;
+			}
+			void set_active_flag(bool value) noexcept {
+				m_active = value;
+			}
 
-		individual(const individual& rhs) :solution_type(rhs), m_fitness(rhs.m_fitness), m_id(rhs.m_id), m_ranking(rhs.m_ranking),
-			m_type(rhs.m_type), m_impr(rhs.m_impr), m_active(rhs.m_active) {
-		}
+			int id()const noexcept {
+				return m_id;
+			}
+			double fitness()const noexcept {
+				return m_fitness;
+			}
+			int type()const noexcept {
+				return m_type;
+			}
+			int rank() const noexcept {
+				return m_ranking;
+			}
+			bool is_improved()const noexcept {
+				return m_impr;
+			}
+			bool is_active()const noexcept {
+				return m_active;
+			}
 
-		individual(individual&& rhs) :solution_type(std::move(rhs)), m_fitness(std::move(rhs.m_fitness)), m_id(std::move(rhs.m_id)),
-			m_ranking(std::move(rhs.m_ranking)), m_type(std::move(rhs.m_type)), m_impr(std::move(rhs.m_impr)), m_active(std::move(rhs.m_active)) {
-		}
+			individual(const individual& rhs) :solution_type(rhs), m_fitness(rhs.m_fitness), m_id(rhs.m_id), m_ranking(rhs.m_ranking),
+				m_type(rhs.m_type), m_impr(rhs.m_impr), m_active(rhs.m_active) {
+			}
 
-		individual& operator=(const individual& rhs) {
-			if (this == &rhs) return *this;
-			solution_type::operator=(rhs);
-			m_fitness = rhs.m_fitness;
-			m_id = rhs.m_id;
-			m_ranking = rhs.m_ranking;
-			m_type = rhs.m_type;
-			m_impr = rhs.m_impr;
-			m_active = rhs.m_active;
-			return *this;
-		}
+			individual(individual&& rhs) :solution_type(std::move(rhs)), m_fitness(std::move(rhs.m_fitness)), m_id(std::move(rhs.m_id)),
+				m_ranking(std::move(rhs.m_ranking)), m_type(std::move(rhs.m_type)), m_impr(std::move(rhs.m_impr)), m_active(std::move(rhs.m_active)) {
+			}
 
-		individual& operator=(individual&& rhs) {
-			solution_type::operator=(std::move(rhs));
-			m_fitness = std::move(rhs.m_fitness);
-			m_id = std::move(rhs.m_id);
-			m_ranking = std::move(rhs.m_ranking);
-			m_type = std::move(rhs.m_type);
-			m_impr = std::move(rhs.m_impr);
-			m_active = std::move(rhs.m_active);
+			individual& operator=(const individual& rhs) {
+				if (this == &rhs) return *this;
+				solution_type::operator=(rhs);
+				m_fitness = rhs.m_fitness;
+				m_id = rhs.m_id;
+				m_ranking = rhs.m_ranking;
+				m_type = rhs.m_type;
+				m_impr = rhs.m_impr;
+				m_active = rhs.m_active;
+				return *this;
+			}
 
-			return *this;
-		}
+			individual& operator=(individual&& rhs) {
+				solution_type::operator=(std::move(rhs));
+				m_fitness = std::move(rhs.m_fitness);
+				m_id = std::move(rhs.m_id);
+				m_ranking = std::move(rhs.m_ranking);
+				m_type = std::move(rhs.m_type);
+				m_impr = std::move(rhs.m_impr);
+				m_active = std::move(rhs.m_active);
 
-	protected:
-		double m_fitness;
-		int m_id, m_ranking = -1, m_type;
-		bool m_impr = false, m_active = true;
+				return *this;
+			}
+
+		protected:
+			double m_fitness;
+			int m_id, m_ranking = -1, m_type;
+			bool m_impr = false, m_active = true;
 	};
 }
 #endif // !OFEC_INDIVIDUAL_H

@@ -14,7 +14,6 @@ namespace OFEC {
 
 
 	void par_est_FM_sound_waves::initialize() {
-		set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 		m_variable_monitor = true;
 		set_range(-6.4, 6.35);
 		set_init_range(-6.4, 6.35);

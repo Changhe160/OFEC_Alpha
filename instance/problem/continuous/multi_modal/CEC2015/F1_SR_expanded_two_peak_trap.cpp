@@ -30,7 +30,6 @@ namespace OFEC {
 			// 20 Dim : 1 gopt and 210 lopt
 			evaluate_optima();   
 			
-			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		}
 		void F1_SR_expanded_two_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
 			

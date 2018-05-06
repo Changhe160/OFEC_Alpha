@@ -34,13 +34,13 @@ namespace OFEC {
 	public:
 		travelling_salesman(param_map &v);
 		travelling_salesman(const std::string& pro_name, int size_var, int size_obj, const std::string& file_name);
-		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
-		bool is_valid(base &s) const;
-		void initialize_solution(base &s) const;
-		bool same(const base &s1, const base &s2) const;
-		double variable_distance(const base &s1, const base &s2) const;
+		evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
+		bool is_valid(solution_base &s) const;
+		void initialize_solution(solution_base &s) const;
+		bool same(const solution_base &s1, const solution_base &s2) const;
+		double variable_distance(const solution_base &s1, const solution_base &s2) const;
 		double variable_distance(const variable_base &s1, const variable_base &s2) const;
-		std::pair<int, int> get_next_city(const base &s, int city) const; //return the next and previous cities of city in solution s
+		std::pair<int, int> get_next_city(const solution_base &s, int city) const; //return the next and previous cities of city in solution s
 
 		void find_nearby_city(std::vector<std::vector<int>> &nearby,int num_near=0, int obj=0);     //find some percent of nearby city
 		void prim(std::vector<std::vector<int>>& mst_edge, int n = 0); // find MST edges

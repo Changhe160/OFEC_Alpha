@@ -9,15 +9,14 @@
 #include "../../utility/types.h"
 namespace OFEC {
 	struct global;
-	class measure :public singleton {
-	public:
-		static std::unique_ptr<measure> ms_measure;
+	class measure:public singleton {
 	protected:
-		std::stringstream m_file_name;
+		std::stringstream m_filename;
 		std::vector<std::vector<double>> mvv_data;
 		std::vector<std::string> m_heading;
+		static std::unique_ptr<measure> ms_measure;
 	protected:
-		measure(int numRum) : mvv_data(numRum) {}
+		measure(int numRum) : mvv_data(numRum){}
 		void input_value(const int runID) {}
 		template<typename T, typename... Args>
 		void input_value(const int runID, const T& value, const Args&... args);

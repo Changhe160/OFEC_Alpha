@@ -3,10 +3,10 @@
 namespace OFEC {
 	continuous::continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var), m_init_domain(size_var)\
 	{
-		
+
 	}
 
-	violation_type continuous::check_boundary_violation(const base &s) const {
+	violation_type continuous::check_boundary_violation(const solution_base &s) const {
 
 		const variable<real>& x = dynamic_cast<const solution<variable<real>, real>&>(s).get_variable();
 
@@ -19,7 +19,7 @@ namespace OFEC {
 		return violation_type::None;
 	}
 
-	void continuous::initialize_solution(base &s) const {
+	void continuous::initialize_solution(solution_base &s) const {
 		variable<real>& x = dynamic_cast<solution<variable<real>, real>&>(s).get_variable();
 
 		for (int i = 0; i < m_variable_size; ++i) {
@@ -124,7 +124,7 @@ namespace OFEC {
 		return m_domain;
 	}
 
-	double continuous::variable_distance(const base &s1, const base &s2) const {
+	double continuous::variable_distance(const solution_base &s1, const solution_base &s2) const {
 		const variable<real>& x1 = dynamic_cast<const solution<variable<real>, real>&>(s1).get_variable();
 		const variable<real>& x2 = dynamic_cast<const solution<variable<real>, real>&>(s2).get_variable();
 		return euclidean_distance(x1.begin(), x1.end(), x2.begin());
@@ -137,7 +137,7 @@ namespace OFEC {
 		return euclidean_distance(x1.begin(), x1.end(), x2.begin());
 	}
 
-	evaluation_tag continuous::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
+	evaluation_tag continuous::evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed) {
 		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
 		double & cons_value = dynamic_cast<solution<variable<real>, real> &>(s).constraint_value().first;

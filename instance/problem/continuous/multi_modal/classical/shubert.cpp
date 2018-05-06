@@ -44,7 +44,6 @@ namespace OFEC {
 		}
 		
 		m_optima = m_original_optima;
-		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		
 	}
 	void shubert::evaluate__(real *x, std::vector<real>& obj) {

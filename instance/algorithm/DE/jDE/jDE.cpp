@@ -69,7 +69,7 @@ namespace OFEC {
 				//std::cout << m_iter << " " << error <<" "<< m_best[0]->get_variable()[0] << " " << m_best[0]->get_variable()[1] << std::endl;
 				std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << CONTINOUS_CAST->num_optima_found() << std::endl;
 				//g_mutexStream.unlock();
-				measure::ms_measure->record(global::ms_global.get(), m_iter, error);
+				measure::get_measure()->record(global::ms_global.get(), m_iter, error);
 				update_F_and_CR();
 				tag = evolve();
 				//if (m_iter == 100) break;

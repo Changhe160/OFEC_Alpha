@@ -33,7 +33,6 @@ namespace OFEC {
 		data.push_back(std::make_pair(-1.2, 1.2));
 		set_range(data);
 		set_init_range(std::move(data));
-		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		m_opt_mode[0] = optimization_mode::Maximization;
 		m_objective_accuracy = 0.15;
 		m_variable_accuracy = 1.e-3;

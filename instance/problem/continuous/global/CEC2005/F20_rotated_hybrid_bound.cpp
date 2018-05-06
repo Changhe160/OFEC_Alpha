@@ -32,7 +32,6 @@ namespace OFEC {
 		}
 
 		void F20_rotated_hybrid_bound::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::GOP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-5., 5.);
 			set_init_range(-5., 5.);

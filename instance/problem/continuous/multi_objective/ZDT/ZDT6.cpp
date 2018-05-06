@@ -1,14 +1,11 @@
 #include "ZDT6.h"
 
 namespace OFEC {
-	ZDT6::ZDT6(param_map & v) : problem(v.at("proName"), v.at("numDim"), 2), ZDT(v.at("proName"), v.at("numDim")) {
-		
+	ZDT6::ZDT6(param_map & v) : problem(v.at("proName"), v.at("numDim"), 2), ZDT(v.at("proName"), v.at("numDim")) { //param_numDim = 10 is suggested
+		v.at("numObj") = 2;
+		generateAdLoadPF();
 	}
 	ZDT6::ZDT6(const std::string & name, size_t size_var) : problem(name, size_var, 2), ZDT(name, size_var) {
-		
-	}
-	void ZDT6::initialize() {
-		ZDT::initialize();
 		generateAdLoadPF();
 	}
 	void ZDT6::evaluate__(double * x, std::vector<double>& obj) {

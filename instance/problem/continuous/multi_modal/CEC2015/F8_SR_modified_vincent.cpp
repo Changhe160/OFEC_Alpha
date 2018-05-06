@@ -29,7 +29,6 @@ namespace OFEC {
 
 			evaluate_optima();
 
-			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 		}
 		void F8_SR_modified_vincent::evaluate__(real *x, std::vector<real>& obj) {
 

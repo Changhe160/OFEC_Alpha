@@ -41,7 +41,7 @@ namespace OFEC {
 				std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error << ' ' << num_opt_found << std::endl;
 				//std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error << ' ' << std::endl;
 
-				measure::ms_measure->record(global::ms_global.get(), m_iter, num_opt_found);
+				measure::get_measure()->record(global::ms_global.get(), m_iter, num_opt_found);
 
 				for (size_t i = 0; i < m_sub_population.size(); ++i) {
 					if (!m_sub_population[i].m_flag)       

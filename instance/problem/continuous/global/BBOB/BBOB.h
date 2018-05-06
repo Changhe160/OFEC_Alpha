@@ -28,12 +28,12 @@ namespace OFEC {
 		void computeXopt();
 		real computeFopt();
 		real penalize(real *x);
-		bool loadRotation(double base);
+		bool loadRotation(double base_);
 		void computeRotation(matrix& rot, size_t Dim);
 		void reshape(matrix &B, std::vector<real>& vector, size_t m, size_t n);
 		void irregularize(real *x);
 		void asyemmetricalize(real *x, double belta);
-		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
+		evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
 	private:
 		void Sphere_F01(real *x, std::vector<real>& obj);
 		void Ellipsoidal_F02(real *x, std::vector<real>& obj);

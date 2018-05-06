@@ -5,16 +5,16 @@
 namespace OFEC {
 	std::unique_ptr<measure> measure::ms_measure(nullptr);
 	void measure::set_filename() {
-		m_file_name.str("");
+		m_filename.str("");
 		if (global::ms_arg.find("workingDir") == global::ms_arg.end())
-			m_file_name << "./result/";
+			m_filename << "./result/";
 		else
-			m_file_name << global::ms_arg.at("workingDir") << "result/";
+			m_filename << global::ms_arg.at("workingDir") << "result/";
 		for (auto& i : global::ms_arg) {
 			if (global::ms_filename_info.at(i.first)) {
 				for (auto& j : global::ms_param) {
 					if (i.first == j.second) {
-						m_file_name << j.first << "(" << i.second << ")_";
+						m_filename << j.first << "(" << i.second << ")_";
 						break;
 					}
 				}
@@ -25,15 +25,15 @@ namespace OFEC {
 		if (measure::ms_measure) return;
 		measure::ms_measure.reset(new measure(numRum));
 		// default heading
-		measure::ms_measure->set_heading(std::vector<std::string>({ "Iter","numAlternative" }));
+		measure::ms_measure->set_heading(std::vector<std::string>({ "Evaluations","Convergence" }));
 	}
 	void measure::output_progr() {
 		if (mvv_data.empty())
 			throw myexcept("No data recorded");
-		if (m_file_name.str().empty())
+		if (m_filename.str().empty())
 			set_filename();
 		std::stringstream os;
-		os << m_file_name.str();
+		os << m_filename.str();
 		os << "Progr.txt";
 		std::ofstream out(os.str());
 		std::vector<double> sum;
@@ -77,10 +77,10 @@ namespace OFEC {
 	void measure::output_final() {
 		if (mvv_data.empty())
 			throw myexcept("No data recorded");
-		if (m_file_name.str().empty())
+		if (m_filename.str().empty())
 			set_filename();
 		std::stringstream os;
-		os << m_file_name.str();
+		os << m_filename.str();
 		os << "final.txt";
 		std::ofstream out(os.str());
 		size_t size_row = m_heading.size();
@@ -91,7 +91,7 @@ namespace OFEC {
 				final_data[i].push_back(mvv_data[i][mvv_data[i].size() - j]);
 			}
 		}
-		std::vector<std::pair<double, double>> mean_and_var(size_row, { 0,0 });
+		std::vector<std::pair<double, double>> mean_and_var(size_row, {0,0});
 		// calculate mean
 		for (size_t j = 0; j < size_row; ++j) {
 			for (size_t i = 0; i < final_data.size(); i++) {

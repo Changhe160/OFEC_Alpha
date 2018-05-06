@@ -62,7 +62,6 @@ namespace OFEC {
 		}
 
 		void F14_composition2015_C6::initialize() {  // don't set optima
-			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
@@ -84,7 +83,7 @@ namespace OFEC {
 			else if(m_variable_size == 20) m_pre_opt_distance = 183;
 			else if(m_variable_size == 30) m_pre_opt_distance = 285;
 			
-			add_tag(problem_tag::MMP);
+			add_tag(problem_tag::MMOP);
 		}
 		void F14_composition2015_C6::evaluate__(real *x, std::vector<real>& obj) {
 			std::vector<real> x_(m_variable_size);

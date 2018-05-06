@@ -21,10 +21,6 @@
 #define OFEC_TYPES_H
 #include "typevar/typevar.h"
 
-class null_type {
-public:
-	null_type(OFEC::param_map&) {};
-};
 class singleton {
 protected:
 	singleton() = default;

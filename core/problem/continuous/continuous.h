@@ -30,8 +30,8 @@ namespace OFEC {
 	public:
 		continuous(const std::string &name, size_t size_var, size_t size_obj);
 
-		violation_type check_boundary_violation(const base &s) const; // boudary check only
-		void initialize_solution(base &s) const;
+		violation_type check_boundary_violation(const solution_base &s) const; // boudary check only
+		void initialize_solution(solution_base &s) const;
 
 		const std::pair<real, real>& range(size_t i) const;
 		void set_range(real l, real u);
@@ -43,13 +43,13 @@ namespace OFEC {
 		std::vector<solution<variable<real>, real>>& get_optima_found();
 		domain<real>& get_domain();
 
-		virtual bool same(const base &s1, const base &s2) const { return false; }
-		double variable_distance(const base &s1, const base &s2) const;
+		virtual bool same(const solution_base &s1, const solution_base &s2) const { return false; }
+		double variable_distance(const solution_base &s1, const solution_base &s2) const;
 		double variable_distance(const variable_base &s1, const variable_base &s2) const;
 
-		//virtual void constraint_value(const base &, std::pair<double, vector<double>>&) {}
+		//virtual void constraint_value(const solution_base &, std::pair<double, vector<double>>&) {}
 		bool is_optimal_given();
-		evaluation_tag evaluate_(base &s, caller call, bool effective_fes, bool constructed);
+		evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
 
 		bool objective_monitor() const;
 		bool variable_monitor() const;

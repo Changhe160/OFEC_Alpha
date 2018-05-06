@@ -3,7 +3,7 @@
 #include <thread>
 
 namespace OFEC {
-
+	
 	std::mutex g_mutex;
 	std::mutex g_mutexStream;
 
@@ -49,7 +49,7 @@ namespace OFEC {
 			}
 		}
 #ifdef OFEC_CONSOLE
-		if (global::ms_arg.find("sampleFre") == global::ms_arg.end()) global::ms_arg.insert({ "sampleFre", 2 });
+		if (global::ms_arg.find("sampleFre") != global::ms_arg.end()) global::ms_sample_fre= global::ms_arg["sampleFre"];
 		if (global::ms_arg.find("workingDir") == global::ms_arg.end())  global::ms_arg.insert({ "workingDir", "./" });
 		if (global::ms_arg.find("numRun") == global::ms_arg.end())  global::ms_arg.insert({ "numRun", 1 });
 		if (global::ms_arg.find("dataFile1") != global::ms_arg.end())
@@ -98,7 +98,9 @@ namespace OFEC {
 				global::ms_global.reset(new global(runId, 1. / 7, (runId + 1.) / ((int)(global::ms_arg.at("numRun")) + 1.)));
 				global::ms_global->m_problem.reset(factory<problem>::produce(global::ms_arg.at("proName"), global::ms_arg));
 				global::ms_global->m_problem->initialize();
+
 				global::ms_global->m_algorithm.reset(factory<algorithm>::produce(global::ms_arg.at("algName"), global::ms_arg));
+				global::ms_global->m_algorithm->initialize();
 				g_mutex.unlock();
 				global::ms_global->m_algorithm->run();
 			}

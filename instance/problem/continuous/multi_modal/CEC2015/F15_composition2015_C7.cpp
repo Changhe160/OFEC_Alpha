@@ -83,7 +83,6 @@ namespace OFEC {
 		}
 
 		void F15_composition2015_C7::initialize() {   // don't set optima
-			set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 			m_variable_monitor = true;
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);

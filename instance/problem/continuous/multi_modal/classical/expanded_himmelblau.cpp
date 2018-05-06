@@ -28,7 +28,6 @@ namespace OFEC {
 			m_original_optima.append(i[0]);
 		}
 		m_optima = m_original_optima;
-		set_tag(std::set<problem_tag>({ problem_tag::MMP, problem_tag::CONT }));
 	}
 	void expanded_himmelblau::evaluate__(real *x, std::vector<real>& obj) {
 		if (m_translation_flag)

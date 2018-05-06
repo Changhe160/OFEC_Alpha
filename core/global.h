@@ -27,9 +27,9 @@
 #include "algorithm/algorithm.h"
 #include "../utility/factory.h"
 
-namespace OFEC {
+namespace OFEC{
 
-	struct global {
+	struct global{
 		global(const int runID, double seed_pro, double seed_alg);
 
 		const int m_runID;
@@ -51,12 +51,12 @@ namespace OFEC {
 #ifdef OFEC_DEMON
 		static unique_ptr<global> ms_global;
 #endif
-
 		static param_map ms_arg;
 		static std::map<const std::string, bool> ms_filename_info; // to indicate whether a const std::string information is included in output file's name 
 		static std::map<const std::string, const std::string> ms_param;
 		static factory<problem> ms_reg_problem;
 		static factory<algorithm> ms_reg_algorithm;
+		static size_t ms_sample_fre;
 	};
 }
 #endif // !OFEC_GLOBAL_H

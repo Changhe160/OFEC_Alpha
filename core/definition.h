@@ -28,8 +28,8 @@ namespace OFEC {
 #define USING_DOUBLE                    // elements of type double
 	//#define USING_FLOAT                   // elements of type float
 	//#define OFEC_DEMON
-	//#define USING_CONCURRENT
-#define OFEC_CONSOLE
+    //#define USING_CONCURRENT
+	#define OFEC_CONSOLE
 	//#define OFEC_UNIT_TEST
 
 #ifdef USING_FLOAT                      // set precision type to float
@@ -51,11 +51,11 @@ namespace OFEC {
 	//SOP: single objective problem
 	//MOP: multi-objective problem
 	//DOP: dynamic optimization problem
-	//MMP: multi-modal problem
+	//MMOP: multi-modal optimization problem
 	//GOP: global optimization problem
 	//ROOT: robust optimzation problem
-	//CONT: continuous optimization problem
-	//COMB: combinatorial optimization problem
+	//ConOP: continuous optimization problem
+	//ComOP: combinatorial optimization problem
 	//TSP: travelling salesman problem
 	//COP: constraint optimization problem
 	//VRP: vehicle routing problem
@@ -68,9 +68,8 @@ namespace OFEC {
 	//MKP: multi-dimensional knapsack problem
 	//EOP: expensive optimization problem
 	//LSOP: large scale optimization problem
-	enum class problem_tag {
-		null_tag,
-		SOP, MOP, DOP, MMP, GOP, ROOT, CONT, COMB, TSP, COP, VRP, TTP, JSP,
+	enum class problem_tag {null_tag,
+		SOP, MOP, DOP, MMOP, GOP, ROOT, ConOP, ComOP, TSP, COP, VRP, TTP, JSP,
 		KOP, SAT, ONEMAX, QAP, MKP, EOP, LSOP, epanet
 	};
 }

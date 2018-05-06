@@ -240,9 +240,8 @@ namespace OFEC {
 	}
 
 	void epanet::initialize() {
-		set_tag(std::set<problem_tag>({ problem_tag::epanet }));
 
-		m_opt_mode[0] = optimization_mode::Minimization;
+		//m_opt_mode[0] = optimization_mode::Minimization;
 
 		read_parameter();
 
@@ -377,7 +376,7 @@ namespace OFEC {
 		infile.clear();
 	}
 
-	evaluation_tag epanet::evaluate_(base &s, caller call, bool effective_fes, bool constructed) {
+	evaluation_tag epanet::evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed) {
 		variable_epanet &x = dynamic_cast<solution<variable_epanet, real> &>(s).get_variable();
 		auto & obj = dynamic_cast< solution<variable_epanet, real> &>(s).get_objective();
 
@@ -517,7 +516,7 @@ namespace OFEC {
 		
 	}
 
-	void epanet::initialize_solution(base &s) const {
+	void epanet::initialize_solution(solution_base &s) const {
 		variable_epanet & var = dynamic_cast< solution<variable_epanet, real> &>(s).get_variable();
 		//real & obj = dynamic_cast< solution<variable_epanet, real> &>(s).get_objective();
 
@@ -534,7 +533,7 @@ namespace OFEC {
 		}
 	}
 
-	bool epanet::same(const base &s1, const base &s2) const     //   to do ..
+	bool epanet::same(const solution_base &s1, const solution_base &s2) const     //   to do ..
 	{
 		return true;
 	}

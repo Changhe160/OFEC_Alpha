@@ -7,26 +7,27 @@ namespace OFEC {
 		
 		m_file_name = static_cast<std::string>(v.at("dataFile1"));
 
-		if (m_variable_size <= 20) v.at("sampleFre") = 10;
-		else if (m_variable_size <= 50) v.at("sampleFre") = 100;
-		else if (m_variable_size <= 100) v.at("sampleFre") = 500;
-		else if (m_variable_size <= 200) v.at("sampleFre") = 10000;
-		else if (m_variable_size <= 300) v.at("sampleFre") = 20000;
-		else if (m_variable_size <= 400) v.at("sampleFre") = 50000;
-		else if (m_variable_size <= 500) v.at("sampleFre") = 100000;
-		else if (m_variable_size <= 600) v.at("sampleFre") = 200000;
-		else if (m_variable_size <= 700) v.at("sampleFre") = 500000;
-		else if (m_variable_size <= 800) v.at("sampleFre") = 1000000;
-		else if (m_variable_size <= 900) v.at("sampleFre") = 2000000;
-		else if (m_variable_size <= 1000) v.at("sampleFre") = 3000000;
-		else if (m_variable_size <= 2000) v.at("sampleFre") = 5000000;
 	}
 
 	travelling_salesman::travelling_salesman(const std::string& pro_name, int size_var, int size_obj, const std::string& file_name)
 		: problem(pro_name, size_var, size_obj), m_domain(m_variable_size) {	
-		m_file_name = static_cast<std::string>(file_name);
+		m_file_name = file_name;
 	}
 	void travelling_salesman::initialize() {
+		if (m_variable_size <= 20) global::ms_sample_fre  = 10;
+		else if (m_variable_size <= 50) global::ms_sample_fre  = 100;
+		else if (m_variable_size <= 100) global::ms_sample_fre  = 500;
+		else if (m_variable_size <= 200) global::ms_sample_fre  = 10000;
+		else if (m_variable_size <= 300) global::ms_sample_fre  = 20000;
+		else if (m_variable_size <= 400) global::ms_sample_fre  = 50000;
+		else if (m_variable_size <= 500) global::ms_sample_fre  = 100000;
+		else if (m_variable_size <= 600) global::ms_sample_fre  = 200000;
+		else if (m_variable_size <= 700) global::ms_sample_fre  = 500000;
+		else if (m_variable_size <= 800) global::ms_sample_fre  = 1000000;
+		else if (m_variable_size <= 900) global::ms_sample_fre  = 2000000;
+		else if (m_variable_size <= 1000) global::ms_sample_fre  = 3000000;
+		else if (m_variable_size <= 2000) global::ms_sample_fre  = 5000000;
+
 		mvvv_cost.resize(m_objective_size);
 		for (int i = 0; i<m_objective_size; i++)
 			mvvv_cost[i].resize(m_variable_size);
@@ -39,12 +40,9 @@ namespace OFEC {
 		for (size_t i = 0; i < m_variable_size; ++i)
 			m_domain.set_range(0, m_variable_size - 1, i);
 
-		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
-			m_opt_mode[idx] = optimization_mode::Minimization;
-
 		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
 	}
-	evaluation_tag travelling_salesman::evaluate_(base & s, caller call, bool effective_fes, bool constructed)
+	evaluation_tag travelling_salesman::evaluate_(solution_base & s, caller call, bool effective_fes, bool constructed)
 	{
 		variable<int> &x = dynamic_cast< solution<variable<int>, real> &>(s).get_variable();
 		std::vector<double> &obj = dynamic_cast< solution<variable<int>, real> &>(s).get_objective();
@@ -73,7 +71,7 @@ namespace OFEC {
 		return evaluation_tag::Normal;
 	}
 
-	bool travelling_salesman::is_valid(base & s) const
+	bool travelling_salesman::is_valid(solution_base & s) const
 	{
 		if (!m_if_valid_check)
 			return true;
@@ -97,7 +95,7 @@ namespace OFEC {
 		return true;
 	}
 
-	void travelling_salesman::initialize_solution(base & s) const
+	void travelling_salesman::initialize_solution(solution_base & s) const
 	{
 		variable<int>& x = dynamic_cast< solution<variable<int>, real>&>(s).get_variable();
 		global::ms_global->m_uniform[caller::Problem]->shuffle(x.begin(), x.end());
@@ -105,7 +103,7 @@ namespace OFEC {
 			throw myexcept("error in @travelling_salesman::initialize_solution() in travelling_salesman.cpp");
 	}
 
-	bool travelling_salesman::same(const base & s1, const base & s2) const
+	bool travelling_salesman::same(const solution_base & s1, const solution_base & s2) const
 	{
 		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
 		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();
@@ -135,7 +133,7 @@ namespace OFEC {
 		return false;
 	}
 
-	double travelling_salesman::variable_distance(const base & s1, const base & s2) const
+	double travelling_salesman::variable_distance(const solution_base & s1, const solution_base & s2) const
 	{
 		static std::vector<std::vector<bool>> mvv_s1_edge(m_variable_size); // a temporary matrix to store the edges of s1, thus helping calculate the distance between two solutions
 		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
@@ -171,7 +169,7 @@ namespace OFEC {
 		return dis;
 	}
 
-	std::pair<int, int> travelling_salesman::get_next_city(const base & s, int city) const
+	std::pair<int, int> travelling_salesman::get_next_city(const solution_base & s, int city) const
 	{
 		const variable<int> &x = dynamic_cast<const solution<variable<int>, real> &>(s).get_variable();
 		for (int i = 0; i<m_variable_size; i++) {

@@ -55,7 +55,6 @@ namespace OFEC {
 		}
 
 		void F11_global_composition3::initialize() {
-			set_tag(std::set<problem_tag>({ problem_tag::EOP, problem_tag::CONT }));
 			m_num_function = 5;
 			m_function.resize(m_num_function);
 			m_height.resize(m_num_function);
@@ -84,7 +83,7 @@ namespace OFEC {
 			evaluate_(x, caller::Problem, false, false);
 			m_optima.append(x.get_objective());
 
-			add_tag(problem_tag::MMP);
+			add_tag(problem_tag::MMOP);
 		}
 		void F11_global_composition3::evaluate__(real *x, std::vector<real>& obj) {
 			std::vector<real> x_(m_variable_size);

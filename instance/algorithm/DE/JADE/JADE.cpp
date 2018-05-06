@@ -10,15 +10,15 @@ namespace OFEC {
 			m_c = 0.1;
 		}
 
-		void JADE::select_trial(int base) {
+		void JADE::select_trial(int base_) {
 			std::vector<int> candidate;
 			for (size_t i = 0; i < size(); i++) {
-				if (base != i) candidate.push_back(i);
+				if (base_ != i) candidate.push_back(i);
 			}
 			int idx;
 			do {
 				idx = m_pcent_best_index[global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)(size()*m_p))];
-			} while (idx == base);
+			} while (idx == base_);
 
 			m_candi[0] = m_pop[idx].get();
 
@@ -141,7 +141,7 @@ namespace OFEC {
 				//std::cout << m_iter << " " << error <<" "<< m_best[0]->get_variable()[0] << " " << m_best[0]->get_variable()[1] << std::endl;
 				std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << CONTINOUS_CAST->num_optima_found() << std::endl;
 				//g_mutexStream.unlock();
-				measure::ms_measure->record(global::ms_global.get(), m_iter, error);
+				measure::get_measure()->record(global::ms_global.get(), m_iter, error);
 				update_CR();
 				update_F();
 				tag = evolve();

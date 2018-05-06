@@ -11,6 +11,6 @@
 #include "../instance/algorithm/DE/NSDE/NSDE.h"
 #include "../instance/algorithm/DE/SaDE/SaDE.h"
 
-#include "../instance/algorithm/EPANET/ADOPT.h"
+//#include "../instance/algorithm/EPANET/COGL.h"
 
 #endif // !INCLUDE_ALGORITHM_H

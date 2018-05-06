@@ -1,3 +1,25 @@
+/*************************************************************************
+* Project: Library of Open Frameworks for Evolutionary Computation (OFEC)
+*************************************************************************
+* Author: Changhe Li & Yong Xia
+* Email: changhe.lw@google.com
+* Language: C++
+*************************************************************************
+*  This file is part of OFEC. This library is free software;
+*  you can redistribute it and/or modify it under the terms of the
+*  GNU General Public License as published by the Free Software
+*  Foundation; either version 2, or (at your option) any later version.
+
+*************************************************************************/
+// Created: 31 December 2014
+// Modified: 29 Mar 2018 by Junchen Wang (wangjunchen@cug.edu.cn)
+
+/*********************************************************************************************************************
+  H. Li and Q. Zhang
+  Comparison Between NSGA-II and MOEA/D on a Set of Multiobjective Optimization Problems with Complicated Pareto Sets
+  Technical Report CES-476, Department of Computer Science, University of Essex, 2007
+**********************************************************************************************************************/
+
 #ifndef MOEA_FBASE_H
 #define MOEA_FBASE_H
 
@@ -5,6 +27,8 @@
 
 namespace OFEC {
 	class MOEA_FBase : public continuous {
+	public:
+		void initialize();
 	protected:
 		MOEA_FBase(const std::string &name, size_t size_var, size_t size_obj);
 		int getDtype() const { return m_dtype; }
@@ -22,8 +46,6 @@ namespace OFEC {
 		void LoadPF();
 		void evaluate__(double *x, std::vector<double>& obj) { calObjective(x, obj); }
 		int m_dtype, m_ptype, m_ltype;
-	public:
-		void initialize();
 	};
 }
 #endif //MOEA_FBASE_H

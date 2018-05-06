@@ -23,7 +23,6 @@
 #define OFEC_DEINDIVIDUAL_H
 #include "../../../core/algorithm/individual.h"
 #include "../../../core/problem/continuous/continuous.h"
-#include "../../problem/realworld/EPANET/epa_encoding.h"
 
 namespace OFEC {
 	namespace DE {
@@ -58,6 +57,7 @@ namespace OFEC {
 				solution_type *r4 = 0,
 				solution_type *r5 = 0);
 			virtual void recombine(double CR);
+
 			virtual evaluation_tag select();
 			solution_type& trial();
 
@@ -119,7 +119,7 @@ namespace OFEC {
 				solution_type *r3,
 				solution_type *r4,
 				solution_type *r5) {
-			
+
 			real l, u;
 			for (size_t i = 0; i < m_pv.get_variable().size(); ++i) {
 				l = CONTINOUS_CAST->range(i).first;
@@ -140,7 +140,6 @@ namespace OFEC {
 		template<typename VariableEncoding = variable<real>,
 			typename ObjetiveType = real>
 			void individual<VariableEncoding, ObjetiveType>::recombine(double CR) {
-			
 			size_t dim = m_var.size();
 			int I = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)dim);
 
@@ -149,8 +148,7 @@ namespace OFEC {
 				if (p <= CR || i == I)     m_pu.get_variable()[i] = m_pv.get_variable()[i];
 				else m_pu.get_variable()[i] = get_variable()[i];
 			}
-			
-			
+
 		}
 
 		template<typename VariableEncoding = variable<real>,
@@ -161,6 +159,7 @@ namespace OFEC {
 				solution_type *r3,
 				solution_type *r4,
 				solution_type *r5) {
+
 			real l, u;
 			for (auto &i : var) {
 				l = CONTINOUS_CAST->range(i).first;
@@ -176,7 +175,6 @@ namespace OFEC {
 				}
 
 			}
-			
 		}
 
 		template<typename VariableEncoding = variable<real>,

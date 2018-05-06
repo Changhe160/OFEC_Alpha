@@ -28,15 +28,15 @@
 #include "../../utility/functional.h"
 
 namespace OFEC {
-	class base {
+	class solution_base {
 	public:
-		virtual evaluation_tag evaluate(bool = true) = 0;
-		virtual ~base() {};
-		base(const base&) = default;
-		base(base&&) = default;
-		base() = default;
-		base& operator=(const base&) = default;
-		base& operator=(base&&) = default;
+		virtual evaluation_tag evaluate(bool=true, caller= caller::Algorithm) = 0;
+		virtual ~solution_base() {};
+		solution_base(const solution_base&) = default;
+		solution_base(solution_base&&) = default;
+		solution_base() = default;
+		solution_base& operator=(const solution_base&) = default;
+		solution_base& operator=(solution_base&&) = default;
 	};
 
 
@@ -47,7 +47,7 @@ namespace OFEC {
 		using encoding = std::vector<value_type>;
 		using iterator_type = typename std::vector<value_type>::iterator;
 		using const_iterator = typename std::vector<value_type>::const_iterator;
-		objective(size_t n = 0) :m_o(n) {}
+		objective(size_t n=0) :m_o(n) {}
 		objective(const objective& rhs) :m_o(rhs.m_o) {}
 		objective(const std::vector<value_type>& rhs) :m_o(rhs) {}
 		objective& operator=(const objective& rhs) {
@@ -80,7 +80,7 @@ namespace OFEC {
 		std::vector<value_type>& vect() {
 			return m_o;
 		}
-		const std::vector<value_type>& vect() const {
+		const std::vector<value_type>& vect() const{
 			return m_o;
 		}
 
@@ -108,36 +108,36 @@ namespace OFEC {
 			return m_o.cend();
 		}
 
-		size_t size() const noexcept {
+		size_t size() const noexcept{
 			return m_o.size();
 		}
 
 	protected:
 		std::vector<value_type> m_o;
-
+	
 	};
 
 	class variable_base {
 	public:
 		virtual void resize(size_t n) = 0;
-		virtual size_t size() noexcept = 0;
+		virtual size_t size() const noexcept = 0;
 	};
 
 	template <typename VariableType>
-	class variable :public variable_base {
+	class variable:public variable_base {
 	public:
 		using value_type = VariableType;
 		using encoding = std::vector<value_type>;
 		using iterator_type = typename std::vector<value_type>::iterator;
 		using const_iterator = typename std::vector<value_type>::const_iterator;
-		variable(size_t n = 0) :m_x(n) {}
+		variable(size_t n=0) :m_x(n){}
 		variable(const variable& rhs) : m_x(rhs.m_x) {}
 		variable(variable&& rhs) :m_x(std::move(rhs.m_x)) {}
 		variable(const std::vector<value_type>& x) : m_x(x) {}
 		variable& operator=(const variable& rhs) {
 			if (m_x.size() != rhs.m_x.size())
 				THROW("the number of dimensions is not the same!");
-
+		
 			if (this == &rhs) return *this;
 			m_x = rhs.m_x;
 			return *this;
@@ -153,10 +153,7 @@ namespace OFEC {
 		void resize(size_t n) {
 			m_x.resize(n);
 		}
-		size_t size() noexcept {
-			return m_x.size();
-		}
-		const size_t size() const noexcept {
+		size_t size() const noexcept {
 			return m_x.size();
 		}
 
@@ -167,7 +164,7 @@ namespace OFEC {
 		iterator_type end() noexcept {
 			return m_x.end();
 		}
-
+		
 		const_iterator begin() const noexcept {
 			return m_x.begin();
 		}
@@ -176,10 +173,10 @@ namespace OFEC {
 			return m_x.end();
 		}
 
-		const value_type& operator[](size_t i)const {
+		const value_type& operator[](size_t i)const{
 			return m_x[i];
 		}
-		value_type& operator[](size_t i) {
+		value_type& operator[](size_t i){
 			return m_x[i];
 		}
 		value_type* data() noexcept {
@@ -195,3 +192,4 @@ namespace OFEC {
 }
 
 #endif // !OFEC_ENCODING_H
+
