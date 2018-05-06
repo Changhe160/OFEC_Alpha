@@ -48,17 +48,14 @@ namespace OFEC {
 		Individual& operator[](size_t i) {
 			return *m_pop[i];
 		}
-		std::vector<std::unique_ptr<typename Individual::solution_type>>& archive() {
-			return m_arc;
-		}
-		const std::vector<std::shared_ptr<Individual>>& best();
-		const std::vector<std::shared_ptr<Individual>>& worst();
+
+		const std::vector<Individual*>& best();
+		const std::vector<Individual*>& worst();
 		int iteration() { return m_iter; }
 
 		//update	
 		void update_best();
 		void update_worst();
-		virtual bool update_archive(const typename Individual::solution_type &x);
 		void handle_evaluation_tag(evaluation_tag tag) {}
 
 		//constructors and members
@@ -111,8 +108,7 @@ namespace OFEC {
 		int m_iter = 0;			// the current number of iterations
 		int m_id;
 		std::vector<std::shared_ptr<Individual>> m_pop;
-		std::vector<std::shared_ptr<Individual>> m_best, m_worst;
-		std::vector<std::unique_ptr<typename Individual::solution_type>> m_arc;// external archive for solutions
+		std::vector<Individual*> m_best, m_worst;
 		std::multimap<int, int> m_order;
 		bool m_ordered = false, m_best_updated = false, m_worst_updated = false;
 	private:
@@ -127,14 +123,14 @@ namespace OFEC {
 		return evolve_();
 	}
 	template<typename Individual>
-	const std::vector<std::shared_ptr<Individual>>& population<Individual>::best() {
+	const std::vector<Individual*>& population<Individual>::best() {
 		if (!m_best_updated) {
 			update_best();
 		}
 		return m_best;
 	}
 	template<typename Individual>
-	const std::vector<std::shared_ptr<Individual>>& population<Individual>::worst() {
+	const std::vector<Individual*>& population<Individual>::worst() {
 		if (!m_worst_updated) {
 			update_worst();
 		}
@@ -154,7 +150,7 @@ namespace OFEC {
 				}
 			}
 		}
-		for (size_t i = 0; i<m_pop.size(); i++) { if (flag[i]) m_best.push_back(m_pop[i]); }
+		for (size_t i = 0; i<m_pop.size(); i++) { if (flag[i]) m_best.push_back(m_pop[i].get()); }
 		m_best_updated = true;
 	}
 
@@ -176,37 +172,6 @@ namespace OFEC {
 	}
 
 	template<typename Individual>
-	bool population<Individual>::update_archive(const typename Individual::solution_type &x) {
-		bool first = true;
-		// check dominated case
-		for (auto i = m_arc.begin(); i != m_arc.end(); i++) {
-			if (first && x.dominate(**i)) {//**i<x
-				**i = x;
-				first = false;
-			}
-			else if (!first && x.dominate(**i)) {//**i<x
-				i = m_arc.erase(i);
-				i--;
-			}
-		}
-		if (!first) return true;
-		//check equal case	
-		for (auto i = m_arc.begin(); i != m_arc.end(); i++) {
-			if (x.equal(**i) && !((*i)->same(x))) { //**i == x 
-				m_arc.push_back(std::unique_ptr<typename Individual::solution_type>(new typename Individual::solution_type(x)));
-				return true;
-			}
-		}
-		//check non-dominated case	
-		for (auto i = m_arc.begin(); i != m_arc.end(); i++) {
-			if (!(*i)->nondominate(x)) return false;
-		}
-		m_arc.push_back(std::move(std::unique_ptr<typename Individual::solution_type>(new typename Individual::solution_type(x))));
-
-		return true;
-	}
-
-	template<typename Individual>
 	template<typename ... Args>
 	population<Individual>::population(size_t n, Args&& ... args) :algorithm(std::string()), m_pop(n) {
 		size_t size_obj = global::ms_global->m_problem->objective_size();
@@ -216,7 +181,7 @@ namespace OFEC {
 
 	template<typename Individual>
 	population<Individual>::population(const population &rhs) :algorithm(std::string()), m_iter(rhs.m_iter), m_id(rhs.m_id), m_pop(rhs.m_pop),\
-	m_best(rhs.m_best), m_worst(rhs.m_worst), m_arc(rhs.m_arc), m_order(rhs.m_order), m_ordered(rhs.m_ordered), m_best_updated(rhs.m_best_updated),\
+	m_best(rhs.m_best), m_worst(rhs.m_worst),  m_order(rhs.m_order), m_ordered(rhs.m_ordered), m_best_updated(rhs.m_best_updated),\
 	m_worst_updated(rhs.m_worst_updated), m_max_id(rhs.m_max_id) {
 		
 	}
@@ -229,7 +194,6 @@ namespace OFEC {
 		m_pop = rhs.m_pop;
 		m_best = rhs.m_best;
 		m_worst = rhs.m_worst;
-		m_arc = rhs.m_arc;
 		m_order = rhs.m_order;
 		m_ordered = rhs.m_ordered;
 		m_best_updated = rhs.m_best_updated;
@@ -252,7 +216,6 @@ namespace OFEC {
 		m_pop = std::move(rhs.m_pop);
 		m_best = std::move(rhs.m_best);
 		m_worst = std::move(rhs.m_worst);
-		m_arc = std::move(rhs.m_arc);
 		m_order = std::move(rhs.m_order);
 		m_ordered = rhs.m_ordered;
 		m_best_updated = rhs.m_best_updated;
@@ -268,9 +231,8 @@ namespace OFEC {
 		m_best.clear();
 		m_worst.clear();
 		m_pop.clear();
-		m_arc.clear();
 		m_order.clear();
-		m_ordered = false, m_best_updated = false, m_worst_updated = false;
+		m_ordered = m_best_updated = m_worst_updated = false;
 	}
 
 	template<typename Individual>

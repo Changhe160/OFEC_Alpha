@@ -7,7 +7,7 @@ namespace OFEC {
 			//default configuration (N,N+) or (N,Nq)= (5,5)
 			assign_type();
 			set_mutation_strategy(DE_best_2);
-			update_archive(*m_pop[0]);
+			//update_archive(*m_pop[0]);
 		}
 		void DynDE_subpopulation::assign_type() {
 
@@ -30,11 +30,11 @@ namespace OFEC {
 					this->m_pop[i]->recombine(m_CR);
 				}
 				else if (m_pop[i]->m_type == DynDE_individual::individual_type::TYPE_BROWNIAN) {
-					tag = m_pop[i]->brownian(*m_arc[0], m_sigma);
+					tag = m_pop[i]->brownian(*m_best[0], m_sigma);
 
 				}
 				else if (m_pop[i]->m_type == DynDE_individual::individual_type::TYPE_QUANTUM) {
-					tag = m_pop[i]->quantum(*m_arc[0], m_r_cloud);
+					tag = m_pop[i]->quantum(*m_best[0], m_r_cloud);
 				}
 				if (tag != evaluation_tag::Normal)  return tag;
 			}
@@ -53,7 +53,7 @@ namespace OFEC {
 					tag = m_pop[i]->entropy(m_sigma);
 					if (tag != evaluation_tag::Normal) return tag;
 				}
-				update_archive(*m_pop[i]);
+				//update_archive(*m_pop[i]);
 			}
 			if (tag == evaluation_tag::Normal) {
 				this->m_iter++;
