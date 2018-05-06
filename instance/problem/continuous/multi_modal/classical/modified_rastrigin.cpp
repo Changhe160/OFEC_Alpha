@@ -21,8 +21,8 @@
 #include "modified_rastrigin.h"
 namespace OFEC {
 	
-	modified_rastrigin::modified_rastrigin(param_map &v) : problem((v.at("proName")), 2, 1), \
-		function((v.at("proName")), 2, 1), m_k(2) {
+	modified_rastrigin::modified_rastrigin(param_map &v) :
+		modified_rastrigin((v.at("proName")), 2, 1){
 		
 	}
 	modified_rastrigin::modified_rastrigin(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \

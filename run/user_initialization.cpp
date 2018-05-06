@@ -349,7 +349,7 @@ namespace OFEC {
 		RIGIESTER(algorithm, NCDE, "NCDE", std::set<problem_tag>({ problem_tag::MMOP,problem_tag::ConOP }));
 		RIGIESTER(algorithm, NSDE, "NSDE", std::set<problem_tag>({ problem_tag::MMOP,problem_tag::ConOP }));
 		RIGIESTER(algorithm, SaDE, "SaDE", std::set<problem_tag>({ problem_tag::MMOP,problem_tag::ConOP }));
-		//RIGIESTER(algorithm, COGL, "COGL", std::set<problem_tag>({ problem_tag::MMOP, problem_tag::DOP, problem_tag::LSOP}));
+		RIGIESTER(algorithm, ADOPT, "ADOPT", std::set<problem_tag>({ problem_tag::epanet}));
 	}
 
 	int before_run() {

@@ -1,8 +1,8 @@
 #include "schwefel_2_6.h"
 namespace OFEC {
 	
-	schwefel_2_6::schwefel_2_6(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1), m_a(v.at("numDim"), std::vector<int>(v.at("numDim"))), m_b(v.at("numDim")) {
+	schwefel_2_6::schwefel_2_6(param_map &v) :
+		schwefel_2_6((v.at("proName")), (v.at("numDim")), 1) {
 
 		
 	}

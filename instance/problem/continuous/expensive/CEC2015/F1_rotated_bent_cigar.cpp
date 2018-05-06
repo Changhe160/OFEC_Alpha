@@ -2,8 +2,7 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F1_rotated_bent_cigar::F1_rotated_bent_cigar(param_map &v) :\
-			F1_rotated_bent_cigar(v.at("proName"), v.at("numDim"), 1){
+		F1_rotated_bent_cigar::F1_rotated_bent_cigar(param_map &v) : F1_rotated_bent_cigar(v.at("proName"), v.at("numDim"), 1){
 					
 		}
 		F1_rotated_bent_cigar::F1_rotated_bent_cigar(const std::string &name, size_t size_var, size_t size_obj ) :\

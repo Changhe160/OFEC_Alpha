@@ -9,8 +9,8 @@
 
 namespace OFEC {
 	namespace CEC2013 {
-		F10_composition2::F10_composition2(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-			composition((v.at("proName")), (v.at("numDim")), 1) {
+		F10_composition2::F10_composition2(param_map &v) :
+			F10_composition2((v.at("proName")), (v.at("numDim")), 1) {
 			
 		}
 		F10_composition2::F10_composition2(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

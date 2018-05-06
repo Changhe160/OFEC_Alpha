@@ -14,8 +14,8 @@
 #include "weierstrass.h"
 namespace OFEC {
 	
-	weierstrass::weierstrass(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	weierstrass::weierstrass(param_map &v) :
+		weierstrass((v.at("proName")), (v.at("numDim")), 1) {
 
 		
 	}

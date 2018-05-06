@@ -22,8 +22,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F15_expensive_composition3::F15_expensive_composition3(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
+		F15_expensive_composition3::F15_expensive_composition3(param_map &v) :
+			F15_expensive_composition3((v.at("proName")), (v.at("numDim")), 1) {
 			
 		}
 		F15_expensive_composition3::F15_expensive_composition3(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

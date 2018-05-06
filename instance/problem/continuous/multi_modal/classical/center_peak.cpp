@@ -17,8 +17,8 @@
 #include "center_peak.h"
 namespace OFEC {
 	
-	center_peak::center_peak(param_map &v) :problem((v.at("proName")), 2, 1), \
-		function((v.at("proName")), 2, 1) {
+	center_peak::center_peak(param_map &v) :
+		center_peak((v.at("proName")), 2, 1) {
 		
 	}
 	center_peak::center_peak(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

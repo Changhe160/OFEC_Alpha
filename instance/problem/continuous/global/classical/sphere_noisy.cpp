@@ -14,8 +14,8 @@
 #include "sphere_noisy.h"
 namespace OFEC {
 	
-	sphere_noisy::sphere_noisy(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	sphere_noisy::sphere_noisy(param_map &v) :
+		sphere_noisy((v.at("proName")), (v.at("numDim")), 1) {
 
 	}
 	sphere_noisy::sphere_noisy(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

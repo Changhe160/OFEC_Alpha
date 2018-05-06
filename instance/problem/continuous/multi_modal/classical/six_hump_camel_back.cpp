@@ -17,8 +17,8 @@
 #include "six_hump_camel_back.h"
 namespace OFEC {
 	
-	six_hump_camel_back::six_hump_camel_back(param_map &v) :problem((v.at("proName")), 2, 1), \
-		function((v.at("proName")), 2, 1) {
+	six_hump_camel_back::six_hump_camel_back(param_map &v) :
+		six_hump_camel_back((v.at("proName")), 2, 1) {
 		
 	}
 	six_hump_camel_back::six_hump_camel_back(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
@@ -27,7 +27,7 @@ namespace OFEC {
 	}
 
 	void six_hump_camel_back::initialize() {
-		m_opt_mode[0] = optimization_mode::Minimization;
+		
 		std::vector<std::pair<real, real>> range;
 		range.push_back(std::make_pair(-1.9, 1.9));
 		range.push_back(std::make_pair(-1.1, 1.1));

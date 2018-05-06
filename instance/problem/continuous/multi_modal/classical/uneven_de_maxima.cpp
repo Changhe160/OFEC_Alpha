@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	
-	uneven_de_maxima::uneven_de_maxima(param_map &v) : problem((v.at("proName")), 1, 1), \
-		function((v.at("proName")), 1, 1) {
+	uneven_de_maxima::uneven_de_maxima(param_map &v) : 
+		uneven_de_maxima((v.at("proName")), 1, 1) {
 
 		
 		

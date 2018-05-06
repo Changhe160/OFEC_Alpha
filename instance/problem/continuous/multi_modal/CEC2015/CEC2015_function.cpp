@@ -7,7 +7,7 @@ namespace OFEC {
 		{
 			set_range(-100, 100);
 			set_init_range(-100, 100);
-			m_opt_mode[0] = optimization_mode::Minimization;
+			
 			m_variable_accuracy = 0.01;
 			m_objective_accuracy = 1.e-4;
 			set_condition_number(1.0);

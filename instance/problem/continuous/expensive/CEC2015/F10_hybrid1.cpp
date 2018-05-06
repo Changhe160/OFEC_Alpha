@@ -4,8 +4,8 @@
 #include "../../global/classical/elliptic.h"
 namespace OFEC {
 	namespace CEC2015 {
-		F10_hybrid1::F10_hybrid1(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-			hybrid((v.at("proName")), (v.at("numDim")), 1) {
+		F10_hybrid1::F10_hybrid1(param_map &v) :
+			F10_hybrid1((v.at("proName")), (v.at("numDim")), 1) {
 			
 		}
 		F10_hybrid1::F10_hybrid1(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

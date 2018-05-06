@@ -31,7 +31,7 @@ namespace OFEC {
 	public:
 		template<typename ... Args>
 		ADOPT_individual(size_t no, Args&& ... args) : individual(no, std::forward<Args>(args)...), m_pv(no, std::forward<Args>(args)...), m_pu(no, std::forward<Args>(args)...) {}
-		ADOPT_individual(const ADOPT_individual & indi) : individual(indi) {}
+		//ADOPT_individual(const ADOPT_individual & indi) : individual(indi) {}
 		
 		virtual void mutate__(double F, const std::vector<std::vector<double>> & pro, solution<variable_epanet, real> *r1,
 			solution<variable_epanet, real> *r2,

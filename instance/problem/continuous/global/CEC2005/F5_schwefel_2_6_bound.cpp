@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		F5_schwefel_2_6_bound::F5_schwefel_2_6_bound(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-			function((v.at("proName")), (v.at("numDim")), 1), m_a(v.at("numDim"), std::vector<int>(v.at("numDim"))), m_b(v.at("numDim")) {
+		F5_schwefel_2_6_bound::F5_schwefel_2_6_bound(param_map &v) :
+			F5_schwefel_2_6_bound((v.at("proName")), (v.at("numDim")), 1){
 			
 		}
 		F5_schwefel_2_6_bound::F5_schwefel_2_6_bound(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

@@ -23,8 +23,8 @@
 #include "vincent.h"
 namespace OFEC {
 	
-	vincent::vincent(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	vincent::vincent(param_map &v) :
+		vincent((v.at("proName")), (v.at("numDim")), 1) {
 
 		
 	}

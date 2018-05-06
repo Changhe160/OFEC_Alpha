@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F1_SR_expanded_two_peak_trap::F1_SR_expanded_two_peak_trap(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-			CEC2015_function((v.at("proName")), (v.at("numDim")), 1) {
+		F1_SR_expanded_two_peak_trap::F1_SR_expanded_two_peak_trap(param_map &v) :
+			F1_SR_expanded_two_peak_trap((v.at("proName")), (v.at("numDim")), 1) {
 			
 		}
 		F1_SR_expanded_two_peak_trap::F1_SR_expanded_two_peak_trap(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
@@ -14,7 +14,7 @@ namespace OFEC {
 		void F1_SR_expanded_two_peak_trap::initialize() {
 			set_range(-100, 100);
 			set_init_range(-100, 100);
-			m_opt_mode[0] = optimization_mode::Minimization;
+			
 			m_variable_accuracy = 0.01;
 			m_objective_accuracy = 1.e-4;
 			set_condition_number(1.0);

@@ -50,7 +50,7 @@ namespace OFEC {
 			for (auto &i : m_alternative[i].first->get_variable().multiplier())
 				std::cout << i << std::endl;
 			std::cout << m_alternative[i].first->get_objective()[0] << std::endl;
-			measure::ms_measure->record(global::ms_global.get(), i+1, m_alternative.size());
+			measure::get_measure()->record(global::ms_global.get(), i+1, m_alternative.size());
 		}
 		
 		return tag;

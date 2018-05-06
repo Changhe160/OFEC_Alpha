@@ -14,8 +14,8 @@
 #include "modified_schwefel.h"
 namespace OFEC {
 
-	modified_schwefel::modified_schwefel(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	modified_schwefel::modified_schwefel(param_map &v) :
+		modified_schwefel((v.at("proName")), (v.at("numDim")), 1) {
 
 	}
 	modified_schwefel::modified_schwefel(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

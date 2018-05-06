@@ -19,8 +19,8 @@
 
 namespace OFEC {
 
-	branin_rcos::branin_rcos(param_map &v) :problem((v.at("proName")), 2, 1), \
-		function((v.at("proName")), 2, 1) {
+	branin_rcos::branin_rcos(param_map &v) :
+		branin_rcos((v.at("proName")), 2, 1) {
 		
 	}
 	branin_rcos::branin_rcos(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
@@ -35,7 +35,7 @@ namespace OFEC {
 		range.push_back(std::make_pair(0., 15.));
 		set_init_range(range);
 		set_range(std::move(range));
-		m_opt_mode[0] = optimization_mode::Minimization;
+		
 		m_variable_accuracy = 0.1;
 		m_objective_accuracy = 1.e-5;
 
