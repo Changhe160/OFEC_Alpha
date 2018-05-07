@@ -43,7 +43,7 @@ namespace OFEC {
 			std::vector<function*> m_function;    // the functions
 			std::vector<real> m_height;
 			std::vector<real> m_fmax;
-			double m_height_normalize_severity;   // constant number for noralizing all basic function with similar height
+			double m_height_normalize_severity = 2000;   // constant number for noralizing all basic function with similar height
 			std::vector<double> m_converge_severity;     // severity of converge range for each function
 			std::vector<double> m_stretch_severity;      // severity of stretching original function, greater than 1 for stretch
 
