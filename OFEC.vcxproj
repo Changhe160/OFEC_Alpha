@@ -320,6 +320,10 @@
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F10_composition2.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F11_composition3.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F12_composition4.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F4_himmenblau.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F5_six_hump_camel_back.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F6_shubert.cpp" />
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F8_modified_rastrigin.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F9_composition1.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\CEC2015_function.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F10_composition2015_C2.cpp" />
@@ -595,6 +599,10 @@
     <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F11_composition3.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F12_composition4.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F1_F8.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F4_himmenblau.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F5_six_hump_camel_back.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F6_shubert.h" />
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F8_modified_rastrigin.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F9_composition1.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\CEC2015_function.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\CEC2015\F10_composition2015_C2.h" />

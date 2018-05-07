@@ -1029,6 +1029,18 @@
     <ClInclude Include="utility\types.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F4_himmenblau.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F5_six_hump_camel_back.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F6_shubert.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F8_modified_rastrigin.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">
@@ -1816,6 +1828,18 @@
     </ClCompile>
     <ClCompile Include="utility\nondominated_sorting\best_order_sort\best_order_sort.cpp">
       <Filter>utility\nondominated_sorting\best_order_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F4_himmenblau.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F5_six_hump_camel_back.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F6_shubert.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F8_modified_rastrigin.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

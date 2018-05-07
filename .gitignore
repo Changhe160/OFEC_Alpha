@@ -249,3 +249,5 @@ obj/
 x64/
 results/
 *.vcxproj*
+*.filters
+*.vcxproj
