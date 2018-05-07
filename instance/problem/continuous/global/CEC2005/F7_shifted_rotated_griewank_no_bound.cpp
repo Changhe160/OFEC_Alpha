@@ -2,13 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-<<<<<<< HEAD
 		F7_shifted_rotated_griewank_no_bound::F7_shifted_rotated_griewank_no_bound(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			griewank((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F7_shifted_rotated_griewank_no_bound::F7_shifted_rotated_griewank_no_bound(param_map &v) :
-			F7_shifted_rotated_griewank_no_bound((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 			
 		}
 		F7_shifted_rotated_griewank_no_bound::F7_shifted_rotated_griewank_no_bound(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

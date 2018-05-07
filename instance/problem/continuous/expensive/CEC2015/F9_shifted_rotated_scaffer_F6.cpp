@@ -2,13 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-<<<<<<< HEAD
 		F9_shifted_rotated_scaffer_F6::F9_shifted_rotated_scaffer_F6(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			scaffer_F6((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F9_shifted_rotated_scaffer_F6::F9_shifted_rotated_scaffer_F6(param_map &v) :
-			F9_shifted_rotated_scaffer_F6((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 			
 		}

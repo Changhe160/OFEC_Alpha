@@ -20,13 +20,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-<<<<<<< HEAD
 		F14_expensive_composition2::F14_expensive_composition2(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F14_expensive_composition2::F14_expensive_composition2(param_map &v) :
-			F14_expensive_composition2((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 			
 		}
 		F14_expensive_composition2::F14_expensive_composition2(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

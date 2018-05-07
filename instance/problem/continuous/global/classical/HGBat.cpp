@@ -14,13 +14,8 @@
 #include "HGBat.h"
 namespace OFEC {
 
-<<<<<<< HEAD
 	HGBat::HGBat(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
-=======
-	HGBat::HGBat(param_map &v) :
-		HGBat((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 		
 	}

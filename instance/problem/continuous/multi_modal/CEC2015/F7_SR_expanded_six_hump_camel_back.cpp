@@ -2,13 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-<<<<<<< HEAD
 		F7_SR_expanded_six_hump_camel_back::F7_SR_expanded_six_hump_camel_back(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			CEC2015_function((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F7_SR_expanded_six_hump_camel_back::F7_SR_expanded_six_hump_camel_back(param_map &v) :
-			F7_SR_expanded_six_hump_camel_back((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 			
 		}
 		F7_SR_expanded_six_hump_camel_back::F7_SR_expanded_six_hump_camel_back(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
@@ -19,11 +14,7 @@ namespace OFEC {
 		void F7_SR_expanded_six_hump_camel_back::initialize() {
 			set_range(-100, 100);
 			set_init_range(-100, 100);
-<<<<<<< HEAD
 			m_opt_mode[0] = optimization_mode::Minimization;
-=======
-			
->>>>>>> zhou_li
 			m_variable_accuracy = 0.01;
 			m_objective_accuracy = 1.e-4;
 			set_condition_number(1.0);

@@ -20,13 +20,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-<<<<<<< HEAD
 		F20_rotated_hybrid_bound::F20_rotated_hybrid_bound(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F20_rotated_hybrid_bound::F20_rotated_hybrid_bound(param_map &v) :
-			F20_rotated_hybrid_bound((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 			
 		}

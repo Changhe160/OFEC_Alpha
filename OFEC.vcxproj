@@ -23,7 +23,7 @@
     <ProjectGuid>{09423B44-E3CE-4068-8471-8B0075DC7968}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OFEC</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -90,24 +90,16 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-<<<<<<< HEAD
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
-=======
-      <AdditionalIncludeDirectories>$(BoostInclude);$(CUDA_INC)</AdditionalIncludeDirectories>
->>>>>>> zhou_li
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-<<<<<<< HEAD
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
-=======
-      <AdditionalLibraryDirectories>$(BoostLib);$(CUDA_LIB)</AdditionalLibraryDirectories>
->>>>>>> zhou_li
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -117,33 +109,18 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-<<<<<<< HEAD
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-=======
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)_SCL_SECURE_NO_WARNINGS</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(OpenCLInclude);$(BoostInclude);%(AdditionalIncludeDirectories);</AdditionalIncludeDirectories>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <MinimalRebuild>false</MinimalRebuild>
-      <SDLCheck>false</SDLCheck>
-      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
->>>>>>> zhou_li
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-<<<<<<< HEAD
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-=======
-      <AdditionalLibraryDirectories>$(OpenCLLib);$(BoostLib);$(CUDA_LIB);</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;OpenCL.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
->>>>>>> zhou_li
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -194,25 +171,14 @@
     <ClCompile Include="core\problem\continuous\function.cpp" />
     <ClCompile Include="core\problem\problem.cpp" />
     <ClCompile Include="instance\algorithm\DE\CRDE\CRDE.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="instance\algorithm\DE\DynDE\DynDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\DynDE\DynDE_individual.cpp" />
-=======
-    <ClCompile Include="instance\algorithm\DE\DynDE\DynDE_individual.cpp" />
-    <ClCompile Include="instance\algorithm\DE\DynDE\DynDE.cpp" />
->>>>>>> zhou_li
     <ClCompile Include="instance\algorithm\DE\DynDE\DynDE_subpopulation.cpp" />
     <ClCompile Include="instance\algorithm\DE\JADE\JADE.cpp" />
     <ClCompile Include="instance\algorithm\DE\jDE\jDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\NCDE\NCDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\NSDE\NSDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\SaDE\SaDE.cpp" />
-<<<<<<< HEAD
-=======
-    <ClCompile Include="instance\algorithm\EPANET\ADOPT_individual.cpp" />
-    <ClCompile Include="instance\algorithm\EPANET\ADOPT_sub_population.cpp" />
-    <ClCompile Include="instance\algorithm\EPANET\ADOPT.cpp" />
->>>>>>> zhou_li
     <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAII.cpp" />
     <ClCompile Include="instance\problem\combination\MKP\multi_dimensional_knapsack.cpp" />
     <ClCompile Include="instance\problem\combination\one_max\one_max.cpp" />
@@ -264,10 +230,7 @@
     <ClCompile Include="instance\problem\continuous\expensive\CEC2015\F9_shifted_rotated_scaffer_F6.cpp" />
     <ClCompile Include="instance\problem\continuous\expensive\CEC2015\hybrid.cpp" />
     <ClCompile Include="instance\problem\continuous\global\BBOB\BBOB.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="instance\problem\continuous\global\CEC2005\composition.cpp" />
-=======
->>>>>>> zhou_li
     <ClCompile Include="instance\problem\continuous\global\CEC2005\F10_shifted_rotated_rastrigin.cpp" />
     <ClCompile Include="instance\problem\continuous\global\CEC2005\F11_shifted_rotated_weierstrass.cpp" />
     <ClCompile Include="instance\problem\continuous\global\CEC2005\F12_schwefel_2_13.cpp" />
@@ -293,10 +256,6 @@
     <ClCompile Include="instance\problem\continuous\global\CEC2005\F7_shifted_rotated_griewank_no_bound.cpp" />
     <ClCompile Include="instance\problem\continuous\global\CEC2005\F8_shifted_rotated_ackley_bound.cpp" />
     <ClCompile Include="instance\problem\continuous\global\CEC2005\F9_shifted_rastrigin.cpp" />
-<<<<<<< HEAD
-=======
-    <ClCompile Include="instance\problem\continuous\global\CEC2005\composition.cpp" />
->>>>>>> zhou_li
     <ClCompile Include="instance\problem\continuous\global\CEC2015\F10_global_composition2.cpp" />
     <ClCompile Include="instance\problem\continuous\global\CEC2015\F11_global_composition3.cpp" />
     <ClCompile Include="instance\problem\continuous\global\CEC2015\F12_global_composition4.cpp" />
@@ -312,55 +271,32 @@
     <ClCompile Include="instance\problem\continuous\global\CEC2015\F7_hybrid2.cpp" />
     <ClCompile Include="instance\problem\continuous\global\CEC2015\F8_hybrid3.cpp" />
     <ClCompile Include="instance\problem\continuous\global\CEC2015\F9_global_composition1.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="instance\problem\continuous\global\classical\ackley.cpp" />
-=======
->>>>>>> zhou_li
     <ClCompile Include="instance\problem\continuous\global\classical\bent_cigar.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\different_powers.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\discus.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\elliptic.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="instance\problem\continuous\global\classical\griewank.cpp" />
-=======
-    <ClCompile Include="instance\problem\continuous\global\classical\ackley.cpp" />
->>>>>>> zhou_li
     <ClCompile Include="instance\problem\continuous\global\classical\griewank_rosenbrock.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\happy_cat.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\HGBat.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\katsuura.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\modified_schwefel.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="instance\problem\continuous\global\classical\non_continuous_rastrigin.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\non_continuous_scaffer_F6.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\penalized_1.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\penalized_2.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\quartic_noisy.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\rastrigin.cpp" />
-=======
-    <ClCompile Include="instance\problem\continuous\global\classical\non_continuous_scaffer_F6.cpp" />
->>>>>>> zhou_li
     <ClCompile Include="instance\problem\continuous\global\classical\rosenbrock.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\rotated_bent_cigar.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\rotated_discus.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\rotated_rosenbrock.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\rotated_scaffer_F6.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\scaffer_F6.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="instance\problem\continuous\global\classical\schwefel.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\schwefel_1_2.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\schwefel_2_6.cpp" />
-=======
-    <ClCompile Include="instance\problem\continuous\global\classical\schwefel_1_2.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\schwefel_2_6.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\griewank.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\non_continuous_rastrigin.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\penalized_1.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\penalized_2.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\quartic_noisy.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\rastrigin.cpp" />
-    <ClCompile Include="instance\problem\continuous\global\classical\schwefel.cpp" />
->>>>>>> zhou_li
     <ClCompile Include="instance\problem\continuous\global\classical\sphere.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\sphere_noisy.cpp" />
     <ClCompile Include="instance\problem\continuous\global\classical\step.cpp" />
@@ -410,10 +346,7 @@
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_five_uneven_peak_trap.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_himmelblau.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_six_hump_camel_back.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_two_peak_trap.cpp" />
-=======
->>>>>>> zhou_li
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_uneven_minima.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\FIBA.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\five_hills.cpp" />
@@ -429,10 +362,6 @@
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\shubert.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\six_hump_camel_back.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\szu.cpp" />
-<<<<<<< HEAD
-=======
-    <ClCompile Include="instance\problem\continuous\multi_modal\classical\expanded_two_peak_trap.cpp" />
->>>>>>> zhou_li
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\uneven_de_maxima.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\valleys.cpp" />
     <ClCompile Include="instance\problem\continuous\multi_modal\classical\vincent.cpp" />
@@ -473,26 +402,10 @@
     <ClCompile Include="instance\problem\realworld\EPANET\smatrix.cpp" />
     <ClCompile Include="instance\problem\realworld\gear_train\gear_train.cpp" />
     <ClCompile Include="instance\problem\realworld\sound_waves\par_est_FM_sound_waves.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="run\main.cpp" />
     <ClCompile Include="run\system_initialization.cpp" />
     <ClCompile Include="run\user_initialization.cpp" />
     <ClCompile Include="test\test_core.cpp" />
-=======
-    <ClCompile Include="run\system_initialization.cpp" />
-    <ClCompile Include="run\main.cpp" />
-    <ClCompile Include="run\user_initialization.cpp" />
-    <ClCompile Include="test\test_CEC2013.cpp" />
-    <ClCompile Include="test\test_CEC2005.cpp" />
-    <ClCompile Include="test\test_CEC2013_MMO.cpp" />
-    <ClCompile Include="test\test_CEC2015_expensive.cpp" />
-    <ClCompile Include="test\test_CEC2015_global.cpp" />
-    <ClCompile Include="test\test_CEC2015_MMO.cpp" />
-    <ClCompile Include="test\test_CEC2017.cpp" />
-    <ClCompile Include="test\test_core.cpp" />
-    <ClCompile Include="test\test_function_BBOB.cpp" />
-    <ClCompile Include="test\test_matrix.cpp" />
->>>>>>> zhou_li
     <ClCompile Include="utility\matrix.cpp" />
     <ClCompile Include="utility\nondominated_sorting\benchmark\benchmark.cpp" />
     <ClCompile Include="utility\nondominated_sorting\best_order_sort\best_order_sort.cpp" />
@@ -532,25 +445,14 @@
     <ClInclude Include="instance\algorithm\DE\CRDE\CRDE.h" />
     <ClInclude Include="instance\algorithm\DE\DE_individual.h" />
     <ClInclude Include="instance\algorithm\DE\DE_population.h" />
-<<<<<<< HEAD
     <ClInclude Include="instance\algorithm\DE\DynDE\DynDE.h" />
     <ClInclude Include="instance\algorithm\DE\DynDE\DynDE_individual.h" />
-=======
-    <ClInclude Include="instance\algorithm\DE\DynDE\DynDE_individual.h" />
-    <ClInclude Include="instance\algorithm\DE\DynDE\DynDE.h" />
->>>>>>> zhou_li
     <ClInclude Include="instance\algorithm\DE\DynDE\DynDE_subpopulation.h" />
     <ClInclude Include="instance\algorithm\DE\JADE\JADE.h" />
     <ClInclude Include="instance\algorithm\DE\jDE\jDE.h" />
     <ClInclude Include="instance\algorithm\DE\NCDE\NCDE.h" />
     <ClInclude Include="instance\algorithm\DE\NSDE\NSDE.h" />
     <ClInclude Include="instance\algorithm\DE\SaDE\SaDE.h" />
-<<<<<<< HEAD
-=======
-    <ClInclude Include="instance\algorithm\EPANET\ADOPT_individual.h" />
-    <ClInclude Include="instance\algorithm\EPANET\ADOPT_sub_population.h" />
-    <ClInclude Include="instance\algorithm\EPANET\ADOPT.h" />
->>>>>>> zhou_li
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII.h" />
     <ClInclude Include="instance\problem\combination\MKP\multi_dimensional_knapsack.h" />
     <ClInclude Include="instance\problem\combination\one_max\one_max.h" />
@@ -602,10 +504,7 @@
     <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F9_shifted_rotated_scaffer_F6.h" />
     <ClInclude Include="instance\problem\continuous\expensive\CEC2015\hybrid.h" />
     <ClInclude Include="instance\problem\continuous\global\BBOB\BBOB.h" />
-<<<<<<< HEAD
     <ClInclude Include="instance\problem\continuous\global\CEC2005\composition.h" />
-=======
->>>>>>> zhou_li
     <ClInclude Include="instance\problem\continuous\global\CEC2005\F10_shifted_rotated_rastrigin.h" />
     <ClInclude Include="instance\problem\continuous\global\CEC2005\F11_shifted_rotated_weierstrass.h" />
     <ClInclude Include="instance\problem\continuous\global\CEC2005\F12_schwefel_2_13.h" />
@@ -631,10 +530,6 @@
     <ClInclude Include="instance\problem\continuous\global\CEC2005\F7_shifted_rotated_griewank_no_bound.h" />
     <ClInclude Include="instance\problem\continuous\global\CEC2005\F8_shifted_rotated_ackley_bound.h" />
     <ClInclude Include="instance\problem\continuous\global\CEC2005\F9_shifted_rastrigin.h" />
-<<<<<<< HEAD
-=======
-    <ClInclude Include="instance\problem\continuous\global\CEC2005\composition.h" />
->>>>>>> zhou_li
     <ClInclude Include="instance\problem\continuous\global\CEC2015\F10_global_composition2.h" />
     <ClInclude Include="instance\problem\continuous\global\CEC2015\F11_global_composition3.h" />
     <ClInclude Include="instance\problem\continuous\global\CEC2015\F12_global_composition4.h" />
@@ -650,55 +545,32 @@
     <ClInclude Include="instance\problem\continuous\global\CEC2015\F7_hybrid2.h" />
     <ClInclude Include="instance\problem\continuous\global\CEC2015\F8_hybrid3.h" />
     <ClInclude Include="instance\problem\continuous\global\CEC2015\F9_global_composition1.h" />
-<<<<<<< HEAD
     <ClInclude Include="instance\problem\continuous\global\classical\ackley.h" />
-=======
->>>>>>> zhou_li
     <ClInclude Include="instance\problem\continuous\global\classical\bent_cigar.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\different_powers.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\discus.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\elliptic.h" />
-<<<<<<< HEAD
     <ClInclude Include="instance\problem\continuous\global\classical\griewank.h" />
-=======
-    <ClInclude Include="instance\problem\continuous\global\classical\ackley.h" />
->>>>>>> zhou_li
     <ClInclude Include="instance\problem\continuous\global\classical\griewank_rosenbrock.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\happy_cat.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\HGBat.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\katsuura.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\modified_schwefel.h" />
-<<<<<<< HEAD
     <ClInclude Include="instance\problem\continuous\global\classical\non_continuous_rastrigin.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\non_continuous_scaffer_F6.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\penalized_1.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\penalized_2.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\quartic_noisy.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\rastrigin.h" />
-=======
-    <ClInclude Include="instance\problem\continuous\global\classical\non_continuous_scaffer_F6.h" />
->>>>>>> zhou_li
     <ClInclude Include="instance\problem\continuous\global\classical\rosenbrock.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\rotated_bent_cigar.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\rotated_discus.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\rotated_rosenbrock.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\rotated_scaffer_F6.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\scaffer_F6.h" />
-<<<<<<< HEAD
     <ClInclude Include="instance\problem\continuous\global\classical\schwefel.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\schwefel_1_2.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\schwefel_2_6.h" />
-=======
-    <ClInclude Include="instance\problem\continuous\global\classical\schwefel_1_2.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\schwefel_2_6.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\griewank.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\non_continuous_rastrigin.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\penalized_1.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\penalized_2.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\quartic_noisy.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\rastrigin.h" />
-    <ClInclude Include="instance\problem\continuous\global\classical\schwefel.h" />
->>>>>>> zhou_li
     <ClInclude Include="instance\problem\continuous\global\classical\sphere.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\sphere_noisy.h" />
     <ClInclude Include="instance\problem\continuous\global\classical\step.h" />
@@ -749,10 +621,7 @@
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_five_uneven_peak_trap.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_himmelblau.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_six_hump_camel_back.h" />
-<<<<<<< HEAD
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_two_peak_trap.h" />
-=======
->>>>>>> zhou_li
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_uneven_minima.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\FIBA.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\five_hills.h" />
@@ -768,10 +637,6 @@
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\shubert.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\six_hump_camel_back.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\szu.h" />
-<<<<<<< HEAD
-=======
-    <ClInclude Include="instance\problem\continuous\multi_modal\classical\expanded_two_peak_trap.h" />
->>>>>>> zhou_li
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\uneven_de_maxima.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\valleys.h" />
     <ClInclude Include="instance\problem\continuous\multi_modal\classical\vincent.h" />
@@ -841,12 +706,9 @@
     <ClInclude Include="utility\types.h" />
     <ClInclude Include="utility\typevar\typevar.h" />
     <ClInclude Include="utility\vector.h" />
-<<<<<<< HEAD
   </ItemGroup>
   <ItemGroup>
     <Text Include="instance\problem\realworld\EPANET\Readme.txt" />
-=======
->>>>>>> zhou_li
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

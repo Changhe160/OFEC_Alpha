@@ -2,13 +2,8 @@
 
 #include "par_est_FM_sound_waves.h"
 namespace OFEC {
-<<<<<<< HEAD
 	par_est_FM_sound_waves::par_est_FM_sound_waves(param_map &v) :problem((v.at("proName")), 6, 1), \
 		function((v.at("proName")), 6, 1) {
-=======
-	par_est_FM_sound_waves::par_est_FM_sound_waves(param_map &v) :
-		par_est_FM_sound_waves((v.at("proName")), 6, 1) {
->>>>>>> zhou_li
 		
 
 	}

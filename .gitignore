@@ -246,10 +246,6 @@ ModelManifest.xml
 .fake/
 *.d
 obj/
-<<<<<<< HEAD
 x64/
 results/
 *.user
-=======
-OFEC.vcxproj.user
->>>>>>> zhou_li

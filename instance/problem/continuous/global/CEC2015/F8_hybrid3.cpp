@@ -6,13 +6,8 @@
 #include "../../global/classical/elliptic.h"
 namespace OFEC {
 	namespace CEC2015 {
-<<<<<<< HEAD
 		F8_hybrid3::F8_hybrid3(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			hybrid((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F8_hybrid3::F8_hybrid3(param_map &v) :
-			F8_hybrid3((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 			
 		}
 		F8_hybrid3::F8_hybrid3(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

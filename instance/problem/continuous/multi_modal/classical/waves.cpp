@@ -17,13 +17,8 @@
 #include "waves.h"
 namespace OFEC {
 	
-<<<<<<< HEAD
 	waves::waves(param_map &v) : problem((v.at("proName")), 2, 1), \
 		function((v.at("proName")), 2, 1) {
-=======
-	waves::waves(param_map &v) : 
-		waves((v.at("proName")), 2, 1) {
->>>>>>> zhou_li
 		
 		
 	}

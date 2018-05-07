@@ -2,13 +2,8 @@
 #include "ConformingOS_ShiftedSchwefel_F13.h"
 namespace OFEC {
 	namespace CEC2013 {
-<<<<<<< HEAD
 		ConformingOS_ShiftedSchwefel_F13::ConformingOS_ShiftedSchwefel_F13(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
-=======
-		ConformingOS_ShiftedSchwefel_F13::ConformingOS_ShiftedSchwefel_F13(param_map &v) :
-			ConformingOS_ShiftedSchwefel_F13((v.at("proName")), (v.at("numDim")), 1) \
->>>>>>> zhou_li
 		{
 			
 		}

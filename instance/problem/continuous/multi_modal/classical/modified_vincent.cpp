@@ -2,13 +2,8 @@
 
 namespace OFEC {
 
-<<<<<<< HEAD
 	modified_vincent::modified_vincent(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
-=======
-	modified_vincent::modified_vincent(param_map &v) :
-		modified_vincent((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 		
 	}
@@ -20,11 +15,7 @@ namespace OFEC {
 	void modified_vincent::initialize() {
 		set_range(-10, 10);
 		set_init_range(-10, 10);
-<<<<<<< HEAD
 		m_opt_mode[0] = optimization_mode::Minimization;
-=======
-		
->>>>>>> zhou_li
 		m_variable_accuracy = 0.01;
 		m_objective_accuracy = 1.e-4;
 		m_objective_monitor = true;

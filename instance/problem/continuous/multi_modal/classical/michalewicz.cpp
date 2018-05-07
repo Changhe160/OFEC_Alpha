@@ -1,13 +1,8 @@
 #include "michalewicz.h"
 namespace OFEC {
 	
-<<<<<<< HEAD
 	michalewicz::michalewicz(param_map &v) : problem((v.at("proName")), 2, 1), \
 		function((v.at("proName")), 2, 1), m_m(20) {
-=======
-	michalewicz::michalewicz(param_map &v) :
-		michalewicz((v.at("proName")), 2, 1) {
->>>>>>> zhou_li
 		
 	}
 	michalewicz::michalewicz(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \

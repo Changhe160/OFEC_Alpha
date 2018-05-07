@@ -2,13 +2,8 @@
 
 namespace OFEC {
 
-<<<<<<< HEAD
 	different_powers::different_powers(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
-=======
-	different_powers::different_powers(param_map &v) :
-		different_powers((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 	}
 	different_powers::different_powers(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

@@ -7,13 +7,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-<<<<<<< HEAD
 		F11_global_composition3::F11_global_composition3(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F11_global_composition3::F11_global_composition3(param_map &v) :
-			F11_global_composition3((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 			
 			
 		}

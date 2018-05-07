@@ -14,13 +14,8 @@
 #include "step.h"
 namespace OFEC {
 	
-<<<<<<< HEAD
 	step::step(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
-=======
-	step::step(param_map &v) :
-		step((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 		
 	}

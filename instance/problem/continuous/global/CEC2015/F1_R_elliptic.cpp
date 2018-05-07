@@ -2,13 +2,8 @@
 #include "F1_R_elliptic.h"
 namespace OFEC {
 	namespace CEC2015 {
-<<<<<<< HEAD
 		F1_R_elliptic::F1_R_elliptic(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			elliptic((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F1_R_elliptic::F1_R_elliptic(param_map &v) :
-			F1_R_elliptic((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 			
 		}

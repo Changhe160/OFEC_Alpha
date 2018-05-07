@@ -11,10 +11,6 @@
 #include "../instance/algorithm/DE/NSDE/NSDE.h"
 #include "../instance/algorithm/DE/SaDE/SaDE.h"
 
-<<<<<<< HEAD
 //#include "../instance/algorithm/EPANET/COGL.h"
-=======
-#include "../instance/algorithm/EPANET/ADOPT.h"
->>>>>>> zhou_li
 
 #endif // !INCLUDE_ALGORITHM_H

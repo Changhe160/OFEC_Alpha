@@ -20,13 +20,8 @@
 //*
 namespace OFEC {
 	
-<<<<<<< HEAD
 	szu::szu(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
-=======
-	szu::szu(param_map &v) :
-		szu((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 		
 	}
 	szu::szu(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
@@ -37,11 +32,7 @@ namespace OFEC {
 	void szu::initialize() {
 		set_range(-5.0, 5.0);
 		set_init_range(-5.0, 5.0);
-<<<<<<< HEAD
 		m_opt_mode[0] = optimization_mode::Minimization;
-=======
-		
->>>>>>> zhou_li
 		m_objective_monitor = true;
 		
 		std::vector<std::vector<double>> gobj;

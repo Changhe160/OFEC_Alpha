@@ -2,13 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-<<<<<<< HEAD
 		F8_shifted_rotated_griewank_rosenbrock::F8_shifted_rotated_griewank_rosenbrock(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			griewank_rosenbrock((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F8_shifted_rotated_griewank_rosenbrock::F8_shifted_rotated_griewank_rosenbrock(param_map &v) :
-			F8_shifted_rotated_griewank_rosenbrock((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 			
 		}

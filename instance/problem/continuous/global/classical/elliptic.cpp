@@ -15,13 +15,8 @@
 #include "elliptic.h"
 namespace OFEC {
 	
-<<<<<<< HEAD
 	elliptic::elliptic(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
-=======
-	elliptic::elliptic(param_map &v) :
-		elliptic((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 		
 	}
 	elliptic::elliptic(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

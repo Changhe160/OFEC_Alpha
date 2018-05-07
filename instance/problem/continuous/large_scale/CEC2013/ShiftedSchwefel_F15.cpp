@@ -2,13 +2,8 @@
 #include "ShiftedSchwefel_F15.h"
 namespace OFEC {
 	namespace CEC2013 {
-<<<<<<< HEAD
 		ShiftedSchwefel_F15::ShiftedSchwefel_F15(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
-=======
-		ShiftedSchwefel_F15::ShiftedSchwefel_F15(param_map &v) : 
-			ShiftedSchwefel_F15((v.at("proName")), (v.at("numDim")), 1) \
->>>>>>> zhou_li
 		{
 			
 		}

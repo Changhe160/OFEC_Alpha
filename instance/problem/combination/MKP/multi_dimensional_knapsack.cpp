@@ -3,14 +3,9 @@
 #include <numeric>
 
 namespace OFEC {
-<<<<<<< HEAD
 	multi_dimensional_knapsack::multi_dimensional_knapsack(param_map &v) : problem(v.at("proName"), v.at("numDim"), 1)
 	{
 		m_file_name = static_cast<std::string>(v.at("dataFile1"));
-=======
-	multi_dimensional_knapsack::multi_dimensional_knapsack(param_map &v) : multi_dimensional_knapsack(v.at("proName"), v.at("numDim"), v.at("dataFile1"))
-	{
->>>>>>> zhou_li
 		
 	}
 

@@ -2,13 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-<<<<<<< HEAD
 		F10_shifted_rotated_rastrigin::F10_shifted_rotated_rastrigin(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			rastrigin((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F10_shifted_rotated_rastrigin::F10_shifted_rotated_rastrigin(param_map &v) :
-			F10_shifted_rotated_rastrigin((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 			
 		}
 		F10_shifted_rotated_rastrigin::F10_shifted_rotated_rastrigin(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

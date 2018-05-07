@@ -2,13 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-<<<<<<< HEAD
 		F5_SR_expanded_uneven_minima::F5_SR_expanded_uneven_minima(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			CEC2015_function((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F5_SR_expanded_uneven_minima::F5_SR_expanded_uneven_minima(param_map &v) :
-			F5_SR_expanded_uneven_minima((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 			
 		}
 		F5_SR_expanded_uneven_minima::F5_SR_expanded_uneven_minima(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
@@ -19,11 +14,7 @@ namespace OFEC {
 		void F5_SR_expanded_uneven_minima::initialize() {
 			set_range(-100, 100);
 			set_init_range(-100, 100);
-<<<<<<< HEAD
 			m_opt_mode[0] = optimization_mode::Minimization;
-=======
-			
->>>>>>> zhou_li
 			m_variable_accuracy = 0.01;
 			m_objective_accuracy = 1.e-4;
 			set_condition_number(1.0);

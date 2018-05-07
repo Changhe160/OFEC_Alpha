@@ -14,13 +14,8 @@
 #include "penalized_1.h"
 namespace OFEC {
 	
-<<<<<<< HEAD
 	penalized_1::penalized_1(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
-=======
-	penalized_1::penalized_1(param_map &v) :
-		penalized_1((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 	}
 	penalized_1::penalized_1(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \

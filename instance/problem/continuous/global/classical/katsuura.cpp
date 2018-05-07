@@ -14,13 +14,8 @@
 #include "katsuura.h"
 namespace OFEC {
 
-<<<<<<< HEAD
 	katsuura::katsuura(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
-=======
-	katsuura::katsuura(param_map &v) :
-		katsuura((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 	}
 	katsuura::katsuura(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

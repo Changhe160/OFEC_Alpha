@@ -15,13 +15,8 @@
 
 namespace OFEC {
 	
-<<<<<<< HEAD
 	max_global::max_global(param_map &v) : problem((v.at("proName")),1, 1), \
 		function((v.at("proName")), 1, 1) {
-=======
-	max_global::max_global(param_map &v) :
-		max_global((v.at("proName")), 1, 1) {
->>>>>>> zhou_li
 		
 		
 	}

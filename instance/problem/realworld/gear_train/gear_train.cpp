@@ -1,13 +1,8 @@
 
 #include "gear_train.h"
 namespace OFEC {
-<<<<<<< HEAD
 	gear_train::gear_train(param_map &v) :problem((v.at("proName")), 4, 1), \
 		function((v.at("proName")), 4, 1) {
-=======
-	gear_train::gear_train(param_map &v) :
-		gear_train((v.at("proName")), 4, 1) {
->>>>>>> zhou_li
 		
 
 	}

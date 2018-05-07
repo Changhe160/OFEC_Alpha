@@ -1,11 +1,7 @@
 #include "one_max.h"
 
 namespace OFEC {
-<<<<<<< HEAD
 	one_max::one_max(param_map & v) : problem(v.at("proName"), v.at("numDim"), 1)
-=======
-	one_max::one_max(param_map & v) : one_max(v.at("proName"), v.at("numDim"))
->>>>>>> zhou_li
 	{
 		
 	}

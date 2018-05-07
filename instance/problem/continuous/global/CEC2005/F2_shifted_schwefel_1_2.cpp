@@ -2,13 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-<<<<<<< HEAD
 		F2_shifted_schwefel_1_2::F2_shifted_schwefel_1_2(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			schwefel_1_2((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F2_shifted_schwefel_1_2::F2_shifted_schwefel_1_2(param_map &v) :
-			F2_shifted_schwefel_1_2((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 		
 		}

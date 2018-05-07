@@ -15,13 +15,8 @@
  
 namespace OFEC {
 	namespace CEC2013 {
-<<<<<<< HEAD
 		ShiftedElliptic_F1::ShiftedElliptic_F1(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
-=======
-		ShiftedElliptic_F1::ShiftedElliptic_F1(param_map &v) :
-			ShiftedElliptic_F1((v.at("proName")), (v.at("numDim")), 1) \
->>>>>>> zhou_li
 		{
 			
 		}

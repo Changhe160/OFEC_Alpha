@@ -2,13 +2,8 @@
 #include "F3_SR_ackley.h"
 namespace OFEC {
 	namespace CEC2015 {
-<<<<<<< HEAD
 		F3_SR_ackley::F3_SR_ackley(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			ackley((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F3_SR_ackley::F3_SR_ackley(param_map &v) :
-			F3_SR_ackley((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 			
 		}

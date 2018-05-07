@@ -1,13 +1,8 @@
 #include "DTLZ4.h"
 
 namespace OFEC {
-<<<<<<< HEAD
 	DTLZ4::DTLZ4(param_map & v) : problem(v.at("proName"), (v.at("numObj") + v.at("interTest1") - 1), v.at("numObj")), \
 		DTLZ(v.at("proName"), (v.at("numObj") + v.at("interTest1") - 1), v.at("numObj")) { // param_interTest1 = 5 is recommended
-=======
-	DTLZ4::DTLZ4(param_map & v) : 
-		DTLZ4(v.at("proName"), (v.at("numObj") + v.at("interTest1") - 1), v.at("numObj")) { // param_interTest1 = 5 is recommended
->>>>>>> zhou_li
 	}
 
 	DTLZ4::DTLZ4(const std::string & name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \

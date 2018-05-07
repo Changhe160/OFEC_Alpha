@@ -2,13 +2,8 @@
 #include "ConflictingOS_ShiftedSchwefel_F14.h"
 namespace OFEC {
 	namespace CEC2013 {
-<<<<<<< HEAD
 		ConflictingOS_ShiftedSchwefel_F14::ConflictingOS_ShiftedSchwefel_F14(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
-=======
-		ConflictingOS_ShiftedSchwefel_F14::ConflictingOS_ShiftedSchwefel_F14(param_map &v) : 
-			ConflictingOS_ShiftedSchwefel_F14((v.at("proName")), (v.at("numDim")), 1) \
->>>>>>> zhou_li
 		{
 			
 		}

@@ -2,13 +2,8 @@
 
 namespace OFEC {
 	
-<<<<<<< HEAD
 	shubert::shubert(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
-=======
-	shubert::shubert(param_map &v) :
-		shubert((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 		
 	}

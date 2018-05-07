@@ -2,12 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-<<<<<<< HEAD
 		F3_shifted_rotated_weierstrass::F3_shifted_rotated_weierstrass(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			weierstrass((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F3_shifted_rotated_weierstrass::F3_shifted_rotated_weierstrass(param_map &v) :F3_shifted_rotated_weierstrass((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 
 			
 		}

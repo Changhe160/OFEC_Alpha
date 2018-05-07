@@ -20,13 +20,8 @@
 
 namespace OFEC {
 	namespace CEC2013 {
-<<<<<<< HEAD
 		F12_composition4::F12_composition4(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition((v.at("proName")), (v.at("numDim")), 1) {
-=======
-		F12_composition4::F12_composition4(param_map &v) :
-			F12_composition4((v.at("proName")), (v.at("numDim")), 1) {
->>>>>>> zhou_li
 			
 		}
 		F12_composition4::F12_composition4(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
