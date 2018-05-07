@@ -20,8 +20,13 @@
 
 namespace OFEC {
 	namespace CEC2005 {
+<<<<<<< HEAD
 		F22_rotated_hybrid_high_condition_number_matrix::F22_rotated_hybrid_high_condition_number_matrix(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F22_rotated_hybrid_high_condition_number_matrix::F22_rotated_hybrid_high_condition_number_matrix(param_map &v) :
+			F22_rotated_hybrid_high_condition_number_matrix((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 
 			
 		}

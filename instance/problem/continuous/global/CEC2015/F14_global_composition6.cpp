@@ -9,8 +9,13 @@
 
 namespace OFEC {
 	namespace CEC2015 {
+<<<<<<< HEAD
 		F14_global_composition6::F14_global_composition6(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F14_global_composition6::F14_global_composition6(param_map &v) :
+			F14_global_composition6((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 			
 		}
 		F14_global_composition6::F14_global_composition6(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

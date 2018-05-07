@@ -2,8 +2,13 @@
 
 namespace OFEC {
 	namespace CEC2015 {
+<<<<<<< HEAD
 		F6_shifted_rotated_happy_cat::F6_shifted_rotated_happy_cat(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			happy_cat((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F6_shifted_rotated_happy_cat::F6_shifted_rotated_happy_cat(param_map &v) :
+			F6_shifted_rotated_happy_cat((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 
 			
 		}

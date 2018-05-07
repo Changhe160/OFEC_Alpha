@@ -12,8 +12,13 @@
 
 namespace OFEC {
 	namespace CEC2015 {
+<<<<<<< HEAD
 		F15_global_composition7::F15_global_composition7(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F15_global_composition7::F15_global_composition7(param_map &v) :
+			F15_global_composition7((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 			
 		}
 		F15_global_composition7::F15_global_composition7(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

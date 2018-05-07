@@ -18,8 +18,13 @@
 
 namespace OFEC {
 	
+<<<<<<< HEAD
 	himmenblau::himmenblau(param_map &v) : problem((v.at("proName")), 2, 1), \
 		function((v.at("proName")), 2, 1) {
+=======
+	himmenblau::himmenblau(param_map &v) : 
+		himmenblau((v.at("proName")), 2, 1) {
+>>>>>>> zhou_li
 		
 	}
 	himmenblau::himmenblau(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

@@ -15,8 +15,13 @@
 #include "rotated_discus.h"
 namespace OFEC {
 
+<<<<<<< HEAD
 	rotated_discus::rotated_discus(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		discus((v.at("proName")), (v.at("numDim")), 1) {
+=======
+	rotated_discus::rotated_discus(param_map &v) :
+		rotated_discus((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 		
 	}
 	rotated_discus::rotated_discus(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

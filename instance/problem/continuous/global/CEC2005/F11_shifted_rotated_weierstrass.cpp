@@ -2,8 +2,13 @@
 
 namespace OFEC {
 	namespace CEC2005 {
+<<<<<<< HEAD
 		F11_shifted_rotated_weierstrass::F11_shifted_rotated_weierstrass(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			weierstrass((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F11_shifted_rotated_weierstrass::F11_shifted_rotated_weierstrass(param_map &v) :
+			F11_shifted_rotated_weierstrass((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 			
 		}
 		F11_shifted_rotated_weierstrass::F11_shifted_rotated_weierstrass(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

@@ -14,8 +14,13 @@
 #include "rotated_scaffer_F6.h"
 namespace OFEC {
 	
+<<<<<<< HEAD
 	rotated_scaffer_F6::rotated_scaffer_F6(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		scaffer_F6((v.at("proName")), (v.at("numDim")), 1) {
+=======
+	rotated_scaffer_F6::rotated_scaffer_F6(param_map &v) :
+		rotated_scaffer_F6((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 
 	}
 	rotated_scaffer_F6::rotated_scaffer_F6(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

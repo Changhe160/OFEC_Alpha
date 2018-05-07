@@ -22,8 +22,13 @@
 
 namespace OFEC {
 	namespace CEC2005 {
+<<<<<<< HEAD
 		F21_rotated_hybrid_composition::F21_rotated_hybrid_composition(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F21_rotated_hybrid_composition::F21_rotated_hybrid_composition(param_map &v) :
+			F21_rotated_hybrid_composition((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 
 			
 		}

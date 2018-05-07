@@ -2,8 +2,13 @@
 
 namespace OFEC {
 	namespace CEC2015 {
+<<<<<<< HEAD
 		F4_shifted_rotated_schwefel::F4_shifted_rotated_schwefel(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			schwefel((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F4_shifted_rotated_schwefel::F4_shifted_rotated_schwefel(param_map &v) :
+			F4_shifted_rotated_schwefel((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 
 			
 		}
@@ -17,9 +22,14 @@ namespace OFEC {
 			m_variable_monitor = true;
 			set_range(-500, 500);
 			set_init_range(-500, 500);
+<<<<<<< HEAD
 			//vector<double> v(m_variable_size, 420.9687);
 			//set_original_global_opt(v.data());
 			set_original_global_opt();
+=======
+			std::vector<double> v(m_variable_size, 420.9687);
+			set_original_global_opt(v.data());
+>>>>>>> zhou_li
 			
 			m_variable_accuracy = 1.0e-2;
 			set_bias(400);

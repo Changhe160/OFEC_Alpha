@@ -2,8 +2,13 @@
 
 namespace OFEC {
 	namespace CEC2017 {
+<<<<<<< HEAD
 		C19::C19(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			function((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		C19::C19(param_map &v) :
+			C19((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 			
 		}
 		C19::C19(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
@@ -16,7 +21,11 @@ namespace OFEC {
 			set_range(-50., 50.);
 			set_init_range(-50., 50.);
 
+<<<<<<< HEAD
 			add_tag(problem_tag::COP);
+=======
+			 
+>>>>>>> zhou_li
 			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
 			set_original_global_opt(m_translation.data());

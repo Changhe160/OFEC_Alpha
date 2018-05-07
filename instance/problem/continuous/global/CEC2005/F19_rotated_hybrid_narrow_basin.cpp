@@ -20,8 +20,13 @@
 
 namespace OFEC {
 	namespace CEC2005 {
+<<<<<<< HEAD
 		F19_rotated_hybrid_narrow_basin::F19_rotated_hybrid_narrow_basin(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			composition((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F19_rotated_hybrid_narrow_basin::F19_rotated_hybrid_narrow_basin(param_map &v) :
+			F19_rotated_hybrid_narrow_basin((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 
 
 		}

@@ -2,8 +2,13 @@
 #include "N20_SR_Elliptic_F8.h"
 namespace OFEC {
 	namespace CEC2013 {
+<<<<<<< HEAD
 		N20_SR_Elliptic_F8::N20_SR_Elliptic_F8(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
+=======
+		N20_SR_Elliptic_F8::N20_SR_Elliptic_F8(param_map &v) :
+			N20_SR_Elliptic_F8((v.at("proName")), (v.at("numDim")), 1) \
+>>>>>>> zhou_li
 		{
 			
 		}

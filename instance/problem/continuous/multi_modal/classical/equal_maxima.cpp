@@ -2,8 +2,13 @@
 
 namespace OFEC {
 	
+<<<<<<< HEAD
 		equal_maxima::equal_maxima(param_map &v) :problem((v.at("proName")), 1, 1), \
 			function((v.at("proName")), 1, 1) {
+=======
+		equal_maxima::equal_maxima(param_map &v) :
+			equal_maxima((v.at("proName")), 1, 1) {
+>>>>>>> zhou_li
 
 			
 		}

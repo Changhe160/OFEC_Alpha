@@ -2,8 +2,13 @@
 
 namespace OFEC {
 	namespace CEC2005 {
+<<<<<<< HEAD
 		F13_shifted_expanded_griewank_rosenbrock::F13_shifted_expanded_griewank_rosenbrock(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			function((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F13_shifted_expanded_griewank_rosenbrock::F13_shifted_expanded_griewank_rosenbrock(param_map &v) :
+			F13_shifted_expanded_griewank_rosenbrock((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 			
 		}
 		F13_shifted_expanded_griewank_rosenbrock::F13_shifted_expanded_griewank_rosenbrock(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

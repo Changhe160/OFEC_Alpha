@@ -2,8 +2,12 @@
 
 namespace OFEC {
 	namespace CEC2015 {
+<<<<<<< HEAD
 		F2_rotated_discus::F2_rotated_discus(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			discus((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F2_rotated_discus::F2_rotated_discus(param_map &v) :F2_rotated_discus((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 
 			
 		}

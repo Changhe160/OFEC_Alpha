@@ -18,8 +18,13 @@
 #include "FIBA.h"
 namespace OFEC {
 	
+<<<<<<< HEAD
 	FIBA::FIBA(param_map &v) : problem((v.at("proName")), 2, 1), \
 		function((v.at("proName")), 2, 1), m_case(v.at("case") = (v.find("case") == v.end() ? 1 : (int)v.at("case"))) {
+=======
+	FIBA::FIBA(param_map &v) :
+		FIBA((v.at("proName")), 2, 1) {
+>>>>>>> zhou_li
 		
 		
 	}

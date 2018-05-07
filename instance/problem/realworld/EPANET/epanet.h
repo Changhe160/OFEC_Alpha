@@ -179,6 +179,10 @@ namespace OFEC {
 		float m_min_multiplier, m_max_multiplier;
 	public:
 		epanet(param_map &v);
+<<<<<<< HEAD
+=======
+		epanet(const std::string &name, size_t size_var, size_t size_obj, const std::string path, const std::string path2, const std::string path3);
+>>>>>>> zhou_li
 		
 		void initialize();
 		evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);

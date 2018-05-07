@@ -2,8 +2,13 @@
 
 namespace OFEC {
 
+<<<<<<< HEAD
 	expanded_six_hump_camel_back::expanded_six_hump_camel_back(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
+=======
+	expanded_six_hump_camel_back::expanded_six_hump_camel_back(param_map &v) :
+		expanded_six_hump_camel_back((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 
 		
 	}
@@ -15,7 +20,11 @@ namespace OFEC {
 	void expanded_six_hump_camel_back::initialize() {
 		set_range(-40., 40.);
 		set_init_range(-40., 40.);
+<<<<<<< HEAD
 		m_opt_mode[0] = optimization_mode::Minimization;
+=======
+		
+>>>>>>> zhou_li
 		m_variable_accuracy = 0.01;
 		m_objective_accuracy = 1.e-4;
 		m_objective_monitor = true;

@@ -2,8 +2,13 @@
 
 namespace OFEC {
 	namespace CEC2015 {
+<<<<<<< HEAD
 		F7_shifted_rotated_HGBat::F7_shifted_rotated_HGBat(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			HGBat((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F7_shifted_rotated_HGBat::F7_shifted_rotated_HGBat(param_map &v) :
+			F7_shifted_rotated_HGBat((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 
 			
 		}

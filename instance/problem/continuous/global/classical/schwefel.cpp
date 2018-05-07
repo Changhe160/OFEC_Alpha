@@ -15,8 +15,13 @@
 
 namespace OFEC {
 	
+<<<<<<< HEAD
 	schwefel::schwefel(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1)
+=======
+	schwefel::schwefel(param_map &v) :
+		schwefel((v.at("proName")), (v.at("numDim")), 1)
+>>>>>>> zhou_li
 	{
 
 	}
@@ -31,9 +36,15 @@ namespace OFEC {
 		m_variable_monitor = true;
 		set_range(-500, 500);
 		set_init_range(-500, 500);
+<<<<<<< HEAD
 		//vector<double> v(m_variable_size, 420.9687);
 		//set_original_global_opt(v.data());
 		set_original_global_opt();
+=======
+		std::vector<double> v(m_variable_size, 420.9687);
+		set_original_global_opt(v.data());
+		
+>>>>>>> zhou_li
 		set_global_opt();
 		m_variable_accuracy = 1.0e-2;
 

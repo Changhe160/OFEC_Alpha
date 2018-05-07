@@ -16,7 +16,11 @@ namespace OFEC {
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
 
+<<<<<<< HEAD
 			add_tag(problem_tag::COP);
+=======
+			 
+>>>>>>> zhou_li
 			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
 			

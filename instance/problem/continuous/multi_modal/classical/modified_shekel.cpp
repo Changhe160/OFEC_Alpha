@@ -17,8 +17,13 @@
 #include "modified_shekel.h"
 namespace OFEC {
 	
+<<<<<<< HEAD
 	modified_shekel::modified_shekel(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
+=======
+	modified_shekel::modified_shekel(param_map &v) : 
+		modified_shekel((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 		
 	}
 	modified_shekel::modified_shekel(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \

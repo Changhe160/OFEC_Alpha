@@ -1,12 +1,23 @@
 #include "ZDT2.h"
 
 namespace OFEC {
+<<<<<<< HEAD
 	ZDT2::ZDT2(param_map & v) : problem(v.at("proName"), v.at("numDim"), 2), ZDT(v.at("proName"), v.at("numDim")) { //param_numDim = 30 is suggested
 		v.at("numObj") = 2;
 		generateAdLoadPF();
 	}
 	ZDT2::ZDT2(const std::string & name, size_t size_var) : problem(name, size_var, 2), ZDT(name, size_var) {
 		generateAdLoadPF();
+=======
+	ZDT2::ZDT2(param_map & v) :  ZDT2(v.at("proName"), v.at("numDim")) { //param_numDim = 30 is suggested
+		
+	}
+	ZDT2::ZDT2(const std::string & name, size_t size_var) : problem(name, size_var, 2), ZDT(name, size_var) {
+		
+	}
+	void ZDT2::initialize() {
+
+>>>>>>> zhou_li
 	}
 	void ZDT2::evaluate__(double * x, std::vector<double>& obj) {
 		double g = 0;

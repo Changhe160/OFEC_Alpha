@@ -18,14 +18,24 @@ namespace OFEC {
 		m_rot(size_var), m_rot2(size_var), m_norRand(size_var*size_var), m_linearTF(size_var) {
 		
 	}
+<<<<<<< HEAD
 	BBOB::BBOB(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), continuous((v.at("proName")), (v.at("numDim")), 1), \
 		m_rot(m_variable_size), m_rot2(m_variable_size), m_norRand(m_variable_size*m_variable_size), \
 		m_linearTF(m_variable_size) {
+=======
+	BBOB::BBOB(param_map &v) :BBOB((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 		
 	}
 
 	void BBOB::initialize() {
+<<<<<<< HEAD
 		set_range(-5, 5);
+=======
+		m_variable_monitor = true;
+		set_range(-5, 5);
+		set_init_range(-5, 5);
+>>>>>>> zhou_li
 		m_bias = computeFopt();
 		m_optima.append(m_bias);
 		computeXopt();

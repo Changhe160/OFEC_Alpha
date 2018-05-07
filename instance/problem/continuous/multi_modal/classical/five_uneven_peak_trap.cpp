@@ -2,8 +2,13 @@
 
 namespace OFEC {
 	
+<<<<<<< HEAD
 		five_uneven_peak_trap::five_uneven_peak_trap(param_map &v) :problem((v.at("proName")), 1, 1), \
 			function((v.at("proName")), 1, 1) {
+=======
+		five_uneven_peak_trap::five_uneven_peak_trap(param_map &v) :
+			five_uneven_peak_trap((v.at("proName")), 1, 1) {
+>>>>>>> zhou_li
 
 			
 		}

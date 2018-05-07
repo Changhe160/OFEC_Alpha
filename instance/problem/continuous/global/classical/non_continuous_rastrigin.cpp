@@ -14,8 +14,13 @@
 #include "non_continuous_rastrigin.h"
 namespace OFEC {
 	
+<<<<<<< HEAD
 	non_continuous_rastrigin::non_continuous_rastrigin(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
+=======
+	non_continuous_rastrigin::non_continuous_rastrigin(param_map &v) : 
+		non_continuous_rastrigin((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 		
 	}
 	non_continuous_rastrigin::non_continuous_rastrigin(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \

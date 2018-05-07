@@ -18,8 +18,13 @@
 
 namespace OFEC {
 	
+<<<<<<< HEAD
 	five_hills::five_hills(param_map &v) :problem((v.at("proName")), 2, 1), \
 		function((v.at("proName")), 2, 1) {
+=======
+	five_hills::five_hills(param_map &v) :
+		five_hills((v.at("proName")), 2, 1) {
+>>>>>>> zhou_li
 		
 	}
 	five_hills::five_hills(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

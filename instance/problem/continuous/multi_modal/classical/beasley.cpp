@@ -24,8 +24,13 @@
 
 namespace OFEC {
 	
+<<<<<<< HEAD
 	beasley::beasley(param_map &v) :problem((v.at("proName")), 1, 1), \
 		function((v.at("proName")), 1, 1) {
+=======
+	beasley::beasley(param_map &v) :
+		beasley((v.at("proName")), 1, 1) {
+>>>>>>> zhou_li
 
 	}
 	beasley::beasley(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

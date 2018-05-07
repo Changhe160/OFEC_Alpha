@@ -25,7 +25,12 @@ namespace OFEC {
 	public:
 		ZDT2(param_map &v);
 		ZDT2(const std::string &name, size_t size_var);
+<<<<<<< HEAD
 		~ZDT2() {};
+=======
+		~ZDT2() {}
+		void initialize();
+>>>>>>> zhou_li
 	private:
 		void evaluate__(double *x, std::vector<double>& obj);
 	};

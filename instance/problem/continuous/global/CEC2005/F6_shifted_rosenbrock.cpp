@@ -2,8 +2,13 @@
 
 namespace OFEC {
 	namespace CEC2005 {
+<<<<<<< HEAD
 		F6_shifted_rosenbrock::F6_shifted_rosenbrock(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
 			rosenbrock((v.at("proName")), (v.at("numDim")), 1) {
+=======
+		F6_shifted_rosenbrock::F6_shifted_rosenbrock(param_map &v) :
+			F6_shifted_rosenbrock((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 
 			
 		}

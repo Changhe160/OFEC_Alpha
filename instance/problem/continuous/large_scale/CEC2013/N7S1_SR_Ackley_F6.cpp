@@ -2,8 +2,13 @@
 #include "N7S1_SR_Ackley_F6.h"
 namespace OFEC {
 	namespace CEC2013 {
+<<<<<<< HEAD
 		N7S1_SR_Ackley_F6::N7S1_SR_Ackley_F6(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
+=======
+		N7S1_SR_Ackley_F6::N7S1_SR_Ackley_F6(param_map &v) :
+			N7S1_SR_Ackley_F6((v.at("proName")), (v.at("numDim")), 1) \
+>>>>>>> zhou_li
 		{
 			
 		}

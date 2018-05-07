@@ -26,6 +26,10 @@ namespace OFEC {
 		MOEA_F2(param_map &v);
 		MOEA_F2(const std::string &name, size_t size_var);
 		~MOEA_F2() {}
+<<<<<<< HEAD
+=======
+		void initialize();
+>>>>>>> zhou_li
 	};
 }
 

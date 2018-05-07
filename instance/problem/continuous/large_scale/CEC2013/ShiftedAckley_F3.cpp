@@ -15,8 +15,13 @@
 #include "ShiftedAckley_F3.h"
 namespace OFEC {
 	namespace CEC2013 {
+<<<<<<< HEAD
 		ShiftedAckley_F3::ShiftedAckley_F3(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
+=======
+		ShiftedAckley_F3::ShiftedAckley_F3(param_map &v) : 
+			ShiftedAckley_F3((v.at("proName")), (v.at("numDim")), 1) \
+>>>>>>> zhou_li
 		{
 			
 		}

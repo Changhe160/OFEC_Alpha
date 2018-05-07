@@ -25,7 +25,12 @@ namespace OFEC {
 	public:
 		ZDT6(param_map &v);
 		ZDT6(const std::string &name, size_t size_var);
+<<<<<<< HEAD
 		~ZDT6() {};
+=======
+		~ZDT6() {}
+		void initialize();
+>>>>>>> zhou_li
 	private:
 		void evaluate__(double *x, std::vector<double>& obj);
 	};

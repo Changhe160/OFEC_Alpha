@@ -18,8 +18,13 @@
 
 namespace OFEC {
 	
+<<<<<<< HEAD
 	valleys::valleys(param_map &v) : problem((v.at("proName")), 2, 1), \
 		function((v.at("proName")), 2, 1) {
+=======
+	valleys::valleys(param_map &v) :
+		valleys((v.at("proName")), 2, 1) {
+>>>>>>> zhou_li
 	
 		
 	}

@@ -14,8 +14,13 @@
 #include "weierstrass.h"
 namespace OFEC {
 	
+<<<<<<< HEAD
 	weierstrass::weierstrass(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
 		function((v.at("proName")), (v.at("numDim")), 1) {
+=======
+	weierstrass::weierstrass(param_map &v) :
+		weierstrass((v.at("proName")), (v.at("numDim")), 1) {
+>>>>>>> zhou_li
 
 		
 	}
