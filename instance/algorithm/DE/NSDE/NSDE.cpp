@@ -78,7 +78,7 @@ namespace OFEC {
 							m_pop[it->second]->evaluate();
 						}
 						else if (m_pop[it->second]->dominate(*m_pop[m_seed[i]])) {
-							m_pop[m_seed[i]] = m_pop[it->second];
+							*m_pop[m_seed[i]] = *m_pop[it->second];
 						}
 					}
 					if (tag != evaluation_tag::Normal) break;

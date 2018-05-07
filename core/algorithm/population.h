@@ -107,7 +107,7 @@ namespace OFEC {
 	protected:
 		int m_iter = 0;			// the current number of iterations
 		int m_id;
-		std::vector<std::shared_ptr<Individual>> m_pop;
+		std::vector<std::unique_ptr<Individual>> m_pop;
 		std::vector<Individual*> m_best, m_worst;
 		std::multimap<int, int> m_order;
 		bool m_ordered = false, m_best_updated = false, m_worst_updated = false;

@@ -87,7 +87,7 @@ namespace OFEC {
 					nearest_index = m_dis[i].begin()->second;
 				}
 				if (m_pop[i]->dominate(*m_pop[nearest_index])) {
-					m_pop[nearest_index] = m_pop[i];
+					*m_pop[nearest_index] = *m_pop[i];
 
 					m_pop[nearest_index]->set_improve_flag(true);
 				}
