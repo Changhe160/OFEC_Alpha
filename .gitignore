@@ -248,4 +248,4 @@ ModelManifest.xml
 obj/
 x64/
 results/
-OFEC.*
+*.vcxproj*
