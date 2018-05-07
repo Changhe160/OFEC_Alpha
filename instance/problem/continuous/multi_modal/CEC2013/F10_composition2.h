@@ -30,10 +30,7 @@ namespace OFEC {
 		protected:
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
-
 			void set_rotation();
-		private:
-
 		};
 	}
 	using CEC2013_MMP_F10 = CEC2013::F10_composition2;

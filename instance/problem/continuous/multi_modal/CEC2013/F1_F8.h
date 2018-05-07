@@ -21,22 +21,18 @@
 #include "../classical/five_uneven_peak_trap.h"
 #include "../classical/equal_maxima.h"
 #include "../classical/uneven_de_maxima.h"
-#include "../classical/himmenblau.h"
-#include "../classical/six_hump_camel_back.h"
-#include "../classical/shubert.h"
+#include "F4_himmenblau.h"
+#include "F5_six_hump_camel_back.h"
+#include "F6_shubert.h"
 #include "../classical/vincent.h"
-#include "../classical/modified_rastrigin.h"
+#include "F8_modified_rastrigin.h"
 
 namespace OFEC {
 	namespace CEC2013 {
 		using F1_five_uneven_peak_trap = five_uneven_peak_trap;
 		using F2_equal_maxima = equal_maxima;
 		using F3_uneven_de_maxima = uneven_de_maxima;
-		using F4_himmenblau = himmenblau;
-		using F5_six_hump_camel_back = six_hump_camel_back;
-		using F6_shubert = shubert;
 		using F7_vincent = vincent;
-		using F8_modified_rastrigin = modified_rastrigin;
 	}
 	using CEC2013_MMP_F1 = CEC2013::F1_five_uneven_peak_trap;
 	using CEC2013_MMP_F2 = CEC2013::F2_equal_maxima;

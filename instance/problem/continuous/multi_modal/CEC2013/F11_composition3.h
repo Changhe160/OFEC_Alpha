@@ -30,8 +30,6 @@ namespace OFEC {
 		protected:
 			void evaluate__(real *x, std::vector<real>& obj);
 			void set_function();
-		private:
-
 		};
 	}
 	using CEC2013_MMP_F11 = CEC2013::F11_composition3;

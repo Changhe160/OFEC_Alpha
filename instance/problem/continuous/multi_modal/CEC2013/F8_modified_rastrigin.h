@@ -1,8 +1,8 @@
 /*************************************************************************
 * Project:Open Frameworks for Evolutionary Computation (OFEC)
 *************************************************************************
-* Author: Changhe Li and Li Zhou
-* Email: changhe.lw@gmail.com, 441837060@qq.com
+* Author: Changhe Li and Junchen Wang
+* Email: changhe.lw@gmail.com, wangjunchen.chris@gmail.com
 * Language: C++
 *************************************************************************
 *  This file is part of OFEC. This library is free software;
@@ -14,28 +14,28 @@
 *  Methods for Multimodal Function Optimization.
 *******************************************************************************************/
 
+#ifndef F8_MODIFIED_RASTRIGIN_H
+#define F8_MODIFIED_RASTRIGIN_H
 
-#ifndef OFEC_F12_COMPOSITION4_H
-#define OFEC_F12_COMPOSITION4_H
-
-#include "../../global/CEC2005/composition.h"
+#include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
 	namespace CEC2013 {
-		class F12_composition4 final : public CEC2005::composition
+		// An inverted version of Modified Rastrigin function
+		class F8_modified_rastrigin final : public function
 		{
 		public:
-			F12_composition4(param_map &v);
-			F12_composition4(const std::string &name, size_t size_var, size_t size_obj);
+			F8_modified_rastrigin(param_map &v);
+			F8_modified_rastrigin(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
-		protected:
+		protected:		
 			void evaluate__(real *x, std::vector<real>& obj);
-			void set_function();
+		protected:
+			std::vector<double> m_k;
 		};
 	}
-	using CEC2013_MMP_F12 = CEC2013::F12_composition4;
 }
-#endif // !OFEC_F12_COMPOSITION4_H
 
+#endif // !F8_MODIFIED_RASTRIGIN_H
 
 

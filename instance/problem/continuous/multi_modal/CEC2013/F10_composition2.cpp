@@ -9,14 +9,11 @@
 
 namespace OFEC {
 	namespace CEC2013 {
-		F10_composition2::F10_composition2(param_map &v) :
-			F10_composition2((v.at("proName")), (v.at("numDim")), 1) {
-			
-		}
+
 		F10_composition2::F10_composition2(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			composition(name, size_var, size_obj) {
-			
-		}
+			composition(name, size_var, size_obj) {}
+
+		F10_composition2::F10_composition2(param_map &v) : F10_composition2((v.at("proName")), (v.at("numDim")), 1) {}
 
 		void F10_composition2::set_function() {
 			basic_func f(4);
@@ -49,7 +46,6 @@ namespace OFEC {
 			}
 		}
 		void F10_composition2::initialize() {
-			m_variable_monitor = true;
 			set_range(-5., 5.);
 			set_init_range(-5., 5.);
 			m_num_function = 8;
@@ -67,18 +63,14 @@ namespace OFEC {
 
 			load_translation("instance/problem/continuous/multi_modal/CEC2013/data/");  //data path
 
+			m_objective_monitor = true;
 			for (auto &i : m_function) {
-				i->get_optima().clear();
-				i->set_global_opt(i->translation().data());
+				m_optima.append(0.);
 			}
-
-			for (auto &i : m_function) {
-				m_optima.append(i->get_optima().variable(0));
-				m_optima.append(0);
-			}
-			m_variable_monitor = true;
-			m_variable_accuracy = 1.0e-2;
-			m_objective_accuracy = 0.01;
+			if (global::ms_arg.find("objectiveAccuracy") == global::ms_arg.end())
+				global::ms_arg.insert({ "objectiveAccuracy",1.e-4 });
+			m_objective_accuracy = global::ms_arg.at("objectiveAccuracy");
+			m_variable_accuracy = 0.01;
 		}
 
 		void F10_composition2::evaluate__(real *x, std::vector<real>& obj) {

@@ -1,8 +1,8 @@
 /*************************************************************************
 * Project:Open Frameworks for Evolutionary Computation (OFEC)
 *************************************************************************
-* Author: Changhe Li and Li Zhou
-* Email: changhe.lw@gmail.com, 441837060@qq.com
+* Author: Changhe Li and Junchen Wang
+* Email: changhe.lw@gmail.com, wangjunchen.chris@gmail.com
 * Language: C++
 *************************************************************************
 *  This file is part of OFEC. This library is free software;
@@ -14,28 +14,24 @@
 *  Methods for Multimodal Function Optimization.
 *******************************************************************************************/
 
+#ifndef OFEC_F5_SIX_HUMP_CAMEL_BACK_H
+#define OFEC_F5_SIX_HUMP_CAMEL_BACK_H
 
-#ifndef OFEC_F12_COMPOSITION4_H
-#define OFEC_F12_COMPOSITION4_H
-
-#include "../../global/CEC2005/composition.h"
+#include "../../../../../core/problem/continuous/function.h"
 
 namespace OFEC {
 	namespace CEC2013 {
-		class F12_composition4 final : public CEC2005::composition
+		// An inverted version of Six-hump Camel Back function
+		class F5_six_hump_camel_back final : public function
 		{
 		public:
-			F12_composition4(param_map &v);
-			F12_composition4(const std::string &name, size_t size_var, size_t size_obj);
+			F5_six_hump_camel_back(param_map &v);
+			F5_six_hump_camel_back(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
 			void evaluate__(real *x, std::vector<real>& obj);
-			void set_function();
 		};
 	}
-	using CEC2013_MMP_F12 = CEC2013::F12_composition4;
 }
-#endif // !OFEC_F12_COMPOSITION4_H
-
-
+#endif // !OFEC_F5_SIX_HUMP_CAMEL_BACK_H
 
