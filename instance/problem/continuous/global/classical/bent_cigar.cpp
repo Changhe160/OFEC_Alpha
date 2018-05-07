@@ -15,8 +15,8 @@
 #include "bent_cigar.h"
 namespace OFEC {
 
-	bent_cigar::bent_cigar(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	bent_cigar::bent_cigar(param_map &v) :
+		bent_cigar((v.at("proName")), (v.at("numDim")), 1) {
 		
 	}
 	bent_cigar::bent_cigar(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

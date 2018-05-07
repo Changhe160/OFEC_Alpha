@@ -3,9 +3,8 @@
 #include <string.h>
 
 namespace OFEC {
-	travelling_salesman::travelling_salesman(param_map & v)	: problem(v.at("proName"), v.at("numDim"), v.at("numObj")) {
+	travelling_salesman::travelling_salesman(param_map & v)	: travelling_salesman(v.at("proName"), v.at("numDim"), v.at("numObj"), v.at("dataFile1")) {
 		
-		m_file_name = static_cast<std::string>(v.at("dataFile1"));
 
 	}
 

@@ -14,8 +14,8 @@
 #include "happy_cat.h"
 namespace OFEC {
 
-	happy_cat::happy_cat(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	happy_cat::happy_cat(param_map &v) :
+		happy_cat((v.at("proName")), (v.at("numDim")), 1) {
 
 	}
 	happy_cat::happy_cat(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

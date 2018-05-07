@@ -8,9 +8,7 @@ namespace OFEC {
 	void ZDT::initialize() {
 		set_init_range(0., 1.);
 		set_range(0., 1.);
-		/*for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
-			m_opt_mode[idx] = optimization_mode::Minimization;
-			*/
+		generateAdLoadPF();
 	}
 
 	void ZDT::generateAdLoadPF() {

@@ -229,19 +229,23 @@ int   main(int argc, char *argv[])
 
 namespace OFEC {
 
-	epanet::epanet(param_map &v) :problem((v.at("proName")),1,1) {
-		m_path_inp << global::ms_arg.at("workingDir") << "instance/problem/realworld/EPANET/data/map/" << v.at("dataFile2");
-		m_path_rpt << global::ms_arg.at("workingDir") << "instance/problem/realworld/EPANET/data/map/" << v.at("dataFile3");
+	epanet::epanet(param_map &v) :epanet((v.at("proName")), 1, 1, v.at("dataFile1"), v.at("dataFile2"), v.at("dataFile3")) {
+		
+	
+	}
+	epanet::epanet(const std::string &name, size_t size_var, size_t size_obj, const std::string path1, const std::string path2, const std::string path3) : problem(name, 1, 1) {
+		m_path_inp << global::ms_arg.at("workingDir") << "instance/problem/realworld/EPANET/data/map/" << path2;
+		m_path_rpt << global::ms_arg.at("workingDir") << "instance/problem/realworld/EPANET/data/map/" << path3;
 		m_path_inp >> m_map_inp;
 		m_path_rpt >> m_map_rpt;
 
-		m_file_name.assign(v.at("dataFile1"));
-	
+		m_file_name.assign(path1);
+
 	}
 
 	void epanet::initialize() {
 
-		//m_opt_mode[0] = optimization_mode::Minimization;
+		//
 
 		read_parameter();
 

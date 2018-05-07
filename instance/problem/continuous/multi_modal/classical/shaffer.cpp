@@ -17,8 +17,8 @@
 #include "shaffer.h"
 namespace OFEC {
 
-	shaffer::shaffer(param_map &v) :problem((v.at("proName")), 2, 1), \
-		function((v.at("proName")), 2, 1) {
+	shaffer::shaffer(param_map &v) :
+		shaffer((v.at("proName")), 2, 1) {
 		
 		
 	}

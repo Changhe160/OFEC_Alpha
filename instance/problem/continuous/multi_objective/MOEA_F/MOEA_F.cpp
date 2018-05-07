@@ -10,6 +10,7 @@ namespace OFEC {
 		set_range(0., 1.);
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Minimization;
+		LoadPF();
 	}
 	void MOEA_FBase::alphafunction(double alpha[], double const * x, int dim, int type) {
 		if (dim == 2)

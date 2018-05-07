@@ -14,8 +14,8 @@
 #include "sphere.h"
 namespace OFEC {
 	
-	sphere::sphere(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	sphere::sphere(param_map &v) :
+		sphere((v.at("proName")), (v.at("numDim")), 1) {
 		
 
 	}

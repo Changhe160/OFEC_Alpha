@@ -2,8 +2,8 @@
 #include "ShiftedRosenbrock_F12.h"
 namespace OFEC {
 	namespace CEC2013 {
-		ShiftedRosenbrock_F12::ShiftedRosenbrock_F12(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-			function_CEC2013((v.at("proName")), (v.at("numDim")), 1) \
+		ShiftedRosenbrock_F12::ShiftedRosenbrock_F12(param_map &v) : 
+			ShiftedRosenbrock_F12((v.at("proName")), (v.at("numDim")), 1) \
 		{
 			
 		}

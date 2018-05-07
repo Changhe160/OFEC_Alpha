@@ -7,8 +7,8 @@
 
 namespace OFEC {
 	namespace CEC2015 {
-		F10_composition2015_C2::F10_composition2015_C2(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-			composition_2015((v.at("proName")), (v.at("numDim")), 1) {
+		F10_composition2015_C2::F10_composition2015_C2(param_map &v) :
+			F10_composition2015_C2((v.at("proName")), (v.at("numDim")), 1) {
 			
 		}
 		F10_composition2015_C2::F10_composition2015_C2(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

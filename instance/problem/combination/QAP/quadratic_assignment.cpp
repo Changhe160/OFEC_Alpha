@@ -3,11 +3,8 @@
 #include <string.h>
 
 namespace OFEC {
-	quadratic_assignment::quadratic_assignment(param_map & v) :problem(v.at("proName"), v.at("numDim"), 1),m_domain(m_variable_size)
+	quadratic_assignment::quadratic_assignment(param_map & v) :quadratic_assignment(v.at("proName"), v.at("numDim"), v.at("dataFile1"))
 	{
-		
-		m_file_name = static_cast<std::string>(v.at("dataFile1"));
-
 
 	}
 

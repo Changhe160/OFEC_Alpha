@@ -20,8 +20,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		F17_hybrid_composition_noisy::F17_hybrid_composition_noisy(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-			composition((v.at("proName")), (v.at("numDim")), 1) {
+		F17_hybrid_composition_noisy::F17_hybrid_composition_noisy(param_map &v) :
+			F17_hybrid_composition_noisy((v.at("proName")), (v.at("numDim")), 1) {
 
 			
 		}

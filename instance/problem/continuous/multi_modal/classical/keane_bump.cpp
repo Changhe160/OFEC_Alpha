@@ -18,8 +18,8 @@
 
 namespace OFEC {
 	
-	keane_bump::keane_bump(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	keane_bump::keane_bump(param_map &v) :
+		keane_bump((v.at("proName")), (v.at("numDim")), 1) {
 
 		
 	}

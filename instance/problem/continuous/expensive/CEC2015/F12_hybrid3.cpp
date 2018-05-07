@@ -6,8 +6,8 @@
 #include "../../global/classical/ackley.h"
 namespace OFEC {
 	namespace CEC2015 {
-		F12_hybrid3::F12_hybrid3(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-			hybrid((v.at("proName")), (v.at("numDim")), 1) {
+		F12_hybrid3::F12_hybrid3(param_map &v) :
+			F12_hybrid3((v.at("proName")), (v.at("numDim")), 1) {
 			
 		}
 		F12_hybrid3::F12_hybrid3(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

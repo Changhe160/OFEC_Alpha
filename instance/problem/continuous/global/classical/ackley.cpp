@@ -15,8 +15,8 @@
 #include "ackley.h"
 namespace OFEC {
 	
-	ackley::ackley(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	ackley::ackley(param_map &v) :
+		ackley((v.at("proName")), (v.at("numDim")), 1) {
 
 		
 	}

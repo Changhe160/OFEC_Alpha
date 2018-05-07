@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2005 {
-		F3_shifted_rotated_high_cond_elliptic::F3_shifted_rotated_high_cond_elliptic(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-			elliptic((v.at("proName")), (v.at("numDim")), 1) {
+		F3_shifted_rotated_high_cond_elliptic::F3_shifted_rotated_high_cond_elliptic(param_map &v) :
+			F3_shifted_rotated_high_cond_elliptic((v.at("proName")), (v.at("numDim")), 1) {
 
 			
 		}

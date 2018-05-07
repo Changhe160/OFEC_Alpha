@@ -10,7 +10,7 @@
 
 
 namespace OFEC {
-	class variable_epanet {
+	class variable_epanet: public variable_base {
 	public:
 		variable_epanet() {};
 		variable_epanet(size_t size) {};
@@ -64,6 +64,9 @@ namespace OFEC {
 		long & first_detected_time() {
 			return m_x.first_detected_time;
 		}
+
+		void resize(size_t n) {}
+		size_t size() const noexcept { return 4; }
 	protected:
 		struct epa_type  {
 			int Interval = 0;

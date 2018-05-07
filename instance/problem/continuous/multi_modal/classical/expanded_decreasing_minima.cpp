@@ -2,8 +2,8 @@
 
 namespace OFEC {
 
-	expanded_decreasing_minima::expanded_decreasing_minima(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	expanded_decreasing_minima::expanded_decreasing_minima(param_map &v) :
+		expanded_decreasing_minima((v.at("proName")), (v.at("numDim")), 1) {
 
 		
 	}
@@ -15,7 +15,7 @@ namespace OFEC {
 	void expanded_decreasing_minima::initialize() {
 		set_range(-40, 40);
 		set_init_range(-40., 40.);
-		m_opt_mode[0] = optimization_mode::Minimization;
+		
 		m_variable_accuracy = 0.01;
 		m_objective_accuracy = 1.e-4;
 		m_variable_monitor = true;

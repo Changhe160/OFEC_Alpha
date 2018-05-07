@@ -15,8 +15,8 @@
 
 namespace OFEC {
 	
-	rosenbrock::rosenbrock(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	rosenbrock::rosenbrock(param_map &v) :
+		rosenbrock((v.at("proName")), (v.at("numDim")), 1) {
 
 		
 	}

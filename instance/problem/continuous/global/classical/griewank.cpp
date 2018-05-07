@@ -15,8 +15,8 @@
 
 namespace OFEC {
 	
-	griewank::griewank(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	griewank::griewank(param_map &v) : 
+		griewank((v.at("proName")), (v.at("numDim")), 1) {
 
 	}
 	griewank::griewank(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \

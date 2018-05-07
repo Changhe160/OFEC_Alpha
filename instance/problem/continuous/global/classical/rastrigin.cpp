@@ -14,8 +14,8 @@
 #include "rastrigin.h"
 namespace OFEC {
 	
-	rastrigin::rastrigin(param_map &v) : problem((v.at("proName")), (v.at("numDim")), 1), \
-		function((v.at("proName")), (v.at("numDim")), 1) {
+	rastrigin::rastrigin(param_map &v) :
+		rastrigin((v.at("proName")), (v.at("numDim")), 1) {
 
 		
 	}

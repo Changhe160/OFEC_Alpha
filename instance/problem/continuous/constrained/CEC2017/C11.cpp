@@ -2,8 +2,8 @@
 
 namespace OFEC {
 	namespace CEC2017 {
-		C11::C11(param_map &v) :problem((v.at("proName")), (v.at("numDim")), 1), \
-			function((v.at("proName")), (v.at("numDim")), 1) {
+		C11::C11(param_map &v) :
+			C11((v.at("proName")), (v.at("numDim")), 1) {
 			
 		}
 		C11::C11(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
@@ -16,7 +16,7 @@ namespace OFEC {
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
 
-			add_tag(problem_tag::COP);
+			 
 			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
 			set_original_global_opt(m_translation.data());
