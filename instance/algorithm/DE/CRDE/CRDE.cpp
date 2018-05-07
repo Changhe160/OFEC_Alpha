@@ -27,7 +27,7 @@ namespace OFEC {
 				tag = m_pop[i]->trial().evaluate();
 				if (tag != evaluation_tag::Normal) return tag;
 
-				int idx = this->nearest_neighbour(i).begin()->first;
+				int idx = this->nearest_neighbour(i).begin()->second;
 
 				if (m_pop[i]->trial().dominate(*m_pop[idx])) {
 					*m_pop[idx] = m_pop[i]->trial();

@@ -95,7 +95,7 @@ namespace OFEC {
 		template<typename Fun, typename Problem, typename... Args>
 		void initialize_pop(Fun fun, const Problem *pro, Args && ... args);
 
-		std::map<size_t, double> population<Individual>::nearest_neighbour(size_t idx, int k = 1);
+		std::map<double, size_t> population<Individual>::nearest_neighbour(size_t idx, int k = 1);
 
 		void initialize();
 		void record();
@@ -338,7 +338,7 @@ namespace OFEC {
 	}
 
 	template<typename Individual>
-	std::map<size_t,double> population<Individual>::nearest_neighbour(size_t idx, int k) {
+	std::map<double, size_t> population<Individual>::nearest_neighbour(size_t idx, int k) {
 		//TODO return k nearest neighbour of individual idx together with the distance
 		double Min_dis;
 		size_t index;
@@ -365,8 +365,8 @@ namespace OFEC {
 			}
 		}
 		
-		std::map<size_t, double> result;	
-		result[index] = Min_dis;
+		std::map<double, size_t> result;
+		result[Min_dis] = index;
 
 		return result;
 	}
