@@ -251,3 +251,8 @@ results/
 *.vcxproj*
 *.filters
 *.vcxproj
+*.vcxproj
+*.filters
+OFEC.vcxproj.filters
+*.vcxproj
+*.filters
