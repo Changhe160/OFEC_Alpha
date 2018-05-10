@@ -69,8 +69,8 @@ namespace  OFEC {
 		void initialize(Initializer f, Args&&... args) {
 			f(std::forward<Args>(args)...);
 		}
-		size_t variable_size() const {		return m_var.size();	}
-		size_t objective_size() const { return m_obj.size(); }
+		size_t variable_size() const noexcept {		return m_var.size();	}
+		size_t objective_size() const noexcept { return m_obj.size(); }
 
 		void resize_objective(int n) { m_obj.resize(n); }
 		void resize_variable(int n) { m_var.resize(n); }
@@ -144,20 +144,28 @@ namespace  OFEC {
 			return global::ms_global->m_problem->variable_distance(m_var, x);
 		}
 
-		const variable_encoding& variable()const {
+		const variable_encoding& variable()const noexcept {
 			return m_var;
 		}
 
-		variable_encoding& variable(){
+		variable_encoding& variable()noexcept {
 			return m_var;
 		}
 
-		std::vector<objective_encoding>& objective() {
+		std::vector<objective_encoding>& objective() noexcept {
 			return m_obj.vect();
 		}
 
-		const std::vector<objective_encoding>& objective()const {
+		const std::vector<objective_encoding>& objective()const noexcept {
 			return m_obj.vect();
+		}
+
+		objective_encoding& objective(size_t idx) noexcept {
+			return m_obj[idx];
+		}
+
+		const objective_encoding& objective(size_t idx)const noexcept{
+			return m_obj[idx];
 		}
 
 		violation_type check_boundary_violation() {
@@ -168,11 +176,11 @@ namespace  OFEC {
 			return global::ms_global->m_problem->check_constraint_violation(*this);
 		}
 
-		std::pair<double, std::vector<double>> & constraint_value() {
+		std::pair<double, std::vector<double>> & constraint_value() noexcept {
 			return m_constraint_value;
 		}
 
-		const std::pair<double, std::vector<double>> & constraint_value()const {
+		const std::pair<double, std::vector<double>> & constraint_value()const noexcept {
 			return m_constraint_value;
 		}
 		size_t number_violation() {
