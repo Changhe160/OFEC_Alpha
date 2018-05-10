@@ -111,7 +111,12 @@ namespace OFEC {
 		size_t size() const noexcept{
 			return m_o.size();
 		}
-
+		std::vector<value_type>& self() noexcept {
+			return m_o;
+		}
+		const std::vector<value_type>& self() const noexcept {
+			return m_o;
+		}
 	protected:
 		std::vector<value_type> m_o;
 	
@@ -184,6 +189,12 @@ namespace OFEC {
 		}
 		const value_type* data() const noexcept {
 			return m_x.data();
+		}
+		std::vector<value_type>& self() noexcept{
+			return m_x;
+		}
+		const std::vector<value_type>& self() const noexcept {
+			return m_x;
 		}
 	protected:
 		std::vector<value_type> m_x;
