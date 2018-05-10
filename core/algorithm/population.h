@@ -50,8 +50,7 @@ namespace OFEC {
 		//update	
 		void update_best();
 		void update_worst();
-		void update_best(const Individual &);
-		void update_worst(const Individual &);
+		
 		void handle_evaluation_tag(evaluation_tag tag) {}
 
 		//constructors and members
@@ -101,11 +100,14 @@ namespace OFEC {
 		void record();
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
+		void update_best(const Individual &);
+		void update_worst(const Individual &);
+
 	protected:
 		int m_iter = 0;			// the current number of iterations
 		int m_id;
 		std::vector<std::unique_ptr<Individual>> m_pop;
-		std::vector<Individual*> m_best, m_worst;
+		std::vector<std::unique_ptr<Individual>> m_best, m_worst;
 		std::multimap<int, int> m_order;
 		bool m_ordered = false, m_best_updated = false, m_worst_updated = false;
 	private:
@@ -145,6 +147,8 @@ namespace OFEC {
 
 	template<typename Individual>
 	void population<Individual>::update_best() {
+		if (m_best_updated)
+			return;
 		m_best.clear();
 		std::vector<bool> flag(m_pop.size(), true);
 
@@ -156,12 +160,17 @@ namespace OFEC {
 				}
 			}
 		}
-		for (size_t i = 0; i<m_pop.size(); i++) { if (flag[i]) m_best.push_back(m_pop[i].get()); }
+		for (size_t i = 0; i < m_pop.size(); i++) {
+			if (flag[i])
+				m_best.push_back(std::unique_ptr<Individual>(new Individual(*m_pop[i])));
+		}
 		m_best_updated = true;
 	}
 
 	template<typename Individual>
 	void population<Individual>::update_worst() {
+		if (m_worst_updated)
+			return;
 		m_worst.clear();
 		std::vector<bool> flag(m_pop.size(), true);
 
@@ -173,7 +182,10 @@ namespace OFEC {
 				}
 			}
 		}
-		for (size_t i = 0; i<m_pop.size(); i++) { if (flag[i]) m_worst.push_back(m_pop[i].get()); }
+		for (size_t i = 0; i<m_pop.size(); i++) { 
+			if (flag[i])
+				m_worst.push_back(std::unique_ptr<Individual>(new Individual(*m_pop[i])));
+		}
 		m_worst_updated = true;
 	}
 
@@ -183,7 +195,7 @@ namespace OFEC {
 		// check dominated case
 		for (auto i = m_best.begin(); i != m_best.end(); i++) {
 			if (first && x.dominate(**i)) {//**i<x
-				*i = &x;
+				**i = x;
 				first = false;
 			}
 			else if (!first && x.dominate(**i)) {//**i<x
@@ -195,7 +207,7 @@ namespace OFEC {
 		//check equal case	
 		for (auto i = m_best.begin(); i != m_best.end(); i++) {
 			if (x.equal(**i) && !((*i)->same(x))) { //**i == x 
-				m_best.push_back(&x);
+				m_best.push_back(std::unique_ptr<Individual>(new Individual(x)));
 				return;
 			}
 		}
@@ -203,7 +215,9 @@ namespace OFEC {
 		for (auto i = m_best.begin(); i != m_best.end(); i++) {
 			if (!((*i)->nondominate(x))) return;
 		}
-		m_best.push_back(&x);
+		m_best.push_back(std::unique_ptr<Individual>(new Individual(x)));
+
+		m_worst_updated = true;
 		return;
 	}
 
@@ -213,7 +227,7 @@ namespace OFEC {
 		// check dominated case
 		for (auto i = m_worst.begin(); i != m_worst.end(); i++) {
 			if (first && (*i)->dominate(x)) {//**i<x
-				*i = &x;
+				**i = x;
 				first = false;
 			}
 			else if (!first && (*i)->dominate(x)) {//**i<x
@@ -225,7 +239,7 @@ namespace OFEC {
 		//check equal case	
 		for (auto i = m_worst.begin(); i != m_worst.end(); i++) {
 			if (x.equal(**i) && !((*i)->same(x))) { //**i == x 
-				m_worst.push_back(&x);
+				m_worst.push_back(std::unique_ptr<Individual>(new Individual(x)));
 				return;
 			}
 		}
@@ -233,7 +247,9 @@ namespace OFEC {
 		for (auto i = m_worst.begin(); i != m_worst.end(); i++) {
 			if (!((*i)->nondominate(x))) return;
 		}
-		m_worst.push_back(&x);
+		m_worst.push_back(std::unique_ptr<Individual>(new Individual(x)));
+
+		m_worst_updated = true;
 		return;
 	}
 
@@ -335,6 +351,7 @@ namespace OFEC {
 		for (size_t i = 0; i < N; i++) {
 			m_order.insert(std::pair<int,int>(rank[i], m_pop[i]->id()));
 		}
+		m_ordered = true;
 	}
 
 	template<typename Individual>
@@ -399,6 +416,8 @@ namespace OFEC {
 
 	template<typename Individual>
 	void population<Individual>::record() {
+		if (!m_best_updated) 
+			update_best();
 		measure::get_measure()->record(global::ms_global.get(), m_iter, m_best[0]->get_objective()[0]);
 	}
 }
