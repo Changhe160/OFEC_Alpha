@@ -35,13 +35,13 @@ namespace OFEC {
 			template<typename ... Args>
 			JADE_individual(size_t no, Args&& ... args) : individual(no, std::forward<Args>(args)...) {}
 			evaluation_tag select(std::vector<solution_type>& archive) {
-				m_impr = false;
+				m_improved = false;
 				evaluation_tag tag = m_pu.evaluate();
 				if (m_pu.dominate(*this)) {
 					m_var = m_pu.variable();
 					m_obj = m_pu.objective();
 					m_constraint_value = m_pu.constraint_value();
-					m_impr = true;
+					m_improved = true;
 				}
 				else {
 					archive.push_back(*this);

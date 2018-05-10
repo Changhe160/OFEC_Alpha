@@ -55,8 +55,8 @@ namespace OFEC {
 			void set_rank(int value) noexcept {
 				m_ranking = value;
 			}
-			void set_improve_flag(bool value) noexcept {
-				m_impr = value;
+			void set_improved_flag(bool value) noexcept {
+				m_improved = value;
 			}
 			void set_active_flag(bool value) noexcept {
 				m_active = value;
@@ -75,18 +75,18 @@ namespace OFEC {
 				return m_ranking;
 			}
 			bool is_improved()const noexcept {
-				return m_impr;
+				return m_improved;
 			}
 			bool is_active()const noexcept {
 				return m_active;
 			}
-
 			individual(const individual& rhs) :solution_type(rhs), m_fitness(rhs.m_fitness), m_id(rhs.m_id), m_ranking(rhs.m_ranking),
-				m_type(rhs.m_type), m_impr(rhs.m_impr), m_active(rhs.m_active) {
+				m_type(rhs.m_type), m_improved(rhs.m_improved), m_active(rhs.m_active){
 			}
 
 			individual(individual&& rhs) :solution_type(std::move(rhs)), m_fitness(std::move(rhs.m_fitness)), m_id(std::move(rhs.m_id)),
-				m_ranking(std::move(rhs.m_ranking)), m_type(std::move(rhs.m_type)), m_impr(std::move(rhs.m_impr)), m_active(std::move(rhs.m_active)) {
+				m_ranking(std::move(rhs.m_ranking)), m_type(std::move(rhs.m_type)), m_improved(std::move(rhs.m_improved)), 
+				m_active(std::move(rhs.m_active)) {
 			}
 
 			individual& operator=(const individual& rhs) {
@@ -96,7 +96,7 @@ namespace OFEC {
 				m_id = rhs.m_id;
 				m_ranking = rhs.m_ranking;
 				m_type = rhs.m_type;
-				m_impr = rhs.m_impr;
+				m_improved = rhs.m_improved;
 				m_active = rhs.m_active;
 				return *this;
 			}
@@ -107,16 +107,15 @@ namespace OFEC {
 				m_id = std::move(rhs.m_id);
 				m_ranking = std::move(rhs.m_ranking);
 				m_type = std::move(rhs.m_type);
-				m_impr = std::move(rhs.m_impr);
+				m_improved = std::move(rhs.m_improved);
 				m_active = std::move(rhs.m_active);
-
 				return *this;
 			}
 
 		protected:
 			double m_fitness;
 			int m_id, m_ranking = -1, m_type;
-			bool m_impr = false, m_active = true;
+			bool m_improved = false, m_active = true;
 	};
 }
 #endif // !OFEC_INDIVIDUAL_H

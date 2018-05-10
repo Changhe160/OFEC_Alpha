@@ -197,10 +197,10 @@ namespace OFEC {
 				m_var = m_pu.variable();
 				m_obj = m_pu.objective();
 				m_constraint_value = m_pu.constraint_value();
-				m_impr = true;
+				m_improved = true;
 			}
 			else {
-				m_impr = false;
+				m_improved = false;
 			}
 			return tag;
 		}

@@ -179,6 +179,7 @@
     <ClCompile Include="instance\algorithm\DE\NCDE\NCDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\NSDE\NSDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\SaDE\SaDE.cpp" />
+    <ClCompile Include="instance\algorithm\EDA\GL\GL_cont.cpp" />
     <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAII.cpp" />
     <ClCompile Include="instance\problem\combination\MKP\multi_dimensional_knapsack.cpp" />
     <ClCompile Include="instance\problem\combination\one_max\one_max.cpp" />
@@ -457,6 +458,10 @@
     <ClInclude Include="instance\algorithm\DE\NCDE\NCDE.h" />
     <ClInclude Include="instance\algorithm\DE\NSDE\NSDE.h" />
     <ClInclude Include="instance\algorithm\DE\SaDE\SaDE.h" />
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor.h" />
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_cont.h" />
+    <ClInclude Include="instance\algorithm\EDA\GL\GL.h" />
+    <ClInclude Include="instance\algorithm\EDA\GL\GL_cont.h" />
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII.h" />
     <ClInclude Include="instance\problem\combination\MKP\multi_dimensional_knapsack.h" />
     <ClInclude Include="instance\problem\combination\one_max\one_max.h" />

@@ -10,7 +10,7 @@ namespace OFEC {
 			m_F = 0.5;
 			m_CR = 0.7;
 			for (auto &i : m_pop) {
-				i->set_improve_flag(true);
+				i->set_improved_flag(true);
 			}
 		}
 
@@ -89,7 +89,7 @@ namespace OFEC {
 				if (m_pop[i]->dominate(*m_pop[nearest_index])) {
 					*m_pop[nearest_index] = *m_pop[i];
 
-					m_pop[nearest_index]->set_improve_flag(true);
+					m_pop[nearest_index]->set_improved_flag(true);
 				}
 				if (tag != evaluation_tag::Normal) break;
 			}

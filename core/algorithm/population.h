@@ -90,7 +90,7 @@ namespace OFEC {
 		double mean(int oidx);	//mean value of the oidx-th objective
 		double variance(int oidx, double mean); //variance of the oidx-th objective
 
-		evaluation_tag initialize_pop(); //a uniformly distributed initialization by default
+		evaluation_tag initialize_pop(bool effective_eval = true); //a uniformly distributed initialization by default
 		template<typename Fun, typename Problem, typename... Args>
 		evaluation_tag initialize_pop(Fun fun, const Problem *pro, Args && ... args);
 
@@ -98,6 +98,7 @@ namespace OFEC {
 
 		evaluation_tag initialize();
 		void record();
+		void reset_improved_flag();
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
 		void update_best(const Individual &);
@@ -217,7 +218,7 @@ namespace OFEC {
 		}
 		m_best.push_back(std::unique_ptr<Individual>(new Individual(x)));
 
-		m_worst_updated = true;
+		m_best_updated = true;
 		return;
 	}
 
@@ -319,17 +320,18 @@ namespace OFEC {
 		m_worst.clear();
 		m_pop.clear();
 		m_order.clear();
-		m_ordered = m_best_updated = m_worst_updated = false;
+		
 	}
 
 	template<typename Individual>
-	evaluation_tag population<Individual>::initialize_pop() {
+	evaluation_tag population<Individual>::initialize_pop(bool effective_eval) {
 		evaluation_tag tag;
 		for (int i = 0; i < m_pop.size(); ++i) {
 			m_pop[i]->initialize(i);
-			tag = m_pop[i]->evaluate();
+			tag = m_pop[i]->evaluate(effective_eval);
 			if (tag != evaluation_tag::Normal) break;
 		}
+		m_ordered = m_best_updated = m_worst_updated = false;
 		return tag;
 	}
 	template<typename Individual>
@@ -423,6 +425,14 @@ namespace OFEC {
 			update_best();
 		measure::get_measure()->record(global::ms_global.get(), m_iter, m_best[0]->objective()[0]);
 	}
+
+	template<typename Individual>
+	void population<Individual>::reset_improved_flag() {
+		for (auto &i : m_pop) {
+			i->set_improved_flag(false);
+		}
+	}
+
 }
 
 #endif // !OFEC_POPULATION_H
