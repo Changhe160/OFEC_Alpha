@@ -28,9 +28,9 @@ namespace OFEC {
 
 	template<typename Individual>
 	class population : public algorithm {
+	public:
 		template<typename> friend class multi_population;
 		using individual_type = Individual;
-	public:
 		using iterator_type = typename std::vector<std::shared_ptr< Individual>>::iterator;
 		//element access
 		size_t size()const {
@@ -90,13 +90,13 @@ namespace OFEC {
 		double mean(int oidx);	//mean value of the oidx-th objective
 		double variance(int oidx, double mean); //variance of the oidx-th objective
 
-		void initialize_pop(); //a uniformly distributed initialization by default
+		evaluation_tag initialize_pop(); //a uniformly distributed initialization by default
 		template<typename Fun, typename Problem, typename... Args>
-		void initialize_pop(Fun fun, const Problem *pro, Args && ... args);
+		evaluation_tag initialize_pop(Fun fun, const Problem *pro, Args && ... args);
 
 		std::map<double, size_t> population<Individual>::nearest_neighbour(size_t idx, int k = 1);
 
-		void initialize();
+		evaluation_tag initialize();
 		void record();
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
@@ -323,17 +323,20 @@ namespace OFEC {
 	}
 
 	template<typename Individual>
-	void population<Individual>::initialize_pop() {
+	evaluation_tag population<Individual>::initialize_pop() {
+		evaluation_tag tag;
 		for (int i = 0; i < m_pop.size(); ++i) {
 			m_pop[i]->initialize(i);
+			tag = m_pop[i]->evaluate();
+			if (tag != evaluation_tag::Normal) break;
 		}
-
+		return tag;
 	}
 	template<typename Individual>
 	template<typename Fun, typename Problem, typename... Args>
-	void  population<Individual>::initialize_pop(Fun fun, const Problem* pro, Args&& ... args) {
+	evaluation_tag  population<Individual>::initialize_pop(Fun fun, const Problem* pro, Args&& ... args) {
 
-		fun(m_pop, pro, std::forward<Args>(args)...);
+		return fun(m_pop, pro, std::forward<Args>(args)...);
 
 	}
 
@@ -410,8 +413,8 @@ namespace OFEC {
 	}
 
 	template<typename Individual>
-	void population<Individual>::initialize() {
-		initialize_pop();
+	evaluation_tag population<Individual>::initialize() {
+		return initialize_pop();
 	}
 
 	template<typename Individual>

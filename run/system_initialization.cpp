@@ -95,13 +95,12 @@ namespace OFEC {
 			try {
 				g_mutex.lock();
 				std::cout << "runId: " << runId << std::endl;
+				g_mutex.unlock();
 				global::ms_global.reset(new global(runId, 1. / 7, (runId + 1.) / ((int)(global::ms_arg.at("numRun")) + 1.)));
 				global::ms_global->m_problem.reset(factory<problem>::produce(global::ms_arg.at("proName"), global::ms_arg));
 				global::ms_global->m_problem->initialize();
 
-				global::ms_global->m_algorithm.reset(factory<algorithm>::produce(global::ms_arg.at("algName"), global::ms_arg));
-				global::ms_global->m_algorithm->initialize();
-				g_mutex.unlock();
+				global::ms_global->m_algorithm.reset(factory<algorithm>::produce(global::ms_arg.at("algName"), global::ms_arg));				
 				global::ms_global->m_algorithm->run();
 			}
 			catch (std::exception &e) {

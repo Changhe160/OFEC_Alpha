@@ -43,7 +43,7 @@ namespace OFEC {
 		void set_termination(termination* t);
 		const std::string& name() { return m_name; }
 		void set_name(const std::string &name) { m_name = name; }
-		virtual void initialize() = 0;
+		virtual evaluation_tag initialize() = 0;
 		virtual void record() = 0;
 	protected:
 		virtual evaluation_tag run_() { return evaluation_tag::Normal; }
