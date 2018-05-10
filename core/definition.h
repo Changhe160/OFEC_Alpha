@@ -45,7 +45,7 @@ namespace OFEC {
 	enum class caller { Problem, Algorithm, Demontration };
 	enum class violation_type { Constraint, Boundary, None };
 	enum class evaluation_tag {
-		Normal, Problem_change, Terminate, Problem_change_next_eval, Change_timelinkage,
+		Normal, Change, Terminate, Change_next_eval, Change_timelinkage,
 		Change_dimension, Infeasible
 	};
 	//SOP: single objective problem
