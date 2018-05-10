@@ -120,7 +120,7 @@ namespace OFEC {
 	std::vector<solution<variable<real>, real>>& continuous::get_optima_found() {
 		return m_optima_found;
 	}
-	domain<real>& continuous::get_domain() {
+	domain<real>& continuous::range() {
 		return m_domain;
 	}
 

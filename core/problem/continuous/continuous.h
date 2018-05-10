@@ -41,7 +41,7 @@ namespace OFEC {
 
 		optima<variable<real>, real>& get_optima();
 		std::vector<solution<variable<real>, real>>& get_optima_found();
-		domain<real>& get_domain();
+		domain<real>& range();
 
 		virtual bool same(const solution_base &s1, const solution_base &s2) const { return false; }
 		double variable_distance(const solution_base &s1, const solution_base &s2) const;
