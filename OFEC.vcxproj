@@ -179,6 +179,7 @@
     <ClCompile Include="instance\algorithm\DE\NCDE\NCDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\NSDE\NSDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\SaDE\SaDE.cpp" />
+    <ClCompile Include="instance\algorithm\EDA\GL\GL_cont.cpp" />
     <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAII.cpp" />
     <ClCompile Include="instance\problem\combination\MKP\multi_dimensional_knapsack.cpp" />
     <ClCompile Include="instance\problem\combination\one_max\one_max.cpp" />
@@ -457,6 +458,13 @@
     <ClInclude Include="instance\algorithm\DE\NCDE\NCDE.h" />
     <ClInclude Include="instance\algorithm\DE\NSDE\NSDE.h" />
     <ClInclude Include="instance\algorithm\DE\SaDE\SaDE.h" />
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_cont.h" />
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_MKP.h" />
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_QAP.h" />
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_TSP.h" />
+    <ClInclude Include="instance\algorithm\EDA\GL\GL.h" />
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor.h" />
+    <ClInclude Include="instance\algorithm\EDA\GL\GL_cont.h" />
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII.h" />
     <ClInclude Include="instance\problem\combination\MKP\multi_dimensional_knapsack.h" />
     <ClInclude Include="instance\problem\combination\one_max\one_max.h" />
@@ -689,6 +697,7 @@
     <ClInclude Include="utility\catch.hpp" />
     <ClInclude Include="utility\factory.h" />
     <ClInclude Include="utility\functional.h" />
+    <ClInclude Include="utility\kd-tree\kdtree_space.h" />
     <ClInclude Include="utility\mapbox\recursive_wrapper.hpp" />
     <ClInclude Include="utility\mapbox\variant.hpp" />
     <ClInclude Include="utility\mapbox\variant_cast.hpp" />

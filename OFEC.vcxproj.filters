@@ -190,6 +190,30 @@
     <Filter Include="utility\nondominated_sorting\best_order_sort">
       <UniqueIdentifier>{45f6d570-19a4-43b2-bd3f-d63d9998edf1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="instance\algorithm\EDA">
+      <UniqueIdentifier>{68d74512-de17-497a-b4bd-45c79ffcfdba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\ACO">
+      <UniqueIdentifier>{76092b63-43bb-4449-a82c-132090572d70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\GA">
+      <UniqueIdentifier>{96098b66-3daf-41e6-b35a-9410e8c8fab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\PSO">
+      <UniqueIdentifier>{cafcdbb6-2b75-40ff-9843-74a9d713bd4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\ES">
+      <UniqueIdentifier>{8d26e6ca-9d74-4d1f-8c86-365719f7a922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\GP">
+      <UniqueIdentifier>{8c49c28b-669b-4157-8e32-f3a489033623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\EDA\GL">
+      <UniqueIdentifier>{bb26a550-8594-421f-937f-75f9fdb3f931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\kd-tree">
+      <UniqueIdentifier>{9a12560f-d46a-414d-90cc-eed44a4eb933}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\algorithm\encoding.h">
@@ -1041,6 +1065,30 @@
     <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F8_modified_rastrigin.h">
       <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
     </ClInclude>
+    <ClInclude Include="instance\algorithm\EDA\GL\GL.h">
+      <Filter>instance\algorithm\EDA\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor.h">
+      <Filter>instance\algorithm\EDA\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_MKP.h">
+      <Filter>instance\algorithm\EDA\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_QAP.h">
+      <Filter>instance\algorithm\EDA\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_TSP.h">
+      <Filter>instance\algorithm\EDA\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_cont.h">
+      <Filter>instance\algorithm\EDA\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\EDA\GL\GL_cont.h">
+      <Filter>instance\algorithm\EDA\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\kd-tree\kdtree_space.h">
+      <Filter>utility\kd-tree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">
@@ -1840,6 +1888,9 @@
     </ClCompile>
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F8_modified_rastrigin.cpp">
       <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\EDA\GL\GL_cont.cpp">
+      <Filter>instance\algorithm\EDA\GL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
