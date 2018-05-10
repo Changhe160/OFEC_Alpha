@@ -8,7 +8,7 @@ namespace OFEC {
 
 	violation_type continuous::check_boundary_violation(const solution_base &s) const {
 
-		const variable<real>& x = dynamic_cast<const solution<variable<real>, real>&>(s).get_variable();
+		const variable_vector<real>& x = dynamic_cast<const solution<variable_vector<real>, real>&>(s).variable();
 
 		for (int i = 0; i < m_variable_size; ++i) {
 			if (m_domain[i].limited) {
@@ -20,7 +20,7 @@ namespace OFEC {
 	}
 
 	void continuous::initialize_solution(solution_base &s) const {
-		variable<real>& x = dynamic_cast<solution<variable<real>, real>&>(s).get_variable();
+		variable_vector<real>& x = dynamic_cast<solution<variable_vector<real>, real>&>(s).variable();
 
 		for (int i = 0; i < m_variable_size; ++i) {
 			if (m_domain[i].limited) {
@@ -114,10 +114,10 @@ namespace OFEC {
 		}
 	}
 
-	optima<variable<real>, real>& continuous::get_optima() {
+	optima<variable_vector<real>, real>& continuous::get_optima() {
 		return m_optima;
 	}
-	std::vector<solution<variable<real>, real>>& continuous::get_optima_found() {
+	std::vector<solution<variable_vector<real>, real>>& continuous::get_optima_found() {
 		return m_optima_found;
 	}
 	domain<real>& continuous::range() {
@@ -125,23 +125,23 @@ namespace OFEC {
 	}
 
 	double continuous::variable_distance(const solution_base &s1, const solution_base &s2) const {
-		const variable<real>& x1 = dynamic_cast<const solution<variable<real>, real>&>(s1).get_variable();
-		const variable<real>& x2 = dynamic_cast<const solution<variable<real>, real>&>(s2).get_variable();
+		const variable_vector<real>& x1 = dynamic_cast<const solution<variable_vector<real>, real>&>(s1).variable();
+		const variable_vector<real>& x2 = dynamic_cast<const solution<variable_vector<real>, real>&>(s2).variable();
 		return euclidean_distance(x1.begin(), x1.end(), x2.begin());
 
 	}
 
 	double continuous::variable_distance(const variable_base &s1, const variable_base &s2) const {
-		const variable<real>& x1 = dynamic_cast<const variable<real>&>(s1);
-		const variable<real>& x2 = dynamic_cast<const variable<real>&>(s2);
+		const variable_vector<real>& x1 = dynamic_cast<const variable_vector<real>&>(s1);
+		const variable_vector<real>& x2 = dynamic_cast<const variable_vector<real>&>(s2);
 		return euclidean_distance(x1.begin(), x1.end(), x2.begin());
 	}
 
 	evaluation_tag continuous::evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed) {
-		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
-		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
-		double & cons_value = dynamic_cast<solution<variable<real>, real> &>(s).constraint_value().first;
-		std::vector<double> & cons_values = dynamic_cast<solution<variable<real>, real> &>(s).constraint_value().second;
+		variable_vector<real> &x = dynamic_cast< solution<variable_vector<real>, real> &>(s).variable();
+		auto & obj = dynamic_cast< solution<variable_vector<real>, real> &>(s).objective();
+		double & cons_value = dynamic_cast<solution<variable_vector<real>, real> &>(s).constraint_value().first;
+		std::vector<double> & cons_values = dynamic_cast<solution<variable_vector<real>, real> &>(s).constraint_value().second;
 
 		std::vector<real> x_(x.begin(), x.end()); //for parallel running
 
@@ -152,12 +152,12 @@ namespace OFEC {
 			if (effective_fes)		m_effective_eval++;
 
 			if (m_variable_monitor) {
-				m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_optima_found, m_variable_accuracy);
+				m_optima.is_optimal_variable(dynamic_cast<solution<variable_vector<real>, real> &>(s), m_optima_found, m_variable_accuracy);
 				if (m_optima.is_variable_found())
 					m_solved = true;
 			}
 			if (m_objective_monitor) {
-				m_optima.is_optimal_objective(dynamic_cast<solution<variable<real>, real> &>(s), m_optima_found, m_objective_accuracy, m_variable_accuracy);
+				m_optima.is_optimal_objective(dynamic_cast<solution<variable_vector<real>, real> &>(s), m_optima_found, m_objective_accuracy, m_variable_accuracy);
 				if (m_optima.is_objective_found())
 					m_solved = true;
 			}

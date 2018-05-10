@@ -39,8 +39,8 @@ namespace OFEC {
 		void set_init_range(real l, real u);
 		void set_init_range(const std::vector<std::pair<real, real>>& r);
 
-		optima<variable<real>, real>& get_optima();
-		std::vector<solution<variable<real>, real>>& get_optima_found();
+		optima<variable_vector<real>, real>& get_optima();
+		std::vector<solution<variable_vector<real>, real>>& get_optima_found();
 		domain<real>& range();
 
 		virtual bool same(const solution_base &s1, const solution_base &s2) const { return false; }
@@ -69,8 +69,8 @@ namespace OFEC {
 		double m_variable_accuracy = 1.0e-6;
 		domain<real> m_domain;		// search domain
 		domain<real> m_init_domain; // range for intial population
-		optima<variable<real>, real> m_optima;
-		std::vector<solution<variable<real>, real>> m_optima_found;
+		optima<variable_vector<real>, real> m_optima;
+		std::vector<solution<variable_vector<real>, real>> m_optima_found;
 		bool m_variable_monitor = false, m_objective_monitor = false;
 	};
 

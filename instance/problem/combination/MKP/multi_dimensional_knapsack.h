@@ -30,7 +30,7 @@ namespace OFEC {
 		std::vector<std::vector<double>> mvv_r;
 		std::vector<double> mv_b;
 		std::string m_file_name;
-		optima<variable<int>, real> m_optima;
+		optima<variable_vector<int>, real> m_optima;
 		int m_m;
 		double m_maxP;
 		bool m_if_valid_check = true;
@@ -44,8 +44,8 @@ namespace OFEC {
 		int invalid_constrain_num(solution_base &s_) const;
 		bool get_optimal_obj(std::vector<double> &opt) const;
 		bool get_optimal_obj(std::vector<std::vector<double>> &opt) const;
-		const optima<variable<int>, real>& get_optima() const;
-		optima<variable<int>, real>& get_optima();
+		const optima<variable_vector<int>, real>& get_optima() const;
+		optima<variable_vector<int>, real>& get_optima();
 		bool is_optima_given() const;
 		multi_dimensional_knapsack* get_type_ptr();
 		multi_dimensional_knapsack& get_type_ref();

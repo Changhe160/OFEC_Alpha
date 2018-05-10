@@ -55,16 +55,16 @@ namespace OFEC {
 
 			// Set optimal solution
 
-			variable<real> temp_var(m_variable_size);
-			objective<real> temp_obj(m_objective_size);
-			solution<variable<real>, real> x(std::move(temp_var), std::move(temp_obj));
+			variable_vector<real> temp_var(m_variable_size);
+			objective_vector<real> temp_obj(m_objective_size);
+			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
 			for (int i = 0; i < m_variable_size; ++i) {
-				x.get_variable()[i] = m_function[0]->translation()[i];
+				x.variable()[i] = m_function[0]->translation()[i];
 			}
-			m_optima.append(x.get_variable());
+			m_optima.append(x.variable());
 
 			evaluate_(x, caller::Problem, false, false);
-			m_optima.append(x.get_objective());
+			m_optima.append(x.objective());
 			// end set
 			m_variable_accuracy = 1.0e-3;
 			m_objective_accuracy = 0.1;

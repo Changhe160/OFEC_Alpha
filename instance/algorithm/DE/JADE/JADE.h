@@ -29,7 +29,7 @@ pp. 945¨C958, Oct. 2009.
 
 namespace OFEC {
 	namespace DE {
-		class JADE_individual :public individual<variable<real>, real> {
+		class JADE_individual :public individual<variable_vector<real>, real> {
 		public:
 			using  individual::select;
 			template<typename ... Args>
@@ -38,8 +38,8 @@ namespace OFEC {
 				m_impr = false;
 				evaluation_tag tag = m_pu.evaluate();
 				if (m_pu.dominate(*this)) {
-					m_var = m_pu.get_variable();
-					m_obj = m_pu.get_objective();
+					m_var = m_pu.variable();
+					m_obj = m_pu.objective();
 					m_constraint_value = m_pu.constraint_value();
 					m_impr = true;
 				}
@@ -66,8 +66,8 @@ namespace OFEC {
 			double m_p;
 			double m_c;
 			int m_archive_flag;
-			std::vector<solution<variable<real>, real>> m_archive;
-			std::vector<solution<variable<real>, real>*> m_candi;
+			std::vector<solution<variable_vector<real>, real>> m_archive;
+			std::vector<solution<variable_vector<real>, real>*> m_candi;
 			std::vector<double> m_pcent_best;
 			std::vector<int> m_pcent_best_index;
 			std::vector<double> mv_F, mv_CR;

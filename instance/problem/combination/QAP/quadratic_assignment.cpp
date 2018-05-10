@@ -32,12 +32,12 @@ namespace OFEC {
 
 		global::ms_sample_fre  = m_variable_size * 2;
 
-		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
+		allocate_memory<solution<variable_vector<int>, real>>(m_variable_size, m_objective_size);
 	}
 	evaluation_tag quadratic_assignment::evaluate_(solution_base & s, caller call, bool effective_fes, bool constructed)
 	{
-		variable<int> &x = dynamic_cast< solution<variable<int>, real> &>(s).get_variable();
-		std::vector<double> &obj = dynamic_cast< solution<variable<int>, real> &>(s).get_objective();
+		variable_vector<int> &x = dynamic_cast< solution<variable_vector<int>, real> &>(s).variable();
+		std::vector<double> &obj = dynamic_cast< solution<variable_vector<int>, real> &>(s).objective();
 
 		for (int i = 0; i<m_objective_size; i++)
 			obj[i] = 0;
@@ -70,7 +70,7 @@ namespace OFEC {
 		if (!m_if_valid_check) 
 			return true;
 
-		const variable<int> &x = dynamic_cast<const solution<variable<int>, real> &>(s).get_variable();
+		const variable_vector<int> &x = dynamic_cast<const solution<variable_vector<int>, real> &>(s).variable();
 
 		for (int i = 0; i < m_variable_size; i++)  //judge the range		
 			if ((x[i]) < m_domain.range(i).limit.first || (x[i]) > m_domain.range(i).limit.second)
@@ -152,7 +152,7 @@ namespace OFEC {
 			{
 				getline(infile, Line);
 				std::istringstream ss(Line);
-				variable<int> temp(m_variable_size);
+				variable_vector<int> temp(m_variable_size);
 				for (i = 0; i < m_variable_size; ++i) {
 					ss >> temp[i];
 				}
@@ -182,11 +182,11 @@ namespace OFEC {
 		return false;
 	}
 
-	const optima<variable<int>, real>& quadratic_assignment::get_optima() const
+	const optima<variable_vector<int>, real>& quadratic_assignment::get_optima() const
 	{
 		return m_optima;
 	}
-	optima<variable<int>, real>& quadratic_assignment::get_optima()
+	optima<variable_vector<int>, real>& quadratic_assignment::get_optima()
 	{
 		return m_optima;
 	}
@@ -212,7 +212,7 @@ namespace OFEC {
 	}
 	void quadratic_assignment::initialize_solution(solution_base &s) const
 	{
-		variable<int>& x = dynamic_cast< solution<variable<int>, real>&>(s).get_variable();
+		variable_vector<int>& x = dynamic_cast< solution<variable_vector<int>, real>&>(s).variable();
 		std::vector<int> temp;
 		int i, pos, num = x.size();
 		for (i = 0; i<num; i++)
@@ -228,8 +228,8 @@ namespace OFEC {
 	}
 	bool quadratic_assignment::same(const solution_base & s1, const solution_base & s2) const
 	{
-		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
-		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();
+		const variable_vector<int> &x1 = dynamic_cast<const solution<variable_vector<int>, real> &>(s1).variable();
+		const variable_vector<int> &x2 = dynamic_cast<const solution<variable_vector<int>, real> &>(s2).variable();
 		for (int i = 0; i < m_variable_size; i++)
 			if (x1[i] != x2[i])
 				return false;
@@ -238,8 +238,8 @@ namespace OFEC {
 
 	double quadratic_assignment::variable_distance(const solution_base & s1, const solution_base & s2) const
 	{
-		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
-		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();
+		const variable_vector<int> &x1 = dynamic_cast<const solution<variable_vector<int>, real> &>(s1).variable();
+		const variable_vector<int> &x2 = dynamic_cast<const solution<variable_vector<int>, real> &>(s2).variable();
 		double dis = 0;
 		for (int i = 0; i < m_variable_size; i++)
 			if (x1[i] != x2[i])
@@ -249,8 +249,8 @@ namespace OFEC {
 
 	double quadratic_assignment::variable_distance(const variable_base & s1, const variable_base & s2) const
 	{
-		const variable<int> &x1 = dynamic_cast<const variable<int>&>(s1);
-		const variable<int> &x2 = dynamic_cast<const variable<int>&>(s2);
+		const variable_vector<int> &x1 = dynamic_cast<const variable_vector<int>&>(s1);
+		const variable_vector<int> &x2 = dynamic_cast<const variable_vector<int>&>(s2);
 		double dis = 0;
 		for (int i = 0; i < m_variable_size; i++)
 			if (x1[i] != x2[i])

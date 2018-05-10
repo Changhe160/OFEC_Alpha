@@ -14,29 +14,29 @@ namespace OFEC {
 
 	void function_CEC2013::set_original_global_opt(real *opt) {
 		if (m_objective_size > 1) throw myexcept("function_CEC2013::set_original_global_opt only for problems with a single obj");
-		variable<real> temp_var(m_variable_size);
+		variable_vector<real> temp_var(m_variable_size);
 		if (opt == 0)		for (auto&i : temp_var) i = 0.;
 		else	for (int i = 0; i < m_variable_size; i++)  temp_var[i] = opt[i];
 		m_original_global_opt.append(std::move(temp_var));
 
-		objective<real> temp_obj(m_objective_size);
-		solution<variable<real>, real> temp(m_original_global_opt.variable(0), std::move(temp_obj));
+		objective_vector<real> temp_obj(m_objective_size);
+		solution<variable_vector<real>, real> temp(m_original_global_opt.variable(0), std::move(temp_obj));
 
 		evaluate_(temp, caller::Problem,false,false);
-		m_original_global_opt.append(std::move(temp.get_objective()));
+		m_original_global_opt.append(std::move(temp.objective()));
 	}
 	void function_CEC2013::set_global_opt(real *tran) {
 		if (m_objective_size > 1) throw myexcept("function_CEC2013::set_global_opt only for problems with a single obj");
-		variable<real> temp_var(m_variable_size);
+		variable_vector<real> temp_var(m_variable_size);
 		for (int i = 0; i < m_variable_size; ++i) 
 			temp_var[i] = tran[i];
 		m_optima.append(std::move(temp_var));
 
-		objective<real> temp_obj(m_objective_size);
-		solution<variable<real>, real> temp(m_optima.variable(0), std::move(temp_obj));
+		objective_vector<real> temp_obj(m_objective_size);
+		solution<variable_vector<real>, real> temp(m_optima.variable(0), std::move(temp_obj));
 		
 		evaluate_(temp, caller::Problem,false,false);
-		m_optima.append(std::move(temp.get_objective()));
+		m_optima.append(std::move(temp.objective()));
 	}
 
 	real* function_CEC2013::readOvector()

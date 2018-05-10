@@ -22,11 +22,11 @@
 
 namespace OFEC {
 
-	template<typename VariableEncoding = variable<real>,
+	template<typename VariableEncoding = variable_vector<real>,
 		typename ObjetiveType = real
 	>
 	class optima {
-		using objective_type = ObjetiveType;
+		using objective_encoding = ObjetiveType;
 		using variable_encoding = VariableEncoding;
 	public:
 		optima() = default;
@@ -34,11 +34,11 @@ namespace OFEC {
 		void append(const variable_encoding &x) {
 			m_var.push_back(std::make_pair(x, false));
 		}
-		void append(const std::vector<objective_type> &obj) {
+		void append(const std::vector<objective_encoding> &obj) {
 			m_obj.push_back(std::make_pair(obj, false));
 		}
-		void append(const objective_type obj) {
-			m_obj.push_back(std::make_pair(std::vector<objective_type>(1, obj), false));
+		void append(const objective_encoding obj) {
+			m_obj.push_back(std::make_pair(std::vector<objective_encoding>(1, obj), false));
 		}
 
 		bool variable_given() const {
@@ -73,18 +73,18 @@ namespace OFEC {
 		void set_variable(const variable_encoding &x, size_t i) {
 			m_var[i].first = x;
 		}
-		void set_objective(const std::vector<objective_type> &obj, size_t i) {
+		void set_objective(const std::vector<objective_encoding> &obj, size_t i) {
 			m_obj[i].first = obj;
 		}
 
-		objective_type single_objective(size_t i = 0) const {
+		objective_encoding single_objective(size_t i = 0) const {
 			return m_obj[i].first[0];
 		}
-		const std::vector<objective_type>& multi_objective(size_t i = 0) const {
+		const std::vector<objective_encoding>& multi_objective(size_t i = 0) const {
 			return m_obj[i].first;
 		}
 
-		double distance_to_optimal_obj(objective_type o)const {
+		double distance_to_optimal_obj(objective_encoding o)const {
 			return fabs(m_obj[0].first - o);
 		}
 
@@ -100,7 +100,7 @@ namespace OFEC {
 			for (auto &i : m_obj) {
 				double min_d = std::numeric_limits<double>::max();
 				for (int j = 0; j < pop.size(); ++j) {
-					double d = euclidean_distance(pop[j].get_objective().begin(), pop[j].get_objective().end(), i.first.begin());
+					double d = euclidean_distance(pop[j].objective().begin(), pop[j].objective().end(), i.first.begin());
 					if (d<min_d)  min_d = d;
 				}
 				distance += min_d;
@@ -125,7 +125,7 @@ namespace OFEC {
 
 		template<typename Solution>
 		bool is_optimal_objective(const Solution &s, std::vector<Solution> &opt_found, double epsilon_obj, double epsilon_var) {  //  for multi-modal opt, only for global optimal solutions
-			double dis_obj = euclidean_distance(s.get_objective().begin(), s.get_objective().end(), m_obj[0].first.begin());
+			double dis_obj = euclidean_distance(s.objective().begin(), s.objective().end(), m_obj[0].first.begin());
 			if (dis_obj <= epsilon_obj) {
 				for (size_t i = 0; i < opt_found.size(); ++i) {
 					if (s.variable_distance(opt_found[i]) <= epsilon_var)
@@ -141,7 +141,7 @@ namespace OFEC {
 			return false;
 		}
 
-		bool is_optimal_objective(const std::vector<objective_type> &o, double epsilon) {  // for multi-objective opt
+		bool is_optimal_objective(const std::vector<objective_encoding> &o, double epsilon) {  // for multi-objective opt
 			bool flag = false;
 			for (auto &i : m_obj) {
 				if (i.second) continue;
@@ -154,7 +154,7 @@ namespace OFEC {
 			return flag;
 		}
 
-		/*bool is_optimal_objective(const objective_type &o, double epsilon) { // single objective optimization problem
+		/*bool is_optimal_objective(const objective_encoding &o, double epsilon) { // single objective optimization problem
 			if (m_obj[0].second) return true;
 
 			return m_obj[0].second = fabs(m_obj[0].first[0] - o) <= epsilon;
@@ -185,7 +185,7 @@ namespace OFEC {
 				objective<ObjetiveType> temp_obj(GET_NUM_OBJ);
 				Solution temp(m_var[i].first, temp_obj);
 				global::ms_global->m_problem.get()->evaluate_(temp, caller::Problem, false, false);
-				append(temp.get_objective());
+				append(temp.objective());
 				m_obj[i].second = true;
 			}
 		}
@@ -216,7 +216,7 @@ namespace OFEC {
 		}
 	private:
 		std::vector<std::pair<variable_encoding, bool>> m_var;
-		std::vector<std::pair<std::vector<objective_type>, bool>> m_obj;
+		std::vector<std::pair<std::vector<objective_encoding>, bool>> m_obj;
 		
 	};
 

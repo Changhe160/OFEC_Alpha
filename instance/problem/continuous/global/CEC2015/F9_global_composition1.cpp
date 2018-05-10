@@ -71,16 +71,16 @@ namespace OFEC {
 				i->set_global_opt(i->translation().data());
 			}
 			// Set optimal solution
-			variable<real> temp_var(m_variable_size);
-			objective<real> temp_obj(m_objective_size);
-			solution<variable<real>, real> x(std::move(temp_var), std::move(temp_obj));
+			variable_vector<real> temp_var(m_variable_size);
+			objective_vector<real> temp_obj(m_objective_size);
+			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
 			for (int i = 0; i < m_variable_size; ++i) {
-				x.get_variable()[i] = m_function[0]->get_optima().variable(0)[i];
+				x.variable()[i] = m_function[0]->get_optima().variable(0)[i];
 			}
-			m_optima.append(x.get_variable());
+			m_optima.append(x.variable());
 
 			evaluate_(x, caller::Problem, false, false);
-			m_optima.append(x.get_objective());
+			m_optima.append(x.objective());
 		}
 
 		void F9_global_composition1::evaluate__(real *x, std::vector<real>& obj) {
@@ -90,15 +90,15 @@ namespace OFEC {
 
 			set_weight(weight, x_);
 			std::vector<real> fit(m_num_function);
-			variable<real> temp_var(m_variable_size);
-			objective<real> temp_obj(m_objective_size);
-			solution<variable<real>, real> s(std::move(temp_var), std::move(temp_obj));
+			variable_vector<real> temp_var(m_variable_size);
+			objective_vector<real> temp_obj(m_objective_size);
+			solution<variable_vector<real>, real> s(std::move(temp_var), std::move(temp_obj));
 			
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
-				s.get_variable() = x_;
+				s.variable() = x_;
 				if (i == 0) m_function[i]->set_rotation_flag(false);
 				m_function[i]->evaluate_(s, caller::Problem, false, false);
-				fit[i] = s.get_objective()[0];
+				fit[i] = s.objective()[0];
 
 			}
 			double sumw = 0;

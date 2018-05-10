@@ -22,7 +22,7 @@ namespace OFEC {
 
 		evaluation_tag DynDE_individual::brownian(const solution_type &best, double sigma) {
 			for (size_t i = 0; i < m_var.size(); ++i) {
-				m_var[i] = (best.get_variable()[i]) + global::ms_global->m_normal[caller::Algorithm]->next_non_standard(0, sigma);
+				m_var[i] = (best.variable()[i]) + global::ms_global->m_normal[caller::Algorithm]->next_non_standard(0, sigma);
 			}
 
 			check_boundary_violation();
@@ -30,7 +30,7 @@ namespace OFEC {
 			return evaluate();
 		}
 		evaluation_tag DynDE_individual::quantum(const solution_type &best, double rcloud) {
-			size_t dim = best.get_variable().size();
+			size_t dim = best.variable().size();
 			std::vector<double> x(dim, 0);
 			double dis = 0;
 			for (size_t i = 0; i < dim; ++i) {
@@ -40,7 +40,7 @@ namespace OFEC {
 			dis = sqrt(dis);
 			double r = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<real>(0, rcloud);
 			for (size_t i = 0; i < dim; ++i) {
-				m_var[i] = (best.get_variable()[i]) + r*x[i] / dis;
+				m_var[i] = (best.variable()[i]) + r*x[i] / dis;
 			}
 			x.clear();
 			check_boundary_violation();

@@ -67,28 +67,28 @@ namespace OFEC {
 			std::vector<real> hy_bias = { 600,700,800 };
 			set_function();
 			load_translation("instance/problem/continuous/global/CEC2015/data/");  //data path
-			variable<real> temp_var(m_variable_size);
-			objective<real> temp_obj(m_objective_size);
+			variable_vector<real> temp_var(m_variable_size);
+			objective_vector<real> temp_obj(m_objective_size);
 			size_t num = 0;
 			for (auto &i : m_hybrid) {
 				for (size_t j = 0; j < m_variable_size; ++j)
 					temp_var[j] = i->get_optima().variable(0)[j] + i->hybrid_translation()[j];
 				i->get_optima().clear();
-				solution<variable<real>, real> x(temp_var, temp_obj);
-				i->get_optima().append(x.get_variable());
+				solution<variable_vector<real>, real> x(temp_var, temp_obj);
+				i->get_optima().append(x.variable());
 				i->evaluate_(x, caller::Problem, false, false);
-				x.get_objective()[0] -= hy_bias[num++];
-				i->get_optima().append(x.get_objective());
+				x.objective()[0] -= hy_bias[num++];
+				i->get_optima().append(x.objective());
 			}
 			// Set optimal solution
 			for (size_t j = 0; j < m_variable_size; ++j)
 				temp_var[j] = m_hybrid[0]->get_optima().variable(0)[j];
 
-			solution<variable<real>, real> x(std::move(temp_var), std::move(temp_obj));
+			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
 
-			m_optima.append(x.get_variable());
+			m_optima.append(x.variable());
 			evaluate_(x, caller::Problem, false, false);
-			m_optima.append(x.get_objective());
+			m_optima.append(x.objective());
 			
 		}
 
@@ -99,16 +99,16 @@ namespace OFEC {
 
 			set_weight(weight, x_);
 			std::vector<real> fit(m_num_function);
-			variable<real> temp_var(m_variable_size);
-			objective<real> temp_obj(m_objective_size);
-			solution<variable<real>, real> s(std::move(temp_var), std::move(temp_obj));
+			variable_vector<real> temp_var(m_variable_size);
+			objective_vector<real> temp_obj(m_objective_size);
+			solution<variable_vector<real>, real> s(std::move(temp_var), std::move(temp_obj));
 			std::vector<real> hy_bias = { 600,700,800 };
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
-				s.get_variable() = x_;
+				s.variable() = x_;
 				for (size_t j = 0; j < m_variable_size; ++j)
-					s.get_variable()[j] -= m_hybrid[i]->hybrid_translation()[j];
+					s.variable()[j] -= m_hybrid[i]->hybrid_translation()[j];
 				m_hybrid[i]->evaluate_(s, caller::Problem, false, false);
-				fit[i] = s.get_objective()[0] - hy_bias[i];
+				fit[i] = s.objective()[0] - hy_bias[i];
 
 			}
 			double sumw = 0;

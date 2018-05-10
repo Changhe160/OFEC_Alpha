@@ -34,7 +34,7 @@ namespace OFEC {
 			std::vector<double> gopt(1);
 			gopt = CONTINOUS_CAST->get_optima().multi_objective(0);
 			while (tag != evaluation_tag::Terminate) {
-				double best = problem::get_sofar_best<solution<>>(0)->get_objective()[0];
+				double best = problem::get_sofar_best<solution<>>(0)->objective()[0];
 				double error = fabs(best - gopt[0]);
 				int num_opt_found = CONTINOUS_CAST->num_optima_found();
 
@@ -64,10 +64,10 @@ namespace OFEC {
 				++m_iter;
 			}
 			// output objective found
-			std::vector<solution< variable<real>, real >> test = CONTINOUS_CAST->get_optima_found();
+			std::vector<solution< variable_vector<real>, real >> test = CONTINOUS_CAST->get_optima_found();
 			for (size_t i = 0; i < CONTINOUS_CAST->num_optima_found(); ++i) {
-				std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima_found()[i].get_objective()[0] << " " << std::endl;
-				std::cout << " " << " " << CONTINOUS_CAST->get_optima_found()[i].get_variable()[0] << " " << CONTINOUS_CAST->get_optima_found()[i].get_variable()[1] << std::endl;
+				std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima_found()[i].objective()[0] << " " << std::endl;
+				std::cout << " " << " " << CONTINOUS_CAST->get_optima_found()[i].variable()[0] << " " << CONTINOUS_CAST->get_optima_found()[i].variable()[1] << std::endl;
 			}
 
 			return tag;

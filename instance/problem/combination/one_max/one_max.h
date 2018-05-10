@@ -24,7 +24,7 @@ namespace OFEC {
 
 	class one_max : public problem {
 	protected:
-		optima<variable<int>, real> m_optima;
+		optima<variable_vector<int>, real> m_optima;
 		bool m_if_valid_check = true;
 	public:
 		one_max(param_map& v);
@@ -51,10 +51,10 @@ namespace OFEC {
 			return true;
 
 		}
-		const optima<variable<int>, real>& get_optima()const {
+		const optima<variable_vector<int>, real>& get_optima()const {
 			return m_optima;
 		}
-		optima<variable<int>, real>& get_optima() {
+		optima<variable_vector<int>, real>& get_optima() {
 			return m_optima;
 		}
 		void initialize();

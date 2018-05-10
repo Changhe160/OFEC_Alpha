@@ -41,7 +41,7 @@ namespace OFEC {
 		real bias();
 		real scale();
 		void set_condition_number(double c);
-		optima<variable<real>, real>& get_original_optima();
+		optima<variable_vector<real>, real>& get_original_optima();
 		void set_global_opt(real *tran = 0);
 		void set_original_global_opt(real *opt = 0);
 	protected:
@@ -75,7 +75,7 @@ namespace OFEC {
 		real m_scale, m_bias = 0.;
 		real m_condition_number;
 		matrix m_rotation;
-		optima<variable<real>, real> m_original_optima;
+		optima<variable_vector<real>, real> m_original_optima;
 	};
 	template<typename T> problem * create_function(const std::string &name, size_t size_var, size_t size_obj) {
 		return new T(name, size_var, size_obj);

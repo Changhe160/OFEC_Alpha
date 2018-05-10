@@ -28,7 +28,7 @@ namespace OFEC {
 	namespace DE {
 		//template<class, class> class DE_population;
 
-		template<typename VariableEncoding = variable<real>,
+		template<typename VariableEncoding = variable_vector<real>,
 			typename ObjetiveType = real>
 			class individual : public OFEC::individual<VariableEncoding, ObjetiveType>
 		{
@@ -72,7 +72,7 @@ namespace OFEC {
 
 		/*Definition*/
 
-		template<typename VariableEncoding = variable<real>,
+		template<typename VariableEncoding = variable_vector<real>,
 			typename ObjetiveType = real>
 			individual<VariableEncoding, ObjetiveType> &
 			individual<VariableEncoding, ObjetiveType>::operator=(const individual &rhs) {
@@ -83,7 +83,7 @@ namespace OFEC {
 			m_pu = rhs.m_pu;
 			return *this;
 		}
-		template<typename VariableEncoding = variable<real>,
+		template<typename VariableEncoding = variable_vector<real>,
 			typename ObjetiveType = real>
 			individual<VariableEncoding, ObjetiveType> &
 			individual<VariableEncoding, ObjetiveType>::operator=(individual &&rhs) {
@@ -94,24 +94,24 @@ namespace OFEC {
 			m_pu = std::move(rhs.m_pu);
 			return *this;
 		}
-		template<typename VariableEncoding = variable<real>,
+		template<typename VariableEncoding = variable_vector<real>,
 			typename ObjetiveType = real>
 			void individual<VariableEncoding, ObjetiveType>::initialize(int id) {
 			individual_type::initialize(id);
 			//m_flag = true;
 
-			m_pu.get_variable() = get_variable();
-			m_pu.get_objective() = get_objective();
+			m_pu.variable() = variable();
+			m_pu.objective() = objective();
 			m_pu.constraint_value() = constraint_value();
 
-			m_pv.get_variable() = get_variable();
-			m_pv.get_objective() = get_objective();
+			m_pv.variable() = variable();
+			m_pv.objective() = objective();
 			m_pv.constraint_value() = constraint_value();
 
 			//m_pv = std::move(std::unique_ptr<solution_type>(new solution_type()));
 		}
 
-		template<typename VariableEncoding = variable<real>,
+		template<typename VariableEncoding = variable_vector<real>,
 			typename ObjetiveType = real>
 			void individual<VariableEncoding, ObjetiveType>::mutate(double F,
 				solution_type *r1,
@@ -121,23 +121,23 @@ namespace OFEC {
 				solution_type *r5) {
 
 			real l, u;
-			for (size_t i = 0; i < m_pv.get_variable().size(); ++i) {
+			for (size_t i = 0; i < m_pv.variable().size(); ++i) {
 				l = CONTINOUS_CAST->range(i).first;
 				u = CONTINOUS_CAST->range(i).second;
-				m_pv.get_variable()[i] = (r1->get_variable()[i]) + F*((r2->get_variable()[i]) - (r3->get_variable()[i]));
-				if (r4&&r5) m_pv.get_variable()[i] += F*((r4->get_variable()[i]) - (r5->get_variable()[i]));
+				m_pv.variable()[i] = (r1->variable()[i]) + F*((r2->variable()[i]) - (r3->variable()[i]));
+				if (r4&&r5) m_pv.variable()[i] += F*((r4->variable()[i]) - (r5->variable()[i]));
 
-				if ((m_pv.get_variable()[i]) > u) {
-					m_pv.get_variable()[i] = ((r1->get_variable()[i]) + u) / 2;
+				if ((m_pv.variable()[i]) > u) {
+					m_pv.variable()[i] = ((r1->variable()[i]) + u) / 2;
 				}
-				else if ((m_pv.get_variable()[i]) < l) {
-					m_pv.get_variable()[i] = ((r1->get_variable()[i]) + l) / 2;
+				else if ((m_pv.variable()[i]) < l) {
+					m_pv.variable()[i] = ((r1->variable()[i]) + l) / 2;
 				}
 
 			}
 		}
 
-		template<typename VariableEncoding = variable<real>,
+		template<typename VariableEncoding = variable_vector<real>,
 			typename ObjetiveType = real>
 			void individual<VariableEncoding, ObjetiveType>::recombine(double CR) {
 			size_t dim = m_var.size();
@@ -145,13 +145,13 @@ namespace OFEC {
 
 			for (size_t i = 0; i < dim; ++i) {
 				double p = global::ms_global->m_uniform[caller::Algorithm]->next();
-				if (p <= CR || i == I)     m_pu.get_variable()[i] = m_pv.get_variable()[i];
-				else m_pu.get_variable()[i] = get_variable()[i];
+				if (p <= CR || i == I)     m_pu.variable()[i] = m_pv.variable()[i];
+				else m_pu.variable()[i] = variable()[i];
 			}
 
 		}
 
-		template<typename VariableEncoding = variable<real>,
+		template<typename VariableEncoding = variable_vector<real>,
 			typename ObjetiveType = real>
 			void individual<VariableEncoding, ObjetiveType>::mutate(double F, const std::vector<int> &var,
 				solution_type *r1,
@@ -164,38 +164,38 @@ namespace OFEC {
 			for (auto &i : var) {
 				l = CONTINOUS_CAST->range(i).first;
 				u = CONTINOUS_CAST->range(i).second;
-				m_pv.get_variable()[i] = (r1->get_variable()[i]) + F*((r2->get_variable()[i]) - (r3->get_variable()[i]));
-				if (r4&&r5) m_pv.get_variable()[i] += F*((r4->get_variable()[i]) - (r5->get_variable()[i]));
+				m_pv.variable()[i] = (r1->variable()[i]) + F*((r2->variable()[i]) - (r3->variable()[i]));
+				if (r4&&r5) m_pv.variable()[i] += F*((r4->variable()[i]) - (r5->variable()[i]));
 
-				if ((m_pv.get_variable()[i]) > u) {
-					m_pv.get_variable()[i] = ((r1->get_variable()[i]) + u) / 2;
+				if ((m_pv.variable()[i]) > u) {
+					m_pv.variable()[i] = ((r1->variable()[i]) + u) / 2;
 				}
-				else if ((m_pv.get_variable()[i]) < l) {
-					m_pv.get_variable()[i] = ((r1->get_variable()[i]) + l) / 2;
+				else if ((m_pv.variable()[i]) < l) {
+					m_pv.variable()[i] = ((r1->variable()[i]) + l) / 2;
 				}
 
 			}
 		}
 
-		template<typename VariableEncoding = variable<real>,
+		template<typename VariableEncoding = variable_vector<real>,
 			typename ObjetiveType = real>
 			void individual<VariableEncoding, ObjetiveType>::recombine(double CR, const std::vector<int> &var, int I) {
 
 			for (auto &i : var) {
 				double p = global::ms_global->m_uniform[caller::Algorithm]->next();
-				if (p <= CR || i == I)     m_pu.get_variable()[i] = m_pv.get_variable()[i];
-				else m_pu.get_variable()[i] = get_variable()[i];
+				if (p <= CR || i == I)     m_pu.variable()[i] = m_pv.variable()[i];
+				else m_pu.variable()[i] = variable()[i];
 			}
 
 		}
 
-		template<typename VariableEncoding = variable<real>,
+		template<typename VariableEncoding = variable_vector<real>,
 			typename ObjetiveType = real>
 			evaluation_tag individual<VariableEncoding, ObjetiveType>::select() {
 			evaluation_tag tag = m_pu.evaluate();
 			if (m_pu.dominate(*this)) {
-				m_var = m_pu.get_variable();
-				m_obj = m_pu.get_objective();
+				m_var = m_pu.variable();
+				m_obj = m_pu.objective();
 				m_constraint_value = m_pu.constraint_value();
 				m_impr = true;
 			}
@@ -205,17 +205,17 @@ namespace OFEC {
 			return tag;
 		}
 
-		template<typename VariableEncoding = variable<real>,
+		template<typename VariableEncoding = variable_vector<real>,
 			typename ObjetiveType = real>
 			evaluation_tag individual<VariableEncoding, ObjetiveType>::select(const std::vector<int> &var, solution_type &best) {
 			int dim = m_var.size();
 			solution_type t(m_pu);
 			for (int i = 0, j = 0; i < dim; ++i) {
 				if (find(var.begin(), var.end(), i) == var.end()) {
-					t.get_variable()[i] = best.get_variable()[i];
+					t.variable()[i] = best.variable()[i];
 				}
 				else {
-					t.get_variable()[i] = m_pu.get_variable()[j++];
+					t.variable()[i] = m_pu.variable()[j++];
 				}
 			}
 
@@ -230,7 +230,7 @@ namespace OFEC {
 			return tag;
 		}
 
-		template<typename VariableEncoding = variable<real>,
+		template<typename VariableEncoding = variable_vector<real>,
 			typename ObjetiveType = real>
 			solution<VariableEncoding, ObjetiveType> & individual<VariableEncoding, ObjetiveType>::trial() {
 			return m_pu;

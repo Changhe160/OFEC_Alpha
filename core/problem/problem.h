@@ -90,15 +90,15 @@ namespace OFEC {
 					Solution *second = dynamic_cast<Solution *>(ms_minmax_objective[i].second.get());
 
 					if (mode[i] == optimization_mode::Minimization) {
-						if (first->get_objective()[i] > s.get_objective()[i])
+						if (first->objective()[i] > s.objective()[i])
 							*first = s;
-						if (second->get_objective()[i] < s.get_objective()[i])
+						if (second->objective()[i] < s.objective()[i])
 							*second = s;
 					}
 					else {
-						if (first->get_objective()[i] < s.get_objective()[i])
+						if (first->objective()[i] < s.objective()[i])
 							*first = s;
-						if (second->get_objective()[i] > s.get_objective()[i])
+						if (second->objective()[i] > s.objective()[i])
 							*second = s;
 					}
 				}

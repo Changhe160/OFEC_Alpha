@@ -88,16 +88,16 @@ namespace OFEC {
 				i->set_global_opt(i->translation().data());
 			}
 			// Set optimal solution
-			variable<real> temp_var(m_variable_size);
-			objective<real> temp_obj(m_objective_size);
-			solution<variable<real>, real> x(std::move(temp_var), std::move(temp_obj));
+			variable_vector<real> temp_var(m_variable_size);
+			objective_vector<real> temp_obj(m_objective_size);
+			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
 			for (int i = 0; i < m_variable_size; ++i) {
-				x.get_variable()[i] = m_function[0]->get_optima().variable(0)[i];
+				x.variable()[i] = m_function[0]->get_optima().variable(0)[i];
 			}
-			m_optima.append(x.get_variable());
+			m_optima.append(x.variable());
 
 			evaluate_(x, caller::Problem, false, false);
-			m_optima.append(x.get_objective());
+			m_optima.append(x.objective());
 		}
 
 		void F15_expensive_composition3::evaluate__(real *x, std::vector<real>& obj) {

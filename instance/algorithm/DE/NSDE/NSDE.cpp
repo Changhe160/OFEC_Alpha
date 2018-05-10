@@ -69,11 +69,11 @@ namespace OFEC {
 					tag = m_pop[it->second]->select();
 					if (m_seed[i] != it->second) {
 						if (m_pop[m_seed[i]]->equal(*m_pop[it->second])) {
-							for (size_t k = 0; k < m_pop[it->second]->get_variable().size(); ++k) {
-								l = CONTINOUS_CAST->get_domain().range(k).limit.first;
-								u = CONTINOUS_CAST->get_domain().range(k).limit.second;
+							for (size_t k = 0; k < m_pop[it->second]->variable().size(); ++k) {
+								l = CONTINOUS_CAST->range(k).first;
+								u = CONTINOUS_CAST->range(k).second;
 
-								m_pop[it->second]->get_variable()[k] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<double>(l, u);
+								m_pop[it->second]->variable()[k] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<double>(l, u);
 							}
 							m_pop[it->second]->evaluate();
 						}
@@ -102,7 +102,7 @@ namespace OFEC {
 			while (tag != evaluation_tag::Terminate) {
 				//g_mutexStream.lock();
 
-				double best = problem::get_sofar_best<solution<>>(0)->get_objective()[0];
+				double best = problem::get_sofar_best<solution<>>(0)->objective()[0];
 				double error = fabs(best - gopt[0]);
 				int num_opt_found = CONTINOUS_CAST->num_optima_found();
 
@@ -116,23 +116,23 @@ namespace OFEC {
 			}
 
 			// output objective found
-			std::vector<solution< variable<real>, real >> test = CONTINOUS_CAST->get_optima_found();
+			std::vector<solution< variable_vector<real>, real >> test = CONTINOUS_CAST->get_optima_found();
 			for (size_t i = 0; i < CONTINOUS_CAST->num_optima_found(); ++i) {
-					std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima_found()[i].get_objective()[0] << " " << std::endl;
-					std::cout << " " << " " << CONTINOUS_CAST->get_optima_found()[i].get_variable()[0] << " " << CONTINOUS_CAST->get_optima_found()[i].get_variable()[1] << std::endl;
+					std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima_found()[i].objective()[0] << " " << std::endl;
+					std::cout << " " << " " << CONTINOUS_CAST->get_optima_found()[i].variable()[0] << " " << CONTINOUS_CAST->get_optima_found()[i].variable()[1] << std::endl;
 			}
 			/*std::cout << "global optimal solution:" << std::endl;
 			for (size_t i = 0; i <CONTINOUS_CAST->get_optima().variable(0).size(); ++i) {
 				std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima().variable(0)[i] << " " << std::endl;
 			}
 			std::cout << "current optimal solution found:" << std::endl;
-			for (size_t i = 0; i <problem::get_sofar_best<solution<>>(0)->get_variable().size(); ++i) {
-				std::cout << i + 1 << " " << problem::get_sofar_best<solution<>>(0)->get_variable()[i] << " " << std::endl;
+			for (size_t i = 0; i <problem::get_sofar_best<solution<>>(0)->variable().size(); ++i) {
+				std::cout << i + 1 << " " << problem::get_sofar_best<solution<>>(0)->variable()[i] << " " << std::endl;
 			}
 			if (global::ms_global->m_problem->solved()) {
 				std::cout << "global optimal solution found:" << std::endl;
-				for (size_t i = 0; i < CONTINOUS_CAST->get_optima_found()[0].get_variable().size(); ++i) {
-					std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima_found()[0].get_variable()[i] << " " << std::endl;
+				for (size_t i = 0; i < CONTINOUS_CAST->get_optima_found()[0].variable().size(); ++i) {
+					std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima_found()[0].variable()[i] << " " << std::endl;
 				}
 			}*/
 			return tag;

@@ -33,15 +33,15 @@ namespace OFEC {
 		}
 
 		void composition::compute_fmax() {  // calculate the estimate max value of funciton i
-			variable<real> temp_var(m_variable_size);
-			objective<real> temp_obj(m_objective_size);
-			solution<variable<real>, real> x(std::move(temp_var), std::move(temp_obj));
+			variable_vector<real> temp_var(m_variable_size);
+			objective_vector<real> temp_obj(m_objective_size);
+			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
 			for (size_t i = 0; i < m_num_function; ++i) {
 				for (size_t j = 0; j < m_variable_size; ++j) {
-					x.get_variable()[j] = m_domain[j].limit.second;
+					x.variable()[j] = m_domain[j].limit.second;
 				}
 				m_function[i]->function::evaluate_(x, caller::Problem, false, false);
-				m_fmax[i] = x.get_objective()[0];
+				m_fmax[i] = x.objective()[0];
 			}
 		}
 
@@ -70,14 +70,14 @@ namespace OFEC {
 
 			}
 			std::vector<real> fit(m_num_function);
-			variable<real> temp_var(m_variable_size);
-			objective<real> temp_obj(m_objective_size);
-			solution<variable<real>, real> s(std::move(temp_var), std::move(temp_obj));
-			s.get_variable() = x_;
+			variable_vector<real> temp_var(m_variable_size);
+			objective_vector<real> temp_obj(m_objective_size);
+			solution<variable_vector<real>, real> s(std::move(temp_var), std::move(temp_obj));
+			s.variable() = x_;
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
 
 				m_function[i]->function::evaluate_(s, caller::Problem, false, false);
-				fit[i] = s.get_objective()[0];
+				fit[i] = s.objective()[0];
 				if (fabs(m_fmax[i]) > 1e-6)
 					fit[i] = m_height_normalize_severity*fit[i] / fabs(m_fmax[i]);
 			}

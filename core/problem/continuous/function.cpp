@@ -93,7 +93,7 @@ namespace OFEC {
 		return *this;
 	}
 
-	optima<variable<real>, real>& function::get_original_optima() {
+	optima<variable_vector<real>, real>& function::get_original_optima() {
 		return m_original_optima;
 	}
 
@@ -256,31 +256,31 @@ namespace OFEC {
 
 	void function::set_original_global_opt(real *opt) {
 		if (m_objective_size > 1) throw myexcept("function::set_original_global_opt only for problems with a single obj");
-		variable<real> temp_var(m_variable_size);
+		variable_vector<real> temp_var(m_variable_size);
 		if (opt == 0)		for (auto&i : temp_var) i = 0.;
 		else	for (int i = 0; i < m_variable_size; i++)  temp_var[i] = opt[i];
 		m_original_optima.append(std::move(temp_var));
 
-		objective<real> temp_obj(m_objective_size);
-		solution<variable<real>, real> temp(m_original_optima.variable(0), std::move(temp_obj));
+		objective_vector<real> temp_obj(m_objective_size);
+		solution<variable_vector<real>, real> temp(m_original_optima.variable(0), std::move(temp_obj));
 
 		evaluate_(temp, caller::Problem, false, false);
-		m_original_optima.append(std::move(temp.get_objective()));
+		m_original_optima.append(std::move(temp.objective()));
 	}
 	void function::set_global_opt(real *tran) {
 		if (m_objective_size > 1) throw myexcept("function::set_global_opt only for problems with a single obj");
-		variable<real> temp_var(m_variable_size);
+		variable_vector<real> temp_var(m_variable_size);
 		for (int i = 0; i < m_variable_size; ++i) {
 			if( tran != 0 ) temp_var[i] = tran[i] + m_original_optima.variable(0)[i];
 			else temp_var[i] = m_original_optima.variable(0)[i];
 		}
 		m_optima.append(std::move(temp_var));
 
-		objective<real> temp_obj(m_objective_size);
-		solution<variable<real>, real> temp(m_optima.variable(0), std::move(temp_obj));
+		objective_vector<real> temp_obj(m_objective_size);
+		solution<variable_vector<real>, real> temp(m_optima.variable(0), std::move(temp_obj));
 
 		evaluate_(temp, caller::Problem, false, false);
-		m_optima.append(std::move(temp.get_objective()));
+		m_optima.append(std::move(temp.objective()));
 	}
 	real function::scale() {
 		return m_scale;

@@ -114,7 +114,7 @@ namespace OFEC {
 		double c1(double x);
 		double c2(double x);
 
-		optima<variable<real>, real> m_original_global_opt;
+		optima<variable_vector<real>, real> m_original_global_opt;
 	};
 }
 #endif  // !OFEC_CEC2013_FUNCTION_H

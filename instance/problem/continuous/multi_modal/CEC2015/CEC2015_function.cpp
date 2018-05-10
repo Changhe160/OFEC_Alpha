@@ -77,7 +77,7 @@ namespace OFEC {
 			}
 			else {
 				while(!(in.eof())) {
-					variable<real> temp_var(m_variable_size);
+					variable_vector<real> temp_var(m_variable_size);
 					for (size_t j = 0; j < m_variable_size; ++j)
 						in >> temp_var[j];
 					m_optima.append(std::move(temp_var));
@@ -93,11 +93,11 @@ namespace OFEC {
 
 		void CEC2015_function::evaluate_optima(){
 			for (size_t i = 0; i < m_optima.number_variable(); ++i) {
-				variable<real> temp_var(m_optima.variable(i));
-				objective<real> temp_obj(m_objective_size);
-				solution<variable<real>, real> x(std::move(temp_var), std::move(temp_obj));
+				variable_vector<real> temp_var(m_optima.variable(i));
+				objective_vector<real> temp_obj(m_objective_size);
+				solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
 				evaluate_(x, caller::Problem, false, false);
-				m_optima.append(x.get_objective());
+				m_optima.append(x.objective());
 			}
 			
 		}

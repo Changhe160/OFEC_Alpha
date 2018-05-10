@@ -29,12 +29,12 @@
 
 namespace  OFEC {
 
-	template<typename VariableEncoding = variable<real>, 
+	template<typename VariableEncoding = variable_vector<real>, 
 		typename ObjetiveType = real
 	>
 	class solution:public solution_base{
 	public:
-		using objective_type = ObjetiveType;
+		using objective_encoding = ObjetiveType;
 		using variable_encoding = VariableEncoding;
 
 		template<typename ... Args>
@@ -44,7 +44,7 @@ namespace  OFEC {
 			m_obj(rhs.m_obj),m_constraint_value(rhs.m_constraint_value){}
 		solution(solution&& rhs) :solution_base(rhs),  m_var(std::move(rhs.m_var)), 
 			m_obj(std::move(rhs.m_obj)), m_constraint_value(std::move(rhs.m_constraint_value)) {}
-		solution(const variable_encoding& var, const objective<objective_type> &obj) :m_var(var), m_obj(obj) {}
+		solution(const variable_encoding& var, const objective_vector<objective_encoding> &obj) :m_var(var), m_obj(obj) {}
 
 		solution& operator =(const solution& rhs) {
 			if (this == &rhs) return *this;
@@ -75,18 +75,18 @@ namespace  OFEC {
 		void resize_objective(int n) { m_obj.resize(n); }
 		void resize_variable(int n) { m_var.resize(n); }
 
-		bool dominate( const objective<objective_type>& o) const{ //this soluton donimates objective o
+		bool dominate( const objective_vector<objective_encoding>& o) const{ //this soluton donimates objective o
 			return  dominationship::Dominating == objective_compare(m_obj.vect(), o.vect(),  global::ms_global->m_problem->opt_mode()).first;
 		}
 
 		bool dominate(const solution& s) const {//this solution donimates solution s
 			return dominationship::Dominating == objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode()).first;
 		}
-		bool dominate(const std::vector<objective_type>& o)const {//this solution donimates solution s
+		bool dominate(const std::vector<objective_encoding>& o)const {//this solution donimates solution s
 			return dominationship::Dominating == objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode()).first;
 		}
 
-		bool dominate_equal(const objective<objective_type>& o)const { //this soluton weakly donimates objective o
+		bool dominate_equal(const objective_vector<objective_encoding>& o)const { //this soluton weakly donimates objective o
 			 dominationship r = objective_compare(m_obj.vect(),o.vect(), global::ms_global->m_problem->opt_mode()).first;
 			 return r == dominationship::Dominating || r == dominationship::Equal;
 		}
@@ -94,18 +94,18 @@ namespace  OFEC {
 			dominationship r = objective_compare(m_obj.vect(),s.m_obj.vect(), global::ms_global->m_problem->opt_mode() ).first;
 			return r == dominationship::Dominating || r == dominationship::Equal;
 		}
-		bool dominate_equal(const std::vector<objective_type>& o)const { //this soluton weakly donimates objective o
+		bool dominate_equal(const std::vector<objective_encoding>& o)const { //this soluton weakly donimates objective o
 			dominationship r = objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode()).first;
 			return r == dominationship::Dominating || r == dominationship::Equal;
 		}
 
-		bool nondominate(const objective<objective_type>& o)const { //two solutions non-donimate with each other
+		bool nondominate(const objective_vector<objective_encoding>& o)const { //two solutions non-donimate with each other
 			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), o.vect(), global::ms_global->m_problem->opt_mode()).first;
 		}
 		bool nondominate(const solution& s)const {//two solutions non-donimate with each other
 			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode()).first;
 		}
-		bool nondominate(const std::vector<objective_type>& o)const { //two solutions non-donimate with each other
+		bool nondominate(const std::vector<objective_encoding>& o)const { //two solutions non-donimate with each other
 			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode()).first;
 		}
 	 
@@ -144,19 +144,19 @@ namespace  OFEC {
 			return global::ms_global->m_problem->variable_distance(m_var, x);
 		}
 
-		const variable_encoding& get_variable()const {
+		const variable_encoding& variable()const {
 			return m_var;
 		}
 
-		variable_encoding& get_variable(){
+		variable_encoding& variable(){
 			return m_var;
 		}
 
-		std::vector<objective_type>& get_objective() {
+		std::vector<objective_encoding>& objective() {
 			return m_obj.vect();
 		}
 
-		const std::vector<objective_type>& get_objective()const {
+		const std::vector<objective_encoding>& objective()const {
 			return m_obj.vect();
 		}
 
@@ -185,13 +185,13 @@ namespace  OFEC {
 		void set_objective_infinite() {
 	
 			for (int i=0;i<m_obj.size();++i)
-				m_obj[i] = (global::ms_global->m_problem->opt_mode(i) == optimization_mode::Minimization) ? std::numeric_limits<objective_type>::max() : std::numeric_limits<objective_type>::min();
+				m_obj[i] = (global::ms_global->m_problem->opt_mode(i) == optimization_mode::Minimization) ? std::numeric_limits<objective_encoding>::max() : std::numeric_limits<objective_encoding>::min();
 			
 		}
 
 	protected:	
 		variable_encoding m_var;
-		objective<objective_type> m_obj;
+		objective_vector<objective_encoding> m_obj;
 		std::pair<double, std::vector<double>> m_constraint_value;
 	};
 

@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* The vector-based objective encoding schme and a vector-based variable encoding scheme
+* The vector-based objective_ encoding schme and a vector-based variable_ encoding scheme
 * is defined.
 *
 *********************************************************************************/
@@ -41,16 +41,16 @@ namespace OFEC {
 
 
 	template<typename T = double>
-	class objective {
+	class objective_vector {
 	public:
 		using value_type = T;
 		using encoding = std::vector<value_type>;
 		using iterator_type = typename std::vector<value_type>::iterator;
 		using const_iterator = typename std::vector<value_type>::const_iterator;
-		objective(size_t n=0) :m_o(n) {}
-		objective(const objective& rhs) :m_o(rhs.m_o) {}
-		objective(const std::vector<value_type>& rhs) :m_o(rhs) {}
-		objective& operator=(const objective& rhs) {
+		objective_vector(size_t n=0) :m_o(n) {}
+		objective_vector(const objective_vector& rhs) :m_o(rhs.m_o) {}
+		objective_vector(const std::vector<value_type>& rhs) :m_o(rhs) {}
+		objective_vector& operator=(const objective_vector& rhs) {
 
 			if (m_o.size() != rhs.m_o.size())
 				THROW("the number of objectives is not the same~");
@@ -62,7 +62,7 @@ namespace OFEC {
 
 			return *this;
 		}
-		objective& operator=(objective&& rhs) {
+		objective_vector& operator=(objective_vector&& rhs) {
 
 			if (m_o.size() != rhs.m_o.size())
 				THROW("the number of objectives is not the same~");
@@ -72,7 +72,7 @@ namespace OFEC {
 			return *this;
 		}
 
-		objective(objective&& rhs) :m_o(std::move(rhs.m_o)) {}
+		objective_vector(objective_vector&& rhs) :m_o(std::move(rhs.m_o)) {}
 
 		void resize(size_t n) {
 			m_o.resize(n);
@@ -129,17 +129,17 @@ namespace OFEC {
 	};
 
 	template <typename VariableType>
-	class variable:public variable_base {
+	class variable_vector:public variable_base {
 	public:
 		using value_type = VariableType;
 		using encoding = std::vector<value_type>;
 		using iterator_type = typename std::vector<value_type>::iterator;
 		using const_iterator = typename std::vector<value_type>::const_iterator;
-		variable(size_t n=0) :m_x(n){}
-		variable(const variable& rhs) : m_x(rhs.m_x) {}
-		variable(variable&& rhs) :m_x(std::move(rhs.m_x)) {}
-		variable(const std::vector<value_type>& x) : m_x(x) {}
-		variable& operator=(const variable& rhs) {
+		variable_vector(size_t n=0) :m_x(n){}
+		variable_vector(const variable_vector& rhs) : m_x(rhs.m_x) {}
+		variable_vector(variable_vector&& rhs) :m_x(std::move(rhs.m_x)) {}
+		variable_vector(const std::vector<value_type>& x) : m_x(x) {}
+		variable_vector& operator=(const variable_vector& rhs) {
 			if (m_x.size() != rhs.m_x.size())
 				THROW("the number of dimensions is not the same!");
 		
@@ -148,7 +148,7 @@ namespace OFEC {
 			return *this;
 		}
 
-		variable& operator=(variable&& rhs) {
+		variable_vector& operator=(variable_vector&& rhs) {
 			if (m_x.size() != rhs.m_x.size())
 				THROW("the number of dimensions is not the same!");
 			m_x = std::move(rhs.m_x);

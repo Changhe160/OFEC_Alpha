@@ -353,7 +353,7 @@ namespace OFEC {
 
 
 	void BBOB::computeXopt() {
-		variable<real> temp(m_variable_size);
+		variable_vector<real> temp(m_variable_size);
 		for (size_t i = 0; i < m_variable_size; ++i)
 		{
 			temp[i] = 8 * floor(1e4 * global::ms_global->m_uniform[caller::Problem]->next()) / 1e4 - 4;
@@ -444,8 +444,8 @@ namespace OFEC {
 
 
 	evaluation_tag BBOB::evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed) {
-		variable<real> &x = dynamic_cast< solution<variable<real>, real> &>(s).get_variable();
-		auto & obj = dynamic_cast< solution<variable<real>, real> &>(s).get_objective();
+		variable_vector<real> &x = dynamic_cast< solution<variable_vector<real>, real> &>(s).variable();
+		auto & obj = dynamic_cast< solution<variable_vector<real>, real> &>(s).objective();
 
 		std::vector<real> x_(x.begin(), x.end()); //for parallel running
 
@@ -455,12 +455,12 @@ namespace OFEC {
 			if (effective_fes)		m_effective_eval++;
 
 			if (m_variable_monitor) {
-				m_optima.is_optimal_variable(dynamic_cast<solution<variable<real>, real> &>(s), m_optima_found, m_variable_accuracy);
+				m_optima.is_optimal_variable(dynamic_cast<solution<variable_vector<real>, real> &>(s), m_optima_found, m_variable_accuracy);
 				if (m_optima.is_variable_found())
 					m_solved = true;
 			}
 			if (m_objective_monitor) {
-				m_optima.is_optimal_objective(dynamic_cast<solution<variable<real>, real> &>(s), m_optima_found, m_objective_accuracy, m_variable_accuracy);
+				m_optima.is_optimal_objective(dynamic_cast<solution<variable_vector<real>, real> &>(s), m_optima_found, m_objective_accuracy, m_variable_accuracy);
 				if (m_optima.is_objective_found())
 					m_solved = true;
 			}

@@ -56,19 +56,19 @@ namespace OFEC {
 				i = count++;
 			global::ms_global->m_uniform[caller::Problem]->shuffle(m_random_perm.begin(), m_random_perm.end());
 			// Set optimal solution
-			variable<real> temp_var(m_variable_size);
-			objective<real> temp_obj(m_objective_size);
+			variable_vector<real> temp_var(m_variable_size);
+			objective_vector<real> temp_obj(m_objective_size);
 			size_t num = 0;
 			for (size_t i = 0; i < m_num_function;++i) {
 				for (size_t j = 0; j < m_dim[i];++j)
 				    temp_var[m_random_perm[num++]] = m_function[i]->get_optima().variable(0)[j];
 			}
-			solution<variable<real>, real> x(std::move(temp_var), std::move(temp_obj));
+			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
 			
-			m_optima.append(x.get_variable());
+			m_optima.append(x.variable());
 
 			evaluate_(x, caller::Problem, false, false);
-			m_optima.append(x.get_objective());
+			m_optima.append(x.objective());
 			// end set
 		}
 		void F11_hybrid2::evaluate__(real *x, std::vector<real>& obj) {

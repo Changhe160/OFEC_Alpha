@@ -12,13 +12,13 @@ namespace OFEC {
 	void one_max::initialize() {
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Maximization;
-		m_optima.append(variable<int>(std::vector<int>(m_variable_size, 1)));
+		m_optima.append(variable_vector<int>(std::vector<int>(m_variable_size, 1)));
 		m_optima.append(m_variable_size);
 	}
 	evaluation_tag one_max::evaluate_(solution_base & s, caller call, bool effective_fes, bool constructed)
 	{
-		variable<int> &x = dynamic_cast< solution<variable<int>, real> &>(s).get_variable();
-		std::vector<double> &obj = dynamic_cast<solution<variable<int>, real> &>(s).get_objective();
+		variable_vector<int> &x = dynamic_cast< solution<variable_vector<int>, real> &>(s).variable();
+		std::vector<double> &obj = dynamic_cast<solution<variable_vector<int>, real> &>(s).objective();
 
 		for (int i = 0; i < m_objective_size; i++)
 			obj[i] = 0;
@@ -42,7 +42,7 @@ namespace OFEC {
 	bool one_max::is_valid(const solution_base & s)
 	{
 		if (!m_if_valid_check) return true;
-		const variable<int> &x = dynamic_cast<const solution<variable<int>, real> &>(s).get_variable();
+		const variable_vector<int> &x = dynamic_cast<const solution<variable_vector<int>, real> &>(s).variable();
 		for (int i = 0; i < m_variable_size; i++) {
 			if (x[i] != 0 && x[i] != 1)
 				return false;
@@ -51,7 +51,7 @@ namespace OFEC {
 	}
 	void one_max::initialize_solution(solution_base & s) const
 	{
-		variable<int> &x = dynamic_cast< solution<variable<int>, real> &>(s).get_variable();
+		variable_vector<int> &x = dynamic_cast< solution<variable_vector<int>, real> &>(s).variable();
 		for (size_t i = 0; i < m_variable_size; i++)
 			if (global::ms_global->m_uniform[caller::Problem]->next() < 0.5)
 				x[i] = 0;
@@ -59,8 +59,8 @@ namespace OFEC {
 	}
 	bool one_max::same(const solution_base & s1, const solution_base & s2) const
 	{
-		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
-		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();
+		const variable_vector<int> &x1 = dynamic_cast<const solution<variable_vector<int>, real> &>(s1).variable();
+		const variable_vector<int> &x2 = dynamic_cast<const solution<variable_vector<int>, real> &>(s2).variable();
 		for (int i = 0; i < m_variable_size; i++)
 			if (x1[i] != x2[i])
 				return false;
@@ -69,8 +69,8 @@ namespace OFEC {
 
 	double one_max::variable_distance(const solution_base & s1, const solution_base & s2) const
 	{
-		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
-		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();
+		const variable_vector<int> &x1 = dynamic_cast<const solution<variable_vector<int>, real> &>(s1).variable();
+		const variable_vector<int> &x2 = dynamic_cast<const solution<variable_vector<int>, real> &>(s2).variable();
 		double dis = 0;
 		for (int i = 0; i < m_variable_size; i++)
 			if (x1[i] != x2[i])
@@ -80,8 +80,8 @@ namespace OFEC {
 
 	double one_max::variable_distance(const variable_base & s1, const variable_base & s2) const
 	{
-		const variable<int> &x1 = dynamic_cast<const variable<int>&>(s1);
-		const variable<int> &x2 = dynamic_cast<const variable<int>&>(s2);
+		const variable_vector<int> &x1 = dynamic_cast<const variable_vector<int>&>(s1);
+		const variable_vector<int> &x2 = dynamic_cast<const variable_vector<int>&>(s2);
 		double dis = 0;
 		for (int i = 0; i < m_variable_size; i++)
 			if (x1[i] != x2[i])

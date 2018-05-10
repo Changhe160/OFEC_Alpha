@@ -1065,27 +1065,6 @@
     <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F8_modified_rastrigin.h">
       <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
     </ClInclude>
-    <ClInclude Include="instance\algorithm\EDA\GL\GL.h">
-      <Filter>instance\algorithm\EDA\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\EDA\GL\adaptor.h">
-      <Filter>instance\algorithm\EDA\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_MKP.h">
-      <Filter>instance\algorithm\EDA\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_QAP.h">
-      <Filter>instance\algorithm\EDA\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_TSP.h">
-      <Filter>instance\algorithm\EDA\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_cont.h">
-      <Filter>instance\algorithm\EDA\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\EDA\GL\GL_cont.h">
-      <Filter>instance\algorithm\EDA\GL</Filter>
-    </ClInclude>
     <ClInclude Include="utility\kd-tree\kdtree_space.h">
       <Filter>utility\kd-tree</Filter>
     </ClInclude>
@@ -1888,9 +1867,6 @@
     </ClCompile>
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F8_modified_rastrigin.cpp">
       <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\algorithm\EDA\GL\GL_cont.cpp">
-      <Filter>instance\algorithm\EDA\GL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

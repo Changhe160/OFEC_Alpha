@@ -64,9 +64,9 @@ namespace OFEC {
 				//g_mutexStream.lock();
 
 				//update_best();
-				double best = problem::get_sofar_best<solution<>>(0)->get_objective()[0];
+				double best = problem::get_sofar_best<solution<>>(0)->objective()[0];
 				double error = fabs(best - gopt[0]);
-				//std::cout << m_iter << " " << error <<" "<< m_best[0]->get_variable()[0] << " " << m_best[0]->get_variable()[1] << std::endl;
+				//std::cout << m_iter << " " << error <<" "<< m_best[0]->variable()[0] << " " << m_best[0]->variable()[1] << std::endl;
 				std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << CONTINOUS_CAST->num_optima_found() << std::endl;
 				//g_mutexStream.unlock();
 				measure::get_measure()->record(global::ms_global.get(), m_iter, error);
@@ -77,7 +77,7 @@ namespace OFEC {
 			//for (int i = 0; i < CONTINOUS_CAST->get_optima().num_objective_found(); ++i) {
 			//	solution<> sol(CONTINOUS_CAST->get_optima().variable(i), CONTINOUS_CAST->get_optima().single_objective(i));
 			//	CONTINOUS_CAST->evaluate_(sol,caller::Algorithm,false,false);
-			//	std::cout << " " << sol.get_variable()[0] << " " << sol.get_variable()[1] << " " << sol.get_objective()[0] << std::endl;
+			//	std::cout << " " << sol.variable()[0] << " " << sol.variable()[1] << " " << sol.objective()[0] << std::endl;
 			//}
 			return tag;
 		}

@@ -381,8 +381,8 @@ namespace OFEC {
 	}
 
 	evaluation_tag epanet::evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed) {
-		variable_epanet &x = dynamic_cast<solution<variable_epanet, real> &>(s).get_variable();
-		auto & obj = dynamic_cast< solution<variable_epanet, real> &>(s).get_objective();
+		variable_epanet &x = dynamic_cast<solution<variable_epanet, real> &>(s).variable();
+		auto & obj = dynamic_cast< solution<variable_epanet, real> &>(s).objective();
 
 		evaluate__(x, obj);
 
@@ -521,8 +521,8 @@ namespace OFEC {
 	}
 
 	void epanet::initialize_solution(solution_base &s) const {
-		variable_epanet & var = dynamic_cast< solution<variable_epanet, real> &>(s).get_variable();
-		//real & obj = dynamic_cast< solution<variable_epanet, real> &>(s).get_objective();
+		variable_epanet & var = dynamic_cast< solution<variable_epanet, real> &>(s).variable();
+		//real & obj = dynamic_cast< solution<variable_epanet, real> &>(s).objective();
 
 		var.flag_location() = false;
 		var.index() = global::ms_global->m_uniform[caller::Problem]->next_non_standard<int>(1, m_num_node);

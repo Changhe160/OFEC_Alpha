@@ -39,12 +39,12 @@ namespace OFEC {
 		for (size_t i = 0; i < m_variable_size; ++i)
 			m_domain.set_range(0, m_variable_size - 1, i);
 
-		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
+		allocate_memory<solution<variable_vector<int>, real>>(m_variable_size, m_objective_size);
 	}
 	evaluation_tag travelling_salesman::evaluate_(solution_base & s, caller call, bool effective_fes, bool constructed)
 	{
-		variable<int> &x = dynamic_cast< solution<variable<int>, real> &>(s).get_variable();
-		std::vector<double> &obj = dynamic_cast< solution<variable<int>, real> &>(s).get_objective();
+		variable_vector<int> &x = dynamic_cast< solution<variable_vector<int>, real> &>(s).variable();
+		std::vector<double> &obj = dynamic_cast< solution<variable_vector<int>, real> &>(s).objective();
 
 		for (int i = 0; i<m_objective_size; i++)
 			obj[i] = 0;
@@ -75,7 +75,7 @@ namespace OFEC {
 		if (!m_if_valid_check)
 			return true;
 
-		const variable<int> &x = dynamic_cast<const solution<variable<int>, real> &>(s).get_variable();
+		const variable_vector<int> &x = dynamic_cast<const solution<variable_vector<int>, real> &>(s).variable();
 
 		for (int i = 0; i < m_variable_size; i++)  //judge the range		
 			if ((x[i]) < m_domain.range(i).limit.first || (x[i]) > m_domain.range(i).limit.second)
@@ -96,7 +96,7 @@ namespace OFEC {
 
 	void travelling_salesman::initialize_solution(solution_base & s) const
 	{
-		variable<int>& x = dynamic_cast< solution<variable<int>, real>&>(s).get_variable();
+		variable_vector<int>& x = dynamic_cast< solution<variable_vector<int>, real>&>(s).variable();
 		global::ms_global->m_uniform[caller::Problem]->shuffle(x.begin(), x.end());
 		if (!is_valid(s))
 			throw myexcept("error in @travelling_salesman::initialize_solution() in travelling_salesman.cpp");
@@ -104,8 +104,8 @@ namespace OFEC {
 
 	bool travelling_salesman::same(const solution_base & s1, const solution_base & s2) const
 	{
-		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
-		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();
+		const variable_vector<int> &x1 = dynamic_cast<const solution<variable_vector<int>, real> &>(s1).variable();
+		const variable_vector<int> &x2 = dynamic_cast<const solution<variable_vector<int>, real> &>(s2).variable();
 		int i, j, pos;
 		for (i = 0; i<m_variable_size; i++)
 		{
@@ -135,8 +135,8 @@ namespace OFEC {
 	double travelling_salesman::variable_distance(const solution_base & s1, const solution_base & s2) const
 	{
 		static std::vector<std::vector<bool>> mvv_s1_edge(m_variable_size); // a temporary matrix to store the edges of s1, thus helping calculate the distance between two solutions
-		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
-		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();
+		const variable_vector<int> &x1 = dynamic_cast<const solution<variable_vector<int>, real> &>(s1).variable();
+		const variable_vector<int> &x2 = dynamic_cast<const solution<variable_vector<int>, real> &>(s2).variable();
 
 		for (auto& row : mvv_s1_edge)
 			row.assign(m_variable_size, false);
@@ -153,8 +153,8 @@ namespace OFEC {
 	double travelling_salesman::variable_distance(const variable_base & s1, const variable_base & s2) const
 	{
 		static std::vector<std::vector<bool>> mvv_s1_edge(m_variable_size); // a temporary matrix to store the edges of s1, thus helping calculate the distance between two solutions
-		const variable<int> &x1 = dynamic_cast<const variable<int>&>(s1);
-		const variable<int> &x2 = dynamic_cast<const variable<int>&>(s2);
+		const variable_vector<int> &x1 = dynamic_cast<const variable_vector<int>&>(s1);
+		const variable_vector<int> &x2 = dynamic_cast<const variable_vector<int>&>(s2);
 
 		for (auto& row : mvv_s1_edge)
 			row.assign(m_variable_size, false);
@@ -170,7 +170,7 @@ namespace OFEC {
 
 	std::pair<int, int> travelling_salesman::get_next_city(const solution_base & s, int city) const
 	{
-		const variable<int> &x = dynamic_cast<const solution<variable<int>, real> &>(s).get_variable();
+		const variable_vector<int> &x = dynamic_cast<const solution<variable_vector<int>, real> &>(s).variable();
 		for (int i = 0; i<m_variable_size; i++) {
 			if (x[i] == city)
 				return std::pair<int, int>(x[(i - 1 + m_variable_size) % m_variable_size], x[(i + 1) % m_variable_size]);
@@ -428,7 +428,7 @@ namespace OFEC {
 				Keyword[i] = toupper(Keyword[i]);
 			if (!strcmp(Keyword, "TOUR_SECTION"))
 			{
-				variable<int> temp_opt_var(m_variable_size);
+				variable_vector<int> temp_opt_var(m_variable_size);
 				int temp;
 				for (i = 0; i<(size_t)m_variable_size; i++)
 				{

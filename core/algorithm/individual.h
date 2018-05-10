@@ -24,7 +24,7 @@
 #include "solution.h"
 
 namespace OFEC {
-	template<typename VariableEncoding = variable<real>,
+	template<typename VariableEncoding = variable_vector<real>,
 		typename ObjetiveType = real>
 		class individual :public solution<VariableEncoding, ObjetiveType> {
 		public:

@@ -20,12 +20,12 @@ namespace OFEC {
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Maximization;
 
-		allocate_memory<solution<variable<int>, real>>(m_variable_size, m_objective_size);
+		allocate_memory<solution<variable_vector<int>, real>>(m_variable_size, m_objective_size);
 	}
 	evaluation_tag multi_dimensional_knapsack::evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed)
 	{
-		variable<int> &x = dynamic_cast< solution<variable<int>, real> &>(s).get_variable();
-		std::vector<double> &obj = dynamic_cast< solution<variable<int>, real> &>(s).get_objective();
+		variable_vector<int> &x = dynamic_cast< solution<variable_vector<int>, real> &>(s).variable();
+		std::vector<double> &obj = dynamic_cast< solution<variable_vector<int>, real> &>(s).objective();
 		int m = invalid_constrain_num(s);
 		for (size_t i = 0; i < m_objective_size; ++i)
 			obj[i] = 0;
@@ -48,7 +48,7 @@ namespace OFEC {
 	bool multi_dimensional_knapsack::is_valid(const solution_base & s) const
 	{
 		if (!m_if_valid_check) return true;
-		const variable<int> &x = dynamic_cast<const solution<variable<int>, real> &>(s).get_variable();
+		const variable_vector<int> &x = dynamic_cast<const solution<variable_vector<int>, real> &>(s).variable();
 		for (int i = 0; i < m_variable_size; i++) {
 			if (x[i] != 0 && x[i] != 1)
 				return false;
@@ -105,7 +105,7 @@ namespace OFEC {
 
 	int multi_dimensional_knapsack::invalid_constrain_num(solution_base & s) const
 	{
-		const variable<int> &x = dynamic_cast<const solution<variable<int>, real> &>(s).get_variable();
+		const variable_vector<int> &x = dynamic_cast<const solution<variable_vector<int>, real> &>(s).variable();
 		int n = 0;
 		double sum;
 		for (int i = 0; i < m_m; i++) {
@@ -137,11 +137,11 @@ namespace OFEC {
 		}
 		return false;
 	}
-	const optima<variable<int>, real>& multi_dimensional_knapsack::get_optima() const
+	const optima<variable_vector<int>, real>& multi_dimensional_knapsack::get_optima() const
 	{
 		return m_optima;
 	}
-	optima<variable<int>, real>& multi_dimensional_knapsack::get_optima()
+	optima<variable_vector<int>, real>& multi_dimensional_knapsack::get_optima()
 	{
 		return m_optima;
 	}
@@ -167,7 +167,7 @@ namespace OFEC {
 	}
 	double multi_dimensional_knapsack::get_constraint_value(const solution_base & s, std::vector<double>& val) const
 	{
-		const variable<int> &x = dynamic_cast<const solution<variable<int>, real> &>(s).get_variable();
+		const variable_vector<int> &x = dynamic_cast<const solution<variable_vector<int>, real> &>(s).variable();
 		val.resize(m_m);
 		double sum = 0;
 		for (int i = 0; i < m_m; ++i) {
@@ -181,7 +181,7 @@ namespace OFEC {
 
 	void multi_dimensional_knapsack::initialize_solution(solution_base & s) const
 	{
-		variable<int> &x = dynamic_cast<solution<variable<int>, real> &>(s).get_variable();
+		variable_vector<int> &x = dynamic_cast<solution<variable_vector<int>, real> &>(s).variable();
 		for (int i = 0; i < m_variable_size; ++i)
 			x[i] = global::ms_global->m_uniform[caller::Problem]->next_non_standard(0, 2);
 		if (!is_valid(s))
@@ -190,8 +190,8 @@ namespace OFEC {
 
 	bool multi_dimensional_knapsack::same(const solution_base & s1, const solution_base & s2) const
 	{
-		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
-		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();
+		const variable_vector<int> &x1 = dynamic_cast<const solution<variable_vector<int>, real> &>(s1).variable();
+		const variable_vector<int> &x2 = dynamic_cast<const solution<variable_vector<int>, real> &>(s2).variable();
 		for (int i = 0; i < m_variable_size; i++)
 			if (x1[i] != x2[i])
 				return false;
@@ -200,8 +200,8 @@ namespace OFEC {
 
 	double multi_dimensional_knapsack::variable_distance(const solution_base & s1, const solution_base & s2) const
 	{
-		const variable<int> &x1 = dynamic_cast<const solution<variable<int>, real> &>(s1).get_variable();
-		const variable<int> &x2 = dynamic_cast<const solution<variable<int>, real> &>(s2).get_variable();
+		const variable_vector<int> &x1 = dynamic_cast<const solution<variable_vector<int>, real> &>(s1).variable();
+		const variable_vector<int> &x2 = dynamic_cast<const solution<variable_vector<int>, real> &>(s2).variable();
 		double dis = 0;
 		for (int i = 0; i < m_variable_size; i++)
 			if (x1[i] != x2[i])
@@ -211,8 +211,8 @@ namespace OFEC {
 
 	double multi_dimensional_knapsack::variable_distance(const variable_base & s1, const variable_base & s2) const
 	{
-		const variable<int> &x1 = dynamic_cast<const variable<int>&>(s1);
-		const variable<int> &x2 = dynamic_cast<const variable<int>&>(s2);
+		const variable_vector<int> &x1 = dynamic_cast<const variable_vector<int>&>(s1);
+		const variable_vector<int> &x2 = dynamic_cast<const variable_vector<int>&>(s2);
 		double dis = 0;
 		for (int i = 0; i < m_variable_size; i++)
 			if (x1[i] != x2[i])

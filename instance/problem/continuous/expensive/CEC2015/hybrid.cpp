@@ -36,14 +36,14 @@ namespace OFEC {
 			size_t count = 0;
 			
 			for (size_t i = 0; i < m_num_function; ++i) {
-				variable<real> temp_var(m_dim[i]);
-				objective<real> temp_obj(m_objective_size);
+				variable_vector<real> temp_var(m_dim[i]);
+				objective_vector<real> temp_obj(m_objective_size);
 				for (size_t j = 0; j < m_dim[i]; ++j)
 					temp_var[j] = x[m_random_perm[count++]];
 				//std::copy(x + m_start[i], x + m_start[i] + m_dim[i], temp_var.begin());
-				solution<variable<real>, real> temp(std::move(temp_var), std::move(temp_obj));
+				solution<variable_vector<real>, real> temp(std::move(temp_var), std::move(temp_obj));
 				m_function[i]->evaluate_(temp, caller::Problem, false, false);
-				obj[0] += temp.get_objective()[0];
+				obj[0] += temp.objective()[0];
 			}
 		}
 

@@ -116,20 +116,20 @@ namespace OFEC {
 
 			set_weight(weight, x_);
 			std::vector<real> fit(m_num_function);
-			variable<real> temp_var(m_variable_size);
-			objective<real> temp_obj(m_objective_size);
-			solution<variable<real>, real> s(std::move(temp_var), std::move(temp_obj));
+			variable_vector<real> temp_var(m_variable_size);
+			objective_vector<real> temp_obj(m_objective_size);
+			solution<variable_vector<real>, real> s(std::move(temp_var), std::move(temp_obj));
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
-				s.get_variable() = x_;
+				s.variable() = x_;
 				for (size_t j = 0; j < m_variable_size; ++j)
-					s.get_variable()[j] -= m_function[i]->translation()[j];
-				rotate(i, s.get_variable().data());
-				scale(i, s.get_variable().data());
+					s.variable()[j] -= m_function[i]->translation()[j];
+				rotate(i, s.variable().data());
+				scale(i, s.variable().data());
 				if (i == 0)
 					for (size_t j = 0; j < m_variable_size; ++j)
-						s.get_variable().data()[j] += 1;
+						s.variable().data()[j] += 1;
 				m_function[i]->evaluate_(s, caller::Problem, false, false);
-				fit[i] = s.get_objective()[0];
+				fit[i] = s.objective()[0];
 
 			}
 			double sumw = 0;

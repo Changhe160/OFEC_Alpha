@@ -43,7 +43,7 @@ namespace OFEC {
 		size_t pop_size = m_offspring.size();
 		std::vector<std::vector<double>> pop_obj(pop_size);
 		for (size_t i = 0; i < pop_size; i++) {
-			pop_obj[i] = m_offspring[i]->get_objective();
+			pop_obj[i] = m_offspring[i]->objective();
 		}
 		std::vector<int> rank;
 		std::pair<int, int> meas(0, 0);
@@ -101,7 +101,7 @@ namespace OFEC {
 			for (size_t j = 0; j<numobj; j++) {
 				for (size_t i = 0; i<s2; i++) {
 					idd[i] = i;
-					obj[i] = m_offspring[list[i]]->get_objective()[j];
+					obj[i] = m_offspring[list[i]]->objective()[j];
 				}
 				//gMinfastsort(obj,idd,s2,s2);
 				quick_sort(obj, s2, idd, true, 0, s2 - 1, s2);
@@ -164,7 +164,7 @@ namespace OFEC {
 		return betaq;
 	}
 	void NSGAII::PolynomialMutation(individual<>* indv, double mr, double meta) {
-		auto &x = indv->get_variable();
+		auto &x = indv->variable();
 
 		for (size_t i = 0; i<x.size(); i += 1)
 		{
@@ -202,13 +202,13 @@ namespace OFEC {
 		}
 	}
 	void NSGAII::SimulatedBinaryCrossover(individual<>* child1, individual<>* child2, const individual<>& parent1, const individual<>& parent2, double cr, double ceta) {
-		child1->get_variable() = parent1.get_variable();
-		child2->get_variable() = parent2.get_variable();
+		child1->variable() = parent1.variable();
+		child2->variable() = parent2.variable();
 
 		if (global::ms_global->m_uniform[caller::Algorithm]->next() > cr) return; // not crossovered
 
-		auto &c1 = child1->get_variable(), &c2 = child2->get_variable();
-		const auto &p1 = parent1.get_variable(), &p2 = parent2.get_variable();
+		auto &c1 = child1->variable(), &c2 = child2->variable();
+		const auto &p1 = parent1.variable(), &p2 = parent2.variable();
 
 		for (size_t i = 0; i<c1.size(); i += 1)
 		{

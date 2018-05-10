@@ -103,15 +103,15 @@ namespace OFEC {
 				break;
 			case DE_best_1:
 				select(idx, 2, ridx);
-				this->m_pop[idx]->mutate(m_F, m_best[0], m_pop[ridx[0]].get(), m_pop[ridx[1]].get());
+				this->m_pop[idx]->mutate(m_F, m_best[0].get(), m_pop[ridx[0]].get(), m_pop[ridx[1]].get());
 				break;
 			case DE_target_to_best_1:
 				select(idx, 2, ridx);
-				this->m_pop[idx]->mutate(m_F, m_pop[idx].get(), m_best[0], m_pop[idx].get(), m_pop[ridx[0]].get(), m_pop[ridx[1]].get());
+				this->m_pop[idx]->mutate(m_F, m_pop[idx].get(), m_best[0].get(), m_pop[idx].get(), m_pop[ridx[0]].get(), m_pop[ridx[1]].get());
 				break;
 			case DE_best_2:
 				select(idx, 4, ridx);
-				this->m_pop[idx]->mutate(m_F, m_best[0], m_pop[ridx[0]].get(), m_pop[ridx[1]].get(), m_pop[ridx[2]].get(), m_pop[ridx[3]].get());
+				this->m_pop[idx]->mutate(m_F, m_best[0].get(), m_pop[ridx[0]].get(), m_pop[ridx[1]].get(), m_pop[ridx[2]].get(), m_pop[ridx[3]].get());
 				break;
 			case DE_rand_2:
 				select(idx, 5, ridx);
@@ -119,7 +119,7 @@ namespace OFEC {
 				break;
 			case DE_rand_to_best_1:
 				select(idx, 3, ridx);
-				this->m_pop[idx]->mutate(m_F, m_pop[ridx[0]].get(), m_best[0], m_pop[ridx[0]].get(), m_pop[ridx[1]].get(), m_pop[ridx[2]].get());
+				this->m_pop[idx]->mutate(m_F, m_pop[ridx[0]].get(), m_best[0].get(), m_pop[ridx[0]].get(), m_pop[ridx[1]].get(), m_pop[ridx[2]].get());
 				break;
 			case DE_target_to_rand_1:
 				select(idx, 3, ridx);
@@ -137,7 +137,7 @@ namespace OFEC {
 				break;
 			case DE_best_1:
 				select(idx, 2, ridx);
-				this->m_pop[idx]->mutate(m_F, var, m_best[0], m_pop[ridx[0]], m_pop[ridx[1]]);
+				this->m_pop[idx]->mutate(m_F, var, m_best[0].get(), m_pop[ridx[0]], m_pop[ridx[1]]);
 				break;
 			case DE_target_to_best_1:
 				select(idx, 2, ridx);

@@ -29,7 +29,7 @@ protected:
 	std::vector<std::vector<double> > mvv_distance;
 	std::string m_file_name;
 	domain<int> m_domain;
-	optima<variable<int>, real> m_optima;
+	optima<variable_vector<int>, real> m_optima;
 	bool m_if_valid_check = true;
 public:
 	quadratic_assignment(param_map& v);
@@ -40,8 +40,8 @@ public:
 	void read_problem();    //read source data from file
 	bool get_optimal_obj(std::vector<double> &opt);
 	bool get_optimal_obj(std::vector<std::vector<double>> &opt);
-	const optima<variable<int>, real> & get_optima()const;
-	optima<variable<int>, real> & get_optima();
+	const optima<variable_vector<int>, real> & get_optima()const;
+	optima<variable_vector<int>, real> & get_optima();
 	bool is_optima_given();
 	quadratic_assignment *get_type_ptr();
 	quadratic_assignment &get_type_ref();

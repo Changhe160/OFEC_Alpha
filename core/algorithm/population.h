@@ -42,8 +42,8 @@ namespace OFEC {
 		Individual& operator[](size_t i) {
 			return *m_pop[i];
 		}
-		const std::vector<Individual*>& best();
-		const std::vector<Individual*>& worst();
+		const std::vector<std::unique_ptr<Individual>>& best();
+		const std::vector<std::unique_ptr<Individual>>& worst();
 		const std::vector<int> order(int idx); // get individual(s) with order idx
 		int iteration() { return m_iter; }
 
@@ -120,14 +120,14 @@ namespace OFEC {
 		m_ordered = false, m_best_updated = false, m_worst_updated = false;
 	}
 	template<typename Individual>
-	const std::vector<Individual*>& population<Individual>::best() {
+	const std::vector<std::unique_ptr<Individual>>& population<Individual>::best() {
 		if (!m_best_updated) {
 			update_best();
 		}
 		return m_best;
 	}
 	template<typename Individual>
-	const std::vector<Individual*>& population<Individual>::worst() {
+	const std::vector<std::unique_ptr<Individual>>& population<Individual>::worst() {
 		if (!m_worst_updated) {
 			update_worst();
 		}
@@ -343,7 +343,7 @@ namespace OFEC {
 		const size_t N = m_pop.size();
 		std::vector<std::vector<double>> data(N);
 		for (size_t i = 0; i < N; ++i)
-			data[i] = m_pop[i]->get_objective();
+			data[i] = m_pop[i]->objective();
 		std::vector<int> rank(N);
 		std::pair<int, int> measures(0, 0);
 		fun(data, rank, measures, std::forward<Args>(args)...);
@@ -418,7 +418,7 @@ namespace OFEC {
 	void population<Individual>::record() {
 		if (!m_best_updated) 
 			update_best();
-		measure::get_measure()->record(global::ms_global.get(), m_iter, m_best[0]->get_objective()[0]);
+		measure::get_measure()->record(global::ms_global.get(), m_iter, m_best[0]->objective()[0]);
 	}
 }
 

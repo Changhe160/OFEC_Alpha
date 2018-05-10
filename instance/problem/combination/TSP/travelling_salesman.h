@@ -27,7 +27,7 @@ namespace OFEC {
 		std::vector<std::vector<std::vector<double>>> mvvv_cost;  // the cost between cities
 		std::string m_file_name; // input tsp file name
 		domain<int> m_domain; // boundary of each variable
-		optima<variable<int>, real> m_optima; // the optimal solution of problem
+		optima<variable_vector<int>, real> m_optima; // the optimal solution of problem
 		std::vector<std::vector<int>> mvv_nearby; // nearby cities of each city
 		bool m_if_valid_check = true;
 
@@ -49,8 +49,8 @@ namespace OFEC {
 		const std::vector<std::vector<double>>& get_cost(int i = 0) const { return mvvv_cost[i]; }
 		const std::vector<std::vector<int>>& get_near() const { return mvv_nearby; }
 		std::string get_file_name() const { return m_file_name; }
-		const optima<variable<int>, real>& get_optima() const { return m_optima; }
-		optima<variable<int>, real>& get_optima() { return m_optima; };
+		const optima<variable_vector<int>, real>& get_optima() const { return m_optima; }
+		optima<variable_vector<int>, real>& get_optima() { return m_optima; };
 		bool is_optima_given();
 		bool is_optima_found();
 		travelling_salesman* get_type_prt() { return this; }
