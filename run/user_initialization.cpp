@@ -350,14 +350,19 @@ namespace OFEC {
 		RIGIESTER(algorithm, NSDE, "NSDE", std::set<problem_tag>({ problem_tag::MMOP,problem_tag::ConOP }));
 		RIGIESTER(algorithm, SaDE, "SaDE", std::set<problem_tag>({ problem_tag::MMOP,problem_tag::ConOP }));
 		//RIGIESTER(algorithm, COGL, "COGL", std::set<problem_tag>({ problem_tag::MMOP, problem_tag::DOP, problem_tag::LSOP}));
+		RIGIESTER(algorithm, GL_cont, "GLC", std::set<problem_tag>({ problem_tag::GOP,problem_tag::MMOP,problem_tag::ConOP }));
+
 	}
 
 	int before_run() {
-		measure::initialize((int)global::ms_arg.at("numRun"));
-		//measure::get_measure()->set_heading(std::vector<std::string>({ "A","B","C" }));
-		int numTask = std::thread::hardware_concurrency();
-		//int numTask = (int)global::ms_arg.at("numTask");
-		return numTask;
+		//setup result format with "XX","XX", ... 
+		measure::initialize(global::ms_arg.at("numRun"), std::vector<std::string>({ "Evaluations","Error"}));
+		
+		if(global::ms_arg.find("numTask")!=global::ms_arg.end()) 
+			return global::ms_arg.at("numTask");
+		else 
+			return std::thread::hardware_concurrency();
+
 	}
 
 	void after_run() {

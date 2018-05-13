@@ -12,5 +12,6 @@
 #include "../instance/algorithm/DE/SaDE/SaDE.h"
 
 //#include "../instance/algorithm/EPANET/COGL.h"
+#include "../instance/algorithm/EDA/GL/GL_cont.h"
 
 #endif // !INCLUDE_ALGORITHM_H
