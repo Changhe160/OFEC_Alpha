@@ -23,8 +23,10 @@ namespace OFEC {
 		void set_filename();
 	public:
 		static measure* get_measure() { return ms_measure.get(); }
-		static void initialize(int numRum);
-		void set_heading(std::vector<std::string>& heading) { m_heading = heading; }
+		static void initialize(int numRum, const std::vector<std::string> &heading);
+		void set_heading(const std::vector<std::string> &heading) { 
+			m_heading = heading; 
+		}
 		template<typename... Args>
 		void record(global *glob, const Args&... args);
 		void output_progr();
@@ -37,7 +39,7 @@ namespace OFEC {
 		input_value(runID, args...);
 	}
 
-	// If have not used set_heading(), the default data to record are "Evaluations" and "Convergence" 
+	// The format is "Evaluations", "XX", "XX" 
 	template<typename ...Args>
 	void measure::record(global * glob, const Args& ...args) {
 		if (sizeof...(args) != m_heading.size())

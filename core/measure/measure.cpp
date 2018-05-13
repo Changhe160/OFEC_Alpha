@@ -21,11 +21,10 @@ namespace OFEC {
 			}
 		}
 	}
-	void measure::initialize(int numRum) {
+	void measure::initialize(int numRum, const std::vector<std::string> &heading) {
 		if (measure::ms_measure) return;
 		measure::ms_measure.reset(new measure(numRum));
-		// default heading
-		measure::ms_measure->set_heading(std::vector<std::string>({ "Evaluations","Convergence" }));
+		measure::ms_measure->set_heading(heading);
 	}
 	void measure::output_progr() {
 		if (mvv_data.empty())
