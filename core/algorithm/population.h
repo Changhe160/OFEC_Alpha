@@ -33,7 +33,7 @@ namespace OFEC {
 		using individual_type = Individual;
 		using iterator_type = typename std::vector<std::shared_ptr< Individual>>::iterator;
 		//element access
-		size_t size()const {
+		size_t size()const noexcept{
 			return m_pop.size();
 		}
 		const Individual& operator[](size_t i) const {

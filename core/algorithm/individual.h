@@ -29,7 +29,7 @@ namespace OFEC {
 		class individual :public solution<VariableEncoding, ObjetiveType> {
 		public:
 			using solution_type = solution<VariableEncoding, ObjetiveType>;
-
+			individual() = default;
 			template<typename ... Args>
 			individual(size_t no, Args&& ... args) :solution_type(no, std::forward<Args>(args)...) { }
 
@@ -37,7 +37,6 @@ namespace OFEC {
 
 			individual(const solution_type &s) :solution_type(s) {}
 
-			explicit individual() :solution_type() {}
 			virtual void initialize(int id) {
 				m_id = id;
 				solution_type::initialize();

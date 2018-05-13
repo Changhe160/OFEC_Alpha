@@ -36,7 +36,7 @@ namespace  OFEC {
 	public:
 		using objective_encoding = ObjetiveType;
 		using variable_encoding = VariableEncoding;
-
+		solution() = default;
 		template<typename ... Args>
 		solution(size_t no, Args&& ... args ):m_var(std::forward<Args>(args)...),m_obj(no){ }		
 		//solution()=default;
