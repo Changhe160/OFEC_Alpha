@@ -194,7 +194,7 @@ namespace KDTreeSpace
 			/** Union used because a node can be either a LEAF node or a non-leaf node, so both data fields are never used simultaneously */
 			union{
 				struct {
-					int    idx_region;
+					IndexType    idx_region;
 				}lr;
 				struct{
 					int          divfeat; //!< Dimension used for subdivision.
