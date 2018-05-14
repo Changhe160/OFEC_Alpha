@@ -355,14 +355,18 @@ namespace OFEC {
 	}
 
 	int before_run() {
-		//setup result format with "XX","XX", ... 
+		//setup result format as: "XX","XX", ... 
 		measure::initialize(global::ms_arg.at("numRun"), std::vector<std::string>({ "Evaluations","Error"}));
-		
-		if(global::ms_arg.find("numTask")!=global::ms_arg.end()) 
-			return global::ms_arg.at("numTask");
+		int num_task;
+		if (global::ms_arg.find("numTask") != global::ms_arg.end())
+			num_task = global::ms_arg.at("numTask");
 		else 
-			return std::thread::hardware_concurrency();
-
+			num_task = std::thread::hardware_concurrency();
+		
+		if (num_task > (int) global::ms_arg.at("numRun"))
+			num_task = global::ms_arg.at("numRun");
+		
+		return num_task;
 	}
 
 	void after_run() {

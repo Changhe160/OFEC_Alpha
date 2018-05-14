@@ -76,7 +76,7 @@ namespace OFEC {
 	void run() {
 		int numTask = before_run();
 		std::vector<std::thread> atrd;
-		int rest = (int)(global::ms_arg.at("numRun")) % numTask;
+		int rest = global::ms_arg.at("numRun") % numTask;
 		int id1 = 0, id2 = id1 + (int)(global::ms_arg.at("numRun")) / numTask - 1 + (rest-->0 ? 1 : 0);
 		for (size_t i = 0; i < numTask; i++) {
 			std::vector<int> runs;
