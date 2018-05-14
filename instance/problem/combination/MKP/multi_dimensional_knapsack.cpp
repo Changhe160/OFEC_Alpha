@@ -20,7 +20,6 @@ namespace OFEC {
 		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
 			m_opt_mode[idx] = optimization_mode::Maximization;
 
-		allocate_memory<solution<variable_vector<int>, real>>(m_variable_size, m_objective_size);
 	}
 	evaluation_tag multi_dimensional_knapsack::evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed)
 	{

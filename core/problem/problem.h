@@ -69,17 +69,11 @@ namespace OFEC {
 		}
 		virtual void constraint_value(const solution_base &, std::pair<double, std::vector<double>>&) {};
 
-		template<typename Solution>
-		static void initialize_objective_minmax(const Solution &s) {
-			for (int i = 0; i < s.m_objective_size; ++i) {
-				*ms_minmax_objective[i].first = s;
-				*ms_minmax_objective[i].second = s;
-			}
-		}
 
 		template<typename Solution>
 		static void update_objective_minmax(const Solution &s, std::vector<optimization_mode> & mode) {
-			if (ms_minmax_objective.empty()) {
+			if (ms_minmax_objective.size() != s.objective_size()) {
+				ms_minmax_objective.clear();
 				for (size_t i = 0; i < s.objective_size(); ++i) {
 					ms_minmax_objective.emplace(i, std::make_pair(std::unique_ptr<Solution>(new Solution(s)), std::unique_ptr<Solution>(new Solution(s))));
 				}
@@ -103,18 +97,6 @@ namespace OFEC {
 					}
 				}
 			}
-		}
-
-		template<typename Solution, typename... Args>
-		static void allocate_memory(size_t no, Args&& ...args) {
-			if(no!=ms_minmax_objective.size()){
-				ms_minmax_objective.clear();
-				for (int i = 0; i < no; ++i) {
-					ms_minmax_objective.emplace(i,
-						std::make_pair(std::make_unique<Solution>(no, std::forward<Solution::variable_encoding>(args)...), std::make_unique<Solution>(no, std::forward<Solution::variable_encoding>(args)...)));
-				}
-			}
-			
 		}
 
 		virtual void initialize_solution(solution_base &s) const = 0;
@@ -162,7 +144,7 @@ namespace OFEC {
 		}
 
 		virtual void initialize() =0;
-
+		void set_eval_monitor_flag(bool flag);
 	protected:
 		problem& operator=(const problem& rhs);  // assignment is not allowed outside
 		problem& operator=(problem&& rhs);

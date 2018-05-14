@@ -65,4 +65,7 @@ namespace OFEC {
 		return *this;
 	}
 
+	void problem::set_eval_monitor_flag(bool flag) {
+		m_eval_monitor = flag;
+	}
 }

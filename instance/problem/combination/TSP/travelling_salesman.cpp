@@ -39,7 +39,6 @@ namespace OFEC {
 		for (size_t i = 0; i < m_variable_size; ++i)
 			m_domain.set_range(0, m_variable_size - 1, i);
 
-		allocate_memory<solution<variable_vector<int>, real>>(m_variable_size, m_objective_size);
 	}
 	evaluation_tag travelling_salesman::evaluate_(solution_base & s, caller call, bool effective_fes, bool constructed)
 	{
