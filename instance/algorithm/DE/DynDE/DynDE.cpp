@@ -32,7 +32,7 @@ namespace OFEC {
 			evaluation_tag tag = evaluation_tag::Normal;
 
 			std::vector<double> gopt(1);
-			gopt = CONTINOUS_CAST->get_optima().multi_objective(0);
+			gopt = CONTINOUS_CAST->get_optima().objective(0);
 			while (tag != evaluation_tag::Terminate) {
 				double best = problem::get_sofar_best<solution<>>(0)->objective()[0];
 				double error = fabs(best - gopt[0]);

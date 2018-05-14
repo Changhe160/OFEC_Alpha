@@ -97,7 +97,7 @@ namespace OFEC {
 			evaluation_tag tag = evaluation_tag::Normal;
 
 			std::vector<double> gopt(1);
-			gopt = CONTINOUS_CAST->get_optima().multi_objective(0);
+			gopt = CONTINOUS_CAST->get_optima().objective(0);
 			select_subpopulation();
 			while (tag != evaluation_tag::Terminate) {
 				//g_mutexStream.lock();

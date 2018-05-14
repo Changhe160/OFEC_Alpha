@@ -133,7 +133,7 @@ namespace OFEC {
 			while (tag != evaluation_tag::Terminate) {
 				//g_mutexStream.lock();
 				std::vector<real> gopt(1);
-				gopt = CONTINOUS_CAST->get_optima().multi_objective(0);
+				gopt = CONTINOUS_CAST->get_optima().objective(0);
 
 				//update_best();
 				double best = problem::get_sofar_best<solution<>>(0)->objective()[0];

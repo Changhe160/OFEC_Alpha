@@ -58,7 +58,7 @@ namespace OFEC {
 		evaluation_tag jDE::run_() {
 			evaluation_tag tag = evaluation_tag::Normal;
 			std::vector<double> gopt(1);
-			gopt = CONTINOUS_CAST->get_optima().multi_objective(0);
+			gopt = CONTINOUS_CAST->get_optima().objective(0);
 
 			while (tag != evaluation_tag::Terminate) {
 				//g_mutexStream.lock();
@@ -75,7 +75,7 @@ namespace OFEC {
 				//if (m_iter == 100) break;
 			}
 			//for (int i = 0; i < CONTINOUS_CAST->get_optima().num_objective_found(); ++i) {
-			//	solution<> sol(CONTINOUS_CAST->get_optima().variable(i), CONTINOUS_CAST->get_optima().single_objective(i));
+			//	solution<> sol(CONTINOUS_CAST->get_optima().variable(i), CONTINOUS_CAST->get_optima().objective(i));
 			//	CONTINOUS_CAST->evaluate_(sol,caller::Algorithm,false,false);
 			//	std::cout << " " << sol.variable()[0] << " " << sol.variable()[1] << " " << sol.objective()[0] << std::endl;
 			//}

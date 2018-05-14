@@ -120,7 +120,7 @@ namespace OFEC {
 	bool multi_dimensional_knapsack::get_optimal_obj(std::vector<double>& opt) const
 	{
 		if (m_optima.objective_given()) {
-			opt = m_optima.multi_objective();
+			opt = m_optima.objective();
 			return true;
 		}
 		return false;
@@ -131,7 +131,7 @@ namespace OFEC {
 		if (m_optima.objective_given()) {
 			opt.clear();
 			for (unsigned i = 0; i < m_optima.number_objective() ; ++i)
-				opt.push_back(m_optima.multi_objective(i));
+				opt.push_back(m_optima.objective(i));
 			return true;
 		}
 		return false;

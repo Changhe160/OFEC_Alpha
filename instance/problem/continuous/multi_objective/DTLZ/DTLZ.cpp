@@ -38,7 +38,7 @@ namespace OFEC {
 				throw myexcept("The number of objectives should be included in 3,5,8,10,15");
 			else { // generate PF
 				std::stringstream os;
-				os << "./instance/problem/continuous/multi_objective/DTLZ/data/PF_" << m_name << "_" << m_objective_size << "objs.dtlz";
+				os << "./instance/problem/continuous/objective/DTLZ/data/PF_" << m_name << "_" << m_objective_size << "objs.dtlz";
 				std::ofstream ofile(os.str());
 
 				if (m_objective_size == 3)

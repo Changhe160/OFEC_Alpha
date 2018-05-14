@@ -43,7 +43,7 @@ namespace OFEC {
 		{
 			evaluation_tag tag = evaluation_tag::Normal;
 			std::vector<real> gopt(1);
-			gopt = CONTINOUS_CAST->get_optima().multi_objective(0);
+			gopt = CONTINOUS_CAST->get_optima().objective(0);
 			while (tag != evaluation_tag::Terminate)
 			{
 				m_mutex_stream.lock();

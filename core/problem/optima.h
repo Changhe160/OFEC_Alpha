@@ -77,10 +77,7 @@ namespace OFEC {
 			m_obj[i].first = obj;
 		}
 
-		objective_encoding single_objective(size_t i = 0) const {
-			return m_obj[i].first[0];
-		}
-		const std::vector<objective_encoding>& multi_objective(size_t i = 0) const {
+		const std::vector<objective_encoding>& objective(size_t i = 0) const {
 			return m_obj[i].first;
 		}
 

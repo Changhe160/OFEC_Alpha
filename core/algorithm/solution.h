@@ -130,11 +130,24 @@ namespace  OFEC {
 			
 		}
 
-		double objective_distance(const solution& rhs) const {			
+		double objective_distance(const objective_vector<objective_encoding>& rhs) const {
+			if (objective_size() == 1) return fabs(m_obj[0] - rhs[0]);
+
+			return euclidean_distance(m_obj.begin(), m_obj.end(), rhs.begin());
+		}
+
+		double objective_distance(const std::vector<objective_encoding>& rhs) const {
+			if (objective_size() == 1) return fabs(m_obj[0] - rhs[0]);
+
+			return euclidean_distance(m_obj.begin(), m_obj.end(), rhs.begin());
+		}
+
+		double objective_distance(const solution& rhs) const {
 			if (objective_size() == 1) return fabs(m_obj[0] - rhs.m_obj[0]);
 
 			return euclidean_distance(m_obj.begin(), m_obj.end(), rhs.m_obj.begin());
 		}
+
 
 		double variable_distance(const solution& rhs) const {			
 			return global::ms_global->m_problem->variable_distance(*this, rhs);

@@ -555,7 +555,7 @@ namespace OFEC {
 		real fPen = penalize(x);
 		fPen *= 1e2;
 
-		real fAdd = m_optima.single_objective() + fPen;
+		real fAdd = m_optima.objective()[0] + fPen;
 
 		for (size_t i = 0; i < m_variable_size; ++i) {
 			x[i] -= m_optima.variable(0)[i];
@@ -653,7 +653,7 @@ namespace OFEC {
 		/* BOUNDARY HANDLING*/
 		real fPen = penalize(x);
 
-		real fAdd = m_optima.single_objective() + fPen;
+		real fAdd = m_optima.objective()[0] + fPen;
 
 		std::vector<real> tmpVect(m_variable_size), trasX(m_variable_size);
 		/* TRANSFORMATION IN SEARCH SPACE*/
@@ -715,7 +715,7 @@ namespace OFEC {
 			tmp = (trasX[i] - 1.);
 			obj[0] += tmp * tmp;
 		}
-		obj[0] += m_optima.single_objective();
+		obj[0] += m_optima.objective()[0];
 	}
 
 	void BBOB::RotatedRosenbrock_F09(real *x, std::vector<real>& obj) {
@@ -1130,7 +1130,7 @@ namespace OFEC {
 
 		/* BOUNDARY HANDLING*/
 
-		m_bias = 1e4 * fAdd + m_optima.single_objective();
+		m_bias = 1e4 * fAdd + m_optima.objective()[0];
 
 		std::vector<real> trasX(m_variable_size);
 		/* TRANSFORMATION IN SEARCH SPACE*/
@@ -1284,7 +1284,7 @@ namespace OFEC {
 
 		/* BOUNDARY HANDLING*/
 		real fPen = penalize(x);
-		real fAdd = m_optima.single_objective() + 1e4 * fPen;
+		real fAdd = m_optima.objective()[0] + 1e4 * fPen;
 		std::vector<real> trasX(m_variable_size);
 
 		/* TRANSFORMATION IN SEARCH SPACE*/

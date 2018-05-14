@@ -41,13 +41,13 @@ namespace OFEC {
 			return true;
 		};
 		bool get_opt_obj(std::vector<double> &opt) {
-			opt = m_optima.multi_objective();
+			opt = m_optima.objective();
 			return true;
 		};
 		bool get_opt_obj(std::vector<std::vector<double>> &value) {
 			value.clear();
 			for (unsigned i = 0; i<m_optima.number_objective(); i++)	
-				value.push_back(m_optima.multi_objective(i));
+				value.push_back(m_optima.objective(i));
 			return true;
 
 		}
