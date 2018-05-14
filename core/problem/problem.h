@@ -108,6 +108,7 @@ namespace OFEC {
 		template<typename Solution, typename... Args>
 		static void allocate_memory(size_t no, Args&& ...args) {
 			if(no!=ms_minmax_objective.size()){
+				ms_minmax_objective.clear();
 				for (int i = 0; i < no; ++i) {
 					ms_minmax_objective.emplace(i,
 						std::make_pair(std::make_unique<Solution>(no, std::forward<Solution::variable_encoding>(args)...), std::make_unique<Solution>(no, std::forward<Solution::variable_encoding>(args)...)));

@@ -3,7 +3,7 @@
 namespace OFEC {
 	continuous::continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var), m_init_domain(size_var)\
 	{
-
+		allocate_memory<solution<variable_vector<real>, real>>(size_obj, size_var);
 	}
 
 	violation_type continuous::check_boundary_violation(const solution_base &s) const {

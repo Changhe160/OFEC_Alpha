@@ -25,7 +25,7 @@ namespace OFEC {
 	}
 
 	void sphere::initialize() {
-		m_variable_monitor = true;
+		//m_variable_monitor = true;
 		set_range(-100., 100.);
 		set_init_range(-100., 100.);
 		set_original_global_opt();

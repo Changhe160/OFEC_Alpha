@@ -4,14 +4,14 @@
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>NT=1 NR=1 NO=1 ND=2 PN=sphere AN=JADE PS=50 ME=3000000 </LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>NT=1 NR=1 ND=10 PN=sphere AN=GLC PS=100 ME=50000 al=0.9 be=1.0 ga=6.0</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>NT=1 NR=1 NO=1 ND=2 PN=center_peak AN=NSDE PS=50 ME=30000 SF=1</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>NT=1 NR=1 ND=10 PN=sphere AN=GLC PS=100 ME=50000 al=0.9 be=1.0 ga=6.0</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>
