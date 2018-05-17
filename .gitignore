@@ -247,7 +247,7 @@ ModelManifest.xml
 *.d
 obj/
 x64/
-results/
+result/
 *.vcxproj*
 *.filters
 *.vcxproj
