@@ -33,7 +33,7 @@ namespace OFEC {
 			set_filename();
 		std::stringstream os;
 		os << m_filename.str();
-		os << "Progr.txt";
+		os << "progr.txt";
 		std::ofstream out(os.str());
 		std::vector<double> sum;
 		size_t max = mvv_data[0].size();

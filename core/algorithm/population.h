@@ -192,6 +192,10 @@ namespace OFEC {
 
 	template<typename Individual>
 	void population<Individual>::update_best(const Individual &x) {
+		if (m_best.empty()) {
+			m_best.push_back(std::unique_ptr<Individual>(new Individual(x)));
+			return;
+		}
 		bool first = true;
 		// check dominated case
 		for (auto i = m_best.begin(); i != m_best.end(); i++) {
@@ -224,6 +228,11 @@ namespace OFEC {
 
 	template<typename Individual>
 	void population<Individual>::update_worst(const Individual &x) {
+		if (m_worst.empty()) {
+			m_worst.push_back(std::unique_ptr<Individual>(new Individual(x)));
+			return;
+		}
+
 		bool first = true;
 		// check dominated case
 		for (auto i = m_worst.begin(); i != m_worst.end(); i++) {
@@ -329,9 +338,12 @@ namespace OFEC {
 		for (int i = 0; i < m_pop.size(); ++i) {
 			m_pop[i]->initialize(i);
 			tag = m_pop[i]->evaluate(effective_eval);
+			update_best(*m_pop[i]);
+			update_worst(*m_pop[i]);
 			if (tag != evaluation_tag::Normal) break;
 		}
-		m_ordered = m_best_updated = m_worst_updated = false;
+		m_ordered = false;
+		m_best_updated = m_worst_updated = true;
 		return tag;
 	}
 	template<typename Individual>
