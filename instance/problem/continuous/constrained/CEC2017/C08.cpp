@@ -1,5 +1,5 @@
 #include "C08.h"
-
+#include <algorithm>
 namespace OFEC {
 	namespace CEC2017 {
 		C08::C08(param_map &v) :

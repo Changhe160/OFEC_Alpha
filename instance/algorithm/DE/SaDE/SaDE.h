@@ -31,7 +31,7 @@ Evolutionary Computation, 13(2): 398- 417, 2009.
 
 namespace OFEC {
 	namespace DE {
-		class SaDE :public population<individual<>>
+		class SaDE :public population<individual>
 		{
 		public:
 			SaDE(param_map &v);

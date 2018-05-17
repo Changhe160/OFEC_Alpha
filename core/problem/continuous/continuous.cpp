@@ -163,9 +163,6 @@ namespace OFEC {
 			}
 			if (call == caller::Algorithm&& global::ms_global->m_algorithm&&global::ms_global->m_algorithm->terminating())
 				return evaluation_tag::Terminate;
-
-			//if (mode == Program_Algorithm&&Global::msp_global->mp_problem && !Global::msp_global->mp_problem->isProTag(MOP)) m_globalOpt.isFound(s, m_disAccuracy, m_accuracy);
-			//if (Global::msp_global != nullptr&&Global::msp_global->mp_algorithm != nullptr&&Global::msp_global->mp_algorithm->ifTerminating()) { return Return_Terminate; }
 		}
 		return evaluation_tag::Normal;
 	}
@@ -182,7 +179,6 @@ namespace OFEC {
 			return m_optima.num_variable_found();
 		else if (m_objective_monitor)
 			return m_optima.num_objective_found();
-		else throw myexcept("No monitor!");
 	}
 
 	void continuous::set_variable_monitor_flag(bool flag) {

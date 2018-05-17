@@ -26,7 +26,7 @@ namespace OFEC {
 	namespace DE {
 		class DynDE_subpopulation;
 		//class DynPopDESubPop;
-		class DynDE_individual : public individual<>
+		class DynDE_individual : public individual
 		{
 			friend class DynDE_subpopulation;
 			//friend class DynPopDESubPop;

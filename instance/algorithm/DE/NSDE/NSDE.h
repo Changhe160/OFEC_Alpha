@@ -31,7 +31,7 @@ Evol. Comput., vol. 16, no. 5, pp. 601¨C614, Oct. 2012.
 
 namespace OFEC {
 	namespace DE {
-		class NSDE :public population<individual<>>
+		class NSDE :public population<individual>
 		{
 		public:
 			NSDE(param_map &v);

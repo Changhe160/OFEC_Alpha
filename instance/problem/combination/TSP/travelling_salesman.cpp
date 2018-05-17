@@ -2,7 +2,9 @@
 #include <fstream>
 #include <string.h>
 
+
 namespace OFEC {
+
 	travelling_salesman::travelling_salesman(param_map & v)	: travelling_salesman(v.at("proName"), v.at("numDim"), v.at("numObj"), v.at("dataFile1")) {
 		
 
@@ -315,6 +317,11 @@ namespace OFEC {
 
 	void travelling_salesman::read_problem()
 	{
+
+#if defined(linux) || defined(__linux) || defined(__linux__)
+		#define	strtok_s strtok_r
+#endif
+
 		size_t i;
 		std::string Line;
 		char *edgeType = 0, *edgeFormat = 0;
@@ -330,7 +337,7 @@ namespace OFEC {
 			throw myexcept("read travelling salesman data error");
 		}
 		char *savePtr;
-		while (getline(infile, Line))
+		while (std::getline(infile, Line))
 		{
 			if (!(Keyword = strtok_s((char*)Line.c_str(), Delimiters, &savePtr)))
 				continue;
@@ -421,8 +428,9 @@ namespace OFEC {
 		while (getline(infile, Line))
 		{
 			oldLine = Line;
-			if (!(Keyword = strtok_s((char*)Line.c_str(), Delimiters, &savePtr)))
+			if (!(Keyword = strtok_s((char*)Line.c_str(), Delimiters, &savePtr)))			
 				continue;
+						
 			for (i = 0; i<strlen(Keyword); i++)
 				Keyword[i] = toupper(Keyword[i]);
 			if (!strcmp(Keyword, "TOUR_SECTION"))
@@ -444,7 +452,7 @@ namespace OFEC {
 				size_t j = 0;
 				for (int z = oldLine.size() - 1; z >= 0; z--)
 					Line[j++] = oldLine[z];
-				Keyword = strtok_s((char*)Line.c_str(), Delimiters, &savePtr);
+				Keyword = strtok_s((char*)Line.c_str(), Delimiters, &savePtr);				
 				size_t len = strlen(Keyword) - 1;
 				for (i = 0; i <= len; i++)
 					oldLine[i] = Keyword[len - i];

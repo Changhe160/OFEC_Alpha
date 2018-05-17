@@ -11,7 +11,7 @@
 *  Foundation; either version 2, or (at your option) any later version.
 *************************************************************************/
 
-
+#include <algorithm>
 #include "composition.h"
 namespace OFEC {
 	namespace CEC2005 {
@@ -75,7 +75,7 @@ namespace OFEC {
 			}
 
 			double sumw = 0, wmax;
-			wmax = *max_element(weight.begin(), weight.end());
+			wmax = *std::max_element(weight.begin(), weight.end());
 			for (size_t i = 0; i < m_num_function; ++i) {
 				if (weight[i] != wmax) {
 					weight[i] = weight[i] * (1 - pow(wmax, 10));

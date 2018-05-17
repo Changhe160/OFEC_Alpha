@@ -1,5 +1,5 @@
 #include "C15.h"
-
+#include <algorithm>
 namespace OFEC {
 	namespace CEC2017 {
 		C15::C15(param_map &v) :
@@ -32,7 +32,7 @@ namespace OFEC {
 			for (auto &i : x_fasb)
 				i = fabs(i);
 			size_t i;
-			obj[0] = *max_element(x_fasb.begin(), x_fasb.end());
+			obj[0] = *std::max_element(x_fasb.begin(), x_fasb.end());
 
 			obj[0] += m_bias;
 

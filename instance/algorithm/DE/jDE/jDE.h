@@ -24,7 +24,7 @@
 
 namespace OFEC {
 	namespace DE {
-		class jDE :public population<individual<>>
+		class jDE :public population<individual>
 		{
 		public:
 			jDE(param_map &v);

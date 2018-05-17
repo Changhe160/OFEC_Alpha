@@ -15,7 +15,7 @@ inc = inc
 debug = 1
 
 CFlags = -Wall -O3 -std=c++14 -I /usr/local/include
-LDFlags = -L"/usr/local/lib" -lpthread -lboost_thread -lboost_system -lm
+LDFlags = -L"/usr/local/lib" -lpthread
 libs = 
 libDir =
 

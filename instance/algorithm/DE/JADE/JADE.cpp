@@ -1,5 +1,5 @@
 #include "JADE.h"
-
+#include <algorithm>
 namespace OFEC {
 	namespace DE {
 		JADE::JADE(param_map &v) :population(v.at("popSize"), global::ms_global->m_problem->variable_size()), m_candi(3, nullptr), m_pcent_best_index(size()), \
@@ -22,7 +22,7 @@ namespace OFEC {
 
 			m_candi[0] = m_pop[idx].get();
 
-			auto it = find(candidate.begin(), candidate.end(), idx);
+			auto it = std::find(candidate.begin(), candidate.end(), idx);
 			candidate.erase(it);
 
 			idx = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)candidate.size());

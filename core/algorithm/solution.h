@@ -39,7 +39,6 @@ namespace  OFEC {
 		solution() = default;
 		template<typename ... Args>
 		solution(size_t no, Args&& ... args ):m_var(std::forward<Args>(args)...),m_obj(no){ }		
-		//solution()=default;
 		solution(const solution& rhs) :solution_base(rhs), m_var(rhs.m_var), 
 			m_obj(rhs.m_obj),m_constraint_value(rhs.m_constraint_value){}
 		solution(solution&& rhs) :solution_base(rhs),  m_var(std::move(rhs.m_var)), 
@@ -209,7 +208,12 @@ namespace  OFEC {
 				m_obj[i] = (global::ms_global->m_problem->opt_mode(i) == optimization_mode::Minimization) ? std::numeric_limits<objective_encoding>::max() : std::numeric_limits<objective_encoding>::min();
 			
 		}
-
+		const solution& solut() const noexcept{
+			return *this;
+		}
+		solution& solut() noexcept {
+			return *this;
+		}
 	protected:	
 		variable_encoding m_var;
 		objective_vector<objective_encoding> m_obj;

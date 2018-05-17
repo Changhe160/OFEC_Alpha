@@ -177,14 +177,14 @@ namespace OFEC {
 		template<typename Solution>
 		void update_objective() {
 			//resize_objective_set(m_number_var);
-			for (size_t i = 0; i < m_number_var; ++i) {
+			/*for (size_t i = 0; i < m_number_var; ++i) {
 				if (!(m_var[i].second)) continue;
 				objective<ObjetiveType> temp_obj(GET_NUM_OBJ);
 				Solution temp(m_var[i].first, temp_obj);
 				global::ms_global->m_problem.get()->evaluate_(temp, caller::Problem, false, false);
 				append(temp.objective());
 				m_obj[i].second = true;
-			}
+			}*/
 		}
 		const bool variable_flag(size_t i)const {
 			return m_var[i].second;

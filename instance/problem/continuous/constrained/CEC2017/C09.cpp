@@ -1,5 +1,5 @@
 #include "C09.h"
-
+#include <algorithm>
 namespace OFEC {
 	namespace CEC2017 {
 		C09::C09(param_map &v) :

@@ -27,7 +27,7 @@ the 2004 IEEE congress on evolutionary computation, pp 1382¨C1389. IEEE Press, P
 #include "../../../../core/measure/measure.h"
 namespace OFEC {
 	namespace DE {
-		class CRDE :public population<individual<variable_vector<real>, real>>
+		class CRDE :public population<individual>
 		{
 		public:
 			CRDE(param_map &v);

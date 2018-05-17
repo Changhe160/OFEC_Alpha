@@ -277,19 +277,6 @@ namespace KDTreeSpace
 			m_rootBbox.box = initBBox;
 		}
 
-		//Printout the subspaces
-		void regionShow()
-		{
-			for (auto i = 0; i < region.size(); ++i)
-			{
-				for (auto j = 0; j < m_dim; ++j)
-				{
-					cout << "(" << region[i].box[j].first << " , " << region[i].box[j].second << ") ";
-				}
-				cout << endl << endl;
-			}
-			cout << endl;
-		}
 		/** Standard destructor */
 		~PartitioningKDTree() { }
 

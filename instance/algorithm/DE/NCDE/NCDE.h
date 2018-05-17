@@ -32,7 +32,7 @@ Evol. Comput., vol. 16, no. 5, pp. 601¨C614, Oct. 2012.
 #include <list>
 namespace OFEC {
 	namespace DE {
-		class NCDE :public population<individual<>>
+		class NCDE :public population<individual>
 		{
 		public:
 			NCDE(param_map &v);

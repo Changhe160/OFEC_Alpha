@@ -94,7 +94,7 @@ namespace OFEC {
 		template<typename Fun, typename Problem, typename... Args>
 		evaluation_tag initialize_pop(Fun fun, const Problem *pro, Args && ... args);
 
-		std::map<double, size_t> population<Individual>::nearest_neighbour(size_t idx, int k = 1);
+		std::map<double, size_t> nearest_neighbour(size_t idx, int k = 1);
 
 		evaluation_tag initialize();
 		void record();

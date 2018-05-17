@@ -1,7 +1,7 @@
 #include "quadratic_assignment.h"
 #include <fstream>
 #include <string.h>
-
+#include <cstdlib>
 namespace OFEC {
 	quadratic_assignment::quadratic_assignment(param_map & v) :quadratic_assignment(v.at("proName"), v.at("numDim"), v.at("dataFile1"))
 	{
@@ -89,6 +89,9 @@ namespace OFEC {
 	}
 	void quadratic_assignment::read_problem()
 	{
+#if defined(linux) || defined(__linux) || defined(__linux__)
+#define	strtok_s strtok_r
+#endif
 		size_t i;
 		std::string Line;
 		char *Keyword = 0;
@@ -103,25 +106,13 @@ namespace OFEC {
 		char *savePtr;
 		while (getline(infile, Line))
 		{
-#ifdef _WIN32
 			if (!(Keyword = strtok_s((char*)Line.c_str(), Delimiters, &savePtr)))
-#elif linux
-			if (!(Keyword = strtok_r((char*)Line.c_str(), Delimiters, &savePtr)))
-#else
-			throw myexcept("unknown operator system");
-#endif
 				continue;
 			for (i = 0; i<strlen(Keyword); i++)
 				Keyword[i] = toupper(Keyword[i]);
 			if (!strcmp(Keyword, "DIM"))
 			{
-#ifdef _WIN32
 				char *token = strtok_s(0, Delimiters, &savePtr);
-#elif linux
-				char *token = strtok_r(0, Delimiters, &savePtr);
-#else
-				throw myexcept("unknown operator system");
-#endif
 				m_variable_size = atoi(token);
 			}
 			else if (!strcmp(Keyword, "FLOW"))
@@ -138,13 +129,7 @@ namespace OFEC {
 			}
 			else if (!strcmp(Keyword, "OPT_OBJ"))
 			{
-#ifdef _WIN32
 				char *token = strtok_s(0, Delimiters, &savePtr);
-#elif linux
-				char *token = strtok_r(0, Delimiters, &savePtr);
-#else
-				throw myexcept("unknown operator system");
-#endif
 				m_optima.append(std::vector<double>(1, atof(token)));
 			}
 			else if (!strcmp(Keyword, "OPT_SOLUTION"))

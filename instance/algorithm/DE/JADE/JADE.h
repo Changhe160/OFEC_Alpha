@@ -29,7 +29,7 @@ pp. 945¨C958, Oct. 2009.
 
 namespace OFEC {
 	namespace DE {
-		class JADE_individual :public individual<variable_vector<real>, real> {
+		class JADE_individual :public individual {
 		public:
 			using  individual::select;
 			template<typename ... Args>

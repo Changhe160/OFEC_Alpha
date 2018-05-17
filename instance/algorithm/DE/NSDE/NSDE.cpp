@@ -1,5 +1,5 @@
 #include "NSDE.h"
-
+#include <algorithm>
 namespace OFEC {
 	namespace DE {
 		NSDE::NSDE(param_map &v) :population(v.at("popSize"), global::ms_global->m_problem->variable_size()), m_order_list(v.at("popSize")), \
@@ -32,7 +32,7 @@ namespace OFEC {
 					}
 				}
 				for (auto it = m_dis[i].begin(); it != m_dis[i].end(); it++) {
-					auto it_ = find(m_order_list.begin(), m_order_list.end(), it->second);
+					auto it_ = std::find(m_order_list.begin(), m_order_list.end(), it->second);
 					m_order_list.erase(it_);
 				}
 				++i;
