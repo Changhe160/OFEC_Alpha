@@ -97,13 +97,12 @@ namespace OFEC {
 		std::map<double, size_t> nearest_neighbour(size_t idx, int k = 1);
 
 		evaluation_tag initialize();
-		void record();
+		void record();	 
 		void reset_improved_flag();
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
 		void update_best(const Individual &);
 		void update_worst(const Individual &);
-
 	protected:
 		int m_iter = 0;			// the current number of iterations
 		int m_id;
@@ -435,7 +434,7 @@ namespace OFEC {
 	void population<Individual>::record() {
 		if (!m_best_updated) 
 			update_best();
-		measure::get_measure()->record(global::ms_global.get(), m_iter, m_best[0]->objective()[0]);
+		
 	}
 
 	template<typename Individual>
