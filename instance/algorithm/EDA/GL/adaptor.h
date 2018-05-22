@@ -24,18 +24,20 @@
 #include <memory>
 #include "../../../../core/definition.h"
 namespace OFEC {
-	template<typename Individual>
-	class adaptor {
-	protected:
-	public:
-		adaptor() = default;
-		virtual ~adaptor() {}
-		virtual void updatePro(std::vector<std::unique_ptr<Individual>> &pop, const std::vector<double>& weight, const std::vector<int> *index = nullptr) = 0;
-		virtual void updatePro(std::vector<Individual> &pop, const std::vector<double>& weight, const std::vector<int> *index = nullptr) = 0;
-		virtual void createSolutions(std::vector<std::unique_ptr<Individual>> &pop, std::vector<Individual> &curPop, double alpha) = 0;
-		virtual void createSolutions(std::vector<std::unique_ptr<Individual>> &pop, std::vector<Individual> &curPop, std::vector<Individual> &his, double alpha) {};
-		virtual evaluation_tag updateSolutions(std::vector<std::unique_ptr<Individual>> &pop, std::vector<Individual> &curPop, int& impRadio, int ms) = 0;
-		virtual void printPro() {};
-	};
+	namespace EDA {
+		template<typename Individual>
+		class adaptor {
+		protected:
+		public:
+			adaptor() = default;
+			virtual ~adaptor() {}
+			virtual void update_probability(std::vector<std::unique_ptr<Individual>> &pop, const std::vector<double>& weight, const std::vector<int> *index = nullptr) = 0;
+			virtual void update_probability(std::vector<Individual> &pop, const std::vector<double>& weight, const std::vector<int> *index = nullptr) = 0;
+			virtual void create_solution(std::vector<std::unique_ptr<Individual>> &pop, std::vector<Individual> &curPop, double alpha) = 0;
+			virtual void create_solution(std::vector<std::unique_ptr<Individual>> &pop, std::vector<Individual> &curPop, std::vector<Individual> &his, double alpha) {};
+			virtual evaluation_tag update_solution(std::vector<std::unique_ptr<Individual>> &pop, std::vector<Individual> &curPop, int& impRadio, int ms) = 0;
+			virtual void print_infor() {};
+		};
+	}
 }
 #endif //OPERATOR_ADAPTOR_H

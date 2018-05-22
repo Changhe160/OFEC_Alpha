@@ -26,26 +26,29 @@
 #include "../../../../utility/kd-tree/kdtree_space.h"
 
 namespace OFEC {
-	class GL_cont :public GL<population<individual<>>> {
-	public:
-		GL_cont(param_map &v);
-		evaluation_tag run_();
-		//GL_cont(vector<unique_ptr<Individual<CodeVReal>>>& indi);
-		evaluation_tag evolve();
+	namespace EDA {
+		class GL_cont :public GL<population<individual<>>> {
+		public:
+			GL_cont(param_map &v);
+			evaluation_tag run_();
+			//GL_cont(vector<unique_ptr<Individual<CodeVReal>>>& indi);
+			evaluation_tag evolve();
+			
+		protected:
+			void initilize_curpop();
+			bool removeConverged();
+			void buildtree();
+			void record();
+			//void initializepar(vector<double>&beta, vector<double>&alpha);
 
-	protected:
-		void initilizeCurPop();
-		bool removeConverged();
-		void buildtree();
-		
-		//void initializepar(vector<double>&beta, vector<double>&alpha);
+			std::unique_ptr<KDTreeSpace::PartitioningKDTree<double>> m_tree;
+			int m_numActive;
+			//adaptation of beta and alpha
+			//vector<double> m_accpb, m_hispb, m_accpa, m_hispa;
+			//vector<pair<double, int>>m_pb, m_pa;
+		};
 
-		std::unique_ptr<KDTreeSpace::PartitioningKDTree<double>> m_tree;
-		int m_numActive;
-		//adaptation of beta and alpha
-		//vector<double> m_accpb, m_hispb, m_accpa, m_hispa;
-		//vector<pair<double, int>>m_pb, m_pa;
-	};
-
+	}
+	using GL_cont = EDA::GL_cont;
 }
 #endif // !MDL_CONTINUE
