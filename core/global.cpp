@@ -21,6 +21,7 @@ namespace OFEC {
 	factory<problem> global::ms_reg_problem;
 	factory<algorithm> global::ms_reg_algorithm;
 	size_t global::ms_sample_fre = 1;
+	std::map<std::string, std::set<std::string>> global::ms_alg4pro;
 
 	global::global(const int runID, double seed_pro, double seed_alg) :  m_runID(runID){
 		

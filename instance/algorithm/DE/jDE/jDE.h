@@ -18,8 +18,8 @@
 #ifndef OFEC_JDE_H
 #define OFEC_JDE_H
 
-#include "../DE_individual.h"
-#include "../DE_population.h"
+#include "../individual.h"
+#include "../population.h"
 #include "../../../../core/measure/measure.h"
 
 namespace OFEC {

@@ -133,4 +133,28 @@ namespace OFEC {
 			global::ms_filename_info[info_name] = true;
 		}
 	}
+
+	void set_alg4pro() {
+		//bind algorithms and problems here
+		for (auto &alg :global::ms_reg_algorithm.get()){
+			for (auto &pro : global::ms_reg_problem.get()){
+				for (auto it= pro.second.second.begin();;){
+					if (!alg.second.second.count(*it))
+						break;
+					if (++it == pro.second.second.end())
+					{
+						global::ms_alg4pro[alg.first].insert(pro.first);
+						break;
+					}
+				}
+			}
+		}
+	}
+	bool check_validation() {
+		if (global::ms_alg4pro.at(global::ms_arg.at("algName")).find(global::ms_arg.at("proName")) == global::ms_alg4pro.at(global::ms_arg.at("algName")).end()) {
+			std::cout << "error: algorithm " << global::ms_arg.at("algName") << " is not for problem " << global::ms_arg.at("proName") << std::endl;
+			return false;
+		}
+		return true;
+	}
 }

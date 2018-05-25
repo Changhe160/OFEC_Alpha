@@ -25,7 +25,7 @@ of the IEEE Congress on Evolutionary Computation (CEC¡¯05), pp. 2808¨C2815. IEEE
 
 #include "DynDE_subpopulation.h"
 #include "DynDE_individual.h"
-#include "../DE_population.h"
+#include "../population.h"
 #include "../../../../core/algorithm/multi_population.h"
 #include "../../../../core/measure/measure.h"
 

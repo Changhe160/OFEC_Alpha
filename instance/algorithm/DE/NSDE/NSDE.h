@@ -24,8 +24,8 @@ Evol. Comput., vol. 16, no. 5, pp. 601¨C614, Oct. 2012.
 #define OFEC_NSDE_H
 
 
-#include "../DE_individual.h"
-#include "../DE_population.h"
+#include "../individual.h"
+#include "../population.h"
 #include <list>
 #include "../../../../core/measure/measure.h"
 

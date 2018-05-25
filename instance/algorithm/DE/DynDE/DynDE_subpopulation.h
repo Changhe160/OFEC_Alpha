@@ -19,7 +19,7 @@
 #ifndef OFEC_DYNDESUBPOP_H
 #define OFEC_DYNDESUBPOP_H
 #include "DynDE_Individual.h"
-#include "../DE_population.h"
+#include "../population.h"
 namespace OFEC {
 	namespace DE {
 		class DynDE;

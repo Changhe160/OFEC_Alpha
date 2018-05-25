@@ -26,8 +26,8 @@ with neighborhood mutation for multimodal optimization,¡± IEEE Trans.
 Evol. Comput., vol. 16, no. 5, pp. 601¨C614, Oct. 2012.
 */
 
-#include "../DE_individual.h"
-#include "../DE_population.h"
+#include "../individual.h"
+#include "../population.h"
 #include "../../../../core/measure/measure.h"
 #include <list>
 namespace OFEC {

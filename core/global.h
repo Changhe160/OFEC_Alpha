@@ -21,7 +21,7 @@
 #define OFEC_GLOBAL_H
 
 #include <mutex>
-
+#include <set>
 #include "../utility/random/newran.h"
 #include "problem/problem.h"
 #include "algorithm/algorithm.h"
@@ -57,6 +57,7 @@ namespace OFEC{
 		static factory<problem> ms_reg_problem;
 		static factory<algorithm> ms_reg_algorithm;
 		static size_t ms_sample_fre;
+		static std::map<std::string, std::set<std::string>> ms_alg4pro;
 	};
 }
 #endif // !OFEC_GLOBAL_H

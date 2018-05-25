@@ -25,8 +25,8 @@ Evolutionary Computation, 13(2): 398- 417, 2009.
 
 #include <list>
 #include <algorithm>
-#include "../DE_individual.h"
-#include "../DE_population.h"
+#include "../individual.h"
+#include "../population.h"
 #include "../../../../core/measure/measure.h"
 
 namespace OFEC {

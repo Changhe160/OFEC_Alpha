@@ -19,7 +19,7 @@
 #ifndef OFEC_DynDE_individual_H
 #define OFEC_DynDE_individual_H
 
-#include "../DE_individual.h"
+#include "../individual.h"
 
 
 namespace OFEC {

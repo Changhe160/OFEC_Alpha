@@ -23,8 +23,8 @@ pp. 945¨C958, Oct. 2009.
 #ifndef JADE_H
 #define JADE_H
 
-#include "../DE_individual.h"
-#include "../DE_population.h"
+#include "../individual.h"
+#include "../population.h"
 #include "../../../../core/measure/measure.h"
 
 namespace OFEC {

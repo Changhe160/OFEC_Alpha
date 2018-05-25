@@ -22,8 +22,8 @@ the 2004 IEEE congress on evolutionary computation, pp 1382¨C1389. IEEE Press, P
 #ifndef OFEC_CRDE_H
 #define OFEC_CRDE_H
 
-#include "../DE_individual.h"
-#include "../DE_population.h"
+#include "../individual.h"
+#include "../population.h"
 #include "../../../../core/measure/measure.h"
 namespace OFEC {
 	namespace DE {

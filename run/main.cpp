@@ -15,6 +15,8 @@ int main(int argc, char* argv[]) {
 
 	OFEC::register_problem();
 	OFEC::register_algorithm();
+	OFEC::set_alg4pro();
+	if (!OFEC::check_validation()) return 0;
 	time(&timer_start);
 
 #ifdef OFEC_UNIT_TEST

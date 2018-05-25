@@ -1005,12 +1005,6 @@
     <ClInclude Include="utility\nondominated_sorting\quick_sort.h">
       <Filter>utility\nondominated_sorting</Filter>
     </ClInclude>
-    <ClInclude Include="instance\algorithm\DE\DE_individual.h">
-      <Filter>instance\algorithm\DE</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\DE\DE_population.h">
-      <Filter>instance\algorithm\DE</Filter>
-    </ClInclude>
     <ClInclude Include="instance\algorithm\DE\jDE\jDE.h">
       <Filter>instance\algorithm\DE\jDE</Filter>
     </ClInclude>
@@ -1079,6 +1073,12 @@
     </ClInclude>
     <ClInclude Include="instance\algorithm\EDA\GL\GL_cont.h">
       <Filter>instance\algorithm\EDA\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\individual.h">
+      <Filter>instance\algorithm\DE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\population.h">
+      <Filter>instance\algorithm\DE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

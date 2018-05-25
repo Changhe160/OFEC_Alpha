@@ -343,8 +343,8 @@ namespace OFEC {
 	void register_algorithm() {
 		RIGIESTER(algorithm, NSGAII, "NSGAII", std::set<problem_tag>({ problem_tag::MOP,problem_tag::ConOP }));
 		RIGIESTER(algorithm, JADE, "JADE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::ConOP }));
-		RIGIESTER(algorithm, CRDE, "CRDE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::ConOP }));
-		RIGIESTER(algorithm, DynDE, "DynDE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::ConOP }));
+		RIGIESTER(algorithm, CRDE, "CRDE", std::set<problem_tag>({ problem_tag::MMOP,problem_tag::ConOP }));
+		RIGIESTER(algorithm, DynDE, "DynDE", std::set<problem_tag>({ problem_tag::DOP,problem_tag::ConOP }));
 		RIGIESTER(algorithm, jDE, "jDE", std::set<problem_tag>({ problem_tag::GOP,problem_tag::ConOP }));
 		RIGIESTER(algorithm, NCDE, "NCDE", std::set<problem_tag>({ problem_tag::MMOP,problem_tag::ConOP }));
 		RIGIESTER(algorithm, NSDE, "NSDE", std::set<problem_tag>({ problem_tag::MMOP,problem_tag::ConOP }));

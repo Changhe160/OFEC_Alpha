@@ -448,15 +448,15 @@
     <ClInclude Include="core\problem\optima.h" />
     <ClInclude Include="core\problem\problem.h" />
     <ClInclude Include="instance\algorithm\DE\CRDE\CRDE.h" />
-    <ClInclude Include="instance\algorithm\DE\DE_individual.h" />
-    <ClInclude Include="instance\algorithm\DE\DE_population.h" />
     <ClInclude Include="instance\algorithm\DE\DynDE\DynDE.h" />
     <ClInclude Include="instance\algorithm\DE\DynDE\DynDE_individual.h" />
     <ClInclude Include="instance\algorithm\DE\DynDE\DynDE_subpopulation.h" />
+    <ClInclude Include="instance\algorithm\DE\individual.h" />
     <ClInclude Include="instance\algorithm\DE\JADE\JADE.h" />
     <ClInclude Include="instance\algorithm\DE\jDE\jDE.h" />
     <ClInclude Include="instance\algorithm\DE\NCDE\NCDE.h" />
     <ClInclude Include="instance\algorithm\DE\NSDE\NSDE.h" />
+    <ClInclude Include="instance\algorithm\DE\population.h" />
     <ClInclude Include="instance\algorithm\DE\SaDE\SaDE.h" />
     <ClInclude Include="instance\algorithm\EDA\GL\adaptor.h" />
     <ClInclude Include="instance\algorithm\EDA\GL\adaptor_cont.h" />
