@@ -71,7 +71,7 @@ namespace OFEC {
 					this->m_pop[i]->setFlag(false);
 			}
 		protected:
-			evaluation_tag updata();
+			evaluation_tag update();
 			int m_impRadio;
 			double m_alpha, m_beta = 0, m_gamma = 6;
 
@@ -560,7 +560,7 @@ namespace OFEC {
 		}
 
 		template<typename Population>
-		evaluation_tag GL<Population>::updata()
+		evaluation_tag GL<Population>::update()
 		{
 			evaluation_tag rf = evaluation_tag::Normal;
 

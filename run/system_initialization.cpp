@@ -4,7 +4,6 @@
 
 namespace OFEC {
 	
-	std::mutex g_mutex;
 	std::mutex g_mutexStream;
 
 	void set_global_parameters(int argn, char * argv[]) {
@@ -93,9 +92,9 @@ namespace OFEC {
 	int go(std::vector<int> runIds) {
 		for (auto & runId : runIds) {
 			try {
-				g_mutex.lock();
+				g_mutexStream.lock();
 				std::cout << "runId: " << runId << std::endl;
-				g_mutex.unlock();
+				g_mutexStream.unlock();
 				global::ms_global.reset(new global(runId, 1. / 7, (runId + 1.) / ((int)(global::ms_arg.at("numRun")) + 1.)));
 				global::ms_global->m_problem.reset(factory<problem>::produce(global::ms_arg.at("proName"), global::ms_arg));
 				global::ms_global->m_problem->initialize();

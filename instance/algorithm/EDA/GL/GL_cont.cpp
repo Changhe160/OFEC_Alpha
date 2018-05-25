@@ -102,7 +102,7 @@ namespace OFEC {
 				m_adaptor->create_solution(m_pop, m_curPop, m_hisIndi, m_alpha);
 			}
 
-			evaluation_tag rf = updata();
+			evaluation_tag rf = update();
 
 			for (auto &i : m_pop) {
 				if (i->is_improved()) update_best(*i);
@@ -117,11 +117,6 @@ namespace OFEC {
 		evaluation_tag GL_cont::run_() {
 			evaluation_tag rf = evaluation_tag::Normal;
 
-#ifdef OFEC_DEBUG_
-			g_mutex.lock();
-			if (GL_cont::ms_div.size() == 0) GL_cont::ms_div.resize(Global::g_arg[param_numRun]);
-			g_mutex.unlock();
-#endif
 			rf = initialize();
 
 			initilize_memory();
@@ -149,7 +144,7 @@ namespace OFEC {
 				else {
 					m_adaptor->create_solution(m_pop, m_curPop, m_hisIndi, m_alpha);
 				}
-				rf = updata();
+				rf = update();
 
 				for (auto &i : m_pop) {
 					if (i->is_improved()) {

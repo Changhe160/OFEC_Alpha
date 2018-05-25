@@ -99,6 +99,8 @@ namespace OFEC {
 		evaluation_tag initialize();
 		void record();	 
 		void reset_improved_flag();
+		double rank(const typename Individual::solution_type & x);
+		int number_PF() { return m_order.rbegin()->first; }
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
 		void update_best(const Individual &);
@@ -366,6 +368,7 @@ namespace OFEC {
 		m_order.clear();
 		for (size_t i = 0; i < N; i++) {
 			m_order.insert(std::pair<int,int>(rank[i], m_pop[i]->id()));
+			m_pop[i]->set_rank(rank[i]);
 		}
 		m_ordered = true;
 	}
@@ -444,6 +447,22 @@ namespace OFEC {
 		}
 	}
 
+	template<typename Individual>
+	double population<Individual>::rank(const typename Individual::solution_type & x) {
+		int i = 0;
+		while (1) {
+			auto l = m_order.lower_bound(i), u = m_order.upper_bound(i);
+			while (l != u) {
+				dominationship r = objective_compare(x.objective(), m_pop[l->second].objective(), global::ms_global->m_problem->opt_mode()).first;
+				if(r == dominationship::Dominating) return i - 0.5;
+				if (r == dominationship::Dominated) break;
+				++l;
+			}
+			if (l == u) return i;			
+			if (u == m_order.end()) return i + 0.5;
+			++i;
+		}		 
+	}
 }
 
 #endif // !OFEC_POPULATION_H
