@@ -114,9 +114,9 @@ namespace OFEC {
 		}
 
 		void add_tag(problem_tag tag) {
-			if (!is_tag(tag))	m_tag.insert(tag);
+			if (!has_tag(tag))	m_tag.insert(tag);
 		}
-		bool is_tag(problem_tag tag) {
+		bool has_tag(problem_tag tag) {
 			if (m_tag.find(tag) != m_tag.end())	return true;
 			else return false;
 		}
@@ -145,6 +145,7 @@ namespace OFEC {
 
 		virtual void initialize() =0;
 		void set_eval_monitor_flag(bool flag);
+		virtual bool is_optimal_given() { return false; }
 	protected:
 		problem& operator=(const problem& rhs);  // assignment is not allowed outside
 		problem& operator=(problem&& rhs);

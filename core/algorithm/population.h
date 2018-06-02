@@ -453,7 +453,7 @@ namespace OFEC {
 		while (1) {
 			auto l = m_order.lower_bound(i), u = m_order.upper_bound(i);
 			while (l != u) {
-				dominationship r = objective_compare(x.objective(), m_pop[l->second].objective(), global::ms_global->m_problem->opt_mode()).first;
+				dominationship r = objective_compare(x.objective(), m_pop[l->second]->objective(), global::ms_global->m_problem->opt_mode()).first;
 				if(r == dominationship::Dominating) return i - 0.5;
 				if (r == dominationship::Dominated) break;
 				++l;

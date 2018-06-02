@@ -172,7 +172,7 @@ namespace OFEC {
 
 		void GL_cont::record() {
 			if (measure::get_measure()) {
-				if (global::ms_global->m_problem->is_tag(problem_tag::MMOP))
+				if (global::ms_global->m_problem->has_tag(problem_tag::MMOP))
 					measure::get_measure()->record(global::ms_global.get(), global::ms_global->m_problem->evaluations(), CONTINOUS_CAST->num_optima_found());
 				else
 					measure::get_measure()->record(global::ms_global.get(), global::ms_global->m_problem->evaluations(), m_best[0]->objective_distance(CONTINOUS_CAST->get_optima().objective()));

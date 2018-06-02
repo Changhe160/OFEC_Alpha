@@ -145,7 +145,7 @@ namespace OFEC {
 
 		std::vector<real> x_(x.begin(), x.end()); //for parallel running
 
-		if (is_tag(problem_tag::COP)) evaluate__(x_.data(), obj, cons_value, cons_values);
+		if (has_tag(problem_tag::COP)) evaluate__(x_.data(), obj, cons_value, cons_values);
 		else evaluate__(x_.data(), obj);
 
 		if (constructed) {
