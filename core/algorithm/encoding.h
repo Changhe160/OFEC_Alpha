@@ -52,8 +52,8 @@ namespace OFEC {
 		objective_vector(const std::vector<value_type>& rhs) :m_o(rhs) {}
 		objective_vector& operator=(const objective_vector& rhs) {
 
-			if (m_o.size() != rhs.m_o.size())
-				THROW("the number of objectives is not the same~");
+			//if (m_o.size() != rhs.m_o.size())
+			//	THROW("the number of objectives is not the same~");
 
 			if (this == &rhs)
 				return *this;
@@ -64,8 +64,8 @@ namespace OFEC {
 		}
 		objective_vector& operator=(objective_vector&& rhs) {
 
-			if (m_o.size() != rhs.m_o.size())
-				THROW("the number of objectives is not the same~");
+			//if (m_o.size() != rhs.m_o.size())
+			//	THROW("the number of objectives is not the same~");
 
 			m_o = std::move(rhs.m_o);
 
@@ -134,8 +134,8 @@ namespace OFEC {
 		variable_vector(variable_vector&& rhs) :m_x(std::move(rhs.m_x)) {}
 		variable_vector(const std::vector<value_type>& x) : m_x(x) {}
 		variable_vector& operator=(const variable_vector& rhs) {
-			if (m_x.size() != rhs.m_x.size())
-				THROW("the number of dimensions is not the same!");
+			//if (m_x.size() != rhs.m_x.size())
+			//	THROW("the number of dimensions is not the same!");
 		
 			if (this == &rhs) return *this;
 			m_x = rhs.m_x;
@@ -143,8 +143,8 @@ namespace OFEC {
 		}
 
 		variable_vector& operator=(variable_vector&& rhs) {
-			if (m_x.size() != rhs.m_x.size())
-				THROW("the number of dimensions is not the same!");
+			//if (m_x.size() != rhs.m_x.size())
+			//	THROW("the number of dimensions is not the same!");
 			m_x = std::move(rhs.m_x);
 			return *this;
 		}
