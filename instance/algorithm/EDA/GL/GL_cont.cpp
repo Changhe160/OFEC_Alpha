@@ -6,9 +6,9 @@
 #include <iomanip>
 
 #ifdef OFEC_DEMON
-#include "../../../../ui/Buffer/Scene.h"
-extern unique_ptr<Scene> msp_buffer;
-extern bool g_algTermination;
+#include "../../../../ui/buffer/scene.h"
+extern unique_ptr<scene> msp_buffer;
+extern bool ofg_algTermination;
 #endif
 namespace OFEC {
 	namespace EDA {
@@ -124,10 +124,8 @@ namespace OFEC {
 			
 			while (rf != evaluation_tag::Terminate)
 			{
-#ifdef OFEC_DEMON
-				for (int i = 0; i < this->size(); i++)
-					updateBestArchive(this->m_pop[i]->self());
-				std::vector<Algorithm*> vp;
+#ifdef OFEC_DEMON				
+				std::vector<algorithm*> vp;
 				vp.push_back(this);
 				msp_buffer->updateBuffer_(&vp);
 #endif

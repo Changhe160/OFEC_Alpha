@@ -1,10 +1,9 @@
 #include "../global.h"
 
-namespace OFEC {
-
 #ifdef OFEC_DEMON
-	extern bool g_algTermination;
+extern bool ofg_algTermination;
 #endif
+namespace OFEC {
 
 	termination::termination(param_map &v) :m_maxTime(24 * 3600) {
 		if (v.find("maxRunTime") != v.end())
@@ -27,7 +26,7 @@ namespace OFEC {
 #endif
 
 #ifdef OFEC_DEMON
-		if (g_algTermination) return true;
+		if (::ofg_algTermination) return true;
 #endif
 
 		return false;

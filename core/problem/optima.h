@@ -179,7 +179,7 @@ namespace OFEC {
 			//resize_objective_set(m_number_var);
 			/*for (size_t i = 0; i < m_number_var; ++i) {
 				if (!(m_var[i].second)) continue;
-				objective<ObjetiveType> temp_obj(GET_NUM_OBJ);
+				objective<ObjetiveType> temp_obj(CONTINOUS_CAST->objective_size());
 				Solution temp(m_var[i].first, temp_obj);
 				global::ms_global->m_problem.get()->evaluate_(temp, caller::Problem, false, false);
 				append(temp.objective());
@@ -210,6 +210,22 @@ namespace OFEC {
 		}
 		size_t number_objective() const {
 			return m_obj.size();
+		}
+
+		std::pair<objective_encoding, objective_encoding> objective_range(size_t oidx) {
+			std::pair<objective_encoding, objective_encoding> range(std::numeric_limits<objective_encoding>::max(),std::numeric_limits<objective_encoding>::min());
+			for (auto &i : m_obj) {
+				if (range.first > i.first[oidx]) range.first = i.first[oidx];
+				if (range.second < i.first[oidx])range.second = i.first[oidx];
+			}
+			return range;
+		}
+
+		bool in_PF(const std::vector<objective_encoding> &obj,const std::vector<optimization_mode> &mode) {
+			for (auto &i : m_obj) {
+				if (objective_compare(i.first, obj, mode).first == dominationship::Dominating) return false;
+			}
+			return true;
 		}
 	private:
 		std::vector<std::pair<variable_encoding, bool>> m_var;

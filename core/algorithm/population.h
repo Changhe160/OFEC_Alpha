@@ -23,6 +23,7 @@
 #include "../global.h"
 #include "../measure/measure.h"
 #include "../../utility/nondominated_sorting/filter_sort/filter_sort.h"
+#include "../../utility/functional.h"
 namespace OFEC {
 	template<typename>  class multi_population;
 
@@ -99,8 +100,10 @@ namespace OFEC {
 		evaluation_tag initialize();
 		void record();	 
 		void reset_improved_flag();
-		double rank(const typename Individual::solution_type & x);
+		double rank(const typename Individual::solution_type &x);
 		int number_PF() { return m_order.rbegin()->first; }
+		int id() { return m_id; }
+		void resize(size_t size);
 	protected:
 		virtual evaluation_tag evolve_() { return evaluation_tag::Normal; }
 		void update_best(const Individual &);
@@ -448,7 +451,7 @@ namespace OFEC {
 	}
 
 	template<typename Individual>
-	double population<Individual>::rank(const typename Individual::solution_type & x) {
+	double population<Individual>::rank(const typename Individual::solution_type &x) {
 		int i = 0;
 		while (1) {
 			auto l = m_order.lower_bound(i), u = m_order.upper_bound(i);
@@ -463,6 +466,21 @@ namespace OFEC {
 			++i;
 		}		 
 	}
+
+	template<typename Individual>
+	void population<Individual>::resize(size_t size) {
+		if (size > m_pop.size()) {
+			for (auto i = m_pop.size(); i < size; i++) {
+				m_pop.push_back(unique_ptr<Individual>(new Individual()));
+			}
+		}
+		else if (size < m_pop.size()) {
+			m_pop.resize(size);
+		}
+		
+		m_ordered = m_best_updated = m_worst_updated = false;
+	}
+
 }
 
 #endif // !OFEC_POPULATION_H

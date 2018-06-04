@@ -42,7 +42,7 @@ namespace OFEC {
 
 	enum class dominationship { Equal, Dominating, Dominated, Non_dominated, Non_comparable };
 	enum class optimization_mode { Minimization, Maximization };
-	enum class caller { Problem, Algorithm, Demontration };
+	enum class caller { Problem, Algorithm, Demon };
 	enum class violation_type { Constraint, Boundary, None };
 	enum class evaluation_tag {
 		Normal, Change, Terminate, Change_next_eval, Change_timelinkage,

@@ -65,8 +65,10 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_max_iteration(param_map &v) :termination(v) {
+#ifdef OFEC_CONSOLE
 			if (v.find("maxIter") != v.end()) m_max_iter = v.at("maxIter");
 			else	THROW("para_maxIter is not given");
+#endif
 		}
 		term_max_iteration(int iters) :m_max_iter(iters) {	}
 		bool terminating(int value);
@@ -78,8 +80,10 @@ namespace OFEC {
 		int m_max_evals;
 	public:
 		term_max_evals(param_map &v) :termination(v) {
+#ifdef OFEC_CONSOLE
 			if (v.find("maxEvals") != v.end()) m_max_evals = v.at("maxEvals");
 			else	THROW("m_max_evals is not given");
+#endif
 		}
 		term_max_evals(int evals) :m_max_evals(evals) { }
 		bool terminating();
@@ -94,8 +98,10 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_best_remain(param_map &v) :termination(v) {
+#ifdef OFEC_CONSOLE
 			if (v.find("maxSucIter") != v.end()) m_max_iter = v.at("maxSucIter");
 			else	THROW("param_maxSucIter is not given");
+#endif
 		}
 		term_best_remain(int iters) :m_max_iter(iters) {	}
 
@@ -113,10 +119,12 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_mean_remain(param_map &v) :termination(v) {
+#ifdef OFEC_CONSOLE
 			if (v.find("epsilon") != v.end()) m_epsilon = v.at("epsilon");
 			else	THROW("param_epsilon is not given");
 			if (v.find("maxSucIter") != v.end()) m_max_iter = v.at("maxSucIter");
 			else	THROW("param_maxSucIter is not given");
+#endif
 		}
 		term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
 
@@ -138,8 +146,10 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_variance(param_map &v) :termination(v) {
+#ifdef OFEC_CONSOLE
 			if (v.find("epsilon") != v.end()) m_epsilon = v.at("epsilon");
 			else	THROW("param_epsilon is not given");
+#endif
 		}
 		term_variance(double epsilon) :m_epsilon(epsilon) {}
 		bool terminating(double var);
@@ -157,8 +167,10 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_stagnation(param_map &v) :termination(v) {
+#ifdef OFEC_CONSOLE
 			if (v.find("maxSucIter") != v.end()) m_suc_iter = v.at("maxSucIter");
 			else	THROW("param_maxSucIter is not given");
+#endif
 		}
 		term_stagnation(int iter) :m_suc_iter(iter) {}
 		bool terminating(int value);
