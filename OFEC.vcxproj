@@ -179,7 +179,6 @@
     <ClCompile Include="instance\algorithm\DE\NCDE\NCDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\NSDE\NSDE.cpp" />
     <ClCompile Include="instance\algorithm\DE\SaDE\SaDE.cpp" />
-    <ClCompile Include="instance\algorithm\EDA\GL\GL_cont.cpp" />
     <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAII.cpp" />
     <ClCompile Include="instance\problem\combination\MKP\multi_dimensional_knapsack.cpp" />
     <ClCompile Include="instance\problem\combination\one_max\one_max.cpp" />
@@ -458,10 +457,6 @@
     <ClInclude Include="instance\algorithm\DE\NSDE\NSDE.h" />
     <ClInclude Include="instance\algorithm\DE\population.h" />
     <ClInclude Include="instance\algorithm\DE\SaDE\SaDE.h" />
-    <ClInclude Include="instance\algorithm\EDA\GL\adaptor.h" />
-    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_cont.h" />
-    <ClInclude Include="instance\algorithm\EDA\GL\GL.h" />
-    <ClInclude Include="instance\algorithm\EDA\GL\GL_cont.h" />
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII.h" />
     <ClInclude Include="instance\problem\combination\MKP\multi_dimensional_knapsack.h" />
     <ClInclude Include="instance\problem\combination\one_max\one_max.h" />
@@ -495,6 +490,7 @@
     <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C26.h" />
     <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C27.h" />
     <ClInclude Include="instance\problem\continuous\constrained\CEC2017\C28.h" />
+    <ClInclude Include="instance\problem\continuous\dynamic\dynamic.h" />
     <ClInclude Include="instance\problem\continuous\expensive\CEC2015\composition_2015.h" />
     <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F10_hybrid1.h" />
     <ClInclude Include="instance\problem\continuous\expensive\CEC2015\F11_hybrid2.h" />

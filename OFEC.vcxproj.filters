@@ -208,11 +208,14 @@
     <Filter Include="instance\algorithm\GP">
       <UniqueIdentifier>{8c49c28b-669b-4157-8e32-f3a489033623}</UniqueIdentifier>
     </Filter>
-    <Filter Include="instance\algorithm\EDA\GL">
-      <UniqueIdentifier>{bb26a550-8594-421f-937f-75f9fdb3f931}</UniqueIdentifier>
-    </Filter>
     <Filter Include="utility\kd-tree">
       <UniqueIdentifier>{9a12560f-d46a-414d-90cc-eed44a4eb933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\dynamic">
+      <UniqueIdentifier>{5083e31b-e59f-4c66-bedc-23eee0665054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\dynamic\moving_peaks">
+      <UniqueIdentifier>{61ec349a-e2b4-431d-8647-7a518899242f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1062,23 +1065,14 @@
     <ClInclude Include="utility\kd-tree\kdtree_space.h">
       <Filter>utility\kd-tree</Filter>
     </ClInclude>
-    <ClInclude Include="instance\algorithm\EDA\GL\adaptor.h">
-      <Filter>instance\algorithm\EDA\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\EDA\GL\adaptor_cont.h">
-      <Filter>instance\algorithm\EDA\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\EDA\GL\GL.h">
-      <Filter>instance\algorithm\EDA\GL</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\EDA\GL\GL_cont.h">
-      <Filter>instance\algorithm\EDA\GL</Filter>
-    </ClInclude>
     <ClInclude Include="instance\algorithm\DE\individual.h">
       <Filter>instance\algorithm\DE</Filter>
     </ClInclude>
     <ClInclude Include="instance\algorithm\DE\population.h">
       <Filter>instance\algorithm\DE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\dynamic\dynamic.h">
+      <Filter>instance\problem\continuous\dynamic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1879,9 +1873,6 @@
     </ClCompile>
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F8_modified_rastrigin.cpp">
       <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\algorithm\EDA\GL\GL_cont.cpp">
-      <Filter>instance\algorithm\EDA\GL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
