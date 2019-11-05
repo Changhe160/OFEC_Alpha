@@ -14,66 +14,60 @@
 *
 *********************************************************************************/
 // updated Mar 28, 2018 by Li Zhou
+// Updated on 15th Aug, 2019 by Junchen Wang
 
 /*
-Paper: J. Zhang and C. Arthur, ¡°JADE: Adaptive differential evolution with
-optional external archive,¡± IEEE Trans. Evol. Comput., vol. 13, no. 5,
-pp. 945¨C958, Oct. 2009.
+Paper: J. Zhang and C. Arthur, ï¿½ï¿½JADE: Adaptive differential evolution with
+optional external archive,ï¿½ï¿½ IEEE Trans. Evol. Comput., vol. 13, no. 5,
+pp. 945ï¿½C958, Oct. 2009.
 */
 #ifndef JADE_H
 #define JADE_H
 
-#include "../individual.h"
 #include "../population.h"
-#include "../../../../core/measure/measure.h"
+#include "../individual.h"
+#include "../../../../core/algorithm/algorithm.h"
 
 namespace OFEC {
-	namespace DE {
-		class JADE_individual :public individual {
-		public:
-			using  individual::select;
-			template<typename ... Args>
-			JADE_individual(size_t no, Args&& ... args) : individual(no, std::forward<Args>(args)...) {}
-			evaluation_tag select(std::vector<solution_type>& archive) {
-				m_improved = false;
-				evaluation_tag tag = m_pu.evaluate();
-				if (m_pu.dominate(*this)) {
-					m_var = m_pu.variable();
-					m_obj = m_pu.objective();
-					m_constraint_value = m_pu.constraint_value();
-					m_improved = true;
-				}
-				else {
-					archive.push_back(*this);
-				}
-				return tag;
-			}
-		};
+	class JADE_individual :public DE::individual {
+	public:
+		using  individual::select;
+		JADE_individual(size_t num_obj, size_t num_con, size_t size_var) : individual(num_obj, num_con, size_var) {}
+		evaluation_tag select(std::vector<solution_type>& archive);
+	};
 
-		class JADE :public population<JADE_individual>
-		{
-		public:
-			//using JADE_individual::solution_type;
-			JADE(param_map &v);
-			evaluation_tag run_();
-		protected:
-			evaluation_tag evolve();
-			void select_trial(int base_);
-			void update_F();
-			void update_CR();
-		protected:
-			///////////////////////algorithm parameters/////////////////////////////
-			double m_p;
-			double m_c;
-			int m_archive_flag;
-			std::vector<solution<variable_vector<real>, real>> m_archive;
-			std::vector<solution<variable_vector<real>, real>*> m_candi;
-			std::vector<double> m_pcent_best;
-			std::vector<int> m_pcent_best_index;
-			std::vector<double> mv_F, mv_CR;
-			///////////////////////////////////////////////////////////////////////////
-		};
-	}
-	using JADE = DE::JADE;
+	class JADE_pop :public DE::population<JADE_individual>
+	{
+	public:
+		//using JADE_individual::solution_type;
+		JADE_pop(size_t size_pop);
+		evaluation_tag evolve() override;
+	protected:
+		void select_trial(size_t base_);
+		void update_F();
+		void update_CR();
+	protected:
+		///////////////////////algorithm parameters/////////////////////////////
+		real m_p;
+		real m_c;
+		int m_archive_flag;
+		std::vector<solution<variable_vector<real>, real>> m_archive;
+		std::vector<solution<variable_vector<real>, real>*> m_candi;
+		std::vector<real> m_pcent_best;
+		std::vector<int> m_pcent_best_index;
+		std::vector<real> mv_F, mv_CR;
+		///////////////////////////////////////////////////////////////////////////
+	};
+
+	class JADE : public algorithm {
+	public:
+		JADE(param_map& v);
+		void initialize() override;
+		void record() override;
+	protected:
+		void run_() override;
+	protected:
+		JADE_pop m_pop;
+	};
 }
 #endif // JADE_H

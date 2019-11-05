@@ -11,11 +11,12 @@ namespace OFEC {
 		set_range(0., 1.);
 
 		load_PF();
+		m_initialized = true;
 	}
 
 	void DTLZ::generate_PF()
 	{
-		const std::string problem_name[] = { "DTLZ1", "DTLZ2", "DTLZ3", "DTLZ4" };
+		const std::string problem_name[] = { "MOP_DTLZ1", "MOP_DTLZ2", "MOP_DTLZ3", "MOP_DTLZ4" };
 		const int M[5] = { 3, 5, 8, 10, 15 };
 		bool flag1(false);
 		for (int i = 0; i < 4; ++i) {
@@ -80,14 +81,14 @@ namespace OFEC {
 	void generate_recursive(TFront * pf, TObjVec * pt, size_t num_objs, size_t left, size_t total, size_t element) {
 		if (element == num_objs - 1)
 		{
-			(*pt)[element] = (double)left;
+			(*pt)[element] = (real)left;
 			pf->push_back(*pt);
 		}
 		else
 		{
 			for (size_t i = 0; i <= left; i += 1)
 			{
-				(*pt)[element] = (double)i;
+				(*pt)[element] = (real)i;
 				generate_recursive(pf, pt, num_objs, left - i, total, element + 1);
 			}
 		}
@@ -104,7 +105,7 @@ namespace OFEC {
 		int num_objectives = M, num_divisions = p;
 		generate_weight(&PF, num_objectives, num_divisions);
 
-		if (problem_name == "DTLZ1")
+		if (problem_name == "MOP_DTLZ1")
 		{
 			for (size_t i = 0; i<PF.size(); i += 1)
 			{
@@ -119,14 +120,14 @@ namespace OFEC {
 		{
 			for (size_t i = 0; i<PF.size(); i += 1)
 			{
-				double sum = 0;
+				real sum = 0;
 
 				for (size_t j = 0; j<PF[i].size(); j += 1)
 				{
 					sum += PF[i][j] * PF[i][j];
 				}
 
-				double k = sqrt(1.0 / sum);
+				real k = sqrt(1.0 / sum);
 
 				for (size_t j = 0; j<PF[i].size(); j += 1)
 				{
@@ -149,11 +150,11 @@ namespace OFEC {
 		{
 			for (size_t j = 0; j<PF[i].size(); j += 1)
 			{
-				PF[i][j] = (static_cast<double>(num_divisions) / M + PF[i][j]) / 2; // (k=num_divisions/M, k, k, ..., k) is the center point
+				PF[i][j] = (static_cast<real>(num_divisions) / M + PF[i][j]) / 2; // (k=num_divisions/M, k, k, ..., k) is the center point
 			}
 		}
 
-		if (problem_name == "DTLZ1")
+		if (problem_name == "MOP_DTLZ1")
 		{
 			for (size_t i = 0; i<PF.size(); i += 1)
 			{
@@ -168,14 +169,14 @@ namespace OFEC {
 		{
 			for (size_t i = 0; i < PF.size(); i += 1)
 			{
-				double sum = 0;
+				real sum = 0;
 
 				for (size_t j = 0; j < PF[i].size(); j += 1)
 				{
 					sum += PF[i][j] * PF[i][j];
 				}
 
-				double k = sqrt(1.0 / sum);
+				real k = sqrt(1.0 / sum);
 
 				for (size_t j = 0; j < PF[i].size(); j += 1)
 				{

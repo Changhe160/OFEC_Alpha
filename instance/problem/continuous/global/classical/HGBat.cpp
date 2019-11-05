@@ -31,9 +31,10 @@ namespace OFEC {
 		set_original_global_opt();
 
 		set_global_opt();
+		m_initialized = true;
 	}
 
-	void HGBat::evaluate__(real *x, std::vector<real>& obj) {
+	void HGBat::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -45,7 +46,7 @@ namespace OFEC {
 
 		size_t i;
 
-		double alpha, r2, sum_x;
+		real alpha, r2, sum_x;
 		alpha = 1.0 / 4.0;
 
 		r2 = 0.0;

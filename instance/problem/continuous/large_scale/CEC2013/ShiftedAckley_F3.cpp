@@ -44,9 +44,10 @@ namespace OFEC {
 
 			set_original_global_opt();
 			set_global_opt(mp_Ovector);
+			m_initialized = true;
 		}
 
-		void ShiftedAckley_F3::evaluate__(real *x, std::vector<real>& obj) {
+		void ShiftedAckley_F3::evaluate_objective(real *x, std::vector<real> &obj) {
 			size_t    i;
 			for (i = 0; i < m_variable_size; ++i) {
 				mp_anotherz[i] = x[i] - mp_Ovector[i];

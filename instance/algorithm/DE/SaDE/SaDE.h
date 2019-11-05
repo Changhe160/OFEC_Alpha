@@ -24,39 +24,44 @@ Evolutionary Computation, 13(2): 398- 417, 2009.
 #define OFEC_SADE_H
 
 #include <list>
-#include <algorithm>
-#include "../individual.h"
 #include "../population.h"
-#include "../../../../core/measure/measure.h"
+#include "../../../../core/algorithm/algorithm.h"
 
 namespace OFEC {
-	namespace DE {
-		class SaDE :public population<individual>
-		{
-		public:
-			SaDE(param_map &v);
-			evaluation_tag run_();
-		protected:
-			evaluation_tag evolve();
-			void update_F();
-			void update_CR();
-			void update_memory();
-		protected:
-			const int m_num_strategy = 4;
-			std::vector<double> m_F;
-			std::vector<std::vector<double>> m_CR;
+	class SaDE_pop final : public DE::population<DE::individual> {
+	public:
+		SaDE_pop(size_t size_pop);
+		evaluation_tag evolve() override;
+	protected:
+		void update_F();
+		void update_CR();
+		void update_memory();
+	protected:
+		const size_t m_num_strategy = 4;
+		std::vector<real> mv_F;
+		std::vector<std::vector<real>> mvv_CR;
 
-			std::list<std::vector<std::list<double>>> m_CRsuc;
+		std::list<std::vector<std::list<real>>> m_CRsuc;
 
-			std::vector<double> m_CRm, m_probability;
-			std::list<std::vector<int>> m_cnt_success, m_cnt_fail;
-			int m_LP = 50;
-			double m_epsilon = 0.01;
-			std::vector<int> m_strategy_selection;
-			//enum Strategy { DE_rand_1_bin = 0, DE_rand_to_best_2_bin, DE_rand_2_bin, DE_current_to_rand_1 };
-			violation_type m_mode = violation_type::Boundary;
-		};
-	}
-	using SaDE = DE::SaDE;
+		std::vector<real> m_CRm, m_probability;
+		std::list<std::vector<int>> m_cnt_success, m_cnt_fail;
+		size_t m_LP = 50;
+		real m_epsilon = 0.01;
+		std::vector<int> m_strategy_selection;
+		//enum Strategy { DE_rand_1_bin = 0, DE_rand_to_best_2_bin, DE_rand_2_bin, DE_current_to_rand_1 };
+		violation_type m_mode = violation_type::Boundary;
+	};
+
+	class SaDE final : public algorithm
+	{
+	public:
+		SaDE(param_map& v);
+		void initialize() override;
+		void record() override;
+	protected:
+		void run_() override;
+	protected:
+		SaDE_pop m_pop;
+	};
 }
 #endif // OFEC_SADE_H

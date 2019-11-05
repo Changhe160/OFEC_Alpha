@@ -25,13 +25,13 @@ namespace OFEC {
 			set_scale(100. / 5.12);
 			
 			set_global_opt(m_translation.data());
-
+			m_initialized = true;
 		}
 
 
 
-		void F4_SR_rastrigin::evaluate__(real *x, std::vector<real>& obj) {
-			rastrigin::evaluate__(x, obj);
+		void F4_SR_rastrigin::evaluate_objective(real *x, std::vector<real> &obj) {
+			rastrigin::evaluate_objective(x, obj);
 		}
 	}
 }

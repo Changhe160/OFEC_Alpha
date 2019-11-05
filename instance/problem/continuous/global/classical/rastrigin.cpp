@@ -33,11 +33,11 @@ namespace OFEC {
 
 		set_global_opt();
 		
-
+		m_initialized = true;
 	}
 
 
-	void rastrigin::evaluate__(real *x, std::vector<real>& obj) {
+	void rastrigin::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -47,7 +47,7 @@ namespace OFEC {
 		if (m_translation_flag)
 			translate_origin(x);
 
-		double fit = 0;
+		real fit = 0;
 
 		for (int i = 0; i < m_variable_size; i++)
 			fit += x[i] * x[i] - 10.*cos(2 * OFEC_PI*x[i]) + 10.;

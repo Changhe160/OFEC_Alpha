@@ -29,14 +29,14 @@ namespace OFEC {
 			F9_global_composition1(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			void set_function();
 
 		private:
 
 		};
 	}
-	using CEC2015_GOP_F9 = CEC2015::F9_global_composition1;
+	using CEC2015_GOP_F09 = CEC2015::F9_global_composition1;
 }
 #endif // !OFEC_F9_GLOBAL_COMPOSITION1_H
 

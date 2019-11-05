@@ -25,14 +25,15 @@ namespace OFEC {
 
 	void happy_cat::initialize() {
 		m_variable_monitor = true;
-		set_range(-100., 100.);
-		set_init_range(-100., 100.);
+		set_range(-2, 2);
+		set_init_range(-2, 2);
 		set_original_global_opt();
 
 		set_global_opt();
+		m_initialized = true;
 	}
 
-	void happy_cat::evaluate__(real *x, std::vector<real>& obj) {
+	void happy_cat::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -44,7 +45,7 @@ namespace OFEC {
 
 		size_t i;
 
-		double alpha, r2, sum_x;
+		real alpha, r2, sum_x;
 		alpha = 1.0 / 8.0;
 
 		r2 = 0.0;

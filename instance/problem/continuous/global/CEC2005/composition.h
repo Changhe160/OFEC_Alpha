@@ -11,6 +11,12 @@
 *  Foundation; either version 2, or (at your option) any later version.
 *************************************************************************/
 
+/*------------------------------------------------------------------------------------------------------------
+Suganthan, P. N., Hansen, N., Liang, J. J., Deb, K., Chen, Y. P., Auger, A., & Tiwari, S. (2005).
+Problem definitions and evaluation criteria for the CEC 2005 special session on real-parameter optimization.
+KanGAL report, 2005005, 2005.
+------------------------------------------------------------------------------------------------------------*/
+
 #ifndef OFEC_CEC2005_COMPOSITION_H
 #define OFEC_CEC2005_COMPOSITION_H
 
@@ -29,10 +35,10 @@ namespace OFEC {
 			
 		protected:
 			
-			virtual void evaluate__(real *x, std::vector<real>& obj);
+			virtual void evaluate_objective(real *x, std::vector<real>& obj) override;
 			void compute_fmax();
 			virtual void set_function() = 0;
-			virtual void set_weight(std::vector<double>& w, const std::vector<real>&x);
+			virtual void set_weight(std::vector<real>& w, const std::vector<real>&x);
 
 			virtual bool load_translation(const std::string &path);
 			virtual void set_translation();
@@ -43,9 +49,9 @@ namespace OFEC {
 			std::vector<function*> m_function;    // the functions
 			std::vector<real> m_height;
 			std::vector<real> m_fmax;
-			double m_height_normalize_severity = 2000;   // constant number for noralizing all basic function with similar height
-			std::vector<double> m_converge_severity;     // severity of converge range for each function
-			std::vector<double> m_stretch_severity;      // severity of stretching original function, greater than 1 for stretch
+			real m_height_normalize_severity = 2000;   // constant number for noralizing all basic function with similar height
+			std::vector<real> m_converge_severity;     // severity of converge range for each function
+			std::vector<real> m_stretch_severity;      // severity of stretching original function, greater than 1 for stretch
 
 		};
 		

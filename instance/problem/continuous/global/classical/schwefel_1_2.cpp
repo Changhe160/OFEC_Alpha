@@ -32,11 +32,11 @@ namespace OFEC {
 		set_original_global_opt();
 
 		set_global_opt();
-
+		m_initialized = true;
 	}
 
 
-	void schwefel_1_2::evaluate__(real *x, std::vector<real>& obj) {
+	void schwefel_1_2::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -45,7 +45,7 @@ namespace OFEC {
 			rotate(x);
 		if (m_translation_flag)
 			translate_origin(x);
-		double s1 = 0, s2 = 0;
+		real s1 = 0, s2 = 0;
 
 		for (int i = 0; i < m_variable_size; i++) {
 			for (int j = 0; j <= i; j++)

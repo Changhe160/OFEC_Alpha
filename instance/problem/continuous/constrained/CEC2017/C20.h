@@ -26,7 +26,7 @@ namespace OFEC {
 			C20(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values);
+			void evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con) override;
 		private:
 
 		};

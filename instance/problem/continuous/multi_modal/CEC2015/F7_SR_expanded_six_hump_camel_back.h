@@ -29,11 +29,11 @@ namespace OFEC {
 			F7_SR_expanded_six_hump_camel_back(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_MMP_F7 = CEC2015::F7_SR_expanded_six_hump_camel_back;
+	using CEC2015_MMOP_F07 = CEC2015::F7_SR_expanded_six_hump_camel_back;
 }
 #endif // !OFEC_F7_SR_EXPANDED_SIX_HUMP_CAMEL_BACK_H
 

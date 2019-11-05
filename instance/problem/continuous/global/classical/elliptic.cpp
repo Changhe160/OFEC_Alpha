@@ -33,11 +33,12 @@ namespace OFEC {
 		set_original_global_opt();
 		set_global_opt();
 		//setObjSet();
+		m_initialized = true;
 	}
 
 
 
-	void elliptic::evaluate__(real *x, std::vector<real>& obj) {
+	void elliptic::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -46,7 +47,7 @@ namespace OFEC {
 			rotate(x);
 		if (m_translation_flag)
 			translate_origin(x);
-		double s = 0;
+		real s = 0;
 		for (int i = 0; i < m_variable_size; i++) {
 			s += pow(1e6, i / (m_variable_size - 1.))*x[i] * x[i];
 		}

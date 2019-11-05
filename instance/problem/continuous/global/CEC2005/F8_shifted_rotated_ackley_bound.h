@@ -26,11 +26,11 @@ namespace OFEC {
 			F8_shifted_rotated_ackley_bound(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2005_GOP_F8 = CEC2005::F8_shifted_rotated_ackley_bound;
+	using CEC2005_GOP_F08 = CEC2005::F8_shifted_rotated_ackley_bound;
 }
 #endif // ! OFEC_F8_SHIFTED_ROTATED_ACKLEY_BOUND_H
 

@@ -21,13 +21,13 @@ namespace OFEC {
 		public:
 			N7S1_ShiftedSchwefel_F7(param_map &v);
 			N7S1_ShiftedSchwefel_F7(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~N7S1_ShiftedSchwefel_F7();
 
 			void initialize();
 		};
 	}
-	using CEC2013_LSOP_F7 = CEC2013::N7S1_ShiftedSchwefel_F7;
+	using CEC2013_LSOP_F07 = CEC2013::N7S1_ShiftedSchwefel_F7;
 }
 #endif
 

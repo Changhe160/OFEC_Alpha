@@ -1,6 +1,6 @@
 #include "travelling_salesman.h"
 #include <fstream>
-#include <string.h>
+#include <cstring>
 
 
 namespace OFEC {
@@ -30,27 +30,27 @@ namespace OFEC {
 		else if (m_variable_size <= 2000) global::ms_sample_fre  = 5000000;
 
 		mvvv_cost.resize(m_objective_size);
-		for (int i = 0; i<m_objective_size; i++)
+		for (size_t i = 0; i<m_objective_size; i++)
 			mvvv_cost[i].resize(m_variable_size);
-		for (int i = 0; i<m_objective_size; i++)
-			for (int j = 0; j<m_variable_size; j++)
+		for (size_t i = 0; i<m_objective_size; i++)
+			for (size_t j = 0; j<m_variable_size; j++)
 				mvvv_cost[i][j].resize(m_variable_size);
 	
 		read_problem();
 
 		for (size_t i = 0; i < m_variable_size; ++i)
 			m_domain.set_range(0, m_variable_size - 1, i);
-
+		m_initialized = true;
 	}
-	evaluation_tag travelling_salesman::evaluate_(solution_base & s, caller call, bool effective_fes, bool constructed)
+	evaluation_tag travelling_salesman::evaluate_(solution_base & s, caller call, bool effective, bool constructed)
 	{
 		variable_vector<int> &x = dynamic_cast< solution<variable_vector<int>, real> &>(s).variable();
-		std::vector<double> &obj = dynamic_cast< solution<variable_vector<int>, real> &>(s).objective();
+		std::vector<real> &obj = dynamic_cast< solution<variable_vector<int>, real> &>(s).objective();
 
-		for (int i = 0; i<m_objective_size; i++)
+		for (size_t i = 0; i<m_objective_size; i++)
 			obj[i] = 0;
 		int row, col;
-		for (int n = 0; n<m_objective_size; n++)
+		for (size_t n = 0; n<m_objective_size; n++)
 		{
 			for (size_t i = 0; i<m_variable_size; i++)
 			{
@@ -61,7 +61,7 @@ namespace OFEC {
 		}
 
 		if (constructed) {
-			if (effective_fes)		m_effective_eval++;
+			if (effective)		m_effective_eval++;
 			m_optima.is_optimal_objective(obj, m_objective_accuracy);
 			if (m_optima.is_objective_found())
 				m_solved = true;
@@ -78,18 +78,18 @@ namespace OFEC {
 
 		const variable_vector<int> &x = dynamic_cast<const solution<variable_vector<int>, real> &>(s).variable();
 
-		for (int i = 0; i < m_variable_size; i++)  //judge the range		
+		for (size_t i = 0; i < m_variable_size; i++)  //judge the range		
 			if ((x[i]) < m_domain.range(i).limit.first || (x[i]) > m_domain.range(i).limit.second)
 				return false;
 
 		std::vector<int> flag(m_variable_size, 0);  //judge whether has the same gene
 		int temp;
-		for (int i = 0; i<m_variable_size; i++)
+		for (size_t i = 0; i<m_variable_size; i++)
 		{
 			temp = x[i];
 			flag[temp] = 1;
 		}
-		for (int i = 0; i<m_variable_size; i++)
+		for (size_t i = 0; i<m_variable_size; i++)
 			if (flag[i] == 0)
 				return false;
 		return true;
@@ -107,7 +107,7 @@ namespace OFEC {
 	{
 		const variable_vector<int> &x1 = dynamic_cast<const solution<variable_vector<int>, real> &>(s1).variable();
 		const variable_vector<int> &x2 = dynamic_cast<const solution<variable_vector<int>, real> &>(s2).variable();
-		int i, j, pos;
+		int i, j, pos = 0;
 		for (i = 0; i<m_variable_size; i++)
 		{
 			if (x1[0] == x2[i])
@@ -133,7 +133,7 @@ namespace OFEC {
 		return false;
 	}
 
-	double travelling_salesman::variable_distance(const solution_base & s1, const solution_base & s2) const
+	real travelling_salesman::variable_distance(const solution_base & s1, const solution_base & s2) const
 	{
 		static std::vector<std::vector<bool>> mvv_s1_edge(m_variable_size); // a temporary matrix to store the edges of s1, thus helping calculate the distance between two solutions
 		const variable_vector<int> &x1 = dynamic_cast<const solution<variable_vector<int>, real> &>(s1).variable();
@@ -141,17 +141,17 @@ namespace OFEC {
 
 		for (auto& row : mvv_s1_edge)
 			row.assign(m_variable_size, false);
-		for (int i = 0; i<m_variable_size; i++) {
+		for (size_t i = 0; i<m_variable_size; i++) {
 			mvv_s1_edge[x1[i]][x1[(i + 1) % m_variable_size]] = true;
 		}
-		double dis = 0;
-		for (int i = 0; i<m_variable_size; i++) {
+		real dis = 0;
+		for (size_t i = 0; i<m_variable_size; i++) {
 			if (!mvv_s1_edge[x2[i]][x2[(i + 1) % m_variable_size]])dis += 1;
 		}
 		return dis;
 	}
 
-	double travelling_salesman::variable_distance(const variable_base & s1, const variable_base & s2) const
+	real travelling_salesman::variable_distance(const variable_base & s1, const variable_base & s2) const
 	{
 		static std::vector<std::vector<bool>> mvv_s1_edge(m_variable_size); // a temporary matrix to store the edges of s1, thus helping calculate the distance between two solutions
 		const variable_vector<int> &x1 = dynamic_cast<const variable_vector<int>&>(s1);
@@ -159,11 +159,11 @@ namespace OFEC {
 
 		for (auto& row : mvv_s1_edge)
 			row.assign(m_variable_size, false);
-		for (int i = 0; i<m_variable_size; i++) {
+		for (size_t i = 0; i<m_variable_size; i++) {
 			mvv_s1_edge[x1[i]][x1[(i + 1) % m_variable_size]] = true;
 		}
-		double dis = 0;
-		for (int i = 0; i<m_variable_size; i++) {
+		real dis = 0;
+		for (size_t i = 0; i<m_variable_size; i++) {
 			if (!mvv_s1_edge[x2[i]][x2[(i + 1) % m_variable_size]])dis += 1;
 		}
 		return dis;
@@ -172,7 +172,7 @@ namespace OFEC {
 	std::pair<int, int> travelling_salesman::get_next_city(const solution_base & s, int city) const
 	{
 		const variable_vector<int> &x = dynamic_cast<const solution<variable_vector<int>, real> &>(s).variable();
-		for (int i = 0; i<m_variable_size; i++) {
+		for (size_t i = 0; i<m_variable_size; i++) {
 			if (x[i] == city)
 				return std::pair<int, int>(x[(i - 1 + m_variable_size) % m_variable_size], x[(i + 1) % m_variable_size]);
 		}
@@ -182,7 +182,7 @@ namespace OFEC {
 	void travelling_salesman::find_nearby_city(std::vector<std::vector<int>>& nearby, int num_near, int obj)
 	{
 		int i, j, z, pos;
-		double min;
+		real min;
 		std::vector<int> visited(m_variable_size);
 		int num = num_near == 0 ? nearby[0].size() : num_near;
 		for (i = 0; i < m_variable_size; i++)
@@ -250,21 +250,21 @@ namespace OFEC {
 		}
 	}
 
-	void travelling_salesman::calculate_edge_weight(char * edge_type, std::vector<std::vector<double>>& coordinate)
+	void travelling_salesman::calculate_edge_weight(char * edge_type, std::vector<std::vector<real>>& coordinate)
 	{
 		if (!strcmp(edge_type, "EUC_2D"))
 		{
-			for (int i = 0; i<m_variable_size; i++)
-				for (int j = 0; j<m_variable_size; j++)
+			for (size_t i = 0; i<m_variable_size; i++)
+				for (size_t j = 0; j<m_variable_size; j++)
 					mvvv_cost[0][i][j] = static_cast<int>(sqrt(pow(coordinate[i][0] - coordinate[j][0], 2) + pow(coordinate[i][1] - coordinate[j][1], 2)) + 0.5);
 		}
 		else if (!strcmp(edge_type, "ATT"))
 		{
-			double r;
+			real r;
 			int t;
-			for (int i = 0; i<m_variable_size; i++)
+			for (size_t i = 0; i<m_variable_size; i++)
 			{
-				for (int j = 0; j<m_variable_size; j++)
+				for (size_t j = 0; j<m_variable_size; j++)
 				{
 					r = sqrt((pow(coordinate[i][0] - coordinate[j][0], 2) + pow(coordinate[i][1] - coordinate[j][1], 2)) / 10.0);
 					t = static_cast<int>(r + 0.5);
@@ -275,21 +275,21 @@ namespace OFEC {
 		}
 		else if (!strcmp(edge_type, "GEO"))
 		{
-			double pi = 3.141592, RRR = 6378.388, min;
+			real pi = 3.141592, RRR = 6378.388, min;
 			int deg;
-			for (int i = 0; i<m_variable_size; i++)
+			for (size_t i = 0; i<m_variable_size; i++)
 			{
-				for (int j = 0; j<2; j++)
+				for (size_t j = 0; j<2; j++)
 				{
 					deg = static_cast<int>(coordinate[i][j]);
 					min = coordinate[i][j] - deg;
 					coordinate[i][j] = pi * (deg + 5.0*min / 3.0) / 180.0;
 				}
 			}
-			double q1, q2, q3;
-			for (int i = 0; i<m_variable_size; i++)
+			real q1, q2, q3;
+			for (size_t i = 0; i<m_variable_size; i++)
 			{
-				for (int j = 0; j<m_variable_size; j++)
+				for (size_t j = 0; j<m_variable_size; j++)
 				{
 					q1 = cos(coordinate[i][1] - coordinate[j][1]);
 					q2 = cos(coordinate[i][0] - coordinate[j][0]);
@@ -318,8 +318,8 @@ namespace OFEC {
 	void travelling_salesman::read_problem()
 	{
 
-#if defined(linux) || defined(__linux) || defined(__linux__)
-		#define	strtok_s strtok_r
+#if defined(linux) || defined(__linux) || defined(__linux__) || defined(__APPLE__)
+#define	strtok_s strtok_r
 #endif
 
 		size_t i;
@@ -328,7 +328,7 @@ namespace OFEC {
 		char *Keyword = 0;
 		char *Type = 0, *Format = 0;
 		const char *Delimiters = " ():=\n\t\r\f\v\xef\xbb\xbf";
-		std::vector<std::vector<double> > coordinate;
+		std::vector<std::vector<real> > coordinate;
 		std::ostringstream oss1, oss2;
 		std::ifstream infile;
 		oss1 << "./instance/problem/combination/TSP/data/" << m_file_name << ".tsp";
@@ -369,7 +369,7 @@ namespace OFEC {
 			else if (!strcmp(Keyword, "NODE_COORD_SECTION"))
 			{
 				i = 0;
-				std::vector<double> temp(2);
+				std::vector<real> temp(2);
 				while (infile >> Line)
 				{
 					infile >> temp[0];
@@ -384,8 +384,8 @@ namespace OFEC {
 			{
 				if (!strcmp(Format, "LOWER_DIAG_ROW"))
 				{
-					for (int i = 0; i<m_variable_size; i++)
-						for (int j = 0; j <= i; j++)
+					for (size_t i = 0; i<m_variable_size; i++)
+						for (size_t j = 0; j <= i; j++)
 						{
 							infile >> mvvv_cost[0][i][j];
 							mvvv_cost[0][j][i] = mvvv_cost[0][i][j];
@@ -393,7 +393,7 @@ namespace OFEC {
 				}
 				else if (!strcmp(Format, "UPPER_DIAG_ROW"))
 				{
-					for (int i = 0; i<m_variable_size; i++)
+					for (size_t i = 0; i<m_variable_size; i++)
 						for (int j = i; j<m_variable_size; j++)
 						{
 							infile >> mvvv_cost[0][i][j];
@@ -402,8 +402,8 @@ namespace OFEC {
 				}
 				else if (!strcmp(Format, "FULL_MATRIX"))
 				{
-					for (int i = 0; i<m_variable_size; i++)
-						for (int j = 0; j<m_variable_size; j++)
+					for (size_t i = 0; i<m_variable_size; i++)
+						for (size_t j = 0; j<m_variable_size; j++)
 							infile >> mvvv_cost[0][i][j];
 				}
 				else

@@ -30,9 +30,10 @@ namespace OFEC {
 		set_original_global_opt();
 
 		set_global_opt();
+		m_initialized = true;
 	}
 
-	void katsuura::evaluate__(real *x, std::vector<real>& obj) {
+	void katsuura::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -44,7 +45,7 @@ namespace OFEC {
 
 		size_t i,j;
 
-		double temp, tmp1, tmp2, tmp3;
+		real temp, tmp1, tmp2, tmp3;
 		obj[0] = 1.0;
 		tmp3 = pow(1.0*m_variable_size, 1.2);
 

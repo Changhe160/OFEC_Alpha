@@ -1,4 +1,4 @@
-app = r
+app = OFEC
 
 CORE := core 
 TOOLS := utility

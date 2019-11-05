@@ -2,6 +2,9 @@
 #include "../utility/catch.hpp"
 
 #include "system_initialization.h"
+#include "user_initialization.h"
+#include "register_algorithm.h"
+#include "register_problem.h"
 
 int main(int argc, char* argv[]) {
 

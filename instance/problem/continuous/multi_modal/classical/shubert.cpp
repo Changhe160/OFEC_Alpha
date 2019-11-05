@@ -44,13 +44,13 @@ namespace OFEC {
 		}
 		
 		m_optima = m_original_optima;
-		
+		m_initialized = true;
 	}
-	void shubert::evaluate__(real *x, std::vector<real>& obj) {
-		double s = 1;
+	void shubert::evaluate_objective(real *x, std::vector<real> &obj) {
+		real s = 1;
 
 		for (int j = 0; j < m_variable_size; ++j) {
-			double a = 0;
+			real a = 0;
 			for (int i = 1; i <= 5; i++) {
 				a += i*cos((i + 1)*x[j] + i);
 			}

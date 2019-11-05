@@ -15,7 +15,9 @@ namespace OFEC {
 			m_variable_monitor = true;
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
-
+			m_constraint_type.resize(2);
+			m_constraint_type[0] = constraint_type::Inequality;
+			m_constraint_type[1] = constraint_type::Equality;
 			 
 			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
@@ -23,8 +25,9 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/constrained/CEC2017/data/");
 			set_original_global_opt(m_translation.data());
 			m_optima = m_original_optima;
+			m_initialized = true;
 		}
-		void C25::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
+		void C25::evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 			rotate(x);
@@ -38,40 +41,20 @@ namespace OFEC {
 			obj[0] += m_bias;
 
 			
-			double temp = 0.;
-			double sum1 = 0., sum2 = 0.;
+			// evaluate constraint value
 
-			std::vector<double> eq_cons;
-			std::vector<double> ineq_cons;
-
-			temp = pow(cos(obj[0]) + sin(obj[0]), 2) - exp(cos(obj[0]) + sin(obj[0])) - 1 + exp(1.);
-			eq_cons.push_back(temp);
-			temp = 0.;
-			for (auto &i : eq_cons) {
-				if (fabs(i) - 1e-4 <= 0) i = 0;
-				else i = fabs(i);
-				sum1 += i;
-			}
-			temp = 0.;
+			for (auto &i : con)
+				i = 0.;
 
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += pow(x[i], 2);
+				con[0] += pow(x[i], 2);
 			}
-			temp -= 100 * m_variable_size;
-			ineq_cons.push_back(temp);
-			temp = 0.;
+			con[0] -= 100 * m_variable_size;
+			if (con[0] <= 0) con[0] = 0;
 
-			for (auto &i : ineq_cons) {
-				if (i <= 0) i = 0;
-				sum2 += i;
-			}
-			cons_values.clear();
-			for (auto &i : ineq_cons)
-				cons_values.push_back(i);
-			for (auto &i : ineq_cons)
-				cons_values.push_back(i);
-			cons_value = (sum1 + sum2) / (double)(eq_cons.size() + ineq_cons.size());
+			con[1] = pow(cos(obj[0]) + sin(obj[0]), 2) - exp(cos(obj[0]) + sin(obj[0])) - 1 + exp(1.);
+			if (fabs(con[1]) - 1e-4 <= 0) con[1] = 0;
 			
 		}
 	}

@@ -22,13 +22,13 @@ namespace OFEC {
 		public:
 			N20_SR_Rastrigin_F9(param_map &v);
 			N20_SR_Rastrigin_F9(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~N20_SR_Rastrigin_F9();
 
 			void initialize();
 		};
 	}
-	using CEC2013_LSOP_F9 = CEC2013::N20_SR_Rastrigin_F9;
+	using CEC2013_LSOP_F09 = CEC2013::N20_SR_Rastrigin_F9;
 }
 #endif
 

@@ -27,11 +27,11 @@ namespace OFEC {
 			F7_shifted_rotated_HGBat(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_EOP_F7 = CEC2015::F7_shifted_rotated_HGBat;
+	using CEC2015_EOP_F07 = CEC2015::F7_shifted_rotated_HGBat;
 }
 #endif // ! OFEC_F7_SHIFTED_ROTATED_HGBAT_H
 

@@ -23,9 +23,7 @@
 #define OFEC_SOLUTION_H
 #include <utility>
 
-
-
-#include "../global.h"
+#include "../measure/measure.h"
 
 namespace  OFEC {
 
@@ -37,28 +35,15 @@ namespace  OFEC {
 		using objective_encoding = ObjetiveType;
 		using variable_encoding = VariableEncoding;
 		solution() = default;
+		virtual ~solution() {};
 		template<typename ... Args>
-		solution(size_t no, Args&& ... args ):m_var(std::forward<Args>(args)...),m_obj(no){ }		
-		solution(const solution& rhs) :solution_base(rhs), m_var(rhs.m_var), 
-			m_obj(rhs.m_obj),m_constraint_value(rhs.m_constraint_value){}
-		solution(solution&& rhs) :solution_base(rhs),  m_var(std::move(rhs.m_var)), 
-			m_obj(std::move(rhs.m_obj)), m_constraint_value(std::move(rhs.m_constraint_value)) {}
-		solution(const variable_encoding& var, const objective_vector<objective_encoding> &obj) :m_var(var), m_obj(obj) {}
+		solution(size_t num_obj, size_t num_con, Args&& ... args) : m_var(std::forward<Args>(args)...), \
+		    m_obj(num_obj), m_constraint_value(num_con) {}
+		solution(const solution& rhs) = default;
+		solution(solution&& rhs) = default;
 
-		solution& operator =(const solution& rhs) {
-			if (this == &rhs) return *this;
-			m_var=rhs.m_var;
-			m_obj=rhs.m_obj;
-			m_constraint_value = rhs.m_constraint_value;
-			return *this;
-		}
-
-		solution& operator =(solution&& rhs) {
-			m_var = std::move(rhs.m_var);
-			m_obj = std::move(rhs.m_obj);
-			m_constraint_value = std::move(rhs.m_constraint_value);
-			return *this;
-		}
+		solution& operator =(const solution& rhs) = default;
+		solution& operator =(solution&& rhs) = default;
 
 		virtual void initialize() {
 			global::ms_global->m_problem->initialize_solution(*this);
@@ -68,91 +53,76 @@ namespace  OFEC {
 		void initialize(Initializer f, Args&&... args) {
 			f(std::forward<Args>(args)...);
 		}
-		size_t variable_size() const noexcept {		return m_var.size();	}
+
 		size_t objective_size() const noexcept { return m_obj.size(); }
 
-		void resize_objective(int n) { m_obj.resize(n); }
-		void resize_variable(int n) { m_var.resize(n); }
+		virtual void resize_objective(size_t n) { 
+			m_obj.resize(n); 
+		}
 
-		bool dominate( const objective_vector<objective_encoding>& o) const{ //this soluton donimates objective o
-			return  dominationship::Dominating == objective_compare(m_obj.vect(), o.vect(),  global::ms_global->m_problem->opt_mode()).first;
+		bool dominate(const std::vector<objective_encoding>& o) const{ //this soluton donimates objective o
+			return  dominationship::Dominating == objective_compare(m_obj, o,  global::ms_global->m_problem->opt_mode());
 		}
 
 		bool dominate(const solution& s) const {//this solution donimates solution s
-			return dominationship::Dominating == objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode()).first;
-		}
-		bool dominate(const std::vector<objective_encoding>& o)const {//this solution donimates solution s
-			return dominationship::Dominating == objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode()).first;
+			return dominationship::Dominating == objective_compare(m_obj, s.m_obj, global::ms_global->m_problem->opt_mode());
 		}
 
-		bool dominate_equal(const objective_vector<objective_encoding>& o)const { //this soluton weakly donimates objective o
-			 dominationship r = objective_compare(m_obj.vect(),o.vect(), global::ms_global->m_problem->opt_mode()).first;
+		bool dominate_equal(const std::vector<objective_encoding>& o)const { //this soluton weakly donimates objective o
+			 dominationship r = objective_compare(m_obj, o, global::ms_global->m_problem->opt_mode());
 			 return r == dominationship::Dominating || r == dominationship::Equal;
 		}
+
 		bool dominate_equal(const solution& s)const {//this solution weakly donimates solution s
-			dominationship r = objective_compare(m_obj.vect(),s.m_obj.vect(), global::ms_global->m_problem->opt_mode() ).first;
-			return r == dominationship::Dominating || r == dominationship::Equal;
-		}
-		bool dominate_equal(const std::vector<objective_encoding>& o)const { //this soluton weakly donimates objective o
-			dominationship r = objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode()).first;
+			dominationship r = objective_compare(m_obj,s.m_obj, global::ms_global->m_problem->opt_mode());
 			return r == dominationship::Dominating || r == dominationship::Equal;
 		}
 
-		bool nondominate(const objective_vector<objective_encoding>& o)const { //two solutions non-donimate with each other
-			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), o.vect(), global::ms_global->m_problem->opt_mode()).first;
-		}
-		bool nondominate(const solution& s)const {//two solutions non-donimate with each other
-			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), s.m_obj.vect(), global::ms_global->m_problem->opt_mode()).first;
-		}
 		bool nondominate(const std::vector<objective_encoding>& o)const { //two solutions non-donimate with each other
-			return  dominationship::Non_dominated == objective_compare(m_obj.vect(), o, global::ms_global->m_problem->opt_mode()).first;
+			return  dominationship::Non_dominated == objective_compare(m_obj, o, global::ms_global->m_problem->opt_mode());
+		}
+
+		bool nondominate(const solution& s)const {//two solutions non-donimate with each other
+			return  dominationship::Non_dominated == objective_compare(m_obj, s.m_obj, global::ms_global->m_problem->opt_mode());
 		}
 	 
 		bool equal(const solution& rhs) const {
-			return dominationship::Equal == objective_compare(m_obj.vect(), rhs.m_obj.vect(), global::ms_global->m_problem->opt_mode()).first;
+			return dominationship::Equal == objective_compare(m_obj, rhs.m_obj, global::ms_global->m_problem->opt_mode());
 		}
 
-		bool same(const solution& x)const {//two solutions non-donimate with each other
+		bool same(const solution& x)const {//two solutions in decision space
 			return global::ms_global->m_problem->same(*this, x);
 		}
 
-		void allocate_memory(size_t no, size_t nv) {
-			m_var.resize(nv);
-			m_obj.resize(no);
-		}
-		evaluation_tag evaluate(bool effective_eval=true, caller c= caller::Algorithm) {
-			if (effective_eval&&global::ms_global->m_problem->evaluations() > 0 && \
-				global::ms_global->m_problem->evaluations() % global::ms_sample_fre == 0) {
+		evaluation_tag evaluate(bool effective_eval=true, caller call= caller::Algorithm) {
+			if (global::ms_global->m_algorithm != nullptr && global::ms_global->m_algorithm->terminating())
+				return evaluation_tag::Terminate;
+			auto tag = global::ms_global->m_problem->evaluate(*this, call, effective_eval);
+			if (measure::get_measure() && effective_eval && (tag == evaluation_tag::Terminate ||
+				(global::ms_global->m_problem->evaluations() > 0 && global::ms_global->m_problem->evaluations() % global::ms_sample_fre == 0))) {
 				global::ms_global->m_algorithm->record();
 			}
-			return  global::ms_global->m_problem->evaluate(*this, c, effective_eval);
-			
+			return tag;
 		}
 
-		double objective_distance(const objective_vector<objective_encoding>& rhs) const {
+		real objective_distance(const std::vector<objective_encoding>& rhs) const {
 			if (objective_size() == 1) return fabs(m_obj[0] - rhs[0]);
 
 			return euclidean_distance(m_obj.begin(), m_obj.end(), rhs.begin());
 		}
 
-		double objective_distance(const std::vector<objective_encoding>& rhs) const {
-			if (objective_size() == 1) return fabs(m_obj[0] - rhs[0]);
-
-			return euclidean_distance(m_obj.begin(), m_obj.end(), rhs.begin());
-		}
-
-		double objective_distance(const solution& rhs) const {
+		real objective_distance(const solution& rhs) const {
 			if (objective_size() == 1) return fabs(m_obj[0] - rhs.m_obj[0]);
 
 			return euclidean_distance(m_obj.begin(), m_obj.end(), rhs.m_obj.begin());
 		}
 
 
-		double variable_distance(const solution& rhs) const {			
+		real variable_distance(const solution& rhs) const {			
 			return global::ms_global->m_problem->variable_distance(*this, rhs);
 		}
 
-		double variable_distance(const variable_encoding& x) const {
+		real variable_distance(const variable_encoding& x) const {
 			return global::ms_global->m_problem->variable_distance(m_var, x);
 		}
 
@@ -165,11 +135,11 @@ namespace  OFEC {
 		}
 
 		std::vector<objective_encoding>& objective() noexcept {
-			return m_obj.vect();
+			return m_obj;
 		}
 
 		const std::vector<objective_encoding>& objective()const noexcept {
-			return m_obj.vect();
+			return m_obj;
 		}
 
 		objective_encoding& objective(size_t idx) noexcept {
@@ -188,16 +158,16 @@ namespace  OFEC {
 			return global::ms_global->m_problem->check_constraint_violation(*this);
 		}
 
-		std::pair<double, std::vector<double>> & constraint_value() noexcept {
+		std::vector<real> & constraint_value() noexcept {
 			return m_constraint_value;
 		}
 
-		const std::pair<double, std::vector<double>> & constraint_value()const noexcept {
+		const std::vector<real> & constraint_value()const noexcept {
 			return m_constraint_value;
 		}
 		size_t number_violation() {
 			size_t count = 0;
-			for (auto &i : m_constraint_value.second)
+			for (auto &i : m_constraint_value)
 				if (i > 0) ++count;
 			return count;
 		}
@@ -216,8 +186,8 @@ namespace  OFEC {
 		}
 	protected:	
 		variable_encoding m_var;
-		objective_vector<objective_encoding> m_obj;
-		std::pair<double, std::vector<double>> m_constraint_value;
+		std::vector<objective_encoding> m_obj;
+		std::vector<real> m_constraint_value;
 	};
 
 	

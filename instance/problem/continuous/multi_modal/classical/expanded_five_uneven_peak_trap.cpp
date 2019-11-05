@@ -28,9 +28,9 @@ namespace OFEC {
 			m_original_optima.append(i[0]);
 		}
 		m_optima = m_original_optima;
-		
+		m_initialized = true;
 	}
-	void expanded_five_uneven_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
+	void expanded_five_uneven_peak_trap::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)

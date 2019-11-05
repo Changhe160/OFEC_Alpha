@@ -11,7 +11,10 @@ namespace OFEC {
 		if (is_double()) return mapbox::util::get<double_t>(_var) + n;
 		THROW("invalid +  to double@typevar::operator+");
 	}
-
+	float typevar::operator+(float n) const {
+		if (is_float()) return mapbox::util::get<float_t>(_var) + n;
+		THROW("invalid +  to float@typevar::operator+");
+	}
 	typevar& typevar::operator++() {
 
 		if (is_int()) {
@@ -57,6 +60,10 @@ namespace OFEC {
 		if (is_double()) return mapbox::util::get<double_t>(_var) - n;
 		THROW("invalid - to double@typevar::operator-");
 	}
+	float typevar::operator-(float n) const {
+		if (is_float()) return mapbox::util::get<float_t>(_var) - n;
+		THROW("invalid - to float@typevar::operator-");
+	}
 	typevar typevar::operator-(const typevar& v)const {
 		switch (type()) {
 		case type_null:    THROW("invalid - comparison to none");
@@ -79,6 +86,10 @@ namespace OFEC {
 	double typevar::operator*(double n) const {
 		if (is_double()) return mapbox::util::get<double_t>(_var) * n;
 		THROW("invalid * to double@typevar::operator*");
+	}
+	float typevar::operator*(float n) const {
+		if (is_float()) return mapbox::util::get<float_t>(_var) * n;
+		THROW("invalid * to float@typevar::operator*");
 	}
 	typevar typevar::operator*(const typevar& v)const {
 		switch (type()) {
@@ -103,6 +114,11 @@ namespace OFEC {
 		if (is_double()) return mapbox::util::get<double_t>(_var) / n;
 		THROW("invalid /  to double@typevar::operator/");
 	}
+	float typevar::operator/(float n) const {
+		if (is_float()) return mapbox::util::get<float_t>(_var) / n;
+		THROW("invalid /  to float@typevar::operator/");
+	}
+
 	typevar typevar::operator/(const typevar& v)const {
 		switch (type()) {
 		case type_null:    THROW("invalid /  to none");

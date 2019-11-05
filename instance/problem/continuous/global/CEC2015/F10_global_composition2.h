@@ -32,11 +32,11 @@ namespace OFEC {
 			hybrid* get_hybrid(size_t num);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			void set_function();
 			bool load_translation(const std::string &path);
 			void set_translation();
-			void set_weight(std::vector<double>& weight, const std::vector<real>&x);
+			void set_weight(std::vector<real>& weight, const std::vector<real>&x);
 		protected:
 			std::vector<hybrid*> m_hybrid;
 		};

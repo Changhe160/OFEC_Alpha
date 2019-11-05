@@ -38,11 +38,12 @@ namespace OFEC {
 		set_original_global_opt();
 		//m_original_optima.set_number_variable(1);
 		m_optima = m_original_optima;
+		m_initialized = true;
 	}
 
-	void keane_bump::evaluate__(real *x, std::vector<real>& obj) {
+	void keane_bump::evaluate_objective(real *x, std::vector<real> &obj) {
 
-		double s, a = 0, b = 1, c = 0;
+		real s, a = 0, b = 1, c = 0;
 		int i;
 		for (i = 0; i < m_variable_size; i++) {
 			a += pow(cos(x[i]), 4);

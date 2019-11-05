@@ -26,11 +26,11 @@ namespace OFEC {
 			F6_shifted_rosenbrock(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2005_GOP_F6 = CEC2005::F6_shifted_rosenbrock;
+	using CEC2005_GOP_F06 = CEC2005::F6_shifted_rosenbrock;
 }
 #endif // ! OFEC_F6_SHIFTED_ROSENBROCK_H
 

@@ -1,4 +1,5 @@
 #include "F13_shifted_expanded_griewank_rosenbrock.h"
+#include <numeric>
 
 namespace OFEC {
 	namespace CEC2005 {
@@ -12,30 +13,36 @@ namespace OFEC {
 		}
 
 		void F13_shifted_expanded_griewank_rosenbrock::initialize() {
-			m_variable_monitor = true;
-			set_range(-5, 5);
-			set_init_range(-5., 5.);
+			set_range(-3, 1);
 			set_original_global_opt();
 			set_bias(-130);
 			
 			load_translation("instance/problem/continuous/global/CEC2005/data/");  //data path
 
 			set_global_opt(m_translation.data());
+			m_optima.set_flag_variable(true);
+			m_objective_monitor = true;
+			m_objective_accuracy = 1.0e-8;
+
+			m_variable_partition.clear();
+			m_variable_partition.push_back(std::vector<size_t>(m_variable_size));
+			std::iota(m_variable_partition[0].begin(), m_variable_partition[0].end(), 0);
+			m_initialized = true;
 		}
-		void F13_shifted_expanded_griewank_rosenbrock::evaluate__(real *x, std::vector<real>& obj) {
+		void F13_shifted_expanded_griewank_rosenbrock::evaluate_objective(real *x, std::vector<real> &obj) {
 			if (m_translation_flag) {
 				translate(x);
 				translate_origin(x);
 			}
-			double result = 0;
+			real result = 0;
 			for (size_t i = 0; i < m_variable_size; ++i) {
-				double result_f2 = 0;
-				double result_f8 = 0;
-				double x_front = x[i] + 1;
-				double x_back = x[(i + 1) % m_variable_size] + 1;
+				real result_f2 = 0;
+				real result_f8 = 0;
+				real x_front = x[i] + 1;
+				real x_back = x[(i + 1) % m_variable_size] + 1;
 
 				result_f2 += 100 * pow((x_back - x_front * x_front), 2.0) + (x_front - 1) * (x_front - 1);
-				result_f8 += result_f2 * result_f2 / 4000.0 - cos(result_f2 / sqrt((double)(i + 1))) + 1;
+				result_f8 += result_f2 * result_f2 / 4000.0 - cos(result_f2 / sqrt((real)(i + 1))) + 1;
 				result += result_f8;
 
 

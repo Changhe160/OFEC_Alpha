@@ -7,11 +7,14 @@
 #define  KD_TREE_SPACE_PARTITION_HPP_
 
 #include <vector>
+#include <list>
 #include <cassert>
 #include <algorithm>
 #include <stdexcept>
-#include <limits>
-#include <utility> 
+#include <cmath>
+#include <utility>
+#include <iostream>
+#include "../../core/definition.h"
 
 namespace KDTreeSpace
 {
@@ -28,7 +31,7 @@ namespace KDTreeSpace
 	template <typename T>
 	inline T* allocate(size_t count = 1)
 	{
-		T* mem = static_cast<T*>(::malloc(sizeof(T)*count));
+		T* mem = static_cast<T*>(::malloc(sizeof(T) * count));
 		return mem;
 	}
 
@@ -60,8 +63,8 @@ namespace KDTreeSpace
 
 
 		size_t  remaining;  /* Number of bytes left in current block of storage. */
-		void*   base;     /* Pointer to base of current block of storage. */
-		void*   loc;      /* Current location in block to next allocate memory. */
+		void* base;     /* Pointer to base of current block of storage. */
+		void* loc;      /* Current location in block to next allocate memory. */
 
 		void internal_init()
 		{
@@ -93,7 +96,7 @@ namespace KDTreeSpace
 		void free_all()
 		{
 			while (base != NULL) {
-				void *prev = *(static_cast<void**>(base)); /* Get pointer to prev block. */
+				void* prev = *(static_cast<void**>(base)); /* Get pointer to prev block. */
 				::free(base);
 				base = prev;
 			}
@@ -138,10 +141,10 @@ namespace KDTreeSpace
 				//int size_t = (WORDSIZE - ( (((size_t)m) + sizeof(void*)) & (WORDSIZE-1))) & (WORDSIZE-1);
 
 				remaining = blocksize - sizeof(void*) - shift;
-				loc = (static_cast<char*>(m)+sizeof(void*) + shift);
+				loc = (static_cast<char*>(m) + sizeof(void*) + shift);
 			}
 			void* rloc = loc;
-			loc = static_cast<char*>(loc)+size;
+			loc = static_cast<char*>(loc) + size;
 			remaining -= size;
 
 			usedMemory += size;
@@ -159,7 +162,7 @@ namespace KDTreeSpace
 		template <typename T>
 		T* allocate(const size_t count = 1)
 		{
-			T* mem = static_cast<T*>(this->malloc(sizeof(T)*count));
+			T* mem = static_cast<T*>(this->malloc(sizeof(T) * count));
 			return mem;
 		}
 
@@ -192,18 +195,19 @@ namespace KDTreeSpace
 		struct Node
 		{
 			/** Union used because a node can be either a LEAF node or a non-leaf node, so both data fields are never used simultaneously */
-			union{
+			union {
 				struct {
 					IndexType    idx_region;
 				}lr;
-				struct{
+				struct {
 					int          divfeat; //!< Dimension used for subdivision.
 					ElementType pivot; // pivot value for division
 					IndexType    idx_sample;		// index
 					ElementType low, high;	//boundary for the box to be cutted.
 				}sub;
 			};
-			Node* child1, *child2;  //!< Child nodes (both=NULL mean its a leaf node)
+			size_t depth;
+			Node* child1, * child2, * parent;  //!< Child nodes (both=NULL mean its a leaf node)
 		};
 		typedef Node* NodePtr;
 
@@ -212,9 +216,11 @@ namespace KDTreeSpace
 
 		typedef  struct {
 			std::vector<std::pair<ElementType, ElementType>> box;
-			double rat = 1.0,volume;
+			OFEC::real rat = 1.0, volume;
+			size_t depth = 1;
 		}BoundingBox;
 		BoundingBox m_rootBbox;
+		std::vector<BoundingBox> m_regions;
 
 		/**
 		* Pooled memory allocator.
@@ -223,15 +229,17 @@ namespace KDTreeSpace
 		* than allocating memory directly when there is a large
 		* number small of memory allocations.
 		*/
-		PooledAllocator pool;
-		double m_lrat = 0, m_srat = 1;
+		PooledAllocator m_pool;
+		OFEC::real m_lrat = 0, m_srat = 1;
 		int m_lbox = 0, m_sbox = 0;
 		int m_mode;
 	public:
-		std::vector<BoundingBox> region;
+
+		//constructor based on empty data 
+		PartitioningKDTree(int dim, int mode) : m_root(NULL), m_dim(dim), m_mode(mode) {}
 
 		//constructor based on the pointdata
-		PartitioningKDTree(int dimensionality, const std::vector<std::vector<ElementType>>& inputData, const std::vector<std::pair<ElementType, ElementType>> &initBBox) :
+		PartitioningKDTree(int dimensionality, const std::vector<std::vector<ElementType>>& inputData, const std::vector<std::pair<ElementType, ElementType>>& initBBox) :
 			m_pointdata(inputData), m_root(NULL), m_mode(1)//???
 		{
 			m_size = inputData.size();
@@ -242,7 +250,7 @@ namespace KDTreeSpace
 		}
 
 		PartitioningKDTree(int dimensionality, const std::vector<std::vector<ElementType>>& inputData) :
-			m_pointdata(inputData), m_root(NULL),  m_mode(1)
+			m_pointdata(inputData), m_root(NULL), m_mode(1)
 		{
 			m_size = inputData.size();
 			m_dim = dimensionality;
@@ -252,12 +260,20 @@ namespace KDTreeSpace
 		}
 
 		//constructor based on the ratio
-		PartitioningKDTree(const int dimensionality, const std::vector<ElementType>& inputData, const std::vector<std::pair<ElementType, ElementType>> &initBBox) :
+		PartitioningKDTree(const int dimensionality, const std::vector<ElementType>& inputData, const std::vector<std::pair<ElementType, ElementType>>& initBBox) :
 			m_ratiodata(inputData), m_root(NULL), m_mode(2)
 		{
 			m_size = inputData.size();
 			m_dim = dimensionality;
 			m_rootBbox.box = initBBox;
+			init_vindRatio();
+		}
+
+		PartitioningKDTree(const int dimensionality, const std::vector<ElementType>& inputData) :
+			m_ratiodata(inputData), m_root(NULL), m_mode(2)
+		{
+			m_size = inputData.size();
+			m_dim = dimensionality;
 			init_vindRatio();
 		}
 
@@ -273,19 +289,32 @@ namespace KDTreeSpace
 			init_vindPoint();
 		}
 
-		void setInitBox(const std::vector<std::pair<ElementType, ElementType>> &initBBox){
+		void setInitBox(const std::vector<std::pair<ElementType, ElementType>>& initBBox) {
 			m_rootBbox.box = initBBox;
 		}
 
+		//Printout the subspaces
+		void regionShow()
+		{
+			for (auto i = 0; i < m_regions.size(); ++i)
+			{
+				for (auto j = 0; j < m_dim; ++j)
+				{
+					std::cout << "(" << m_regions[i].box[j].first << " , " << m_regions[i].box[j].second << ") ";
+				}
+				std::cout << std::endl << std::endl;
+			}
+			std::cout << std::endl;
+		}
 		/** Standard destructor */
 		~PartitioningKDTree() { }
 
 		/** Frees the previously-built index. Automatically called within buildIndex(). */
 		void freeIndex()
 		{
-			pool.free_all();
+			m_pool.free_all();
 			m_root = NULL;
-			region.clear();
+			m_regions.clear();
 		}
 
 		/**
@@ -309,7 +338,7 @@ namespace KDTreeSpace
 		/** Returns number of leaf nodes  */
 		size_t size() const {
 			if (m_mode == 1) return m_size + 1;
-			else if(m_mode==2) 	return m_size; 
+			else if (m_mode == 2) 	return m_size;
 		}
 
 		/** Returns the length of each point in the dataset */
@@ -323,33 +352,81 @@ namespace KDTreeSpace
 		*/
 		size_t usedMemory() const
 		{
-			return pool.usedMemory + pool.wastedMemory + m_pointdata.size()*sizeof(IndexType);  // pool memory and vind array memory
+			return m_pool.usedMemory + m_pool.wastedMemory + m_pointdata.size() * sizeof(IndexType);  // pool memory and vind array memory
 		}
 
-		size_t get_regionIdx(const std::vector<ElementType> & p){
+		size_t get_regionIdx(const std::vector<ElementType> & p) const {
 			return enqury(p, m_root);
 		}
-		void get_leafParent(const IndexType idx, IndexType &sidx, IndexType &cutfeat, ElementType& low, ElementType&high){
 
-			NodePtr result = NULL;
-			leafParent(idx, m_root, NULL, result);
-			sidx = result->sub.idx_sample;
-			cutfeat = result->sub.divfeat;
-			low = result->sub.low;
-			high = result->sub.high;
-		}
-
-		const BoundingBox & get_rootBox(){
+		const BoundingBox& get_rootBox() {
 			return m_rootBbox;
 		}
-		int smallestBox(){ return m_sbox; }
-		int largestBox(){ return m_lbox; }
-		std::vector<std::pair<ElementType, ElementType>> & get_box(int idx) {
-			return region[idx].box;
+		int smallestBox() { return m_sbox; }
+		int largestBox() { return m_lbox; }
+		const std::vector<std::pair<ElementType, ElementType>>& get_box(int idx) const {
+			return m_regions[idx].box;
 		}
-		double getBoxVolume(int idx) {
-			return region[idx].volume;
+		OFEC::real getBoxVolume(int idx) {
+			return m_regions[idx].volume;
 		}
+		size_t get_depth(int idx) {
+			return m_regions[idx].depth;
+		}
+		int split_region(int idx, int dim) {
+			NodePtr node = nullptr;
+			leafNode(idx, m_root, node);
+			if (node == nullptr) return -1;
+			NodePtr node1 = m_pool.allocate<Node>();
+			NodePtr node2 = m_pool.allocate<Node>();
+			node1->depth = node->depth + 1;
+			node2->depth = node->depth + 1;
+			node1->parent = node;
+			node2->parent = node;
+			node1->child1 = node1->child2 = NULL;
+			node2->child1 = node2->child2 = NULL;
+			node->child1 = node1;
+			node->child2 = node2;
+			//node->sub.divfeat = node->depth % m_dim;
+			node->sub.divfeat = dim;
+			node->sub.low = m_regions[idx].box[node->sub.divfeat].first;
+			node->sub.high = m_regions[idx].box[node->sub.divfeat].second;
+			node->sub.pivot = (node->sub.low + node->sub.high) / 2;
+			node1->lr.idx_region = idx;
+			node2->lr.idx_region = m_regions.size();
+			m_regions[idx].volume /= 2;
+			m_regions[idx].depth++;
+			m_regions.push_back(m_regions[idx]);
+			m_regions[idx].box[node->sub.divfeat].second = node->sub.pivot;
+			m_regions.back().box[node->sub.divfeat].first = node->sub.pivot;
+			m_size++;
+			return node2->lr.idx_region;
+		}
+
+		void unions_at_depth(int depth, std::vector<std::vector<size_t>> & region_unions) const {
+			if (!region_unions.empty()) region_unions.clear();
+			find_unions_at_depth(depth, m_root, region_unions);
+		}
+
+		void find_neighbor(int idx, std::list<int> & neighbors) const {
+			if (!neighbors.empty()) neighbors.clear();
+			neighbor_check(idx, m_root, neighbors);
+		}
+
+		bool check_adjacency(int idx1, int idx2) const {
+			bool result = true;
+			const auto& box1 = m_regions[idx1].box;
+			const auto& box2 = m_regions[idx2].box;
+			for (size_t j = 0; j < m_dim; ++j) {
+				if (box1[j].second < box2[j].first || box2[j].second < box1[j].first) {
+					result = false;
+					break;
+				}
+			}
+			return result;
+		}
+
+
 	private:
 		/** Make sure the auxiliary list \a vind has the same size than the current dataset, and re-generate if size has changed. */
 		void init_vindPoint()
@@ -358,7 +435,7 @@ namespace KDTreeSpace
 			m_size = m_pointdata.size();
 			if (m_vind.size() != m_size) m_vind.resize(m_size);
 			size_t k = 0;
-			for (auto &i : m_vind) i = k++;
+			for (auto& i : m_vind) i = k++;
 		}
 
 		/** Make sure the auxiliary list \a vind has the same size than the current ratiodata, and re-generate if size has changed. */
@@ -368,7 +445,7 @@ namespace KDTreeSpace
 			m_size = m_ratiodata.size();
 			if (m_vind.size() != m_size) m_vind.resize(m_size);
 			size_t k = 0;
-			for (auto &i : m_vind) i = k++;
+			for (auto& i : m_vind) i = k++;
 		}
 
 		/// Helper accessor to the dataset points:
@@ -389,16 +466,17 @@ namespace KDTreeSpace
 		* @param left index of the first vector
 		* @param right index of the last vector
 		*/
-		NodePtr divideTree(const IndexType left, const IndexType right, BoundingBox& bbox, int depth = 0)
+		NodePtr divideTree(const IndexType left, const IndexType right, BoundingBox & bbox, int depth = 0)
 		{
-			NodePtr node = pool.allocate<Node>(); // allocate memory
+			NodePtr node = m_pool.allocate<Node>(); // allocate memory
 
 			/*a leaf node,create a sub-region. */
 			if ((right - left) <= 0) {
 				node->child1 = node->child2 = NULL;    /* Mark as leaf node. */
-				node->lr.idx_region = region.size();
-				region.push_back(bbox);
-				boxRatio(region.back(), region.size() - 1);
+				node->lr.idx_region = m_regions.size();
+				node->depth = depth;
+				m_regions.push_back(bbox);
+				boxRatio(m_regions.back(), m_regions.size() - 1);
 			}
 			else {
 				IndexType idx;
@@ -410,28 +488,37 @@ namespace KDTreeSpace
 				node->sub.divfeat = cutfeat;
 				node->sub.low = bbox.box[cutfeat].first;
 				node->sub.high = bbox.box[cutfeat].second;
+				node->depth = depth;
 				BoundingBox left_bbox(bbox);
 				left_bbox.box[cutfeat].second = cutval;
-				node->child1 = divideTree(left, left + idx, left_bbox, depth + 1);
+				//node->child1 = divideTree(left, left + idx, left_bbox, depth + 1);
+				NodePtr temp = divideTree(left, left + idx, left_bbox, depth + 1);
+				node->child1 = temp;
+				temp->parent = node;
 
 				BoundingBox right_bbox(bbox);
 				right_bbox.box[cutfeat].first = cutval;
-				node->child2 = divideTree(left + idx + 1, right, right_bbox, depth + 1);
+				//node->child2 = divideTree(left + idx + 1, right, right_bbox, depth + 1);
+				temp = divideTree(left + idx + 1, right, right_bbox, depth + 1);
+				node->child2 = temp;
+				temp->parent = node;
+
 				node->sub.pivot = cutval;
 			}
 			return node;
 		}
 
 
-		NodePtr ratioDivideTree(const IndexType left, const IndexType right, BoundingBox& bbox, int depth = 0)
+		NodePtr ratioDivideTree(const IndexType left, const IndexType right, BoundingBox & bbox, int depth = 0)
 		{
-			NodePtr node = pool.allocate<Node>(); // allocate memory
+			NodePtr node = m_pool.allocate<Node>(); // allocate memory
 			if ((right - left) <= 1)
 			{
 				node->child1 = node->child2 = NULL;    /* Mark as leaf node. */
-				node->lr.idx_region = region.size();
-				region.push_back(bbox);                //±£´æ¸ÃÎ¬µÄËÑË÷ÇøÓò
-				boxRatio(region.back(), region.size() - 1);//region.back():·µ»ØregionÈÝÆ÷Ä©Î²ÔªËØµÄÒýÓÃ		
+				node->lr.idx_region = m_regions.size();
+				node->depth = depth;
+				m_regions.push_back(bbox);                //ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				boxRatio(m_regions.back(), m_regions.size() - 1);//region.back():ï¿½ï¿½ï¿½ï¿½regionï¿½ï¿½ï¿½ï¿½Ä©Î²Ôªï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½		
 			}
 			else {
 				IndexType idx;
@@ -443,21 +530,30 @@ namespace KDTreeSpace
 				node->sub.divfeat = cutfeat;
 				node->sub.low = bbox.box[cutfeat].first;
 				node->sub.high = bbox.box[cutfeat].second;
+				node->depth = depth;
 
 				BoundingBox left_bbox(bbox);
 				left_bbox.box[cutfeat].second = cutval;
-				node->child1 = ratioDivideTree(left, idx, left_bbox, depth + 1);
+				left_bbox.depth = depth + 1;
+				NodePtr temp = ratioDivideTree(left, idx, left_bbox, depth + 1);
+				node->child1 = temp;
+				temp->parent = node;
+				//node->child1 = ratioDivideTree(left, idx, left_bbox, depth + 1);
 
 				BoundingBox right_bbox(bbox);
 				right_bbox.box[cutfeat].first = cutval;
-				node->child2 = ratioDivideTree(idx, right, right_bbox, depth + 1);
+				right_bbox.depth = depth + 1;
+				temp = ratioDivideTree(idx, right, right_bbox, depth + 1);
+				node->child2 = temp;
+				temp->parent = node;
+				//node->child2 = ratioDivideTree(idx, right, right_bbox, depth + 1);
 				node->sub.pivot = cutval;
 			}
 			return node;
 		}
 
 
-		void computeMinMax(IndexType* ind, IndexType count, int element, ElementType& min_elem, ElementType& max_elem)
+		void computeMinMax(IndexType * ind, IndexType count, int element, ElementType & min_elem, ElementType & max_elem)
 		{
 			min_elem = dataset_get(ind[0], element);
 			max_elem = dataset_get(ind[0], element);
@@ -468,18 +564,18 @@ namespace KDTreeSpace
 			}
 		}
 
-		void middleSplit_(IndexType* ind, IndexType count, IndexType& index, int& cutfeat, ElementType& cutval, const BoundingBox& bbox, int depth)
+		void middleSplit_(IndexType * ind, IndexType count, IndexType & index, int& cutfeat, ElementType & cutval, const BoundingBox & bbox, int depth)
 		{
 
-			cutfeat = depth%m_dim;
+			cutfeat = depth % m_dim;
 			// for a balanced kd-tree, split in the median value
 			std::vector<IndexType> cur_idx(count);
 			for (IndexType i = 0; i < count; ++i) {
 				cur_idx[i] = ind[i];
 			}
-			std::nth_element(cur_idx.begin(), cur_idx.begin() + cur_idx.size() / 2, cur_idx.end(), [this, &cutfeat](const IndexType a, const IndexType b){
+			std::nth_element(cur_idx.begin(), cur_idx.begin() + cur_idx.size() / 2, cur_idx.end(), [this, &cutfeat](const IndexType a, const IndexType b) {
 				return this->dataset_get(a, cutfeat) < this->dataset_get(b, cutfeat);
-			});
+				});
 			ElementType split_val = dataset_get(cur_idx[cur_idx.size() / 2], cutfeat);
 			//.....
 
@@ -498,11 +594,12 @@ namespace KDTreeSpace
 			else index = count / 2;
 		}
 
-		void midSplit(IndexType* ind, IndexType count, IndexType& index, int& cutfeat, ElementType& cutval, const BoundingBox& bbox, int depth)
+		void midSplit(IndexType * ind, IndexType count, IndexType & index, int& cutfeat, ElementType & cutval, const BoundingBox & bbox, int depth)
 		{
-			double sum1 = 0.0;
-			double sum2 = 0.0;
-			cutfeat = depth%m_dim;
+			OFEC::real sum1 = 0.0;
+			OFEC::real sum2 = 0.0;
+			cutfeat = depth % m_dim;
+			//cutfeat = rand() % m_dim;
 			std::vector<IndexType> cur_idx(count);
 			for (IndexType i = 0; i < count; ++i)
 			{
@@ -511,7 +608,7 @@ namespace KDTreeSpace
 
 			index = cur_idx[cur_idx.size() / 2];
 
-			for (auto &i : cur_idx)
+			for (auto& i : cur_idx)
 				sum1 += m_ratiodata[i];
 
 			for (auto j = 0; j < cur_idx.size() / 2; ++j)
@@ -519,7 +616,7 @@ namespace KDTreeSpace
 				sum2 += m_ratiodata[cur_idx[j]];
 			}
 
-			cutval = bbox.box[cutfeat].first + (bbox.box[cutfeat].second - bbox.box[cutfeat].first)*(sum2 / sum1);
+			cutval = bbox.box[cutfeat].first + (bbox.box[cutfeat].second - bbox.box[cutfeat].first) * (sum2 / sum1);
 		}
 		/**
 		*  Subdivide the list of points by a plane perpendicular on axe corresponding
@@ -530,7 +627,7 @@ namespace KDTreeSpace
 		*  dataset[ind[lim1..lim2-1]][cutfeat]==cutval
 		*  dataset[ind[lim2..count]][cutfeat]>cutval
 		*/
-		void planeSplit(IndexType* ind, const IndexType count, int cutfeat, ElementType cutval, IndexType& lim1, IndexType& lim2)
+		void planeSplit(IndexType * ind, const IndexType count, int cutfeat, ElementType cutval, IndexType & lim1, IndexType & lim2)
 		{
 			/* Move vector indices for left subtree to front of list. */
 			IndexType left = 0;
@@ -559,8 +656,8 @@ namespace KDTreeSpace
 			lim2 = left;
 		}
 
-		size_t enqury(const std::vector<ElementType> & p, NodePtr node){
-			if (node->child1 == NULL&&node->child2 == NULL){
+		size_t enqury(const std::vector<ElementType> & p, NodePtr node) const {
+			if (node->child1 == NULL && node->child2 == NULL) {
 				return node->lr.idx_region;
 			}
 			if (m_mode == 1) {
@@ -579,42 +676,90 @@ namespace KDTreeSpace
 					return enqury(p, node->child2);
 				}
 			}
-			
+
 
 		}
-		void leafParent(IndexType idx_region, NodePtr node, NodePtr parent, NodePtr &result){
-			if (node->child1 == NULL&&node->child2 == NULL){
-				if (node->lr.idx_region == idx_region){
+		void leafParent(IndexType idx_region, NodePtr node, NodePtr parent, NodePtr & result) {
+			if (node->child1 == NULL && node->child2 == NULL) {
+				if (node->lr.idx_region == idx_region) {
 					if (node != m_root) result = parent;
-					else{
+					else {
 						result = m_root;
 					}
 				}
 				return;
 			}
-			if (node->child1 != NULL&&result == NULL)  leafParent(idx_region, node->child1, node, result);
-			if (node->child2 != NULL&&result == NULL)  leafParent(idx_region, node->child2, node, result);
+			if (node->child1 != NULL && result == NULL)  leafParent(idx_region, node->child1, node, result);
+			if (node->child2 != NULL && result == NULL)  leafParent(idx_region, node->child2, node, result);
 		}
 
-		void boxRatio(BoundingBox &it, unsigned idx){
+		void boxRatio(BoundingBox & it, unsigned idx) {
 			it.rat = 1;
-			for (int i = 0; i < m_dim; ++i){
+			for (int i = 0; i < m_dim; ++i) {
 				it.rat *= (it.box[i].second - it.box[i].first) / (m_rootBbox.box[i].second - m_rootBbox.box[i].first);
 			}
-			if (it.rat > m_lrat){
+			if (it.rat > m_lrat) {
 				m_lrat = it.rat;
 				m_lbox = idx;
 			}
-			if (it.rat < m_srat){
+			if (it.rat < m_srat) {
 				m_srat = it.rat;
 				m_sbox = idx;
 			}
-			
+
 			it.volume = 0;
 			for (int i = 0; i < m_dim; ++i) {
-				it.volume += (it.box[i].second - it.box[i].first)*(it.box[i].second - it.box[i].first);
+				it.volume += (it.box[i].second - it.box[i].first) * (it.box[i].second - it.box[i].first);
 			}
-			it.volume = sqrt(it.volume);
+			it.volume = std::sqrt(it.volume);
+		}
+
+		void leafNode(IndexType idx_region, NodePtr node, NodePtr & leafnode) {
+			if (node->child1 == NULL && node->child2 == NULL && node->lr.idx_region == idx_region) {
+				leafnode = node;
+				return;
+			}
+			if (node->child1 != NULL)  leafNode(idx_region, node->child1, leafnode);
+			if (node->child2 != NULL)  leafNode(idx_region, node->child2, leafnode);
+		}
+
+		void get_leaf_regions(NodePtr node, std::vector<size_t> & idx_regions) const {
+			if (node->child1 == NULL && node->child2 == NULL) {
+				idx_regions.push_back(node->lr.idx_region);
+				return;
+			}
+			if (node->child1 != NULL)
+				get_leaf_regions(node->child1, idx_regions);
+			if (node->child2 != NULL)
+				get_leaf_regions(node->child2, idx_regions);
+		}
+
+		void find_unions_at_depth(int depth, NodePtr node, std::vector<std::vector<size_t>> & region_unions) const {
+			if (node->depth == depth) {
+				std::vector<size_t> idx_regions;
+				get_leaf_regions(node, idx_regions);
+				region_unions.push_back(std::move(idx_regions));
+				return;
+			}
+			if (node->child1 != NULL)
+				find_unions_at_depth(depth, node->child1, region_unions);
+			if (node->child2 != NULL)
+				find_unions_at_depth(depth, node->child2, region_unions);
+		}
+
+		void neighbor_check(int idx, NodePtr node, std::list<int> & neighbors) const {
+			if (node->child1 == NULL && node->child2 == NULL && idx != node->lr.idx_region) {
+				neighbors.emplace_back(node->lr.idx_region);
+				return;
+			}
+			if (node->child1 != NULL) {
+				if (!(m_regions[idx].box[node->sub.divfeat].second < node->sub.low || node->sub.pivot < m_regions[idx].box[node->sub.divfeat].first))
+					neighbor_check(idx, node->child1, neighbors);
+			}
+			if (node->child2 != NULL) {
+				if (!(m_regions[idx].box[node->sub.divfeat].second < node->sub.pivot || node->sub.high < m_regions[idx].box[node->sub.divfeat].first))
+					neighbor_check(idx, node->child2, neighbors);
+			}
 		}
 	};
 	/** @} */ // end of grouping

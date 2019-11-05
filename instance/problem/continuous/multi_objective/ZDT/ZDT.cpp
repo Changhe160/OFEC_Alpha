@@ -9,13 +9,13 @@ namespace OFEC {
 		set_init_range(0., 1.);
 		set_range(0., 1.);
 		generateAdLoadPF();
+		m_initialized = true;
 	}
 
 	void ZDT::generateAdLoadPF() {
 		size_t num = 1000;
 		m_optima.resize_objective_set(num);
 		m_optima.resize_variable_set(num);
-		m_optima.resize_variable(m_variable_size);
 
 		std::ofstream out;
 		std::ifstream infile;
@@ -26,16 +26,16 @@ namespace OFEC {
 		if (!infile)
 		{
 			out.open(os.str());
-			double temp;
+			real temp;
 			for (size_t i = 0; i<num; i++)
 			{
-				std::vector<real> temp_var(m_variable_size);
+				variable_vector<real> temp_var(m_variable_size);
 				std::vector<real> temp_obj(m_objective_size);
-				temp = static_cast<double>(i) / num;
+				temp = static_cast<real>(i) / num;
 				temp_var[0] = temp;
 				for (size_t j = 1; j<m_variable_size; j++)
 					temp_var[j] = 0.;
-				evaluate__(temp_var.data(), temp_obj);
+				evaluate_objective(temp_var.data(), temp_obj);
 				m_optima.set_variable(temp_var, i);
 				m_optima.set_objective(temp_obj, i);
 				out << temp_obj[0] << " " << temp_obj[1] << std::endl;
@@ -44,12 +44,12 @@ namespace OFEC {
 		}
 		else
 		{
-			double temp;
+			real temp;
 			for (size_t i = 0; i<num; i++)
 			{
-				std::vector<real> temp_var(m_variable_size);
+				variable_vector<real> temp_var(m_variable_size);
 				std::vector<real> temp_obj(m_objective_size);
-				temp = static_cast<double>(i) / num;
+				temp = static_cast<real>(i) / num;
 				temp_var[0] = temp;
 				for (size_t j = 1; j<m_variable_size; j++)
 					temp_var[j] = 0.;

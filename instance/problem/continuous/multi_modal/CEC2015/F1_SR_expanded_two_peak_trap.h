@@ -29,10 +29,10 @@ namespace OFEC {
 			F1_SR_expanded_two_peak_trap(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_MMP_F1 = CEC2015::F1_SR_expanded_two_peak_trap;
+	using CEC2015_MMOP_F01 = CEC2015::F1_SR_expanded_two_peak_trap;
 }
 #endif // !OFEC_F1_SR_EXPANDED_TWO_PEAK_TRAP_H

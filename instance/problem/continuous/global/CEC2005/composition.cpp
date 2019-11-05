@@ -33,19 +33,17 @@ namespace OFEC {
 		}
 
 		void composition::compute_fmax() {  // calculate the estimate max value of funciton i
-			variable_vector<real> temp_var(m_variable_size);
-			objective_vector<real> temp_obj(m_objective_size);
-			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
+            solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
 			for (size_t i = 0; i < m_num_function; ++i) {
 				for (size_t j = 0; j < m_variable_size; ++j) {
-					x.variable()[j] = m_domain[j].limit.second;
+					s.variable()[j] = m_domain[j].limit.second;
 				}
-				m_function[i]->function::evaluate_(x, caller::Problem, false, false);
-				m_fmax[i] = x.objective()[0];
+				m_function[i]->function::evaluate_(s, caller::Problem, false, false);
+				m_fmax[i] = s.objective()[0];
 			}
 		}
 
-		void composition::set_weight(std::vector<double>& weight, const std::vector<real>&x) { //default CEC05
+		void composition::set_weight(std::vector<real>& weight, const std::vector<real>&x) { //default CEC05
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate weight for each function
 				weight[i] = 0;
 				for (size_t j = 0; j < m_variable_size; ++j) {
@@ -56,16 +54,16 @@ namespace OFEC {
 			}
 		}
 
-		void composition::evaluate__(real *x, std::vector<real>& obj) {
+		void composition::evaluate_objective(real *x, std::vector<real> &obj) {
 			std::vector<real> x_(m_variable_size);
 			std::copy(x, x + m_variable_size, x_.begin());
 			
-			std::vector<double> weight(m_num_function, 0);
+			std::vector<real> weight(m_num_function, 0);
 			set_weight(weight, x_);
 
 			std::vector<real> fit(m_num_function);
-			solution<variable_vector<real>, real> s(m_objective_size, m_variable_size);
-			s.variable() = x_;
+			solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
+			s.variable().vect() = x_;
 
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
 				m_function[i]->function::evaluate_(s, caller::Problem, false, false);
@@ -74,7 +72,7 @@ namespace OFEC {
 					fit[i] = m_height_normalize_severity*fit[i] / fabs(m_fmax[i]);
 			}
 
-			double sumw = 0, wmax;
+			real sumw = 0, wmax;
 			wmax = *std::max_element(weight.begin(), weight.end());
 			for (size_t i = 0; i < m_num_function; ++i) {
 				if (weight[i] != wmax) {
@@ -99,7 +97,7 @@ namespace OFEC {
 			for (size_t i = 0; i < m_num_function; ++i)
 				weight[i] /= sumw;
 
-			double temp = 0;
+			real temp = 0;
 			for (size_t i = 0; i < m_num_function; ++i) {
 				temp += weight[i] * (fit[i] + m_height[i]);
 			}
@@ -129,11 +127,14 @@ namespace OFEC {
 				out.close();
 			}
 			else {
-				std::string first_line;
-				getline(in, first_line);
-				for (size_t i = 0; i < m_num_function; ++i) 
-					for (size_t j = 0; j < m_variable_size; ++j) 
-						in >> m_function[i]->translation()[j];
+				std::string row;
+				std::getline(in, row); // Skip the first line of commments
+				for (size_t i = 0; i < m_num_function; ++i) {
+					std::getline(in, row);
+					std::stringstream sstr_row(row);
+					for (size_t j = 0; j < m_variable_size; ++j)
+						sstr_row >> m_function[i]->translation()[j];
+				}
 			}
 			in.close();
 			for(auto &i: m_function)

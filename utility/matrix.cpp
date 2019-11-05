@@ -54,10 +54,61 @@ namespace OFEC {
 		m_det_flag = false;
 	}
 
+	matrix operator*(const matrix &left_mat, const matrix &right_mat) {
+		//TODO: GPU computing
+		if (left_mat.m_col_size != right_mat.m_row_size)
+			throw myexcept("can not *, m_col_size of 1st matrix must be equal to m_row_size of 2nd matrix@ matrix::operator *");
+		matrix r(left_mat.m_row_size, right_mat.m_col_size);
+		for (int i = 0; i < left_mat.m_row_size; i++) {
+			for (int j = 0; j < right_mat.m_col_size; j++) {
+				r.m_row[i][j] = 0;
+				for (int k = 0; k < left_mat.m_col_size; k++)
+					r.m_row[i][j] += left_mat.m_row[i][k] * right_mat.m_row[k][j];
+			}
+		}
+		return r;
+	}
+
+	matrix operator+(const matrix &left_mat, const matrix &right_mat) {
+		if (left_mat.m_row_size != right_mat.m_row_size || left_mat.m_col_size != right_mat.m_col_size)
+			throw myexcept("can not +, m_row_size and m_col_size of 1st matrix must be equal to that of 2nd matrix@ matrix::operator +");
+		matrix r(left_mat.m_row_size, left_mat.m_col_size);
+		for (int i = 0; i < left_mat.m_row_size; i++) {
+			r.m_row[i] = left_mat.m_row[i] + right_mat.m_row[i];
+		}
+		return r;
+	}
+
+	matrix operator-(const matrix &left_mat, const matrix &right_mat) {
+		if (left_mat.m_row_size != right_mat.m_row_size || left_mat.m_col_size != right_mat.m_col_size)
+			throw myexcept("can not -, m_row_size and m_col_size of 1st matrix must be equal to that of 2nd matrix@ matrix::operator -");
+		matrix r(left_mat.m_row_size, left_mat.m_col_size);
+		for (int i = 0; i < left_mat.m_row_size; i++) {
+			r.m_row[i] = left_mat.m_row[i] - right_mat.m_row[i];
+		}
+		return r;
+	}
+
+	matrix operator*(const real real, const matrix &mat) {
+		matrix r(mat.m_row_size, mat.m_col_size);
+		for (int i = 0; i < mat.m_row_size; i++) {
+			r[i] = mat.m_row[i] * real;
+		}
+		return r;
+	}
+
+	matrix operator*(const matrix &mat, const real real) {
+		matrix r(mat.m_row_size, mat.m_col_size);
+		for (int i = 0; i < mat.m_row_size; i++) {
+			r[i] = mat.m_row[i] * real;
+		}
+		return r;
+	}
+
 	matrix & matrix::operator *=(const matrix &m) {
 		//TODO: GPU computing
-		if (m_col_size != m.m_row_size) 
-			throw myexcept("can not *, m_col_size of 1st matrix must be equal to m_row_size of 2nd matrix@ matrix::operator *=");
+		if (m_col_size != m.m_row_size)
+			throw myexcept("can not *=, m_col_size of 1st matrix must be equal to m_row_size of 2nd matrix@ matrix::operator *=");
 
 		matrix r(m_row_size, m.m_col_size);
 		for (int i = 0; i < m_row_size; i++) {
@@ -76,23 +127,25 @@ namespace OFEC {
 		return *this;
 	}
 
-	matrix  matrix::operator *(const matrix &m) {
-		//TODO: GPU computing
-		if (m_col_size != m.m_row_size) 
-			throw myexcept("can not *, m_col_size of 1st matrix must be equal to m_row_size of 2nd matrix@ matrix::operator *");
-
-		matrix r(m_row_size, m.m_col_size);
+	matrix & matrix::operator+=(const matrix & m) {
+		if (m_row_size != m.m_row_size || m_col_size != m.m_col_size)
+			throw myexcept("can not +=, m_row_size and m_col_size of 1st matrix must be equal to that of 2nd matrix@ matrix::operator +=");
 		for (int i = 0; i < m_row_size; i++) {
-			for (int j = 0; j < m.m_col_size; j++) {
-				r.m_row[i][j] = 0;
-				for (int k = 0; k < m_col_size; k++)
-					r.m_row[i][j] += m_row[i][k] * m.m_row[k][j];
-			}
+			m_row[i] += m.m_row[i];
 		}
-		return r;
+		return *this;
 	}
 
-	matrix & matrix::operator *=(double x) {
+	matrix & matrix::operator-=(const matrix & m) {
+		if (m_row_size != m.m_row_size || m_col_size != m.m_col_size)
+			throw myexcept("can not -=, m_row_size and m_col_size of 1st matrix must be equal to that of 2nd matrix@ matrix::operator -=");
+		for (int i = 0; i < m_row_size; i++) {
+			m_row[i] -= m.m_row[i];
+		}
+		return *this;
+	}
+
+	matrix & matrix::operator *=(real x) {
 		for (int i = 0; i < m_row_size; i++) {
 			m_row[i] *= x;
 		}
@@ -100,21 +153,7 @@ namespace OFEC {
 		return *this;
 	}
 
-	matrix&matrix::operator =(const matrix &m) {
-		if (m_row_size != m.m_row_size || m_col_size != m.m_col_size) {
-			throw myexcept("Assiment operator matrix@matrix::operator =");
-		}
-		if (this == &m) return *this;
-		m_row = m.m_row;
-		if (m.m_det_flag == true) {
-			m_det = m.m_det;
-			m_det_flag = true;
-		}
-		else m_det_flag = false;
-		return *this;
-	}
-
-	bool matrix::eqaul(const matrix & m, double accuracy) {
+	bool matrix::eqaul(const matrix & m, real accuracy) {
 		if ((m_col_size == m.m_col_size) && (m_row_size == m.m_row_size)) {
 			for (int i = 0; i < m_row_size; i++) {
 				for (int j = 0; j < m_col_size; j++) {
@@ -136,7 +175,7 @@ namespace OFEC {
 		m_det_flag = true;
 		return true;
 	}
-	bool matrix::check_identity(double accuracy) {
+	bool matrix::check_identity(real accuracy) {
 		if (m_row_size != m_col_size) return false;
 		for (int i = 0; i < m_row_size; i++) {
 			for (int j = 0; j < m_col_size; j++) {
@@ -147,12 +186,12 @@ namespace OFEC {
 		}
 		return true;
 	}
-	void matrix::diagonalize(normal * rand, double CondiNum) {
+	void matrix::diagonalize(normal * rand, real CondiNum) {
 		if (m_row_size != m_col_size) 
 			throw myexcept("can not be check_diagonal, matrix must be squre@matrix::diagonalize");
 
-		double min, max;
-		double *r = new double[m_row_size];
+		real min, max;
+		real *r = new real[m_row_size];
 		for (int i = 0; i < m_row_size; i++)	r[i] = rand->next_non_standard(1., m_row_size*1.0);
 
 		min = max = r[0];
@@ -175,7 +214,7 @@ namespace OFEC {
 		m_det = 0;
 		m_det_flag = true;
 	}
-	void matrix::set_rotation_axes(size_t r, size_t c, double angle) {
+	void matrix::set_rotation_axes(size_t r, size_t c, real angle) {
 		identify();
 		m_row[r][r] = cos(angle);
 		m_row[r][c] = -sin(angle);
@@ -185,7 +224,7 @@ namespace OFEC {
 	}
 
 
-	void matrix::generate_rotation_modified(normal *rand, double CondiNum) {
+	void matrix::generate_rotation_modified(normal *rand, real CondiNum) {
 		matrix ortholeft(m_row_size), orthoright(m_row_size), check_diagonal(m_row_size);
 		ortholeft.randomize(rand);
 		ortholeft.modified_orthonormalize();
@@ -198,7 +237,7 @@ namespace OFEC {
 		m_det_flag = false;
 	}
 
-	void matrix::generate_rotation_classical(normal *rand, double CondiNum) {
+	void matrix::generate_rotation_classical(normal *rand, real CondiNum) {
 		/*P. N. Suganthan, N. Hansen, J. J. Liang, K. Deb, Y.-P. Chen, A. Auger and S. Tiwari,
 		"Problem Definitions and Evaluation Criteria for the CEC 2005 Special Session on Real-Parameter
 		Optimization", Technical Report, Nanyang Technological University, Singapore, May 2005 AND KanGAL
@@ -232,7 +271,7 @@ namespace OFEC {
 			throw myexcept("cannot perform orthonormalization, matrix must be squre@matrix::orthonormalize");
 		//if (!(check_invertible())) throw myexcept("cannot perform function orthonormalize(), matrix must be reversible@matrix::orthonormalize");
 		matrix v(m_row_size, m_col_size);
-		double r = 0;
+		real r = 0;
 		//modified Gram schmidt process
 		for (int i = 0; i < m_row_size; i++) {
 			v[i] = m_row[i];
@@ -247,7 +286,7 @@ namespace OFEC {
 		}
 		m_det_flag = false;
 	}
-	bool matrix::check_orthogonal(double accuracy) {
+	bool matrix::check_orthogonal(real accuracy) {
 		/*if (m_row_size != m_col_size) throw myexcept("cannot perform function check_orthogonal(), matrix must be squre@matrix::orthonormalize");
 		matrix temp1 = *this;
 		temp1.transpose();
@@ -265,21 +304,20 @@ namespace OFEC {
 		}
 		return true;
 	}
-	void matrix::transpose() {
-		std::vector<Vector> temp(m_col_size, Vector(m_row_size));
+
+	matrix matrix::transpose() {
+		matrix r(m_col_size, m_row_size);
 		for (int i = 0; i < m_row_size; i++)
 			for (int j = 0; j < m_col_size; j++) {
-				temp[j][i] = m_row[i][j];
+				r[j][i] = m_row[i][j];
 			}
-		m_row = std::move(temp);
-		m_row_size = m_row.size();
-		m_col_size = m_row[0].size();
+		return r;
 	}
 
 	void matrix::classical_orthonormalize() {
 		if (m_row_size != m_col_size) throw myexcept("cannot perform classical_orthonormalize, matrix must be squre@matrix::classical_orthonormalize");
 		matrix v(m_row_size, m_col_size);
-		double r = 0;
+		real r = 0;
 		//classical Gram schmidt process
 		for (int i = 0; i < m_row_size; i++) {
 			v[i] = m_row[i];
@@ -348,7 +386,7 @@ namespace OFEC {
 		return m_row;
 	}
 
-	bool matrix::check_invertible(double accuracy) {
+	bool matrix::check_invertible(real accuracy) {
 
 		return !(fabs(determinant()) <= accuracy);
 	}
@@ -415,7 +453,7 @@ namespace OFEC {
 	}
 
 
-	void matrix::diagonalize(double alpha) {
+	void matrix::diagonalize(real alpha) {
 		for (int i = 0; i < m_row_size; i++) {
 			for (int j = 0; j < m_col_size; j++)
 				if (i == j) m_row[i][j] = pow(alpha, 0.5*(i / (m_col_size - 1)));
@@ -424,7 +462,40 @@ namespace OFEC {
 		m_det_flag = false;
 	}
 
-	bool matrix::check_diagonal(double accuracy) {
+	void matrix::covariance_matrix(matrix &mat, Vector &mean) {
+		if (mat.row() != m_col_size || mat.col() != m_col_size)
+			mat.resize(m_col_size, m_col_size);
+		if (mean.size() != m_col_size) 
+			mean.resize(m_col_size);
+		for (size_t j = 0; j < m_col_size; ++j)	{
+			mean[j] = 0;
+			for (size_t i = 0; i < m_row_size; ++i) {
+				mean[j] += m_row[i][j];
+			}
+			mean[j] /= m_row_size;
+		}
+		for (size_t i = 0; i < m_col_size; ++i)	{
+			for (size_t j = i; j < m_col_size; ++j) {
+				if (i == j) {
+					mat[i][j] = 0;
+					for (size_t k = 0; k < m_row_size; ++k) {
+						mat[i][j] += pow((m_row[k][i] - mean[i]),2);
+					}
+				}
+				else {
+					mat[i][j] = 0;
+					mat[j][i] = 0;
+					for (size_t k = 0; k < m_row_size; ++k) {
+						real temp = (m_row[k][i] - mean[i])*(m_row[k][j] - mean[j]);
+						mat[i][j] += temp;
+						mat[j][i] += temp;
+					}
+				}
+			}
+		}
+	}
+
+	bool matrix::check_diagonal(real accuracy) {
 		if (m_row_size != m_col_size) throw myexcept("cannot perform function check_diagonal(), matrix must be squre@matrix::check_diagonal");
 		for (int i = 0; i < m_row_size; i++) {
 			for (int j = 0; j < m_col_size; j++) {
@@ -608,7 +679,7 @@ namespace OFEC {
 
 		auto myhypot = [](real a, real b) {
 			//numerically stable sqrt(a^2+b^2)
-			double r = 0;
+			real r = 0;
 			if (fabs(a) > fabs(b)) {
 				r = b / a;
 				r = fabs(a)*sqrt(1 + r*r);
@@ -623,7 +694,7 @@ namespace OFEC {
 		int i, k, l, m;
 		real f = 0.0;
 		real tst1 = 0.0;
-		double eps = 2.22e-16; /* Math.pow(2.0,-52.0);  == 2.22e-16 */
+		real eps = 2.22e-16; /* Math.pow(2.0,-52.0);  == 2.22e-16 */
 
 							   /* shift input e */
 		for (i = 1; i < n; i++) {
@@ -720,29 +791,29 @@ namespace OFEC {
 		/* Sort eigenvalues and corresponding vectors. */
 #if 1
 		/* TODO: really needed here? So far not, but practical and only O(n^2) */
-		{
-			int j;
-			double p;
-			for (i = 0; i < n - 1; i++) {
-				k = i;
-				p = d[i];
-				for (j = i + 1; j < n; j++) {
-					if (d[j] < p) {
-						k = j;
-						p = d[j];
-					}
-				}
-				if (k != i) {
-					d[k] = d[i];
-					d[i] = p;
-					for (j = 0; j < n; j++) {
-						p = V[j][i];
-						V[j][i] = V[j][k];
-						V[j][k] = p;
-					}
-				}
-			}
-		}
+		//{
+		//	int j;
+		//	real p;
+		//	for (i = 0; i < n - 1; i++) {
+		//		k = i;
+		//		p = d[i];
+		//		for (j = i + 1; j < n; j++) {
+		//			if (d[j] < p) {
+		//				k = j;
+		//				p = d[j];
+		//			}
+		//		}
+		//		if (k != i) {
+		//			d[k] = d[i];
+		//			d[i] = p;
+		//			for (j = 0; j < n; j++) {
+		//				p = V[j][i];
+		//				V[j][i] = V[j][k];
+		//				V[j][k] = p;
+		//			}
+		//		}
+		//	}
+		//}
 #endif 
 	}
 

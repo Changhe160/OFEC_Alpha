@@ -27,9 +27,9 @@ namespace OFEC {
 
 			// 2^Dim gopt and 5^Dim - 2^Dim lopt 
 			evaluate_optima();
-
+			m_initialized = true;
 		}
-		void F2_SR_expanded_five_uneven_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
+		void F2_SR_expanded_five_uneven_peak_trap::evaluate_objective(real *x, std::vector<real> &obj) {
 
 			size_t i;
 

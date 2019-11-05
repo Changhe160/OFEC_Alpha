@@ -14,29 +14,21 @@ namespace OFEC {
 
 	void function_CEC2013::set_original_global_opt(real *opt) {
 		if (m_objective_size > 1) throw myexcept("function_CEC2013::set_original_global_opt only for problems with a single obj");
-		variable_vector<real> temp_var(m_variable_size);
-		if (opt == 0)		for (auto&i : temp_var) i = 0.;
-		else	for (int i = 0; i < m_variable_size; i++)  temp_var[i] = opt[i];
-		m_original_global_opt.append(std::move(temp_var));
-
-		objective_vector<real> temp_obj(m_objective_size);
-		solution<variable_vector<real>, real> temp(m_original_global_opt.variable(0), std::move(temp_obj));
-
-		evaluate_(temp, caller::Problem,false,false);
-		m_original_global_opt.append(std::move(temp.objective()));
+        solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
+		if (opt == 0)		for (auto&i : s.variable()) i = 0.;
+		else	for (int i = 0; i < m_variable_size; i++)  s.variable()[i] = opt[i];
+		m_original_global_opt.append(s.variable());
+        s.evaluate(false, caller::Problem);
+		m_original_global_opt.append(s.objective());
 	}
 	void function_CEC2013::set_global_opt(real *tran) {
 		if (m_objective_size > 1) throw myexcept("function_CEC2013::set_global_opt only for problems with a single obj");
-		variable_vector<real> temp_var(m_variable_size);
+        solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
 		for (int i = 0; i < m_variable_size; ++i) 
-			temp_var[i] = tran[i];
-		m_optima.append(std::move(temp_var));
-
-		objective_vector<real> temp_obj(m_objective_size);
-		solution<variable_vector<real>, real> temp(m_optima.variable(0), std::move(temp_obj));
-		
-		evaluate_(temp, caller::Problem,false,false);
-		m_optima.append(std::move(temp.objective()));
+			s.variable()[i] = tran[i];
+		m_optima.append(s.variable());
+        s.evaluate(false, caller::Problem);
+		m_optima.append(s.objective());
 	}
 
 	real* function_CEC2013::readOvector()
@@ -127,7 +119,7 @@ namespace OFEC {
 
 	void function_CEC2013::create_shifted_vector(std::vector<real> &vec) {
 
-		double hw, middle;
+		real hw, middle;
 		real s, max, min;
 		for (int i = 0; i < m_variable_size; i++) {
 			max = m_domain[i].limit.second;
@@ -150,22 +142,22 @@ namespace OFEC {
 		}
 	}
 
-	void function_CEC2013::transform_asy(real* z, double beta, size_t dim)
+	void function_CEC2013::transform_asy(real* z, real beta, size_t dim)
 	{
 		for (int i = 0; i < dim; ++i)
 		{
 			if (z[i] > 0)
 			{
-				z[i] = pow(z[i], 1 + beta * i / ((double)(dim - 1)) * sqrt(z[i]));
+				z[i] = pow(z[i], 1 + beta * i / ((real)(dim - 1)) * sqrt(z[i]));
 			}
 		}
 	}
 
-	void function_CEC2013::lambda(real* z, double alpha, size_t dim)
+	void function_CEC2013::lambda(real* z, real alpha, size_t dim)
 	{
 		for (int i = 0; i < dim; ++i)
 		{
-			z[i] = z[i] * pow(alpha, 0.5 * i / ((double)(dim - 1)));
+			z[i] = z[i] * pow(alpha, 0.5 * i / ((real)(dim - 1)));
 		}
 	}
 
@@ -219,8 +211,8 @@ namespace OFEC {
 
 	//Create a random rotation matrix
 	void function_CEC2013::create_rotated_matrix(size_t dim, matrix & mat) {
-		double sum = 0;
-		double temp = 0;
+		real sum = 0;
+		real temp = 0;
 		matrix M(dim);
 		// initialize
 		for (size_t i = 0; i < dim; ++i) {
@@ -291,7 +283,7 @@ namespace OFEC {
 		matrix mat(dim);
 		std::vector<real> vec(dim*dim);
 		/*  allocate storage for an array of pointers */
-		//a =(double **) malloc(num * sizeof(double *));
+		//a =(real **) malloc(num * sizeof(real *));
 
 		/* for each pointer, allocate storage for an array of ints */
 		for (i = 0; i < num; i++) {
@@ -375,9 +367,9 @@ namespace OFEC {
 		return mp_s;
 	}
 
-	double* function_CEC2013::readW(size_t num)
+	real* function_CEC2013::readW(size_t num)
 	{
-		mp_w = new double[num];
+		mp_w = new real[num];
 
 		std::stringstream ss;
 		ss << "C:/Users/lenovo/Documents/GitHub/OFEC_Alpha/instance/problem/continuous/large_scale/CEC2013/data/" << "F" << ID << "-w.txt";
@@ -503,14 +495,14 @@ namespace OFEC {
 	}
 
 
-	// double* function_CEC2013::lookupprepare(int dim) {
-	//   double pownum;
+	// real* function_CEC2013::lookupprepare(int dim) {
+	//   real pownum;
 	//   int    i;
-	//   double* lookup;
+	//   real* lookup;
 	//   i         = (dim - 1);
 	//   pownum    = (1.0 / i);
-	//   //lookup    = (double*)malloc(dim * sizeof(double));
-	//   lookup    = new double[dim];
+	//   //lookup    = (real*)malloc(dim * sizeof(real));
+	//   lookup    = new real[dim];
 	//   lookup[i] = 1.0e6;
 	//   lookup[0] = 1.0;
 
@@ -526,8 +518,8 @@ namespace OFEC {
 	* Basic Mathematical Functions' Implementation
 	*/
 	// // elliptic function for F1 ~ F8
-	// double function_CEC2013::elliptic(double*x,int dim) {
-	//   double result = 0.0;
+	// real function_CEC2013::elliptic(real*x,int dim) {
+	//   real result = 0.0;
 	//   int    i;
 
 	//   for(i = dim - 1; i >= 0; i--) {
@@ -549,8 +541,8 @@ namespace OFEC {
 		// for(i = dim - 1; i >= 0; i--) {
 		for (i = 0; i < dim; ++i)
 		{
-			// printf("%f\n", pow(1.0e6,  i/((double)(dim - 1)) ));
-			result += pow(1.0e6, i / ((double)(dim - 1))) * x[i] * x[i];
+			// printf("%f\n", pow(1.0e6,  i/((real)(dim - 1)) ));
+			result += pow(1.0e6, i / ((real)(dim - 1))) * x[i] * x[i];
 		}
 
 		return result;
@@ -559,8 +551,8 @@ namespace OFEC {
 
 
 	// // elliptic function for F9 ~ 
-	// double function_CEC2013::elliptic(double*x, int dim, int k) {
-	//   double result = 0.0;
+	// real function_CEC2013::elliptic(real*x, int dim, int k) {
+	//   real result = 0.0;
 	//   int    i;
 
 	//   for(i=dim/k-1;i>=0;i--)
@@ -651,7 +643,7 @@ namespace OFEC {
 
 	real* function_CEC2013::multiply(real *vector, real *matrix, size_t dim) {
 		size_t i, j;
-		//double*result = (double*)malloc(sizeof(double) * dim);
+		//real*result = (real*)malloc(sizeof(real) * dim);
 		real *result = new real[dim];
 
 		for (i = dim - 1; i >= 0; --i) {
@@ -667,7 +659,7 @@ namespace OFEC {
 
 	real* function_CEC2013::multiply(real *vector, real **matrix, size_t dim) {
 		size_t i, j;
-		//double*result = (double*)malloc(sizeof(double) * dim);
+		//real*result = (real*)malloc(sizeof(real) * dim);
 		real *result = new real[dim];
 
 		for (i = 0; i < dim;++i) {
@@ -683,9 +675,9 @@ namespace OFEC {
 
 
 	// // Rotated Elliptic Function for F1 & F4
-	// double function_CEC2013::rot_elliptic(double*x,int dim){
-	//   double result = 0.0;
-	//   double *z = multiply(x,RotMatrix,dim);
+	// real function_CEC2013::rot_elliptic(real*x,int dim){
+	//   real result = 0.0;
+	//   real *z = multiply(x,RotMatrix,dim);
 
 	//   result = elliptic(z,dim);
 
@@ -694,8 +686,8 @@ namespace OFEC {
 	// }
 
 	// // Rotated Elliptic Function for F9 & F14
-	// double function_CEC2013::rot_elliptic(double*x,int dim, int k){
-	//   double result=0.0;
+	// real function_CEC2013::rot_elliptic(real*x,int dim, int k){
+	//   real result=0.0;
 
 	//   int i,j;
 	//   for(i=dim-1;i>=0;i--)
@@ -955,14 +947,14 @@ namespace OFEC {
 		I2 = mp_index_map[matIndex].arr_index2;
 	}		/* -----  end of function function_CEC2013::MatToArr  ----- */
 
-	int function_CEC2013::sign(double x)
+	int function_CEC2013::sign(real x)
 	{
 		if (x > 0) return 1;
 		if (x < 0) return -1;
 		return 0;
 	}
 
-	double function_CEC2013::hat(double x)
+	real function_CEC2013::hat(real x)
 	{
 		if (x == 0)
 		{
@@ -974,7 +966,7 @@ namespace OFEC {
 		}
 	}
 
-	double function_CEC2013::c1(double x)
+	real function_CEC2013::c1(real x)
 	{
 		if (x > 0)
 		{
@@ -986,7 +978,7 @@ namespace OFEC {
 		}
 	}
 
-	double function_CEC2013::c2(double x)
+	real function_CEC2013::c2(real x)
 	{
 		if (x > 0)
 		{

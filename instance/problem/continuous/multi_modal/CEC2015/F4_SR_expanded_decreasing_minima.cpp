@@ -29,9 +29,9 @@ namespace OFEC {
 			// 10Dim : 1 gopt and 55 lopt 
 			// 20Dim : 1 gopt and 210 lopt 
 			evaluate_optima();
-
+			m_initialized = true;
 		}
-		void F4_SR_expanded_decreasing_minima::evaluate__(real *x, std::vector<real>& obj) {
+		void F4_SR_expanded_decreasing_minima::evaluate_objective(real *x, std::vector<real> &obj) {
 
 			size_t i;
 

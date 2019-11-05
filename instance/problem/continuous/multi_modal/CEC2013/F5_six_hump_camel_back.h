@@ -10,7 +10,7 @@
 *  GNU General Public License as published by the Free Software
 *  Foundation; either version 2, or (at your option) any later version.
 *************************************************************************
-*  Paper: Benchmark Functions for CEC¡¯2013 Special Session and Competition on Niching
+*  Paper: Benchmark Functions for CECï¿½ï¿½2013 Special Session and Competition on Niching
 *  Methods for Multimodal Function Optimization.
 *******************************************************************************************/
 
@@ -26,10 +26,10 @@ namespace OFEC {
 		{
 		public:
 			F5_six_hump_camel_back(param_map &v);
-			F5_six_hump_camel_back(const std::string &name, size_t size_var, size_t size_obj);
+			F5_six_hump_camel_back(const std::string &name);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		};
 	}
 }

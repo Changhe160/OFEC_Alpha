@@ -30,7 +30,7 @@ namespace OFEC {
 			F10_composition2015_C2(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			void set_function();
 
 			bool load_optima(const std::string &path);
@@ -42,11 +42,11 @@ namespace OFEC {
 
 			bool load_translation(const std::string &path);
 			void set_translation();
-			void set_weight(std::vector<double>& weight, const std::vector<real>&x);
+			void set_weight(std::vector<real>& weight, const std::vector<real>&x);
 		private:
 		};
 	}
-	using CEC2015_MMP_F10 = CEC2015::F10_composition2015_C2;
+	using CEC2015_MMOP_F10 = CEC2015::F10_composition2015_C2;
 }
 #endif // !OFEC_CEC2015_F10_COMPOSITION2_H
 

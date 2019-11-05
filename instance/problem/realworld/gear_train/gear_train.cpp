@@ -21,16 +21,17 @@ namespace OFEC {
 
 		set_original_global_opt(v.data());
 		m_optima = m_original_optima;
+		m_initialized = true;
 	}
 
 
-	void gear_train::evaluate__(real *x, std::vector<real>& obj) {
+	void gear_train::evaluate_objective(real *x, std::vector<real> &obj) {
 
 		int x1, x2, x3, x4;
 		real s;
 
 		x1 = (int)x[0]; x2 = (int)x[1]; x3 = (int)x[2]; x4 = (int)x[3];
-		s = 1. / 6.931 - x1*x2 / (double)(x3*x4);
+		s = 1. / 6.931 - x1*x2 / (real)(x3*x4);
 
 		obj[0] = s*s;
 

@@ -28,9 +28,9 @@ namespace OFEC {
 			// 2^Dim gopt
 
 			evaluate_optima();
-
+			m_initialized = true;
 		}
-		void F6_SR_expanded_himmelblau::evaluate__(real *x, std::vector<real>& obj) {
+		void F6_SR_expanded_himmelblau::evaluate_objective(real *x, std::vector<real> &obj) {
 
 			size_t i;
 

@@ -23,31 +23,35 @@ Evol. Comput., vol. 16, no. 5, pp. 601¨C614, Oct. 2012.
 #ifndef OFEC_NSDE_H
 #define OFEC_NSDE_H
 
-
-#include "../individual.h"
 #include "../population.h"
+#include "../../../../core/algorithm/algorithm.h"
 #include <list>
-#include "../../../../core/measure/measure.h"
 
 namespace OFEC {
-	namespace DE {
-		class NSDE :public population<individual>
-		{
-		public:
-			NSDE(param_map &v);
-			evaluation_tag run_();
-		protected:
-			evaluation_tag evolve();
-			void select_subpopulation();
-			void sort();
-		protected:
-			int m_m;                                //size of neighborhood
-			std::vector<std::list<std::pair<double, int>>> m_dis;  //save individuals' distance
-			std::vector<int> m_seed;                     //best fittness of neighborhood
-			std::vector<int> m_order_list;
-		};
-	}
-	using NSDE = DE::NSDE;
+	class NSDE_pop final :public DE::population<DE::individual>
+	{
+	public:
+		NSDE_pop(size_t size_pop);
+		void select_subpopulation();
+		evaluation_tag evolve() override;
+	protected:
+		int m_m;                                //size of neighborhood
+		std::vector<std::list<std::pair<real, int>>> m_dis;  //save individuals' distance
+		std::vector<int> m_seed;                     //best fittness of neighborhood
+		std::vector<int> m_order_list;
+	};
+
+	class NSDE final : public algorithm
+	{
+	public:
+		NSDE(param_map& v);
+		void initialize() override;
+		void record() override;
+	protected:
+		void run_() override;
+	protected:
+		NSDE_pop m_pop;
+	};
 }
 
 

@@ -32,13 +32,14 @@ namespace OFEC {
 	public:
 		using size_type = std::size_t;
 		// Note to dynamic developer: Make sure that code and the variant list for var_t always match
-		enum code { type_null = 0, type_bool, type_char, type_int, type_double, type_string, type_wstring, type_size_t };
+		enum code { type_null = 0, type_bool, type_char, type_int, type_double, type_float, type_string, type_wstring, type_size_t };
 
 		typevar();
 		typevar(bool);
 		typevar(char c);
 		typevar(int n);
 		typevar(double n);
+		typevar(float n);
 		typevar(const std::string& s);
 		typevar(const char* s);
 		typevar(const std::wstring& s);
@@ -50,6 +51,7 @@ namespace OFEC {
 		typevar& operator = (char c);
 		typevar& operator = (int n);
 		typevar& operator = (double n);
+		typevar& operator = (float n);
 		typevar& operator = (const std::string& s);
 		typevar& operator = (const char* s);
 		typevar& operator = (const std::wstring& s);
@@ -59,12 +61,16 @@ namespace OFEC {
 
 		typevar& operator += (int n);
 		typevar& operator += (double n);
+		typevar& operator += (float n);
 		typevar& operator -= (int n);
 		typevar& operator -= (double n);
+		typevar& operator -= (float n);
 		typevar& operator *= (int n);
 		typevar& operator *= (double n);
+		typevar& operator *= (float n);
 		typevar& operator /= (int n);
 		typevar& operator /= (double n);
+		typevar& operator /= (float n);
 		typevar& operator %= (int n);
 
 		typevar& operator += (size_type n);
@@ -78,6 +84,7 @@ namespace OFEC {
 		operator char() const;
 		operator int() const;
 		operator double() const;
+		operator float() const;
 		operator std::string() const;
 		operator std::wstring() const;
 		operator size_type () const;
@@ -87,6 +94,7 @@ namespace OFEC {
 
 		int operator+(int) const;
 		double operator+(double) const;
+		float operator+(float) const;
 		typevar operator+(const typevar&)const;
 
 		//waring: there is no range management 
@@ -95,14 +103,17 @@ namespace OFEC {
 
 		int operator-(int) const;
 		double operator-(double) const;
+		float operator-(float) const;
 		typevar operator-(const typevar&)const;
 
 		int operator*(int) const;
 		double operator*(double) const;
+		float operator*(float) const;
 		typevar operator*(const typevar&)const;
 
 		int operator/(int) const;
 		double operator/(double) const;
+		float operator/(float) const;
 		typevar operator/(const typevar&)const;
 
 
@@ -119,6 +130,7 @@ namespace OFEC {
 		bool operator == (char c) const;
 		bool operator == (int n) const;
 		bool operator == (double n) const;
+		bool operator == (float n) const;
 		bool operator == (const std::string& s) const;
 		bool operator == (const char* s) const;
 		bool operator == (const std::wstring& s) const;
@@ -130,6 +142,7 @@ namespace OFEC {
 		bool operator != (char) const;
 		bool operator != (int n) const;
 		bool operator != (double n) const;
+		bool operator != (float n) const;
 		bool operator != (const std::string& s) const;
 		bool operator != (const char* s) const;
 		bool operator != (const std::wstring& s) const;
@@ -142,6 +155,7 @@ namespace OFEC {
 		bool operator < (char) const;
 		bool operator < (int n) const;
 		bool operator < (double n) const;
+		bool operator < (float n) const;
 		bool operator < (const std::string& s) const;
 		bool operator < (const char* s) const;
 		bool operator < (const std::wstring& s) const;
@@ -153,6 +167,7 @@ namespace OFEC {
 		bool operator <= (char) const;
 		bool operator <= (int n) const;
 		bool operator <= (double n) const;
+		bool operator <= (float n) const;
 		bool operator <= (const std::string& s) const;
 		bool operator <= (const char* s) const;
 		bool operator <= (const std::wstring& s) const;
@@ -164,6 +179,7 @@ namespace OFEC {
 		bool operator > (char) const;
 		bool operator > (int n) const;
 		bool operator > (double n) const;
+		bool operator > (float n) const;
 		bool operator > (const std::string& s) const;
 		bool operator > (const char* s) const;
 		bool operator > (const std::wstring& s) const;
@@ -175,6 +191,7 @@ namespace OFEC {
 		bool operator >= (char n) const;
 		bool operator >= (int n) const;
 		bool operator >= (double n) const;
+		bool operator >= (float n) const;
 		bool operator >= (const std::string& s) const;
 		bool operator >= (const char* s) const;
 		bool operator >= (const std::wstring& s) const;
@@ -192,6 +209,9 @@ namespace OFEC {
 		bool is_int() const { return type() == type_int; }
 		/// is typevar a double?
 		bool is_double() const { return type() == type_double; }
+		/// is typevar a float?
+		bool is_float() const { return type() == type_float; }
+
 		/// is typevar a numeric type?
 		bool is_numeric() const { return is_int() || is_double(); }
 		/// is typevar a string?
@@ -224,25 +244,35 @@ namespace OFEC {
 	private:
 		friend	int operator-(int n, const typevar& v);
 		friend	double operator-(double n, const typevar& v);
+		friend	float operator-(float n, const typevar& v);
 		friend	int operator/(int n, const typevar& v);
 		friend	double operator/(double n, const typevar& v);
+		friend	float operator/(float n, const typevar& v);
 		friend int operator%(int n, const typevar& v);
 
 		friend	int operator+(int n, const typevar& v);
 		friend	double operator+(double n, const typevar& v);
+		friend	float operator+(float n, const typevar& v);
 		friend	int operator*(int n, const typevar& v);
 		friend	double operator*(double n, const typevar& v);
+		friend	float operator*(float n, const typevar& v);
 
 		friend	void operator-=(int& n, const typevar& v);
 		friend	void operator-=(double &n, const typevar& v);
+		friend	void operator-=(float &n, const typevar& v);
+
 		friend	void operator/=(int &n, const typevar& v);
 		friend	void operator/=(double &n, const typevar& v);
+		friend	void operator/=(float &n, const typevar& v);
+
 		friend void operator%=(int& n, const typevar& v);
 		friend	void operator+=(int& n, const typevar& v);
 		friend	void operator+=(double &n, const typevar& v);
+		friend	void operator+=(float &n, const typevar& v);
+
 		friend	void operator*=(int & n, const typevar& v);
 		friend	void operator*=(double & n, const typevar& v);
-
+		friend	void operator*=(float & n, const typevar& v);
 		struct blank{};
 		using null_t = blank;
 
@@ -266,7 +296,8 @@ namespace OFEC {
 		typedef int int_t;
 		typedef double double_t;
 		typedef char char_t;
-		typedef mapbox::util::variant<null_t, bool_t, char_t, int_t, double_t, string_t, wstring_t, size_type> var_t;
+		typedef float float_t;
+		typedef mapbox::util::variant<null_t, bool_t, char_t, int_t, double_t, float_t,string_t, wstring_t, size_type> var_t;
 
 		var_t _var;
 
@@ -291,6 +322,11 @@ namespace OFEC {
 		THROW("invalid - from double to var @ double operator-");
 	}
 
+	inline	float operator-(float n, const typevar& v) {
+		if (v.is_float()) return n - mapbox::util::get<float>(v._var);
+		THROW("invalid - from float to var @ float operator-");
+	}
+
 	inline	int operator/(int n, const typevar& v) {
 		if (v.is_int()) return n / mapbox::util::get<int>(v._var);
 		THROW("invalid / from int to var @ int operator /");
@@ -299,7 +335,10 @@ namespace OFEC {
 		if (v.is_double()) return n / mapbox::util::get<double>(v._var);
 		THROW("invalid / from double to var @ double operator /");
 	}
-
+	inline	float operator/(float n, const typevar& v) {
+		if (v.is_float()) return n / mapbox::util::get<float>(v._var);
+		THROW("invalid / from float to var @ float operator /");
+	}
 	inline	int operator%(int n, const typevar& v) {
 		if (v.is_int()) return n%mapbox::util::get<int>(v._var);
 		THROW("invalid % from int to var @ int operator %");
@@ -313,6 +352,10 @@ namespace OFEC {
 		if (v.is_double()) return n + mapbox::util::get<double>(v._var);
 		THROW("invalid + from double to var @ double operator +");
 	}
+	inline float operator+(float n, const typevar& v) {
+		if (v.is_float()) return n + mapbox::util::get<float>(v._var);
+		THROW("invalid + from float to var @ float operator +");
+	}
 	inline int operator*(int n, const typevar& v) {
 		if (v.is_int()) return n*mapbox::util::get<int>(v._var);
 		THROW("invalid * from int to var @ int operator *");
@@ -321,7 +364,10 @@ namespace OFEC {
 		if (v.is_double()) return n*mapbox::util::get<double>(v._var);
 		THROW("invalid * from double to var @ double operator *");
 	}
-
+	inline float operator*(float n, const typevar& v) {
+		if (v.is_float()) return n*mapbox::util::get<float>(v._var);
+		THROW("invalid * from float to var @ float operator *");
+	}
 	inline void operator-=(int& n, const typevar& v) {
 		if (v.is_int())  n -= mapbox::util::get<int>(v._var);
 		else THROW("invalid -= from int to var @ int operator -=");
@@ -330,6 +376,10 @@ namespace OFEC {
 		if (v.is_double()) n -= mapbox::util::get<double>(v._var);
 		else THROW("invalid -= from double to var @ double operator -=");
 	}
+	inline void operator-=(float &n, const typevar& v) {
+		if (v.is_float()) n -= mapbox::util::get<float>(v._var);
+		else THROW("invalid -= from float to var @ float operator -=");
+	}
 	inline void operator/=(int &n, const typevar& v) {
 		if (v.is_int())  n /= mapbox::util::get<int>(v._var);
 		else THROW("invalid /= from int to var @ int operator /=");
@@ -337,6 +387,10 @@ namespace OFEC {
 	inline void operator/=(double &n, const typevar& v) {
 		if (v.is_double()) n /= mapbox::util::get<double>(v._var);
 		else THROW("invalid /= from double to var @ double operator /=");
+	}
+	inline void operator/=(float &n, const typevar& v) {
+		if (v.is_float()) n /= mapbox::util::get<float>(v._var);
+		else THROW("invalid /= from float to var @ float operator /=");
 	}
 	inline void operator%=(int& n, const typevar& v) {
 		if (v.is_int())  n %= mapbox::util::get<int>(v._var);
@@ -350,6 +404,10 @@ namespace OFEC {
 		if (v.is_double()) n += mapbox::util::get<double>(v._var);
 		else THROW("invalid += from double to var @ double operator +=");
 	}
+	inline void operator+=(float &n, const typevar& v) {
+		if (v.is_float()) n += mapbox::util::get<float>(v._var);
+		else THROW("invalid += from float to var @ float operator +=");
+	}
 	inline void operator*=(int & n, const typevar& v) {
 		if (v.is_int())  n *= mapbox::util::get<int>(v._var);
 		else THROW("invalid *= from int to var @ int operator *=");
@@ -358,8 +416,11 @@ namespace OFEC {
 		if (v.is_double()) n *= mapbox::util::get<double>(v._var);
 		else THROW("invalid *= from double to var @ double operator *=");
 	}
-
-	using param_map = std::map<const std::string, typevar>;
+	inline void operator*=(float & n, const typevar& v) {
+		if (v.is_float()) n *= mapbox::util::get<float>(v._var);
+		else THROW("invalid *= from float to var @ float operator *=");
+	}
+	using param_map = std::map<std::string, typevar>;
 
 }
 

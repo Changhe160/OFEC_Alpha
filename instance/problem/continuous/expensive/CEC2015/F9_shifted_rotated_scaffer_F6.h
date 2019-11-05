@@ -27,11 +27,11 @@ namespace OFEC {
 			F9_shifted_rotated_scaffer_F6(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_EOP_F9 = CEC2015::F9_shifted_rotated_scaffer_F6;
+	using CEC2015_EOP_F09 = CEC2015::F9_shifted_rotated_scaffer_F6;
 }
 #endif // ! OFEC_F9_SHIFTED_ROTATED_SCAFFER_F6_H
 

@@ -29,8 +29,8 @@ namespace OFEC {
 		void set_case(int c);
 		void initialize();
 	protected:
-		void evaluate__(real *x, std::vector<real>& obj);
-		double m_kappa, m_chi;
+		void evaluate_objective(real *x, std::vector<real>& obj) override;
+		real m_kappa, m_chi;
 		int m_case;
 		void set_para();
 	private:

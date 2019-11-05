@@ -4,14 +4,15 @@
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>NT=1 NR=1 ND=10 PN=sphere AN=GLC PS=100 ME=50000 al=0.9 be=1.0 ga=6.0</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>ME=20000 SF=100 NR=4 PN=GOP_CLASSICAL_sphere ND=2 AN=DE-rand-1 PS=100</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>PN=MMOP_CEC2013_F12_composition4 ND=2 ME=200000 AN=DE-HLC SF=100 NR=8 hlcNS=1000</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>NT=1 NR=1 ND=10 PN=sphere AN=GLC PS=100 ME=50000 al=0.9 be=1.0 ga=6.0</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>NT=1 NR=1 NO=1 ND=2 PN=vincent AN=DynDE PS=50 SPS=10 ME=30000 SF=1 ER=0.0 </LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

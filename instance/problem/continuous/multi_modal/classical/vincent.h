@@ -25,11 +25,11 @@ namespace OFEC {
 	{
 	public:
 		vincent(param_map &v);
-		vincent(const std::string &name, size_t size_var, size_t size_obj);
+		vincent(const std::string &name, size_t size_var);
 		void initialize();
 
 	protected:
-		void evaluate__(real *x, std::vector<real>& obj);
+		void evaluate_objective(real *x, std::vector<real>& obj) override;
 	private:
 	};
 	

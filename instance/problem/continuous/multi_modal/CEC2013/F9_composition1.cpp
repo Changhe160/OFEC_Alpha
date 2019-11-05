@@ -3,15 +3,14 @@
 #include "../../global/classical/griewank.h"
 #include "../../global/classical/weierstrass.h"
 #include "../../global/classical/sphere.h"
-
+#include <numeric>
 
 namespace OFEC {
 	namespace CEC2013 {
 
-		F9_composition1::F9_composition1(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			composition(name, size_var, size_obj) {}
+		F9_composition1::F9_composition1(const std::string &name, size_t size_var) :problem(name, size_var, 1), composition(name, size_var, 1) {}
 
-		F9_composition1::F9_composition1(param_map &v) :F9_composition1((v.at("proName")), (v.at("numDim")), 1) {}
+		F9_composition1::F9_composition1(param_map &v) :F9_composition1((v.at("proName")), (v.at("numDim"))) {}
 
 		void F9_composition1::set_function() {
 			basic_func f(3);
@@ -51,6 +50,7 @@ namespace OFEC {
 			m_height.resize(m_num_function);
 			set_range(-5., 5.);
 			set_init_range(-5., 5.);
+			m_opt_mode[0] = optimization_mode::Maximization;
 			
 			set_function();
 
@@ -59,20 +59,34 @@ namespace OFEC {
 			compute_fmax();
 
 			load_translation("instance/problem/continuous/multi_modal/CEC2013/data/");  //data path
+			for (auto &i : m_function) {
+				i->get_optima().clear();
+				i->set_global_opt(i->translation().data());
+				m_optima.append(variable_vector<real>(i->translation()));
+			}
+			m_optima.set_flag_variable(true);
 			
 			m_objective_monitor = true;
 			for (auto &i : m_function) {
+				auto temp_var = i->translation();
+				std::vector<real> temp_obj(1);
+				evaluate_objective(temp_var.data(), temp_obj);
 				m_optima.append(0.);
 			}
 			if (global::ms_arg.find("objectiveAccuracy") == global::ms_arg.end())
-				global::ms_arg.insert({ "objectiveAccuracy",1.e-4 });
+				global::ms_arg.insert({ "objectiveAccuracy",(real)1.e-4 });
 			m_objective_accuracy = global::ms_arg.at("objectiveAccuracy");
 			m_variable_accuracy = 0.01;
+
+			m_variable_partition.clear();
+			m_variable_partition.push_back(std::vector<size_t>(m_variable_size));
+			std::iota(m_variable_partition[0].begin(), m_variable_partition[0].end(), 0);
+			m_initialized = true;
 		}
 
-		void F9_composition1::evaluate__(real *x, std::vector<real>& obj) {
-			composition::evaluate__(x, obj);
-			
+		void F9_composition1::evaluate_objective(real *x, std::vector<real> &obj) {
+			composition::evaluate_objective(x, obj);
+			obj[0] = -obj[0];
 		}
 
 		void F9_composition1::set_rotation() {

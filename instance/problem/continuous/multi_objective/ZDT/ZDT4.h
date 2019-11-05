@@ -26,9 +26,8 @@ namespace OFEC {
 		ZDT4(param_map &v);
 		ZDT4(const std::string &name, size_t size_var);
 		~ZDT4() {}
-		void initialize();
 	private:
-		void evaluate__(double *x, std::vector<double>& obj);
+		void evaluate_objective(real *x, std::vector<real> &obj);
 	};
 }
 

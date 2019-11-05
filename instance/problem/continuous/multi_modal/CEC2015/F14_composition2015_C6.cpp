@@ -84,19 +84,18 @@ namespace OFEC {
 			else if(m_variable_size == 30) m_pre_opt_distance = 285;
 			
 			add_tag(problem_tag::MMOP);
+			m_initialized = true;
 		}
-		void F14_composition2015_C6::evaluate__(real *x, std::vector<real>& obj) {
+		void F14_composition2015_C6::evaluate_objective(real *x, std::vector<real> &obj) {
 			std::vector<real> x_(m_variable_size);
 			std::copy(x, x + m_variable_size, x_.begin());
-			std::vector<double> weight(m_num_function, 0);
+			std::vector<real> weight(m_num_function, 0);
 
 			set_weight(weight, x_);
 			std::vector<real> fit(m_num_function);
-			variable_vector<real> temp_var(m_variable_size);
-			objective_vector<real> temp_obj(m_objective_size);
-			solution<variable_vector<real>, real> s(std::move(temp_var), std::move(temp_obj));
+            solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
-				s.variable() = x_;
+				s.variable().vect() = x_;
 				for (size_t j = 0; j < m_variable_size; ++j)
 					s.variable()[j] -= m_function[i]->translation()[j];
 				rotate(i, s.variable().data());
@@ -106,13 +105,13 @@ namespace OFEC {
 				fit[i] = s.objective()[0];
 
 			}
-			double sumw = 0;
+			real sumw = 0;
 			for (size_t i = 0; i < m_num_function; ++i)
 				sumw += weight[i];
 			for (size_t i = 0; i < m_num_function; ++i)
 				weight[i] /= sumw;
 
-			double temp = 0;
+			real temp = 0;
 			for (size_t i = 0; i < m_num_function; ++i) {
 				temp += weight[i] * (m_height[i] * fit[i] + m_f_bias[i]);
 			}
@@ -169,7 +168,7 @@ namespace OFEC {
 		}
 
 		void F14_composition2015_C6::rotate(size_t num, real *x) {
-			double *x_ = new double[m_variable_size];
+			real *x_ = new real[m_variable_size];
 			std::copy(x, x + m_variable_size, x_);
 
 			for (size_t i = 0; i<m_variable_size; ++i) {
@@ -191,7 +190,7 @@ namespace OFEC {
 		real F14_composition2015_C6::pre_opt_distance() {
 			return m_pre_opt_distance;
 		}
-		void F14_composition2015_C6::set_weight(std::vector<double>& weight, const std::vector<real>&x) {
+		void F14_composition2015_C6::set_weight(std::vector<real>& weight, const std::vector<real>&x) {
 
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate weight for each function
 				weight[i] = 0;
@@ -200,7 +199,7 @@ namespace OFEC {
 					weight[i] += pow(x[j] - m_function[i]->get_optima().variable(0)[j], 2);
 				}
 
-				if (fabs(weight[i])>1e-6) weight[i] = exp(-weight[i] / (2 * m_variable_size*m_converge_severity[i] * m_converge_severity[i])) / (double)(pow(weight[i], 0.5));
+				if (fabs(weight[i])>1e-6) weight[i] = exp(-weight[i] / (2 * m_variable_size*m_converge_severity[i] * m_converge_severity[i])) / (real)(pow(weight[i], 0.5));
 				else {
 					for (auto &m : weight) {
 						m = 0;

@@ -26,35 +26,35 @@ namespace OFEC {
 
 	class multi_dimensional_knapsack : public problem {
 	protected:
-		std::vector<double> mv_p;
-		std::vector<std::vector<double>> mvv_r;
-		std::vector<double> mv_b;
+		std::vector<real> mv_p;
+		std::vector<std::vector<real>> mvv_r;
+		std::vector<real> mv_b;
 		std::string m_file_name;
 		optima<variable_vector<int>, real> m_optima;
 		int m_m;
-		double m_maxP;
+		real m_maxP;
 		bool m_if_valid_check = true;
 	public:
 		multi_dimensional_knapsack(param_map& v);
 		multi_dimensional_knapsack(const std::string & pro_name, size_t size_var, const std::string & file_name);
 		~multi_dimensional_knapsack() {};
-		evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
+		evaluation_tag evaluate_(solution_base &s, caller call, bool effective, bool constructed);
 		bool is_valid(const solution_base &s) const;
 		void read_problem();
 		int invalid_constrain_num(solution_base &s_) const;
-		bool get_optimal_obj(std::vector<double> &opt) const;
-		bool get_optimal_obj(std::vector<std::vector<double>> &opt) const;
+		bool get_optimal_obj(std::vector<real> &opt) const;
+		bool get_optimal_obj(std::vector<std::vector<real>> &opt) const;
 		const optima<variable_vector<int>, real>& get_optima() const;
 		optima<variable_vector<int>, real>& get_optima();
 		bool is_optima_given() const;
 		multi_dimensional_knapsack* get_type_ptr();
 		multi_dimensional_knapsack& get_type_ref();
 		bool if_optima_found();
-		double get_constraint_value(const solution_base& s, std::vector<double>& val) const;
+		real get_constraint_value(const solution_base& s, std::vector<real>& val) const;
 		void initialize_solution(solution_base &s) const;
 		bool same(const solution_base &s1, const solution_base &s2) const;
-		double variable_distance(const solution_base &s1, const solution_base &s2) const;
-		double variable_distance(const variable_base &s1, const variable_base &s2) const;
+		real variable_distance(const solution_base &s1, const solution_base &s2) const;
+		real variable_distance(const variable_base &s1, const variable_base &s2) const;
 		void initialize();
 	};
 }

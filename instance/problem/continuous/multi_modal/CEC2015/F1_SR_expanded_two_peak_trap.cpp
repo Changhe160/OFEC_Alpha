@@ -28,10 +28,11 @@ namespace OFEC {
 			// 5  Dim : 1 gopt and 15 lopt
 			// 10 Dim : 1 gopt and 55 lopt
 			// 20 Dim : 1 gopt and 210 lopt
-			evaluate_optima();   
+			evaluate_optima();
+			m_initialized = true;
 			
 		}
-		void F1_SR_expanded_two_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
+		void F1_SR_expanded_two_peak_trap::evaluate_objective(real *x, std::vector<real> &obj) {
 			
 			size_t i;
 

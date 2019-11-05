@@ -17,7 +17,7 @@ namespace OFEC {
 			m_variable_monitor = true;
 			set_range(-500, 500);
 			set_init_range(-500, 500);
-			std::vector<double> v(m_variable_size, 420.9687);
+			std::vector<real> v(m_variable_size, 420.9687);
 			set_original_global_opt(v.data());
 			
 			m_variable_accuracy = 1.0e-2;
@@ -28,9 +28,10 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/expensive/CEC2015/data/");
 			
 			set_global_opt(m_translation.data());
+			m_initialized = true;
 		}
-		void F4_shifted_rotated_schwefel::evaluate__(real *x, std::vector<real>& obj) {
-			schwefel::evaluate__(x, obj);
+		void F4_shifted_rotated_schwefel::evaluate_objective(real *x, std::vector<real> &obj) {
+			schwefel::evaluate_objective(x, obj);
 		}
 	}
 }

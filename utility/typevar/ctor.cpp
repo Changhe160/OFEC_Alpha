@@ -24,6 +24,11 @@ namespace OFEC {
 	typevar::typevar(double n) : _var(n) {}
 
 	///
+	/// ctor: init with float
+	///
+	typevar::typevar(float n) : _var(n) {}
+
+	///
 	/// ctor: init with string
 	///
 	typevar::typevar(const std::string& s) : _var(string_t(s)) {}

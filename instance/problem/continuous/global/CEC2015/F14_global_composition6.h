@@ -30,7 +30,7 @@ namespace OFEC {
 
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			void set_function();
 
 		protected:

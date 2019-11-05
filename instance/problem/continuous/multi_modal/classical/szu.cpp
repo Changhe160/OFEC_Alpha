@@ -35,31 +35,31 @@ namespace OFEC {
 		
 		m_objective_monitor = true;
 		
-		std::vector<std::vector<double>> gobj;
+		std::vector<std::vector<real>> gobj;
 
 		if (m_variable_size == 2) {
-			gobj.push_back(std::vector<double>(1, -156.66));
+			gobj.push_back(std::vector<real>(1, -156.66));
 		}
 		else if (m_variable_size == 3) {
-			gobj.push_back(std::vector<double>(1, -235.0));
+			gobj.push_back(std::vector<real>(1, -235.0));
 		}
 		else if (m_variable_size == 4) {
-			gobj.push_back(std::vector<double>(1, -313.33));
+			gobj.push_back(std::vector<real>(1, -313.33));
 		}
 		else if (m_variable_size == 5) {
-			gobj.push_back(std::vector<double>(1, -391.66));
+			gobj.push_back(std::vector<real>(1, -391.66));
 		}
 		else if (m_variable_size == 6) {
-			gobj.push_back(std::vector<double>(1, -469.99));
+			gobj.push_back(std::vector<real>(1, -469.99));
 		}
 		else if (m_variable_size == 7) {
-			gobj.push_back(std::vector<double>(1, -548.33));
+			gobj.push_back(std::vector<real>(1, -548.33));
 		}
 		else if (m_variable_size == 8) {
-			gobj.push_back(std::vector<double>(1, -626.66));
+			gobj.push_back(std::vector<real>(1, -626.66));
 		}
 		else if (m_variable_size == 9) {
-			gobj.push_back(std::vector<double>(1, -704.99));
+			gobj.push_back(std::vector<real>(1, -704.99));
 		}
 
 		if (m_variable_size >= 2 && m_variable_size <= 9) {
@@ -71,9 +71,10 @@ namespace OFEC {
 		m_objective_accuracy = 0.1;
 		m_variable_accuracy = 1.e-2;
 		//setObjSet();
+		m_initialized = true;
 	}
-	void szu::evaluate__(real *x, std::vector<real>& obj) {
-		double s = 0;
+	void szu::evaluate_objective(real *x, std::vector<real> &obj) {
+		real s = 0;
 		size_t i;
 
 		for (i = 0; i < m_variable_size; ++i) {

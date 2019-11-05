@@ -22,12 +22,12 @@ namespace OFEC {
 		public:
 			ShiftedRastrigin_F2(param_map &v);
 			ShiftedRastrigin_F2(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~ShiftedRastrigin_F2();
 
 			void initialize();
 		};
 	}
-	using CEC2013_LSOP_F2 = CEC2013::ShiftedRastrigin_F2;
+	using CEC2013_LSOP_F02 = CEC2013::ShiftedRastrigin_F2;
 }
 #endif // OFEC_SHIFTEDRASTRIGIN_F2_H

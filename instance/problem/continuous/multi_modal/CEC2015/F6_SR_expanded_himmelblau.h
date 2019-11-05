@@ -29,11 +29,11 @@ namespace OFEC {
 			F6_SR_expanded_himmelblau(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_MMP_F6 = CEC2015::F6_SR_expanded_himmelblau;
+	using CEC2015_MMOP_F06 = CEC2015::F6_SR_expanded_himmelblau;
 }
 #endif // !OFEC_F6_SR_EXPANDED_HIMMELBLAU_H
 

@@ -97,43 +97,42 @@ namespace OFEC {
 				i->set_global_opt(i->translation().data());
 			}
 			// Set optimal solution
-			variable_vector<real> temp_var(m_variable_size);
-			objective_vector<real> temp_obj(m_objective_size);
-			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
-			for (int i = 0; i < m_variable_size; ++i) {
-				x.variable()[i] = m_function[0]->get_optima().variable(0)[i];
-			}
-			m_optima.append(x.variable());
+            solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
+            s.variable() = m_function[0]->get_optima().variable(0);
 
-			evaluate_(x, caller::Problem, false, false);
-			m_optima.append(x.objective());
+            m_optima.append(s.variable());
+            m_optima.set_flag_variable(true);
+
+            s.evaluate(false, caller::Problem);
+            m_optima.append(s.objective());
 
 			add_tag(problem_tag::MMOP);
+			m_initialized = true;
 		}
-		void F15_global_composition7::evaluate__(real *x, std::vector<real>& obj) {
+		void F15_global_composition7::evaluate_objective(real *x, std::vector<real> &obj) {
 			std::vector<real> x_(m_variable_size);
 			std::copy(x, x + m_variable_size, x_.begin());
-			std::vector<double> weight(m_num_function, 0);
+			std::vector<real> weight(m_num_function, 0);
 
 			set_weight(weight, x_);
 			std::vector<real> fit(m_num_function);
 			variable_vector<real> temp_var(m_variable_size);
-			objective_vector<real> temp_obj(m_objective_size);
-			solution<variable_vector<real>, real> s(std::move(temp_var), std::move(temp_obj));
-			for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
-				s.variable() = x_;
+			std::vector<real> temp_obj(m_objective_size);
+            solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
+            for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
+				s.variable().vect() = x_;
 
 				m_function[i]->evaluate_(s, caller::Problem, false, false);
 				fit[i] = s.objective()[0];
 
 			}
-			double sumw = 0;
+			real sumw = 0;
 			for (size_t i = 0; i < m_num_function; ++i)
 				sumw += weight[i];
 			for (size_t i = 0; i < m_num_function; ++i)
 				weight[i] /= sumw;
 
-			double temp = 0;
+			real temp = 0;
 			for (size_t i = 0; i < m_num_function; ++i) {
 				temp += weight[i] * (m_height[i] * fit[i] + m_f_bias[i]);
 			}

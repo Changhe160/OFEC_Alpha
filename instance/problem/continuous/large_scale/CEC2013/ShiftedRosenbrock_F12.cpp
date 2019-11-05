@@ -36,11 +36,12 @@ namespace OFEC {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				data[i] += mp_Ovector[i];
 			set_global_opt(data.data());
+			m_initialized = true;
 		}
 
-		void ShiftedRosenbrock_F12::evaluate__(real *x, std::vector<real>& obj) {
+		void ShiftedRosenbrock_F12::evaluate_objective(real *x, std::vector<real> &obj) {
 			int i;
-			double result = 0.0;
+			real result = 0.0;
 
 			for (i = 0; i < m_variable_size; i++)
 			{

@@ -16,13 +16,16 @@ namespace OFEC {
 			m_variable_monitor = true;
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
-			 
+			m_constraint_type.resize(2);
+			m_constraint_type[0] = constraint_type::Inequality;
+			m_constraint_type[1] = constraint_type::Equality;
 			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
 			set_original_global_opt(m_translation.data());
 			m_optima = m_original_optima;
+			m_initialized = true;
 		}
-		void C03::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
+		void C03::evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 
@@ -30,7 +33,7 @@ namespace OFEC {
 			obj[0] = 0.;
 			for (i = 1; i<m_variable_size + 1; ++i)
 			{
-				double t = 0.0;
+				real t = 0.0;
 				for (j = 0; j<i; j++)
 				{
 					t += x[j];
@@ -39,41 +42,21 @@ namespace OFEC {
 			}
 			obj[0] += m_bias;
 			
-			double temp = 0.;
-			double sum1 = 0.;
-			double sum2 = 0.;
-			std::vector<double> ineq_cons;
-			std::vector<double> eq_cons;
+			// evaluate constraint value
+
+			con[0] = 0;
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += (x[i] * x[i] - 5000 * cos(0.1*OFEC_PI*x[i]) - 4000);
+				con[0] += (x[i] * x[i] - 5000 * cos(0.1*OFEC_PI*x[i]) - 4000);
 			}
-			ineq_cons.push_back(temp);
+			if (con[0] <= 0) con[0] = 0;
 
-			for (auto &i : ineq_cons) {
-				if (i <= 0) i = 0;
-				sum1 += i;
-			}
-			temp = 0.;
+			con[1] = 0;
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += x[i] * sin(0.1*OFEC_PI*x[i]);
+				con[1] += x[i] * sin(0.1*OFEC_PI*x[i]);
 			}
-			eq_cons.push_back(-1 * temp);
-
-			for (auto &i : eq_cons) {
-				if (fabs(i) - 1e-4 <= 0) i = 0;
-				else i = fabs(i);
-				sum2 += i;
-			}
-			cons_values.clear();
-			for (auto &i : ineq_cons)
-				cons_values.push_back(i);
-			for (auto &i : eq_cons)
-				cons_values.push_back(i);
-			cons_value = (sum1 + sum2) / (double)(ineq_cons.size() + eq_cons.size());
-			
-			
+			if (fabs(con[i]) - 1e-4 <= 0) con[1] = 0;
 		}
 	}
 }

@@ -28,9 +28,10 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/expensive/CEC2015/data/");
 			
 			set_global_opt(m_translation.data());
+			m_initialized = true;
 		}
-		void F9_shifted_rotated_scaffer_F6::evaluate__(real *x, std::vector<real>& obj) {
-			scaffer_F6::evaluate__(x, obj);
+		void F9_shifted_rotated_scaffer_F6::evaluate_objective(real *x, std::vector<real> &obj) {
+			scaffer_F6::evaluate_objective(x, obj);
 		}
 	}
 }

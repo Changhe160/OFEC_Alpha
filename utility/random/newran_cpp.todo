@@ -969,7 +969,7 @@ int VariPoisson::iNext_small(real mu)
    real t1 = exp(k_start * log(mu) - mu - ln_gamma(k_start+1));
    if (t1 > u) return k_start;
    int k1 = k_start; int k2 = k_start; real t2 = t1; real s = t1;
-   for(;;)
+   for(;)
    {
       ++k1; t1 *= mu / k1; s += t1; if (s > u) return k1;
       if (k2 > 0) { t2 *= k2 / mu; --k2; s += t2; if (s > u) return k2; }
@@ -1054,7 +1054,7 @@ int VariBinomial::iNext_small(int n, real p)
    if (t1 >= u) return k_start;
    real t2 = t1; real s = t1;
    int k1 = k_start; int k2 = k_start;
-   for (;;)
+   for (;)
    {
       t1 *= r * (real)(n - k1) / (real)(k1 + 1); ++k1; s += t1;
       if (s >= u) return k1;

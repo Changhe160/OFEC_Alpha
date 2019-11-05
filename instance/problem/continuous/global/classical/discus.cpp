@@ -31,9 +31,10 @@ namespace OFEC {
 		set_original_global_opt();
 
 		set_global_opt();
+		m_initialized = true;
 	}
 
-	void discus::evaluate__(real *x, std::vector<real>& obj) {
+	void discus::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)

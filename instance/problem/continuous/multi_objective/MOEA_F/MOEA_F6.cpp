@@ -16,8 +16,12 @@ namespace OFEC {
 		range[1].first = 0;
 		range[1].second = 1;
 		set_range(range);
+		set_init_range(range);
+		for (size_t idx = 0; idx < m_opt_mode.size(); ++idx)
+			m_opt_mode[idx] = optimization_mode::Minimization;
 		m_dtype = 1;
 		m_ptype = 31;
 		m_ltype = 32;
+		LoadPF();
 	}
 }

@@ -24,12 +24,12 @@ namespace OFEC {
 		public:
 			ShiftedElliptic_F1(param_map &v);
 			ShiftedElliptic_F1(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~ShiftedElliptic_F1();
 
 			void initialize();
 		};
 	}
-	using CEC2013_LSOP_F1 = CEC2013::ShiftedElliptic_F1;
+	using CEC2013_LSOP_F01 = CEC2013::ShiftedElliptic_F1;
 }
 #endif // ! OFEC_SHIFTEDELLIPTIC_F1_H

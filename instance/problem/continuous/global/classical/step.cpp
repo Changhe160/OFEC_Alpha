@@ -32,14 +32,14 @@ namespace OFEC {
 		set_original_global_opt();
 
 		set_global_opt();
-
+		m_initialized = true;
 	}
 
-	void step::evaluate__(real *x, std::vector<real>& obj) {
-		double fitness = 0;
+	void step::evaluate_objective(real *x, std::vector<real> &obj) {
+		real fitness = 0;
 
 		for (size_t i = 0; i < m_variable_size; ++i) {
-			fitness += fabs((double)int(x[i] + 0.5)*int(x[i] + 0.5));
+			fitness += fabs((real)int(x[i] + 0.5)*int(x[i] + 0.5));
 		}
 
 		obj[0] = fitness + m_bias;

@@ -35,22 +35,26 @@ namespace OFEC {
 		algorithm(algorithm&&) = default;
 
 		virtual ~algorithm() {}
-		evaluation_tag run();
+		void run();
 		
 		bool terminated();
 		virtual bool terminating();
-		double duration();
+		real duration();
 		void set_termination(termination* t);
 		const std::string& name() { return m_name; }
 		void set_name(const std::string &name) { m_name = name; }
-		virtual evaluation_tag initialize() = 0;
+		virtual void initialize() = 0;
 		virtual void record() = 0;
+		const param_map& parameters()const { return m_parameters; }
+		termination* get_termination() { return m_term.get(); }
 	protected:
-		virtual evaluation_tag run_() { return evaluation_tag::Normal; }
+		virtual void run_() = 0;
+		virtual void update_parameters();
+		virtual void handle_evaluation_tag(evaluation_tag tag) {}
 	protected:
 		std::string m_name;
 		std::unique_ptr<termination> m_term;
-		std::stringstream m_parameter;
+		param_map m_parameters;
 
 	};
 

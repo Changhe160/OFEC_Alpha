@@ -1,77 +1,74 @@
 #include "DynDE.h"
 
 namespace OFEC {
-	namespace DE {
-		DynDE::DynDE(param_map &v) :population(v.at("popSize"), global::ms_global->m_problem->variable_size()), \
-			m_r_excl(v.at("exlRadius")), m_sub_population(v.at("popSize") / v.at("subPopSize"), v.at("subPopSize")){
-			//set_default(v);
+	DynDE::DynDE(param_map &v) : algorithm(v.at("algName")), m_r_excl(v.at("exlRadius")),\
+		m_multi_pop(v.at("popSize") / v.at("subPopSize"), v.at("subPopSize")) {
+		if (CONTINUOUS_CAST->has_tag(problem_tag::GOP))
+			CONTINUOUS_CAST->set_eval_monitor_flag(true);
+	}
 
-			//m_parameter << "M(N,Nbrownian):" << m_M << "(" << 5 << "," << 5 << "); Rexcl:" << m_r_excl << "; Rcloud:" << 0.2;
+	void DynDE::initialize() {
+		for (size_t i = 0; i < m_multi_pop.size(); ++i) {
+			m_multi_pop[i].initialize();
+			m_multi_pop[i].evaluate();
 		}
+	}
 
-
-		void DynDE::set_default(param_map &v) {
-		
+	void DynDE::run_() {
+		evaluation_tag tag = evaluation_tag::Normal;
+		while (!terminating()) {
+			for (size_t i = 0; i < m_multi_pop.size(); ++i) {
+				if (!m_multi_pop[i].get_flag())
+					tag = m_multi_pop[i].evolve();
+				handle_evaluation_tag(tag);
+			}
+			if (tag == evaluation_tag::Terminate)
+				break;
+			//exclusion
+			exclusion_check();
+			for (size_t i = 0; i < m_multi_pop.size(); ++i) {
+				if (m_multi_pop[i].get_flag()) {
+					m_multi_pop[i].initialize();
+					m_multi_pop[i].set_flag(false);
+				}
+			}
 		}
+	}
 
-		void DynDE::exclude() {
-			for (size_t i = 0; i < m_sub_population.size(); ++i) {
-				for (size_t j = i + 1; j < m_sub_population.size(); ++j) {
-					if (m_sub_population[i].m_flag == false && m_sub_population[j].m_flag == false && m_sub_population[i].best()[0]->variable_distance(*m_sub_population[j].best()[0]) < m_r_excl) {
-						if (m_sub_population[i].best()[0]->dominate(*m_sub_population[j].best()[0])) {
-							m_sub_population[j].m_flag = true;
-						}
-						else {
-							m_sub_population[i].m_flag = true;
-						}
+	void DynDE::exclusion_check() {
+		for (size_t i = 0; i < m_multi_pop.size(); ++i) {
+			for (size_t j = i + 1; j < m_multi_pop.size(); ++j) {
+				if (m_multi_pop[i].get_flag() == false && m_multi_pop[j].get_flag() == false && m_multi_pop[i].best()[0]->variable_distance(*m_multi_pop[j].best()[0]) < m_r_excl) {
+					if (m_multi_pop[i].best()[0]->dominate(*m_multi_pop[j].best()[0])) {
+						m_multi_pop[j].set_flag(true);
+					}
+					else {
+						m_multi_pop[i].set_flag(true);
 					}
 				}
 			}
 		}
-		evaluation_tag DynDE::run_() {
-			evaluation_tag tag = evaluation_tag::Normal;
+	}
 
-			std::vector<double> gopt(1);
-			gopt = CONTINOUS_CAST->get_optima().objective(0);
-			while (tag != evaluation_tag::Terminate) {
-				double best = problem::get_sofar_best<solution<>>(0)->objective()[0];
-				double error = fabs(best - gopt[0]);
-				int num_opt_found = CONTINOUS_CAST->num_optima_found();
+	void DynDE::record() {
+		if (CONTINUOUS_CAST->has_tag(problem_tag::DOP)) {
+			// ******* Dynamic Optimization ***********
 
-				std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error << ' ' << num_opt_found << std::endl;
-				//std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << error << ' ' << std::endl;
-
-				measure::get_measure()->record(global::ms_global.get(), m_iter, num_opt_found);
-
-				for (size_t i = 0; i < m_sub_population.size(); ++i) {
-					if (!m_sub_population[i].m_flag)       
-						tag = m_sub_population[i].evolve();
-
-					handle_evaluation_tag(tag);
-				}
-
-				if (tag == evaluation_tag::Terminate) break;
-				//exclusion
-				exclude();
-
-				for (size_t i = 0; i < m_sub_population.size(); ++i) {
-					{
-						m_sub_population[i].initialize();
-					}
-					if (terminating()) break;
-					m_sub_population[i].m_flag = false;
-				}
-				++m_iter;
-			}
-			// output objective found
-			std::vector<solution< variable_vector<real>, real >> test = CONTINOUS_CAST->get_optima_found();
-			for (size_t i = 0; i < CONTINOUS_CAST->num_optima_found(); ++i) {
-				std::cout << i + 1 << " " << CONTINOUS_CAST->get_optima_found()[i].objective()[0] << " " << std::endl;
-				std::cout << " " << " " << CONTINOUS_CAST->get_optima_found()[i].variable()[0] << " " << CONTINOUS_CAST->get_optima_found()[i].variable()[1] << std::endl;
-			}
-
-			return tag;
-
+		}
+		else if (CONTINUOUS_CAST->has_tag(problem_tag::MMOP)) {
+			// ******* Multi-Modal Optimization *******
+			size_t evals = CONTINUOUS_CAST->evaluations();
+			size_t num_opt_found = CONTINUOUS_CAST->num_optima_found();
+			size_t num_opt_known = CONTINUOUS_CAST->get_optima().number_objective();
+			real peak_ratio = (real)num_opt_found / (real)num_opt_known;
+			real success_rate = CONTINUOUS_CAST->solved() ? 1 : 0;
+			measure::get_measure()->record(global::ms_global.get(), evals, peak_ratio, success_rate);
+		}
+		else if (CONTINUOUS_CAST->has_tag(problem_tag::GOP)) {
+			// ******* Global Optimization ************
+			size_t evals = CONTINUOUS_CAST->evaluations();
+			real err = std::fabs(problem::get_sofar_best<solution<>>(0)->objective(0) - CONTINUOUS_CAST->get_optima().objective(0).at(0));
+			measure::get_measure()->record(global::ms_global.get(), evals, err);
 		}
 	}
 }

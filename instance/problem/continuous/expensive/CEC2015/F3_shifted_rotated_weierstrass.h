@@ -27,10 +27,10 @@ namespace OFEC {
 			F3_shifted_rotated_weierstrass(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_EOP_F3 = CEC2015::F3_shifted_rotated_weierstrass;
+	using CEC2015_EOP_F03 = CEC2015::F3_shifted_rotated_weierstrass;
 }
 #endif // ! OFEC_F3_SHIFTED_ROTATED_WEIERSTRASS_H

@@ -23,9 +23,10 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/expensive/CEC2015/data/");
 			
 			set_global_opt(m_translation.data());
+			m_initialized = true;
 		}
-		void F3_shifted_rotated_weierstrass::evaluate__(real *x, std::vector<real>& obj) {
-			weierstrass::evaluate__(x, obj);
+		void F3_shifted_rotated_weierstrass::evaluate_objective(real *x, std::vector<real> &obj) {
+			weierstrass::evaluate_objective(x, obj);
 		}
 	}
 }

@@ -26,11 +26,11 @@ namespace OFEC {
 			F9_shifted_rastrigin(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2005_GOP_F9 = CEC2005::F9_shifted_rastrigin;
+	using CEC2005_GOP_F09 = CEC2005::F9_shifted_rastrigin;
 }
 #endif // ! OFEC_F9_SHIFTED_RASTRIGIN_H
 

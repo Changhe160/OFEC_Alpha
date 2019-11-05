@@ -21,16 +21,16 @@ namespace OFEC {
 		m_opt_mode[0] = optimization_mode::Maximization;
 
 		 //1 gopt + 1 lopt
-		std::vector<std::vector<real>> var_data = { { 2.20291, 1.5708 },{ 2.20291, 2.71157 } };
+		std::vector<std::vector<real>> var_data = { { 2.20291f, 1.5708f },{ 2.20291f, 2.71157f } };
 		for (auto &i : var_data) {
 			set_original_global_opt(i.data());
 		}
 
 		m_optima = m_original_optima;
-		
+		m_initialized = true;
 	}
-	void michalewicz::evaluate__(real *x, std::vector<real>& obj) {
-		double s = 0;
+	void michalewicz::evaluate_objective(real *x, std::vector<real> &obj) {
+		real s = 0;
 
 		for (int i = 0; i < m_variable_size; ++i) {
 			s += sin(x[i])*pow(sin((i + 1)*x[i] * x[i] / OFEC_PI), m_m);

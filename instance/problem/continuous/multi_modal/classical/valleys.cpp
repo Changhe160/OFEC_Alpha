@@ -34,23 +34,23 @@ namespace OFEC {
 		data.push_back(std::make_pair(-2, 2));
 
 		set_range(data);
-		set_range(std::move(data));
+		set_init_range(std::move(data));
 		m_opt_mode[0] = optimization_mode::Maximization;
 
 		m_objective_accuracy = 0.5;
 		m_variable_accuracy = 1.e-4;
 		m_variable_monitor = true;
 		 //1 gopt + 1 lopt
-		std::vector<std::vector<real>> var_data = { { 1.69714, 0.0 }, {-1.44446, 0.0 } };
+		std::vector<std::vector<real>> var_data = { { 1.69714f, 0.0f }, {-1.44446f, 0.0f } };
 
 		for (auto &i : var_data) {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
-		
+		m_initialized = true;
 	}
-	void valleys::evaluate__(real *x, std::vector<real>& obj) {
-		double s;
+	void valleys::evaluate_objective(real *x, std::vector<real> &obj) {
+		real s;
 
 		s = sin(2 * x[0] - 0.5*OFEC_PI) + 3 * cos(x[1]) + 0.5*x[0];
 		obj[0] = s;

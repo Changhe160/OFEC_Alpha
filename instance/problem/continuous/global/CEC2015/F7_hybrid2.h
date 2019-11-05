@@ -27,12 +27,12 @@ namespace OFEC {
 			F7_hybrid2(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			void set_function();
 		private:
 		};
 	}
-	using CEC2015_GOP_F7 = CEC2015::F7_hybrid2;
+	using CEC2015_GOP_F07 = CEC2015::F7_hybrid2;
 }
 
 #endif // !OFEC_F7_HYBRID2_H

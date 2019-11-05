@@ -31,6 +31,14 @@ namespace OFEC {
 	}
 
 	///
+	/// typevar == float
+	///
+	bool typevar::operator == (float n) const {
+		return *this == typevar(n);
+	}
+
+
+	///
 	/// typevar == string
 	///
 	bool typevar::operator == (const std::string& s) const {
@@ -149,6 +157,14 @@ namespace OFEC {
 	}
 
 	///
+	/// typevar != float
+	///
+	bool typevar::operator != (float n) const {
+		return *this != typevar(n);
+	}
+
+
+	///
 	/// typevar != string
 	///
 	bool typevar::operator != (const std::string& s) const {
@@ -219,6 +235,15 @@ namespace OFEC {
 		return less_var()(*this, v);
 	}
 
+
+	///
+	/// typevar < float
+	///
+	bool typevar::operator < (float n) const {
+		const typevar v(n);
+		return less_var()(*this, v);
+	}
+
 	///
 	/// typevar < string
 	///
@@ -285,6 +310,14 @@ namespace OFEC {
 	bool typevar::operator <= (double n) const {
 		if (is_double()) return mapbox::util::get<double_t>(_var) <= n;
 		THROW("invalid <= comparison to double");
+	}
+
+	///
+	/// typevar <= float
+	///
+	bool typevar::operator <= (float n) const {
+		if (is_float()) return mapbox::util::get<float_t>(_var) <= n;
+		THROW("invalid <= comparison to float");
 	}
 
 	///
@@ -365,6 +398,14 @@ namespace OFEC {
 	}
 
 	///
+	/// typevar > float
+	///
+	bool typevar::operator > (float n) const {
+		if (is_float()) return mapbox::util::get<float_t>(_var) > n;
+		THROW("invalid > comparison to float");
+	}
+
+	///
 	/// typevar > string
 	///
 	bool typevar::operator > (const std::string& s) const {
@@ -442,6 +483,15 @@ namespace OFEC {
 		THROW("invalid >= comparison to double");
 	}
 
+
+	///
+	/// typevar >= float
+	///
+	bool typevar::operator >= (float n) const {
+		if (is_float()) return mapbox::util::get<float_t>(_var) >= n;
+		THROW("invalid >= comparison to float");
+	}
+
 	///
 	/// typevar >= string
 	///
@@ -505,4 +555,21 @@ namespace OFEC {
 		THROW("invalid > comparison to size_t");
 	}
 
+	bool typevar::less_var::operator () (const typevar& lhs, const typevar& rhs) {
+		// if the two vars are of different types, order by type
+		code lht = lhs.type(), rht = rhs.type();
+		if (lht != rht) return lht < rht;
+
+		// they are of the same type, order by value
+		switch (lht) {
+		case type_null: return false;
+		case type_char: return mapbox::util::get<char_t>(lhs._var) < mapbox::util::get<char_t>(rhs._var);
+		case type_bool: return mapbox::util::get<bool_t>(lhs._var) < mapbox::util::get<bool_t>(rhs._var);
+		case type_int: return mapbox::util::get<int_t>(lhs._var) < mapbox::util::get<int_t>(rhs._var);
+		case type_double: return mapbox::util::get<double_t>(lhs._var) < mapbox::util::get<double_t>(rhs._var);
+		case type_string: return *(mapbox::util::get<string_t>(lhs._var).ps) < *(mapbox::util::get<string_t>(rhs._var).ps);
+		case type_wstring: return *(mapbox::util::get<wstring_t>(lhs._var).ps) < *(mapbox::util::get<wstring_t>(rhs._var).ps);
+		default: THROW("unhandled type");
+		}
+	}
 }

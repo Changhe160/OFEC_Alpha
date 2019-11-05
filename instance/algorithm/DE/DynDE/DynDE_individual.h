@@ -23,25 +23,21 @@
 
 
 namespace OFEC {
-	namespace DE {
-		class DynDE_subpopulation;
-		//class DynPopDESubPop;
-		class DynDE_individual : public individual
-		{
-			friend class DynDE_subpopulation;
-			//friend class DynPopDESubPop;
-		public:
-			enum class individual_type { TYPE_DE, TYPE_ENTROPY_DE, TYPE_QUANTUM, TYPE_BROWNIAN };
-			template<typename ... Args>
-			DynDE_individual(size_t no, Args&& ... args) : individual(no, std::forward<Args>(args)...) {}
-			DynDE_individual(const DynDE_individual & indi);
+	class DynDE_subpopulation;
+	//class DynPopDESubPop;
+	class DynDE_individual final : public DE::individual
+	{
+		friend class DynDE_subpopulation;
+		//friend class DynPopDESubPop;
+	public:
+		enum class individual_type { TYPE_DE, TYPE_ENTROPY_DE, TYPE_QUANTUM, TYPE_BROWNIAN };
+		DynDE_individual(size_t num_obj, size_t num_con, size_t size_var) : individual(num_obj, num_con, size_var) {}
 
-			evaluation_tag brownian(const solution_type &best, double sigma);
-			evaluation_tag quantum(const solution_type &best, double r);
-			evaluation_tag entropy(double sigma);
-		private:
-			individual_type m_type;
-		};
-	}
+		evaluation_tag brownian(const solution_type &best, real sigma);
+		evaluation_tag quantum(const solution_type &best, real r);
+		evaluation_tag entropy(real sigma);
+	private:
+		individual_type m_type = individual_type::TYPE_DE;
+	};
 }
 #endif // OFEC_DynDE_individual_H

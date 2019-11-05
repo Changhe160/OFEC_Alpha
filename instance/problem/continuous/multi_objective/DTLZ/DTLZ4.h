@@ -27,7 +27,7 @@ namespace OFEC {
 		DTLZ4(const std::string &name, size_t size_var, size_t size_obj);
 		~DTLZ4() {}; 
 	private:
-		void evaluate__(double *x, std::vector<double>& obj);
+		void evaluate_objective(real *x, std::vector<real> &obj);
 	};
 }
 

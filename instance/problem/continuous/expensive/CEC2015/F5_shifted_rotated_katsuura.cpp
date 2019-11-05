@@ -27,9 +27,10 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/expensive/CEC2015/data/");
 			
 			set_global_opt(m_translation.data());
+			m_initialized = true;
 		}
-		void F5_shifted_rotated_katsuura::evaluate__(real *x, std::vector<real>& obj) {
-			katsuura::evaluate__(x, obj);
+		void F5_shifted_rotated_katsuura::evaluate_objective(real *x, std::vector<real> &obj) {
+			katsuura::evaluate_objective(x, obj);
 		}
 	}
 }

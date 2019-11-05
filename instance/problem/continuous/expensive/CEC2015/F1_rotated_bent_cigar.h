@@ -27,10 +27,10 @@ namespace OFEC {
 			F1_rotated_bent_cigar(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_EOP_F1 = CEC2015::F1_rotated_bent_cigar;
+	using CEC2015_EOP_F01 = CEC2015::F1_rotated_bent_cigar;
 }
 #endif // ! OFEC_F1_ROTATED_BENT_CIGAR_H

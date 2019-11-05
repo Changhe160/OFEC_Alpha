@@ -1,4 +1,5 @@
 #include "F5_schwefel_2_6_bound.h"
+#include <numeric>
 
 namespace OFEC {
 	namespace CEC2005 {
@@ -7,7 +8,7 @@ namespace OFEC {
 			
 		}
 		F5_schwefel_2_6_bound::F5_schwefel_2_6_bound(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			function(name, size_var, size_obj), m_a(size_var, std::vector<int>(size_var)), m_b(size_var) {
+			function(name, size_var, size_obj), m_a(size_var, std::vector<real>(size_var)), m_b(size_var) {
 			
 		}
 
@@ -21,8 +22,7 @@ namespace OFEC {
 			sa.insert(0, path);
 			sa.insert(0, global::ms_arg.at("workingDir"));// data path
 
-			std::ifstream in_a;
-			in_a.open(sa.data());
+			std::ifstream in_a(sa);
 			if (in_a.fail()) {
 				for (int i = 0; i < m_variable_size; ++i) {
 					for (int j = 0; j < m_variable_size; ++j) {
@@ -38,9 +38,12 @@ namespace OFEC {
 				out.close();
 			}
 			else {
+				std::string row;
 				for (int i = 0; i < m_variable_size; ++i) {
+					std::getline(in_a, row);
+					std::stringstream sstr_row(row);
 					for (int j = 0; j < m_variable_size; j++) {
-						in_a >> m_a[i][j];
+						sstr_row >> m_a[i][j];
 					}
 				}
 			}
@@ -74,6 +77,11 @@ namespace OFEC {
 			}
 			in.close();
 
+			for (size_t i = 0; i < m_variable_size / 4 + 1; ++i)
+				m_translation[i] = -100;
+			for (size_t i = m_variable_size * 3 / 4; i < m_variable_size; ++i)
+				m_translation[i] = 100;
+
 			for (int i = 0; i < m_variable_size; ++i) {
 				m_b[i] = 0;
 				for (int j = 0; j < m_variable_size; ++j) {
@@ -83,16 +91,20 @@ namespace OFEC {
 		}
 		void F5_schwefel_2_6_bound::initialize() {
 			set_range(-100, 100);
-			set_init_range(-100., 100.);
-			set_original_global_opt();
 			load_data("instance/problem/continuous/global/CEC2005/data/"); // load data into m_a and m_b
-
 			set_bias(-310);
-			set_global_opt(m_translation.data());
-		}
-		void F5_schwefel_2_6_bound::evaluate__(real *x, std::vector<real>& obj) {
+			set_original_global_opt(m_translation.data());
+			set_global_opt();
+			m_optima.set_flag_variable(true);
+			m_objective_monitor = true;
+			m_objective_accuracy = 1.0e-8;
 
-			double fit = 0;
+			m_variable_partition.clear();
+			m_variable_partition.push_back(std::vector<size_t>(m_variable_size));
+			std::iota(m_variable_partition[0].begin(), m_variable_partition[0].end(), 0);
+			m_initialized = true;
+		}
+		void F5_schwefel_2_6_bound::evaluate_objective(real *x, std::vector<real> &obj) {
 			std::vector<real> temp_vector(m_variable_size);
 			for (int i = 0; i < m_variable_size; ++i) {
 				for (int j = 0; j < m_variable_size; ++j) {
@@ -104,14 +116,13 @@ namespace OFEC {
 				for (int j = 0; j < m_variable_size; ++j) {
 					temp_vector[j] -= m_b[j];
 				}
-				double temp = 0;
-				for (int j = 0; j < m_variable_size; ++j) {
-					temp += pow(temp_vector[j], 2.0);
-				}
-				temp = sqrt(temp);
-				if (fit < temp) fit = temp;
 			}
-			obj[0] = fit + m_bias;
+			real temp_max = abs(temp_vector[0]);
+			for (size_t j = 1; j < m_variable_size; ++j) {
+				if (abs(temp_vector[j]) > temp_max)
+					temp_max = abs(temp_vector[j]);
+			}
+			obj[0] = temp_max + m_bias;
 		}
 	}
 }

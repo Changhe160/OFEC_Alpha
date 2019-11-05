@@ -15,7 +15,9 @@ namespace OFEC {
 			m_variable_monitor = true;
 			set_range(-10., 10.);
 			set_init_range(-10., 10.);
-
+			m_constraint_type.resize(2);
+			m_constraint_type[0] = constraint_type::Inequality;
+			m_constraint_type[1] = constraint_type::Inequality;
 			 
 			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
@@ -23,8 +25,9 @@ namespace OFEC {
 			load_rotation_C05("instance/problem/continuous/constrained/CEC2017/data/");
 			set_original_global_opt(m_translation.data());
 			m_optima = m_original_optima;
+			m_initialized = true;
 		}
-		void C05::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
+		void C05::evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 
@@ -37,35 +40,27 @@ namespace OFEC {
 			obj[0] += m_bias;
 
 			
+			// evaluate constraint value
+
 			std::vector<real> x_1(x, x + m_variable_size);
 			std::vector<real> x_2(x, x + m_variable_size);
-			double temp = 0.;
-			double sum = 0.;
 
-			std::vector<double> ineq_cons;
+			con[0] = 0.;
 			rotate(x_1.data(), 1);   // rotate x_1 using rotation matrix 1
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += (x_1[i] * x_1[i] - 50.0*cos(2.0*OFEC_PI*x_1[i]) - 40.0);
+				con[0] += (x_1[i] * x_1[i] - 50.0*cos(2.0*OFEC_PI*x_1[i]) - 40.0);
 			}
-			ineq_cons.push_back(temp);
-			temp = 0.;
+			if (con[0] <= 0) con[0] = 0;
+
+			con[1] = 0.;
 			rotate(x_2.data(), 2);  // rotate x_2 using rotation matrix 2
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += (x_2[i] * x_2[i] - 50.0*cos(2.0*OFEC_PI*x_2[i]) - 40.0);
+				con[1] += (x_2[i] * x_2[i] - 50.0*cos(2.0*OFEC_PI*x_2[i]) - 40.0);
 			}
-			ineq_cons.push_back(temp);
+			if (con[1] <= 0) con[1] = 0;
 
-			for (auto &i : ineq_cons) {
-				if (i <= 0) i = 0;
-				sum += i;
-			}
-			cons_values.clear();
-			for (auto &i : ineq_cons)
-				cons_values.push_back(i);
-			cons_value = sum / (double)ineq_cons.size();
-			
 		}
 		bool C05::load_rotation_C05(const std::string &path) {
 			std::string s;
@@ -104,7 +99,7 @@ namespace OFEC {
 			m_mat2.generate_rotation_classical(global::ms_global->m_normal[caller::Problem].get(), m_condition_number);
 		}
 		void C05::rotate(real *x, size_t num) {
-			double *x_ = new double[m_variable_size];
+			real *x_ = new real[m_variable_size];
 			std::copy(x, x + m_variable_size, x_);
 
 			for (size_t i = 0; i<m_variable_size; ++i) {

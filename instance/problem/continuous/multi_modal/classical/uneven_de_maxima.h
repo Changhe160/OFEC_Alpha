@@ -9,10 +9,10 @@ namespace OFEC {
 	{ //Beasley's F4 function
 	public:
 		uneven_de_maxima(param_map &v);
-		uneven_de_maxima(const std::string &name, size_t size_var, size_t size_obj);
+		uneven_de_maxima(const std::string &name);
 		void initialize();
 	protected:
-		void evaluate__(real *x, std::vector<real>& obj);
+		void evaluate_objective(real *x, std::vector<real>& obj) override;
 	private:
 	};
 	

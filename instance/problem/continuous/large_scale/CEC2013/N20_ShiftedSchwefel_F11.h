@@ -21,7 +21,7 @@ namespace OFEC {
 		public:
 			N20_ShiftedSchwefel_F11(param_map &v);
 			N20_ShiftedSchwefel_F11(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~N20_ShiftedSchwefel_F11();
 
 			void initialize();

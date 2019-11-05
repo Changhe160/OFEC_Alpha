@@ -22,14 +22,15 @@
 
 #include "continuous.h"
 #include "../../../utility/matrix.h"
-namespace OFEC {
+#include <algorithm>
 
+namespace OFEC {
 	class function :public continuous {
 	public:
 		function(const std::string &name, size_t size_var, size_t size_obj = 1);
 
-		void set_bias(double val);
-		void set_scale(double val);
+		void set_bias(real val);
+		void set_scale(real val);
 		void set_rotation_flag(bool flag);
 		void set_tranlation_flag(bool flag);
 		void set_scale_flag(bool flag);
@@ -37,18 +38,16 @@ namespace OFEC {
 		real translation(size_t i) const;
 		std::vector<real>& translation();
 		matrix& rotation();
-		double condition_number();
+		real condition_number();
 		real bias();
 		real scale();
-		void set_condition_number(double c);
+		void set_condition_number(real c);
 		optima<variable_vector<real>, real>& get_original_optima();
 		void set_global_opt(real *tran = 0);
 		void set_original_global_opt(real *opt = 0);
 	protected:
 		virtual void clear();
-		function& operator =(const function &);
-		function& operator =(function &&);
-
+	
 		void translate_zero();
 
 		virtual bool load_translation(const std::string &path);
@@ -63,12 +62,12 @@ namespace OFEC {
 		void resize_rotation(size_t n);
 
 		void irregularize(real *x);
-		void asyemmetricalize(real *x, double belta);
+		void asyemmetricalize(real *x, real belta);
 		void translate(real *x);
 		void translate_origin(real *x);
 		void rotate(real *x);
 		void scale(real *x);
-
+		void update_parameters();
 	protected:
 		std::vector<real> m_translation;
 		bool m_scale_flag = false, m_rotation_flag = false, m_translation_flag = false, m_noise_flag = false;

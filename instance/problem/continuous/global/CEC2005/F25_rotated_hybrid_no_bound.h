@@ -25,7 +25,7 @@ namespace OFEC {
 			F25_rotated_hybrid_no_bound(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			void set_function();
 			void set_translation();
 		private:

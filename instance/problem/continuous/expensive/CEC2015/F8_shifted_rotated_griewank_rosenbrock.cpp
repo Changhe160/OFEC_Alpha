@@ -25,9 +25,10 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/expensive/CEC2015/data/");
 			
 			set_global_opt(m_translation.data());
+			m_initialized = true;
 		}
-		void F8_shifted_rotated_griewank_rosenbrock::evaluate__(real *x, std::vector<real>& obj) {
-			griewank_rosenbrock::evaluate__(x, obj);
+		void F8_shifted_rotated_griewank_rosenbrock::evaluate_objective(real *x, std::vector<real> &obj) {
+			griewank_rosenbrock::evaluate_objective(x, obj);
 		}
 	}
 }

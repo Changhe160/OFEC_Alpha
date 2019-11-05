@@ -19,215 +19,220 @@
 
 /*Storn, R. and Price, K. (1997), "Differential Evolution - A Simple and Efficient Heuristic for Global Optimization over Continuous Spaces",
 Journal of Global Optimization, 11, pp. 341-359*/
-#ifndef OFEC_DEPOPULATION_H
-#define OFEC_DEPOPULATION_H
+#ifndef DE_POPULATION_H
+#define DE_POPULATION_H
 #include "../../../core/algorithm/population.h"
+#include "individual.h"
 
 namespace OFEC {
 	namespace DE {
-		template< typename Individual >
+		enum class mutation_strategy { rand_1, best_1, target_to_best_1, best_2, rand_2, rand_to_best_1, target_to_rand_1, nrand_1 };
+		template<typename Individual = individual>
 		class population : public OFEC::population<Individual> {
 		protected:
-			double  m_F, m_CR;
-			enum DE_mutation_stratgy { DE_rand_1, DE_best_1, DE_target_to_best_1, DE_best_2, DE_rand_2, DE_rand_to_best_1, DE_target_to_rand_1 };
-			DE_mutation_stratgy m_mutation_strategy;
+			real  m_F = 0, m_CR = 0;
+			mutation_strategy m_mutation_strategy = mutation_strategy::rand_1;
+			recombine_strategy m_recombine_strategy = recombine_strategy::binomial;
 		public:
 			using population_type = OFEC::population<Individual>;
-
-			population() = default;
-			template<typename ... Args>
-			population(size_t no, Args&& ... args);
+			using population_type::m_inds;
+			using population_type::m_best;
+			using population_type::m_iter;
+			using population_type::update_best;
+			population()= default;
+			population(size_t size_pop);
 			population(const population &rhs);
-			population(population&&rhs);
+			population(population&&rhs) noexcept;
 
 			population& operator=(const population &rhs);
-			population& operator=(population&&rhs);
+			population& operator=(population&&rhs) noexcept;
 
-			void set_mutation_strategy(DE_mutation_stratgy rS);
+			void set_mutation_strategy(mutation_strategy rS);
 			virtual void mutate(const int idx);
-			void set_parmeter(double cr, double f);
+			void recombine(int idx);
+			void set_parameter(real cr, real f);
 			void default_parameter();
-			virtual void reinitialize();
 			void mutate(int idx, const std::vector<int>&var);
-		protected:
-			virtual void select_in_neighborhood(int number, std::vector<int>&, std::vector<int>&);
-			virtual void select(int base_, int number, std::vector<int>& result);
-			evaluation_tag evolve();
-
+			recombine_strategy get_recombine_strategy() { return m_recombine_strategy; }
+			evaluation_tag evolve() override;
+			virtual void select_in_neighborhood(int number, std::vector<size_t>, std::vector<size_t>&);
+			virtual void select(int base_, int number, std::vector<size_t>& result);
+			real& F() { return m_F; }
+			real& CR() { return m_CR; }
 		};
 
-		template< typename Individual>
-		template<typename ... Args>
-		population<Individual>::population(size_t no, Args&& ... args) : population_type(no, std::forward<Args>(args)...) {
-			default_parameter();
+		template<typename Individual>
+		population<Individual>::population(size_t size_pop) : population_type(size_pop, global::ms_global->m_problem->variable_size()) {
 		}
-		template< typename Individual >
+		template<typename Individual>
 		population<Individual>::population(const population &rhs) : population_type(rhs), m_F(rhs.m_F), m_CR(rhs.m_CR), m_mutation_strategy(rhs.m_mutation_strategy) {
-
 		}
-		template< typename Individual >
-		population<Individual>::population(population&&rhs) : population_type(std::move(rhs)), m_F(std::move(rhs.m_F)), m_CR(std::move(rhs.m_CR)), \
+		template<typename Individual>
+		population<Individual>::population(population &&rhs) noexcept : population_type(std::move(rhs)), m_F(std::move(rhs.m_F)), m_CR(std::move(rhs.m_CR)), \
 			m_mutation_strategy(std::move(rhs.m_mutation_strategy)) {
-
 		}
 
-		template< typename Individual >
-		void population<Individual>::set_mutation_strategy(DE_mutation_stratgy rS) {
+		template<typename Individual>
+		void population<Individual>::set_mutation_strategy(mutation_strategy rS) {
 			m_mutation_strategy = rS;
 		}
-		template< typename Individual >
+		template<typename Individual>
 		population<Individual> & population<Individual>::operator=(const population & rhs) {
 			if (this == &rhs) return *this;
-			OFEC::population<Individual>::operator=(rhs);
+			population_type::operator=(rhs);
 			m_CR = rhs.m_CR;
 			m_F = rhs.m_F;
 			m_mutation_strategy = rhs.m_mutation_strategy;
 			return *this;
 		}
-		template< typename Individual >
-		population<Individual> & population<Individual>::operator=(population&& rhs) {
+		template<typename Individual>
+		population<Individual> & population<Individual>::operator=(population&& rhs) noexcept
+		{
 			if (this == &rhs) return *this;
-			OFEC::population<Individual>::operator=(std::move(rhs));
+			population_type::operator=(std::move(rhs));
 			m_CR = rhs.m_CR;
 			m_F = rhs.m_F;
 			m_mutation_strategy = std::move(rhs.m_mutation_strategy);
 			return *this;
 		}
-		template< typename Individual >
+		template<typename Individual>
 		void population<Individual>::mutate(const int idx) {
-			std::vector<int> ridx;
+			std::vector<size_t> ridx;
 			switch (m_mutation_strategy) {
-			case DE_rand_1:
+			case mutation_strategy::rand_1:
 				select(idx, 3, ridx);
-				this->m_pop[idx]->mutate(m_F, this->m_pop[ridx[0]].get(), this->m_pop[ridx[1]].get(), this->m_pop[ridx[2]].get());
+				m_inds[idx]->mutate(m_F, m_inds[ridx[0]].get(), m_inds[ridx[1]].get(), m_inds[ridx[2]].get());
 				break;
-			case DE_best_1:
+			case mutation_strategy::best_1:
 				select(idx, 2, ridx);
-				this->m_pop[idx]->mutate(m_F, this->m_best[0].get(), this->m_pop[ridx[0]].get(), this->m_pop[ridx[1]].get());
+				m_inds[idx]->mutate(m_F, m_best[0].get(), m_inds[ridx[0]].get(), m_inds[ridx[1]].get());
 				break;
-			case DE_target_to_best_1:
+			case mutation_strategy::target_to_best_1:
 				select(idx, 2, ridx);
-				this->m_pop[idx]->mutate(m_F, this->m_pop[idx].get(), this->m_best[0].get(), this->m_pop[idx].get(), this->m_pop[ridx[0]].get(), this->m_pop[ridx[1]].get());
+				m_inds[idx]->mutate(m_F, m_inds[idx].get(), m_best[0].get(), m_inds[idx].get(), m_inds[ridx[0]].get(), m_inds[ridx[1]].get());
 				break;
-			case DE_best_2:
+			case mutation_strategy::best_2:
 				select(idx, 4, ridx);
-				this->m_pop[idx]->mutate(m_F, this->m_best[0].get(), this->m_pop[ridx[0]].get(), this->m_pop[ridx[1]].get(), this->m_pop[ridx[2]].get(), this->m_pop[ridx[3]].get());
+				m_inds[idx]->mutate(m_F, m_best[0].get(), m_inds[ridx[0]].get(), m_inds[ridx[1]].get(), m_inds[ridx[2]].get(), m_inds[ridx[3]].get());
 				break;
-			case DE_rand_2:
+			case mutation_strategy::rand_2:
 				select(idx, 5, ridx);
-				this->m_pop[idx]->mutate(m_F, this->m_pop[ridx[0]].get(), this->m_pop[ridx[1]].get(), this->m_pop[ridx[2]].get(), this->m_pop[ridx[3]].get(), this->m_pop[ridx[4]].get());
+				m_inds[idx]->mutate(m_F, m_inds[ridx[0]].get(), m_inds[ridx[1]].get(), m_inds[ridx[2]].get(), m_inds[ridx[3]].get(), m_inds[ridx[4]].get());
 				break;
-			case DE_rand_to_best_1:
+			case mutation_strategy::rand_to_best_1:
 				select(idx, 3, ridx);
-				this->m_pop[idx]->mutate(m_F, this->m_pop[ridx[0]].get(), this->m_best[0].get(), this->m_pop[ridx[0]].get(), this->m_pop[ridx[1]].get(), this->m_pop[ridx[2]].get());
+				m_inds[idx]->mutate(m_F, m_inds[ridx[0]].get(), m_best[0].get(), m_inds[ridx[0]].get(), m_inds[ridx[1]].get(), m_inds[ridx[2]].get());
 				break;
-			case DE_target_to_rand_1:
+			case mutation_strategy::target_to_rand_1:
 				select(idx, 3, ridx);
-				this->m_pop[idx]->mutate(m_F, this->m_pop[idx].get(), this->m_pop[ridx[0]].get(), this->m_pop[idx].get(), this->m_pop[ridx[1]].get(), this->m_pop[ridx[2]].get());
+				m_inds[idx]->mutate(m_F, m_inds[idx].get(), m_inds[ridx[0]].get(), m_inds[idx].get(), m_inds[ridx[1]].get(), m_inds[ridx[2]].get());
+				break;
+			case mutation_strategy::nrand_1:
+				int nearest = this->nearest_neighbour(idx, 1).begin()->second;
+				select(idx, 2, ridx);
+				m_inds[idx]->mutate(m_F, m_inds[nearest].get(), m_inds[ridx[0]].get(), m_inds[ridx[1]].get());
 				break;
 			}
 		}
-		template< typename Individual >
+		
+		template<typename Individual>
+		void population<Individual>::recombine(int idx) {
+			m_inds[idx]->recombine(m_CR, m_recombine_strategy);
+		}
+
+		template<typename Individual>
 		void population<Individual>::mutate(int idx, const std::vector<int>&var) {
-			std::vector<int> ridx;
+			std::vector<size_t> ridx;
 			switch (m_mutation_strategy) {
-			case DE_rand_1:
+			case mutation_strategy::rand_1:
 				select(idx, 3, ridx);
-				this->m_pop[idx]->mutate(m_F, var, this->m_pop[ridx[0]], this->m_pop[ridx[1]], this->m_pop[ridx[2]]);
+				m_inds[idx]->mutate(m_F, var, m_inds[ridx[0]].get(), m_inds[ridx[1]].get(), m_inds[ridx[2]].get());
 				break;
-			case DE_best_1:
+			case mutation_strategy::best_1:
 				select(idx, 2, ridx);
-				this->m_pop[idx]->mutate(m_F, var, this->m_best[0].get(), this->m_pop[ridx[0]], this->m_pop[ridx[1]]);
+				m_inds[idx]->mutate(m_F, var, m_best[0].get(), m_inds[ridx[0]].get(), m_inds[ridx[1]].get());
 				break;
-			case DE_target_to_best_1:
+			case mutation_strategy::target_to_best_1:
 				select(idx, 2, ridx);
-				this->m_pop[idx]->mutate(m_F, var, this->m_pop[idx], this->m_best[0], this->m_pop[idx], this->m_pop[ridx[0]], this->m_pop[ridx[1]]);
+				m_inds[idx]->mutate(m_F, var, m_inds[idx].get(), m_best[0].get(), m_inds[idx].get(), m_inds[ridx[0]].get(), m_inds[ridx[1]].get());
 				break;
-			case DE_best_2:
+			case mutation_strategy::best_2:
 				select(idx, 4, ridx);
-				this->m_pop[idx]->mutate(m_F, var, this->m_best[0], this->m_pop[ridx[0]], this->m_pop[ridx[1]], this->m_pop[ridx[2]], this->m_pop[ridx[3]]);
+				m_inds[idx]->mutate(m_F, var, m_best[0].get(), m_inds[ridx[0]].get(), m_inds[ridx[1]].get(), m_inds[ridx[2]].get(), m_inds[ridx[3]].get());
 				break;
-			case DE_rand_2:
+			case mutation_strategy::rand_2:
 				select(idx, 5, ridx);
-				this->m_pop[idx]->mutate(m_F, var, this->m_pop[ridx[0]], this->m_pop[ridx[1]], this->m_pop[ridx[2]], this->m_pop[ridx[3]], this->m_pop[ridx[4]]);
+				m_inds[idx]->mutate(m_F, var, m_inds[ridx[0]].get(), m_inds[ridx[1]].get(), m_inds[ridx[2]].get(), m_inds[ridx[3]].get(), m_inds[ridx[4]].get());
 				break;
-			case DE_rand_to_best_1:
+			case mutation_strategy::rand_to_best_1:
 				select(idx, 3, ridx);
-				this->m_pop[idx]->mutate(m_F, var, this->m_pop[ridx[0]], this->m_best[0], this->m_pop[ridx[0]], this->m_pop[ridx[1]], this->m_pop[ridx[2]]);
+				m_inds[idx]->mutate(m_F, var, m_inds[ridx[0]].get(), m_best[0].get(), m_inds[ridx[0]].get(), m_inds[ridx[1]].get(), m_inds[ridx[2]].get());
 				break;
-			case DE_target_to_rand_1:
+			case mutation_strategy::target_to_rand_1:
 				select(idx, 3, ridx);
-				this->m_pop[idx]->mutate(m_F, var, this->m_pop[idx], this->m_pop[ridx[0]], this->m_pop[idx], this->m_pop[ridx[1]], this->m_pop[ridx[2]]);
+				m_inds[idx]->mutate(m_F, var, m_inds[idx].get(), m_inds[ridx[0]].get(), m_inds[idx].get(), m_inds[ridx[1]].get(), m_inds[ridx[2]].get());
+				break;
+			case mutation_strategy::nrand_1:
+				int nearest = this->nearest_neighbour(idx, 1).begin()->second;
+				select(idx, 2, ridx);
+				m_inds[idx]->mutate(m_F, m_inds[nearest].get(), m_inds[ridx[0]].get(), m_inds[ridx[1]].get());
 				break;
 			}
 		}
-		template< typename Individual >
+		template<typename Individual>
 		evaluation_tag population<Individual>::evolve() {
-			if (this->m_pop.size() < 5) {
+			if (m_inds.size() < 5) {
 				throw myexcept("the population size cannot be smaller than 5@DE::population<Individual>::evolve()");
 			}
 			evaluation_tag tag = evaluation_tag::Normal;
 
-			for (size_t i = 0; i < this->m_pop.size(); ++i) {
+			if (m_mutation_strategy == mutation_strategy::best_1 ||
+				m_mutation_strategy == mutation_strategy::target_to_best_1 ||
+				m_mutation_strategy == mutation_strategy::best_2 ||
+				m_mutation_strategy == mutation_strategy::rand_to_best_1)
+				update_best();
+
+			for (size_t i = 0; i < m_inds.size(); ++i) {
 				mutate(i);
-				this->m_pop[i]->recombine(m_CR);
-			}
-
-			//this->updateIDnIndex();
-			for (size_t i = 0; i < this->m_pop.size(); ++i) {
-				tag = this->m_pop[i]->select();
-				//this->update_archive(this->m_pop[i]);
+				recombine(i);
+				tag = m_inds[i]->select();
 				if (tag != evaluation_tag::Normal) break;
-
 			}
 
-			if (tag == evaluation_tag::Normal) {
-				//this->m_center = *this->m_best[0];
-				//this->updateCurRadius();
-				this->m_iter++;
-			}
+			if (tag == evaluation_tag::Normal)
+				m_iter++;
 			return tag;
 		}
-		template< typename Individual >
-		void population<Individual>::set_parmeter(const double cr, const double f) {
+		template<typename Individual>
+		void population<Individual>::set_parameter(const real cr, const real f) {
 			m_CR = cr;
 			m_F = f;
 		}
-		template< typename Individual >
+		template<typename Individual>
 		void population<Individual>::default_parameter() {
 			m_CR = 0.6;
 			m_F = 0.5;
-			m_mutation_strategy = DE_best_1;
+			m_mutation_strategy = mutation_strategy::best_1;
+			m_recombine_strategy = recombine_strategy::binomial;
 		}
-		template< typename Individual >
-		void population<Individual>::reinitialize() {
-			for (size_t i = 0; i < this->m_pop.size(); ++i) {
-				this->m_pop[i]->initialize(i);
-				//this->m_pop[i]->m_flag = true;
-			}
-			if (this->terminating()) return;
-			this->update_best();
 
-			for (size_t i = 0; i < this->m_best.size(); ++i) {
-				//this->update_archive(*m_best[i]);
-			}
-		}
-		template< typename Individual >
-		void population<Individual>::select(int base_, int number, std::vector<int>& result) {
+		template<typename Individual>
+		void population<Individual>::select(int base_, int number, std::vector<size_t>& result) {
 			std::vector<int> candidate;
-			for (int i = 0; i < this->m_pop.size(); ++i) {
+			for (size_t i = 0; i < m_inds.size(); ++i) {
 				if (base_ != i) candidate.push_back(i);
 			}
-			result.resize(number);
-			for (int i = 0; i < number; ++i) {
-				int idx = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)candidate.size() - i);
+			if (result.size() != number)	result.resize(number);
+			for (size_t i = 0; i < number; ++i) {
+				size_t idx = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<size_t>(0, candidate.size() - i);
 				result[i] = candidate[idx];
 				if (idx != candidate.size() - (i + 1)) candidate[idx] = candidate[candidate.size() - (i + 1)];
 			}
 		}
-		template< typename Individual >
-		void population<Individual>::select_in_neighborhood(int number, std::vector<int>& candidate, std::vector<int>& result) {
-			for (int i = 0; i < number; ++i) {
+		template<typename Individual>
+		void population<Individual>::select_in_neighborhood(int number, std::vector<size_t> candidate, std::vector<size_t>& result) {
+			if (result.size() != number)	result.resize(number);
+			for (size_t i = 0; i < number; ++i) {
 				int idx = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<int>(0, (int)candidate.size() - i);
 				result[i] = candidate[idx];
 				if (idx != candidate.size() - (i + 1)) candidate[idx] = candidate[candidate.size() - (i + 1)];
@@ -235,6 +240,4 @@ namespace OFEC {
 		}
 	}
 }
-#endif // !OFEC_DEPOPULATION_H
-
-
+#endif // !DE_POPULATION_H

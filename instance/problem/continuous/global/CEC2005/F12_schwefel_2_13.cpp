@@ -1,4 +1,5 @@
 #include "F12_schwefel_2_13.h"
+#include <numeric>
 
 namespace OFEC {
 #pragma warning(disable:4996)
@@ -8,16 +9,14 @@ namespace OFEC {
 			
 		}
 		F12_schwefel_2_13::F12_schwefel_2_13(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			function(name, size_var, size_obj), m_a(size_var, std::vector<int>(size_var)), m_b(size_var, std::vector<int>(size_var)), \
+			function(name, size_var, size_obj), m_a(size_var, std::vector<real>(size_var)), m_b(size_var, std::vector<real>(size_var)), \
 			m_alpha(size_var) {
 		
 			
 		}
 
 		void F12_schwefel_2_13::initialize() {
-			m_variable_monitor = true;
 			set_range(-OFEC_PI, OFEC_PI);
-			set_init_range(-OFEC_PI, OFEC_PI);
 			load_data("instance/problem/continuous/global/CEC2005/data/");
 			set_original_global_opt();
 			set_bias(-460);
@@ -26,7 +25,14 @@ namespace OFEC {
 				m_translation[i] = m_alpha[i];
 			}
 			set_global_opt(m_translation.data());
-			m_variable_accuracy = 1.0e-2;
+			m_optima.set_flag_variable(true);
+			m_objective_monitor = true;
+			m_objective_accuracy = 1.0e-8;
+
+			m_variable_partition.clear();
+			m_variable_partition.push_back(std::vector<size_t>(m_variable_size));
+			std::iota(m_variable_partition[0].begin(), m_variable_partition[0].end(), 0);
+			m_initialized = true;
 		}
 
 		void F12_schwefel_2_13::load_data(const std::string & path)
@@ -79,9 +85,12 @@ namespace OFEC {
 				out.close();
 			}
 			else {
+				std::string row;
 				for (int i = 0; i < m_variable_size; ++i) {
+					std::getline(in_a, row);
+					std::stringstream sstr_row(row);
 					for (int j = 0; j < m_variable_size; j++) {
-						in_a >> m_a[i][j];
+						sstr_row >> m_a[i][j];
 					}
 				}
 			}
@@ -102,9 +111,12 @@ namespace OFEC {
 				out.close();
 			}
 			else {
+				std::string row;
 				for (int i = 0; i < m_variable_size; ++i) {
+					std::getline(in_b, row);
+					std::stringstream sstr_row(row);
 					for (int j = 0; j < m_variable_size; j++) {
-						in_b >> m_b[i][j];
+						sstr_row >> m_b[i][j];
 					}
 				}
 			}
@@ -130,12 +142,12 @@ namespace OFEC {
 
 
 
-		void F12_schwefel_2_13::evaluate__(real *x, std::vector<real>& obj) {
-			double result = 0;
+		void F12_schwefel_2_13::evaluate_objective(real *x, std::vector<real> &obj) {
+			real result = 0;
 
 			for (int i = 0; i < m_variable_size; ++i) {
-				double A = 0;
-				double B = 0;
+				real A = 0;
+				real B = 0;
 				for (int j = 0; j < m_variable_size; ++j) {
 					A += m_a[i][j] * sin(m_alpha[j]) + m_b[i][j] * cos(m_alpha[j]);
 					B += m_a[i][j] * sin(x[j]) + m_b[i][j] * cos(x[j]);

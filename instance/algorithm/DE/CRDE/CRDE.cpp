@@ -1,67 +1,61 @@
 #include "CRDE.h"
 
 namespace OFEC {
-	namespace DE {
-		std::mutex m_mutex_stream;
-		CRDE::CRDE(param_map &v) :population(v.at("popSize"), global::ms_global->m_problem->variable_size())
-		{
-			m_F = 0.5;
-			m_CR = 0.9;
-			m_mutation_strategy = DE_rand_1;
 
+	CRDE_pop::CRDE_pop(size_t size_pop) : DE::population<DE::individual>(size_pop) {}
+
+	evaluation_tag CRDE_pop::evolve() {
+		if (m_inds.size() < 5) {
+			throw myexcept("the population size cannot be smaller than 5@DE::CRDE::evolve()");
 		}
-
-		evaluation_tag CRDE::evolve()
-		{
-			if (size() < 4) {
-				throw myexcept("the population size cannot be smaller than 5@DE::CRDE::evolve()");
+		evaluation_tag tag = evaluation_tag::Normal;
+		for (size_t i = 0; i < size(); ++i) {
+			mutate(i);
+			m_inds[i]->recombine(m_CR, m_recombine_strategy);
+			tag = m_inds[i]->trial().evaluate();
+			if (tag == evaluation_tag::Terminate) return tag;
+			int idx = nearest_neighbour(i).begin()->second;
+			if (m_inds[i]->trial().dominate(*m_inds[idx])) {
+				m_inds[idx]->solut() = m_inds[i]->trial();
 			}
-
-			evaluation_tag tag = evaluation_tag::Normal;
-
-			for (size_t i = 0; i < size(); ++i) {
-
-				mutate(i);
-				m_pop[i]->recombine(m_CR);
-
-				tag = m_pop[i]->trial().evaluate();
-				if (tag != evaluation_tag::Normal) return tag;
-
-				int idx = this->nearest_neighbour(i).begin()->second;
-
-				if (m_pop[i]->trial().dominate(*m_pop[idx])) {
-					m_pop[idx]->solut() = m_pop[i]->trial();
-				}
-				//update_archive(DEindividual<>(m_pop[i]->trial()));
-			}
-			m_iter++;
-
-			return tag;
 		}
+		m_iter++;
+		return tag;
+	}
 
-		evaluation_tag CRDE::run_()
-		{
-			evaluation_tag tag = evaluation_tag::Normal;
-			std::vector<real> gopt(1);
-			gopt = CONTINOUS_CAST->get_optima().objective(0);
-			while (tag != evaluation_tag::Terminate)
-			{
-				m_mutex_stream.lock();
+	CRDE::CRDE(param_map &v) : algorithm(v.at("algName")), m_pop(v.at("popSize")) {
+		if (CONTINUOUS_CAST->has_tag(problem_tag::GOP))
+			CONTINUOUS_CAST->set_eval_monitor_flag(true);
+	}
 
-				//update_best();
-				double best = problem::get_sofar_best<solution<>>(0)->objective()[0];
-				int num_opt_found = CONTINOUS_CAST->num_optima_found();
-				//std::cout << m_iter << " " << error << " " << m_best[0]->variable()[0] << " " << m_best[0]->variable()[1] << std::endl;
-				std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << num_opt_found << std::endl;
-				measure::get_measure()->record(global::ms_global.get(), m_iter, num_opt_found);
-				m_mutex_stream.unlock();
+	void CRDE::initialize()	{
+		m_pop.set_parameter(0.9, 0.5);
+		m_pop.set_mutation_strategy(DE::mutation_strategy::rand_1);
+		m_pop.initialize();
+		m_pop.evaluate();
+	}
 
-				tag = evolve();
-			}
-			measure::get_measure()->record(global::ms_global.get(), m_iter, CONTINOUS_CAST->num_optima_found());
-			std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << CONTINOUS_CAST->num_optima_found() << std::endl;
-			
-			return tag;
+	void CRDE::run_() {
+		while (!terminating()) {
+			m_pop.evolve();
+		}
+	}
+
+	void CRDE::record() {
+		if (CONTINUOUS_CAST->has_tag(problem_tag::MMOP)) {
+			// ******* Multi-Modal Optimization *******
+			size_t evals = CONTINUOUS_CAST->evaluations();
+			size_t num_opt_found = CONTINUOUS_CAST->num_optima_found();
+			size_t num_opt_known = CONTINUOUS_CAST->get_optima().number_objective();
+			real peak_ratio = (real)num_opt_found / (real)num_opt_known;
+			real success_rate = CONTINUOUS_CAST->solved() ? 1 : 0;
+			measure::get_measure()->record(global::ms_global.get(), evals, peak_ratio, success_rate);
+		}
+		else if (CONTINUOUS_CAST->has_tag(problem_tag::GOP)) {
+			// ******* Global Optimization ************
+			size_t evals = CONTINUOUS_CAST->evaluations();
+			real err = std::fabs(problem::get_sofar_best<solution<>>(0)->objective(0) - CONTINUOUS_CAST->get_optima().objective(0).at(0));
+			measure::get_measure()->record(global::ms_global.get(), evals, err);
 		}
 	}
 }

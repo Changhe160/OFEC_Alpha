@@ -23,12 +23,12 @@ namespace OFEC {
 		public:
 			ShiftedAckley_F3(param_map &v);
 			ShiftedAckley_F3(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~ShiftedAckley_F3();
 
 			void initialize();
 		};
 	}
-	using CEC2013_LSOP_F3 = CEC2013::ShiftedAckley_F3;
+	using CEC2013_LSOP_F03 = CEC2013::ShiftedAckley_F3;
 }
 #endif

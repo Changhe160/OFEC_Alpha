@@ -29,7 +29,7 @@ namespace OFEC {
 		expanded_five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj);
 		void initialize();
 	protected:
-		void evaluate__(real *x, std::vector<real>& obj);
+		void evaluate_objective(real *x, std::vector<real>& obj) override;
 	private:
 	};
 

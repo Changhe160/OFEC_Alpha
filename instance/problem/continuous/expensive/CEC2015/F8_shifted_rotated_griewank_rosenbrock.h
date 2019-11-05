@@ -27,11 +27,11 @@ namespace OFEC {
 			F8_shifted_rotated_griewank_rosenbrock(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_EOP_F8 = CEC2015::F8_shifted_rotated_griewank_rosenbrock;
+	using CEC2015_EOP_F08 = CEC2015::F8_shifted_rotated_griewank_rosenbrock;
 }
 #endif // ! OFEC_F8_SHIFTED_ROTATED_GRIEWANK_ROSENBROCK_H
 

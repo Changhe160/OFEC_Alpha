@@ -15,7 +15,7 @@ namespace OFEC {
 		}
 		void F11_hybrid2::set_function() {
 			size_t i, tmp;
-			double f_p[4] = { 0.2, 0.2, 0.3, 0.3 };
+			real f_p[4] = { 0.2, 0.2, 0.3, 0.3 };
 			basic_func f(4);
 			f[0] = &create_function<griewank>;
 			f[1] = &create_function<weierstrass>;
@@ -56,24 +56,23 @@ namespace OFEC {
 				i = count++;
 			global::ms_global->m_uniform[caller::Problem]->shuffle(m_random_perm.begin(), m_random_perm.end());
 			// Set optimal solution
-			variable_vector<real> temp_var(m_variable_size);
-			objective_vector<real> temp_obj(m_objective_size);
+            solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
 			size_t num = 0;
 			for (size_t i = 0; i < m_num_function;++i) {
 				for (size_t j = 0; j < m_dim[i];++j)
-				    temp_var[m_random_perm[num++]] = m_function[i]->get_optima().variable(0)[j];
+                    s.variable()[m_random_perm[num++]] = m_function[i]->get_optima().variable(0)[j];
 			}
-			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
 			
-			m_optima.append(x.variable());
+			m_optima.append(s.variable());
 
-			evaluate_(x, caller::Problem, false, false);
-			m_optima.append(x.objective());
+			s.evaluate(false, caller::Problem);
+			m_optima.append(s.objective());
 			// end set
+			m_initialized = true;
 		}
-		void F11_hybrid2::evaluate__(real *x, std::vector<real>& obj) {
+		void F11_hybrid2::evaluate_objective(real *x, std::vector<real> &obj) {
 
-			hybrid::evaluate__(x, obj);
+			hybrid::evaluate_objective(x, obj);
 			obj[0] += 1100;
 		}
 	}

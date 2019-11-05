@@ -26,14 +26,14 @@ namespace OFEC {
 			F5_schwefel_2_6_bound(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			void load_data(const std::string & path);
 
 			std::vector<real> m_b;
-			std::vector<std::vector<int>> m_a;
+			std::vector<std::vector<real>> m_a;
 		private:
 		};
 	}
-	using CEC2005_GOP_F5 = CEC2005::F5_schwefel_2_6_bound;
+	using CEC2005_GOP_F05 = CEC2005::F5_schwefel_2_6_bound;
 }
 #endif // ! OFEC_F5_SCHWEFEL_2_6_BOUND_H

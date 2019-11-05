@@ -18,8 +18,9 @@ namespace OFEC {
 		set_original_global_opt();
 
 		set_global_opt();
+		m_initialized = true;
 	}
-	void griewank_rosenbrock::evaluate__(real *x, std::vector<real>& obj) {
+	void griewank_rosenbrock::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -29,15 +30,15 @@ namespace OFEC {
 		if (m_translation_flag)
 			translate_origin(x);
 
-		double result = 0;
+		real result = 0;
 		for (size_t i = 0; i < m_variable_size; ++i) {
-			double result_f2 = 0;
-			double result_f8 = 0;
-			double x_front = x[i] + 1;
-			double x_back = x[(i + 1) % m_variable_size] + 1;
+			real result_f2 = 0;
+			real result_f8 = 0;
+			real x_front = x[i] + 1;
+			real x_back = x[(i + 1) % m_variable_size] + 1;
 
 			result_f2 += 100 * pow((x_back - x_front * x_front), 2.0) + (x_front - 1) * (x_front - 1);
-			result_f8 += result_f2 * result_f2 / 4000.0 - cos(result_f2 / sqrt((double)(i + 1))) + 1;
+			result_f8 += result_f2 * result_f2 / 4000.0 - cos(result_f2 / sqrt((real)(i + 1))) + 1;
 			result += result_f8;
 
 

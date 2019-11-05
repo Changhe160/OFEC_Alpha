@@ -25,13 +25,13 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/global/CEC2015/data/");
 			
 			set_global_opt(m_translation.data());
-
+			m_initialized = true;
 		}
 
 
 
-		void F1_R_elliptic::evaluate__(real *x, std::vector<real>& obj) {
-			elliptic::evaluate__(x,obj);
+		void F1_R_elliptic::evaluate_objective(real *x, std::vector<real> &obj) {
+			elliptic::evaluate_objective(x,obj);
 		}
 	}
 }

@@ -67,57 +67,51 @@ namespace OFEC {
 			std::vector<real> hy_bias = { 600,700,800 };
 			set_function();
 			load_translation("instance/problem/continuous/global/CEC2015/data/");  //data path
-			variable_vector<real> temp_var(m_variable_size);
-			objective_vector<real> temp_obj(m_objective_size);
 			size_t num = 0;
-			for (auto &i : m_hybrid) {
-				for (size_t j = 0; j < m_variable_size; ++j)
-					temp_var[j] = i->get_optima().variable(0)[j] + i->hybrid_translation()[j];
+            solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
+            for (auto &i : m_hybrid) {
+                for (size_t j = 0; j < m_variable_size; ++j)
+					s.variable()[j] = i->get_optima().variable(0)[j] + i->hybrid_translation()[j];
 				i->get_optima().clear();
-				solution<variable_vector<real>, real> x(temp_var, temp_obj);
-				i->get_optima().append(x.variable());
-				i->evaluate_(x, caller::Problem, false, false);
-				x.objective()[0] -= hy_bias[num++];
-				i->get_optima().append(x.objective());
+				i->get_optima().append(s.variable());
+				i->evaluate_(s, caller::Problem, false, false);
+				s.objective()[0] -= hy_bias[num++];
+				i->get_optima().append(s.objective());
 			}
 			// Set optimal solution
 			for (size_t j = 0; j < m_variable_size; ++j)
-				temp_var[j] = m_hybrid[0]->get_optima().variable(0)[j];
+				s.variable()[j] = m_hybrid[0]->get_optima().variable(0)[j];
 
-			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
-
-			m_optima.append(x.variable());
-			evaluate_(x, caller::Problem, false, false);
-			m_optima.append(x.objective());
-			
+			m_optima.append(s.variable());
+			s.evaluate(false, caller::Problem);
+			m_optima.append(s.objective());
+			m_initialized = true;
 		}
 
-		void F10_global_composition2::evaluate__(real *x, std::vector<real>& obj) {
+		void F10_global_composition2::evaluate_objective(real *x, std::vector<real> &obj) {
 			std::vector<real> x_(m_variable_size);
 			std::copy(x, x + m_variable_size, x_.begin());
-			std::vector<double> weight(m_num_function, 0);
+			std::vector<real> weight(m_num_function, 0);
 
 			set_weight(weight, x_);
 			std::vector<real> fit(m_num_function);
-			variable_vector<real> temp_var(m_variable_size);
-			objective_vector<real> temp_obj(m_objective_size);
-			solution<variable_vector<real>, real> s(std::move(temp_var), std::move(temp_obj));
+            solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
 			std::vector<real> hy_bias = { 600,700,800 };
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate objective value for each function
-				s.variable() = x_;
+				s.variable().vect() = x_;
 				for (size_t j = 0; j < m_variable_size; ++j)
 					s.variable()[j] -= m_hybrid[i]->hybrid_translation()[j];
 				m_hybrid[i]->evaluate_(s, caller::Problem, false, false);
 				fit[i] = s.objective()[0] - hy_bias[i];
 
 			}
-			double sumw = 0;
+			real sumw = 0;
 			for (size_t i = 0; i < m_num_function; ++i)
 				sumw += weight[i];
 			for (size_t i = 0; i < m_num_function; ++i)
 				weight[i] /= sumw;
 
-			double temp = 0;
+			real temp = 0;
 			for (size_t i = 0; i < m_num_function; ++i) {
 				temp += weight[i] * (m_height[i] * fit[i] + m_f_bias[i]);
 			}
@@ -160,7 +154,7 @@ namespace OFEC {
 				for (int j = 0; j < m_variable_size; j++)
 					m_hybrid[i]->hybrid_translation()[j] = m_domain[j].limit.first + (m_domain[j].limit.second - m_domain[j].limit.first)*(1 - global::ms_global->m_uniform[caller::Problem]->next());
 		}
-		void F10_global_composition2::set_weight(std::vector<double>& weight, const std::vector<real>&x) {
+		void F10_global_composition2::set_weight(std::vector<real>& weight, const std::vector<real>&x) {
 
 			for (size_t i = 0; i < m_num_function; ++i) { // calculate weight for each function
 				weight[i] = 0;
@@ -169,7 +163,7 @@ namespace OFEC {
 					weight[i] += pow(x[j] - m_hybrid[i]->get_optima().variable(0)[j], 2);
 				}
 
-				if (fabs(weight[i])>1e-6) weight[i] = exp(-weight[i] / (2 * m_variable_size*m_converge_severity[i] * m_converge_severity[i])) / (double)(pow(weight[i], 0.5));
+				if (fabs(weight[i])>1e-6) weight[i] = exp(-weight[i] / (2 * m_variable_size*m_converge_severity[i] * m_converge_severity[i])) / (real)(pow(weight[i], 0.5));
 				else {
 					for (auto &m : weight) {
 						m = 0;

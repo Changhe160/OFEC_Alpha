@@ -24,7 +24,7 @@ namespace OFEC {
 #define CAST_TSP dynamic_cast<travelling_salesman*>(global::ms_global->m_problem.get())
 	class travelling_salesman : public problem {
 	protected:
-		std::vector<std::vector<std::vector<double>>> mvvv_cost;  // the cost between cities
+		std::vector<std::vector<std::vector<real>>> mvvv_cost;  // the cost between cities
 		std::string m_file_name; // input tsp file name
 		domain<int> m_domain; // boundary of each variable
 		optima<variable_vector<int>, real> m_optima; // the optimal solution of problem
@@ -34,19 +34,19 @@ namespace OFEC {
 	public:
 		travelling_salesman(param_map &v);
 		travelling_salesman(const std::string& pro_name, int size_var, int size_obj, const std::string& file_name);
-		evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
+		evaluation_tag evaluate_(solution_base &s, caller call, bool effective, bool constructed);
 		bool is_valid(solution_base &s) const;
 		void initialize_solution(solution_base &s) const;
 		bool same(const solution_base &s1, const solution_base &s2) const;
-		double variable_distance(const solution_base &s1, const solution_base &s2) const;
-		double variable_distance(const variable_base &s1, const variable_base &s2) const;
+		real variable_distance(const solution_base &s1, const solution_base &s2) const;
+		real variable_distance(const variable_base &s1, const variable_base &s2) const;
 		std::pair<int, int> get_next_city(const solution_base &s, int city) const; //return the next and previous cities of city in solution s
 
 		void find_nearby_city(std::vector<std::vector<int>> &nearby,int num_near=0, int obj=0);     //find some percent of nearby city
 		void prim(std::vector<std::vector<int>>& mst_edge, int n = 0); // find MST edges
-		void calculate_edge_weight(char* edge_type, std::vector<std::vector<double>>& coordinate);
+		void calculate_edge_weight(char* edge_type, std::vector<std::vector<real>>& coordinate);
 
-		const std::vector<std::vector<double>>& get_cost(int i = 0) const { return mvvv_cost[i]; }
+		const std::vector<std::vector<real>>& get_cost(int i = 0) const { return mvvv_cost[i]; }
 		const std::vector<std::vector<int>>& get_near() const { return mvv_nearby; }
 		std::string get_file_name() const { return m_file_name; }
 		const optima<variable_vector<int>, real>& get_optima() const { return m_optima; }

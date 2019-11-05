@@ -30,14 +30,14 @@ namespace OFEC {
 		m_variable_monitor = true;
 		set_range(-2.048, 2.048);
 		set_init_range(-2.048, 2.048);
-		std::vector<double> v(m_variable_size, 1);
+		std::vector<real> v(m_variable_size, 1);
 		set_original_global_opt(v.data());
 
 		set_global_opt();
-		
+		m_initialized = true;
 	}
 
-	void rosenbrock::evaluate__(real *x, std::vector<real>& obj) {
+	void rosenbrock::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -46,7 +46,7 @@ namespace OFEC {
 			rotate(x);
 		if (m_translation_flag)
 			translate_origin(x);
-		double fitness = 0;
+		real fitness = 0;
 
 		for (int i = 0; i < m_variable_size - 1; i++) {
 			fitness += 100 * (x[i + 1] - x[i] * x[i])*(x[i + 1] - x[i] * x[i]) + (x[i] - 1)*(x[i] - 1);

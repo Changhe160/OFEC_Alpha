@@ -7,11 +7,9 @@ namespace OFEC {
 	ZDT6::ZDT6(const std::string & name, size_t size_var) : problem(name, size_var, 2), ZDT(name, size_var) {
 		
 	}
-	void ZDT6::initialize() {
 
-	}
-	void ZDT6::evaluate__(double * x, std::vector<double>& obj) {
-		double g = 0;
+	void ZDT6::evaluate_objective(real *x, std::vector<real> &obj) {
+		real g = 0;
 		for (size_t n = 1; n<m_variable_size; n++)
 			g = g + x[n];
 		g = pow(g / (m_variable_size - 1), 0.25);

@@ -28,17 +28,18 @@ namespace OFEC {
 		m_variable_monitor = true;
 		set_range(-2.048, 2.048);
 		set_init_range(-2.048, 2.048);
-		std::vector<double> v(m_variable_size, 1);
+		std::vector<real> v(m_variable_size, 1);
 		set_original_global_opt(v.data());
 
 		set_condition_number(1);
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");
 	
 		set_global_opt();
+		m_initialized = true;
 	}
 
-	void rotated_rosenbrock::evaluate__(real *x, std::vector<real>& obj) {
-		rosenbrock::evaluate__(x, obj);
+	void rotated_rosenbrock::evaluate_objective(real *x, std::vector<real> &obj) {
+		rosenbrock::evaluate_objective(x, obj);
 
 	}
 

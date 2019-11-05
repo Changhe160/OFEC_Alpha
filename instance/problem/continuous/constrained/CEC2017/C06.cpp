@@ -15,14 +15,17 @@ namespace OFEC {
 			m_variable_monitor = true;
 			set_range(-20., 20.);
 			set_init_range(-20., 20.);
-
+			m_constraint_type.resize(6);
+			for (auto &i : m_constraint_type)
+				i = constraint_type::Equality;
 			 
 			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
 			set_original_global_opt(m_translation.data());
 			m_optima = m_original_optima;
+			m_initialized = true;
 		}
-		void C06::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
+		void C06::evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 
@@ -35,64 +38,42 @@ namespace OFEC {
 			obj[0] += m_bias;
 
 			
-			double temp = 0.;
-			double sum = 0.;
-
-			std::vector<double> eq_cons;
-
-			for (i = 0; i < m_variable_size; ++i)
-			{
-				temp += x[i] * sin(x[i]);      //h1
-			}
-			eq_cons.push_back(-1 * temp);
-			temp = 0.;
+			// evaluate constraint value
+			
+			for (auto &i : con)
+				i = 0.;
 
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += x[i] * sin(OFEC_PI*x[i]);   //h2
+				con[0] += x[i] * sin(x[i]);      //h1
 			}
-			eq_cons.push_back(temp);
-			temp = 0.;
-
+			con[0] *= -1;
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += x[i] * cos(x[i]);    //h3
+				con[1] += x[i] * sin(OFEC_PI*x[i]);   //h2
 			}
-			eq_cons.push_back(-1 * temp);
-			temp = 0.;
-
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += x[i] * cos(OFEC_PI*x[i]);    //h4
+				con[2] += x[i] * cos(x[i]);    //h3
 			}
-			eq_cons.push_back(temp);
-			temp = 0.;
-
+			con[2] *= -1;
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += x[i] * sin(2 * sqrt(fabs(x[i])));    //h5
+				con[3] += x[i] * cos(OFEC_PI*x[i]);    //h4
 			}
-			eq_cons.push_back(temp);
-			temp = 0.;
-
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += x[i] * sin(2 * sqrt(fabs(x[i])));    //h6
+				con[4] += x[i] * sin(2 * sqrt(fabs(x[i])));    //h5
 			}
-			eq_cons.push_back(-1 * temp);
-			temp = 0.;
+			for (i = 0; i < m_variable_size; ++i)
+			{
+				con[5] += x[i] * sin(2 * sqrt(fabs(x[i])));    //h6
+			}
+			con[5] *= -1;
 
-			for (auto &i : eq_cons) {
+			for (auto &i : con)
 				if (fabs(i) - 1e-4 <= 0) i = 0;
-				else i = fabs(i);
-				sum += i;
-			}
-			cons_values.clear();
-			for (auto &i : eq_cons)
-				cons_values.push_back(i);
-			cons_value = sum / (double)eq_cons.size();
-			
-			
+
 		}
 	}
 }

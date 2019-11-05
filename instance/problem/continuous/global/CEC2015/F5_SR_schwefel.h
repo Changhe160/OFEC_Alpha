@@ -27,12 +27,12 @@ namespace OFEC {
 			F5_SR_schwefel(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 
 		private:
 		};
 	}
-	using CEC2015_GOP_F5 = CEC2015::F5_SR_schwefel;
+	using CEC2015_GOP_F05 = CEC2015::F5_SR_schwefel;
 }
 
 #endif // !OFEC_F5_SR_SCHWEFEL_H

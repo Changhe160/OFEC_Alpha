@@ -12,7 +12,7 @@ namespace OFEC {
 		void initialize();
 	protected:
 		void load_data();
-		void evaluate__(real *x, std::vector<real>& obj);
+		void evaluate_objective(real *x, std::vector<real>& obj) override;
 
 		std::vector<real> m_b;
 		std::vector<std::vector<int>> m_a;

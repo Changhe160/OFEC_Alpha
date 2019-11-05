@@ -20,22 +20,20 @@
 #ifndef OFEC_PROBLEM_H
 #define OFEC_PROBLEM_H
 #include <string>
-#include <limits>
 #include <map>
 #include <memory>
 #include <set>
-#include <sstream>
 
 #include "../definition.h"
 #include "../algorithm/encoding.h"
+#include "../../utility/typevar/typevar.h"
 
 namespace OFEC {
 	class problem {
 	public:
 		problem(const std::string &name, size_t size_var, size_t size_obj);
-		virtual ~problem() {}
-		problem(const problem&) = delete;
-
+		virtual ~problem() = default;
+	
 		optimization_mode opt_mode(size_t idx) const {
 			return m_opt_mode[idx];
 		}
@@ -43,19 +41,19 @@ namespace OFEC {
 			return m_opt_mode;
 		}
 		virtual bool same(const solution_base &s1, const solution_base &s2) const = 0;
-		virtual double variable_distance(const solution_base &s1, const solution_base &s2) const = 0;
-		virtual double variable_distance(const variable_base &s1, const variable_base &s2) const = 0;
+		virtual real variable_distance(const solution_base &s1, const solution_base &s2) const = 0;
+		virtual real variable_distance(const variable_base &s1, const variable_base &s2) const = 0;
 
 		template<typename Solution>
 		evaluation_tag evaluate(Solution &s, caller call, bool effective_eval = true) {
-			evaluation_tag tag = evaluate_(s, call, effective_eval, true);
+			evaluation_tag tag = evaluate_(s, call, effective_eval, m_initialized);
 			if (m_eval_monitor&&effective_eval) {
 				update_objective_minmax(s, m_opt_mode);
 			}
 			++m_total_eval;
 			return tag;
 		}
-		virtual evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed) = 0;
+		virtual evaluation_tag evaluate_(solution_base &s, caller call, bool effective, bool initialized) = 0;
 
 		const std::string& name() const {
 			return m_name;
@@ -67,8 +65,6 @@ namespace OFEC {
 		virtual violation_type check_constraint_violation(const solution_base &) const {
 			return violation_type::None;
 		}
-		virtual void constraint_value(const solution_base &, std::pair<double, std::vector<double>>&) {};
-
 
 		template<typename Solution>
 		static void update_objective_minmax(const Solution &s, std::vector<optimization_mode> & mode) {
@@ -80,8 +76,8 @@ namespace OFEC {
 			}
 			else {
 				for (int i = 0; i < s.objective_size(); ++i) {
-					Solution *first = dynamic_cast<Solution *>(ms_minmax_objective[i].first.get());
-					Solution *second = dynamic_cast<Solution *>(ms_minmax_objective[i].second.get());
+					auto *first = dynamic_cast<Solution *>(ms_minmax_objective[i].first.get());
+					auto *second = dynamic_cast<Solution *>(ms_minmax_objective[i].second.get());
 
 					if (mode[i] == optimization_mode::Minimization) {
 						if (first->objective(i) > s.objective(i))
@@ -99,9 +95,13 @@ namespace OFEC {
 			}
 		}
 
+		static void reset_objective_minmax() {
+			ms_minmax_objective.clear();
+		}
+
 		virtual void initialize_solution(solution_base &s) const = 0;
 
-		virtual double feasible_ratio() { return 1.0; }
+		virtual real feasible_ratio() { return 1.0; }
 
 		size_t variable_size() const {
 			return m_variable_size;
@@ -117,9 +117,8 @@ namespace OFEC {
 			if (!has_tag(tag))	m_tag.insert(tag);
 		}
 		bool has_tag(problem_tag tag) {
-			if (m_tag.find(tag) != m_tag.end())	return true;
-			else return false;
-		}
+            return m_tag.find(tag) != m_tag.end();
+        }
 		bool solved() {
 			return m_solved;
 		}
@@ -145,31 +144,32 @@ namespace OFEC {
 
 		virtual void initialize() =0;
 		void set_eval_monitor_flag(bool flag);
-		virtual bool is_optimal_given() { return false; }
-	protected:
-		problem& operator=(const problem& rhs);  // assignment is not allowed outside
-		problem& operator=(problem&& rhs);
-		virtual void copy(const problem *); // copy parameter values of a problem when it changes
+		virtual bool is_optima_given() { return false; }
+		size_t num_constraints() { return m_constraint_type.size(); }
+		bool is_equality_constraint(size_t i) { return static_cast<bool>(m_constraint_type.at(i)); }
+		const param_map& parameters()const { return m_parameters; }
+        bool is_initialized() { return m_initialized; }
+        virtual void reset_alg_records();
+	protected:		
+		virtual void copy(const problem &); // copy non-memory related parameters
 		virtual void resize_variable(size_t n);
 		virtual void resize_objective(size_t n);
+		virtual void update_parameters();
 	protected:
 		std::string m_name;
 		size_t m_effective_eval = 0, m_total_eval = 0;
 		size_t m_objective_size;
 		size_t m_variable_size;
 		std::vector<optimization_mode> m_opt_mode;
-		double m_objective_accuracy = 1.0e-6;
+		real m_objective_accuracy = 1.0e-6;
 		std::set<problem_tag> m_tag;
-		std::stringstream m_paramters;
+		param_map m_parameters;
 		bool m_solved = false;
 		bool m_eval_monitor = false;
-		
-#ifdef OFEC_CONSOLE
+		std::vector<constraint_type> m_constraint_type;
+		bool m_initialized = false;
+
 		static thread_local std::map<int, std::pair<std::unique_ptr<solution_base>, std::unique_ptr<solution_base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
-#endif
-#ifdef OFEC_DEMON
-		static std::map<int, std::pair<unique_ptr<solution_base>, std::unique_ptr<solution_base>>> ms_minmax_objective; // the best and worst so far solutions of each objective 
-#endif	
 
 	};
 

@@ -1,125 +1,128 @@
 #include "NCDE.h"
 
 namespace OFEC {
-	namespace DE {
-		NCDE::NCDE(param_map &v) : population(v.at("popSize"), global::ms_global->m_problem->variable_size()), \
-			m_dis(v.at("popSize"))  \
-		{
-			m_r = 0.1;
-			m_m = m_r*size();
-			m_F = 0.5;
-			m_CR = 0.7;
-			for (auto &i : m_pop) {
-				i->set_improved_flag(true);
+	NCDE_pop::NCDE_pop(size_t size_pop) : DE::population<DE::individual>(size_pop), m_dis(size_pop) {
+		m_r = 0.1;
+		m_m = static_cast<size_t>(m_r * size());
+		m_F = 0.5;
+		m_CR = 0.7;
+		for (auto &i : m_inds) {
+			i->set_improved_flag(true);
+		}
+	}
+
+	void NCDE_pop::sort_distance(size_t a) {
+		if (!m_inds[a]->is_improved()) {
+			for (size_t j = 0; j < size(); ++j) {
+				if (a == j) continue;
+				if (m_inds[j]->is_improved()) {
+					std::pair<real, int> dis = std::make_pair(m_inds[a]->variable_distance(*m_inds[j]), j);
+					auto it = m_dis[a].begin();
+					while (it != m_dis[a].end() && it->first < dis.first) {
+						++it;
+					}
+					if (it != m_dis[a].end()) {
+						m_dis[a].insert(it, dis);
+						m_dis[a].pop_back();
+					}
+				}
+			}
+		}
+		else {
+			for (size_t j = 0; j < size(); ++j) {
+				if (a == j) continue;
+				std::pair<real, int> dis = std::make_pair(m_inds[a]->variable_distance(*m_inds[j]), j);
+				auto it = m_dis[a].begin();
+				while (it != m_dis[a].end() && it->first < dis.first) {
+					it++;
+				}
+				if (m_dis[a].size() >= m_m) {
+					if (it != m_dis[a].end()) {
+						m_dis[a].insert(it, dis);
+						m_dis[a].pop_back();
+					}
+				}
+				else {
+					m_dis[a].insert(it, dis);
+				}
 			}
 		}
 
-		void NCDE::sort_distanece(int a) {
-			if (!m_pop[a]->is_improved()) {
+	}
+
+	evaluation_tag NCDE_pop::evolve() {
+		update_best();
+		evaluation_tag tag = evaluation_tag::Normal;
+		size_t nearest_index = 0;
+		real neardis;
+		for (size_t i = 0; i < size(); ++i) {
+			sort_distance(i);
+			std::vector<size_t> candidate;
+			for (auto it = m_dis[i].begin(); it != m_dis[i].end(); it++) {
+				candidate.push_back(it->second);
+			}
+			std::vector<size_t> result(3);
+			select_in_neighborhood(3, candidate, result);
+			m_inds[i]->mutate(m_F, m_inds[result[0]].get(), m_inds[result[1]].get(), m_inds[result[2]].get());
+			m_inds[i]->recombine(m_CR, m_recombine_strategy);
+			tag = m_inds[i]->select();
+			if (m_inds[i]->is_improved()) {
+				neardis = std::numeric_limits<real>::max();
 				for (size_t j = 0; j < size(); ++j) {
-					if (a == j) continue;
-					if (m_pop[j]->is_improved()) {
-						std::pair<double, int> dis = std::make_pair(m_pop[a]->variable_distance(*m_pop[j]), j);
-						auto it = m_dis[a].begin();
-						while (it != m_dis[a].end() && it->first < dis.first) {
-							it++;
-						}
-						if (it != m_dis[a].end()) {
-							m_dis[a].insert(it, dis);
-							m_dis[a].pop_back();
-						}
+					if (i == j) continue;
+					real dis = m_inds[i]->variable_distance(*m_inds[j]);
+					if (neardis > dis) {
+						neardis = dis;
+						nearest_index = j;
 					}
 				}
 			}
 			else {
-				for (size_t j = 0; j < size(); ++j) {
-					if (a == j) continue;
-					std::pair<double, int> dis = std::make_pair(m_pop[a]->variable_distance(*m_pop[j]), j);
-					auto it = m_dis[a].begin();
-					while (it != m_dis[a].end() && it->first < dis.first) {
-						it++;
-					}
-					if (m_dis[a].size() >= m_m) {
-						if (it != m_dis[a].end()) {
-							m_dis[a].insert(it, dis);
-							m_dis[a].pop_back();
-						}
-					}
-					else {
-						m_dis[a].insert(it, dis);
-					}
-				}
+				nearest_index = m_dis[i].begin()->second;
 			}
-
+			if (m_inds[i]->dominate(*m_inds[nearest_index])) {
+				*m_inds[nearest_index] = *m_inds[i];
+				m_inds[nearest_index]->set_improved_flag(true);
+			}
+			if (tag != evaluation_tag::Normal) break;
 		}
-
-
-		evaluation_tag NCDE::evolve() {
-			evaluation_tag tag = evaluation_tag::Normal;
-			int nearest_index;
-			double neardis = std::numeric_limits<double>::max();
-			for (size_t i = 0; i < size(); ++i) {
-				sort_distanece(i);
-
-				std::vector<int> candidate;
-				for (auto it = m_dis[i].begin(); it != m_dis[i].end(); it++) {
-					candidate.push_back(it->second);
-				}
-				std::vector<int> result(3);
-				select_in_neighborhood(3, candidate, result);
-
-				m_pop[i]->mutate(m_F, m_pop[result[0]].get(), m_pop[result[1]].get(), m_pop[result[2]].get());
-				m_pop[i]->recombine(m_CR);
-				tag = m_pop[i]->select();
-				if (m_pop[i]->is_improved()) {
-					neardis = std::numeric_limits<double>::max();
-					for (size_t j = 0; j < size(); ++j) {
-						if (i == j) continue;
-						double dis = m_pop[i]->variable_distance(*m_pop[j]);
-						if (neardis > dis) {
-							neardis = dis;
-							nearest_index = j;
-						}
-					}
-
-				}
-				else {
-					nearest_index = m_dis[i].begin()->second;
-				}
-				if (m_pop[i]->dominate(*m_pop[nearest_index])) {
-					*m_pop[nearest_index] = *m_pop[i];
-
-					m_pop[nearest_index]->set_improved_flag(true);
-				}
-				if (tag != evaluation_tag::Normal) break;
-			}
-			if (tag == evaluation_tag::Normal) {
-				++m_iter;
-			}
-			return tag;
-
+		if (tag == evaluation_tag::Normal) {
+			++m_iter;
 		}
+		return tag;
+	}
 
-		evaluation_tag NCDE::run_() {
-			evaluation_tag tag = evaluation_tag::Normal;
-			std::vector<double> gopt(1);
-			gopt = CONTINOUS_CAST->get_optima().objective(0);
+	NCDE::NCDE(param_map& v) : algorithm(v.at("algName")), m_pop(v.at("popSize")) {
+		if (CONTINUOUS_CAST->has_tag(problem_tag::GOP))
+			CONTINUOUS_CAST->set_eval_monitor_flag(true);
+	}
 
-			while (tag != evaluation_tag::Terminate) {
-				//g_mutexStream.lock();
+	void NCDE::initialize() {
+		m_pop.initialize();
+		m_pop.evaluate();
+	}
 
-				//update_best();
-				double best = problem::get_sofar_best<solution<>>(0)->objective()[0];
+	void NCDE::run_() {
+		while (!terminating()) {
+			m_pop.evolve();
+		}
+	}
 
-				int num_opt_found = CONTINOUS_CAST->num_optima_found();
-				//std::cout << m_iter << " " << error <<" "<< m_best[0]->variable()[0] << " " << m_best[0]->variable()[1] << std::endl;
-				std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << num_opt_found << std::endl;
-				//g_mutexStream.unlock();
-				measure::get_measure()->record(global::ms_global.get(), m_iter, num_opt_found);
-				tag = evolve();
-			}
-
-			return tag;
+	void NCDE::record() {
+		if (CONTINUOUS_CAST->has_tag(problem_tag::MMOP)) {
+			// ******* Multi-Modal Optimization *******
+			size_t evals = CONTINUOUS_CAST->evaluations();
+			size_t num_opt_found = CONTINUOUS_CAST->num_optima_found();
+			size_t num_opt_known = CONTINUOUS_CAST->get_optima().number_objective();
+			real peak_ratio = (real)num_opt_found / (real)num_opt_known;
+			real success_rate = CONTINUOUS_CAST->solved() ? 1 : 0;
+			measure::get_measure()->record(global::ms_global.get(), evals, peak_ratio, success_rate);
+		}
+		else if (CONTINUOUS_CAST->has_tag(problem_tag::GOP)) {
+			// ******* Global Optimization ************
+			size_t evals = CONTINUOUS_CAST->evaluations();
+			real err = std::fabs(problem::get_sofar_best<solution<>>(0)->objective(0) - CONTINUOUS_CAST->get_optima().objective(0).at(0));
+			measure::get_measure()->record(global::ms_global.get(), evals, err);
 		}
 	}
 }

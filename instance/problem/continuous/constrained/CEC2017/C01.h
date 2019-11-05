@@ -16,6 +16,7 @@
 #define OFEC_C01_H
 
 #include "../../../../../core/problem/continuous/function.h"
+#include <functional>
 
 namespace OFEC {
 	namespace CEC2017 {
@@ -24,9 +25,9 @@ namespace OFEC {
 		public:
 			C01(param_map &v);
 			C01(const std::string &name, size_t size_var, size_t size_obj);
-			void initialize();
+			void initialize() override;
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values);
+			void evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con) override;
 		private:
 			
 		};

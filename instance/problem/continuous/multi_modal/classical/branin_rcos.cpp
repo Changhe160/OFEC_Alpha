@@ -41,17 +41,18 @@ namespace OFEC {
 
 	
 		m_variable_monitor = true;
-		std::vector<std::vector<real>> var_data = { { -OFEC_PI, 12.275 },{ -OFEC_PI, 2.275 },{9.42478, 2.475} };
+		std::vector<std::vector<real>> var_data = { { -(real)OFEC_PI, 12.275f },{ -(real)OFEC_PI, 2.275f },{9.42478f, 2.475f} };
 		for (auto &i : var_data) {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
 		
 		//setObjSet();
+		m_initialized = true;
 	}
-	void branin_rcos::evaluate__(real *x, std::vector<real>& obj) {
+	void branin_rcos::evaluate_objective(real *x, std::vector<real> &obj) {
 
-		double s, a;
+		real s, a;
 		a = x[1] - 5.1*x[0] * x[0] / (4 * OFEC_PI*OFEC_PI) + 5 * x[0] / OFEC_PI - 6;
 		s = a*a + 10 * (1 - 1 / (8 * OFEC_PI))*cos(x[0]) + 10;
 		obj[0] = s + m_bias;

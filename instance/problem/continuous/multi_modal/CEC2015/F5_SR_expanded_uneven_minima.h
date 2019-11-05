@@ -29,11 +29,11 @@ namespace OFEC {
 			F5_SR_expanded_uneven_minima(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_MMP_F5 = CEC2015::F5_SR_expanded_uneven_minima;
+	using CEC2015_MMOP_F05 = CEC2015::F5_SR_expanded_uneven_minima;
 }
 #endif // !OFEC_F5_SR_EXPANDED_UNEVEN_MINIMA_H
 

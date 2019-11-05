@@ -6,11 +6,11 @@ namespace OFEC {
 		
 	}
 
-	void function::set_bias(double val) {
+	void function::set_bias(real val) {
 		m_bias = val;
 	}
 
-	void function::set_scale(double val) {
+	void function::set_scale(real val) {
 		m_scale = val;
 		m_scale_flag = true;
 	}
@@ -39,58 +39,18 @@ namespace OFEC {
 		return m_rotation;
 	}
 
-	double function::condition_number() {
+	real function::condition_number() {
 		return m_condition_number;
 	}
 	real function::bias() {
 		return m_bias;
 	}
-	void function::set_condition_number(double c) {
+	void function::set_condition_number(real c) {
 		m_condition_number = c;
 	}
 
 	void function::clear() {
 		m_translation.clear();
-	}
-
-	function& function::operator =(const function & rhs) {
-		if (this == &rhs) return *this;
-		continuous::operator=(rhs);
-
-		m_scale_flag = rhs.m_scale_flag;
-		m_rotation_flag = rhs.m_rotation_flag;
-		m_translation_flag = rhs.m_translation_flag;
-		m_noise_flag = rhs.m_noise_flag;
-
-		m_scale = rhs.m_scale;
-		m_bias = rhs.m_bias;
-		m_condition_number = rhs.m_condition_number;
-
-		m_translation = rhs.m_translation;
-		m_rotation = rhs.m_rotation;
-
-		m_original_optima = rhs.m_original_optima;
-		return *this;
-	}
-
-	function& function::operator =(function && rhs) {
-		if (this == &rhs) return *this;
-		continuous::operator=(std::move(rhs));
-
-		m_scale_flag = rhs.m_scale_flag;
-		m_rotation_flag = rhs.m_rotation_flag;
-		m_translation_flag = rhs.m_translation_flag;
-		m_noise_flag = rhs.m_noise_flag;
-
-		m_scale = rhs.m_scale;
-		m_bias = rhs.m_bias;
-		m_condition_number = rhs.m_condition_number;
-
-		m_translation = std::move(rhs.m_translation);
-		m_rotation = std::move(rhs.m_rotation);
-
-		m_original_optima = std::move(rhs.m_original_optima);
-		return *this;
 	}
 
 	optima<variable_vector<real>, real>& function::get_original_optima() {
@@ -199,7 +159,7 @@ namespace OFEC {
 		}
 	}
 	void function::rotate(real *x) {
-		double *x_ = new double[m_variable_size];
+		real *x_ = new real[m_variable_size];
 		std::copy(x, x + m_variable_size, x_);
 
 		for (size_t i = 0; i<m_variable_size; ++i) {
@@ -221,7 +181,7 @@ namespace OFEC {
 
 	void function::irregularize(real *x) {
 		// this method from BBOB
-		double c1, c2, x_;
+		real c1, c2, x_;
 		for (size_t i = 0; i < m_variable_size; ++i) {
 			if (x[i]>0) {
 				c1 = 10;	c2 = 7.9;
@@ -237,7 +197,7 @@ namespace OFEC {
 		}
 	}
 
-	void function::asyemmetricalize(real *x, double belta) {
+	void function::asyemmetricalize(real *x, real belta) {
 		// this method from BBOB
 		if (m_variable_size == 1) return;
 		for (size_t i = 0; i < m_variable_size; ++i) {
@@ -261,8 +221,8 @@ namespace OFEC {
 		else	for (int i = 0; i < m_variable_size; i++)  temp_var[i] = opt[i];
 		m_original_optima.append(std::move(temp_var));
 
-		objective_vector<real> temp_obj(m_objective_size);
-		solution<variable_vector<real>, real> temp(m_original_optima.variable(0), std::move(temp_obj));
+		solution<variable_vector<real>, real> temp(m_objective_size, num_constraints(), m_variable_size);
+		temp.variable() = m_original_optima.variable(0);
 
 		evaluate_(temp, caller::Problem, false, false);
 		m_original_optima.append(std::move(temp.objective()));
@@ -276,13 +236,26 @@ namespace OFEC {
 		}
 		m_optima.append(std::move(temp_var));
 
-		objective_vector<real> temp_obj(m_objective_size);
-		solution<variable_vector<real>, real> temp(m_optima.variable(0), std::move(temp_obj));
+        solution<variable_vector<real>, real> temp(m_objective_size, num_constraints(), m_variable_size);
+        temp.variable() = temp_var;
 
 		evaluate_(temp, caller::Problem, false, false);
 		m_optima.append(std::move(temp.objective()));
+		m_optima.set_flag_variable(true);
+		m_optima.set_flag_objective(true);
 	}
 	real function::scale() {
 		return m_scale;
 	}
+
+	void function::update_parameters() {
+		problem::update_parameters();
+
+		m_parameters["scale flag"] = m_scale_flag;
+		m_parameters["rotation flag"] = m_rotation_flag;
+		m_parameters["translation flag"] = m_translation_flag;
+		m_parameters["noise flag"] = m_noise_flag;
+	}
+
+	
 }

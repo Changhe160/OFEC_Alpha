@@ -26,10 +26,10 @@ namespace OFEC {
 			F2_shifted_schwefel_1_2(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2005_GOP_F2 = CEC2005::F2_shifted_schwefel_1_2;
+	using CEC2005_GOP_F02 = CEC2005::F2_shifted_schwefel_1_2;
 }
 #endif // ! OFEC_F2_SHIFTED_SCHWEFEL_1_2_H

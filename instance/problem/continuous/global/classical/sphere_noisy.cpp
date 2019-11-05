@@ -30,10 +30,11 @@ namespace OFEC {
 		set_original_global_opt();
 
 		set_global_opt();
+		m_initialized = true;
 	}
 
 
-	void sphere_noisy::evaluate__(real *x, std::vector<real>& obj) {
+	void sphere_noisy::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -45,7 +46,7 @@ namespace OFEC {
 
 		real fit = 0;
 
-		double noise;
+		real noise;
 		for (int i = 0; i < m_variable_size; i++) {
 			noise = 0.01*global::ms_global->m_uniform[caller::Problem]->next();
 			fit += (x[i] + noise)*(x[i] + noise);

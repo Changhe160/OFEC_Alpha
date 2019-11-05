@@ -21,12 +21,12 @@ namespace OFEC {
 		public:
 			N7S1_SR_Elliptic_F4(param_map &v);
 			N7S1_SR_Elliptic_F4(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~N7S1_SR_Elliptic_F4();
 
 			void initialize();
 		};
 	}
-	using CEC2013_LSOP_F4 = CEC2013::N7S1_SR_Elliptic_F4;
+	using CEC2013_LSOP_F04 = CEC2013::N7S1_SR_Elliptic_F4;
 }
 #endif

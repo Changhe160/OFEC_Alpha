@@ -25,13 +25,13 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/global/CEC2015/data/");
 			
 			set_global_opt(m_translation.data());
-
+			m_initialized = true;
 		}
 
 
 
-		void F2_R_cigar::evaluate__(real *x, std::vector<real>& obj) {
-			bent_cigar::evaluate__(x, obj);
+		void F2_R_cigar::evaluate_objective(real *x, std::vector<real> &obj) {
+			bent_cigar::evaluate_objective(x, obj);
 		}
 	}
 }

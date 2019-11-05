@@ -21,13 +21,13 @@ namespace OFEC {
 		public:
 			N7S1_SR_Ackley_F6(param_map &v);
 			N7S1_SR_Ackley_F6(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~N7S1_SR_Ackley_F6();
 
 			void initialize();
 		};
 	}
-	using CEC2013_LSOP_F6 = CEC2013::N7S1_SR_Ackley_F6;
+	using CEC2013_LSOP_F06 = CEC2013::N7S1_SR_Ackley_F6;
 }
 #endif
 

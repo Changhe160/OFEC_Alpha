@@ -18,8 +18,8 @@
 #define OFEC_CENTER_PEAK_H
 
 #include "../../../../../core/problem/continuous/function.h"
-//Ursem F4 in R. K. Ursem, ¡°Multinational evolutionary algorithms,¡± in Proc. Congr.
-//Evol. Comput. (CEC), vol. 3. 1999, pp. 1633¨C1640.
+//Ursem F4 in R. K. Ursem, ï¿½ï¿½Multinational evolutionary algorithms,ï¿½ï¿½ in Proc. Congr.
+//Evol. Comput. (CEC), vol. 3. 1999, pp. 1633ï¿½C1640.
 namespace OFEC {
 	
 	class center_peak : public function
@@ -29,7 +29,7 @@ namespace OFEC {
 		center_peak(const std::string &name, size_t size_var, size_t size_obj);
 		void initialize();
 	protected:
-		void evaluate__(real *x, std::vector<real>& obj);
+		void evaluate_objective(real *x, std::vector<real>& obj) override;
 	private:
 	};
 	

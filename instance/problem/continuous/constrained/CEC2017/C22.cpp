@@ -15,7 +15,9 @@ namespace OFEC {
 			m_variable_monitor = true;
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
-
+			m_constraint_type.resize(3);
+			for (auto &i : m_constraint_type)
+				i = constraint_type::Inequality;
 			 
 			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
@@ -23,8 +25,9 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/constrained/CEC2017/data/");
 			set_original_global_opt(m_translation.data());
 			m_optima = m_original_optima;
+			m_initialized = true;
 		}
-		void C22::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
+		void C22::evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con) {
 			std::vector<real> x_ori(x, x + m_variable_size);
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
@@ -39,40 +42,31 @@ namespace OFEC {
 			}
 			obj[0] += m_bias;
 
-			double temp = 0.;
-			double sum = 0.;
+			// evaluate constraint value
 
-			std::vector<double> ineq_cons;
-
-			for (i = 0; i < m_variable_size; ++i)
-			{
-				temp += x[i] * x[i] - 10 * cos(2 * OFEC_PI*x[i]) + 10;
-			}
-			ineq_cons.push_back(temp);
-			temp = 0.;
+			for (auto &i : con)
+				i = 0.;
 
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += x[i];
+				con[0] += x[i] * x[i] - 10 * cos(2 * OFEC_PI*x[i]) + 10;
 			}
-			temp -= 2 * m_variable_size;
-			ineq_cons.push_back(temp);
-			temp = 0.;
+			con[0] -= 100;
+			if (con[0] <= 0) con[0] = 0;
+
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += x[i];
+				con[1] += x[i];
 			}
-			temp = 5 - temp;
-			ineq_cons.push_back(temp);
-			for (auto &i : ineq_cons) {
-				if (i <= 0) i = 0;
-				sum += i;
-			}
-			cons_values.clear();
-			for (auto &i : ineq_cons)
-				cons_values.push_back(i);
-			cons_value = sum / (double)ineq_cons.size();
+			con[1] -= 2 * m_variable_size;
+			if (con[1] <= 0) con[1] = 0;
 			
+			for (i = 0; i < m_variable_size; ++i)
+			{
+				con[2] += x[i];
+			}
+			con[2] = 5 - con[2];
+			if (con[2] <= 0) con[2] = 0;
 		}
 	}
 }

@@ -21,29 +21,26 @@
 #ifndef OFEC_DEFINITION_H
 #define OFEC_DEFINITION_H
 
+#include <cmath>
+
 namespace OFEC {
-#define OFEC_PI acos(-1.0) 
-#define OFEC_E exp(1.0)  
+#define OFEC_PI std::acos(-1.0)
+#define OFEC_E std::exp(1.0)
 
-#define USING_DOUBLE                    // elements of type double
-	//#define USING_FLOAT                   // elements of type float
-	//#define OFEC_DEMON
+    //#define USING_FLOAT                   // elements of type float
     //#define USING_CONCURRENT
-	#define OFEC_CONSOLE
-	//#define OFEC_UNIT_TEST
 
-#ifdef USING_FLOAT                      // set precision type to float
-	using real = float;
-#endif
-
-#ifdef USING_DOUBLE                     // set precision type to double
-	using real = double;
+#ifdef USING_FLOAT                     
+	using real = float;						// set precision type to float
+#else
+	using real = double;				  // set precision type to double
 #endif
 
 	enum class dominationship { Equal, Dominating, Dominated, Non_dominated, Non_comparable };
 	enum class optimization_mode { Minimization, Maximization };
-	enum class caller { Problem, Algorithm, Demon };
+	enum class caller { Begin, Problem= Begin, Algorithm, Demon, End};
 	enum class violation_type { Constraint, Boundary, None };
+	enum class constraint_type{ Inequality, Equality };
 	enum class evaluation_tag {
 		Normal, Change, Terminate, Change_next_eval, Change_timelinkage,
 		Change_dimension, Infeasible
@@ -70,7 +67,9 @@ namespace OFEC {
 	//LSOP: large scale optimization problem
 	enum class problem_tag {null_tag,
 		SOP, MOP, DOP, MMOP, GOP, ROOT, ConOP, ComOP, TSP, COP, VRP, TTP, JSP,
-		KOP, SAT, ONEMAX, QAP, MKP, EOP, LSOP, epanet
+		KOP, SAT, ONEMAX, QAP, MKP, EOP, LSOP, epanet, DVRP
 	};
+	//for epanet
+	enum class init_type { random, distance, k_means, be_visited };
 }
 #endif // !OFEC_DEFINITION_H

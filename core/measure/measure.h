@@ -12,7 +12,7 @@ namespace OFEC {
 	class measure:public singleton {
 	protected:
 		std::stringstream m_filename;
-		std::vector<std::vector<double>> mvv_data;
+		std::vector<std::vector<real>> mvv_data;
 		std::vector<std::string> m_heading;
 		static std::unique_ptr<measure> ms_measure;
 	protected:
@@ -35,7 +35,7 @@ namespace OFEC {
 
 	template<typename T, typename ...Args>
 	void measure::input_value(const int runID, const T& value, const Args& ...args) {
-		mvv_data[runID].push_back((double)value);
+		mvv_data[runID].push_back((real)value);
 		input_value(runID, args...);
 	}
 

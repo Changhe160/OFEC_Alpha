@@ -69,7 +69,7 @@ namespace OFEC {
 		real* mp_anotherz2;
 		real* mp_rot_matrix;
 		size_t* mp_s;
-		double* mp_w;
+		real* mp_w;
 
 		real** mpp_OvectorVec;
 		real** mpp_MultiRotmatrix1D;
@@ -102,17 +102,17 @@ namespace OFEC {
 		size_t* readPermVector();
 		real** readR(size_t sub_dim);
 		size_t* readS(size_t num);
-		double* readW(size_t num);
+		real* readW(size_t num);
 
 		size_t* getS();
 
 		void transform_osz(real* z, size_t dim);
-		void transform_asy(real* z, double beta, size_t dim);
-		void lambda(real* z, double alpha, size_t dim);
-		int sign(double x);
-		double hat(double x);
-		double c1(double x);
-		double c2(double x);
+		void transform_asy(real* z, real beta, size_t dim);
+		void lambda(real* z, real alpha, size_t dim);
+		int sign(real x);
+		real hat(real x);
+		real c1(real x);
+		real c2(real x);
 
 		optima<variable_vector<real>, real> m_original_global_opt;
 	};

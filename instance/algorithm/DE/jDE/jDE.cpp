@@ -1,87 +1,89 @@
 #include "jDE.h"
 
+
 namespace OFEC {
-	namespace DE {
-		jDE::jDE(param_map &v) :population(v.at("popSize"), global::ms_global->m_problem->variable_size()), \
-			mv_F(v.at("popSize")), mv_CR(v.at("popSize")) {
+	jDE_pop::jDE_pop(size_t size_pop) : DE::population<DE::individual>(size_pop), mv_F(size_pop), mv_CR(size_pop) {
+		m_t1 = 0.1;
+		m_t2 = 0.1;
+		m_Fl = 0.1;
+		m_Fu = 0.9;
+	}
 
-			m_t1 = 0.1;
-			m_t2 = 0.1;
-			m_Fl = 0.1;
-			m_Fu = 0.9;
+	evaluation_tag jDE_pop::evolve() {
+		update_best();
+		update_F_and_CR();
+		evaluation_tag tag = evaluation_tag::Normal;
+		std::vector<size_t> candidate(3);
+		for (size_t i = 0; i < size(); ++i) {
+			select(i, 3, candidate);
+			m_inds[i]->mutate(mv_F[i], m_inds[candidate[0]].get(), m_inds[candidate[1]].get(), m_inds[candidate[2]].get());
+			m_inds[i]->recombine(mv_CR[i], m_recombine_strategy);
+			tag = m_inds[i]->select();
+			if (tag != evaluation_tag::Normal) break;
 		}
+		if (tag == evaluation_tag::Normal) {
+			++m_iter;
+		}
+		return tag;
+	}
 
-		evaluation_tag jDE::evolve() {
-			evaluation_tag tag = evaluation_tag::Normal;
-
-			std::vector<int> candidate(3);
-
+	void jDE_pop::update_F_and_CR() {
+		std::vector<real> rand(4);
+		if (m_iter > 0) {
 			for (size_t i = 0; i < size(); ++i) {
-				select(i, 3, candidate);
-				m_pop[i]->mutate(mv_F[i], m_pop[candidate[0]].get(), m_pop[candidate[1]].get(), m_pop[candidate[2]].get());
-				m_pop[i]->recombine(mv_CR[i]);
-				tag = m_pop[i]->select();
-				if (tag != evaluation_tag::Normal) break;
-			}
+				for (size_t j = 0; j < 4; ++j)
+					rand[j] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<real>(0, 1);
 
-			if (tag == evaluation_tag::Normal) {
-				++m_iter;
-			}
-			return tag;
-		}
-
-		void jDE::update_F_and_CR() {
-			std::vector<double> rand(4);
-			if (m_iter > 0) {
-				for (auto i = 0; i < size(); ++i) {
-					for (int j = 0; j < 4; ++j)
-						rand[j] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<float>(0, 1);
-
-					if (rand[1] < m_t1) mv_F[i] = m_Fl + rand[0] * m_Fu;
-					if (rand[3] < m_t2) mv_CR[i] = rand[2];
-				}
-			}
-			else {
-				for (auto i = 0; i < size(); ++i) {
-					for (int j = 0; j < 4; j++)
-						rand[j] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<float>(0, 1);
-
-					mv_F[i] = m_Fl + rand[0] * m_Fu;
-					mv_CR[i] = rand[2];
-				}
+				if (rand[1] < m_t1) mv_F[i] = m_Fl + rand[0] * m_Fu;
+				if (rand[3] < m_t2) mv_CR[i] = rand[2];
 			}
 		}
+		else {
+			for (size_t i = 0; i < size(); ++i) {
+				for (size_t j = 0; j < 4; j++)
+					rand[j] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<real>(0, 1);
 
-
-
-
-		evaluation_tag jDE::run_() {
-			evaluation_tag tag = evaluation_tag::Normal;
-			std::vector<double> gopt(1);
-			gopt = CONTINOUS_CAST->get_optima().objective(0);
-
-			while (tag != evaluation_tag::Terminate) {
-				//g_mutexStream.lock();
-
-				//update_best();
-				double best = problem::get_sofar_best<solution<>>(0)->objective()[0];
-				double error = fabs(best - gopt[0]);
-				//std::cout << m_iter << " " << error <<" "<< m_best[0]->variable()[0] << " " << m_best[0]->variable()[1] << std::endl;
-				std::cout << m_iter << " " << CONTINOUS_CAST->total_evaluations() << " " << CONTINOUS_CAST->num_optima_found() << std::endl;
-				//g_mutexStream.unlock();
-				measure::get_measure()->record(global::ms_global.get(), m_iter, error);
-				update_F_and_CR();
-				tag = evolve();
-				//if (m_iter == 100) break;
+				mv_F[i] = m_Fl + rand[0] * m_Fu;
+				mv_CR[i] = rand[2];
 			}
-			//for (int i = 0; i < CONTINOUS_CAST->get_optima().num_objective_found(); ++i) {
-			//	solution<> sol(CONTINOUS_CAST->get_optima().variable(i), CONTINOUS_CAST->get_optima().objective(i));
-			//	CONTINOUS_CAST->evaluate_(sol,caller::Algorithm,false,false);
-			//	std::cout << " " << sol.variable()[0] << " " << sol.variable()[1] << " " << sol.objective()[0] << std::endl;
-			//}
-			return tag;
 		}
 	}
+
+	jDE::jDE(param_map& v) : algorithm(v.at("algName")), m_pop(v.at("popSize")) {
+		if (CONTINUOUS_CAST->has_tag(problem_tag::GOP))
+			CONTINUOUS_CAST->set_eval_monitor_flag(true);
+	}
+
+	void jDE::initialize() {
+		m_pop.initialize();
+		m_pop.evaluate();
+	}
+
+	void jDE::run_(){
+		while (!terminating()) {
+			m_pop.evolve();
+		}
+	}
+
+	void jDE::record() {
+		if (CONTINUOUS_CAST->has_tag(problem_tag::MMOP)) {
+			// ******* Multi-Modal Optimization *******
+			size_t evals = CONTINUOUS_CAST->evaluations();
+			size_t num_opt_found = CONTINUOUS_CAST->num_optima_found();
+			size_t num_opt_known = CONTINUOUS_CAST->get_optima().number_objective();
+			real peak_ratio = (real)num_opt_found / (real)num_opt_known;
+			real success_rate = CONTINUOUS_CAST->solved() ? 1 : 0;
+			measure::get_measure()->record(global::ms_global.get(), evals, peak_ratio, success_rate);
+		}
+		else if (CONTINUOUS_CAST->has_tag(problem_tag::GOP)) {
+			// ******* Global Optimization ************
+			size_t evals = CONTINUOUS_CAST->evaluations();
+			real err = std::fabs(problem::get_sofar_best<solution<>>(0)->objective(0) - CONTINUOUS_CAST->get_optima().objective(0).at(0));
+			measure::get_measure()->record(global::ms_global.get(), evals, err);
+		}
+	}
+
+
 }
 
 

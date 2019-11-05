@@ -1,5 +1,5 @@
 #include "C10.h"
-#include <algorithm>
+
 namespace OFEC {
 	namespace CEC2017 {
 		C10::C10(param_map &v) :
@@ -15,14 +15,17 @@ namespace OFEC {
 			m_variable_monitor = true;
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
-
+			m_constraint_type.resize(2);
+			for (auto &i : m_constraint_type)
+				i = constraint_type::Equality;
 			 
 			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
 			set_original_global_opt(m_translation.data());
 			m_optima = m_original_optima;
+			m_initialized = true;
 		}
-		void C10::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
+		void C10::evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 
@@ -32,39 +35,29 @@ namespace OFEC {
 			obj[0] += m_bias;
 
 			
-			double temp = 0.;
-			double sum = 0.;
+			// evaluate constraint value
 
-			std::vector<double> eq_cons;
-				
+			for (auto &i : con)
+				i = 0.;
+
 			for (i = 1; i < m_variable_size + 1; ++i)
 			{
-				double m = 0.;
-					
+				real m = 0.;
+
 				for (j = 0; j<i; j++)
 				{
 					m += x[j];
 				}
-				temp += m*m;
+				con[0] += m*m;
 			}
-			eq_cons.push_back(temp);
-			temp = 0.;
+
 			for (i = 0; i < m_variable_size - 1; ++i)
 			{
-				temp += pow((x[i] - x[i+1]),2);
+				con[1] += pow((x[i] - x[i + 1]), 2);
 			}
-			eq_cons.push_back(temp);
-			temp = 0.;
-			for (auto &i : eq_cons) {
+
+			for (auto &i : con)
 				if (fabs(i) - 1e-4 <= 0) i = 0;
-				else i = fabs(i);
-				sum += i;
-			}
-			cons_values.clear();
-			for (auto &i : eq_cons)
-				cons_values.push_back(i);
-			cons_value = sum / (double)eq_cons.size();
-			
 		}
 	}
 }

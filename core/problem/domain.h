@@ -28,7 +28,7 @@ namespace OFEC {
 	class domain {
 	public:
 		struct single_set {
-			bool limited = true;
+			bool limited = false;
 			std::pair<ValueType, ValueType> limit;
 		};
 		domain(size_t n = 1) :m_range(n) {}
@@ -38,6 +38,7 @@ namespace OFEC {
 		void set_range(ValueType low, ValueType upper, size_t i) {
 			m_range[i].limit.first = low;
 			m_range[i].limit.second = upper;
+			m_range[i].limited = true;
 		}
 		void resize(size_t n) {
 			m_range.resize(n);

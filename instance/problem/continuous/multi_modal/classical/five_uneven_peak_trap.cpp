@@ -2,13 +2,11 @@
 
 namespace OFEC {
 	
-		five_uneven_peak_trap::five_uneven_peak_trap(param_map &v) :
-			five_uneven_peak_trap((v.at("proName")), 1, 1) {
+		five_uneven_peak_trap::five_uneven_peak_trap(param_map &v) : five_uneven_peak_trap((v.at("proName"))) {
 
-			
 		}
-		five_uneven_peak_trap::five_uneven_peak_trap(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-			function(name, size_var, size_obj) {
+
+		five_uneven_peak_trap::five_uneven_peak_trap(const std::string &name) : problem(name, 1, 1), function(name, 1, 1) {
 			
 		}
 
@@ -17,7 +15,9 @@ namespace OFEC {
 			set_init_range(0, 30);
 			m_opt_mode[0] = optimization_mode::Maximization;
 			m_variable_accuracy = 0.01;
-			m_objective_accuracy = 1.e-4;
+			if (global::ms_arg.find("objectiveAccuracy") == global::ms_arg.end())
+				global::ms_arg.insert({ "objectiveAccuracy",(real)1.e-4 });
+			m_objective_accuracy = global::ms_arg.at("objectiveAccuracy");
 			m_objective_monitor = true;
 			
 			std::vector<std::vector<real>> obj_data(2, std::vector<real>(1, 200));
@@ -25,9 +25,10 @@ namespace OFEC {
 				m_original_optima.append(i[0]);
 			}
 			m_optima = m_original_optima;
+			m_initialized = true;
 		}
-		void five_uneven_peak_trap::evaluate__(real *x, std::vector<real>& obj) {
-			double s = -1.0;
+		void five_uneven_peak_trap::evaluate_objective(real *x, std::vector<real> &obj) {
+			real s = -1.0;
 			if (x[0] >= 0 && x[0] < 2.5) {
 				s = 80 * (2.5 - x[0]);
 			}

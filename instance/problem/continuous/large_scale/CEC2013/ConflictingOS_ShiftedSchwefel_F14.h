@@ -21,7 +21,7 @@ namespace OFEC {
 		public:
 			ConflictingOS_ShiftedSchwefel_F14(param_map &v);
 			ConflictingOS_ShiftedSchwefel_F14(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~ConflictingOS_ShiftedSchwefel_F14();
 
 			void initialize();

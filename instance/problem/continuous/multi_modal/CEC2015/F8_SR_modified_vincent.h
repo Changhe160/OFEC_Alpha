@@ -29,11 +29,11 @@ namespace OFEC {
 			F8_SR_modified_vincent(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_MMP_F8 = CEC2015::F8_SR_modified_vincent;
+	using CEC2015_MMOP_F08 = CEC2015::F8_SR_modified_vincent;
 }
 #endif // !OFEC_F8_SR_MODIFIED_VINCENT_H
 

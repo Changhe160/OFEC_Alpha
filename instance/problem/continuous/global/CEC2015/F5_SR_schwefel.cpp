@@ -26,12 +26,13 @@ namespace OFEC {
 			
 			set_global_opt(m_translation.data());
 			m_variable_accuracy = 1.0e-2;
+			m_initialized = true;
 		}
 
 
 
-		void F5_SR_schwefel::evaluate__(real *x, std::vector<real>& obj) {
-			schwefel::evaluate__(x, obj);
+		void F5_SR_schwefel::evaluate_objective(real *x, std::vector<real> &obj) {
+			schwefel::evaluate_objective(x, obj);
 		}
 	}
 }

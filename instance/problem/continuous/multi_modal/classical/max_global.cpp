@@ -34,15 +34,16 @@ namespace OFEC {
 
 		m_objective_accuracy = 0.1;
 		m_variable_accuracy = 1.e-5;
-		std::vector<std::vector<real>> var_data = { { 0.5 },{ 0.1 },{ 0.3 },{ 0.7 },{0.9} };
+		std::vector<std::vector<real>> var_data = { { 0.5f },{ 0.1f },{ 0.3f },{ 0.7f },{0.9f} };
 		for (auto &i : var_data) {
 			set_original_global_opt(i.data());
 		}
 
 		m_optima = m_original_optima;
+		m_initialized = true;
 	}
 
-	void max_global::evaluate__(real *x, std::vector<real>& obj) {
+	void max_global::evaluate_objective(real *x, std::vector<real> &obj) {
 
 		obj[0] = pow(sin(5 * OFEC_PI*x[0]), 6.) + m_bias;
 

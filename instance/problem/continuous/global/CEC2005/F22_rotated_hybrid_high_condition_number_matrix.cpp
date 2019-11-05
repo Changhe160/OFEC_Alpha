@@ -17,6 +17,7 @@
 #include "../classical/rastrigin.h"
 #include "../classical/weierstrass.h"
 #include "../classical/rotated_scaffer_F6.h"
+#include <numeric>
 
 namespace OFEC {
 	namespace CEC2005 {
@@ -32,9 +33,7 @@ namespace OFEC {
 		}
 
 		void F22_rotated_hybrid_high_condition_number_matrix::initialize() {
-			m_variable_monitor = true;
 			set_range(-5., 5.);
-			set_init_range(-5., 5.);
 			m_height_normalize_severity = 2000.;
 			set_function();
 			for (auto &i : m_function) {
@@ -51,24 +50,27 @@ namespace OFEC {
 			}
 
 			// Set optimal solution
-			
-			variable_vector<real> temp_var(m_variable_size);
-			objective_vector<real> temp_obj(m_objective_size);
-			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
-			for (int i = 0; i < m_variable_size; ++i) {
-				x.variable()[i] = m_function[0]->translation()[i];
-			}
-			m_optima.append(x.variable());
 
-			evaluate_(x, caller::Problem, false, false);
-			m_optima.append(x.objective());
+            solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
+            s.variable().vect() = m_function[0]->translation();
+
+            m_optima.append(s.variable());
+            m_optima.set_flag_variable(true);
+
+            s.evaluate(false, caller::Problem);
+            m_optima.append(s.objective());
 			// end set
-			m_variable_accuracy = 1.0e-3;
-			m_objective_accuracy = 0.1;
+			m_objective_monitor = true;
+			m_objective_accuracy = 1.0e-8;
+
+			m_variable_partition.clear();
+			m_variable_partition.push_back(std::vector<size_t>(m_variable_size));
+			std::iota(m_variable_partition[0].begin(), m_variable_partition[0].end(), 0);
+			m_initialized = true;
 		}
 
-		void F22_rotated_hybrid_high_condition_number_matrix::evaluate__(real *x, std::vector<real>& obj) {
-			composition::evaluate__(x, obj);
+		void F22_rotated_hybrid_high_condition_number_matrix::evaluate_objective(real *x, std::vector<real> &obj) {
+			composition::evaluate_objective(x, obj);
 			obj[0] += 360.;
 		}
 		void F22_rotated_hybrid_high_condition_number_matrix::set_function() {
@@ -99,12 +101,6 @@ namespace OFEC {
 			m_function[4]->set_range(-5, 5); m_function[5]->set_range(-5, 5);
 			m_function[6]->set_range(-0.5, 0.5); m_function[7]->set_range(-0.5, 0.5);
 			m_function[8]->set_range(-200, 200); m_function[9]->set_range(-200, 200);
-
-			m_function[0]->set_init_range(-100, 100);   m_function[1]->set_init_range(-100, 100);
-			m_function[2]->set_init_range(-5, 5);     m_function[3]->set_init_range(-5, 5);
-			m_function[4]->set_init_range(-5, 5); m_function[5]->set_init_range(-5, 5);
-			m_function[6]->set_init_range(-0.5, 0.5); m_function[7]->set_init_range(-0.5, 0.5);
-			m_function[8]->set_init_range(-200, 200); m_function[9]->set_init_range(-200, 200);
 
 			m_stretch_severity[0] = 5.*5. / 100; m_stretch_severity[1] = 5. / 100;
 			m_stretch_severity[2] = 5.;		m_stretch_severity[3] = 1.;

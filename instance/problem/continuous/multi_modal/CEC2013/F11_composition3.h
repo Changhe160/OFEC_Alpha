@@ -10,7 +10,7 @@
 *  GNU General Public License as published by the Free Software
 *  Foundation; either version 2, or (at your option) any later version.
 *************************************************************************
-*  Paper: Benchmark Functions for CEC¡¯2013 Special Session and Competition on Niching
+*  Paper: Benchmark Functions for CECï¿½ï¿½2013 Special Session and Competition on Niching
 *  Methods for Multimodal Function Optimization.
 *******************************************************************************************/
 
@@ -25,14 +25,14 @@ namespace OFEC {
 		{
 		public:
 			F11_composition3(param_map &v);
-			F11_composition3(const std::string &name, size_t size_var, size_t size_obj);
+			F11_composition3(const std::string &name, size_t size_var);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			void set_function();
 		};
 	}
-	using CEC2013_MMP_F11 = CEC2013::F11_composition3;
+	using CEC2013_MMOP_F11 = CEC2013::F11_composition3;
 }
 #endif // !OFEC_F11_COMPOSITION3_H
 

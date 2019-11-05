@@ -26,10 +26,10 @@ namespace OFEC {
 			F4_shifted_schwefel_1_2_noisy(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2005_GOP_F4 = CEC2005::F4_shifted_schwefel_1_2_noisy;
+	using CEC2005_GOP_F04 = CEC2005::F4_shifted_schwefel_1_2_noisy;
 }
 #endif // ! OFEC_F4_SHIFTED_SCHWEFEL_1_2_NOISY_H

@@ -26,10 +26,10 @@ namespace OFEC {
 			F3_shifted_rotated_high_cond_elliptic(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2005_GOP_F3 = CEC2005::F3_shifted_rotated_high_cond_elliptic;
+	using CEC2005_GOP_F03 = CEC2005::F3_shifted_rotated_high_cond_elliptic;
 }
 #endif // ! OFEC_F3_SHIFTED_ROTATED_HIGH_COND_ELLIPTIC_H

@@ -27,11 +27,11 @@ namespace OFEC {
 			F4_shifted_rotated_schwefel(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_EOP_F4 = CEC2015::F4_shifted_rotated_schwefel;
+	using CEC2015_EOP_F04 = CEC2015::F4_shifted_rotated_schwefel;
 }
 #endif // ! OFEC_F4_SHIFTED_ROTATED_SCHWEFEL_H
 

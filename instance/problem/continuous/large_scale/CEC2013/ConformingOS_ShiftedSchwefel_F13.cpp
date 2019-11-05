@@ -41,7 +41,7 @@ namespace OFEC {
 			m_nonSeparableGroupNumber = 20;
 			m_overlap = 5;
 			m_variable_size = 905;
-			mp_anotherz = new double[m_variable_size];
+			mp_anotherz = new real[m_variable_size];
 
 			// Ovector = createShiftVector(dimension,minX,maxX);
 			mp_Ovector = readOvector();
@@ -54,11 +54,12 @@ namespace OFEC {
 
 			//set_original_global_opt();	
 			set_global_opt(mp_Ovector);
+			m_initialized = true;
 		}
 
-		void ConformingOS_ShiftedSchwefel_F13::evaluate__(real *x, std::vector<real>& obj) {
+		void ConformingOS_ShiftedSchwefel_F13::evaluate_objective(real *x, std::vector<real> &obj) {
 			size_t i;
-			double result = 0.0;
+			real result = 0.0;
 
 			for (i = 0; i < m_variable_size; i++)
 			{

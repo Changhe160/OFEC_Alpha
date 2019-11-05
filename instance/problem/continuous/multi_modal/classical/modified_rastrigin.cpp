@@ -46,7 +46,7 @@ namespace OFEC {
 			throw myexcept("cannot open data file@modified_rastrigin::initialize()");
 		}
 		for (int i = 0; i < 12; ++i) {
-			double x0, x1;
+			real x0, x1;
 			in >> x0 >> x1;
 			var_data[i][0] = x0;
 			var_data[i][1] = x1;
@@ -56,10 +56,10 @@ namespace OFEC {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
-		
+		m_initialized = true;
 	}
-	void modified_rastrigin::evaluate__(real *x, std::vector<real>& obj) {
-		double s = 0;
+	void modified_rastrigin::evaluate_objective(real *x, std::vector<real> &obj) {
+		real s = 0;
 
 		for (int i = 0; i < m_variable_size; ++i) {
 			s += 10 + 9 * cos(2 * OFEC_PI*m_k[i] * x[i]);

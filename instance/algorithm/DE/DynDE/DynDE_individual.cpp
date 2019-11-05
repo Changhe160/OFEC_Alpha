@@ -13,46 +13,41 @@
 
 
 #include "DynDE_individual.h"
+#include <cmath>
 
 namespace OFEC {
-	namespace DE {
-		DynDE_individual::DynDE_individual(const DynDE_individual & indi) :individual(indi) {
-			m_type = indi.m_type;
+	evaluation_tag DynDE_individual::brownian(const solution_type &best, real sigma) {
+		for (size_t i = 0; i < m_var.size(); ++i) {
+			m_var[i] = (best.variable()[i]) + global::ms_global->m_normal[caller::Algorithm]->next_non_standard(0, sigma);
 		}
 
-		evaluation_tag DynDE_individual::brownian(const solution_type &best, double sigma) {
-			for (size_t i = 0; i < m_var.size(); ++i) {
-				m_var[i] = (best.variable()[i]) + global::ms_global->m_normal[caller::Algorithm]->next_non_standard(0, sigma);
-			}
+		check_boundary_violation();
 
-			check_boundary_violation();
+		return evaluate();
+	}
 
-			return evaluate();
+	evaluation_tag DynDE_individual::quantum(const solution_type &best, real rcloud) {
+		const auto dim = best.variable().size();
+		std::vector<real> x(dim, 0);
+		real dis = 0;
+		for (size_t i = 0; i < dim; ++i) {
+			x[i] = global::ms_global->m_normal[caller::Algorithm]->next();
+			dis += x[i] * x[i];
 		}
-		evaluation_tag DynDE_individual::quantum(const solution_type &best, double rcloud) {
-			size_t dim = best.variable().size();
-			std::vector<double> x(dim, 0);
-			double dis = 0;
-			for (size_t i = 0; i < dim; ++i) {
-				x[i] = global::ms_global->m_normal[caller::Algorithm]->next();
-				dis += x[i] * x[i];
-			}
-			dis = sqrt(dis);
-			double r = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<real>(0, rcloud);
-			for (size_t i = 0; i < dim; ++i) {
-				m_var[i] = (best.variable()[i]) + r*x[i] / dis;
-			}
-			x.clear();
-			check_boundary_violation();
-			return evaluate();
+		dis = sqrt(dis);
+		const auto r = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard<real>(0, rcloud);
+		for (size_t i = 0; i < dim; ++i) {
+			m_var[i] = (best.variable()[i]) + r * x[i] / dis;
 		}
-		evaluation_tag DynDE_individual::entropy(double sigma) {
-			for (size_t i = 0; i < m_var.size(); ++i) {
-				m_var[i] = m_var[i] + global::ms_global->m_normal[caller::Algorithm]->next_non_standard(0, sigma);
-			}
+		x.clear();
+		check_boundary_violation();
+		return evaluate();
+	}
+	evaluation_tag DynDE_individual::entropy(real sigma) {
+		for (auto& i : m_var)
+			i = i + global::ms_global->m_normal[caller::Algorithm]->next_non_standard(0, sigma);
 
-			check_boundary_violation();
-			return evaluate();
-		}
+		check_boundary_violation();
+		return evaluate();
 	}
 }

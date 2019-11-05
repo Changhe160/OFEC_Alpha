@@ -1,6 +1,6 @@
 #include "quadratic_assignment.h"
 #include <fstream>
-#include <string.h>
+#include <cstring>
 #include <cstdlib>
 namespace OFEC {
 	quadratic_assignment::quadratic_assignment(param_map & v) :quadratic_assignment(v.at("proName"), v.at("numDim"), v.at("dataFile1"))
@@ -14,13 +14,12 @@ namespace OFEC {
 		m_file_name = file_name;
 	}
 
-	quadratic_assignment::~quadratic_assignment()
-	{
-	}
+	quadratic_assignment::~quadratic_assignment() = default;
+
 	void quadratic_assignment::initialize() {
 		mvv_flow.resize(m_variable_size);
 		mvv_distance.resize(m_variable_size);
-		for (int i = 0; i < m_variable_size; i++) {
+		for (size_t i = 0; i < m_variable_size; i++) {
 			mvv_flow[i].resize(m_variable_size);
 			mvv_distance[i].resize(m_variable_size);
 		}
@@ -31,17 +30,17 @@ namespace OFEC {
 			m_domain.set_range(0, m_variable_size - 1, i);
 
 		global::ms_sample_fre  = m_variable_size * 2;
-
+		m_initialized = true;
 	}
-	evaluation_tag quadratic_assignment::evaluate_(solution_base & s, caller call, bool effective_fes, bool constructed)
+	evaluation_tag quadratic_assignment::evaluate_(solution_base & s, caller call, bool effective, bool constructed)
 	{
 		variable_vector<int> &x = dynamic_cast< solution<variable_vector<int>, real> &>(s).variable();
-		std::vector<double> &obj = dynamic_cast< solution<variable_vector<int>, real> &>(s).objective();
+		std::vector<real> &obj = dynamic_cast< solution<variable_vector<int>, real> &>(s).objective();
 
-		for (int i = 0; i<m_objective_size; i++)
+		for (size_t i = 0; i<m_objective_size; i++)
 			obj[i] = 0;
 		int row, col;
-		for (int n = 0; n<m_objective_size; n++)
+		for (size_t n = 0; n<m_objective_size; n++)
 		{
 			for (size_t i = 0; i<m_variable_size; i++)
 			{
@@ -54,7 +53,7 @@ namespace OFEC {
 		}
 
 		if (constructed) {
-			if (effective_fes)		m_effective_eval++;
+			if (effective)		m_effective_eval++;
 			m_optima.is_optimal_objective(obj, m_objective_accuracy);
 			if (m_optima.is_objective_found())
 				m_solved = true;
@@ -89,12 +88,12 @@ namespace OFEC {
 	}
 	void quadratic_assignment::read_problem()
 	{
-#if defined(linux) || defined(__linux) || defined(__linux__)
+#if defined(linux) || defined(__linux) || defined(__linux__) || defined(__APPLE__)
 #define	strtok_s strtok_r
 #endif
 		size_t i;
 		std::string Line;
-		char *Keyword = 0;
+		char *Keyword = nullptr;
 		const char *Delimiters = " ():=\n\t\r\f\v\xef\xbb\xbf";
 		std::ostringstream oss;
 		std::ifstream infile;
@@ -112,25 +111,25 @@ namespace OFEC {
 				Keyword[i] = toupper(Keyword[i]);
 			if (!strcmp(Keyword, "DIM"))
 			{
-				char *token = strtok_s(0, Delimiters, &savePtr);
+				char *token = strtok_s(nullptr, Delimiters, &savePtr);
 				m_variable_size = atoi(token);
 			}
 			else if (!strcmp(Keyword, "FLOW"))
 			{
-				for (int n = 0; n < m_variable_size; n++)
+				for (size_t n = 0; n < m_variable_size; n++)
 					for (i = 0; i < m_variable_size; i++)
 						infile >> mvv_flow[n][i];
 			}
 			else if (!strcmp(Keyword, "DISTANCE"))
 			{
-				for (int n = 0; n < m_variable_size; n++)
+				for (size_t n = 0; n < m_variable_size; n++)
 					for (i = 0; i < m_variable_size; i++)
 						infile >> mvv_distance[n][i];
 			}
 			else if (!strcmp(Keyword, "OPT_OBJ"))
 			{
-				char *token = strtok_s(0, Delimiters, &savePtr);
-				m_optima.append(std::vector<double>(1, atof(token)));
+				char *token = strtok_s(nullptr, Delimiters, &savePtr);
+				m_optima.append(std::vector<real>(1, atof(token)));
 			}
 			else if (!strcmp(Keyword, "OPT_SOLUTION"))
 			{
@@ -146,7 +145,7 @@ namespace OFEC {
 		infile.close();
 		infile.clear();
 	}
-	bool quadratic_assignment::get_optimal_obj(std::vector<double>& opt)
+	bool quadratic_assignment::get_optimal_obj(std::vector<real>& opt)
 	{
 		if (m_optima.objective_given()) {
 			opt = m_optima.objective();
@@ -155,11 +154,11 @@ namespace OFEC {
 		return false;
 	}
 
-	bool quadratic_assignment::get_optimal_obj(std::vector<std::vector<double>>& opt)
+	bool quadratic_assignment::get_optimal_obj(std::vector<std::vector<real>>& opt)
 	{
 		if (m_optima.objective_given()) {
 			opt.clear();
-			for (unsigned i = 0; i<m_optima.number_objective(); ++i)	
+			for (size_t i = 0; i<m_optima.number_objective(); ++i)
 				opt.push_back(m_optima.objective(i));
 			return true;
 		}
@@ -220,22 +219,22 @@ namespace OFEC {
 		return true;
 	}
 
-	double quadratic_assignment::variable_distance(const solution_base & s1, const solution_base & s2) const
+	real quadratic_assignment::variable_distance(const solution_base & s1, const solution_base & s2) const
 	{
 		const variable_vector<int> &x1 = dynamic_cast<const solution<variable_vector<int>, real> &>(s1).variable();
 		const variable_vector<int> &x2 = dynamic_cast<const solution<variable_vector<int>, real> &>(s2).variable();
-		double dis = 0;
+		real dis = 0;
 		for (int i = 0; i < m_variable_size; i++)
 			if (x1[i] != x2[i])
 				dis++;
 		return dis;
 	}
 
-	double quadratic_assignment::variable_distance(const variable_base & s1, const variable_base & s2) const
+	real quadratic_assignment::variable_distance(const variable_base & s1, const variable_base & s2) const
 	{
-		const variable_vector<int> &x1 = dynamic_cast<const variable_vector<int>&>(s1);
-		const variable_vector<int> &x2 = dynamic_cast<const variable_vector<int>&>(s2);
-		double dis = 0;
+		const auto &x1 = dynamic_cast<const variable_vector<int>&>(s1);
+		const auto &x2 = dynamic_cast<const variable_vector<int>&>(s2);
+		real dis = 0;
 		for (int i = 0; i < m_variable_size; i++)
 			if (x1[i] != x2[i])
 				dis++;

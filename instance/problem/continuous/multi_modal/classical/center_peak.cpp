@@ -37,18 +37,19 @@ namespace OFEC {
 		m_objective_accuracy = 1.e-5;
 		m_variable_accuracy = 0.2;
 
-		std::vector<std::vector<real>> var_data = { {-6.02513e-012, -2.41155e-012}, {2, -2}, {-2, 2}, {-2, -2}, {2, 2} };
+		std::vector<std::vector<real>> var_data = { {-6.02513e-012f, -2.41155e-012f}, {2, -2}, {-2, 2}, {-2, -2}, {2, 2} };
 
 		for (auto &i : var_data) {
 			set_original_global_opt(i.data());
 		}
 
 		m_optima = m_original_optima;
+		m_initialized = true;
 		
 	}
-	void center_peak::evaluate__(real *x, std::vector<real>& obj) {
+	void center_peak::evaluate_objective(real *x, std::vector<real> &obj) {
 
-		double s;
+		real s;
 		s = 3 * sin(0.5*OFEC_PI*x[0] + 0.5*OFEC_PI)*(2 - sqrt(x[0] * x[0] + x[1] * x[1])) / 4;
 		obj[0] = s + m_bias;
 

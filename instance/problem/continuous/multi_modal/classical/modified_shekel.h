@@ -29,10 +29,10 @@ namespace OFEC {
 		modified_shekel(const std::string &name, size_t size_var, size_t size_obj);
 		void initialize();
 	protected:
-		void evaluate__(real *x, std::vector<real>& obj);
+		void evaluate_objective(real *x, std::vector<real>& obj) override;
 	private:
-		double m_a[8][5];
-		double m_c[8];
+		real m_a[8][5];
+		real m_c[8];
 	};
 	
 }

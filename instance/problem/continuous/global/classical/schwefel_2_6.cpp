@@ -16,6 +16,7 @@ namespace OFEC {
 		m_variable_monitor = true;
 		set_range(-100, 100);
 		set_init_range(-100, 100);
+		m_initialized = true;
 	}
 
 	void schwefel_2_6::load_data()
@@ -89,7 +90,7 @@ namespace OFEC {
 		}
 	}
 
-	void schwefel_2_6::evaluate__(real *x, std::vector<real>& obj) {
+	void schwefel_2_6::evaluate_objective(real *x, std::vector<real> &obj) {
 		// To be continued ..
 	}
 	

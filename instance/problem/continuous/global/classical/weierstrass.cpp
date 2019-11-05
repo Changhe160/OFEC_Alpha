@@ -34,10 +34,11 @@ namespace OFEC {
 
 		set_global_opt();
 		//setAccuracy(1.0e-2);
+		m_initialized = true;
 	}
 
 
-	void weierstrass::evaluate__(real *x, std::vector<real>& obj) {
+	void weierstrass::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -47,7 +48,7 @@ namespace OFEC {
 		if (m_translation_flag)
 			translate_origin(x);
 
-		double fit = 0, s = 0;
+		real fit = 0, s = 0;
 
 		for (int i = 0; i < m_variable_size; i++)
 			for (int k = 0; k <= m_kmax; k++)

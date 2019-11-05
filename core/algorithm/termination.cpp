@@ -1,11 +1,9 @@
 #include "../global.h"
+#include <cmath>
 
-#ifdef OFEC_DEMON
-extern bool ofg_algTermination;
-#endif
 namespace OFEC {
 
-	termination::termination(param_map &v) :m_maxTime(24 * 3600) {
+	termination::termination(param_map &v) :m_maxTime(24 * 3600 * 30) {
 		if (v.find("maxRunTime") != v.end())
 			m_maxTime = (int)v.at("maxRunTime");
 
@@ -14,7 +12,6 @@ namespace OFEC {
 	bool termination::terminating() {
 		if (!m_enable) return false;
 
-#ifdef OFEC_CONSOLE
 		if (m_isTerminating) return true;
 		if (global::ms_global->m_problem != nullptr && global::ms_global->m_problem->solved())
 			return true;
@@ -23,24 +20,14 @@ namespace OFEC {
 		if (durat >= m_maxTime)
 			return true;
 
-#endif
-
-#ifdef OFEC_DEMON
-		if (::ofg_algTermination) return true;
-#endif
-
 		return false;
 	};
 
-	bool term_max_evals::terminating() {
+	bool term_max_evals::terminating(int evals) {
 
-#if defined OFEC_DEMON
-		return termination::terminating();
-#else
 		if (termination::terminating()) return true;
-#endif
 
-		if (global::ms_global->m_problem->evaluations() >= m_max_evals) return true;
+		if (evals >= m_max_evals) return true;
 
 		return false;
 	}
@@ -49,21 +36,16 @@ namespace OFEC {
 	bool term_max_iteration::terminating(int value) {
 		// Assume that vp[0] is a main population that records the number of iterations since the run starts
 
-#if defined OFEC_DEMON
-		return termination::terminating();
-#else
 		if (termination::terminating()) return true;
-#endif
+
 		return value >= m_max_iter;
 	}
 
 
-	bool term_best_remain::terminating(double value) {
-#if defined OFEC_DEMON
-		return termination::terminating();
-#else
+	bool term_best_remain::terminating(real value) {
+
 		if (termination::terminating()) return true;
-#endif
+
 		m_current = value;
 
 		if (m_current != m_previous) {
@@ -78,12 +60,9 @@ namespace OFEC {
 	}
 
 
-	bool term_mean_remain::terminating(double value) {
-#if defined OFEC_DEMON
-		return termination::terminating();
-#else
+	bool term_mean_remain::terminating(real value) {
+
 		if (termination::terminating()) return true;
-#endif
 
 		m_current = value;
 
@@ -96,12 +75,9 @@ namespace OFEC {
 		return m_suc_iter >= m_max_iter;
 	}
 
-	bool term_variance::terminating(double var) {
-#if defined OFEC_DEMON
-		if (m_enable) return termination::terminating();
-#else
+	bool term_variance::terminating(real var) {
+
 		if (termination::terminating()) return true;
-#endif
 
 		return var < m_epsilon;
 
@@ -109,11 +85,7 @@ namespace OFEC {
 
 	bool term_stagnation::terminating(int value) {
 
-#if defined OFEC_DEMON
-		if (m_enable)	return termination::terminating();
-#else
 		if (termination::terminating()) return true;
-#endif
 
 		if (value == 0) m_cnt++;
 		else m_cnt = 0;

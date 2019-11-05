@@ -9,15 +9,13 @@ namespace OFEC {
 			m_domain.set_range(-5., 5., count);
 		
 	}
-	void ZDT4::initialize() {
 
-	}
-	void ZDT4::evaluate__(double * x, std::vector<double>& obj) {
-		double g = 0;
+	void ZDT4::evaluate_objective(real *x, std::vector<real> &obj) {
+		real g = 0;
 		for (size_t n = 1; n<m_variable_size; n++)
 			g = g + (pow(x[n], 2) - 10 * cos(4 * OFEC_PI*x[n]));
 		g = 1 + 10 * (m_variable_size - 1) + g;
 		obj[0] = x[0];
-		obj[1] = g*(1 - sqrt(x[0] / g));
+		obj[1] = g*(1 - std::sqrt(x[0] / g));
 	}
 }

@@ -47,6 +47,19 @@ namespace OFEC {
 	}
 
 	///
+	/// cast to float
+	///
+	typevar::operator float() const {
+		try {
+			return mapbox::util::get<float_t>(_var);
+		}
+		catch (const mapbox::util::bad_variant_access&) {
+			THROW("cannot convert to float");
+		}
+	}
+
+
+	///
 	/// cast to string
 	///
 	typevar::operator std::string() const {

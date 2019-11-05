@@ -28,9 +28,9 @@ namespace OFEC {
 			// 2^(Dim/2) gopt
 
 			evaluate_optima();
-
+			m_initialized = true;
 		}
-		void F7_SR_expanded_six_hump_camel_back::evaluate__(real *x, std::vector<real>& obj) {
+		void F7_SR_expanded_six_hump_camel_back::evaluate_objective(real *x, std::vector<real> &obj) {
 
 			size_t i;
 

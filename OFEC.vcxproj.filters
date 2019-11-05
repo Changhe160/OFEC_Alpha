@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="utility">
-      <UniqueIdentifier>{f68f0e85-7cdb-4fea-9579-3c219145bd35}</UniqueIdentifier>
-    </Filter>
     <Filter Include="core">
       <UniqueIdentifier>{3ef0a687-487d-493f-8c06-86246fae20c0}</UniqueIdentifier>
     </Filter>
@@ -12,12 +9,6 @@
     </Filter>
     <Filter Include="core\problem">
       <UniqueIdentifier>{5825ddf5-b65b-4dff-99e3-fc31ee1bc1ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utility\random">
-      <UniqueIdentifier>{c5e3c782-e9f8-4587-81ee-d9e9b1d0b8b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utility\typevar">
-      <UniqueIdentifier>{88684ca9-9be1-4fff-8443-ddf322dd59e6}</UniqueIdentifier>
     </Filter>
     <Filter Include="core\problem\continuous">
       <UniqueIdentifier>{cb2c1a08-f79d-4c93-a67d-b1c1c0f54490}</UniqueIdentifier>
@@ -43,26 +34,20 @@
     <Filter Include="instance\problem\continuous\global\CEC2005">
       <UniqueIdentifier>{a5a5b4f1-090f-419c-9253-d7110b97c2ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="instance\problem\continuous\multi_modal">
-      <UniqueIdentifier>{6d1d4361-0c7a-41d2-9511-536101740588}</UniqueIdentifier>
+    <Filter Include="instance\problem\continuous\global\CEC2015">
+      <UniqueIdentifier>{5da47b23-e76e-4d69-9df0-28c102cea28f}</UniqueIdentifier>
     </Filter>
     <Filter Include="instance\problem\continuous\large_scale">
       <UniqueIdentifier>{d002993d-32e7-457c-ba5b-48f9befaa785}</UniqueIdentifier>
     </Filter>
-    <Filter Include="instance\problem\continuous\constrained">
-      <UniqueIdentifier>{65053be1-4186-436c-a29f-0d2b2f416538}</UniqueIdentifier>
-    </Filter>
     <Filter Include="instance\problem\continuous\large_scale\CEC2013">
       <UniqueIdentifier>{ff8c7946-52cc-4615-be62-14a9288950e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="instance\problem\continuous\constrained">
+      <UniqueIdentifier>{65053be1-4186-436c-a29f-0d2b2f416538}</UniqueIdentifier>
+    </Filter>
     <Filter Include="instance\problem\continuous\constrained\CEC2017">
       <UniqueIdentifier>{81a11631-9930-46ac-9d14-fac5752c9e3f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="core\measure">
-      <UniqueIdentifier>{b23dc8bb-aeab-40f5-8977-07e3ad28233f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utility\nondominated_sorting">
-      <UniqueIdentifier>{b318126c-b12d-4cd0-a21e-ae372c76ba5e}</UniqueIdentifier>
     </Filter>
     <Filter Include="instance\problem\continuous\multi_objective">
       <UniqueIdentifier>{e31d3315-3eb6-4b2e-9bee-26c289946db8}</UniqueIdentifier>
@@ -76,23 +61,26 @@
     <Filter Include="instance\problem\continuous\multi_objective\MOEA_F">
       <UniqueIdentifier>{b734b5ea-088a-41f8-8737-7dabd6ba1297}</UniqueIdentifier>
     </Filter>
-    <Filter Include="instance\algorithm">
-      <UniqueIdentifier>{fcba4119-63fc-45b0-be9a-8967042aabe7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="instance\algorithm\MOEA">
-      <UniqueIdentifier>{71f77648-2c48-46e3-888c-3dffca704248}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="instance\algorithm\MOEA\NSGAII">
-      <UniqueIdentifier>{1cb37ab0-5eda-464e-a0bb-f8acff6b1551}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="run">
-      <UniqueIdentifier>{b849912a-928a-4bc8-8544-46894e07f344}</UniqueIdentifier>
-    </Filter>
     <Filter Include="instance\problem\continuous\expensive">
       <UniqueIdentifier>{dc172691-42c4-4eee-a2a2-9fcca0c01cec}</UniqueIdentifier>
     </Filter>
     <Filter Include="instance\problem\continuous\expensive\CEC2015">
       <UniqueIdentifier>{2eac886b-199b-4e00-a856-f6b9029228c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\dynamic">
+      <UniqueIdentifier>{f505697b-8e40-4097-a481-0f1add040bdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\dynamic\moving_peaks">
+      <UniqueIdentifier>{1c9fb4e8-7b36-414f-83e0-acb74463cace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\dynamic\DRPBG">
+      <UniqueIdentifier>{94a1da13-eed5-415f-a962-dbd8dca85653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\dynamic\DCBG">
+      <UniqueIdentifier>{704042ed-5c16-45ad-89ed-559c100f51fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\multi_modal">
+      <UniqueIdentifier>{6d1d4361-0c7a-41d2-9511-536101740588}</UniqueIdentifier>
     </Filter>
     <Filter Include="instance\problem\continuous\multi_modal\classical">
       <UniqueIdentifier>{1402a732-1211-40d3-9dbe-65bd62831c97}</UniqueIdentifier>
@@ -100,32 +88,17 @@
     <Filter Include="instance\problem\continuous\multi_modal\CEC2013">
       <UniqueIdentifier>{14cf970e-81b4-4c45-ba24-6dbee0a3ea3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utility\mapbox">
-      <UniqueIdentifier>{d61d59a0-b18e-4e07-b565-e6b59e95eb6c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="instance\problem\continuous\multi_modal\CEC2015">
       <UniqueIdentifier>{03ea81f4-c8cc-40a3-b483-52b0219a6128}</UniqueIdentifier>
     </Filter>
     <Filter Include="instance\problem\realworld">
       <UniqueIdentifier>{0f26be4e-f981-41ce-a599-dc6180e00cd6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utility\nondominated_sorting\ENS_NDT">
-      <UniqueIdentifier>{157a3115-13e8-47e4-88a8-244e9606b5e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="test">
-      <UniqueIdentifier>{8eb9e77c-cd4e-4521-96f6-7e36862e455e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="instance\problem\realworld\gear_train">
       <UniqueIdentifier>{90e57348-abc6-45d2-8d74-3cbfa785aab9}</UniqueIdentifier>
     </Filter>
     <Filter Include="instance\problem\realworld\sound_waves">
       <UniqueIdentifier>{fa3cc4a4-d6ad-4cc4-9005-1c33f446faf5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="instance\problem\continuous\global\CEC2015">
-      <UniqueIdentifier>{5da47b23-e76e-4d69-9df0-28c102cea28f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="instance\problem\realworld\EPANET">
-      <UniqueIdentifier>{441d7859-ae9e-4f00-8578-dac6a9c8a385}</UniqueIdentifier>
     </Filter>
     <Filter Include="instance\problem\combination">
       <UniqueIdentifier>{1416cde5-90fc-4d60-87d4-b2d0b47fa4d2}</UniqueIdentifier>
@@ -142,26 +115,20 @@
     <Filter Include="instance\problem\combination\one_max">
       <UniqueIdentifier>{80ddcde8-b533-4cc6-8e41-fd2e279bd582}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utility\nondominated_sorting\corner_sort">
-      <UniqueIdentifier>{e42b28c7-3b3e-4a0e-b3d1-2ccac5ac32f4}</UniqueIdentifier>
+    <Filter Include="instance\algorithm">
+      <UniqueIdentifier>{fcba4119-63fc-45b0-be9a-8967042aabe7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utility\nondominated_sorting\deductive_sort">
-      <UniqueIdentifier>{c1922c30-9218-4154-8eda-fc24c4a4f90d}</UniqueIdentifier>
+    <Filter Include="instance\algorithm\MOEA">
+      <UniqueIdentifier>{71f77648-2c48-46e3-888c-3dffca704248}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utility\nondominated_sorting\fast_sort">
-      <UniqueIdentifier>{41fd824d-8954-4c6b-ac71-d347be500c5a}</UniqueIdentifier>
+    <Filter Include="instance\algorithm\MOEA\NSGAII">
+      <UniqueIdentifier>{1cb37ab0-5eda-464e-a0bb-f8acff6b1551}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utility\nondominated_sorting\filter_sort">
-      <UniqueIdentifier>{ee988590-af08-4886-9940-b9087c8edcef}</UniqueIdentifier>
+    <Filter Include="instance\algorithm\MOEA\NSGAIII">
+      <UniqueIdentifier>{e6c922f9-8e23-4b45-b749-8b50c4af65ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utility\nondominated_sorting\link_sort">
-      <UniqueIdentifier>{72f5d895-04c8-49b6-a56f-4fae7c4c72bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utility\nondominated_sorting\T_ENS">
-      <UniqueIdentifier>{9d09edd0-0e8f-4906-8736-d089eb5b67b4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utility\nondominated_sorting\benchmark">
-      <UniqueIdentifier>{4ce6d168-3d28-413e-951e-d98e1c4227ac}</UniqueIdentifier>
+    <Filter Include="instance\algorithm\MOEA\MOEAD">
+      <UniqueIdentifier>{fb689410-3cc2-4dec-bde5-d730f7bfc4e3}</UniqueIdentifier>
     </Filter>
     <Filter Include="instance\algorithm\DE">
       <UniqueIdentifier>{8e0b1ee3-2a52-4f4c-906f-da028f5529ee}</UniqueIdentifier>
@@ -171,9 +138,6 @@
     </Filter>
     <Filter Include="instance\algorithm\DE\CRDE">
       <UniqueIdentifier>{14212f51-1d39-4ec0-843a-6ec5298cdf1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="instance\algorithm\DE\JADE">
-      <UniqueIdentifier>{ca728e57-1eaf-4a7b-8e67-5c6c6504f825}</UniqueIdentifier>
     </Filter>
     <Filter Include="instance\algorithm\DE\NCDE">
       <UniqueIdentifier>{06c2d49d-13c4-4e9e-ba2c-9fecb57a0079}</UniqueIdentifier>
@@ -187,35 +151,113 @@
     <Filter Include="instance\algorithm\DE\DynDE">
       <UniqueIdentifier>{45cf3508-0b4a-4d1b-a0ae-a663fcdfe9b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utility\nondominated_sorting\best_order_sort">
-      <UniqueIdentifier>{45f6d570-19a4-43b2-bd3f-d63d9998edf1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="instance\algorithm\EDA">
-      <UniqueIdentifier>{68d74512-de17-497a-b4bd-45c79ffcfdba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="instance\algorithm\ACO">
-      <UniqueIdentifier>{76092b63-43bb-4449-a82c-132090572d70}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="instance\algorithm\GA">
-      <UniqueIdentifier>{96098b66-3daf-41e6-b35a-9410e8c8fab9}</UniqueIdentifier>
+    <Filter Include="instance\algorithm\DE\JADE">
+      <UniqueIdentifier>{ca728e57-1eaf-4a7b-8e67-5c6c6504f825}</UniqueIdentifier>
     </Filter>
     <Filter Include="instance\algorithm\PSO">
-      <UniqueIdentifier>{cafcdbb6-2b75-40ff-9843-74a9d713bd4d}</UniqueIdentifier>
+      <UniqueIdentifier>{566105b5-37b9-4678-a38e-0d66e4eaefe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\PSO\SPSO07">
+      <UniqueIdentifier>{6a132629-476d-4522-9504-5b232d0ee868}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\PSO\SPSO11">
+      <UniqueIdentifier>{8223d2dc-a205-48c8-b4f5-84a233df1434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\EDA">
+      <UniqueIdentifier>{669a0be4-3289-459b-a1c2-1ea91a3b29d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\traditional">
+      <UniqueIdentifier>{e054c3c1-6261-4f2d-aa6a-78af5bf57ef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\traditional\simulated_annealing">
+      <UniqueIdentifier>{aba1443a-38a6-4dcf-9df3-eb9bfc1733f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\GA">
+      <UniqueIdentifier>{7c52e366-0d4c-4151-9ba7-293e4980a3d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\EP">
+      <UniqueIdentifier>{f263a972-89bf-4a2a-9a76-9b5abee077d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\EP\CEP">
+      <UniqueIdentifier>{4b088448-80cd-4f91-80e9-fbf6698a4594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\EP\FEP">
+      <UniqueIdentifier>{1fb91c1e-6f31-4c06-b4ec-be7f77104ca3}</UniqueIdentifier>
     </Filter>
     <Filter Include="instance\algorithm\ES">
-      <UniqueIdentifier>{8d26e6ca-9d74-4d1f-8c86-365719f7a922}</UniqueIdentifier>
+      <UniqueIdentifier>{48137415-353b-443c-9fd4-84b67d6c99cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="instance\algorithm\GP">
-      <UniqueIdentifier>{8c49c28b-669b-4157-8e32-f3a489033623}</UniqueIdentifier>
+    <Filter Include="instance\algorithm\ES\CMA_ES">
+      <UniqueIdentifier>{a799c996-06c9-4f8a-8836-deaa98c9a61e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="run">
+      <UniqueIdentifier>{b849912a-928a-4bc8-8544-46894e07f344}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{8eb9e77c-cd4e-4521-96f6-7e36862e455e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{f68f0e85-7cdb-4fea-9579-3c219145bd35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\random">
+      <UniqueIdentifier>{c5e3c782-e9f8-4587-81ee-d9e9b1d0b8b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\typevar">
+      <UniqueIdentifier>{88684ca9-9be1-4fff-8443-ddf322dd59e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting">
+      <UniqueIdentifier>{b318126c-b12d-4cd0-a21e-ae372c76ba5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\mapbox">
+      <UniqueIdentifier>{d61d59a0-b18e-4e07-b565-e6b59e95eb6c}</UniqueIdentifier>
     </Filter>
     <Filter Include="utility\kd-tree">
-      <UniqueIdentifier>{9a12560f-d46a-414d-90cc-eed44a4eb933}</UniqueIdentifier>
+      <UniqueIdentifier>{9fbc505e-d344-47dd-b5ac-027170887809}</UniqueIdentifier>
     </Filter>
-    <Filter Include="instance\problem\continuous\dynamic">
-      <UniqueIdentifier>{5083e31b-e59f-4c66-bedc-23eee0665054}</UniqueIdentifier>
+    <Filter Include="utility\clustering">
+      <UniqueIdentifier>{49541ba5-c89f-4ce7-b7cf-b1a31f6ca9ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="instance\problem\continuous\dynamic\moving_peaks">
-      <UniqueIdentifier>{61ec349a-e2b4-431d-8647-7a518899242f}</UniqueIdentifier>
+    <Filter Include="core\measure">
+      <UniqueIdentifier>{b23dc8bb-aeab-40f5-8977-07e3ad28233f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\GA\SBX">
+      <UniqueIdentifier>{b5daef1a-6438-43c8-9eb3-e574a986a054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\DE\Canonical_DE">
+      <UniqueIdentifier>{7a0e5f67-5423-4658-a69a-4befbd8d8d20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\MOEA\NSGAII\NSGAII_SBX">
+      <UniqueIdentifier>{5489c54b-d7c1-4d7d-afcc-ef671599329f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\MOEA\NSGAIII\NSGAIII_SBX">
+      <UniqueIdentifier>{d76fe2af-876b-43df-88a9-c0e36f80818e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\multi_objective\UF">
+      <UniqueIdentifier>{ccad5f8a-4726-4603-828c-21e76598e9bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\multi_objective\GLT">
+      <UniqueIdentifier>{0cfbc133-43f4-4a9b-ae7e-486a98401a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\MOEA\NSGAII\NSGAII_DE">
+      <UniqueIdentifier>{d460653e-039b-40c4-bde6-038168c192ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\DE\MOEA_DE">
+      <UniqueIdentifier>{c20e9a84-cb13-4379-936e-c0db1c6a8574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\problem\continuous\multi_objective\WFG">
+      <UniqueIdentifier>{987871d1-8a93-490e-8f86-61f4278286ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\MOEA\GrEA">
+      <UniqueIdentifier>{47bfd365-a5fa-4964-918d-c6e476a7551e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\MOEA\CDGMOEA">
+      <UniqueIdentifier>{20d97fd6-4684-4b9f-b858-2de1862b6dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\MOEA\MOEAD\MOEAD_DE">
+      <UniqueIdentifier>{ae464d5e-09b8-450e-aea4-cc7a88db61d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="instance\algorithm\MOEA\MOEAD\MOEAD_SBX">
+      <UniqueIdentifier>{51482192-7942-4a63-9672-1a3b9b0879f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -930,36 +972,6 @@
     <ClInclude Include="instance\problem\continuous\global\CEC2015\F15_global_composition7.h">
       <Filter>instance\problem\continuous\global\CEC2015</Filter>
     </ClInclude>
-    <ClInclude Include="instance\problem\realworld\EPANET\enumstxt.h">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\realworld\EPANET\epa_encoding.h">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\realworld\EPANET\epanet.h">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\realworld\EPANET\funcs.h">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\realworld\EPANET\hash.h">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\realworld\EPANET\mempool.h">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\realworld\EPANET\text.h">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\realworld\EPANET\toolkit.h">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\realworld\EPANET\types.h">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\realworld\EPANET\vars.h">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClInclude>
     <ClInclude Include="instance\problem\combination\MKP\multi_dimensional_knapsack.h">
       <Filter>instance\problem\combination\MKP</Filter>
     </ClInclude>
@@ -972,47 +984,8 @@
     <ClInclude Include="instance\problem\combination\one_max\one_max.h">
       <Filter>instance\problem\combination\one_max</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\benchmark\benchmark.h">
-      <Filter>utility\nondominated_sorting\benchmark</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\ENS_NDT.h">
-      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDNode.h">
-      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDSplit.h">
-      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDTree.h">
-      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\corner_sort\corner_sort.h">
-      <Filter>utility\nondominated_sorting\corner_sort</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\deductive_sort\deductive_sort.h">
-      <Filter>utility\nondominated_sorting\deductive_sort</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\fast_sort\fast_sort.h">
-      <Filter>utility\nondominated_sorting\fast_sort</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\filter_sort\filter_sort.h">
-      <Filter>utility\nondominated_sorting\filter_sort</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\link_sort\link_sort.h">
-      <Filter>utility\nondominated_sorting\link_sort</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\T_ENS\T_ENS.h">
-      <Filter>utility\nondominated_sorting\T_ENS</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\quick_sort.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
     <ClInclude Include="instance\algorithm\DE\jDE\jDE.h">
       <Filter>instance\algorithm\DE\jDE</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\algorithm\DE\CRDE\CRDE.h">
-      <Filter>instance\algorithm\DE\CRDE</Filter>
     </ClInclude>
     <ClInclude Include="instance\algorithm\DE\JADE\JADE.h">
       <Filter>instance\algorithm\DE\JADE</Filter>
@@ -1038,20 +1011,20 @@
     <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII.h">
       <Filter>instance\algorithm\MOEA\NSGAII</Filter>
     </ClInclude>
+    <ClInclude Include="instance\algorithm\PSO\particle.h">
+      <Filter>instance\algorithm\PSO</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\PSO\swarm.h">
+      <Filter>instance\algorithm\PSO</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F4_himmenblau.h">
+      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
+    </ClInclude>
     <ClInclude Include="run\system_initialization.h">
       <Filter>run</Filter>
     </ClInclude>
     <ClInclude Include="run\user_initialization.h">
       <Filter>run</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\best_order_sort\best_order_sort.h">
-      <Filter>utility\nondominated_sorting\best_order_sort</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\types.h">
-      <Filter>utility</Filter>
-    </ClInclude>
-    <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F4_himmenblau.h">
-      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
     </ClInclude>
     <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F5_six_hump_camel_back.h">
       <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
@@ -1062,17 +1035,230 @@
     <ClInclude Include="instance\problem\continuous\multi_modal\CEC2013\F8_modified_rastrigin.h">
       <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
     </ClInclude>
+    <ClInclude Include="utility\types.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\CRDE\CRDE.h">
+      <Filter>instance\algorithm\DE\CRDE</Filter>
+    </ClInclude>
     <ClInclude Include="utility\kd-tree\kdtree_space.h">
       <Filter>utility\kd-tree</Filter>
     </ClInclude>
-    <ClInclude Include="instance\algorithm\DE\individual.h">
-      <Filter>instance\algorithm\DE</Filter>
+    <ClInclude Include="instance\problem\continuous\dynamic\dynamic.h">
+      <Filter>instance\problem\continuous\dynamic</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\dynamic\dynamic_continuous.h">
+      <Filter>instance\problem\continuous\dynamic</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\dynamic\real_DBG.h">
+      <Filter>instance\problem\continuous\dynamic</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\dynamic\moving_peaks\moving_peak.h">
+      <Filter>instance\problem\continuous\dynamic\moving_peaks</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\dynamic\DRPBG\rotation_peak.h">
+      <Filter>instance\problem\continuous\dynamic\DRPBG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\dynamic\DCBG\dynamic_composition.h">
+      <Filter>instance\problem\continuous\dynamic\DCBG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\PSO\SPSO07\SPSO07.h">
+      <Filter>instance\algorithm\PSO\SPSO07</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\traditional\simulated_annealing\simulated_annealing.h">
+      <Filter>instance\algorithm\traditional\simulated_annealing</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\PSO\SPSO11\SPSO11.h">
+      <Filter>instance\algorithm\PSO\SPSO11</Filter>
     </ClInclude>
     <ClInclude Include="instance\algorithm\DE\population.h">
       <Filter>instance\algorithm\DE</Filter>
     </ClInclude>
-    <ClInclude Include="instance\problem\continuous\dynamic\dynamic.h">
-      <Filter>instance\problem\continuous\dynamic</Filter>
+    <ClInclude Include="instance\algorithm\DE\individual.h">
+      <Filter>instance\algorithm\DE</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\clustering\group.h">
+      <Filter>utility\clustering</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\clustering\hslh.h">
+      <Filter>utility\clustering</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAIII\NSGAIII.h">
+      <Filter>instance\algorithm\MOEA\NSGAIII</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAIII\reference_point.h">
+      <Filter>instance\algorithm\MOEA\NSGAIII</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAIII\math_aux.h">
+      <Filter>instance\algorithm\MOEA\NSGAIII</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\EP\individual.h">
+      <Filter>instance\algorithm\EP</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\EP\population.h">
+      <Filter>instance\algorithm\EP</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\EP\CEP\CEP.h">
+      <Filter>instance\algorithm\EP\CEP</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\EP\FEP\FEP.h">
+      <Filter>instance\algorithm\EP\FEP</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\ES\CMA_ES\CMA_ES.h">
+      <Filter>instance\algorithm\ES\CMA_ES</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\ES\CMA_ES\cmaes.h">
+      <Filter>instance\algorithm\ES\CMA_ES</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\ES\CMA_ES\cmaes_interface.h">
+      <Filter>instance\algorithm\ES\CMA_ES</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\Canonical_DE\Canonical_DE.h">
+      <Filter>instance\algorithm\DE\Canonical_DE</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\deductive_sort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\fast_sort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\GA\population.h">
+      <Filter>instance\algorithm\GA</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\logistic_regression.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\GA\SBX\SBX.h">
+      <Filter>instance\algorithm\GA\SBX</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ7.h">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\UF\UF.h">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\UF\UF10.h">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\GLT\GLT.h">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\GLT\GLT1.h">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\GLT\GLT2.h">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\GLT\GLT3.h">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\GLT\GLT4.h">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\GLT\GLT5.h">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\GLT\GLT6.h">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\UF\UF01.h">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\UF\UF02.h">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\UF\UF03.h">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\UF\UF04.h">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\UF\UF05.h">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\UF\UF06.h">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\UF\UF07.h">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\UF\UF08.h">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\UF\UF09.h">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\clustering\fcm.h">
+      <Filter>utility\clustering</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII_DE\NSGAII_DE.h">
+      <Filter>instance\algorithm\MOEA\NSGAII\NSGAII_DE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\DE\MOEA_DE\MOEA_DE.h">
+      <Filter>instance\algorithm\DE\MOEA_DE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\WFG\WFG.h">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\WFG\WFG1.h">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\WFG\WFG2.h">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\WFG\WFG3.h">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\WFG\WFG4.h">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\WFG\WFG5.h">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\WFG\WFG6.h">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\WFG\WFG7.h">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\WFG\WFG8.h">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\problem\continuous\multi_objective\WFG\WFG9.h">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\GrEA\GrEA.h">
+      <Filter>instance\algorithm\MOEA\GrEA</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\CDGMOEA\CDG_MOEA.h">
+      <Filter>instance\algorithm\MOEA\CDGMOEA</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\MOEAD\MOEAD.h">
+      <Filter>instance\algorithm\MOEA\MOEAD</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\MOEAD\MOEAD_DE\MOEAD_DE.h">
+      <Filter>instance\algorithm\MOEA\MOEAD\MOEAD_DE</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAII\NSGAII_SBX\NSGAII_SBX.h">
+      <Filter>instance\algorithm\MOEA\NSGAII\NSGAII_SBX</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\MOEAD\MOEAD_SBX\MOEAD_SBX.h">
+      <Filter>instance\algorithm\MOEA\MOEAD\MOEAD_SBX</Filter>
+    </ClInclude>
+    <ClInclude Include="instance\algorithm\MOEA\NSGAIII\NSGAIII_SBX\NSGAIII_SBX.h">
+      <Filter>instance\algorithm\MOEA\NSGAIII\NSGAIII_SBX</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\kd-tree\nanoflann.hpp">
+      <Filter>utility\kd-tree</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\filter_sort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="run\register_algorithm.h">
+      <Filter>run</Filter>
+    </ClInclude>
+    <ClInclude Include="run\register_problem.h">
+      <Filter>run</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1095,9 +1281,6 @@
       <Filter>utility\typevar</Filter>
     </ClCompile>
     <ClCompile Include="utility\typevar\ctor.cpp">
-      <Filter>utility\typevar</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\typevar\dynamic.cpp">
       <Filter>utility\typevar</Filter>
     </ClCompile>
     <ClCompile Include="utility\typevar\relational.cpp">
@@ -1691,9 +1874,6 @@
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2015\F15_composition2015_C7.cpp">
       <Filter>instance\problem\continuous\multi_modal\CEC2015</Filter>
     </ClCompile>
-    <ClCompile Include="test\test_core.cpp">
-      <Filter>test</Filter>
-    </ClCompile>
     <ClCompile Include="run\main.cpp">
       <Filter>run</Filter>
     </ClCompile>
@@ -1748,45 +1928,6 @@
     <ClCompile Include="instance\problem\continuous\global\CEC2015\F15_global_composition7.cpp">
       <Filter>instance\problem\continuous\global\CEC2015</Filter>
     </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\epanet.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\hash.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\hydraul.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\inpfile.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\input1.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\input2.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\input3.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\mempool.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\output.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\quality.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\report.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\rules.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\realworld\EPANET\smatrix.cpp">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </ClCompile>
     <ClCompile Include="instance\problem\combination\MKP\multi_dimensional_knapsack.cpp">
       <Filter>instance\problem\combination\MKP</Filter>
     </ClCompile>
@@ -1799,41 +1940,11 @@
     <ClCompile Include="instance\problem\combination\one_max\one_max.cpp">
       <Filter>instance\problem\combination\one_max</Filter>
     </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\benchmark\benchmark.cpp">
-      <Filter>utility\nondominated_sorting\benchmark</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\ENS_NDT\ENS_NDT.cpp">
-      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\corner_sort\corner_sort.cpp">
-      <Filter>utility\nondominated_sorting\corner_sort</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\deductive_sort\deductive_sort.cpp">
-      <Filter>utility\nondominated_sorting\deductive_sort</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\fast_sort\fast_sort.cpp">
-      <Filter>utility\nondominated_sorting\fast_sort</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\filter_sort\filter_sort.cpp">
-      <Filter>utility\nondominated_sorting\filter_sort</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\link_sort\link_sort.cpp">
-      <Filter>utility\nondominated_sorting\link_sort</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\T_ENS\T_ENS.cpp">
-      <Filter>utility\nondominated_sorting\T_ENS</Filter>
-    </ClCompile>
     <ClCompile Include="instance\algorithm\DE\jDE\jDE.cpp">
       <Filter>instance\algorithm\DE\jDE</Filter>
     </ClCompile>
-    <ClCompile Include="instance\algorithm\DE\CRDE\CRDE.cpp">
-      <Filter>instance\algorithm\DE\CRDE</Filter>
-    </ClCompile>
     <ClCompile Include="instance\algorithm\DE\JADE\JADE.cpp">
       <Filter>instance\algorithm\DE\JADE</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\algorithm\DE\NCDE\NCDE.cpp">
-      <Filter>instance\algorithm\DE\NCDE</Filter>
     </ClCompile>
     <ClCompile Include="instance\algorithm\DE\NSDE\NSDE.cpp">
       <Filter>instance\algorithm\DE\NSDE</Filter>
@@ -1850,20 +1961,17 @@
     <ClCompile Include="instance\algorithm\DE\DynDE\DynDE_subpopulation.cpp">
       <Filter>instance\algorithm\DE\DynDE</Filter>
     </ClCompile>
-    <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAII.cpp">
-      <Filter>instance\algorithm\MOEA\NSGAII</Filter>
+    <ClCompile Include="instance\algorithm\PSO\particle.cpp">
+      <Filter>instance\algorithm\PSO</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F4_himmenblau.cpp">
+      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
     </ClCompile>
     <ClCompile Include="run\system_initialization.cpp">
       <Filter>run</Filter>
     </ClCompile>
     <ClCompile Include="run\user_initialization.cpp">
       <Filter>run</Filter>
-    </ClCompile>
-    <ClCompile Include="utility\nondominated_sorting\best_order_sort\best_order_sort.cpp">
-      <Filter>utility\nondominated_sorting\best_order_sort</Filter>
-    </ClCompile>
-    <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F4_himmenblau.cpp">
-      <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
     </ClCompile>
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F5_six_hump_camel_back.cpp">
       <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
@@ -1874,10 +1982,218 @@
     <ClCompile Include="instance\problem\continuous\multi_modal\CEC2013\F8_modified_rastrigin.cpp">
       <Filter>instance\problem\continuous\multi_modal\CEC2013</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="instance\problem\realworld\EPANET\Readme.txt">
-      <Filter>instance\problem\realworld\EPANET</Filter>
-    </Text>
+    <ClCompile Include="instance\algorithm\DE\NCDE\NCDE.cpp">
+      <Filter>instance\algorithm\DE\NCDE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\CRDE\CRDE.cpp">
+      <Filter>instance\algorithm\DE\CRDE</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\typevar\istream.cpp">
+      <Filter>utility\typevar</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\dynamic\dynamic.cpp">
+      <Filter>instance\problem\continuous\dynamic</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\dynamic\dynamic_continuous.cpp">
+      <Filter>instance\problem\continuous\dynamic</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\dynamic\real_DBG.cpp">
+      <Filter>instance\problem\continuous\dynamic</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\dynamic\moving_peaks\moving_peak.cpp">
+      <Filter>instance\problem\continuous\dynamic\moving_peaks</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\dynamic\DRPBG\rotation_peak.cpp">
+      <Filter>instance\problem\continuous\dynamic\DRPBG</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\dynamic\DCBG\dynamic_composition.cpp">
+      <Filter>instance\problem\continuous\dynamic\DCBG</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\PSO\SPSO07\SPSO07.cpp">
+      <Filter>instance\algorithm\PSO\SPSO07</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\traditional\simulated_annealing\simulated_annealing.cpp">
+      <Filter>instance\algorithm\traditional\simulated_annealing</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\PSO\SPSO11\SPSO11.cpp">
+      <Filter>instance\algorithm\PSO\SPSO11</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\individual.cpp">
+      <Filter>instance\algorithm\DE</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_functional.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\NSGAIII\reference_point.cpp">
+      <Filter>instance\algorithm\MOEA\NSGAIII</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\NSGAIII\math_aux.cpp">
+      <Filter>instance\algorithm\MOEA\NSGAIII</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\EP\individual.cpp">
+      <Filter>instance\algorithm\EP</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\EP\CEP\CEP.cpp">
+      <Filter>instance\algorithm\EP\CEP</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\EP\FEP\FEP.cpp">
+      <Filter>instance\algorithm\EP\FEP</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\ES\CMA_ES\CMA_ES.cpp">
+      <Filter>instance\algorithm\ES\CMA_ES</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\ES\CMA_ES\cmaes.cpp">
+      <Filter>instance\algorithm\ES\CMA_ES</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_matrix.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\DE\Canonical_DE\Canonical_DE.cpp">
+      <Filter>instance\algorithm\DE\Canonical_DE</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\logistic_regression.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_DOP.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_MMOP.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_random.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_clustering.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_kd_tree.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_nondominated_sorting.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_PSO.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\DTLZ\DTLZ7.cpp">
+      <Filter>instance\problem\continuous\multi_objective\DTLZ</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\UF\UF.cpp">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\UF\UF10.cpp">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\GLT\GLT.cpp">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\GLT\GLT1.cpp">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\GLT\GLT2.cpp">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\GLT\GLT3.cpp">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\GLT\GLT4.cpp">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\GLT\GLT5.cpp">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\GLT\GLT6.cpp">
+      <Filter>instance\problem\continuous\multi_objective\GLT</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\UF\UF01.cpp">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\UF\UF02.cpp">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\UF\UF03.cpp">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\UF\UF04.cpp">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\UF\UF05.cpp">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\UF\UF06.cpp">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\UF\UF07.cpp">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\UF\UF08.cpp">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\UF\UF09.cpp">
+      <Filter>instance\problem\continuous\multi_objective\UF</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\clustering\fcm.cpp">
+      <Filter>utility\clustering</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAII_DE\NSGAII_DE.cpp">
+      <Filter>instance\algorithm\MOEA\NSGAII\NSGAII_DE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\WFG\WFG.cpp">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\WFG\WFG1.cpp">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\WFG\WFG2.cpp">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\WFG\WFG3.cpp">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\WFG\WFG4.cpp">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\WFG\WFG5.cpp">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\WFG\WFG6.cpp">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\WFG\WFG7.cpp">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\WFG\WFG8.cpp">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\problem\continuous\multi_objective\WFG\WFG9.cpp">
+      <Filter>instance\problem\continuous\multi_objective\WFG</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_MOP.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\GrEA\GrEA.cpp">
+      <Filter>instance\algorithm\MOEA\GrEA</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\CDGMOEA\CDG_MOEA.cpp">
+      <Filter>instance\algorithm\MOEA\CDGMOEA</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\MOEAD\MOEAD_DE\MOEAD_DE.cpp">
+      <Filter>instance\algorithm\MOEA\MOEAD\MOEAD_DE</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\NSGAII\NSGAII_SBX\NSGAII_SBX.cpp">
+      <Filter>instance\algorithm\MOEA\NSGAII\NSGAII_SBX</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\MOEAD\MOEAD_SBX\MOEAD_SBX.cpp">
+      <Filter>instance\algorithm\MOEA\MOEAD\MOEAD_SBX</Filter>
+    </ClCompile>
+    <ClCompile Include="instance\algorithm\MOEA\NSGAIII\NSGAIII_SBX\NSGAIII_SBX.cpp">
+      <Filter>instance\algorithm\MOEA\NSGAIII\NSGAIII_SBX</Filter>
+    </ClCompile>
+    <ClCompile Include="run\register_problem.cpp">
+      <Filter>run</Filter>
+    </ClCompile>
+    <ClCompile Include="run\register_algorithm.cpp">
+      <Filter>run</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

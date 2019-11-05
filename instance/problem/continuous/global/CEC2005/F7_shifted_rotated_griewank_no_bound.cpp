@@ -1,4 +1,5 @@
 #include "F7_shifted_rotated_griewank_no_bound.h"
+#include <numeric>
 
 namespace OFEC {
 	namespace CEC2005 {
@@ -13,8 +14,7 @@ namespace OFEC {
 		}
 
 		void F7_shifted_rotated_griewank_no_bound::initialize() {
-			m_variable_monitor = true;
-			set_range(0, 600);
+			set_range(-1000, 1000);
 			set_init_range(0, 600.);
 			set_bias(-180);
 			set_condition_number(3);
@@ -24,10 +24,18 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/global/CEC2005/data/");
 			
 			set_global_opt(m_translation.data());
-		}
-		void F7_shifted_rotated_griewank_no_bound::evaluate__(real *x, std::vector<real>& obj) {
+			m_optima.set_flag_variable(true);
+			m_objective_monitor = true;
+			m_objective_accuracy = 1.0e-8;
 
-			griewank::evaluate__(x, obj);
+			m_variable_partition.clear();
+			m_variable_partition.push_back(std::vector<size_t>(m_variable_size));
+			std::iota(m_variable_partition[0].begin(), m_variable_partition[0].end(), 0);
+			m_initialized = true;
+		}
+		void F7_shifted_rotated_griewank_no_bound::evaluate_objective(real *x, std::vector<real> &obj) {
+
+			griewank::evaluate_objective(x, obj);
 		}
 	}
 }

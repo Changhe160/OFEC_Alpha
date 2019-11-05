@@ -34,9 +34,10 @@ namespace OFEC {
 		set_global_opt();
 
 		m_variable_accuracy = 1.0e-2;
+		m_initialized = true;
 	}
 
-	void non_continuous_scaffer_F6::evaluate__(real *x, std::vector<real>& obj) {
+	void non_continuous_scaffer_F6::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)

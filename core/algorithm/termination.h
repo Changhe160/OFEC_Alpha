@@ -32,7 +32,7 @@ namespace OFEC {
 		termination(param_map &v);
 		virtual ~termination() {}
 		termination() = default;
-		virtual bool terminating();
+		bool terminating();
 		bool terminated() {
 			return m_terminated;
 		}
@@ -43,8 +43,8 @@ namespace OFEC {
 		void set_terminating_true() {
 			m_isTerminating = true;
 		}
-		double duration() {
-			return std::chrono::duration<double>(m_end_time - m_start_time).count();
+		real duration() {
+			return std::chrono::duration<real>(m_end_time - m_start_time).count();
 		}
 		void disable() {
 			m_enable = false;
@@ -52,10 +52,12 @@ namespace OFEC {
 		void enable() {
 			m_enable = true;
 		}
+		const std::string & criterion()const { return m_name; }
 	protected:
 		bool m_terminated = false, m_isTerminating = false, m_enable = true;
 		std::chrono::time_point<std::chrono::system_clock> m_start_time = std::chrono::system_clock::now(), m_end_time;
 		unsigned long m_maxTime = 12 * 3600; // 12 hours time by default
+		std::string  m_name;
 	};
 
 	//terminate when the maximum number of iterations is reached
@@ -65,12 +67,11 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_max_iteration(param_map &v) :termination(v) {
-#ifdef OFEC_CONSOLE
 			if (v.find("maxIter") != v.end()) m_max_iter = v.at("maxIter");
 			else	THROW("para_maxIter is not given");
-#endif
+			m_name = "max iterations";
 		}
-		term_max_iteration(int iters) :m_max_iter(iters) {	}
+		term_max_iteration(int iters) :m_max_iter(iters) { m_name = "max iterations"; }
 		bool terminating(int value);
 	};
 
@@ -80,13 +81,14 @@ namespace OFEC {
 		int m_max_evals;
 	public:
 		term_max_evals(param_map &v) :termination(v) {
-#ifdef OFEC_CONSOLE
 			if (v.find("maxEvals") != v.end()) m_max_evals = v.at("maxEvals");
 			else	THROW("m_max_evals is not given");
-#endif
+			m_name = "max evalutations";
 		}
-		term_max_evals(int evals) :m_max_evals(evals) { }
-		bool terminating();
+		term_max_evals(int evals) :m_max_evals(evals) { 
+			m_name = "max evalutations";
+		}
+		bool terminating(int evals);
 	};
 
 	//terminate when the best solution remains over a number of successive iterations
@@ -94,18 +96,17 @@ namespace OFEC {
 	protected:
 		int m_max_iter;
 		int m_suc_iter = 0;
-		double m_previous = 0, m_current = 0;
+		real m_previous = 0, m_current = 0;
 	public:
 		using termination::terminating;
 		term_best_remain(param_map &v) :termination(v) {
-#ifdef OFEC_CONSOLE
 			if (v.find("maxSucIter") != v.end()) m_max_iter = v.at("maxSucIter");
 			else	THROW("param_maxSucIter is not given");
-#endif
+			m_name = "convergence best";
 		}
-		term_best_remain(int iters) :m_max_iter(iters) {	}
+		term_best_remain(int iters) :m_max_iter(iters) { m_name = "convergence best"; }
 
-		bool terminating(double value);
+		bool terminating(real value);
 	};
 
 	//terminate when the average objectives changes less than a threshold value over a number of successive iterations
@@ -113,28 +114,29 @@ namespace OFEC {
 	protected:
 		int m_max_iter;
 		int m_suc_iter = 0;
-		double m_previous = 0;
-		double m_current = 0;
-		double m_epsilon = 1.E-2;
+		real m_previous = 0;
+		real m_current = 0;
+		real m_epsilon = 1.E-2;
 	public:
 		using termination::terminating;
 		term_mean_remain(param_map &v) :termination(v) {
-#ifdef OFEC_CONSOLE
 			if (v.find("epsilon") != v.end()) m_epsilon = v.at("epsilon");
 			else	THROW("param_epsilon is not given");
 			if (v.find("maxSucIter") != v.end()) m_max_iter = v.at("maxSucIter");
 			else	THROW("param_maxSucIter is not given");
-#endif
+			m_name = "convergence mean";
 		}
-		term_mean_remain(int iters, double epsilon, double value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) { }
+		term_mean_remain(int iters, real epsilon, real value) :m_max_iter(iters), m_epsilon(epsilon), m_previous(value), m_current(value) {
+			m_name = "convergence mean";
+		}
 
-		bool terminating(double value);
+		bool terminating(real value);
 
-		void reset(int maxIter, double value) {
+		void reset(int maxIter, real value) {
 			m_previous = m_current = value;
 			m_suc_iter = 0;
 		}
-		void set_epsilon(double epsilon) {
+		void set_epsilon(real epsilon) {
 			m_epsilon = epsilon;
 		}
 	};
@@ -142,18 +144,19 @@ namespace OFEC {
 	//terminate when the variance of objective ls less than a small value
 	class term_variance :public termination {
 	protected:
-		double m_epsilon;
+		real m_epsilon;
 	public:
 		using termination::terminating;
 		term_variance(param_map &v) :termination(v) {
-#ifdef OFEC_CONSOLE
 			if (v.find("epsilon") != v.end()) m_epsilon = v.at("epsilon");
 			else	THROW("param_epsilon is not given");
-#endif
+			m_name = "convergence variance";
 		}
-		term_variance(double epsilon) :m_epsilon(epsilon) {}
-		bool terminating(double var);
-		void set_epsilon(double epsilon) {
+		term_variance(real epsilon) :m_epsilon(epsilon) {
+			m_name = "convergence variance";
+		}
+		bool terminating(real var);
+		void set_epsilon(real epsilon) {
 			m_epsilon = epsilon;
 		}
 
@@ -167,12 +170,13 @@ namespace OFEC {
 	public:
 		using termination::terminating;
 		term_stagnation(param_map &v) :termination(v) {
-#ifdef OFEC_CONSOLE
 			if (v.find("maxSucIter") != v.end()) m_suc_iter = v.at("maxSucIter");
 			else	THROW("param_maxSucIter is not given");
-#endif
+			m_name = "stagnation";
 		}
-		term_stagnation(int iter) :m_suc_iter(iter) {}
+		term_stagnation(int iter) :m_suc_iter(iter) {
+			m_name = "stagnation";
+		}
 		bool terminating(int value);
 		void set_max_iter(int iter) {
 			m_suc_iter = iter;

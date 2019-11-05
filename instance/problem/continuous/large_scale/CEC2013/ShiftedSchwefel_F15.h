@@ -21,7 +21,7 @@ namespace OFEC {
 		public:
 			ShiftedSchwefel_F15(param_map &v);
 			ShiftedSchwefel_F15(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~ShiftedSchwefel_F15();
 
 			void initialize();

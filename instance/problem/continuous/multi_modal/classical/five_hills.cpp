@@ -48,7 +48,7 @@ namespace OFEC {
 			throw myexcept("cannot open data file@five_hills::initialize()");
 		}
 		for (int i = 0; i < 5; ++i) {
-			double x0, x1, obj;
+			real x0, x1, obj;
 			in >> x0 >> x1 >> obj;
 			var_data[i][0] = x0;
 			var_data[i][1] = x1;
@@ -58,11 +58,11 @@ namespace OFEC {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
-		
+		m_initialized = true;
 	}
-	void five_hills::evaluate__(real *x, std::vector<real>& obj) {
+	void five_hills::evaluate_objective(real *x, std::vector<real> &obj) {
 
-		double s;
+		real s;
 		s = sin(2.2*OFEC_PI*x[0] + 0.5*OFEC_PI)*(2 - fabs(x[1])) / 2 * (3 - fabs(x[0])) / 2 + sin(0.5*OFEC_PI*x[1] + 0.5*OFEC_PI)*(2 - fabs(x[1])) / 2 * (2 - fabs(x[0])) / 2;
 		obj[0] = s + m_bias;
 

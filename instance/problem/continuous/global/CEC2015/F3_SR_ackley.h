@@ -27,12 +27,12 @@ namespace OFEC {
 			F3_SR_ackley(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 
 		private:
 		};
 	}
-	using CEC2015_GOP_F3 = CEC2015::F3_SR_ackley;
+	using CEC2015_GOP_F03 = CEC2015::F3_SR_ackley;
 }
 
 #endif // !OFEC_F3_SR_ACKLEY_H

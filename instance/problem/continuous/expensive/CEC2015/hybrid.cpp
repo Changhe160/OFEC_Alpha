@@ -16,8 +16,9 @@
 namespace OFEC {
 	namespace CEC2015 {
 		hybrid::hybrid(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), \
-		continuous(name, size_var, size_obj), m_random_perm(size_var)
-		{
+		continuous(name, size_var, size_obj), m_random_perm(size_var), m_temp_sol(m_objective_size, num_constraints(), m_variable_size)
+
+    {
 		}
 		hybrid::~hybrid() {
 			//dtor
@@ -32,18 +33,15 @@ namespace OFEC {
 		}
 
 	
-		void hybrid::evaluate__(real *x, std::vector<real>& obj) {
+		void hybrid::evaluate_objective(real *x, std::vector<real> &obj) {
 			size_t count = 0;
-			
+
 			for (size_t i = 0; i < m_num_function; ++i) {
-				variable_vector<real> temp_var(m_dim[i]);
-				objective_vector<real> temp_obj(m_objective_size);
 				for (size_t j = 0; j < m_dim[i]; ++j)
-					temp_var[j] = x[m_random_perm[count++]];
+					m_temp_sol.variable()[j] = x[m_random_perm[count++]];
 				//std::copy(x + m_start[i], x + m_start[i] + m_dim[i], temp_var.begin());
-				solution<variable_vector<real>, real> temp(std::move(temp_var), std::move(temp_obj));
-				m_function[i]->evaluate_(temp, caller::Problem, false, false);
-				obj[0] += temp.objective()[0];
+				m_function[i]->evaluate_(m_temp_sol, caller::Problem, false, false);
+				obj[0] += m_temp_sol.objective()[0];
 			}
 		}
 

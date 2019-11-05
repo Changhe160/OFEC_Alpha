@@ -34,10 +34,11 @@ namespace OFEC {
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");
 		
 		set_global_opt();
+		m_initialized = true;
 	}
 
-	void rotated_bent_cigar::evaluate__(real *x, std::vector<real>& obj) {
-		bent_cigar::evaluate__(x, obj);
+	void rotated_bent_cigar::evaluate_objective(real *x, std::vector<real> &obj) {
+		bent_cigar::evaluate_objective(x, obj);
 
 	}
 

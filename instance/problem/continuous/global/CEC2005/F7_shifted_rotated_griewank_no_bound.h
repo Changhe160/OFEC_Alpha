@@ -26,11 +26,11 @@ namespace OFEC {
 			F7_shifted_rotated_griewank_no_bound(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2005_GOP_F7 = CEC2005::F7_shifted_rotated_griewank_no_bound;
+	using CEC2005_GOP_F07 = CEC2005::F7_shifted_rotated_griewank_no_bound;
 }
 #endif // ! OFEC_F7_SHIFTED_ROTATED_GRIEWANK_NO_BOUND_H
 

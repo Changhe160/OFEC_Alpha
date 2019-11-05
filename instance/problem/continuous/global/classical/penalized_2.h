@@ -25,8 +25,8 @@ namespace OFEC {
 		penalized_2(const std::string &name, size_t size_var, size_t size_obj);
 		void initialize();
 	protected:
-		double u(real x, double a, double k, double m)const;
-		void evaluate__(real *x, std::vector<real>& obj);
+		real u(real x, real a, real k, real m)const;
+		void evaluate_objective(real *x, std::vector<real>& obj) override;
 	private:
 	};
 	

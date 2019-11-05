@@ -1,16 +1,14 @@
 #ifndef USER_PREF_H
 #define USER_PREF_H
 
-#include "include_algorithm.h"
-#include "include_problem.h"
-#include "../core/measure/measure.h"
+//#define OFEC_UNIT_TEST
 
 namespace OFEC {
 
 	void register_parameter();
-	void register_problem();
-	void register_algorithm();
-	int before_run();
+	//void register_problem();
+	//void register_algorithm();
+	void before_run();
 	void after_run();
 }
 

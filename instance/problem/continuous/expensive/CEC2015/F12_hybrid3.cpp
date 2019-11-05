@@ -16,7 +16,7 @@ namespace OFEC {
 		}
 		void F12_hybrid3::set_function() {
 			size_t i, tmp;
-			double f_p[5] = { 0.1, 0.2, 0.2, 0.2, 0.3 };
+			real f_p[5] = { 0.1, 0.2, 0.2, 0.2, 0.3 };
 			basic_func f(5);
 			f[0] = &create_function<katsuura>;
 			f[1] = &create_function<happy_cat>;
@@ -57,22 +57,21 @@ namespace OFEC {
 				i = count++;
 			global::ms_global->m_uniform[caller::Problem]->shuffle(m_random_perm.begin(), m_random_perm.end());
 			// Set optimal solution
-			variable_vector<real> temp_var(m_variable_size);
-			objective_vector<real> temp_obj(m_objective_size);
-			for (size_t i = 0; i < m_variable_size; ++i) {
-				temp_var[i] = 0;
-			}
-			solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
+            solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
+            for (size_t i = 0; i < m_variable_size; ++i) {
+                s.variable()[i] = 0;
+            }
 
-			m_optima.append(x.variable());
+			m_optima.append(s.variable());
 
-			evaluate_(x, caller::Problem, false, false);
-			m_optima.append(x.objective());
+            s.evaluate(false, caller::Problem);
+            m_optima.append(s.objective());
 			// end set
+			m_initialized = true;
 		}
-		void F12_hybrid3::evaluate__(real *x, std::vector<real>& obj) {
+		void F12_hybrid3::evaluate_objective(real *x, std::vector<real> &obj) {
 
-			hybrid::evaluate__(x, obj);
+			hybrid::evaluate_objective(x, obj);
 			obj[0] += 1200;
 		}
 	}

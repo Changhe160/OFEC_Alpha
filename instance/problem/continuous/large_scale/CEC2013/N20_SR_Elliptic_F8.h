@@ -22,13 +22,13 @@ namespace OFEC {
 		public:
 			N20_SR_Elliptic_F8(param_map &v);
 			N20_SR_Elliptic_F8(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~N20_SR_Elliptic_F8();
 
 			void initialize();
 		};
 	}
-	using CEC2013_LSOP_F8 = CEC2013::N20_SR_Elliptic_F8;
+	using CEC2013_LSOP_F08 = CEC2013::N20_SR_Elliptic_F8;
 }
 #endif
 

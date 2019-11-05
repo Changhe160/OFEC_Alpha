@@ -31,7 +31,7 @@ namespace OFEC {
 			real pre_opt_distance();
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			void set_function();
 
 			void rotate(size_t num, real *x);
@@ -39,12 +39,12 @@ namespace OFEC {
 
 			bool load_translation(const std::string &path);
 			void set_translation();
-			void set_weight(std::vector<double>& weight, const std::vector<real>&x);
+			void set_weight(std::vector<real>& weight, const std::vector<real>&x);
 		private:
 			real m_pre_opt_distance;
 		};
 	}
-	using CEC2015_MMP_F15 = CEC2015::F15_composition2015_C7;
+	using CEC2015_MMOP_F15 = CEC2015::F15_composition2015_C7;
 }
 #endif // !OFEC_CEC2015_F15_COMPOSITION7_H
 

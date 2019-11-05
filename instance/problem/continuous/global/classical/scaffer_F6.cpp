@@ -33,9 +33,10 @@ namespace OFEC {
 		set_global_opt();
 
 		m_variable_accuracy = 1.0e-2;
+		m_initialized = true;
 	}
 
-	void scaffer_F6::evaluate__(real *x, std::vector<real>& obj) {
+	void scaffer_F6::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -44,7 +45,7 @@ namespace OFEC {
 			rotate(x);
 		if (m_translation_flag)
 			translate_origin(x);
-		double fitness = 0;
+		real fitness = 0;
 		for (size_t i = 0; i < m_variable_size-1; ++i) {
 			fitness += 0.5 + (sin(sqrt(x[i] * x[i] + x[i+1] * x[i+1]))*sin(sqrt(x[i] * x[i] + x[i+1] * x[i+1])) - 0.5) / ((1 + 0.001*(x[i] * x[i] + x[i+1] * x[i+1]))*(1 + 0.001*(x[i] * x[i] + x[i+1] * x[i+1])));
 		}

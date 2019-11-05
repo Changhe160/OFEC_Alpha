@@ -21,7 +21,7 @@ namespace OFEC {
 		public:
 			ConformingOS_ShiftedSchwefel_F13(param_map &v);
 			ConformingOS_ShiftedSchwefel_F13(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~ConformingOS_ShiftedSchwefel_F13();
 
 			void initialize();

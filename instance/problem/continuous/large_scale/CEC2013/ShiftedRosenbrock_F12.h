@@ -21,7 +21,7 @@ namespace OFEC {
 		public:
 			ShiftedRosenbrock_F12(param_map &v);
 			ShiftedRosenbrock_F12(const std::string &name, size_t size_var, size_t size_obj);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 			~ShiftedRosenbrock_F12();
 
 			void initialize();

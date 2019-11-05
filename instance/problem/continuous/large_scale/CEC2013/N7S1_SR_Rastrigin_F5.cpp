@@ -53,11 +53,12 @@ namespace OFEC {
 
 			set_original_global_opt();
 			set_global_opt(mp_Ovector);
+			m_initialized = true;
 		}
 
-		void N7S1_SR_Rastrigin_F5::evaluate__(real *x, std::vector<real>& obj) {
+		void N7S1_SR_Rastrigin_F5::evaluate_objective(real *x, std::vector<real> &obj) {
 			size_t    i;
-			double result = 0.0;
+			real result = 0.0;
 
 			for (i = 0; i < m_variable_size; i++) {
 				mp_anotherz[i] = x[i] - mp_Ovector[i];
@@ -73,7 +74,7 @@ namespace OFEC {
 			}
 
 			// one separable part without rotation
-			double* z = new real[m_variable_size - c];
+			real* z = new real[m_variable_size - c];
 			for (i = c; i < m_variable_size; i++)
 			{
 				z[i - c] = mp_anotherz[mp_Pvector[i]];

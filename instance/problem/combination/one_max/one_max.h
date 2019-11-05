@@ -30,21 +30,19 @@ namespace OFEC {
 		one_max(param_map& v);
 		one_max(const std::string &name, int size_var);
 		~one_max() {};
-		evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
+		evaluation_tag evaluate_(solution_base &s, caller call, bool effective, bool initialized);
 		bool is_valid(const solution_base &s);
 		void validate(solution_base &s) {};
-		void initialize_solution(solution_base &s) const;
-		bool same(const solution_base &s1, const solution_base &s2) const;
-		double variable_distance(const solution_base &s1, const solution_base &s2) const;
-		double variable_distance(const variable_base &s1, const variable_base &s2) const;
-		bool is_optima_given() {
-			return true;
-		};
-		bool get_opt_obj(std::vector<double> &opt) {
+		void initialize_solution(solution_base &s) const override;
+		bool same(const solution_base &s1, const solution_base &s2) const override;
+		real variable_distance(const solution_base &s1, const solution_base &s2) const override;
+		real variable_distance(const variable_base &s1, const variable_base &s2) const override;
+		bool is_optima_given() override;
+		bool get_opt_obj(std::vector<real> &opt) {
 			opt = m_optima.objective();
 			return true;
 		};
-		bool get_opt_obj(std::vector<std::vector<double>> &value) {
+		bool get_opt_obj(std::vector<std::vector<real>> &value) {
 			value.clear();
 			for (unsigned i = 0; i<m_optima.number_objective(); i++)	
 				value.push_back(m_optima.objective(i));

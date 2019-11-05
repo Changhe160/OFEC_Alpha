@@ -15,16 +15,17 @@ namespace OFEC {
 			m_variable_monitor = true;
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
-
+			m_constraint_type.resize(1);
+			m_constraint_type[0] = constraint_type::Inequality;
 			 
-			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
-			
 			load_rotation("instance/problem/continuous/constrained/CEC2017/data/");
+
 			set_original_global_opt(m_translation.data());
 			m_optima = m_original_optima;
+			m_initialized = true;
 		}
-		void C02::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
+		void C02::evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 
@@ -32,7 +33,7 @@ namespace OFEC {
 			obj[0] = 0.;
 			for (i = 1; i<m_variable_size+1 ; ++i)
 			{
-				double t = 0.0;
+				real t = 0.0;
 				for (j = 0; j<i; j++)
 				{
 					t += x[j];
@@ -40,27 +41,17 @@ namespace OFEC {
 				obj[0] += t*t;
 			}
 			obj[0] += m_bias;
-			
+
+			// evaluate constraint value
+
 			std::vector<real> x_(x, x + m_variable_size);
 			rotate(x_.data());
-
-			double temp = 0.;
-			double sum = 0.;
-			std::vector<double> constraint;
+			con[0] = 0;
 			for (i = 0; i < m_variable_size; ++i)
 			{
-				temp += (x_[i] * x_[i] - 5000 * cos(0.1*OFEC_PI*x_[i]) - 4000);
+				con[0] += (x_[i] * x_[i] - 5000 * cos(0.1*OFEC_PI*x_[i]) - 4000);
 			}
-			constraint.push_back(temp);
-			for (auto &i : constraint) {
-				if (i <= 0) i = 0;
-				sum += i;
-			}
-			cons_values.clear();
-			for (auto &i : constraint)
-				cons_values.push_back(i);
-			cons_value = sum / (double)constraint.size();
-			
+			if (con[0] <= 0) con[0] = 0;
 		}
 	}
 }

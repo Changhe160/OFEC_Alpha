@@ -34,10 +34,11 @@ namespace OFEC {
 		load_rotation("instance/problem/continuous/global/CEC2005/data/");
 
 		set_global_opt();
+		m_initialized = true;
 	}
 
-	void rotated_discus::evaluate__(real *x, std::vector<real>& obj) {
-		discus::evaluate__(x, obj);
+	void rotated_discus::evaluate_objective(real *x, std::vector<real> &obj) {
+		discus::evaluate_objective(x, obj);
 
 	}
 

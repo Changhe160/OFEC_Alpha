@@ -29,9 +29,10 @@ namespace OFEC {
 		set_init_range(-5.12, 5.12);
 		set_original_global_opt();
 		set_global_opt();
+		m_initialized = true;
 	}
 
-	void non_continuous_rastrigin::evaluate__(real *x, std::vector<real>& obj) {
+	void non_continuous_rastrigin::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)

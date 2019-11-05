@@ -26,11 +26,12 @@
 #include "problem/problem.h"
 #include "algorithm/algorithm.h"
 #include "../utility/factory.h"
+#include <thread>
 
 namespace OFEC{
 
 	struct global{
-		global(const int runID, double seed_pro, double seed_alg);
+		global(const int runID, real seed_pro, real seed_alg);
 
 		const int m_runID;
 
@@ -44,13 +45,8 @@ namespace OFEC{
 		std::map<caller, std::unique_ptr<levy>> m_levy;
 		std::map<caller, std::unique_ptr<gamma>> m_gamma;
 
-#ifdef OFEC_CONSOLE
-		static thread_local std::unique_ptr<global> ms_global;
-#endif // OFEC_CONSOLE
+        static thread_local std::shared_ptr<global> ms_global;
 
-#ifdef OFEC_DEMON
-		static unique_ptr<global> ms_global;
-#endif
 		static param_map ms_arg;
 		static std::map<const std::string, bool> ms_filename_info; // to indicate whether a const std::string information is included in output file's name 
 		static std::map<const std::string, const std::string> ms_param;

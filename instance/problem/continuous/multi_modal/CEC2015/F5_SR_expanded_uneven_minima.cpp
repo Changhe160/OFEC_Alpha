@@ -28,9 +28,9 @@ namespace OFEC {
 			// 5^Dim gopt
 			 
 			evaluate_optima();
-
+			m_initialized = true;
 		}
-		void F5_SR_expanded_uneven_minima::evaluate__(real *x, std::vector<real>& obj) {
+		void F5_SR_expanded_uneven_minima::evaluate_objective(real *x, std::vector<real> &obj) {
 
 			size_t i;
 

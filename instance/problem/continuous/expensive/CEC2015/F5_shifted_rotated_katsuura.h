@@ -27,10 +27,10 @@ namespace OFEC {
 			F5_shifted_rotated_katsuura(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_EOP_F5 = CEC2015::F5_shifted_rotated_katsuura;
+	using CEC2015_EOP_F05 = CEC2015::F5_shifted_rotated_katsuura;
 }
 #endif // ! OFEC_F5_SHIFTED_ROTATED_KATSUURA_H

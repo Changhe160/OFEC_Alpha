@@ -28,9 +28,9 @@ namespace OFEC {
 			// 6^Dim gopt
 
 			evaluate_optima();
-
+			m_initialized = true;
 		}
-		void F8_SR_modified_vincent::evaluate__(real *x, std::vector<real>& obj) {
+		void F8_SR_modified_vincent::evaluate_objective(real *x, std::vector<real> &obj) {
 
 			size_t i;
 

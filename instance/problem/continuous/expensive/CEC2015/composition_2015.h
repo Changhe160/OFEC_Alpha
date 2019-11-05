@@ -24,9 +24,9 @@ namespace OFEC {
 		public:
 			composition_2015(const std::string &name, size_t size_var, size_t size_obj);
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		
-			void set_weight(std::vector<double>& w, const std::vector<real>&x);
+			void set_weight(std::vector<real>& w, const std::vector<real>&x);
 
 		protected:
 			std::vector<real> m_f_bias;

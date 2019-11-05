@@ -62,11 +62,12 @@ namespace OFEC {
 			//set_original_global_opt();
 			std::vector<real> temp_obj(m_objective_size, 0);
 			m_optima.append(temp_obj);
+			m_initialized = true;
 		}
 
-		void ConflictingOS_ShiftedSchwefel_F14::evaluate__(real *x, std::vector<real>& obj) {
+		void ConflictingOS_ShiftedSchwefel_F14::evaluate_objective(real *x, std::vector<real> &obj) {
 			size_t i;
-			double result = 0.0;
+			real result = 0.0;
 
 
 			// s_size non-separable part with rotation

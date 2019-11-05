@@ -23,22 +23,18 @@
 #include "vincent.h"
 namespace OFEC {
 	
-	vincent::vincent(param_map &v) :
-		vincent((v.at("proName")), (v.at("numDim")), 1) {
+	vincent::vincent(param_map &v) : vincent((v.at("proName")), (v.at("numDim"))) {}
 
-		
-	}
-	vincent::vincent(const std::string &name, size_t size_var, size_t size_obj) : problem(name, size_var, size_obj), \
-		function(name, size_var, size_obj) {
-		
-	}
+	vincent::vincent(const std::string &name, size_t size_var) : problem(name, size_var, 1), function(name, size_var, 1) {}
 
 	void vincent::initialize() { // note
 		set_range(0.25, 10.); // note
 		set_init_range(0.25, 10.);
 		m_opt_mode[0] = optimization_mode::Maximization;  // note
 		m_objective_monitor = true;
-		m_objective_accuracy = 1.e-4;
+		if (global::ms_arg.find("objectiveAccuracy") == global::ms_arg.end())
+			global::ms_arg.insert({ "objectiveAccuracy",(real)1.e-4 });
+		m_objective_accuracy = global::ms_arg.at("objectiveAccuracy");
 		m_variable_accuracy = 0.2;
 
 		size_t num_solution = pow(6, m_variable_size);
@@ -47,10 +43,14 @@ namespace OFEC {
 		for (auto &i : obj_data)
 			m_original_optima.append(i);
 		m_optima = m_original_optima;
-		
+
+		m_variable_partition.resize(m_variable_size);
+		for (size_t i = 0; i < m_variable_size; ++i)
+			m_variable_partition[i] = { i };
+		m_initialized = true;
 	}
-	void vincent::evaluate__(real *x, std::vector<real>& obj) {
-		double s = 0;
+	void vincent::evaluate_objective(real *x, std::vector<real> &obj) {
+		real s = 0;
 
 		for (int i = 0; i < m_variable_size; ++i) {
 			s += sin(10 * log(x[i]));

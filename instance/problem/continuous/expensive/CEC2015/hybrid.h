@@ -34,7 +34,7 @@ namespace OFEC {
 				return m_hybrid_translation;
 			}
 		protected:
-			virtual void evaluate__(real *x, std::vector<real>& obj);
+			virtual void evaluate_objective(real *x, std::vector<real>& obj) override;
 			virtual void set_function() = 0;
 		protected:
 			size_t m_num_function;
@@ -42,7 +42,8 @@ namespace OFEC {
 			std::vector<size_t> m_start, m_dim;
 			std::vector<size_t> m_random_perm;
 			std::vector<real> m_hybrid_translation;
-		};
+            solution<variable_vector<real>, real> m_temp_sol;
+        };
 
 	}
 }

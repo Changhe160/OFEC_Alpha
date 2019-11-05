@@ -24,14 +24,14 @@
 #include "../domain.h"
 
 namespace OFEC {
-#define CONTINOUS_CAST dynamic_cast<continuous*>( global::ms_global->m_problem.get())
+#define CONTINUOUS_CAST (dynamic_cast<continuous*>(global::ms_global->m_problem.get()))
 
 	class continuous : virtual public problem {
 	public:
 		continuous(const std::string &name, size_t size_var, size_t size_obj);
 
-		violation_type check_boundary_violation(const solution_base &s) const; // boudary check only
-		void initialize_solution(solution_base &s) const;
+		violation_type check_boundary_violation(const solution_base &s) const override; // boudary check only
+		void initialize_solution(solution_base &s) const override;
 
 		const std::pair<real, real>& range(size_t i) const;
 		void set_range(real l, real u);
@@ -41,38 +41,39 @@ namespace OFEC {
 
 		optima<variable_vector<real>, real>& get_optima();
 		std::vector<solution<variable_vector<real>, real>>& get_optima_found();
-		domain<real>& range();
+		const domain<real>& range() const;
+		const domain<real>& init_range() const;
 
-		virtual bool same(const solution_base &s1, const solution_base &s2) const { return false; }
-		double variable_distance(const solution_base &s1, const solution_base &s2) const;
-		double variable_distance(const variable_base &s1, const variable_base &s2) const;
+		bool same(const solution_base &s1, const solution_base &s2) const override;
+		real variable_distance(const solution_base &s1, const solution_base &s2) const override;
+		real variable_distance(const variable_base &s1, const variable_base &s2) const override;
 
-		//virtual void constraint_value(const solution_base &, std::pair<double, vector<double>>&) {}
-		bool is_optimal_given();
-		evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
+		bool is_optima_given() override;
+        evaluation_tag evaluate_(solution_base &s, caller call, bool effective, bool initialized) final;
 
 		bool objective_monitor() const;
 		bool variable_monitor() const;
 		size_t num_optima_found() const;
 		void set_variable_monitor_flag(bool flag);
 		void set_objective_monitor_flag(bool flag);
-	protected:
-		continuous& operator=(const continuous& rhs);
-		continuous& operator=(continuous&& rhs);
 
-		void copy(const problem * rhs);
-		void resize_variable(size_t n);
-		void resize_objective(size_t n);
+		const std::vector<std::vector<size_t>>& variable_partition()const;
 
-		virtual void evaluate__(real *x, std::vector<real>& obj) {}
-		virtual void evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {}
 	protected:
-		double m_variable_accuracy = 1.0e-6;
+		void copy(const problem &) override;
+		void resize_variable(size_t n) override;
+		void resize_objective(size_t n) override;
+
+		virtual void evaluate_objective(real *x, std::vector<real>& obj) {}
+		virtual void evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con){}
+	protected:
+		real m_variable_accuracy = 1.0e-6;
 		domain<real> m_domain;		// search domain
 		domain<real> m_init_domain; // range for intial population
 		optima<variable_vector<real>, real> m_optima;
 		std::vector<solution<variable_vector<real>, real>> m_optima_found;
 		bool m_variable_monitor = false, m_objective_monitor = false;
+		std::vector<std::vector<size_t>> m_variable_partition;
 	};
 
 }

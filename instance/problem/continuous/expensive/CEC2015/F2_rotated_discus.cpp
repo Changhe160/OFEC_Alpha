@@ -22,9 +22,10 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/expensive/CEC2015/data/");
 			
 			set_global_opt();
+			m_initialized = true;
 		}
-		void F2_rotated_discus::evaluate__(real *x, std::vector<real>& obj) {
-			discus::evaluate__(x, obj);
+		void F2_rotated_discus::evaluate_objective(real *x, std::vector<real> &obj) {
+			discus::evaluate_objective(x, obj);
 		}
 	}
 }

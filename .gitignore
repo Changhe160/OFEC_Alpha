@@ -247,12 +247,6 @@ ModelManifest.xml
 *.d
 obj/
 x64/
+# edit test
 result/
-*.vcxproj*
-*.filters
-*.vcxproj
-*.vcxproj
-*.filters
-OFEC.vcxproj.filters
-*.vcxproj
-*.filters
+/batch_run.py

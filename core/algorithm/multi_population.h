@@ -19,34 +19,28 @@
 #ifndef OFEC_MULTI_POPULATION_H
 #define OFEC_MULTI_POPULATION_H
 
-#include "population.h"
-
 namespace OFEC {
 
 	template<typename Population>
-	class multi_population
-	{
+	class multi_population {
 	public:
 		using iterator_type = typename std::vector<std::unique_ptr<Population>>::iterator;
-
+	public:
 		multi_population() = default;
-		virtual ~multi_population() {
-			
-		}
 
-		multi_population(int n) :m_sub(n) {}
-		multi_population(size_t n, size_t subsize) :m_sub(n) {
+		virtual ~multi_population() {}
+
+		multi_population(int n) : m_sub(n) {}
+
+		template<typename ... Args>
+		multi_population(size_t n, size_t subsize, Args&& ...args) : m_sub(n) {
 			for (auto& i : m_sub)
-				i = std::move(std::unique_ptr<Population>(new Population(subsize, global::ms_global->m_problem->variable_size())));
+				i.reset(new Population(subsize, std::forward<Args>(args)...));
 		}
 
 		void resize_objective(int n) {
 			for (auto& i : m_sub)
 				i.resize_objective(n);
-		}
-		void resize_variable(int n) {
-			for (auto& i : m_sub)
-				i.resize_variable(n);
 		}
 
 		iterator_type operator +(Population&& p) {
@@ -66,21 +60,22 @@ namespace OFEC {
 		Population& operator[](size_t i) {
 			return *m_sub[i];
 		}
+		
 		const Population& operator[](size_t i) const {
 			return *m_sub[i];
 		}
 
-		const size_t& size() const{
+		size_t size() const {
 			return m_sub.size();
 		}
 
-		void handle_evaluation_tag_all(evaluation_tag tag){}
+		void pop_back() {
+			m_sub.pop_back();
+		}
 		
 	protected:
 		std::vector<std::unique_ptr<Population>> m_sub;
 		int m_maxsize;		// the maximum size of each sub-population
 	};
-
-
 }
 #endif // !OFEC_MULTI_POPULATION_H

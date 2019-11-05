@@ -18,27 +18,26 @@
 
 #ifndef OFEC_DYNDESUBPOP_H
 #define OFEC_DYNDESUBPOP_H
-#include "DynDE_Individual.h"
+#include "DynDE_individual.h"
 #include "../population.h"
 namespace OFEC {
-	namespace DE {
-		class DynDE;
-		class DynDE_subpopulation :public population<DynDE_individual> {
-		public:
-			bool m_flag;
-		public:
-			friend class DynDE;
-			DynDE_subpopulation(size_t size, size_t dim);
-			void assign_type();
-
-			evaluation_tag evolve();
-		private:
-			int m_num_normal;    // the number of normal individuals of each swarm
-			int m_num_brownian;       // the number of brownian individuals of each swarm
-			int m_num_quantum;    // the number of quantum individuals of each swarm
-			double m_r_cloud; // radius of quantum swarms
-			double m_sigma;	// deviation for generation of Brownian individuals
-		};
-	}
+	//class DynDE;
+	class DynDE_subpopulation final : public DE::population<DynDE_individual> {
+	public:
+		//friend class DynDE;
+		explicit DynDE_subpopulation(size_t size);
+		evaluation_tag evolve() override;
+		bool get_flag() const { return m_flag; }
+		void set_flag(bool flag) { m_flag = flag; }
+	protected:
+		void assign_type();
+	protected:
+		bool m_flag; // wheter need to be re-initialize, marked in the exclution_check()
+		int m_num_normal;    // the number of normal individuals of each swarm
+		int m_num_brownian;       // the number of brownian individuals of each swarm
+		int m_num_quantum;    // the number of quantum individuals of each swarm
+		real m_r_cloud; // radius of quantum swarms
+		real m_sigma;	// deviation for generation of Brownian individuals
+	};
 }
 #endif //OFEC_DYNDESUBPOP_H

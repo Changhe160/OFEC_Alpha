@@ -29,11 +29,11 @@ namespace OFEC {
 			F4_SR_expanded_decreasing_minima(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_MMP_F4 = CEC2015::F4_SR_expanded_decreasing_minima;
+	using CEC2015_MMOP_F04 = CEC2015::F4_SR_expanded_decreasing_minima;
 }
 #endif // !OFEC_F4_SR_EXPANDED_DECREASING_MINIMA_H
 

@@ -33,12 +33,12 @@ namespace OFEC {
 
 			//set_original_global_opt();	
 			set_global_opt(mp_Ovector);
-
+			m_initialized = true;
 		}
 
-		void ShiftedSchwefel_F15::evaluate__(real *x, std::vector<real>& obj) {
+		void ShiftedSchwefel_F15::evaluate_objective(real *x, std::vector<real> &obj) {
 			int i;
-			double result = 0.0;
+			real result = 0.0;
 
 
 

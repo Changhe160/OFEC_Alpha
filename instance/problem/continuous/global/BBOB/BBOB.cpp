@@ -6,7 +6,7 @@ namespace OFEC {
 	constexpr size_t NHIGHPEAKS22 = 21;
 	int compare_doubles(const void *a, const void *b)
 	{
-		double temp = (*(double*)a) - (*(double*)b);
+		real temp = (*(real*)a) - (*(real*)b);
 		if (temp > 0)
 			return 1;
 		else if (temp < 0)
@@ -25,37 +25,39 @@ namespace OFEC {
 	void BBOB::initialize() {
 		m_variable_monitor = true;
 		set_range(-5, 5);
-		set_init_range(-5, 5);
-		m_bias = computeFopt();
+		//set_init_range(-5, 5);
+		m_bias = compute_Fopt();
 		m_optima.append(m_bias);
-		computeXopt();
+        m_objective_monitor = false;
+		compute_Xopt();
+		m_optima.set_flag_variable(true);
 
-		if (m_name == "BBOB_F01_Sphere") {
-			m_fun = &BBOB::Sphere_F01;
+		if (m_name == "GOP_BBOB_F01_Sphere") {
+			m_fun = &BBOB::f1_sphere;
 		}
-		else if (m_name == "BBOB_F02_Ellipsoidal") {
+		else if (m_name == "GOP_BBOB_F02_Ellipsoidal") {
 			m_condition_number = 1e6;
-			m_fun = &BBOB::Ellipsoidal_F02;
+			m_fun = &BBOB::f2_ellipsoidale;
 		}
-		else if (m_name == "BBOB_F03_Rastrigin") {
+		else if (m_name == "GOP_BBOB_F03_Rastrigin") {
 			m_condition_number = 10;
 			m_beta = 0.2;
-			m_fun = &BBOB::Rastrigin_F03;
+			m_fun = &BBOB::f3_rastrigin;
 		}
-		else if (m_name == "BBOB_F04_BucheRastrigin") {
+		else if (m_name == "GOP_BBOB_F04_BucheRastrigin") {
 			m_condition_number = 10.;
 			m_alpha = 100.;
 			for (size_t i = 0; i < m_variable_size; i += 2) {
 				m_optima.variable(0)[i] = fabs(m_optima.variable(0)[i]); /*Skew*/
 			}
-			m_fun = &BBOB::BucheRastrigin_F04;
+			m_fun = &BBOB::f4_buche_rastrigin;
 		}
-		else if (m_name == "BBOB_F05_Slope") {
+		else if (m_name == "GOP_BBOB_F05_Slope") {
 			m_alpha = 100.;
-			m_fun = &BBOB::Slope_F05;
+			m_fun = &BBOB::f5_slope;
 			for (size_t i = 0; i < m_variable_size; ++i)
 			{
-				double tmp = pow(sqrt(m_alpha), ((double)i) / ((double)(m_variable_size - 1)));
+				real tmp = pow(sqrt(m_alpha), ((real)i) / ((real)(m_variable_size - 1)));
 				if (m_optima.variable(0)[i] > 0)
 				{
 					m_optima.variable(0)[i] = 5.;
@@ -67,99 +69,107 @@ namespace OFEC {
 				m_bias += 5. * tmp;
 			}
 		}
-		else if (m_name == "BBOB_F06_Sector") {
-			m_fun = &BBOB::Sector_F06;
+		else if (m_name == "GOP_BBOB_F06_Sector") {
+			m_fun = &BBOB::f6_sector;
 			m_alpha = 100.;
 			m_condition_number = 10.;
-			loadRotation(sqrt(m_condition_number));
+			load_rotation(sqrt(m_condition_number));
 		}
-		else if (m_name == "BBOB_F07_StepEllipsoid") {
-			m_fun = &BBOB::StepEllipsoid_F07;
+		else if (m_name == "GOP_BBOB_F07_StepEllipsoid") {
+			m_fun = &BBOB::f7_step_ellipsoid;
 			m_condition_number = 100.;
 			m_alpha = 10.;
-			loadRotation(sqrt(m_condition_number));
+			load_rotation(sqrt(m_condition_number));
 		}
-		else if (m_name == "BBOB_F08_OriginalRosenbrock") {
-			m_fun = &BBOB::OriginalRosenbrock_F08;
-			m_scales = fmax(1., sqrt((double)m_variable_size) / 8.);
+		else if (m_name == "GOP_BBOB_F08_OriginalRosenbrock") {
+			m_fun = &BBOB::f8_original_rosenbrock;
+			m_scales = fmax(1., sqrt((real)m_variable_size) / 8.);
 			for (size_t i = 0; i < m_variable_size; ++i)
 				m_optima.variable(0)[i] *= 0.75;
 		}
-		else if (m_name == "BBOB_F09_RotatedRosenbrock") {
-			m_fun = &BBOB::RotatedRosenbrock_F09;
-			m_scales = fmax(1., sqrt((double)m_variable_size) / 8.);
-			computeRotation(m_rot, m_variable_size);
+		else if (m_name == "GOP_BBOB_F09_RotatedRosenbrock") {
+			m_fun = &BBOB::f9_rotated_rosenbrock;
+			m_scales = fmax(1., sqrt((real)m_variable_size) / 8.);
+			compute_rotation(m_rot, m_variable_size);
 			for (size_t i = 0; i < m_variable_size; ++i)
 			{
 				for (size_t j = 0; j < m_variable_size; ++j)
 					m_linearTF[i][j] = m_scales * m_rot[i][j];
 			}
+			for (size_t i = 0; i < m_variable_size; ++i)
+			{
+				m_optima.variable(0)[i] = 0.;
+				for (size_t j = 0; j < m_variable_size; ++j)
+				{
+					m_optima.variable(0)[i] += m_linearTF[j][i] * 0.5 / m_scales / m_scales;
+				}
+			}
 		}
-		else if (m_name == "BBOB_F10_NonseparableEllipsoid") {
-			m_fun = &BBOB::NonseparableEllipsoid_F10;
-			computeRotation(m_rot, m_variable_size);
+		else if (m_name == "GOP_BBOB_F10_NonseparableEllipsoid") {
+			m_fun = &BBOB::f10_nonseparable_ellipsoid;
+			compute_rotation(m_rot, m_variable_size);
 			m_condition_number = 1e6;
 		}
-		else if (m_name == "BBOB_F11_Discus") {
-			m_fun = &BBOB::Discus_F11;
-			computeRotation(m_rot, m_variable_size);
+		else if (m_name == "GOP_BBOB_F11_Discus") {
+			m_fun = &BBOB::f11_discus;
+			compute_rotation(m_rot, m_variable_size);
 			m_condition_number = 1e6;
 		}
-		else if (m_name == "BBOB_F12_BentCigar") {
-			m_fun = &BBOB::BentCigar_F12;
-			computeRotation(m_rot, m_variable_size);
+		else if (m_name == "GOP_BBOB_F12_BentCigar") {
+			m_fun = &BBOB::f12_bent_cigar;
+			compute_rotation(m_rot, m_variable_size);
 			m_condition_number = 1e6;
 			m_beta = 0.5;
 		}
-		else if (m_name == "BBOB_F13_SharpRidge") {
-			m_fun = &BBOB::SharpRidge_F13;
+		else if (m_name == "GOP_BBOB_F13_SharpRidge") {
+			m_fun = &BBOB::f13_sharp_ridge;
 			m_condition_number = 10.;
 			m_alpha = 100.;
-			loadRotation(sqrt(m_condition_number));
+			load_rotation(sqrt(m_condition_number));
 		}
-		else if (m_name == "BBOB_F14_DifferentPowers") {
-			m_fun = &BBOB::DifferentPowers_F14;
+		else if (m_name == "GOP_BBOB_F14_DifferentPowers") {
+			m_fun = &BBOB::f14_different_powers;
 			m_alpha = 4.;
-			computeRotation(m_rot, m_variable_size);
+			compute_rotation(m_rot, m_variable_size);
 		}
-		else if (m_name == "BBOB_F15_NonseparableRastrigin") {
-			m_fun = &BBOB::NonseparableRastrigin_F15;
+		else if (m_name == "GOP_BBOB_F15_NonseparableRastrigin") {
+			m_fun = &BBOB::f15_nonseparable_rastrigin;
 			m_condition_number = 10.;
 			m_beta = 0.2;
-			loadRotation(sqrt(m_condition_number));
+			load_rotation(sqrt(m_condition_number));
 		}
-		else if (m_name == "BBOB_F16_Weierstrass") {
-			m_fun = &BBOB::Weierstrass_F16;
+		else if (m_name == "GOP_BBOB_F16_Weierstrass") {
+			m_fun = &BBOB::f16_weierstrass;
 			m_condition_number = 100.;
 			m_F0 = 0.;
 			m_aK.resize(12);
 			m_bK.resize(12);
-			loadRotation(1. / sqrt(m_condition_number));
+			load_rotation(1. / sqrt(m_condition_number));
 			for (size_t i = 0; i < 12; ++i) /// number of summands, 20 in CEC2005, 10/12 saves 30% of time
 			{
-				m_aK[i] = pow(0.5, (double)i);
-				m_bK[i] = pow(3., (double)i);
+				m_aK[i] = pow(0.5, (real)i);
+				m_bK[i] = pow(3., (real)i);
 				m_F0 += m_aK[i] * cos(2 * OFEC_PI * m_bK[i] * 0.5);
 			}
 		}
-		else if (m_name == "BBOB_F17_SchaffersF7") {
-			m_fun = &BBOB::SchaffersF7_F17;
-			computeRotation(m_rot, m_variable_size);
-			computeRotation(m_rot2, m_variable_size);
+		else if (m_name == "GOP_BBOB_F17_SchaffersF7") {
+			m_fun = &BBOB::f17_schaffers_F7;
+			compute_rotation(m_rot, m_variable_size);
+			compute_rotation(m_rot2, m_variable_size);
 			m_condition_number = 10.;
 			m_beta = 0.5;
 		}
-		else if (m_name == "BBOB_F18_IllconditionedSchaffersF7") {
-			m_fun = &BBOB::IllconditionedSchaffersF7_F18;
-			computeRotation(m_rot, m_variable_size);
-			computeRotation(m_rot2, m_variable_size);
+		else if (m_name == "GOP_BBOB_F18_IllconditionedSchaffersF7") {
+			m_fun = &BBOB::f18_illconditioned_schaffers_F7;
+			compute_rotation(m_rot, m_variable_size);
+			compute_rotation(m_rot2, m_variable_size);
 			m_condition_number = 1e3;
 			m_beta = 0.5;
 		}
-		else if (m_name == "BBOB_F19_CompositeGriewankRosenbrock") {
-			m_fun = &BBOB::CompositeGriewankRosenbrock_F19;
-			m_scales = fmax(1., sqrt((double)m_variable_size) / 8.);
-			computeRotation(m_rot, m_variable_size);
+		else if (m_name == "GOP_BBOB_F19_CompositeGriewankRosenbrock") {
+			m_fun = &BBOB::f19_composite_griewank_rosenbrock;
+			m_scales = fmax(1., sqrt((real)m_variable_size) / 8.);
+			compute_rotation(m_rot, m_variable_size);
 			for (size_t i = 0; i < m_variable_size; ++i)
 			{
 				for (size_t j = 0; j < m_variable_size; ++j)
@@ -176,8 +186,8 @@ namespace OFEC {
 				}
 			}
 		}
-		else if (m_name == "BBOB_F20_Schwefel") {
-			m_fun = &BBOB::Schwefel_F20;
+		else if (m_name == "GOP_BBOB_F20_Schwefel") {
+			m_fun = &BBOB::f20_schwefel;
 			m_condition_number = 10.;
 			std::vector<real> tmpvect(m_variable_size);
 			for (auto&i : tmpvect) i = global::ms_global->m_uniform[caller::Problem]->next();
@@ -188,22 +198,22 @@ namespace OFEC {
 					m_optima.variable(0)[i] *= -1.;
 			}
 		}
-		else if (m_name == "BBOB_F21_GallagherGaussian101mePeaks") {
-			m_peakvalues.resize(NHIGHPEAKS21);
+		else if (m_name == "GOP_BBOB_F21_GallagherGaussian101mePeaks") {
+			m_peak_values.resize(NHIGHPEAKS21);
 			m_Xlocal.resize(m_variable_size, std::vector<real>(NHIGHPEAKS21));
 
 			for (size_t i = 0; i < NHIGHPEAKS21; ++i) {
-				m_arrScales.push_back(std::vector<double>(m_variable_size));
+				m_arrScales.push_back(std::vector<real>(m_variable_size));
 			}
 
-			m_fun = &BBOB::GallagherGaussian101mePeaks_F21;
+			m_fun = &BBOB::f21_gallagher_gaussian101me_peaks;
 
-			std::vector<double> fitvalues = { 1.1, 9.1 };
+			std::vector<real> fitvalues = { (real)1.1, (real)9.1 };
 			m_condition_number = 1000.;
 			std::vector<size_t> rperm(std::max(m_variable_size, NHIGHPEAKS21 - 1));
-			std::vector<double> arrCondition(NHIGHPEAKS21);
-			std::vector<double> peaks(NHIGHPEAKS21 - 1);
-			computeRotation(m_rot, m_variable_size);
+			std::vector<real> arrCondition(NHIGHPEAKS21);
+			std::vector<real> peaks(NHIGHPEAKS21 - 1);
+			compute_rotation(m_rot, m_variable_size);
 
 			for (size_t i = 0; i < NHIGHPEAKS21 - 1; ++i) {
 				peaks[i] = global::ms_global->m_uniform[caller::Problem]->next();
@@ -214,17 +224,17 @@ namespace OFEC {
 
 			qsort(rperm.data(), NHIGHPEAKS21 - 1, sizeof(int), compare_doubles);
 			arrCondition[0] = sqrt(m_condition_number);
-			m_peakvalues[0] = 10;
+			m_peak_values[0] = 10;
 			for (size_t i = 1; i < NHIGHPEAKS21; ++i)
 			{
-				arrCondition[i] = pow(m_condition_number, (double)(rperm[i - 1]) / ((double)(NHIGHPEAKS21 - 2)));
-				m_peakvalues[i] = (double)(i - 1) / (double)(NHIGHPEAKS21 - 2) * (fitvalues[1] - fitvalues[0]) + fitvalues[0];
+				arrCondition[i] = pow(m_condition_number, (real)(rperm[i - 1]) / ((real)(NHIGHPEAKS21 - 2)));
+				m_peak_values[i] = (real)(i - 1) / (real)(NHIGHPEAKS21 - 2) * (fitvalues[1] - fitvalues[0]) + fitvalues[0];
 			}
 
 			//peaks.resize(m_variable_size);
 			for (size_t i = 0; i < NHIGHPEAKS21; ++i)
 			{
-				//for(auto&j: peaks) j = Global::msp_global->mp_uniformPro->Next();
+				//for(auto&j: peaks) j = global::ms_global->m_uniform[caller::Problem]->next();
 
 				for (size_t j = 0; j < m_variable_size; ++j)
 					rperm[j] = j;
@@ -233,7 +243,7 @@ namespace OFEC {
 
 				for (size_t j = 0; j < m_variable_size; ++j)
 				{
-					m_arrScales[i][j] = pow(arrCondition[i], ((double)rperm[j]) / ((double)(m_variable_size - 1)) - 0.5);
+					m_arrScales[i][j] = pow(arrCondition[i], ((real)rperm[j]) / ((real)(m_variable_size - 1)) - 0.5);
 				}
 			}
 
@@ -253,24 +263,23 @@ namespace OFEC {
 						m_Xlocal[i][j] *= 0.8;
 				}
 			}
-
 		}
-		else if (m_name == "BBOB_F22_GallagherGaussian21hiPeaks") {
-			m_fun = &BBOB::GallagherGaussian21hiPeaks_F22;
+		else if (m_name == "GOP_BBOB_F22_GallagherGaussian21hiPeaks") {
+			m_fun = &BBOB::f22_gallagher_gaussian21hi_peaks;
 
-			m_peakvalues.resize(NHIGHPEAKS22);
+			m_peak_values.resize(NHIGHPEAKS22);
 			m_Xlocal.resize(m_variable_size, std::vector<real>(NHIGHPEAKS22));
 			for (size_t i = 0; i < NHIGHPEAKS22; ++i) {
-				m_arrScales.push_back(std::vector<double>(m_variable_size));
+				m_arrScales.push_back(std::vector<real>(m_variable_size));
 			}
 
-			std::vector<double> fitvalues = { 1.1, 9.1 };
+			std::vector<real> fitvalues = { (real)1.1, (real)9.1 };
 			m_condition_number = 1000.;
 			std::vector<size_t> rperm(std::max(m_variable_size, NHIGHPEAKS22 - 1));
-			std::vector<double> arrCondition(NHIGHPEAKS22);
-			std::vector<double> peaks(NHIGHPEAKS22 - 1);
+			std::vector<real> arrCondition(NHIGHPEAKS22);
+			std::vector<real> peaks(NHIGHPEAKS22 - 1);
 
-			computeRotation(m_rot, m_variable_size);
+			compute_rotation(m_rot, m_variable_size);
 
 			for (size_t i = 0; i < NHIGHPEAKS22 - 1; ++i) {
 				peaks[i] = global::ms_global->m_uniform[caller::Problem]->next();
@@ -282,23 +291,23 @@ namespace OFEC {
 			qsort(rperm.data(), NHIGHPEAKS22 - 1, sizeof(int), compare_doubles);
 
 			arrCondition[0] = sqrt(m_condition_number);
-			m_peakvalues[0] = 10;
+			m_peak_values[0] = 10;
 			for (size_t i = 1; i < NHIGHPEAKS22; ++i)
 			{
-				arrCondition[i] = pow(m_condition_number, (double)(rperm[i - 1]) / ((double)(NHIGHPEAKS22 - 2)));
-				m_peakvalues[i] = (double)(i - 1) / (double)(NHIGHPEAKS22 - 2) * (fitvalues[1] - fitvalues[0]) + fitvalues[0];
+				arrCondition[i] = pow(m_condition_number, (real)(rperm[i - 1]) / ((real)(NHIGHPEAKS22 - 2)));
+				m_peak_values[i] = (real)(i - 1) / (real)(NHIGHPEAKS22 - 2) * (fitvalues[1] - fitvalues[0]) + fitvalues[0];
 			}
 
 			//peaks.resize(m_variable_size);
 			for (size_t i = 0; i < NHIGHPEAKS22; ++i)
 			{
-				//for (auto&j : peaks) j = Global::msp_global->mp_uniformPro->Next();
+				//for (auto&j : peaks) j = global::ms_global->m_uniform[caller::Problem]->next();
 				for (size_t j = 0; j < m_variable_size; ++j)
 					rperm[j] = j;
 				qsort(rperm.data(), m_variable_size, sizeof(int), compare_doubles);
 				for (size_t j = 0; j < m_variable_size; ++j)
 				{
-					m_arrScales[i][j] = pow(arrCondition[i], ((double)rperm[j]) / ((double)(m_variable_size - 1)) - 0.5);
+					m_arrScales[i][j] = pow(arrCondition[i], ((real)rperm[j]) / ((real)(m_variable_size - 1)) - 0.5);
 				}
 			}
 
@@ -318,22 +327,20 @@ namespace OFEC {
 						m_Xlocal[i][j] *= 0.8;
 				}
 			}
-
 		}
-		else if (m_name == "BBOB_F23_Katsuura") {
-			m_fun = &BBOB::Katsuura_F23;
+		else if (m_name == "GOP_BBOB_F23_Katsuura") {
+			m_fun = &BBOB::f23_katsuura;
 			m_condition_number = 100.;
-			loadRotation(sqrt(m_condition_number));
-
+			load_rotation(sqrt(m_condition_number));
 		}
-		else if (m_name == "BBOB_F24_LunacekBiRastrigin") {
+		else if (m_name == "GOP_BBOB_F24_LunacekBiRastrigin") {
 
-			m_fun = &BBOB::LunacekBiRastrigin_F24;
+			m_fun = &BBOB::f24_lunacekbi_rastrigin;
 			m_condition_number = 100.;
-			loadRotation(sqrt(m_condition_number));
+			load_rotation(sqrt(m_condition_number));
 			m_mu = 2.5;
 
-			std::vector<double> tmpvect(m_variable_size);
+			std::vector<real> tmpvect(m_variable_size);
 			for (size_t i = 0; i < m_variable_size; ++i)
 			{
 				tmpvect[i] = global::ms_global->m_uniform[caller::Problem]->next();
@@ -345,14 +352,12 @@ namespace OFEC {
 				if (tmpvect[i] < 0.)
 					m_optima.variable(0)[i] *= -1.;
 			}
-
 		}
-
-
+		m_initialized = true;
 	}
 
 
-	void BBOB::computeXopt() {
+	void BBOB::compute_Xopt() {
 		variable_vector<real> temp(m_variable_size);
 		for (size_t i = 0; i < m_variable_size; ++i)
 		{
@@ -364,8 +369,8 @@ namespace OFEC {
 		m_optima.append(temp);
 	}
 
-	double BBOB::computeFopt() {
-		double gval, gval2;
+	real BBOB::compute_Fopt() {
+		real gval, gval2;
 		gval = global::ms_global->m_normal[caller::Problem]->next();
 		gval2 = global::ms_global->m_normal[caller::Problem]->next();
 		return fmin(1000., fmax(-1000., (round(100.*100.*gval / gval2) / 100.)));
@@ -393,13 +398,13 @@ namespace OFEC {
 
 	}
 
-	void BBOB::computeRotation(matrix& rot, size_t Dim) {
+	void BBOB::compute_rotation(matrix& rot, size_t Dim) {
 
 		for (auto &i : m_norRand) i = global::ms_global->m_normal[caller::Problem]->next();
 		reshape(rot, m_norRand, Dim, Dim);
 		/*1st coordinate is row, 2nd is column.*/
 		size_t i, j, k;
-		double prod;
+		real prod;
 		for (i = 0; i < Dim; ++i)
 		{
 			for (j = 0; j < i; ++j)
@@ -426,56 +431,30 @@ namespace OFEC {
 			}
 		}
 	}
-	bool BBOB::loadRotation(double base_) {
-		computeRotation(m_rot, m_variable_size);
-		computeRotation(m_rot2, m_variable_size);
+	bool BBOB::load_rotation(real base_) {
+		compute_rotation(m_rot, m_variable_size);
+		compute_rotation(m_rot2, m_variable_size);
 		/* decouple scaling from function definition*/
 		size_t i, j, k;
 		for (i = 0; i < m_variable_size; ++i) {
 			for (j = 0; j < m_variable_size; ++j) {
 				m_linearTF[i][j] = 0.;
 				for (k = 0; k < m_variable_size; ++k) {
-					m_linearTF[i][j] += m_rot[i][k] * pow(base_, ((double)k) / ((double)(m_variable_size - 1))) * m_rot2[k][j];
+					m_linearTF[i][j] += m_rot[i][k] * pow(base_, ((real)k) / ((real)(m_variable_size - 1))) * m_rot2[k][j];
 				}
 			}
 		}
 		return true;
 	}
 
+	void BBOB::evaluate_objective(real *x, std::vector<real>& obj){
 
-	evaluation_tag BBOB::evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed) {
-		variable_vector<real> &x = dynamic_cast< solution<variable_vector<real>, real> &>(s).variable();
-		auto & obj = dynamic_cast< solution<variable_vector<real>, real> &>(s).objective();
-
-		std::vector<real> x_(x.begin(), x.end()); //for parallel running
-
-		(this->*m_fun)(x_.data(), obj);
-
-		if (constructed) {
-			if (effective_fes)		m_effective_eval++;
-
-			if (m_variable_monitor) {
-				m_optima.is_optimal_variable(dynamic_cast<solution<variable_vector<real>, real> &>(s), m_optima_found, m_variable_accuracy);
-				if (m_optima.is_variable_found())
-					m_solved = true;
-			}
-			if (m_objective_monitor) {
-				m_optima.is_optimal_objective(dynamic_cast<solution<variable_vector<real>, real> &>(s), m_optima_found, m_objective_accuracy, m_variable_accuracy);
-				if (m_optima.is_objective_found())
-					m_solved = true;
-			}
-			if (call == caller::Algorithm&& global::ms_global->m_algorithm&&global::ms_global->m_algorithm->terminating())
-				return evaluation_tag::Terminate;
-
-			//if (mode == Program_Algorithm&&Global::msp_global->mp_problem && !Global::msp_global->mp_problem->isProTag(MOP)) m_globalOpt.isFound(s, m_disAccuracy, m_accuracy);
-			//if (Global::msp_global != nullptr&&Global::msp_global->mp_algorithm != nullptr&&Global::msp_global->mp_algorithm->ifTerminating()) { return Return_Terminate; }
-		}
-		return evaluation_tag::Normal;
+		(this->*m_fun)(x, obj);
 	}
 
 	void BBOB::irregularize(real *x) {
 		// this method from BBOB
-		double c1, c2, x_;
+		real c1, c2, x_;
 		for (size_t i = 0; i < m_variable_size; ++i) {
 			if (x[i]>0) {
 				c1 = 10;	c2 = 7.9;
@@ -491,7 +470,7 @@ namespace OFEC {
 		}
 	}
 
-	void BBOB::asyemmetricalize(real *x, double belta) {
+	void BBOB::asyemmetricalize(real *x, real belta) {
 		// this method from BBOB
 		if (m_variable_size == 1) return;
 		for (size_t i = 0; i < m_variable_size; ++i) {
@@ -501,7 +480,7 @@ namespace OFEC {
 		}
 	}
 
-	void BBOB::Sphere_F01(real *x, std::vector<real>& obj) {
+	void BBOB::f1_sphere(real *x, std::vector<real>& obj) {
 
 		obj[0] = 0;
 		for (size_t i = 0; i < m_variable_size; ++i) {
@@ -513,7 +492,7 @@ namespace OFEC {
 		obj[0] += m_bias;
 	}
 
-	void BBOB::Ellipsoidal_F02(real *x, std::vector<real>& obj) {
+	void BBOB::f2_ellipsoidale(real *x, std::vector<real>& obj) {
 
 		obj[0] = 0;
 		for (size_t i = 0; i < m_variable_size; ++i) {
@@ -522,21 +501,21 @@ namespace OFEC {
 		irregularize(x);
 
 		for (size_t i = 0; i < m_variable_size; ++i) {
-			obj[0] += pow(m_condition_number, ((double)i) / ((double)(m_variable_size - 1))) * x[i] * x[i];
+			obj[0] += pow(m_condition_number, ((real)i) / ((real)(m_variable_size - 1))) * x[i] * x[i];
 		}
 		obj[0] += m_bias;
 	}
 
-	void BBOB::Rastrigin_F03(real *x, std::vector<real>& obj) {
+	void BBOB::f3_rastrigin(real *x, std::vector<real>& obj) {
 
 		for (size_t i = 0; i < m_variable_size; ++i) {
 			x[i] -= m_optima.variable(0)[i];
 		}
 		irregularize(x);
 		asyemmetricalize(x, m_beta);
-		double tmp, tmp2;
+		real tmp, tmp2;
 		for (size_t i = 0; i < m_variable_size; ++i) {
-			tmp = ((double)i) / ((double)(m_variable_size - 1));
+			tmp = ((real)i) / ((real)(m_variable_size - 1));
 			x[i] = pow(sqrt(m_condition_number), tmp) * x[i];
 		}
 		/* COMPUTATION core*/
@@ -550,7 +529,7 @@ namespace OFEC {
 		obj[0] += m_bias;
 	}
 
-	void BBOB::BucheRastrigin_F04(real *x, std::vector<real>& obj) {
+	void BBOB::f4_buche_rastrigin(real *x, std::vector<real>& obj) {
 
 		real fPen = penalize(x);
 		fPen *= 1e2;
@@ -566,11 +545,11 @@ namespace OFEC {
 		{
 			if (i % 2 == 0 && x[i] > 0)
 				x[i] = sqrt(m_alpha) * x[i];
-			x[i] = pow(sqrt(m_condition_number), ((double)i) / ((double)(m_variable_size - 1))) * x[i];
+			x[i] = pow(sqrt(m_condition_number), ((real)i) / ((real)(m_variable_size - 1))) * x[i];
 		}
 		/* COMPUTATION core*/
-		double tmp = 0.;
-		double tmp2 = 0.;
+		real tmp = 0.;
+		real tmp2 = 0.;
 		for (size_t i = 0; i < m_variable_size; ++i)
 		{
 			tmp += cos(2 * OFEC_PI*x[i]);
@@ -580,7 +559,7 @@ namespace OFEC {
 		obj[0] += fAdd;
 	}
 
-	void BBOB::Slope_F05(real *x, std::vector<real>& obj) {
+	void BBOB::f5_slope(real *x, std::vector<real>& obj) {
 
 		/* BOUNDARY HANDLING*/
 		/* move "too" good coordinates back into domain*/
@@ -596,17 +575,17 @@ namespace OFEC {
 		for (size_t i = 0; i < m_variable_size; ++i)
 		{
 			if (m_optima.variable(0)[i] > 0) {
-				obj[0] -= pow(sqrt(m_alpha), ((double)i) / ((double)(m_variable_size - 1))) * x[i];
+				obj[0] -= pow(sqrt(m_alpha), ((real)i) / ((real)(m_variable_size - 1))) * x[i];
 			}
 			else {
-				obj[0] += pow(sqrt(m_alpha), ((double)i) / ((double)(m_variable_size - 1))) * x[i];
+				obj[0] += pow(sqrt(m_alpha), ((real)i) / ((real)(m_variable_size - 1))) * x[i];
 			}
 		}
 		obj[0] += m_bias;
 
 	}
 
-	void BBOB::Sector_F06(real *x, std::vector<real>& obj) {
+	void BBOB::f6_sector(real *x, std::vector<real>& obj) {
 		/* attractive sector function*/
 		size_t i, j; /*Loop over dim*/
 
@@ -645,10 +624,10 @@ namespace OFEC {
 
 	}
 
-	void BBOB::StepEllipsoid_F07(real *x, std::vector<real>& obj) {
+	void BBOB::f7_step_ellipsoid(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
-		double x1, tmp;
+		real x1, tmp;
 
 		/* BOUNDARY HANDLING*/
 		real fPen = penalize(x);
@@ -659,7 +638,7 @@ namespace OFEC {
 		/* TRANSFORMATION IN SEARCH SPACE*/
 		for (i = 0; i < m_variable_size; ++i) {
 			tmpVect[i] = 0.;
-			tmp = sqrt(pow(m_condition_number / 10., ((double)i) / ((double)(m_variable_size - 1))));
+			tmp = sqrt(pow(m_condition_number / 10., ((real)i) / ((real)(m_variable_size - 1))));
 			for (j = 0; j < m_variable_size; ++j) {
 				tmpVect[i] += tmp * m_rot2[i][j] * (x[j] - m_optima.variable(0)[j]);
 			}
@@ -685,16 +664,16 @@ namespace OFEC {
 		obj[0] = 0.;
 		for (i = 0; i < m_variable_size; ++i)
 		{
-			obj[0] += pow(m_condition_number, ((double)i) / ((double)(m_variable_size - 1))) * trasX[i] * trasX[i];
+			obj[0] += pow(m_condition_number, ((real)i) / ((real)(m_variable_size - 1))) * trasX[i] * trasX[i];
 		}
 		obj[0] = 0.1 * fmax(1e-4 * fabs(x1), obj[0]);
 		obj[0] += fAdd;
 	}
 
-	void BBOB::OriginalRosenbrock_F08(real *x, std::vector<real>& obj) {
+	void BBOB::f8_original_rosenbrock(real *x, std::vector<real>& obj) {
 
 		size_t i;
-		double tmp;
+		real tmp;
 
 		/* TRANSFORMATION IN SEARCH SPACE*/
 		std::vector<real> trasX(m_variable_size);
@@ -718,10 +697,10 @@ namespace OFEC {
 		obj[0] += m_optima.objective()[0];
 	}
 
-	void BBOB::RotatedRosenbrock_F09(real *x, std::vector<real>& obj) {
+	void BBOB::f9_rotated_rosenbrock(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
-		double  tmp;
+		real  tmp;
 
 		std::vector<real> trasX(m_variable_size);
 		/* TRANSFORMATION IN SEARCH SPACE*/
@@ -748,7 +727,7 @@ namespace OFEC {
 		obj[0] += m_bias;
 	}
 
-	void BBOB::NonseparableEllipsoid_F10(real *x, std::vector<real>& obj) {
+	void BBOB::f10_nonseparable_ellipsoid(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
 		std::vector<real> trasX(m_variable_size);
@@ -766,12 +745,12 @@ namespace OFEC {
 		obj[0] = 0.;
 		for (i = 0; i < m_variable_size; ++i)
 		{
-			obj[0] += pow(m_condition_number, ((double)i) / ((double)(m_variable_size - 1))) * trasX[i] * trasX[i];
+			obj[0] += pow(m_condition_number, ((real)i) / ((real)(m_variable_size - 1))) * trasX[i] * trasX[i];
 		}
 		obj[0] += m_bias;
 	}
 
-	void BBOB::Discus_F11(real *x, std::vector<real>& obj) {
+	void BBOB::f11_discus(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
 		std::vector<real> trasX(m_variable_size);
@@ -795,7 +774,7 @@ namespace OFEC {
 		obj[0] += m_bias;
 	}
 
-	void BBOB::BentCigar_F12(real *x, std::vector<real>& obj) {
+	void BBOB::f12_bent_cigar(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
 
@@ -809,7 +788,7 @@ namespace OFEC {
 			}
 			if (tmpvect[i] > 0)
 			{
-				tmpvect[i] = pow(tmpvect[i], 1 + m_beta * ((double)i) / ((double)(m_variable_size - 1)) * sqrt(tmpvect[i]));
+				tmpvect[i] = pow(tmpvect[i], 1 + m_beta * ((real)i) / ((real)(m_variable_size - 1)) * sqrt(tmpvect[i]));
 			}
 		}
 
@@ -831,7 +810,7 @@ namespace OFEC {
 	}
 
 
-	void BBOB::SharpRidge_F13(real *x, std::vector<real>& obj) {
+	void BBOB::f13_sharp_ridge(real *x, std::vector<real>& obj) {
 
 		size_t i, j/*, k*/; // keep an eye on warnings 
 
@@ -858,7 +837,7 @@ namespace OFEC {
 		obj[0] += m_bias;
 	}
 
-	void BBOB::DifferentPowers_F14(real *x, std::vector<real>& obj) {
+	void BBOB::f14_different_powers(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
 
@@ -876,13 +855,13 @@ namespace OFEC {
 		obj[0] = 0.;
 		for (i = 0; i < m_variable_size; ++i)
 		{
-			obj[0] += pow(fabs(trasX[i]), 2. + m_alpha * ((double)i) / ((double)(m_variable_size - 1)));
+			obj[0] += pow(fabs(trasX[i]), 2. + m_alpha * ((real)i) / ((real)(m_variable_size - 1)));
 		}
 		obj[0] = sqrt(obj[0]);
 		obj[0] += m_bias;
 	}
 
-	void BBOB::NonseparableRastrigin_F15(real *x, std::vector<real>& obj) {
+	void BBOB::f15_nonseparable_rastrigin(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
 
@@ -913,18 +892,18 @@ namespace OFEC {
 			tmp += cos(2. * OFEC_PI * trasX[i]);
 			tmp2 += trasX[i] * trasX[i];
 		}
-		obj[0] = 10. * ((double)m_variable_size - tmp) + tmp2;
+		obj[0] = 10. * ((real)m_variable_size - tmp) + tmp2;
 		obj[0] += m_bias;
 	}
 
-	void BBOB::Weierstrass_F16(real *x, std::vector<real>& obj) {
+	void BBOB::f16_weierstrass(real *x, std::vector<real>& obj) {
 		size_t i, j;
-		double tmp;
+		real tmp;
 
 		std::vector<real> trasX(m_variable_size), tmpvect(m_variable_size);
 		/* BOUNDARY HANDLING*/
 		real fPen = penalize(x), Fopt = m_bias;
-		Fopt += 10. / (double)m_variable_size * fPen;
+		Fopt += 10. / (real)m_variable_size * fPen;
 
 		/* TRANSFORMATION IN SEARCH SPACE*/
 		for (i = 0; i < m_variable_size; ++i)
@@ -956,15 +935,15 @@ namespace OFEC {
 			}
 			obj[0] += tmp;
 		}
-		obj[0] = 10. * pow(obj[0] / (double)m_variable_size - m_F0, 3.);
+		obj[0] = 10. * pow(obj[0] / (real)m_variable_size - m_F0, 3.);
 		obj[0] += Fopt;
 	}
 
-	void BBOB::SchaffersF7_F17(real *x, std::vector<real>& obj) {
+	void BBOB::f17_schaffers_F7(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
 
-		double tmp;
+		real tmp;
 
 		/* BOUNDARY HANDLING*/
 		real fPen = penalize(x), fOpt = m_bias;
@@ -983,7 +962,7 @@ namespace OFEC {
 		for (i = 0; i < m_variable_size; ++i)
 		{
 			trasX[i] = 0.;
-			tmp = pow(sqrt(m_condition_number), ((double)i) / ((double)(m_variable_size - 1)));
+			tmp = pow(sqrt(m_condition_number), ((real)i) / ((real)(m_variable_size - 1)));
 			for (j = 0; j < m_variable_size; ++j)
 			{
 				trasX[i] += tmp * m_rot2[i][j] * tmpvect[j];
@@ -997,15 +976,15 @@ namespace OFEC {
 			tmp = trasX[i] * trasX[i] + trasX[i + 1] * trasX[i + 1];
 			obj[0] += pow(tmp, 0.25) * (pow(sin(50 * pow(tmp, 0.1)), 2.) + 1.);
 		}
-		obj[0] = pow(obj[0] / (double)(m_variable_size - 1), 2.);
+		obj[0] = pow(obj[0] / (real)(m_variable_size - 1), 2.);
 		obj[0] += fOpt;
 	}
 
-	void BBOB::IllconditionedSchaffersF7_F18(real *x, std::vector<real>& obj) {
+	void BBOB::f18_illconditioned_schaffers_F7(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
 
-		double tmp;
+		real tmp;
 
 		/* BOUNDARY HANDLING*/
 		real fPen = penalize(x), fOpt = m_bias;
@@ -1024,7 +1003,7 @@ namespace OFEC {
 		for (i = 0; i < m_variable_size; ++i)
 		{
 			trasX[i] = 0.;
-			tmp = pow(sqrt(m_condition_number), ((double)i) / ((double)(m_variable_size - 1)));
+			tmp = pow(sqrt(m_condition_number), ((real)i) / ((real)(m_variable_size - 1)));
 			for (j = 0; j < m_variable_size; ++j)
 			{
 				trasX[i] += tmp * m_rot2[i][j] * tmpvect[j];
@@ -1038,16 +1017,16 @@ namespace OFEC {
 			tmp = trasX[i] * trasX[i] + trasX[i + 1] * trasX[i + 1];
 			obj[0] += pow(tmp, 0.25) * (pow(sin(50. * pow(tmp, 0.1)), 2.) + 1.);
 		}
-		obj[0] = pow(obj[0] / (double)(m_variable_size - 1), 2.);
+		obj[0] = pow(obj[0] / (real)(m_variable_size - 1), 2.);
 		obj[0] += fOpt;
 	}
 
 
-	void BBOB::CompositeGriewankRosenbrock_F19(real *x, std::vector<real>& obj) {
+	void BBOB::f19_composite_griewank_rosenbrock(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
 
-		double F2, tmp = 0., tmp2;
+		real F2, tmp = 0., tmp2;
 
 		std::vector<real> trasX(m_variable_size);
 		/* TRANSFORMATION IN SEARCH SPACE*/
@@ -1066,15 +1045,15 @@ namespace OFEC {
 			F2 += tmp2 * tmp2;
 			tmp += F2 / 4000. - cos(F2);
 		}
-		obj[0] = 10. + 10. * tmp / (double)(m_variable_size - 1);
+		obj[0] = 10. + 10. * tmp / (real)(m_variable_size - 1);
 		obj[0] += m_bias;
 	}
 
 
-	void BBOB::Schwefel_F20(real *x, std::vector<real>& obj) {
+	void BBOB::f20_schwefel(real *x, std::vector<real>& obj) {
 
 		size_t i;
-		double tmp;
+		real tmp;
 		std::vector<real> trasX(m_variable_size), tmpvect(m_variable_size);
 
 		/* TRANSFORMATION IN SEARCH SPACE*/
@@ -1094,7 +1073,7 @@ namespace OFEC {
 		for (i = 0; i < m_variable_size; ++i)
 		{
 			trasX[i] -= 2 * fabs(m_optima.variable(0)[i]);
-			trasX[i] *= pow(sqrt(m_condition_number), ((double)i) / ((double)(m_variable_size - 1)));
+			trasX[i] *= pow(sqrt(m_condition_number), ((real)i) / ((real)(m_variable_size - 1)));
 			trasX[i] = 100. * (trasX[i] + 2 * fabs(m_optima.variable(0)[i]));
 		}
 
@@ -1116,15 +1095,15 @@ namespace OFEC {
 		{
 			obj[0] += trasX[i] * sin(sqrt(fabs(trasX[i])));
 		}
-		obj[0] = 0.01 * ((418.9828872724339) - obj[0] / (double)m_variable_size);
+		obj[0] = 0.01 * ((418.9828872724339) - obj[0] / (real)m_variable_size);
 		obj[0] += fOpt;
 	}
 
-	void BBOB::GallagherGaussian101mePeaks_F21(real *x, std::vector<real>& obj) {
+	void BBOB::f21_gallagher_gaussian101me_peaks(real *x, std::vector<real>& obj) {
 		size_t i, j;
-		double a = 0.1;
-		double tmp2, f = 0., tmp;
-		double fac = -0.5 / (double)m_variable_size;
+		real a = 0.1;
+		real tmp2, f = 0., tmp;
+		real fac = -0.5 / (real)m_variable_size;
 
 		real fAdd = penalize(x);
 
@@ -1152,7 +1131,7 @@ namespace OFEC {
 				tmp = (trasX[j] - m_Xlocal[j][i]);
 				tmp2 += m_arrScales[i][j] * tmp * tmp;
 			}
-			tmp2 = m_peakvalues[i] * exp(fac * tmp2);
+			tmp2 = m_peak_values[i] * exp(fac * tmp2);
 			f = fmax(f, tmp2);
 		}
 
@@ -1175,12 +1154,12 @@ namespace OFEC {
 	}
 
 
-	void BBOB::GallagherGaussian21hiPeaks_F22(real *x, std::vector<real>& obj) {
+	void BBOB::f22_gallagher_gaussian21hi_peaks(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
-		double a = 0.1;
-		double tmp2, f = 0., tmp;
-		double fac = -0.5 / (double)m_variable_size;
+		real a = 0.1;
+		real tmp2, f = 0., tmp;
+		real fac = -0.5 / (real)m_variable_size;
 
 		/* BOUNDARY HANDLING*/
 		real fPen = penalize(x), fOpt = m_bias;
@@ -1206,7 +1185,7 @@ namespace OFEC {
 				tmp = (trasX[j] - m_Xlocal[j][i]);
 				tmp2 += m_arrScales[i][j] * tmp * tmp;
 			}
-			tmp2 = m_peakvalues[i] * exp(fac * tmp2);
+			tmp2 = m_peak_values[i] * exp(fac * tmp2);
 			f = fmax(f, tmp2);
 		}
 
@@ -1229,11 +1208,11 @@ namespace OFEC {
 	}
 
 
-	void BBOB::Katsuura_F23(real *x, std::vector<real>& obj) {
+	void BBOB::f23_katsuura(real *x, std::vector<real>& obj) {
 
 		size_t i, j;
 
-		double tmp, arr, prod = 1., tmp2;
+		real tmp, arr, prod = 1., tmp2;
 
 		/* BOUNDARY HANDLING*/
 		real fPen = penalize(x), fAdd = m_bias;
@@ -1248,7 +1227,7 @@ namespace OFEC {
 		for (i = 0; i < m_variable_size; ++i) {
 			trasX[i] = 0.;
 			ptmx = &trasX[i];
-			plinTF = m_linearTF[i].data().data();
+			plinTF = m_linearTF[i].vect().data();
 			ptmp = tmpvect.data();
 			for (j = 0; j < m_variable_size; ++j) {
 				*ptmx += *plinTF++ * *ptmp++;
@@ -1261,25 +1240,25 @@ namespace OFEC {
 			tmp = 0.;
 			for (j = 1; j < 33; ++j)
 			{
-				tmp2 = pow(2., (double)j);
+				tmp2 = pow(2., (real)j);
 				arr = trasX[i] * tmp2;
 				tmp += fabs(arr - round(arr)) / tmp2;
 			}
-			tmp = 1. + tmp * (double)(i + 1);
+			tmp = 1. + tmp * (real)(i + 1);
 			prod *= tmp;
 		}
-		obj[0] = 10. / (double)m_variable_size / (double)m_variable_size * (-1. + pow(prod, 10. / pow((double)m_variable_size, 1.2)));
+		obj[0] = 10. / (real)m_variable_size / (real)m_variable_size * (-1. + pow(prod, 10. / pow((real)m_variable_size, 1.2)));
 		obj[0] += fAdd;
 	}
 
 
-	void BBOB::LunacekBiRastrigin_F24(real *x, std::vector<real>& obj) {
+	void BBOB::f24_lunacekbi_rastrigin(real *x, std::vector<real>& obj) {
 		size_t i, j;
 
-		double tmp, tmp2 = 0., tmp3 = 0., tmp4 = 0.;
-		double s = 1. - 0.5 / (sqrt((double)(m_variable_size + 20)) - 4.1);
-		double d = 1.;
-		double mu2 = -sqrt((m_mu * m_mu - d) / s);
+		real tmp, tmp2 = 0., tmp3 = 0., tmp4 = 0.;
+		real s = 1. - 0.5 / (sqrt((real)(m_variable_size + 20)) - 4.1);
+		real d = 1.;
+		real mu2 = -sqrt((m_mu * m_mu - d) / s);
 
 
 		/* BOUNDARY HANDLING*/
@@ -1308,7 +1287,7 @@ namespace OFEC {
 			}
 			tmp += cos(2 * OFEC_PI * tmp4);
 		}
-		obj[0] = fmin(tmp2, d * (double)m_variable_size + s * tmp3) + 10. * ((double)m_variable_size - tmp);
+		obj[0] = fmin(tmp2, d * (real)m_variable_size + s * tmp3) + 10. * ((real)m_variable_size - tmp);
 		obj[0] += fAdd;
 	}
 }

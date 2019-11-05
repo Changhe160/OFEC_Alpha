@@ -15,39 +15,36 @@ namespace OFEC {
 	Vector::vector_::operator real()const {
 		return m_vec.m_data[m_idx];
 	}
-	Vector::vector_&  Vector::vector_::operator=(double val) {
+	Vector::vector_&  Vector::vector_::operator=(real val) {
 		m_vec.m_data[m_idx] = val;
 		m_vec.m_wrote = true;
 		return *this;
 	}
 
-	Vector::vector_ & Vector::vector_::operator+=(double val) {
+	Vector::vector_ & Vector::vector_::operator+=(real val) {
 		m_vec.m_data[m_idx] += val;
 		m_vec.m_wrote = true;
 		return *this;
 	}
 
-	Vector::vector_ & Vector::vector_::operator-=(double val) {
+	Vector::vector_ & Vector::vector_::operator-=(real val) {
 		m_vec.m_data[m_idx] -= val;
 		m_vec.m_wrote = true;
 		return *this;
 	}
 
-	Vector::vector_ & Vector::vector_::operator*=(double val) {
+	Vector::vector_ & Vector::vector_::operator*=(real val) {
 		m_vec.m_data[m_idx] *= val;
 		m_vec.m_wrote = true;
 		return *this;
-		
+
 	}
-	Vector::vector_ & Vector::vector_::operator/=(double val) {
+	Vector::vector_ & Vector::vector_::operator/=(real val) {
 		m_vec.m_data[m_idx] /= val;
 		m_vec.m_wrote = true;
 		return *this;
 	}
 
-	Vector::Vector(size_t size, real *val) :m_data(size) {
-		copy(val, val + size, m_data.begin());
-	}
 	Vector::Vector(size_t size) : m_data(size) {
 
 	}
@@ -58,13 +55,13 @@ namespace OFEC {
 
 	}
 	Vector::Vector(const std::vector<real> &&v) : m_data(std::move(v)) {
-	
+
 	}
 
 	Vector::vector_ Vector::operator [](size_t idx) {
 		return Vector::vector_(*this, idx);
 	}
-	const double & Vector::operator [](size_t idx)const {
+	const real & Vector::operator [](size_t idx)const {
 		return m_data[idx];
 	}
 	Vector &Vector::operator =(const Vector & v) {
@@ -76,29 +73,29 @@ namespace OFEC {
 	}
 	Vector &  Vector::operator +=(const Vector & v) {
 		if (m_data.size() != v.m_data.size()) throw myexcept("the size of two vectors must be same by + operation@Vector::operator +=");
-		std::transform(m_data.begin(), m_data.end(), v.m_data.begin(), m_data.begin(), std::plus<double>());
+		std::transform(m_data.begin(), m_data.end(), v.m_data.begin(), m_data.begin(), std::plus<real>());
 		m_wrote = true;
 		return *this;
 	}
 	Vector &  Vector::operator -=(const Vector & v) {
 		if (m_data.size() != v.m_data.size()) throw myexcept("the size of two vectors must be same by - operation@Vector::operator -=");
-		std::transform(m_data.begin(), m_data.end(), v.m_data.begin(), m_data.begin(), std::minus<double>());
+		std::transform(m_data.begin(), m_data.end(), v.m_data.begin(), m_data.begin(), std::minus<real>());
 		m_wrote = true;
 		return *this;
 	}
-	double Vector::operator *(const Vector & v) const {
-		if (m_data.size() != v.m_data.size()) throw myexcept("the size of two vectors must be same by * operation@Vector::operator *");
-		double sum = 0;
-		for (unsigned i = 0; i < m_data.size(); i++) sum += m_data[i] * v.m_data[i];
+	real operator*(const Vector &left_vec, const Vector &righr_vec) {
+		if (left_vec.m_data.size() != righr_vec.m_data.size()) throw myexcept("the size of two vectors must be same by * operation@Vector::operator *");
+		real sum = 0;
+		for (unsigned i = 0; i < left_vec.m_data.size(); i++) sum += left_vec.m_data[i] * righr_vec.m_data[i];
 		return sum;
 	}
 
 	Vector Vector::projection( const Vector &v) const{
 		Vector r(v);
-		double sv = 0;
-		for (unsigned i = 0; i < m_data.size(); i++) 
+		real sv = 0;
+		for (unsigned i = 0; i < m_data.size(); i++)
 			sv += m_data[i] * v[i];
-		
+
 		sv/= v*v;
 		r *= sv;
 		return r;
@@ -116,26 +113,26 @@ namespace OFEC {
 	size_t Vector::size()const {
 		return m_data.size();
 	}
-	void Vector::randomize_in_sphere(double radius, uniform * rand) {
-		
-		double r = rand->next_non_standard(0., radius);
+	void Vector::randomize_in_sphere(real radius, uniform * rand) {
+
+		real r = rand->next_non_standard<real>(0., radius);
 		randomize(rand,-1, 1);
 		normalize();
 		for (auto&i : m_data) i *= r;
 		m_wrote = true;
-		
+
 	}
-	void Vector::randomize_on_sphere(double radius, uniform * rand) {
-		
+	void Vector::randomize_on_sphere(real radius, uniform * rand) {
+
 		randomize(rand,-1, 1);
 		normalize();
 		for (auto&i : m_data) i *= radius;
 		m_length = radius;
 		m_wrote = false;
-		
+
 	}
 
-	void Vector::randomize_on_sphere(double radius, std::uniform_real_distribution<real> &unif, std::default_random_engine &gen) {
+	void Vector::randomize_on_sphere(real radius, std::uniform_real_distribution<real> &unif, std::default_random_engine &gen) {
 
 		randomize(unif, gen, -1, 1);
 		normalize();
@@ -150,21 +147,21 @@ namespace OFEC {
 	}
 	void Vector::randomize(uniform * rand,real min, real max) {
 		for (auto&i : m_data) i = rand->next_non_standard(min, max);
-		m_wrote = true;		
+		m_wrote = true;
 	}
 	void Vector::randomize(normal *rand) {
-		
+
 		for (auto&i : m_data) i = rand->next();
 		m_wrote = true;
 	}
-	void Vector::randomize_in_sphere(double radius, normal *nor, uniform *uni) {
-	
-		double r = fabs(nor->next_non_standard(0, radius));
+	void Vector::randomize_in_sphere(real radius, normal *nor, uniform *uni) {
+
+		real r = fabs(nor->next_non_standard(0, radius));
 		randomize(uni,-1, 1);
 		normalize();
 		for (auto&i : m_data) i *= r;
 		m_wrote = true;
-	
+
 	}
 	Vector &Vector::operator =(const std::vector<real> & v) {
 		if (m_data.size() == v.size()) {
@@ -203,29 +200,60 @@ namespace OFEC {
 	std::vector<real>::iterator  Vector::end() {
 		return m_data.end();
 	}
-	Vector  Vector::operator *(real val)const {
-		std::vector<real> v(m_data);
+
+	Vector operator*(const real val, const Vector & vec) {
+		std::vector<real> v(vec.m_data);
+		for (auto&i : v) i *= val;
+		return Vector(v);
+	}
+	Vector operator*(const Vector & vec, const real val) {
+		std::vector<real> v(vec.m_data);
 		for (auto&i : v) i *= val;
 		return Vector(v);
 	}
 
-	Vector  Vector::operator /(real val) const {
-		std::vector<real> v(m_data);
+	Vector operator/(const real val, const Vector & vec) {
+		std::vector<real> v(vec.m_data);
 		for (auto&i : v) i /= val;
 		return Vector(v);
 	}
-	Vector  Vector::operator -(real val) const {
-		std::vector<real> v(m_data);
-		for (auto&i : v) i -= val;
-		return Vector(v);
-	}
-	Vector  Vector::operator +(real val)const {
-		std::vector<real> v(m_data);
+
+	Vector operator+(const real val, const Vector & vec) {
+		std::vector<real> v(vec.m_data);
 		for (auto&i : v) i += val;
 		return Vector(v);
 	}
-	double Vector::angle( Vector & v){		
-		return acos(this->operator*(v) / (length()*v.length()));
+	Vector operator+(const Vector & vec, const real val) {
+		std::vector<real> v(vec.m_data);
+		for (auto&i : v) i += val;
+		return Vector(v);
+	}
+
+	Vector operator-(const real val, const Vector & vec) {
+		std::vector<real> v(vec.m_data);
+		for (auto&i : v) i -= val;
+		return Vector(v);
+	}
+	Vector operator-(const Vector & vec, const real val) {
+		std::vector<real> v(vec.m_data);
+		for (auto&i : v) i -= val;
+		return Vector(v);
+	}
+
+	Vector operator+(const Vector &left_vec, const Vector &righr_vec) {
+		if (left_vec.m_data.size() != righr_vec.m_data.size()) throw myexcept("the size of two vectors must be same by + operation@Vector::operator +");
+		Vector r(left_vec);
+		return r += righr_vec;
+	}
+
+	Vector operator-(const Vector &left_vec, const Vector &righr_vec) {
+		if (left_vec.m_data.size() != righr_vec.m_data.size()) throw myexcept("the size of two vectors must be same by - operation@Vector::operator -");
+		Vector r(left_vec);
+		return r -= righr_vec;
+	}
+
+	real Vector::angle( Vector & v){		
+		return acos((*this)*(v) / (length()*v.length()));
 	}
 
 	void Vector::push_back(real n) {
@@ -233,13 +261,13 @@ namespace OFEC {
 		m_wrote = true;
 	}
 
-	double Vector::distance(const Vector& point) const {
+	real Vector::distance(const Vector& point) const {
 		if (point.size() != size()) throw myexcept("size not the same@  Vector::distance(const Vector&v)");
 		Vector vec(m_data);
 		vec -= point;
 		return vec.length();
 	}
-	double Vector::distance(const std::vector<real>& point) const {
+	real Vector::distance(const std::vector<real>& point) const {
 		if (point.size() != size()) throw myexcept("size not the same@  Vector::distance(const Vector&v)");
 		Vector vec(m_data);
 		vec -= point;
@@ -253,7 +281,7 @@ namespace OFEC {
 		v.m_wrote = true;
 		return in;
 	}
-	double Vector::length() {
+	real Vector::length() {
 		if (m_wrote) {
 			length_();
 			m_wrote = false;
@@ -278,7 +306,7 @@ namespace OFEC {
 		m_wrote = false;
 	}
 
-	Vector Vector::point_between(const Vector & v1, double r) const{
+	Vector Vector::point_between(const Vector & v1, real r) const{
 		std::vector<real> v(m_data);
 		for (auto i = 0; i < m_data.size(); ++i) {
 			v[i] = m_data[i] * r + v1[i] * (1 - r);
@@ -297,15 +325,15 @@ namespace OFEC {
 		m_length = std::sqrt(m_length);
 	}
 
-	double Vector::perpendicular_distance(const Vector &point) {
-		double numerator = 0, denominator = 0;
+	real Vector::perpendicular_distance(const Vector &point) {
+		real numerator = 0, denominator = 0;
 		for (size_t i = 0; i<m_data.size(); ++i){
 			numerator += m_data[i] * point[i];
 			denominator += m_data[i] * m_data[i];
 		}
-		double k = numerator / denominator;
+		real k = numerator / denominator;
 
-		double d = 0;
+		real d = 0;
 		for (size_t i = 0; i<m_data.size(); i += 1)
 			d += (k*m_data[i] - point[i])*(k*m_data[i] - point[i]);
 

@@ -27,12 +27,12 @@ namespace OFEC {
 			F1_R_elliptic(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 
 		private:
 		};
 	}
-	using CEC2015_GOP_F1 = CEC2015::F1_R_elliptic;
+	using CEC2015_GOP_F01 = CEC2015::F1_R_elliptic;
 }
 
 #endif // !OFEC_F1_R_ELLIPTIC_H

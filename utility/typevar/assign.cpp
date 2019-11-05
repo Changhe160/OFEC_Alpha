@@ -33,6 +33,16 @@ namespace OFEC {
 		return *this;
 	}
 
+
+	///
+	/// assign float to typevar
+	///
+	typevar& typevar::operator = (float n) {
+		_var = n;
+		return *this;
+	}
+
+
 	///
 	/// assign string to typevar
 	///
@@ -82,6 +92,14 @@ namespace OFEC {
 		else THROW("invalid += to double @typevar::operator+=");
 		return *this;
 	}
+
+	typevar& typevar::operator += (float n) {
+		if (is_float()) _var = mapbox::util::get<float>(_var) + n;
+		else THROW("invalid += to float @typevar::operator+=");
+		return *this;
+	}
+
+
 	typevar& typevar::operator -= (int n) {
 		if (is_int()) _var = mapbox::util::get<int>(_var) - n;
 		THROW("invalid -= to int @typevar::operator-=");
@@ -90,6 +108,11 @@ namespace OFEC {
 	typevar& typevar::operator -= (double n) {
 		if (is_double()) _var = mapbox::util::get<double>(_var) - n;
 		else THROW("invalid -= to double @typevar::operator-=");
+		return *this;
+	}
+	typevar& typevar::operator -= (float n) {
+		if (is_float()) _var = mapbox::util::get<float>(_var) - n;
+		else THROW("invalid -= to float @typevar::operator-=");
 		return *this;
 	}
 	typevar& typevar::operator *= (int n) {
@@ -102,6 +125,11 @@ namespace OFEC {
 		else THROW("invalid *= to double @typevar::operator*=");
 		return *this;
 	}
+	typevar& typevar::operator *= (float n) {
+		if (is_float()) _var = mapbox::util::get<float>(_var)*n;
+		else THROW("invalid *= to float @typevar::operator*=");
+		return *this;
+	}
 	typevar& typevar::operator /= (int n) {
 		if (is_int()) _var = mapbox::util::get<int>(_var) / n;
 		else THROW("invalid /= to int @typevar::operator/=");
@@ -112,6 +140,12 @@ namespace OFEC {
 		else THROW("invalid /= to double @typevar::operator/=");
 		return *this;
 	}
+	typevar& typevar::operator /= (float n) {
+		if (is_float()) _var = mapbox::util::get<float>(_var) / n;
+		else THROW("invalid /= to float @typevar::operator/=");
+		return *this;
+	}
+
 	typevar& typevar::operator %= (int n) {
 		if (is_int()) _var = mapbox::util::get<int>(_var) % n;
 		else THROW("invalid %= to int @typevar::operator%=");

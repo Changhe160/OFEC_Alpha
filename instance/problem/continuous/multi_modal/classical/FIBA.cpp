@@ -53,26 +53,26 @@ namespace OFEC {
 
 		if (m_case == 1) {
 			m_objective_accuracy = 0.08;
-			std::vector<std::vector<real>> var_data = { { 0.45186, 0.0 },{ -0.22593, 0.39132 },{ -0.22593, -0.39132 },{ 0.0, 0.0 } };
+			std::vector<std::vector<real>> var_data = { { 0.45186f, 0.0f },{ -0.22593f, 0.39132f },{ -0.22593f, -0.39132f },{ 0.0f, 0.0f } };
 			for (auto &i : var_data) {
 				set_original_global_opt(i.data());
 			}
 		}
 		else {
 			m_objective_accuracy = 0.5;
-			std::vector<std::vector<real>> var_data = { { 0.0, 0.0 },{ 1.2243, 0.0 },{ -0.61215, 1.0603 },{ -0.61215, -1.0603 } };
+			std::vector<std::vector<real>> var_data = { { 0.0f, 0.0f },{ 1.2243f, 0.0f },{ -0.61215f, 1.0603f },{ -0.61215f, -1.0603f } };
 			for (auto &i : var_data) {
 				set_original_global_opt(i.data());
 			}
 		}
 
 		m_optima = m_original_optima;
-		
+		m_initialized = true;
 	}
-	void FIBA::evaluate__(real *x, std::vector<real>& obj) {
+	void FIBA::evaluate_objective(real *x, std::vector<real> &obj) {
 
-		double s = 0;
-		double t0 = x[0] * x[0] + x[1] * x[1];
+		real s = 0;
+		real t0 = x[0] * x[0] + x[1] * x[1];
 		s = (t0) / (1 + t0) + m_kappa*(14 * t0 + pow(t0, 2)*m_chi*m_chi - 2 * sqrt(14.)*(pow(x[0], 3) - 3 * x[0] * x[1] * x[1])*m_chi) / (14 * (pow(1 + t0, 2)));
 		obj[0] = s + m_bias;
 

@@ -43,17 +43,17 @@ namespace OFEC {
 		m_variable_monitor = true;
 		m_variable_accuracy = 0.01;
 		m_objective_accuracy = 1.e-6;
-		std::vector<std::vector<real>> var_data = { {0.08}, {0.25}, {0.45}, {0.68}, {0.93} };
+		std::vector<std::vector<real>> var_data = { {0.08f}, {0.25f}, {0.45f}, {0.68f}, {0.93f} };
 		for (auto &i : var_data) {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
 		
-	
+		m_initialized = true;
 	}
-	void beasley::evaluate__(real *x, std::vector<real>& obj) {
+	void beasley::evaluate_objective(real *x, std::vector<real> &obj) {
 
-		double s;
+		real s;
 		s = exp(-2 * log(2.)*((x[0] - 0.08) / 0.854)*((x[0] - 0.08) / 0.854))*pow(sin(5 * OFEC_PI*(pow(x[0], 0.75) - 0.05)), 6);
 		obj[0] = s + m_bias;  // note
 

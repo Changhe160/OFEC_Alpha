@@ -27,12 +27,12 @@ namespace OFEC {
 			F2_R_cigar(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 
 		private:
 		};
 	}
-	using CEC2015_GOP_F2 = CEC2015::F2_R_cigar;
+	using CEC2015_GOP_F02 = CEC2015::F2_R_cigar;
 }
 
 #endif // !OFEC_F2_R_CIGAR_H

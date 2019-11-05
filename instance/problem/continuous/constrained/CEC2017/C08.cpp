@@ -1,5 +1,5 @@
 #include "C08.h"
-#include <algorithm>
+
 namespace OFEC {
 	namespace CEC2017 {
 		C08::C08(param_map &v) :
@@ -15,14 +15,17 @@ namespace OFEC {
 			m_variable_monitor = true;
 			set_range(-100., 100.);
 			set_init_range(-100., 100.);
-
+			m_constraint_type.resize(2);
+			for (auto &i : m_constraint_type)
+				i = constraint_type::Equality;
 			 
 			
 			load_translation("instance/problem/continuous/constrained/CEC2017/data/");  //data path
 			set_original_global_opt(m_translation.data());
 			m_optima = m_original_optima;
+			m_initialized = true;
 		}
-		void C08::evaluate__(real *x, std::vector<real>& obj, double & cons_value, std::vector<double> &cons_values) {
+		void C08::evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con) {
 			for (size_t i = 0; i < m_variable_size; ++i)
 				x[i] -= m_translation[i];
 
@@ -32,26 +35,26 @@ namespace OFEC {
 			obj[0] += m_bias;
 
 			
+			// evaluate constraint value
+			
 			std::vector<real> x_1(x, x + m_variable_size);
 			std::vector<real> x_2(x, x + m_variable_size);
-			double temp = 0.;
-			double sum = 0.;
 
-			std::vector<double> eq_cons;
-			for (i = 1; i <= m_variable_size/2; ++i) {
-				x_1[i-1] = x[2 * i - 2];
+			for (auto &i : con)
+				i = 0.;
+			
+			for (i = 1; i <= m_variable_size / 2; ++i) {
+				x_1[i - 1] = x[2 * i - 2];
 			}
-			for (i = 0; i < m_variable_size/2 ; ++i)
-			{	
+			for (i = 0; i < m_variable_size / 2; ++i)
+			{
 				real m = 0.;
-				for (j = 0; j<i+1; j++)    //h1
+				for (j = 0; j<i + 1; j++)    //h1
 				{
 					m += x_1[j];
 				}
-				temp += m*m;       
+				con[0] += m*m;
 			}
-			eq_cons.push_back(temp);
-			temp = 0.;
 
 			for (i = 1; i <= m_variable_size / 2; ++i) {
 				x_2[i - 1] = x[2 * i - 1];
@@ -63,20 +66,11 @@ namespace OFEC {
 				{
 					m += x_2[j];
 				}
-				temp += m*m;       
+				con[1] += m*m;
 			}
-			eq_cons.push_back(temp);
-			temp = 0.;
 
-			for (auto &i : eq_cons) {
+			for (auto &i : con)
 				if (fabs(i) - 1e-4 <= 0) i = 0;
-				else i = fabs(i);
-				sum += i;
-			}
-			cons_values.clear();
-			for (auto &i : eq_cons)
-				cons_values.push_back(i);
-			cons_value = sum / (double)eq_cons.size();
 			
 		}
 	}

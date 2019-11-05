@@ -2,7 +2,7 @@
 * Project: Library of Open Frameworks for Evolutionary Computation (OFEC)
 *************************************************************************
 * Author: Changhe Li & Yong Xia
-* Email: changhe.lw@google.com
+* Email: changhe.lw@gmail.com
 * Language: C++
 *************************************************************************
 *  This file is part of OFEC. This library is free software;
@@ -27,7 +27,7 @@ In Evolutionary multiobjective optimization (pp. 105-145). Springer London.
 
 namespace OFEC {
 
-	typedef std::vector<double> TObjVec;
+	typedef std::vector<real> TObjVec;
 	typedef std::vector<TObjVec> TFront;
 
 	void generate_recursive(TFront *pf, TObjVec *pt, size_t num_objs, size_t left, size_t total, size_t element);

@@ -22,11 +22,12 @@ namespace OFEC {
 
 		set_original_global_opt(v.data());
 		m_optima = m_original_optima;
+		m_initialized = true;
 	}
 
-	void par_est_FM_sound_waves::evaluate__(real *x, std::vector<real>& obj) {
+	void par_est_FM_sound_waves::evaluate_objective(real *x, std::vector<real> &obj) {
 
-		double theta = 2 * OFEC_PI / 100.;
+		real theta = 2 * OFEC_PI / 100.;
 		real s = 0, t;
 
 		for (int i = 0; i < 100; i++) {

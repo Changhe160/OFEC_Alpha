@@ -25,8 +25,8 @@ namespace OFEC {
 	class quadratic_assignment :public problem
 {
 protected:
-	std::vector<std::vector<double> > mvv_flow;
-	std::vector<std::vector<double> > mvv_distance;
+	std::vector<std::vector<real> > mvv_flow;
+	std::vector<std::vector<real> > mvv_distance;
 	std::string m_file_name;
 	domain<int> m_domain;
 	optima<variable_vector<int>, real> m_optima;
@@ -35,11 +35,11 @@ public:
 	quadratic_assignment(param_map& v);
 	quadratic_assignment(const std::string& pro_name, size_t size_var, const std::string& file_name);
 	~quadratic_assignment();
-	evaluation_tag evaluate_(solution_base &s, caller call, bool effective_fes, bool constructed);
+	evaluation_tag evaluate_(solution_base &s, caller call, bool effective, bool constructed);
 	bool is_valid(const solution_base &s) const;
 	void read_problem();    //read source data from file
-	bool get_optimal_obj(std::vector<double> &opt);
-	bool get_optimal_obj(std::vector<std::vector<double>> &opt);
+	bool get_optimal_obj(std::vector<real> &opt);
+	bool get_optimal_obj(std::vector<std::vector<real>> &opt);
 	const optima<variable_vector<int>, real> & get_optima()const;
 	optima<variable_vector<int>, real> & get_optima();
 	bool is_optima_given();
@@ -48,8 +48,8 @@ public:
 	bool is_optima_found();
 	void initialize_solution(solution_base &s) const;
 	bool same(const solution_base &s1, const solution_base &s2) const;
-	double variable_distance(const solution_base &s1, const solution_base &s2) const;
-	double variable_distance(const variable_base &s1, const variable_base &s2) const;
+	real variable_distance(const solution_base &s1, const solution_base &s2) const;
+	real variable_distance(const variable_base &s1, const variable_base &s2) const;
 	void initialize();
 };
 }

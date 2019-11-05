@@ -1,7 +1,8 @@
 #ifndef INCLUDE_H
 #define INCLUDE_H
 
-#include "user_initialization.h"
+#include <vector>
+#include <string>
 
 namespace OFEC {
 

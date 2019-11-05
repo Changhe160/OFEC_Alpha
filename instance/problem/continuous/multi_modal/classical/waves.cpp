@@ -47,7 +47,7 @@ namespace OFEC {
 		if (!in)		throw myexcept("cannot open data file@waves::initialize()");
 
 		for (int i = 0; i < 10; ++i) {
-			double x0, x1, obj;
+			real x0, x1, obj;
 			in >> x0 >> x1 >> obj;
 			var_data[i][0] = x0;
 			var_data[i][1] = x1;
@@ -57,10 +57,10 @@ namespace OFEC {
 			set_original_global_opt(i.data());
 		}
 		m_optima = m_original_optima;
-		
+		m_initialized = true;
 	}
-	void waves::evaluate__(real *x, std::vector<real>& obj) {
-		double s, t;
+	void waves::evaluate_objective(real *x, std::vector<real> &obj) {
+		real s, t;
 
 		t = x[1] * x[1];
 		s = pow(0.3*x[0], 3) + 3.5*x[0] * pow(x[1], 3) - 4.7*cos(3 * x[0] - (2 + x[0])*t)*sin(2.5*x[0] * OFEC_PI);

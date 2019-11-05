@@ -10,7 +10,7 @@
 *  GNU General Public License as published by the Free Software
 *  Foundation; either version 2, or (at your option) any later version.
 ******************************************************************************************
-*  Paper: Benchmark Functions for CEC¡¯2013 Special Session and Competition on Niching
+*  Paper: Benchmark Functions for CECï¿½ï¿½2013 Special Session and Competition on Niching
 *  Methods for Multimodal Function Optimization.
 *******************************************************************************************/
 #ifndef OFEC_EQUAL_MAXIMA_H
@@ -22,10 +22,10 @@ namespace OFEC {
 		{
 		public:
 			equal_maxima(param_map &v);
-			equal_maxima(const std::string &name, size_t size_var, size_t size_obj);
+			equal_maxima(const std::string &name);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	

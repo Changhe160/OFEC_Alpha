@@ -30,8 +30,8 @@ namespace OFEC {
 		if (m_variable_size > 5) throw myexcept("number of dim must be <=5@ modified_shekel::modified_shekel");
 		set_range(0.0, 11.0);
 		set_init_range(0.0, 11.0);
-		double a[8][5] = { 4,4,6.3,4,4,1,1,8.5,1,1,6,6,9.1,6,6,3.5,7.5,4,9,4,5,5,3,3,9,9.1,8.2,2,3,9,1.5,9.3,7.4,3,9,7.8,2.2,5.3,9,3 };
-		double c[8] = { 0.1,0.2,0.4,0.15,0.6,0.2,0.06,0.18 };
+		real a[8][5] = { 4,4,6.3,4,4,1,1,8.5,1,1,6,6,9.1,6,6,3.5,7.5,4,9,4,5,5,3,3,9,9.1,8.2,2,3,9,1.5,9.3,7.4,3,9,7.8,2.2,5.3,9,3 };
+		real c[8] = { 0.1,0.2,0.4,0.15,0.6,0.2,0.06,0.18 };
 		std::copy(c, c + 8, m_c);
 		m_variable_monitor = true;
 		for (size_t i = 0; i < 8; ++i) std::copy(a[i], a[i] + 5, m_a[i]);
@@ -46,13 +46,13 @@ namespace OFEC {
 			set_original_global_opt(m_a[m]);
 		}
 		m_optima = m_original_optima;
-		
+		m_initialized = true;
 	}
-	void modified_shekel::evaluate__(real *x, std::vector<real>& obj) {
-		double s = 0;
+	void modified_shekel::evaluate_objective(real *x, std::vector<real> &obj) {
+		real s = 0;
 
 		for (int i = 0; i < 8; ++i) {
-			double b = 0;
+			real b = 0;
 			for (int j = 0; j < m_variable_size; ++j) {
 				b += (x[j] - m_a[i][j])*(x[j] - m_a[i][j]);
 			}

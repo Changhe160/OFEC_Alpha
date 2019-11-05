@@ -26,11 +26,11 @@ namespace OFEC {
 			F6_shifted_rotated_happy_cat(const std::string &name, size_t size_var, size_t size_obj);
 			void initialize();
 		protected:
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
 		};
 	}
-	using CEC2015_EOP_F6 = CEC2015::F6_shifted_rotated_happy_cat;
+	using CEC2015_EOP_F06 = CEC2015::F6_shifted_rotated_happy_cat;
 }
 #endif // ! OFEC_F6_SHIFTED_ROTATED_HAPPY_CAT_H
 

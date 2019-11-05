@@ -52,11 +52,12 @@ namespace OFEC {
 
 			//set_original_global_opt();
 			set_global_opt(mp_Ovector);
+			m_initialized = true;
 		}
 
-		void N20_SR_Ackley_F10::evaluate__(real *x, std::vector<real>& obj) {
+		void N20_SR_Ackley_F10::evaluate_objective(real *x, std::vector<real> &obj) {
 			size_t i;
-			double result = 0.0;
+			real result = 0.0;
 
 			for (i = 0; i < m_variable_size; i++)
 			{

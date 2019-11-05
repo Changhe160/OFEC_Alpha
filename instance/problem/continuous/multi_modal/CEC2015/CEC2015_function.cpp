@@ -92,17 +92,16 @@ namespace OFEC {
 		}
 
 		void CEC2015_function::evaluate_optima(){
-			for (size_t i = 0; i < m_optima.number_variable(); ++i) {
-				variable_vector<real> temp_var(m_optima.variable(i));
-				objective_vector<real> temp_obj(m_objective_size);
-				solution<variable_vector<real>, real> x(std::move(temp_var), std::move(temp_obj));
-				evaluate_(x, caller::Problem, false, false);
-				m_optima.append(x.objective());
+            solution<variable_vector<real>, real> s(m_objective_size, num_constraints(), m_variable_size);
+            for (size_t i = 0; i < m_optima.number_variable(); ++i) {
+			    s.variable() = m_optima.variable(i);
+			    s.evaluate(false, caller::Problem);
+				m_optima.append(s.objective());
 			}
 			
 		}
 		void CEC2015_function::rotate(real *x) {
-			double *x_ = new double[m_variable_size];
+			real *x_ = new real[m_variable_size];
 			std::copy(x, x + m_variable_size, x_);
 
 			for (size_t i = 0; i<m_variable_size; ++i) {

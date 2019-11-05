@@ -34,13 +34,13 @@ namespace OFEC {
 		using F3_uneven_de_maxima = uneven_de_maxima;
 		using F7_vincent = vincent;
 	}
-	using CEC2013_MMP_F1 = CEC2013::F1_five_uneven_peak_trap;
-	using CEC2013_MMP_F2 = CEC2013::F2_equal_maxima;
-	using CEC2013_MMP_F3 = CEC2013::F3_uneven_de_maxima;
-	using CEC2013_MMP_F4 = CEC2013::F4_himmenblau;
-	using CEC2013_MMP_F5 = CEC2013::F5_six_hump_camel_back;
-	using CEC2013_MMP_F6 = CEC2013::F6_shubert;
-	using CEC2013_MMP_F7 = CEC2013::F7_vincent;
-	using CEC2013_MMP_F8 = CEC2013::F8_modified_rastrigin;
+	using CEC2013_MMOP_F01 = CEC2013::F1_five_uneven_peak_trap;
+	using CEC2013_MMOP_F02 = CEC2013::F2_equal_maxima;
+	using CEC2013_MMOP_F03 = CEC2013::F3_uneven_de_maxima;
+	using CEC2013_MMOP_F04 = CEC2013::F4_himmenblau;
+	using CEC2013_MMOP_F05 = CEC2013::F5_six_hump_camel_back;
+	using CEC2013_MMOP_F06 = CEC2013::F6_shubert;
+	using CEC2013_MMOP_F07 = CEC2013::F7_vincent;
+	using CEC2013_MMOP_F08 = CEC2013::F8_modified_rastrigin;
 }
 #endif // !OFEC_F1_F8_H

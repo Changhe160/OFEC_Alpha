@@ -9,8 +9,8 @@ namespace OFEC {
 		DTLZ(name, size_var, size_obj) {
 	}
 
-	void DTLZ1::evaluate__(double * x, std::vector<double>& obj) {
-		double g = 0;
+	void DTLZ1::evaluate_objective(real *x, std::vector<real> &obj) {
+		real g = 0;
 		for (size_t i = m_objective_size - 1; i < m_variable_size; i += 1)
 		{
 			g += (x[i] - 0.5)*(x[i] - 0.5) - cos(20 * OFEC_PI*(x[i] - 0.5));
@@ -18,7 +18,7 @@ namespace OFEC {
 		g = (m_variable_size + 1 - m_objective_size + g) * 100;
 		for (size_t m = 0; m < m_objective_size; m += 1)
 		{
-			double product = 0.5*(1 + g);
+			real product = 0.5*(1 + g);
 			size_t i = 0;
 			for (; m_objective_size >= 2 + m && i <= m_objective_size - 2 - m; i += 1)
 				product *= x[i];

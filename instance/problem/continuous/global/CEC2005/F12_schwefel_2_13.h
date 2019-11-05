@@ -14,10 +14,10 @@ namespace OFEC {
 			void initialize();
 		protected:
 			void load_data(const std::string & path);
-			void evaluate__(real *x, std::vector<real>& obj);
+			void evaluate_objective(real *x, std::vector<real>& obj) override;
 		private:
-			std::vector<std::vector<int>> m_a;
-			std::vector<std::vector<int>> m_b;
+			std::vector<std::vector<real>> m_a;
+			std::vector<std::vector<real>> m_b;
 			std::vector<real> m_alpha;
 		};
 	}

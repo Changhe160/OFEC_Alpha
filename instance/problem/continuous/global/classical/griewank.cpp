@@ -32,10 +32,11 @@ namespace OFEC {
 
 		set_global_opt();
 		m_variable_accuracy = 1.0e-2;
+		m_initialized = true;
 	}
 
 
-	void griewank::evaluate__(real *x, std::vector<real>& obj) {
+	void griewank::evaluate_objective(real *x, std::vector<real> &obj) {
 		if (m_translation_flag)
 			translate(x);
 		if (m_scale_flag)
@@ -45,12 +46,12 @@ namespace OFEC {
 		if (m_translation_flag)
 			translate_origin(x);
 
-		double result = 0;
+		real result = 0;
 
-		double s1 = 0, s2 = 1;
+		real s1 = 0, s2 = 1;
 		for (int i = 0; i < m_variable_size; i++) {
 			s1 += x[i] * x[i] / 4000.;
-			s2 *= cos(x[i] / sqrt((double)(i + 1)));
+			s2 *= cos(x[i] / sqrt((real)(i + 1)));
 		}
 		result = s1 - s2 + 1. + m_bias;
 

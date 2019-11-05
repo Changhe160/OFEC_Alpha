@@ -19,7 +19,6 @@
 
 #ifndef OFEC_TYPES_H
 #define OFEC_TYPES_H
-#include "typevar/typevar.h"
 
 class singleton {
 protected:
@@ -28,4 +27,5 @@ protected:
 	singleton(const singleton&) = delete;
 	singleton& operator=(const singleton &) = delete;
 };
+
 #endif

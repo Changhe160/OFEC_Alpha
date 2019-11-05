@@ -26,9 +26,10 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/expensive/CEC2015/data/");
 			
 			set_global_opt(m_translation.data());
+			m_initialized = true;
 		}
-		void F7_shifted_rotated_HGBat::evaluate__(real *x, std::vector<real>& obj) {
-			HGBat::evaluate__(x, obj);
+		void F7_shifted_rotated_HGBat::evaluate_objective(real *x, std::vector<real> &obj) {
+			HGBat::evaluate_objective(x, obj);
 		}
 	}
 }

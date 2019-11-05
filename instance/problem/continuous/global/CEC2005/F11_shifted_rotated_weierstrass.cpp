@@ -1,4 +1,5 @@
 #include "F11_shifted_rotated_weierstrass.h"
+#include <numeric>
 
 namespace OFEC {
 	namespace CEC2005 {
@@ -12,12 +13,9 @@ namespace OFEC {
 		}
 
 		void F11_shifted_rotated_weierstrass::initialize() {
-			m_variable_monitor = true;
 			set_range(-0.5, 0.5);
-			set_init_range(-0.5, 0.5);
 
 			set_original_global_opt();
-
 			set_condition_number(5);
 			set_bias(90);
 			
@@ -25,10 +23,18 @@ namespace OFEC {
 			load_rotation("instance/problem/continuous/global/CEC2005/data/");
 			
 			set_global_opt(m_translation.data());
-		}
-		void F11_shifted_rotated_weierstrass::evaluate__(real *x, std::vector<real>& obj) {
+			m_optima.set_flag_variable(true);
+			m_objective_monitor = true;
+			m_objective_accuracy = 1.0e-8;
 
-			weierstrass::evaluate__(x, obj);
+			m_variable_partition.clear();
+			m_variable_partition.push_back(std::vector<size_t>(m_variable_size));
+			std::iota(m_variable_partition[0].begin(), m_variable_partition[0].end(), 0);
+			m_initialized = true;
+		}
+		void F11_shifted_rotated_weierstrass::evaluate_objective(real *x, std::vector<real> &obj) {
+
+			weierstrass::evaluate_objective(x, obj);
 		}
 	}
 }
