@@ -29,15 +29,6 @@ namespace OFEC {
 
 		REGISTER(algorithm, DynDE, "DynDE", std::set<problem_tag>({ problem_tag::DOP,problem_tag::GOP,problem_tag::MMOP,problem_tag::ConOP }));
 
-
-		//REGISTER(algorithm, ADOPT_CCSaDE, "ADOPT-CCSaDE", std::set<problem_tag>({ problem_tag::epanet }));
-		//REGISTER(algorithm, AMP_CCSaDE, "AMP-CCSaDE", std::set<problem_tag>({ problem_tag::epanet }));
-        //REGISTER(algorithm, ESs, "ESs", std::set<problem_tag>({ problem_tag::epanet }));
-		//REGISTER(algorithm, LRM_ADOPT_LS, "LRM-ADOPT-LS", std::set<problem_tag>({ problem_tag::epanet }));
-        //REGISTER(algorithm, ADOPT_combination, "ADOPT-combination", std::set<problem_tag>({ problem_tag::epanet }));
-        //REGISTER(algorithm, AMP_combination, "AMP-combination", std::set<problem_tag>({ problem_tag::epanet }));
-        //REGISTER(algorithm, LRM_ADOPT_combination, "LRM-ADOPT-combination", std::set<problem_tag>({ problem_tag::epanet }));
-
 		REGISTER(algorithm, simulated_annealing, "SA", std::set<problem_tag>({ problem_tag::ConOP }));
 
 	}
