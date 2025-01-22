@@ -24,6 +24,7 @@
 using namespace OFEC;
 
 TEST_CASE("PRNG uniform test", "[PRNG_uniform]") {
+
 	std::vector<int> times{ 1000,10000,100000,1000000,10000000 };
 	//totaltimes[0],[1],[2],[3] conrespond to 1000,10000,100000,100000;
 	std::vector<std::map<int, long int>> totaltimes2numcounter;
