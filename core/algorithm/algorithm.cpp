@@ -1,41 +1,85 @@
+#include "algorithm.h"
+#include "../environment/environment.h"
+#include "../datum_base.h"
 
-#include "../global.h"
+#ifdef OFEC_PLAYBACK
+#include <playback/global.h>
+#endif
+#ifdef OFEC_STATISTICS
+#include <statistics/global.h>
+#endif
 
-namespace OFEC {
+namespace ofec {
+	void Algorithm::addInputParameters()  {
+		m_input_parameters.add("maximum evaluations", new RangedInt(m_maximum_evaluations, -1, 10000000, -1));
+	}
 
-	algorithm::algorithm(const std::string name) :m_name(name) {
-		//set TermMaxFes as default stop criteria
-		if (global::ms_arg.find("maxEvals") != global::ms_arg.end()) {
-			m_term.reset(new term_max_evals(global::ms_arg));
+	void Algorithm::reset() {
+		m_evaluations = 0;
+	}
+
+	void Algorithm::initialize(Environment *env) {
+		m_initialized = false;
+		initialize_(env);
+		m_initialized = true;
+		m_terminate_flag = false;
+	}
+
+	void Algorithm::initialize_(Environment *env) {
+		m_termination.reset(m_maximum_evaluations > 0 ? new TerminationMaximumEvaluations(m_maximum_evaluations) : new Termination);
+	}
+
+	void Algorithm::run(Environment* env) {
+		if (!m_initialized) {
+			throw Exception("Please initialize the algorithm.");
+		}
+		run_(env);
+		m_termination->setTerminatedTrue();
+	}
+
+	void Algorithm::terminate() {
+		m_terminate_flag = true;
+	}
+
+	bool Algorithm::terminated() {
+		if (m_initialized) {
+			return m_termination->terminated();
 		}
 		else {
-			m_term.reset(new termination());
+			return true;
 		}
 	}
-	void algorithm::run(){
-		run_();
-		m_term->set_terminated_true();		
-	}
 
-	bool algorithm::terminated() {
-		return m_term->terminated();
-	}
-	bool algorithm::terminating() {
-		if (auto t = dynamic_cast<term_max_evals*>(m_term.get())) //by default 
-			return t->terminating(global::ms_global->m_problem->evaluations());
-		else
+	bool Algorithm::terminating() {
+		if (m_terminate_flag) {
 			return true;
-	}
-	real algorithm::duration() {
-		return m_term->duration();
-	}
-	void algorithm::set_termination(termination* t) {
-		m_term.reset(t);
+		}
+		if (auto t = dynamic_cast<TerminationMaximumEvaluations*>(m_termination.get())) { //by default 
+			return t->terminating(m_evaluations);
+		}
+		return m_termination->terminating();
 	}
 
-	void algorithm::update_parameters() {
-		m_parameters["name"] = m_name;
-		m_parameters["stop criterion"] = m_term->criterion();
+	Real Algorithm::duration() {
+		if (m_initialized) {
+			return m_termination->duration();
+		}
+		return 0;
+	}
 
+	void Algorithm::setTermination(Termination *term) {
+		m_termination.reset(term);
+	}
+
+	void Algorithm::datumUpdated(Environment *env, DatumBase &datum) {
+		datum.m_update_flag = true;
+		handleDatumUpdated(env);
+#ifdef OFEC_PLAYBACK
+		ofec_playback::g_buffer_manager->handleAlgorithmDatumUpdated(env);
+#endif // OFEC_PLAYBACK
+#ifdef OFEC_STATISTICS
+		ofec_statistics::g_record_task->handleAlgorithmDatumUpdated(env);
+#endif // OFEC_STATISTICS
+		datum.m_update_flag = false;
 	}
 }

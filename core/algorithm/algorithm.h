@@ -1,8 +1,8 @@
 /******************************************************************************
 * Project:Open Frameworks for Evolutionary Computation (OFEC)
 *******************************************************************************
-* Author: Changhe Li
-* Email: changhe.lw@gmail.com
+* Author: Yiya Diao & Junchen Wang & Changhe Li
+* Email: diaoyiyacug@gmail.com & wangjunchen.chris@gmail.com & changhe.lw@gmail.com
 * Language: C++
 *-------------------------------------------------------------------------------
 *  This file is part of OFEC. This library is free software;
@@ -13,49 +13,61 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* class algorithm is an abstract for all algorithms.
+*
+* class Algorithm is an abstract for all algorithms.
 *
 *********************************************************************************/
+
 #ifndef OFEC_ALGORITHM_H
 #define OFEC_ALGORITHM_H
 
-#include <sstream>
+#include <array>
+#include <memory>
+#include <list>
+#include <atomic>
 #include "termination.h"
+#include "../instance.h"
 
+namespace ofec {
+	class Environment;
+	class DatumBase;
+	class SolutionBase;
 
-namespace OFEC {
-	class algorithm
-	{
+	class Algorithm : virtual public Instance {
+		OFEC_ABSTRACT_INSTANCE(Algorithm)
 	public:
-		algorithm() = default;
-		explicit algorithm(const std::string);
-		algorithm& operator=(const algorithm&) = default;
-		algorithm& operator=(algorithm&&) = default;
-		algorithm(const algorithm&) = default;
-		algorithm(algorithm&&) = default;
-
-		virtual ~algorithm() {}
-		void run();
-		
+		virtual void reset();
+		void initialize(Environment *env);
+		void run(Environment *env);
+		int maximumEvaluations() const { return m_maximum_evaluations; }
+		const size_t& evaluations() const { return m_evaluations; }
+		void increaseEvaluations() { m_evaluations++; }
+		void terminate();
 		bool terminated();
 		virtual bool terminating();
-		real duration();
-		void set_termination(termination* t);
-		const std::string& name() { return m_name; }
-		void set_name(const std::string &name) { m_name = name; }
-		virtual void initialize() = 0;
-		virtual void record() = 0;
-		const param_map& parameters()const { return m_parameters; }
-		termination* get_termination() { return m_term.get(); }
-	protected:
-		virtual void run_() = 0;
-		virtual void update_parameters();
-		virtual void handle_evaluation_tag(evaluation_tag tag) {}
-	protected:
-		std::string m_name;
-		std::unique_ptr<termination> m_term;
-		param_map m_parameters;
+		Real duration();
+		Termination* termination() { return m_termination.get(); }
+		void setTermination(Termination *term);
+		bool initialized() const { return m_initialized; }
+		virtual void datumUpdated(Environment *env, DatumBase& datum);
+		virtual void handleEvaluation(const SolutionBase &s, Environment *env, int rf) {}
 
+	protected:
+		void addInputParameters();
+		virtual void initialize_(Environment *env);
+		virtual void run_(Environment *env) = 0;
+		virtual void handleDatumUpdated(Environment* env) {}
+
+		std::unique_ptr<Termination> m_termination;
+		int m_maximum_evaluations;
+		size_t m_evaluations;
+
+	private:
+		Algorithm(const Algorithm&) = delete;
+		Algorithm& operator=(const Algorithm&) = delete;
+
+		bool m_initialized = false;
+		std::atomic<bool> m_terminate_flag = false;
 	};
 
 }

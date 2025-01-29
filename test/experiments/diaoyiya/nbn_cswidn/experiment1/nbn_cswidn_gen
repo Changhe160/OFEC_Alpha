@@ -1,0 +1,700 @@
+
+#include <filesystem>
+#include <string>
+#include <vector>
+#include <iostream>
+#include <limits>
+
+#include <algorithm>
+#include <iostream>
+#include <random>
+#include <string>
+#include <vector>
+#include "../utility/hnsw/hnsw_solution_multithread/hnsw_sol_model.h"
+#include "../core/global.h"
+#include "../core/problem/optima.h"
+#include "../core/definition.h"
+#include "../core/global.h"
+#include "../utility/nbn_visualization/tree_graph_simple.h"
+#include "../utility/nbn_visualization/nbn_grid_tree_division.h"
+#include "../utility/nbn_visualization/nbn_grid_tree_division_allSize.h"
+#include  "../utility/function/custom_function.h"
+#include "../utility/function/general_function.h"
+#include "../utility/nbn_visualization/nbn_calculator/nearest_better_calculator.h"
+//#include "../instance/problem/combination/travelling_salesman/travelling_salesman.h"
+#include "interface.h"
+//#include "../utility/function/custom_function.h"
+#include "../utility/nbn_visualization/tree_graph_simple.h"
+//#include "../core/algorithm/population.h"
+//#include "../utility/nondominated_sorting/filter_sort.h"
+//#include "../instance/algorithm/visualize/sampling/instance/sampling_eax_tsp.h"
+//#include "../instance/algorithm/visualize/sampling/sampling_multiThread.h"
+//#include "../instance/problem/combination/travelling_salesman/travelling_salesman.h"
+#include <queue>
+#include "../core/definition.h"
+#include <deque>
+#include <chrono>   
+//#include "../utility/nbn_visualization/nbn_calculator/nearest_better_calculator_multiThead.h"
+
+#include "../utility/hnsw/hnsw_nbn/neighbor_info.h"
+#include "../utility/hnsw/hnsw_nbn/select_policy.h"
+#include "../utility/hnsw/hnsw_nbn/node.h"
+#include "../utility/hnsw/hnsw_nbn/hnsw_model.h"
+#include "../utility/hnsw/hnsw_nbn/hnsw_nbn.h"
+#include "../core/environment/environment.h"
+#include "../core/parameter/variants_to_stream.h"
+
+//#include "../instance/algorithm/combination/lkh/lkh_algorithm.h"
+#include<filesystem>
+#include<queue>
+#include <set>
+
+#include "../core/parameter/variants_to_stream.h"
+//#include "../instance/algorithm/combination/eax_tsp/eax_tsp_test/eax_tsp_alg.h"
+//#include "../instance/problem/combination/travelling_salesman/tsp_offline_data/travelling_salesman_offline_data.h"
+
+//#include "../utility/nbn_visualization/nbn_fla/nbn_fla.h"
+//#include "../instance/algorithm/combination/eax_tsp/eax_tsp_basin/eax_tsp_basin_multipop.h"
+//#include "../utility/nbn_visualization/nbn_fla/nbn_fla_utility.h"
+//#include "../instance/algorithm/combination/LKH_origin/INCLUDE/LKH.h"
+#include <iostream>
+#include <iomanip>
+#include <ctime>
+#include <sstream>
+
+//#include "../utility/visualization/idee_trait.h"
+#include "../instance/problem/realworld/csiwdn/csiwdn.h"
+
+
+
+
+
+
+
+void testCWIDN() {
+
+	using namespace ofec;
+	double seed = 0.5;
+
+	using namespace std;
+	using namespace ofec;
+	ofec::ParameterMap params;
+
+	std::string proname = "CSIWDN";
+
+	params["problem name"] = std::string("CSIWDN");
+	params["net-sensor-source case"] = std::string("Net2/sensor_case1/source/case11.txt");
+//	params["dataFile2"] = std::string("case1");
+//	params["dataFile3"] = std::string("case11");
+//	params["use LSTM"] = false;
+
+	std::shared_ptr<Environment> env;
+	env.reset(Environment::create());
+	env->recordInputParameters();
+	env->initialize();
+	env->setProblem(ofec::Factory<ofec::Problem>::produce(proname));
+	env->problem()->inputParameters().input(params);
+	env->problem()->recordInputParameters();
+	env->initializeProblem(0.5);
+
+	auto pro = env->problem();
+
+//	pro->initialize();
+
+
+	std::shared_ptr<Random> rnd_ptr(new Random(seed));
+	//Random rnd(0.5);
+	auto rnd = rnd_ptr.get();
+	CAST_CSIWDN(pro)->setPhase(CAST_CSIWDN(pro)->totalPhase());
+	std::cout << "total phase\t" << CAST_CSIWDN(pro)->totalPhase() << std::endl;
+	std::cout << "total node\t" << CAST_CSIWDN(pro)->numberNode() << std::endl;
+	std::cout << " number source\t" << CAST_CSIWDN(pro)->numberSource() << std::endl;
+
+	
+
+	auto tt = std::chrono::steady_clock::now();
+
+	std::shared_ptr<ofec::SolutionBase> curSol(pro->createSolution());
+	curSol->initialize(env.get(), rnd);
+	curSol->evaluate(env.get(), false);;
+	ofec::Real pos = (pro->optimizeMode(0) == ofec::OptimizeMode::kMaximize) ? 1 : -1;
+	curSol->setFitness(pos * curSol->objective(0));
+	auto to = std::chrono::steady_clock::now();
+
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(to - tt);
+
+	cout << "花费了 "
+		<< double(duration.count()) //* std::chrono::microseconds::period::num 
+		<< " micorsecodes" << endl;
+
+
+	//cout<<"evaluated times\t"<<
+}
+
+
+
+
+void genenrateCSWIDNenv(
+	std::shared_ptr<ofec::Environment>& env) {
+	using namespace std;
+	using namespace ofec;
+	ofec::ParameterMap params;
+
+
+	std::string proname = "CSIWDN";
+
+	params["problem name"] = std::string("CSIWDN");
+	params["net-sensor-source case"] = std::string("Net2/sensor_case1/source/case11.txt");
+	//	params["dataFile2"] = std::string("case1");
+	//	params["dataFile3"] = std::string("case11");
+	//	params["use LSTM"] = false;
+
+//	std::shared_ptr<Environment> env;
+	env.reset(Environment::create());
+	env->recordInputParameters();
+	env->initialize();
+	env->setProblem(ofec::Factory<ofec::Problem>::produce(proname));
+	env->problem()->inputParameters().input(params);
+	env->problem()->recordInputParameters();
+	env->initializeProblem(0.5);
+
+
+}
+
+
+// 函数用于将十进制数转换为M进制数
+void decimalToM(int decimal, int M, int numSource, std::vector<int>& data) {
+
+	data.clear();
+	// 持续除以M，直到decimal为0
+	while (numSource--) {
+		int remainder = decimal % M;
+		data.push_back(remainder);
+		//char symbol = (remainder < 10) ? ('0' + remainder) : ('A' + (remainder - 10));
+		//result = symbol + result; // 将余数添加到结果的前面
+		decimal /= M; // 更新十进制数
+	}
+
+}
+
+
+void evaluateSolsSubTask(std::vector<std::shared_ptr<ofec::SolutionBase>>& sols, int from, int to, ofec::Environment* env, ofec::Random* rnd) {
+
+	auto pro = env->problem();
+	ofec::Real pos = (pro->optimizeMode(0) == ofec::OptimizeMode::kMaximize) ? 1 : -1;
+
+	for (int idx(from); idx < to; ++idx) {
+		sols[idx]->evaluate(env, false);
+		sols[idx]->setFitness(pos * sols[idx]->objective(0));
+	}
+}
+
+void evaluateSols(std::vector<std::shared_ptr<ofec::SolutionBase>>& sols, ofec::Environment* env, ofec::Random* rnd) {
+	using namespace std;
+	using namespace ofec;
+
+	int num_task = std::thread::hardware_concurrency();
+
+	std::vector<std::shared_ptr<Environment>> envs(num_task);
+	std::vector<std::shared_ptr<Random>> rnds(num_task);
+	auto cswidnPro = CAST_CSIWDN(env->problem());
+	for (auto& it : envs) {
+		genenrateCSWIDNenv(it);
+		auto curpro = CAST_CSIWDN(it->problem());
+		curpro->setPhase(cswidnPro->phase());
+	}
+	for (auto& it : rnds) {
+		it.reset(new Random(rnd->uniform.next()));
+	}
+
+	std::vector<int> tasks;
+	std::vector<std::thread> thrds;
+
+	UTILITY::assignThreads(sols.size(), num_task, tasks);
+	std::pair<int, int> from_to;
+	for (size_t i = 0; i < num_task; ++i) {
+		from_to.first = tasks[i];
+		from_to.second = tasks[i + 1];
+
+		thrds.push_back(std::thread(
+			evaluateSolsSubTask, std::ref(sols),
+			tasks[i], tasks[i + 1], envs[i].get(), rnds[i].get()));
+	}
+	for (auto& thrd : thrds)
+		thrd.join();
+}
+
+
+void generateSolutionsIntsSub(
+	const ofec::SolutionBase& centerSol,
+	std::vector<std::shared_ptr<ofec::SolutionBase>>& sols, int from, int to, ofec::Environment* env, ofec::Random* rnd) {
+	using namespace std;
+	using namespace ofec;
+
+	auto cswidnPro = CAST_CSIWDN(env->problem());
+	
+	std::vector<int> data;
+	for (int idx(from); idx < to; ++idx) {
+		sols[idx].reset(env->problem()->createSolution(centerSol));
+		auto& cursol = dynamic_cast<ofec::CSIWDN::solutionType&>(*sols[idx]);
+		decimalToM(idx, cswidnPro->numberNode(), cswidnPro->numberNode(), data);
+		for (auto& it : data) {
+			++it;
+		}
+		for (size_t z = 0; z < cswidnPro->numSource(); z++) {
+			cursol.variable().index(z) = data[z];
+		}
+		
+	//	cursol.evaluate(env, false);
+	}
+	
+}
+
+
+void generateSolutionsInts(
+	const ofec::SolutionBase& centerSol,
+	std::vector<std::shared_ptr<ofec::SolutionBase>>& sols, ofec::Environment* env, ofec::Random* rnd) {
+	using namespace std;
+	using namespace ofec;
+
+	auto cswidnPro = CAST_CSIWDN(env->problem());
+	sols.resize(pow(cswidnPro->numberNode(), cswidnPro->numSource()));
+
+	
+
+	int num_task = std::thread::hardware_concurrency();
+
+	std::vector<std::shared_ptr<Environment>> envs(num_task);
+	std::vector<std::shared_ptr<Random>> rnds(num_task);
+	for (auto& it : envs) {
+		genenrateCSWIDNenv(it);
+		auto curpro = CAST_CSIWDN(it->problem());
+		curpro->setPhase(cswidnPro->phase());
+	}
+	for (auto& it : rnds) {
+		it.reset(new Random(rnd->uniform.next()));
+	}
+	std::vector<int> tasks;
+	std::vector<std::thread> thrds;
+	
+	UTILITY::assignThreads(sols.size(), num_task, tasks);
+	std::pair<int, int> from_to;
+	for (size_t i = 0; i < num_task; ++i) {
+		from_to.first = tasks[i];
+		from_to.second = tasks[i + 1];
+
+		thrds.push_back(std::thread(
+			generateSolutionsIntsSub,std::cref(centerSol), std::ref(sols),
+			tasks[i], tasks[i + 1], envs[i].get(), rnds[i].get()));
+	}
+	for (auto& thrd : thrds)
+		thrd.join();
+
+	
+}
+
+
+
+
+
+void generateSolutionsConsRandomSub(
+	const ofec::SolutionBase& centerSol,
+	std::vector<std::shared_ptr<ofec::SolutionBase>>& sols, int from, int to, ofec::Environment* env, ofec::Random* rnd) {
+	using namespace std;
+	using namespace ofec;
+
+	auto cswidnPro = CAST_CSIWDN(env->problem());
+
+	std::vector<int> data;
+	for (int idx(from); idx < to; ++idx) {
+		sols[idx].reset(env->problem()->createSolution(centerSol));
+		auto& cursol = dynamic_cast<ofec::CSIWDN::solutionType&>(*sols[idx]);
+		cswidnPro->initSolutionMultiplier(cursol, rnd);
+		//			CAST_CSIWDN(pro)->initSolutionMultiplier(cursol, rnd);
+	}
+
+}
+
+void generateSolutionsConRandom(
+	const ofec::SolutionBase& centerSol,
+	std::vector<std::shared_ptr<ofec::SolutionBase>>& sols, ofec::Environment* env, ofec::Random* rnd
+) {
+	using namespace std;
+	using namespace ofec;
+
+	auto cswidnPro = CAST_CSIWDN(env->problem());
+	sols.resize(pow(cswidnPro->numberNode(), cswidnPro->numSource()));
+
+
+
+	int num_task = std::thread::hardware_concurrency();
+
+	std::vector<std::shared_ptr<Environment>> envs(num_task);
+	std::vector<std::shared_ptr<Random>> rnds(num_task);
+	for (auto& it : envs) {
+		genenrateCSWIDNenv(it);
+		auto curpro = CAST_CSIWDN(it->problem());
+		curpro->setPhase(cswidnPro->phase());
+	}
+	for (auto& it : rnds) {
+		it.reset(new Random(rnd->uniform.next()));
+	}
+	std::vector<int> tasks;
+	std::vector<std::thread> thrds;
+
+	UTILITY::assignThreads(sols.size(), num_task, tasks);
+	std::pair<int, int> from_to;
+	for (size_t i = 0; i < num_task; ++i) {
+		from_to.first = tasks[i];
+		from_to.second = tasks[i + 1];
+
+		thrds.push_back(std::thread(
+			generateSolutionsConsRandomSub, std::cref(centerSol), std::ref(sols),
+			tasks[i], tasks[i + 1], envs[i].get(), rnds[i].get()));
+	}
+	for (auto& thrd : thrds)
+		thrd.join();
+}
+
+
+
+
+
+void generateSolutionsConsRadiusSub(
+	const ofec::SolutionBase& centerSol,
+	double sampleRadius,
+	std::vector<std::shared_ptr<ofec::SolutionBase>>& sols, int from, int to, ofec::Environment* env, ofec::Random* rnd) {
+	using namespace std;
+	using namespace ofec;
+	auto cswidnPro = CAST_CSIWDN(env->problem());
+	auto & curCsol = dynamic_cast<const ofec::CSIWDN::solutionType&>(centerSol);
+
+	auto& optSol = cswidnPro->optima()->solution(0);
+
+	double halfRadius = sampleRadius / 2.0* (cswidnPro->maxMultiplier() - cswidnPro->minMultiplier());
+
+	std::pair<double, double> proRange = {cswidnPro->minMultiplier(), cswidnPro->maxMultiplier()};
+
+	std::vector<std::vector<std::pair<double, double>>> targetRange(cswidnPro->numSource());
+	for (int idx(0); idx < targetRange.size(); ++idx) {
+		targetRange[idx].resize(optSol.variable().multiplier(idx).size());
+		
+		for (int idy(0); idy < targetRange[idx].size(); ++idy) {
+			targetRange[idx][idy].first = optSol.variable().multiplier(idx)[idy] - halfRadius;
+			targetRange[idx][idy].second = optSol.variable().multiplier(idx)[idy] + halfRadius;
+		}
+	}
+
+	for (auto&it: targetRange) {
+		for (auto& it2 : it) {
+			if (it2.first < proRange.first) {
+				double left = proRange.first - it2.first;
+				it2.first = proRange.first;
+				it2.second += left;
+			}
+			else if (it2.second > proRange.second) {
+				double left = it2.second - proRange.second;
+				it2.second = proRange.second;
+				it2.first -= left;
+			}
+		}
+	}
+	
+	
+
+	std::vector<int> data;
+	for (int idx(from); idx < to; ++idx) {
+		sols[idx].reset(env->problem()->createSolution(centerSol));
+		auto& cursol = dynamic_cast<ofec::CSIWDN::solutionType&>(*sols[idx]);
+		
+		cswidnPro->initSolutionMultiplier(cursol, targetRange, rnd);
+		//			CAST_CSIWDN(pro)->initSolutionMultiplier(cursol, rnd);
+	}
+
+}
+
+void generateSolutionsConRadius(
+	const ofec::SolutionBase& centerSol,
+	double sampleRadius,
+	std::vector<std::shared_ptr<ofec::SolutionBase>>& sols, ofec::Environment* env, ofec::Random* rnd
+) {
+	using namespace std;
+	using namespace ofec;
+
+	auto cswidnPro = CAST_CSIWDN(env->problem());
+	sols.resize(pow(cswidnPro->numberNode(), cswidnPro->numSource()));
+
+
+
+	int num_task = std::thread::hardware_concurrency();
+
+	std::vector<std::shared_ptr<Environment>> envs(num_task);
+	std::vector<std::shared_ptr<Random>> rnds(num_task);
+	for (auto& it : envs) {
+		genenrateCSWIDNenv(it);
+		auto curpro = CAST_CSIWDN(it->problem());
+		curpro->setPhase(cswidnPro->phase());
+	}
+	for (auto& it : rnds) {
+		it.reset(new Random(rnd->uniform.next()));
+	}
+	std::vector<int> tasks;
+	std::vector<std::thread> thrds;
+
+	UTILITY::assignThreads(sols.size(), num_task, tasks);
+	std::pair<int, int> from_to;
+	for (size_t i = 0; i < num_task; ++i) {
+		from_to.first = tasks[i];
+		from_to.second = tasks[i + 1];
+
+		thrds.push_back(std::thread(
+			generateSolutionsConsRadiusSub, std::cref(centerSol), sampleRadius, std::ref(sols),
+			tasks[i], tasks[i + 1], envs[i].get(), rnds[i].get()));
+	}
+	for (auto& thrd : thrds)
+		thrd.join();
+}
+
+
+
+
+
+
+
+
+void outputToFile(ofec::ParameterVariantStream& paramsStream, const std::string& filepath) {
+	std::stringstream buf;
+	ofec::variants_stream::parameterStream2stringstream(paramsStream, buf);
+	std::ofstream out(filepath);
+	out << buf.rdbuf();
+	out.close();
+}
+
+
+void inputFromFile(ofec::ParameterVariantStream& paramsStream, const std::string& filepath) {
+	std::stringstream buf;
+	std::ifstream in(filepath);
+	buf << in.rdbuf();
+	in.close();
+	ofec::variants_stream::stringstream2parameterStream(buf, paramsStream);
+
+}
+
+struct NBNinfo {
+
+	std::vector<std::shared_ptr<ofec::SolutionBase>> m_sols;
+
+	std::vector<ofec::SolutionBase*> solbases;
+	std::vector<int> belong;
+	std::vector<double> dis2parent;
+	std::vector<double> vFitness;
+
+
+	void outputNBNinfo(const std::string& saveDir, const std::string& filename) {
+
+
+		ofec::ParameterVariantStream paramsStream;
+		paramsStream << belong;
+		paramsStream << dis2parent;
+		paramsStream << vFitness;
+		auto filepath = saveDir + filename + "_nbnInfo.txt";
+		outputToFile(paramsStream, filepath);
+
+	}
+
+	void inputNBNinfo(const std::string& saveDir, const std::string& filename) {
+		ofec::ParameterVariantStream paramsStream;
+		auto filepath = saveDir + filename + "_nbnInfo.txt";
+		inputFromFile(paramsStream, filepath);
+		paramsStream >> belong;
+		paramsStream >> dis2parent;
+		paramsStream >> vFitness;
+	}
+	static std::string getTspSolutionFileName(const std::string& saveDir, const std::string& filename) {
+		return saveDir + filename + "_solVariables.txt";
+	}
+
+
+};
+
+
+
+
+void generateSolInt(const std::string& saveDir) {
+	using namespace std;
+	using namespace ofec;
+	std::shared_ptr<ofec::Environment> env;
+	genenrateCSWIDNenv(env);
+	auto rnd = make_shared<Random>(0.5);
+
+	auto cswidnPro = CAST_CSIWDN(env->problem());
+	cswidnPro->setPhase(cswidnPro->totalPhase());
+	std::vector<std::shared_ptr<ofec::SolutionBase>> sols;
+	auto& optBase = cswidnPro->optimaBase()->solutionBase(0);
+
+	generateSolutionsInts(optBase, sols, env.get(), rnd.get());
+
+	evaluateSols(sols, env.get(), rnd.get());
+	std::vector<double> vFitness;
+	for (auto& it : sols) {
+		vFitness.push_back(it->fitness());
+	}
+
+
+	ofec::ParameterVariantStream paramsStream;
+	paramsStream << vFitness;
+	auto filepath = saveDir + "optSol_finalStage_IntSample" + "_nbnfit.txt";
+	outputToFile(paramsStream, filepath);
+
+
+}
+
+
+void generateSolCon(const std::string& saveDir) {
+	using namespace std;
+	using namespace ofec;
+	std::shared_ptr<ofec::Environment> env;
+	genenrateCSWIDNenv(env);
+	auto rnd = make_shared<Random>(0.5);
+
+	auto cswidnPro = CAST_CSIWDN(env->problem());
+	cswidnPro->setPhase(cswidnPro->totalPhase());
+	std::vector<std::shared_ptr<ofec::SolutionBase>> sols(1e6);
+	auto& optBase = cswidnPro->optimaBase()->solutionBase(0);
+
+	generateSolutionsConRandom(optBase, sols, env.get(), rnd.get());
+
+	evaluateSols(sols, env.get(), rnd.get());
+	std::vector<double> vFitness;
+	for (auto& it : sols) {
+		vFitness.push_back(it->fitness());
+	}
+
+
+	ofec::ParameterVariantStream paramsStream;
+	paramsStream << vFitness;
+	auto filepath = saveDir + "optSol_finalStage_ConSample" + "_nbnfit.txt";
+	outputToFile(paramsStream, filepath);
+
+
+}
+
+
+void generateSolConTest(const std::string& saveDir) {
+	using namespace std;
+	using namespace ofec;
+	std::shared_ptr<ofec::Environment> env;
+	genenrateCSWIDNenv(env);
+	auto rnd = make_shared<Random>(0.5);
+
+	auto cswidnPro = CAST_CSIWDN(env->problem());
+	cswidnPro->setPhase(cswidnPro->totalPhase());
+	std::vector<std::shared_ptr<ofec::SolutionBase>> sols(1e6);
+	auto& optBase = cswidnPro->optimaBase()->solutionBase(0);
+
+	generateSolutionsConRandom(optBase, sols, env.get(), rnd.get());
+
+	evaluateSols(sols, env.get(), rnd.get());
+	std::vector<double> vFitness;
+	for (auto& it : sols) {
+		vFitness.push_back(it->fitness());
+	}
+
+
+	ofec::ParameterVariantStream paramsStream;
+	paramsStream << vFitness;
+	auto filepath = saveDir + "optSol_finalStage_ConSample" + "_nbnfit.txt";
+	outputToFile(paramsStream, filepath);
+
+
+}
+
+
+void generateSolConRadius(const std::string& saveDir) {
+	using namespace std;
+	using namespace ofec;
+	std::shared_ptr<ofec::Environment> env;
+	genenrateCSWIDNenv(env);
+	auto rnd = make_shared<Random>(0.5);
+
+	auto cswidnPro = CAST_CSIWDN(env->problem());
+	cswidnPro->setPhase(cswidnPro->totalPhase());
+	std::vector<std::shared_ptr<ofec::SolutionBase>> sols(1e6);
+	auto& optBase = cswidnPro->optimaBase()->solutionBase(0);
+
+	generateSolutionsConRadius(optBase, 0.001, sols, env.get(), rnd.get());
+
+	evaluateSols(sols, env.get(), rnd.get());
+	std::vector<double> vFitness;
+	for (auto& it : sols) {
+		vFitness.push_back(it->fitness());
+	}
+
+
+	ofec::ParameterVariantStream paramsStream;
+	paramsStream << vFitness;
+	auto filepath = saveDir + "optSol_finalStage_ConSample_r001" + "_nbnfit.txt";
+	outputToFile(paramsStream, filepath);
+
+
+}
+
+
+
+void runTask() {
+	using namespace ofec;
+	using namespace std;
+	ofec::g_working_directory = "//172.24.207.203/share/2018/diaoyiya/ofec-data";
+	ofec::g_working_directory = "/home/lab408/share/2018/diaoyiya/ofec-data";
+	//ofec::g_working_directory = "/mnt/Data/Student/2018/YiyaDiao/code_total/data";
+	//ofec::g_working_directory = "//172.24.242.8/share/Student/2018/YiyaDiao/code_total/data";
+
+
+	auto saveDir = ofec::g_working_directory + "/cwidn/";
+	std::filesystem::create_directories(saveDir);
+	
+	// generate soluton int
+	time_t timer_start, timer_end;
+	time(&timer_start);
+	generateSolInt(saveDir);
+	time(&timer_end);
+	std::cout << "Time used: " << difftime(timer_end, timer_start) << " seconds" << std::endl;
+
+
+	time(&timer_start);
+	generateSolConRadius(saveDir);
+	time(&timer_end);
+	std::cout << "Time used: " << difftime(timer_end, timer_start) << " seconds" << std::endl;
+
+
+
+	time(&timer_start);
+
+	generateSolConTest(saveDir);
+	time(&timer_end);
+	std::cout << "Time used: " << difftime(timer_end, timer_start) << " seconds" << std::endl;
+
+
+
+}
+
+
+
+namespace ofec {
+
+	void registerParamAbbr() {}
+	void customizeFileName() {}
+	void run() {
+
+		using namespace ofec;
+		using namespace std;
+
+		registerInstance();
+
+		runTask();
+
+
+	}
+
+
+}

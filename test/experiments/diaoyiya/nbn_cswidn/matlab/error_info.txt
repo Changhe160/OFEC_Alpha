@@ -1,0 +1,14 @@
+CEC2022T_F06	CMA_ES-sampling_network.txt	XData 应为 有限。
+CEC2022T_F08	CMA_ES-sampling_network.txt	XData 应为 有限。
+RW_CEC2011_T02_BOUNDARY	CMA_ES-sampling_network.txt	XData 应为 有限。
+RW_CEC2011_T10_BOUNDARY	ANDE-sampling_network.txt	XData 应为 有限。
+RW_CEC2011_T12_BOUNDARY	CMA_ES-sampling_network.txt	XData 应为 有限。
+RW_CEC2011_T12_BOUNDARY	RW_CEC2011_T12_BOUNDARY_network.txt	XData 应为 有限。
+RW_CEC2011_T13_BOUNDARY	CMA_ES-sampling_network.txt	XData 应为 有限。
+CEC2022T_F08	CMA_ES-sampling_network.txt	XData 应为 有限。
+RW_CEC2011_T02_BOUNDARY	CMA_ES-sampling_network.txt	XData 应为 有限。
+RW_CEC2011_T10_BOUNDARY	ANDE-sampling_network.txt	XData 应为 有限。
+RW_CEC2011_T10_BOUNDARY	RW_CEC2011_T10_BOUNDARY_network.txt	XData 应为 有限。
+RW_CEC2011_T12_BOUNDARY	CMA_ES-sampling_network.txt	XData 应为 有限。
+RW_CEC2011_T12_BOUNDARY	RW_CEC2011_T12_BOUNDARY_network.txt	XData 应为 有限。
+RW_CEC2011_T13_BOUNDARY	CMA_ES-sampling_network.txt	XData 应为 有限。

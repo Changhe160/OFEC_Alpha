@@ -1,8 +1,8 @@
 /******************************************************************************
 * Project:Open Frameworks for Evolutionary Computation (OFEC)
 *******************************************************************************
-* Author: Changhe Li
-* Email: changhe.lw@gmail.com
+* Author: Yiya Diao & Junchen Wang & Changhe Li
+* Email: diaoyiyacug@gmail.com & wangjunchen.chris@gmail.com & changhe.lw@gmail.com
 * Language: C++
 *-------------------------------------------------------------------------------
 *  This file is part of OFEC. This library is free software;
@@ -23,53 +23,66 @@
 
 #include <cmath>
 
-namespace OFEC {
-#define OFEC_PI std::acos(-1.0)
-#define OFEC_E std::exp(1.0)
+namespace ofec {
 
-    //#define USING_FLOAT                   // elements of type float
-    //#define USING_CONCURRENT
-
-#ifdef USING_FLOAT                     
-	using real = float;						// set precision type to float
-#else
-	using real = double;				  // set precision type to double
+#if !defined(NOMINMAX) 
+#  define NOMINMAX
 #endif
 
-	enum class dominationship { Equal, Dominating, Dominated, Non_dominated, Non_comparable };
-	enum class optimization_mode { Minimization, Maximization };
-	enum class caller { Begin, Problem= Begin, Algorithm, Demon, End};
-	enum class violation_type { Constraint, Boundary, None };
-	enum class constraint_type{ Inequality, Equality };
-	enum class evaluation_tag {
-		Normal, Change, Terminate, Change_next_eval, Change_timelinkage,
-		Change_dimension, Infeasible
+#define OFEC_PI std::acos(-1.0)
+
+#define OFEC_E std::exp(1.0)
+
+#ifdef USING_FLOAT                     
+	using Real = float;						// set precision type to float
+#else
+	using Real = double;				  // set precision type to double
+#endif
+
+	enum class Dominance { 
+		kEqual, 
+		kDominant, 
+		kDominated, 
+		kNonDominated,
+		kNonComparable 
 	};
-	//SOP: single objective problem
-	//MOP: multi-objective problem
-	//DOP: dynamic optimization problem
-	//MMOP: multi-modal optimization problem
-	//GOP: global optimization problem
-	//ROOT: robust optimzation problem
-	//ConOP: continuous optimization problem
-	//ComOP: combinatorial optimization problem
-	//TSP: travelling salesman problem
-	//COP: constraint optimization problem
-	//VRP: vehicle routing problem
-	//TTP: timetabling problem
-	//JSP: job shop problem
-	//KOP: knapsack optimization problem
-	//SAT: boolean satisfiability problem
-	//ONEMAX: one max problem
-	//QAP: quadratic assignment problem
-	//MKP: multi-dimensional knapsack problem
-	//EOP: expensive optimization problem
-	//LSOP: large scale optimization problem
-	enum class problem_tag {null_tag,
-		SOP, MOP, DOP, MMOP, GOP, ROOT, ConOP, ComOP, TSP, COP, VRP, TTP, JSP,
-		KOP, SAT, ONEMAX, QAP, MKP, EOP, LSOP, epanet, DVRP
+
+	enum class OptimizeMode { 
+		kMinimize, 
+		kMaximize 
 	};
-	//for epanet
-	enum class init_type { random, distance, k_means, be_visited };
+
+	enum class Violation { 
+		kConstraint, 
+		kBoundary, 
+		kNone 
+	};
+
+	enum class Constraint{ 
+		kInequality,
+		kEquality 
+	};
+
+	enum class Validation { 
+		kIgnore, 
+		kReinitialize,
+		kRemap,
+		kSetToBound 
+	};
+
+	/*using the binary coding to record the evaluation tag:
+	   (cur_tag & kTerminate) == true, judge whether cur_tag has kTerminate tag;
+	   cur_tag |= kTerminate, insert the kTerminate tag into cur_tag
+	   cur_tag ^= kTerminate, erase  the kTerminate tag into cur_tag
+
+	   */
+	enum EvaluationTag {
+		kNormalEval = 1 << 1,
+		kTerminate = 1 << 2,
+		kChangeNextEval = 1 << 3,
+		kChangeCurEval = 1 << 4,
+		kChangeObjectiveMemory = 1 << 5,
+		kChangeVariableMemory = 1 << 6
+	};
 }
 #endif // !OFEC_DEFINITION_H

@@ -1,95 +1,65 @@
-#include "../global.h"
+#include"termination.h"
 #include <cmath>
 
-namespace OFEC {
+namespace ofec {
+	Termination::Termination() : 
+		m_max_time(12 * 3600) {}
 
-	termination::termination(param_map &v) :m_maxTime(24 * 3600 * 30) {
-		if (v.find("maxRunTime") != v.end())
-			m_maxTime = (int)v.at("maxRunTime");
-
-	}
-
-	bool termination::terminating() {
+	bool Termination::terminating() {
 		if (!m_enable) return false;
-
 		if (m_isTerminating) return true;
-		if (global::ms_global->m_problem != nullptr && global::ms_global->m_problem->solved())
-			return true;
-
 		auto durat = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - m_start_time).count();
-		if (durat >= m_maxTime)
+		if (durat >= m_max_time)
 			return true;
-
 		return false;
 	};
 
-	bool term_max_evals::terminating(int evals) {
-
-		if (termination::terminating()) return true;
-
-		if (evals >= m_max_evals) return true;
-
-		return false;
+	bool TerminationMaximumEvaluations::terminating(int evals) {
+		if (Termination::terminating()) return true;
+		return evals >= m_maximum_evaluations;
 	}
 
 
-	bool term_max_iteration::terminating(int value) {
-		// Assume that vp[0] is a main population that records the number of iterations since the run starts
-
-		if (termination::terminating()) return true;
-
-		return value >= m_max_iter;
+	bool TerminationMaximumIterations::terminating(int value) {
+		if (Termination::terminating()) return true;
+		return value >= m_max_iters;
 	}
 
 
-	bool term_best_remain::terminating(real value) {
-
-		if (termination::terminating()) return true;
-
+	bool TerminationBestRemain::terminating(Real value) {
+		if (Termination::terminating()) return true;
 		m_current = value;
-
 		if (m_current != m_previous) {
 			m_previous = m_current;
-			m_suc_iter = 0;
+			m_suc_iters = 0;
 		}
 		else {
-			m_suc_iter++;
+			m_suc_iters++;
 		}
-
-		return m_suc_iter > m_max_iter;
+		return m_suc_iters > m_max_iters;
 	}
 
 
-	bool term_mean_remain::terminating(real value) {
-
-		if (termination::terminating()) return true;
-
+	bool TerminationMeanRemain::terminating(Real value) {
+		if (Termination::terminating()) return true;
 		m_current = value;
-
 		if (fabs(m_previous - m_current)>m_epsilon) {
-			m_suc_iter = 0;
+			m_suc_iters = 0;
 			m_previous = m_current;
 		}
-		else	m_suc_iter++;
-
-		return m_suc_iter >= m_max_iter;
+		else	m_suc_iters++;
+		return m_suc_iters >= m_max_iters;
 	}
 
-	bool term_variance::terminating(real var) {
-
-		if (termination::terminating()) return true;
-
+	bool TerminationVariance::terminating(Real var) {
+		if (Termination::terminating()) return true;
 		return var < m_epsilon;
-
 	}
 
-	bool term_stagnation::terminating(int value) {
-
-		if (termination::terminating()) return true;
-
+	bool TerminationStagnation::terminating(int value) {
+		if (Termination::terminating()) return true;
 		if (value == 0) m_cnt++;
 		else m_cnt = 0;
-
-		return m_cnt >= m_suc_iter;
+		return m_cnt >= m_suc_iters;
 	}
 }

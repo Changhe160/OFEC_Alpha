@@ -1,8 +1,8 @@
 /******************************************************************************
 * Project:Open Frameworks for Evolutionary Computation (OFEC)
 *******************************************************************************
-* Author: Changhe Li
-* Email: changhe.lw@gmail.com
+* Author: Yiya Diao & Junchen Wang & Changhe Li
+* Email: diaoyiyacug@gmail.com & wangjunchen.chris@gmail.com & changhe.lw@gmail.com
 * Language: C++
 *-------------------------------------------------------------------------------
 *  This file is part of OFEC. This library is free software;
@@ -13,7 +13,7 @@
 *  see https://github.com/Changhe160/OFEC for more information
 *
 *-------------------------------------------------------------------------------
-* class continuous defines continous optimization problems
+* class Continuous defines continuous optimization problems
 *
 *********************************************************************************/
 #ifndef OFEC_CONTINUOUS_H
@@ -22,58 +22,67 @@
 #include "../problem.h"
 #include "../optima.h"
 #include "../domain.h"
+#include <vector>
 
-namespace OFEC {
-#define CONTINUOUS_CAST (dynamic_cast<continuous*>(global::ms_global->m_problem.get()))
-
-	class continuous : virtual public problem {
+#include "../../random/newran.h"
+namespace ofec {
+#define CAST_CONOP(pro) dynamic_cast<Continuous*>(pro)
+	class Continuous : virtual public ProblemVariableVector<Real> {
 	public:
-		continuous(const std::string &name, size_t size_var, size_t size_obj);
+		virtual ~Continuous() = default;
 
-		violation_type check_boundary_violation(const solution_base &s) const override; // boudary check only
-		void initialize_solution(solution_base &s) const override;
+		void reset() override;
+		virtual void evaluate(const VariableBase& vars, std::vector<Real> &objs, std::vector<Real> &cons) const override;
+		void initializeVariables(VariableBase &vars, Random *rnd) const override;
+		const Optima<>* optima() const { return dynamic_cast<Optima<>*>(m_optima.get()); }
+		Optima<>* optima() { return dynamic_cast<Optima<>*>(m_optima.get()); }
+		
+		Real maximumVariableDistance() const override;
+		bool boundaryViolated(const VariableBase&var) const ; // boundary check only
+		bool boundaryViolated(const SolutionBase& s) const {
+			return boundaryViolated(s.variableBase());
+		}
+		void validateSolution(SolutionBase &s, Validation mode, Random *rnd = nullptr) const override;
 
-		const std::pair<real, real>& range(size_t i) const;
-		void set_range(real l, real u);
-		void set_range(const std::vector<std::pair<real, real>>& r);
-		void set_init_range(real l, real u);
-		void set_init_range(const std::vector<std::pair<real, real>>& r);
+		void resizeVariable(size_t num_vars) override;
 
-		optima<variable_vector<real>, real>& get_optima();
-		std::vector<solution<variable_vector<real>, real>>& get_optima_found();
-		const domain<real>& range() const;
-		const domain<real>& init_range() const;
+		/* Read-only methods */
+		size_t numberVariables() const override { return m_number_variables; }
+		const std::pair<Real, Real>& range(size_t i) const { return m_domain.range(i).limit; }
+		std::vector<std::pair<Real, Real>> boundary() const;
+		const Domain<Real>& domain() const { return m_domain; }
 
-		bool same(const solution_base &s1, const solution_base &s2) const override;
-		real variable_distance(const solution_base &s1, const solution_base &s2) const override;
-		real variable_distance(const variable_base &s1, const variable_base &s2) const override;
 
-		bool is_optima_given() override;
-        evaluation_tag evaluate_(solution_base &s, caller call, bool effective, bool initialized) final;
-
-		bool objective_monitor() const;
-		bool variable_monitor() const;
-		size_t num_optima_found() const;
-		void set_variable_monitor_flag(bool flag);
-		void set_objective_monitor_flag(bool flag);
-
-		const std::vector<std::vector<size_t>>& variable_partition()const;
+		/* Write methods */
+		Real domainArea();
+		Real domainVolume();
+		void setDomain(Real l, Real u);
+		void setDomain(const std::vector<std::pair<Real, Real>> &r);
+		void setDomain(const Domain<Real> &domain);
 
 	protected:
-		void copy(const problem &) override;
-		void resize_variable(size_t n) override;
-		void resize_objective(size_t n) override;
 
-		virtual void evaluate_objective(real *x, std::vector<real>& obj) {}
-		virtual void evaluate_obj_nd_con(real *x, std::vector<real>& obj, std::vector<real> &con){}
+		virtual void initializeAfter_(Environment* env)override;
+		void setToBound(Real* var);
+		
+		/**
+		 * @brief Calculates the values of objectives based on the given decision variables.
+		 * @param vars: The decision variables.
+		 * @param objs: The values of objectives.
+		 */
+		virtual void evaluateObjective(Real *vars, std::vector<Real> &objs) const {}
+		/**
+		 * @brief Calculates the values of objectives and constraints based on the given decision variables.
+		 * @param vars: The decision variables.
+		 * @param objs: The values of objectives.
+		 * @param cons: The values of constraints.
+		 */
+		virtual void evaluateObjectiveAndConstraint(Real *vars, std::vector<Real> &objs, std::vector<Real> &cons) const {}
+
 	protected:
-		real m_variable_accuracy = 1.0e-6;
-		domain<real> m_domain;		// search domain
-		domain<real> m_init_domain; // range for intial population
-		optima<variable_vector<real>, real> m_optima;
-		std::vector<solution<variable_vector<real>, real>> m_optima_found;
-		bool m_variable_monitor = false, m_objective_monitor = false;
-		std::vector<std::vector<size_t>> m_variable_partition;
+		Domain<Real> m_domain;		// search domain
+		std::vector<Real> m_default_objective;// objectives of solution out of range
+		std::vector<Real> m_default_contrait;// objectives of solution out of range
 	};
 
 }

@@ -1,174 +1,194 @@
 #include "continuous.h"
-#include "../../../utility/functional.h"
+#include "../../algorithm/algorithm.h"
+#include "../solution.h"
+#include <set>
+#include <cmath>
+#include <algorithm>
 
-namespace OFEC {
-	continuous::continuous(const std::string &name, size_t size_var, size_t size_obj) :problem(name, size_var, size_obj), m_domain(size_var), m_init_domain(size_var) {}
+namespace ofec {
+	void Continuous::reset() {
+		ProblemVariableVector::reset();
+		m_domain.clear();
+	}
 
-	violation_type continuous::check_boundary_violation(const solution_base &s) const {
+	void Continuous::evaluate(const VariableBase &vars, std::vector<Real> &objs, std::vector<Real> &cons) const {
+		const VariableVector<Real> &x = dynamic_cast<const VariableType&>(vars);
 
-		const variable_vector<real>& x = dynamic_cast<const solution<variable_vector<real>, real>&>(s).variable();
+		std::vector<Real> x_(x.begin(), x.end()); //for parallel running
 
-		for (int i = 0; i < m_variable_size; ++i) {
+		//if (isnan(x_.front())) {
+		//	int stop = -1;
+		//}
+		if (boundaryViolated(vars)) {
+			objs = m_default_objective;
+			cons = m_default_contrait;
+		}
+		else {
+			if (cons.empty()) {
+				evaluateObjective(x_.data(), objs);
+			}
+			else {
+				evaluateObjectiveAndConstraint(x_.data(), objs, cons);
+			}
+		}
+	}
+
+	void Continuous::initializeVariables(VariableBase &vars, Random *rnd) const {
+		auto &x = dynamic_cast<VariableVector<Real>&>(vars);
+		for (int i = 0; i < m_number_variables; ++i) {
+			if (m_domain[i].limited) {    // If m_initial_domain is not given, then use problem boundary as initialization range
+				x[i] = rnd->uniform.nextNonStd(m_domain[i].limit.first, m_domain[i].limit.second);
+			}
+			else {                        // Else if the problem function has no boundary 
+				x[i] = rnd->uniform.nextNonStd(-std::numeric_limits<Real>::max(), std::numeric_limits<Real>::max());
+			}
+		}
+	}
+
+	void Continuous::resizeVariable(size_t num_vars) {
+		ProblemVariableVector::resizeVariable(num_vars);
+		m_domain.resize(m_number_variables);
+	}
+
+	bool Continuous::boundaryViolated(const VariableBase& baseX) const {
+		const VariableVector<Real> &x = dynamic_cast<const VariableVector<Real>&>(baseX);
+		for (int i = 0; i < m_number_variables; ++i) {
 			if (m_domain[i].limited) {
-				if (x[i]<m_domain[i].limit.first || x[i]>m_domain[i].limit.second) return violation_type::Boundary;
+				if (x[i]<m_domain[i].limit.first || x[i]>m_domain[i].limit.second)
+					return true;
 			}
 		}
-
-		return violation_type::None;
+		return false;
 	}
 
-	void continuous::initialize_solution(solution_base &s) const {
-		variable_vector<real>& x = dynamic_cast<solution<variable_vector<real>, real>&>(s).variable();
+	void Continuous::validateSolution(SolutionBase &s, Validation mode, Random *rnd)const {
+		VariableVector<Real> &x = dynamic_cast<Solution<>&>(s).variable();
+		switch (mode) {
+		case Validation::kIgnore:
+			break;
+		case Validation::kReinitialize:
+			for (size_t j = 0; j < m_number_variables; ++j) {
+				if (m_domain[j].limited)
+					x[j] = rnd->uniform.nextNonStd(m_domain[j].limit.first, m_domain[j].limit.second);
+			}
+			break;
+		case Validation::kRemap:
+			for (size_t j = 0; j < m_number_variables; ++j) {
 
-		for (int i = 0; i < m_variable_size; ++i) {
-			if (m_init_domain[i].limited)
-				x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(m_init_domain[i].limit.first, m_init_domain[i].limit.second);
-			else {                           
-				if (m_domain[i].limited)     // If m_init_domain is not given, then use problem boundary as initialization range
-					x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(m_domain[i].limit.first, m_domain[i].limit.second);
-				else                         // Else if the problem function has no boundary 
-					x[i] = global::ms_global->m_uniform[caller::Algorithm]->next_non_standard(-std::numeric_limits<real>::max(), std::numeric_limits<real>::max());
+				if (std::isnan(x[j])) {
+					if (m_domain[j].limited) x[j] = m_domain[j].limit.first;
+					else x[j] = 0;
+				}
+				else {
+					Real l = m_domain[j].limit.first, u = m_domain[j].limit.second;
+					if (m_domain[j].limited) {
+						if (x[j] < l)
+							x[j] = l + (u - l) * (l - x[j]) / (u - x[j]);
+						else if (x[j] > u)
+							x[j] = l + (u - l) * (u - l) / (x[j] - l);
+					}
+				}
+			}
+			break;
+		case Validation::kSetToBound:
+			for (size_t j = 0; j < m_number_variables; ++j) {
+				Real l = m_domain[j].limit.first, u = m_domain[j].limit.second;
+				if (m_domain[j].limited) {
+					if (x[j] < l)
+						x[j] = l;
+					else if (x[j] > u)
+						x[j] = u;
+				}
+
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	void Continuous::initializeAfter_(Environment* env){
+		ProblemVariableVector<Real>::initializeAfter_(env);
+		if (m_domain.isDomainLimited()) {
+			// set the objective of solution at the edge as the default objective
+			m_default_objective.resize(m_number_objectives);
+			std::vector<Real> edge_x(m_number_variables);
+			for (int idx(0); idx < m_number_variables; ++idx) {
+				edge_x[idx] = m_domain[idx].limit.first;
+			}
+
+			if (m_number_constraints==0) {
+				evaluateObjective(edge_x.data(), m_default_objective);
+			}
+			else {
+				m_default_contrait.resize(m_number_constraints);
+				evaluateObjectiveAndConstraint(edge_x.data(), m_default_objective, m_default_contrait);
+			}
+		}
+		
+	}
+	void Continuous::setToBound(Real* x) {
+		for (size_t j = 0; j < m_number_variables; ++j) {
+			if (std::isnan(x[j])) {
+				if (m_domain[j].limited) x[j] = m_domain[j].limit.first;
+				else x[j] = 0;
+			}
+			else {
+				Real l = m_domain[j].limit.first, u = m_domain[j].limit.second;
+				if (m_domain[j].limited) {
+					if (x[j] < l)
+						x[j] = l;
+					else if (x[j] > u)
+						x[j] = u;
+				}
 			}
 		}
 	}
 
-	void continuous::resize_variable(size_t n) {
-		problem::resize_variable(n);
-		m_domain.resize(n);
-	}
-	void continuous::resize_objective(size_t n) {
-		m_optima.resize_objective(n);
-	}
-
-	void continuous::copy(const problem  &rhs) {
-		problem::copy(rhs);
-
-		auto& p =  dynamic_cast<const continuous&>(rhs);
-		m_variable_accuracy = p.m_variable_accuracy;
-
-		size_t d = rhs.variable_size() < m_variable_size ? rhs.variable_size() : m_variable_size;
-		for (size_t i = 0; i < d; ++i) {
-			m_domain[i] = p.m_domain[i];
-			m_init_domain[i] = p.m_init_domain[i];
-		}
-		m_variable_monitor = p.m_variable_monitor;
-		m_objective_monitor = p.m_objective_monitor;
-
+	std::vector<std::pair<Real, Real>> Continuous::boundary() const {
+		std::vector<std::pair<Real, Real>> boundary(m_domain.size());
+		for (size_t j = 0; j < m_domain.size(); ++j)
+			boundary[j] = m_domain.range(j).limit;
+		return boundary;
 	}
 
-	bool continuous::is_optima_given() {
-		return m_optima.objective_given() || m_optima.variable_given();
+	Real Continuous::domainArea() {
+		return m_domain.area();
 	}
 
-	const std::pair<real, real>& continuous::range(size_t i) const {
-		return m_domain.range(i).limit;
+	Real Continuous::domainVolume() {
+		return m_domain.volume();
 	}
-	void continuous::set_range(real l, real u) {
+
+	void Continuous::setDomain(Real l, Real u) {
+		if (m_domain.size() != m_number_variables)
+			m_domain.resize(m_number_variables);
 		for (size_t i = 0; i < m_domain.size(); ++i)
-			m_domain.set_range(l, u, i);
+			m_domain.setRange(l, u, i);
 	}
 
-	void continuous::set_range(const std::vector<std::pair<real, real>>& r) {
+	void Continuous::setDomain(const std::vector<std::pair<Real, Real>> &r) {
 		size_t count = 0;
 		for (auto &i : r) {
-			m_domain.set_range(i.first, i.second, count++);
+			m_domain.setRange(i.first, i.second, count++);
 		}
 	}
 
-	void continuous::set_init_range(real l, real u) {
-		for (size_t i = 0; i < m_domain.size(); ++i)
-			m_init_domain.set_range(l, u, i);
+	void Continuous::setDomain(const Domain<Real> &domain) {
+		m_domain = domain;
 	}
-	void continuous::set_init_range(const std::vector<std::pair<real, real>>& r) {
-		size_t count = 0;
-		for (auto &i : r) {
-			m_init_domain.set_range(i.first, i.second, count++);
+
+	Real Continuous::maximumVariableDistance() const {
+		VariableVector<Real> x1(m_number_variables, 0), x2(m_number_variables, 0);
+		for (int idx(0); idx < m_number_variables; ++idx) {
+			x1[idx] = m_domain.range(idx).limit.first;
+			x2[idx] = m_domain.range(idx).limit.second;
 		}
-	}
-
-	optima<variable_vector<real>, real>& continuous::get_optima() {
-		return m_optima;
-	}
-	std::vector<solution<variable_vector<real>, real>>& continuous::get_optima_found() {
-		return m_optima_found;
-	}
-	const domain<real>& continuous::range() const {
-		return m_domain;
-	}
-
-	const domain<real>& continuous::init_range() const {
-		return m_init_domain;
-	}
-
-	real continuous::variable_distance(const solution_base &s1, const solution_base &s2) const {
-		const variable_vector<real>& x1 = dynamic_cast<const solution<variable_vector<real>, real>&>(s1).variable();
-		const variable_vector<real>& x2 = dynamic_cast<const solution<variable_vector<real>, real>&>(s2).variable();
-		return euclidean_distance(x1.begin(), x1.end(), x2.begin());
-
-	}
-
-	real continuous::variable_distance(const variable_base &s1, const variable_base &s2) const {
-		const auto& x1 = dynamic_cast<const variable_vector<real>&>(s1);
-		const auto& x2 = dynamic_cast<const variable_vector<real>&>(s2);
-		return euclidean_distance(x1.begin(), x1.end(), x2.begin());
-	}
-
-	evaluation_tag continuous::evaluate_(solution_base &s, caller call, bool effective, bool initialized) {
-		variable_vector<real> &x = dynamic_cast< solution<variable_vector<real>, real> &>(s).variable();
-		auto & obj = dynamic_cast< solution<variable_vector<real>, real> &>(s).objective();
-		auto & con = dynamic_cast<solution<variable_vector<real>, real> &>(s).constraint_value();
-
-		std::vector<real> x_(x.begin(), x.end()); //for parallel running
-
-		if (con.empty()) evaluate_objective(x_.data(), obj);
-		else  evaluate_obj_nd_con(x_.data(), obj, con);
-
-		if (initialized && call == caller::Algorithm) {
-			if (effective)		m_effective_eval++;
-
-			if (m_variable_monitor) {
-				m_optima.is_optimal_variable(dynamic_cast<solution<variable_vector<real>, real> &>(s), m_optima_found, m_variable_accuracy);
-				if (m_optima.is_variable_found())
-					m_solved = true;
-			}
-			if (m_objective_monitor) {
-				m_optima.is_optimal_objective(dynamic_cast<solution<variable_vector<real>, real> &>(s), m_optima_found, m_objective_accuracy, m_variable_accuracy);
-				if (m_optima.is_objective_found())
-					m_solved = true;
-			}
-			if (global::ms_global->m_algorithm&&global::ms_global->m_algorithm->terminating())
-				return evaluation_tag::Terminate;
+		Real sum_pow = 0;
+		for (size_t i = 0; i < m_number_variables; ++i) {
+			sum_pow += pow(x1[i] - x2[i], 2);
 		}
-		return evaluation_tag::Normal;
-	}
-	
-	bool continuous::objective_monitor() const {
-		return m_objective_monitor;
-	}
-	bool continuous::variable_monitor() const {
-		return m_variable_monitor;
-	}
+		return sqrt(sum_pow);
 
-	size_t continuous::num_optima_found() const {
-		if (m_variable_monitor)
-			return m_optima.num_variable_found();
-		else if (m_objective_monitor)
-			return m_optima.num_objective_found();
-	}
-
-	void continuous::set_variable_monitor_flag(bool flag) {
-		m_variable_monitor = flag;
-	}
-	void continuous::set_objective_monitor_flag(bool flag) {
-		m_objective_monitor = flag;
-	}
-
-	const std::vector<std::vector<size_t>>& continuous::variable_partition() const {
-		return m_variable_partition;
-	}
-
-	bool continuous::same(const solution_base &s1, const solution_base &s2) const { 
-		return dynamic_cast<const solution<variable_vector<real>, real> &>(s1).variable().vect() == dynamic_cast<const solution<variable_vector<real>, real> &>(s2).variable().vect();
 	}
 
 }

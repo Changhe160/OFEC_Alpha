@@ -1,60 +1,113 @@
 #include "problem.h"
-#include "../../utility/factory.h"
-#include <sstream>
-namespace OFEC {
+#include "../environment/environment.h"
 
-	thread_local std::map<int, std::pair<std::unique_ptr<solution_base>, std::unique_ptr<solution_base>>> problem::ms_minmax_objective; // the best and worst so far solutions of each objective 
+#ifdef OFEC_PLAYBACK
+#include <playback/global.h>
+#endif
 
-	problem::problem(const std::string &name, size_t size_var, size_t size_obj) :m_name(name), m_variable_size(size_var),
-		m_objective_size(size_obj), m_opt_mode(size_obj, optimization_mode::Minimization) {
-		if(!m_name.empty())
-			m_tag = factory<problem>::get().at(m_name).second;
+namespace ofec {
+	void Problem::reset() {
+		resizeObjective(0);
+		resizeConstraint(0);
+		m_optima.reset();
 	}
 
-	void problem::resize_objective(size_t n) {
-		m_objective_size = n;
-		m_opt_mode.resize(n);
+	void Problem::initialize(Environment *env) {
+		m_initialized = false;
+		initialize_(env);
+		updateOptima(env);
+		initializeAfter_(env);
+		m_initialized = true;
 	}
 
-	void problem::copy(const problem & rhs) {
-		m_name = rhs.m_name;
-		m_effective_eval = rhs.m_effective_eval;
-		m_total_eval = rhs.m_total_eval;
-		//m_objective_size = rhs.m_objective_size;
-		//m_variable_size = rhs.m_variable_size;
-		m_opt_mode = rhs.m_opt_mode;
-		m_objective_accuracy = rhs.m_objective_accuracy;
-		m_tag = rhs.m_tag;
-		m_solved = rhs.m_solved;
-		m_parameters = rhs.m_parameters;
-
-		m_eval_monitor = rhs.m_eval_monitor;
-		m_constraint_type = rhs.m_constraint_type;
-	}
-	void problem::resize_variable(size_t n) {
-		m_variable_size = n;
+	void Problem::solutionToParameterVariants(
+		const SolutionBase& sol, ParameterVariantStream& out
+	) const {
+		out << sol.objective() << sol.constraint()
+			<< sol.timeEvaluate() << sol.fitness() << sol.type();
 	}
 
-	void problem::set_eval_monitor_flag(bool flag) {
-		m_eval_monitor = flag;
+	void Problem::parameterVariantsToSolution(
+		ParameterVariantStream& in, SolutionBase& sol
+	) const {
+		in >> sol.objective() >> sol.constraint()
+			>> sol.timeEvaluate() >> sol.fitness() >> sol.type();
+	}
+	
+	void Problem::resizeObjective(size_t number_objectives) {
+		m_number_objectives = number_objectives;
+		m_optimize_mode.resize(number_objectives);
 	}
 
-	void problem::update_parameters() {
-		m_parameters["name"] = m_name;
-		m_parameters["scale"] = m_variable_size;
-		for (decltype(m_opt_mode.size()) i = 0; i < m_opt_mode.size();++i) {
-			std::stringstream str("obj");
-			std::string mode[] = { "Minimization", "Maximization" };
-			str << i + 1;
-			m_parameters[str.str()] = mode[(int)m_opt_mode[i]];
+	void Problem::resizeConstraint(size_t num_cons) {
+		m_number_constraints = num_cons;
+		m_constraint_type.resize(m_number_constraints);
+	}
+
+	bool Problem::isOptimumSolutionGiven() const {
+		return m_optima && m_optima->isSolutionGiven();
+	}
+
+	size_t Problem::numberOptimumSolutions() const {
+		return m_optima ? m_optima->numberSolutions() : 0;
+	}
+
+	bool Problem::isOptimumObjectiveGiven() const {
+		return m_optima && m_optima->isObjectiveGiven();
+	}
+
+	size_t Problem::numberOptimumObjectives() const {
+		return m_optima ? m_optima->numberObjectives() : 0;
+	}
+	
+	Dominance Problem::objectiveCompare(const SolutionBase& sola, const SolutionBase& solb)const {
+		auto& a = sola.objective();
+		auto& b = solb.objective();
+		const auto& mode = m_optimize_mode;
+		if (a.size() < mode.size() || b.size() < mode.size())
+			return Dominance::kNonComparable;
+
+		int better = 0, worse = 0, equal = 0;
+		for (size_t i = 0; i < mode.size(); ++i) {
+			if (mode[i] == OptimizeMode::kMinimize) {
+				if (a[i] < b[i]) {
+					if (worse > 0)
+						return Dominance::kNonDominated;
+					else
+						++better;
+				}
+				else if (a[i] > b[i]) {
+					if (better > 0)
+						return Dominance::kNonDominated;
+					else
+						++worse;
+				}
+				else {
+					++equal;
+				}
+			}
+			else {
+				if (a[i] > b[i]) {
+					if (worse > 0)
+						return Dominance::kNonDominated;
+					else
+						++better;
+				}
+				else if (a[i] < b[i]) {
+					if (better > 0)
+						return Dominance::kNonDominated;
+					else
+						++worse;
+				}
+				else {
+					++equal;
+				}
+			}
 		}
-		m_parameters["evals"] = m_effective_eval;
+		if (equal == mode.size()) return Dominance::kEqual;
+		else if (worse == 0) return Dominance::kDominant;
+		else if (better == 0) return Dominance::kDominated;
+		else return Dominance::kNonDominated;
+	}
 
-    }
-
-    void problem::reset_alg_records() {
-        m_effective_eval = 0;
-        m_solved = false;
-        m_eval_monitor = false;
-    }
 }

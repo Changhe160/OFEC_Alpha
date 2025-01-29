@@ -1,35 +1,42 @@
-#define CATCH_CONFIG_RUNNER
-#include "../utility/catch.hpp"
-
-#include "system_initialization.h"
-#include "user_initialization.h"
-#include "register_algorithm.h"
-#include "register_problem.h"
+#include <iostream>
+#ifdef OFEC_UNIT_TEST
+#include "../test/catch_amalgamated.hpp"
+#else
+#include "custom_method.hpp"
+#endif
+#ifdef OFEC_MATLAB
+#include "../utility/matlab/matlab_define.h"
+#endif // OFEC_MATLAB
+#ifdef OFEC_PYTHON
+#include "../utility/python/python_caller.h"
+#endif // OFEC_PYTHON
 
 int main(int argc, char* argv[]) {
 
+#ifdef OFEC_MATLAB
+	ofec::initMatlabFunction();
+#endif // OFEC_MATLAB
+
+#ifdef OFEC_PYTHON
+	ofec::PythonCaller::initPython();
+#endif 
 	time_t timer_start, timer_end;
-
-#ifndef OFEC_UNIT_TEST
-	OFEC::set_global_parameters(argc, argv);
-#else
-	OFEC::register_parameter();
-#endif // !OFEC_UNIT_TEST
-
-	OFEC::register_problem();
-	OFEC::register_algorithm();
-	OFEC::set_alg4pro();
-	if (!OFEC::check_validation()) return 0;
 	time(&timer_start);
-
 #ifdef OFEC_UNIT_TEST
 	int result = Catch::Session().run(argc, argv);
 #else
-	OFEC::run();
-#endif // OFEC_UNIT_TEST
-
+	ofec::run(argc, argv);
+#endif
 	time(&timer_end);
 	std::cout << "Time used: " << difftime(timer_end, timer_start) << " seconds" << std::endl;
 
+#ifdef OFEC_MATLAB
+	ofec::terminateMatlabFunction();
+#endif // OFEC_MATLAB
+
+#ifdef OFEC_PYTHON
+	ofec::PythonCaller::finishPython();
+#endif // OFEC_MATLAB
 	return 0;
 }
+
